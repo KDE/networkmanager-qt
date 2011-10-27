@@ -1,0 +1,120 @@
+Only in /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection/: Makefile.am
+Only in /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection/: Makefile.in
+diff -ur dbus/introspection//nm-access-point.xml /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-access-point.xml
+--- dbus/introspection//nm-access-point.xml	2009-06-16 15:58:19.000000000 +0200
++++ /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-access-point.xml	2009-01-29 15:46:02.000000000 +0100
+@@ -33,7 +33,6 @@
+ 
+     <signal name="PropertiesChanged">
+         <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
+-          <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+             <tp:docstring>
+                 A dictionary mapping property names to variant boxed values
+             </tp:docstring>
+Only in dbus/introspection/: nm-access-point.xml~
+diff -ur dbus/introspection//nm-device-cdma.xml /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-device-cdma.xml
+--- dbus/introspection//nm-device-cdma.xml	2008-10-14 11:28:10.000000000 +0200
++++ /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-device-cdma.xml	2009-01-29 15:46:02.000000000 +0100
+@@ -5,7 +5,6 @@
+ 
+     <signal name="PropertiesChanged">
+         <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
+-            <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+             <tp:docstring>
+                 A dictionary mapping property names to variant boxed values
+             </tp:docstring>
+diff -ur dbus/introspection//nm-device-ethernet.xml /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-device-ethernet.xml
+--- dbus/introspection//nm-device-ethernet.xml	2008-10-06 10:43:09.000000000 +0200
++++ /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-device-ethernet.xml	2009-01-29 15:46:02.000000000 +0100
+@@ -23,7 +23,6 @@
+ 
+     <signal name="PropertiesChanged">
+         <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
+-	<annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+             <tp:docstring>
+                 A dictionary mapping property names to variant boxed values
+             </tp:docstring>
+diff -ur dbus/introspection//nm-device-gsm.xml /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-device-gsm.xml
+--- dbus/introspection//nm-device-gsm.xml	2008-10-14 11:28:08.000000000 +0200
++++ /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-device-gsm.xml	2009-01-29 15:46:02.000000000 +0100
+@@ -5,7 +5,6 @@
+ 
+     <signal name="PropertiesChanged">
+         <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
+-            <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+             <tp:docstring>
+                 A dictionary mapping property names to variant boxed values
+             </tp:docstring>
+diff -ur dbus/introspection//nm-device-wifi.xml /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-device-wifi.xml
+--- dbus/introspection//nm-device-wifi.xml	2009-06-16 15:53:20.000000000 +0200
++++ /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-device-wifi.xml	2009-01-29 15:46:02.000000000 +0100
+@@ -43,7 +43,6 @@
+ 
+     <signal name="PropertiesChanged">
+         <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
+-	<annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+             <tp:docstring>
+                 A dictionary containing the FIXME: check changed parameters.
+             </tp:docstring>
+diff -ur dbus/introspection//nm-dhcp4-config.xml /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-dhcp4-config.xml
+--- dbus/introspection//nm-dhcp4-config.xml	2008-10-06 10:43:09.000000000 +0200
++++ /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-dhcp4-config.xml	2009-01-29 15:46:02.000000000 +0100
+@@ -6,13 +6,11 @@
+             Options and configuration returned by the IPv4 DHCP server.
+         </tp:docstring>
+         <property name="Options" type="a{sv}" access="read">
+-	    <annotation name="com.trolltech.QtDBus.QtTypeName" value="QVariantMap"/>
+             <tp:docstring>Configuration options returned by a DHCP server, if any.</tp:docstring>
+         </property>
+ 
+         <signal name="PropertiesChanged">
+             <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
+-	    <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+                 <tp:docstring>
+                     A dictionary mapping property names to variant boxed values
+                 </tp:docstring>
+Only in dbus/introspection/: nm-exported-connection.cpp
+Only in dbus/introspection/: nm-exported-connection.h
+diff -ur dbus/introspection//nm-ip4-config.xml /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-ip4-config.xml
+--- dbus/introspection//nm-ip4-config.xml	2009-06-16 15:55:32.000000000 +0200
++++ /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-ip4-config.xml	2009-01-29 15:46:02.000000000 +0100
+@@ -3,15 +3,12 @@
+ <node name="/" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+   <interface name="org.freedesktop.NetworkManager.IP4Config">
+     <property name="Addresses" type="aau" access="read">
+-      <annotation name="com.trolltech.QtDBus.QtTypeName" value="UIntListList"/>
+       <tp:docstring>Tuples of IPv4 address/prefix/gateway.</tp:docstring>
+     </property>
+     <property name="Nameservers" type="au" access="read">
+-      <annotation name="com.trolltech.QtDBus.QtTypeName" value="UIntList"/>
+       <tp:docstring>The nameservers in use.</tp:docstring>
+     </property>
+     <property name="WinsServers" type="au" access="read">
+-      <annotation name="com.trolltech.QtDBus.QtTypeName" value="UIntList"/>
+       <tp:docstring>The Windows Internet Name Service servers associated with the connection.</tp:docstring>
+     </property>
+     <property name="Domains" type="as" access="read">
+@@ -19,7 +16,6 @@
+     </property>
+     <property name="Routes" type="aau" access="read">
+       <tp:docstring>Tuples of IPv4 route/prefix/next-hop/metric.</tp:docstring>
+-      <annotation name="com.trolltech.QtDBus.QtTypeName" value="UIntListList"/>
+     </property>
+   </interface>
+ </node>
+diff -ur dbus/introspection//nm-manager-client.xml /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-manager-client.xml
+--- dbus/introspection//nm-manager-client.xml	2008-06-07 16:29:02.000000000 +0200
++++ /home/wstephenson/code/kde/networkmgr/NetworkManager/introspection//nm-manager-client.xml	2009-01-29 15:46:02.000000000 +0100
+@@ -49,9 +49,7 @@
+     </signal>
+ 
+     <signal name="PropertiesChanged">
+-      <arg name="properties" type="a{sv}">
+-        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+-      </arg>
++      <arg name="properties" type="a{sv}"/>
+     </signal>
+ 
+     <signal name="DeviceAdded">
+Only in dbus/introspection/: nm-settings-connection.xml
+Only in dbus/introspection/: .svn

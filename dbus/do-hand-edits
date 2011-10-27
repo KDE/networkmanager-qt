@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ -e hand-edits.diff ]
+then
+  rm hand-edits.diff
+fi
+
+BUILD_DIR=/space/kde/builds/trunk/KDE/kdebase/workspace/solid/networkmanager-0.7/dbus
+for i in *.h *.cpp
+
+do
+  other="$BUILD_DIR/$i"
+  if [ -e $other ]
+  then
+	diff -u $other $i >> hand-edits.diff
+  fi
+done
+
+

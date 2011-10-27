@@ -1,0 +1,154 @@
+diff -ur ./nm-access-pointinterface.h edited//nm-access-pointinterface.h
+--- ./nm-access-pointinterface.h	2011-05-03 15:35:54.439616272 +0200
++++ edited//nm-access-pointinterface.h	2011-05-03 15:33:23.658868598 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-ACCESS-POINTINTERFACE_H
+-#define NM-ACCESS-POINTINTERFACE_H
++#ifndef NM_ACCESS_POINTINTERFACE_H
++#define NM_ACCESS_POINTINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+diff -ur ./nm-device-btinterface.h edited//nm-device-btinterface.h
+--- ./nm-device-btinterface.h	2011-05-03 15:35:54.463616391 +0200
++++ edited//nm-device-btinterface.h	2011-05-03 15:33:23.658868598 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-DEVICE-BTINTERFACE_H
+-#define NM-DEVICE-BTINTERFACE_H
++#ifndef NM_DEVICE_BTINTERFACE_H
++#define NM_DEVICE_BTINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+diff -ur ./nm-device-ethernetinterface.h edited//nm-device-ethernetinterface.h
+--- ./nm-device-ethernetinterface.h	2011-05-03 15:35:54.491616524 +0200
++++ edited//nm-device-ethernetinterface.h	2011-05-03 15:33:23.658868598 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-DEVICE-ETHERNETINTERFACE_H
+-#define NM-DEVICE-ETHERNETINTERFACE_H
++#ifndef NM_DEVICE_ETHERNETINTERFACE_H
++#define NM_DEVICE_ETHERNETINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+diff -ur ./nm-deviceinterface.h edited//nm-deviceinterface.h
+--- ./nm-deviceinterface.h	2011-05-03 15:35:54.619617165 +0200
++++ edited//nm-deviceinterface.h	2011-05-03 15:33:23.658868598 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-DEVICEINTERFACE_H
+-#define NM-DEVICEINTERFACE_H
++#ifndef NM_DEVICEINTERFACE_H
++#define NM_DEVICEINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+diff -ur ./nm-device-modeminterface.h edited//nm-device-modeminterface.h
+--- ./nm-device-modeminterface.h	2011-05-03 15:35:54.523616689 +0200
++++ edited//nm-device-modeminterface.h	2011-05-03 15:33:23.658868598 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-DEVICE-MODEMINTERFACE_H
+-#define NM-DEVICE-MODEMINTERFACE_H
++#ifndef NM_DEVICE_MODEMINTERFACE_H
++#define NM_DEVICE_MODEMINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+diff -ur ./nm-device-wifiinterface.h edited//nm-device-wifiinterface.h
+--- ./nm-device-wifiinterface.h	2011-05-03 15:35:54.551616824 +0200
++++ edited//nm-device-wifiinterface.h	2011-05-03 15:33:23.658868598 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-DEVICE-WIFIINTERFACE_H
+-#define NM-DEVICE-WIFIINTERFACE_H
++#ifndef NM_DEVICE_WIFIINTERFACE_H
++#define NM_DEVICE_WIFIINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+diff -ur ./nm-device-wimaxinterface.h edited//nm-device-wimaxinterface.h
+--- ./nm-device-wimaxinterface.h	2011-05-03 15:35:54.579616963 +0200
++++ edited//nm-device-wimaxinterface.h	2011-05-03 15:33:23.658868598 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-DEVICE-WIMAXINTERFACE_H
+-#define NM-DEVICE-WIMAXINTERFACE_H
++#ifndef NM_DEVICE_WIMAXINTERFACE_H
++#define NM_DEVICE_WIMAXINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+diff -ur ./nm-dhcp4-configinterface.h edited//nm-dhcp4-configinterface.h
+--- ./nm-dhcp4-configinterface.h	2011-05-03 15:35:54.647617300 +0200
++++ edited//nm-dhcp4-configinterface.h	2011-05-03 15:33:23.658868598 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-DHCP4-CONFIGINTERFACE_H
+-#define NM-DHCP4-CONFIGINTERFACE_H
++#ifndef NM_DHCP4_CONFIGINTERFACE_H
++#define NM_DHCP4_CONFIGINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+diff -ur ./nm-dhcp6-configinterface.h edited//nm-dhcp6-configinterface.h
+--- ./nm-dhcp6-configinterface.h	2011-05-03 15:35:54.675617439 +0200
++++ edited//nm-dhcp6-configinterface.h	2011-05-03 15:33:23.658868598 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-DHCP6-CONFIGINTERFACE_H
+-#define NM-DHCP6-CONFIGINTERFACE_H
++#ifndef NM_DHCP6_CONFIGINTERFACE_H
++#define NM_DHCP6_CONFIGINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+diff -ur ./nm-ip4-configinterface.h edited//nm-ip4-configinterface.h
+--- ./nm-ip4-configinterface.h	2011-05-03 15:35:54.703617581 +0200
++++ edited//nm-ip4-configinterface.h	2011-05-03 15:33:23.658868598 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-IP4-CONFIGINTERFACE_H
+-#define NM-IP4-CONFIGINTERFACE_H
++#ifndef NM_IP4_CONFIGINTERFACE_H
++#define NM_IP4_CONFIGINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+diff -ur ./nm-managerinterface.h edited//nm-managerinterface.h
+--- ./nm-managerinterface.h	2011-05-03 15:35:54.407616110 +0200
++++ edited//nm-managerinterface.h	2011-05-03 15:33:23.658868598 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-MANAGERINTERFACE_H
+-#define NM-MANAGERINTERFACE_H
++#ifndef NM_MANAGERINTERFACE_H
++#define NM_MANAGERINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>

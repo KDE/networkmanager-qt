@@ -1,0 +1,666 @@
+/*
+Copyright 2008,2010 Will Stephenson <wstephenson@kde.org>
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of
+the License or (at your option) version 3 or any later version
+accepted by the membership of KDE e.V. (or its successor approved
+by the membership of KDE e.V.), which shall act as a proxy
+defined in Section 14 of version 3 of the license.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include "manager.h"
+#include "manager_p.h"
+
+#include "macros.h"
+
+#include <NetworkManager.h>
+
+#include "dbus/nm-deviceinterface.h"
+//#include "networkmanagerdefinitions.h"
+#include "wireddevice.h"
+#include "wirelessdevice.h"
+#include "modemdevice.h"
+#include "bluetoothdevice.h"
+#include "wimaxdevice.h"
+#include "olpcmeshdevice.h"
+#include "activeconnection.h"
+#include "vpnconnection.h"
+
+#include "nmdebug.h"
+
+const QString NetworkManager::NetworkManagerPrivate::DBUS_SERVICE(QString::fromLatin1(NM_DBUS_SERVICE));
+const QString NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH(QString::fromLatin1(NM_DBUS_PATH));
+const QString NetworkManager::NetworkManagerPrivate::DBUS_SETTINGS_PATH(QString::fromLatin1(NM_DBUS_PATH_SETTINGS));
+
+NM_GLOBAL_STATIC(NetworkManager::NetworkManagerPrivate, globalNetworkManager)
+
+NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate() : watcher(DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForOwnerChange, this),
+    iface( NetworkManager::NetworkManagerPrivate::DBUS_SERVICE, NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH, QDBusConnection::systemBus())
+{
+    connect(&watcher, SIGNAL(serviceRegistered(const QString &)), SLOT(daemonRegistered()));
+    connect(&watcher, SIGNAL(serviceUnregistered(const QString&)), SLOT(daemonUnregistered()));
+    connect( &iface, SIGNAL(DeviceAdded(const QDBusObjectPath &)),
+                this, SLOT(slotDeviceAdded(const QDBusObjectPath &)));
+    connect( &iface, SIGNAL(DeviceRemoved(const QDBusObjectPath &)),
+                this, SLOT(slotDeviceRemoved(const QDBusObjectPath &)));
+    connect( &iface, SIGNAL(PropertiesChanged(const QVariantMap &)),
+                this, SLOT(propertiesChanged(const QVariantMap &)));
+    connect( &iface, SIGNAL(StateChanged(uint)),
+                this, SLOT(stateChanged(uint)));
+    init();
+}
+
+void NetworkManager::NetworkManagerPrivate::init()
+{
+    qDBusRegisterMetaType<QList<QDBusObjectPath> >();
+    nmState = iface.state();
+    m_isWirelessHardwareEnabled = iface.wirelessHardwareEnabled();
+    m_isWirelessEnabled = iface.wirelessEnabled();
+    m_isWwanEnabled = iface.wwanEnabled();
+    m_isWwanHardwareEnabled = iface.wwanHardwareEnabled();
+    m_isWimaxEnabled = iface.wimaxEnabled();
+    m_isWimaxHardwareEnabled = iface.wimaxHardwareEnabled();
+    m_isNetworkingEnabled = iface.networkingEnabled();
+
+    QDBusReply< QList <QDBusObjectPath> > deviceList = iface.GetDevices();
+    if (deviceList.isValid())
+    {
+        nmDebug() << "Device list";
+        QList <QDBusObjectPath> devices = deviceList.value();
+        foreach (const QDBusObjectPath &op, devices)
+        {
+            networkInterfaceMap.insert(op.path(), 0);
+            nmDebug() << "  " << op.path();
+        }
+    }
+    else
+        nmDebug() << "Error getting device list: " << deviceList.error().name() << ": " << deviceList.error().message();
+
+    nmDebug() << "Active connections:";
+    QList <QDBusObjectPath> activeConnections = iface.activeConnections();
+    foreach (const QDBusObjectPath &ac, activeConnections)
+    {
+        m_activeConnections.insert(ac.path(), 0);
+        nmDebug() << "    " << ac.path();
+    }
+    emit activeConnectionsChanged();
+}
+
+NetworkManager::NetworkManagerPrivate::~NetworkManagerPrivate()
+{
+
+}
+
+QString NetworkManager::NetworkManagerPrivate::version()
+{
+    return iface.version();
+}
+
+NetworkManager::Device * NetworkManager::NetworkManagerPrivate::findRegisteredNetworkInterface(const QString &uni)
+{
+    NetworkManager::Device * networkInterface = 0;
+    if (networkInterfaceMap.contains(uni) && networkInterfaceMap.value(uni) != 0) {
+        networkInterface = networkInterfaceMap.value(uni);
+    } else {
+        networkInterface = createNetworkInterface(uni);
+        if (networkInterface) {
+            networkInterfaceMap.insert(uni, networkInterface);
+        } else {
+            return 0;
+        }
+    }
+    return networkInterface;
+}
+
+NetworkManager::ActiveConnection * NetworkManager::NetworkManagerPrivate::findRegisteredActiveConnection(const QString &uni)
+{
+    NetworkManager::ActiveConnection * ac = 0;
+    if (m_activeConnections.contains(uni) && m_activeConnections.value(uni) != 0) {
+        ac = m_activeConnections.value(uni);
+    } else {
+        ac = new NetworkManager::VpnConnection(uni, this);
+        m_activeConnections.insert(uni, ac);
+    }
+    return ac;
+}
+
+NetworkManager::Device *NetworkManager::NetworkManagerPrivate::createNetworkInterface(const QString &uni)
+{
+    nmDebug();
+    OrgFreedesktopNetworkManagerDeviceInterface devIface(NetworkManagerPrivate::DBUS_SERVICE, uni, QDBusConnection::systemBus());
+    uint deviceType = devIface.deviceType();
+    NetworkManager::Device * createdInterface = 0;
+    switch ( deviceType ) {
+        case NM_DEVICE_TYPE_ETHERNET:
+            createdInterface = new NetworkManager::WiredDevice(uni, this);
+            break;
+        case NM_DEVICE_TYPE_WIFI:
+            createdInterface = new NetworkManager::WirelessDevice(uni, this);
+            break;
+        case NM_DEVICE_TYPE_MODEM:
+            createdInterface = new NetworkManager::ModemDevice(uni, this);
+            break;
+        case NM_DEVICE_TYPE_BT:
+            createdInterface = new NetworkManager::BluetoothDevice(uni, this);
+            break;
+        case NM_DEVICE_TYPE_WIMAX:
+            createdInterface = new NetworkManager::WimaxDevice(uni, this);
+            break;
+        case NM_DEVICE_TYPE_OLPC_MESH:
+            createdInterface = new NetworkManager::OlpcMeshDevice(uni, this);
+            break;
+        default:
+            if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
+                nmDebug() << "libnm-qt: Can't create object of type " << deviceType << "for" << uni;
+            }
+            break;
+    }
+
+    return createdInterface;
+}
+
+NetworkManager::Status NetworkManager::NetworkManagerPrivate::status() const
+{
+    return convertNMState(nmState);
+}
+
+NetworkManager::DeviceList NetworkManager::NetworkManagerPrivate::networkInterfaces()
+{
+    DeviceList list;
+
+    foreach (const QString &uni, networkInterfaceMap.keys())
+    {
+        Device * networkInterface = findRegisteredNetworkInterface(uni);
+        if (networkInterface) {
+            list.append(networkInterface);
+        } else {
+            qWarning() << "warning: null network Interface for" << uni;
+        }
+    }
+
+    return list;
+}
+
+bool NetworkManager::NetworkManagerPrivate::isNetworkingEnabled() const
+{
+    return m_isNetworkingEnabled;
+}
+
+bool NetworkManager::NetworkManagerPrivate::isWirelessEnabled() const
+{
+    return m_isWirelessEnabled;
+}
+
+bool NetworkManager::NetworkManagerPrivate::isWirelessHardwareEnabled() const
+{
+    return m_isWirelessHardwareEnabled;
+}
+
+bool NetworkManager::NetworkManagerPrivate::isWwanEnabled() const
+{
+    return m_isWwanEnabled;
+}
+
+bool NetworkManager::NetworkManagerPrivate::isWwanHardwareEnabled() const
+{
+    return m_isWwanHardwareEnabled;
+}
+
+bool NetworkManager::NetworkManagerPrivate::isWimaxEnabled() const
+{
+    return m_isWimaxEnabled;
+}
+
+bool NetworkManager::NetworkManagerPrivate::isWimaxHardwareEnabled() const
+{
+    return m_isWimaxHardwareEnabled;
+}
+
+void NetworkManager::NetworkManagerPrivate::activateConnection(const QString & interfaceUni, const QString & connectionUni, const QString & connectionParameter)
+{
+    QString extra_connection_parameter = connectionParameter;
+    if (extra_connection_parameter.isEmpty()) {
+        extra_connection_parameter = QLatin1String("/");
+    }
+    // TODO store error code
+    QDBusObjectPath connPath(connectionUni);
+    QDBusObjectPath interfacePath(interfaceUni);
+    nmDebug() << "Activating connection" << connPath.path() << "on interface" << interfacePath.path() << "with extra" << extra_connection_parameter;
+    iface.ActivateConnection(connPath, interfacePath, QDBusObjectPath(extra_connection_parameter));
+}
+
+void NetworkManager::NetworkManagerPrivate::addAndActivateConnection(const QString & interfaceUni, const QVariantMapMap& connection, const QString & connectionParameter)
+{
+    QString extra_connection_parameter = connectionParameter;
+    if (extra_connection_parameter.isEmpty()) {
+        extra_connection_parameter = QLatin1String("/");
+    }
+    // TODO store error code
+    QDBusObjectPath interfacePath(interfaceUni);
+    iface.AddAndActivateConnection(connection, interfacePath, QDBusObjectPath(extra_connection_parameter));
+}
+
+void NetworkManager::NetworkManagerPrivate::deactivateConnection( const QString & activeConnectionPath )
+{
+    iface.DeactivateConnection(QDBusObjectPath(activeConnectionPath));
+}
+
+void NetworkManager::NetworkManagerPrivate::setNetworkingEnabled(bool enabled)
+{
+    QDBusPendingReply<> reply = iface.Enable(enabled);
+}
+
+void NetworkManager::NetworkManagerPrivate::setWirelessEnabled(bool enabled)
+{
+    iface.setWirelessEnabled(enabled);
+}
+
+void NetworkManager::NetworkManagerPrivate::setWwanEnabled(bool enabled)
+{
+    iface.setWwanEnabled(enabled);
+}
+
+void NetworkManager::NetworkManagerPrivate::setWimaxEnabled(bool enabled)
+{
+    iface.setWimaxEnabled(enabled);
+}
+
+void NetworkManager::NetworkManagerPrivate::sleep(bool sleep)
+{
+    iface.Sleep(sleep);
+}
+
+void NetworkManager::NetworkManagerPrivate::setLogging(NetworkManager::LogLevel level, NetworkManager::LogDomains domains)
+{
+    QString logLevel;
+    QStringList logDomains;
+    switch (level)
+    {
+        case NetworkManager::Error:
+            logLevel = QLatin1String("ERR");
+            break;
+        case NetworkManager::Warning:
+            logLevel = QLatin1String("WARN");
+            break;
+        case NetworkManager::Info:
+            logLevel = QLatin1String("INFO");
+            break;
+        case NetworkManager::Debug:
+            logLevel = QLatin1String("DEBUG");
+            break;
+    }
+    if (!domains.testFlag(NoChange))
+    {
+        if (domains.testFlag(NetworkManager::None))
+            logDomains << QLatin1String("NONE");
+        if (domains.testFlag(NetworkManager::Hardware))
+            logDomains << QLatin1String("HW");
+        if (domains.testFlag(NetworkManager::RFKill))
+            logDomains << QLatin1String("RFKILL");
+        if (domains.testFlag(NetworkManager::Ethernet))
+            logDomains << QLatin1String("ETHER");
+        if (domains.testFlag(NetworkManager::WiFi))
+            logDomains << QLatin1String("WIFI");
+        if (domains.testFlag(NetworkManager::Bluetooth))
+            logDomains << QLatin1String("BT");
+        if (domains.testFlag(NetworkManager::MobileBroadBand))
+            logDomains << QLatin1String("MB");
+        if (domains.testFlag(NetworkManager::DHCP4))
+            logDomains << QLatin1String("DHCP4");
+        if (domains.testFlag(NetworkManager::DHCP6))
+            logDomains << QLatin1String("DHCP6");
+        if (domains.testFlag(NetworkManager::PPP))
+            logDomains << QLatin1String("PPP");
+        if (domains.testFlag(NetworkManager::WiFiScan))
+            logDomains << QLatin1String("WIFI_SCAN");
+        if (domains.testFlag(NetworkManager::IPv4))
+            logDomains << QLatin1String("IP4");
+        if (domains.testFlag(NetworkManager::IPv6))
+            logDomains << QLatin1String("IP6");
+        if (domains.testFlag(NetworkManager::AutoIPv4))
+            logDomains << QLatin1String("AUTOIP4");
+        if (domains.testFlag(NetworkManager::DNS))
+            logDomains << QLatin1String("DNS");
+        if (domains.testFlag(NetworkManager::VPN))
+            logDomains << QLatin1String("VPN");
+        if (domains.testFlag(NetworkManager::Sharing))
+            logDomains << QLatin1String("SHARING");
+        if (domains.testFlag(NetworkManager::Supplicant))
+            logDomains << QLatin1String("SUPPLICANT");
+        if (domains.testFlag(NetworkManager::UserSet))
+            logDomains << QLatin1String("USER_SET");
+        if (domains.testFlag(NetworkManager::SysSet))
+            logDomains << QLatin1String("SYS_SET");
+        if (domains.testFlag(NetworkManager::Suspend))
+            logDomains << QLatin1String("SUSPEND");
+        if (domains.testFlag(NetworkManager::Core))
+            logDomains << QLatin1String("CORE");
+        if (domains.testFlag(NetworkManager::Devices))
+            logDomains << QLatin1String("DEVICE");
+        if (domains.testFlag(NetworkManager::OLPC))
+            logDomains << QLatin1String("OLPC");
+    }
+    iface.SetLogging(logLevel, logDomains.join(QLatin1String(",")));
+}
+
+QStringMap NetworkManager::NetworkManagerPrivate::getPermissions()
+{
+    return iface.GetPermissions();
+}
+
+void NetworkManager::NetworkManagerPrivate::slotDeviceAdded(const QDBusObjectPath & objpath)
+{
+    nmDebug();
+    if (!networkInterfaceMap.contains(objpath.path())) {
+        networkInterfaceMap.insert(objpath.path(), 0);
+    }
+    emit deviceAdded(objpath.path());
+}
+
+void NetworkManager::NetworkManagerPrivate::slotDeviceRemoved(const QDBusObjectPath & objpath)
+{
+    nmDebug();
+    NetworkManager::Device * device = networkInterfaceMap.take(objpath.path());
+    device->deleteLater();
+    emit deviceRemoved(objpath.path());
+}
+
+void NetworkManager::NetworkManagerPrivate::stateChanged(uint state)
+{
+    if ( nmState != state ) {
+        // set new state
+        nmState = state;
+        emit Notifier::statusChanged( convertNMState( state ) );
+    }
+}
+
+void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap &properties)
+{
+    nmDebug() << properties.keys();
+    QLatin1String activeConnKey("ActiveConnections"),
+                  netEnabledKey("NetworkingEnabled"),
+                  wifiHwKey("WirelessHardwareEnabled"),
+                  wifiEnabledKey("WirelessEnabled"),
+                  wwanHwKey("WwanHardwareEnabled"),
+                  wwanEnabledKey("WwanEnabled"),
+                  wimaxHwKey("WimaxHardwareEnabled"),
+                  wimaxEnabledKey("WimaxEnabled");
+    QVariantMap::const_iterator it = properties.find(activeConnKey);
+    if ( it != properties.end()) {
+        QList<QDBusObjectPath> activePaths = qdbus_cast< QList<QDBusObjectPath> >(*it);
+        m_activeConnections.clear();
+        if ( activePaths.count() ) {
+            nmDebug() << activeConnKey;
+        }
+        QList<QString> knownConnections = m_activeConnections.keys();
+        foreach (const QDBusObjectPath &ac, activePaths)
+        {
+            if (!m_activeConnections.contains(ac.path()))
+                m_activeConnections.insert(ac.path(), 0);
+            else
+                knownConnections.removeOne(ac.path());
+            nmDebug() << "  " << ac.path();
+        }
+        foreach (const QString &path, knownConnections)
+        {
+            NetworkManager::ActiveConnection *ac = m_activeConnections.take(path);
+            if (ac)
+                delete ac;
+        }
+        emit activeConnectionsChanged();
+    }
+    it = properties.find(wifiHwKey);
+    if ( it != properties.end()) {
+        m_isWirelessHardwareEnabled = it->toBool();
+        nmDebug() << wifiHwKey << m_isWirelessHardwareEnabled;
+        emit wirelessHardwareEnabledChanged(m_isWirelessHardwareEnabled);
+    }
+    it = properties.find(wifiEnabledKey);
+    if ( it != properties.end()) {
+        m_isWirelessEnabled = it->toBool();
+        nmDebug() << wifiEnabledKey << m_isWirelessEnabled;
+        emit wirelessEnabledChanged(m_isWirelessEnabled);
+    }
+    it = properties.find(wwanHwKey);
+    if ( it != properties.end()) {
+        m_isWwanHardwareEnabled = it->toBool();
+        nmDebug() << wwanHwKey << m_isWwanHardwareEnabled;
+        emit wwanHardwareEnabledChanged(m_isWwanHardwareEnabled);
+    }
+    it = properties.find(wwanEnabledKey);
+    if ( it != properties.end()) {
+        m_isWwanEnabled = it->toBool();
+        nmDebug() << wwanEnabledKey << m_isWwanEnabled;
+        emit wwanEnabledChanged(m_isWwanEnabled);
+    }
+    it = properties.find(wimaxHwKey);
+    if ( it != properties.end()) {
+        m_isWimaxHardwareEnabled = it->toBool();
+        nmDebug() << wimaxHwKey << m_isWimaxHardwareEnabled;
+        emit wimaxHardwareEnabledChanged(m_isWimaxHardwareEnabled);
+    }
+    it = properties.find(wimaxEnabledKey);
+    if ( it != properties.end()) {
+        m_isWimaxEnabled = it->toBool();
+        nmDebug() << wimaxEnabledKey << m_isWimaxEnabled;
+        emit wimaxEnabledChanged(m_isWimaxEnabled);
+    }
+    it = properties.find(netEnabledKey);
+    if ( it != properties.end()) {
+        m_isNetworkingEnabled = it->toBool();
+        nmDebug() << netEnabledKey << m_isNetworkingEnabled;
+        emit networkingEnabledChanged(m_isNetworkingEnabled);
+    }
+}
+
+NetworkManager::Status NetworkManager::NetworkManagerPrivate::convertNMState(uint state)
+{
+    NetworkManager::Status status = NetworkManager::Unknown;
+    switch (state) {
+        case NM_STATE_UNKNOWN:
+            status = NetworkManager::Unknown;
+            break;
+        case NM_STATE_ASLEEP:
+            status = NetworkManager::Asleep;
+            break;
+        case NM_STATE_DISCONNECTED:
+            status = NetworkManager::Disconnected;
+            break;
+        case NM_STATE_DISCONNECTING:
+            status = NetworkManager::Disconnecting;
+            break;
+        case NM_STATE_CONNECTING:
+            status = NetworkManager::Connecting;
+            break;
+        case NM_STATE_CONNECTED_LOCAL:
+            status = NetworkManager::ConnectedLinkLocal;
+            break;
+        case NM_STATE_CONNECTED_SITE:
+            status = NetworkManager::ConnectedSiteOnly;
+            break;
+        case NM_STATE_CONNECTED_GLOBAL:
+            status = NetworkManager::Connected;
+            break;
+    }
+    return status;
+}
+
+void NetworkManager::NetworkManagerPrivate::daemonRegistered()
+{
+    init();
+    emit serviceAppeared();
+}
+
+void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
+{
+    stateChanged(NM_STATE_UNKNOWN);
+    foreach(const QString &path, networkInterfaceMap.keys()) {
+        deviceRemoved(path);
+    }
+    networkInterfaceMap.clear();
+    qDeleteAll(m_activeConnections);
+    m_activeConnections.clear();
+    emit activeConnectionsChanged();
+    emit serviceDisappeared();
+}
+
+QList<NetworkManager::ActiveConnection*> NetworkManager::NetworkManagerPrivate::activeConnections()
+{
+    QList<NetworkManager::ActiveConnection*> list;
+    foreach (const QString &path, m_activeConnections.keys()) {
+        list.append(findRegisteredActiveConnection(path));
+    }
+    return list;
+}
+
+QStringList NetworkManager::NetworkManagerPrivate::activeConnectionsPaths()
+{
+    return m_activeConnections.keys();
+}
+
+QString NetworkManager::version()
+{
+    return globalNetworkManager->version();
+}
+
+NetworkManager::Status NetworkManager::status()
+{
+    return globalNetworkManager->status();
+}
+
+QList<NetworkManager::ActiveConnection*> NetworkManager::activeConnections()
+{
+    return globalNetworkManager->activeConnections();
+}
+
+QStringList NetworkManager::activeConnectionsPaths()
+{
+    return globalNetworkManager->activeConnectionsPaths();
+}
+
+NetworkManager::ActiveConnection* NetworkManager::findActiveConnection(const QString &uni)
+{
+    return globalNetworkManager->findRegisteredActiveConnection(uni);
+}
+
+NetworkManager::DeviceList NetworkManager::networkInterfaces()
+{
+    return globalNetworkManager->networkInterfaces();
+}
+
+bool NetworkManager::isNetworkingEnabled()
+{
+    return globalNetworkManager->isNetworkingEnabled();
+}
+
+bool NetworkManager::isWirelessEnabled()
+{
+    return globalNetworkManager->isWirelessEnabled();
+}
+
+bool NetworkManager::isWirelessHardwareEnabled()
+{
+    return globalNetworkManager->isWirelessHardwareEnabled();
+}
+
+NetworkManager::Device * NetworkManager::findNetworkInterface(const QString & uni)
+{
+    return globalNetworkManager->findRegisteredNetworkInterface(uni);
+}
+
+void NetworkManager::addAndActivateConnection(const QString & interfaceUni, const QVariantMapMap & connection, const QString & connectionParameter)
+{
+    globalNetworkManager->addAndActivateConnection(interfaceUni, connection, connectionParameter);
+}
+
+void NetworkManager::activateConnection(const QString & interfaceUni, const QString & connectionUni, const QString & connectionParameter)
+{
+    globalNetworkManager->activateConnection(interfaceUni, connectionUni, connectionParameter);
+}
+
+void NetworkManager::deactivateConnection( const QString & activeConnectionPath )
+{
+    globalNetworkManager->deactivateConnection(activeConnectionPath);
+}
+
+void NetworkManager::setNetworkingEnabled(bool enabled)
+{
+    globalNetworkManager->setNetworkingEnabled(enabled);
+}
+
+void NetworkManager::setWirelessEnabled(bool enabled)
+{
+    globalNetworkManager->setWirelessEnabled(enabled);
+}
+
+bool NetworkManager::isWwanEnabled()
+{
+    return globalNetworkManager->isWwanEnabled();
+}
+
+bool NetworkManager::isWwanHardwareEnabled()
+{
+    return globalNetworkManager->isWwanHardwareEnabled();
+}
+
+void NetworkManager::setWwanEnabled(bool enabled)
+{
+    globalNetworkManager->setWwanEnabled(enabled);
+}
+
+bool NetworkManager::isWimaxEnabled()
+{
+    return globalNetworkManager->isWimaxEnabled();
+}
+
+bool NetworkManager::isWimaxHardwareEnabled()
+{
+    return globalNetworkManager->isWimaxHardwareEnabled();
+}
+
+void NetworkManager::setWimaxEnabled(bool enabled)
+{
+    globalNetworkManager->setWimaxEnabled(enabled);
+}
+
+void NetworkManager::sleep(bool sleep)
+{
+    globalNetworkManager->sleep(sleep);
+}
+
+void NetworkManager::setLogging(NetworkManager::LogLevel level, NetworkManager::LogDomains domains)
+{
+    globalNetworkManager->setLogging(level, domains);
+}
+
+QStringMap NetworkManager::getPermissions()
+{
+    return globalNetworkManager->getPermissions();
+}
+
+NetworkManager::Device::Types NetworkManager::supportedInterfaceTypes()
+{
+    return (NetworkManager::Device::Types) (
+           NetworkManager::Device::Ethernet |
+           NetworkManager::Device::Wifi |
+           NetworkManager::Device::Modem |
+           NetworkManager::Device::Wimax |
+           NetworkManager::Device::Bluetooth |
+           NetworkManager::Device::OlpcMesh
+           );
+}
+
+NetworkManager::Notifier * NetworkManager::notifier()
+{
+    return globalNetworkManager;
+}
+
