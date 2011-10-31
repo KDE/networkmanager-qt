@@ -40,8 +40,8 @@ namespace Settings
     public:
         SettingsPrivate();
         QList<NetworkManager::Settings::Connection*> listConnections();
-        QString hostname();
-        bool canModify();
+        QString hostname() const;
+        bool canModify() const;
         QString addConnection(const QVariantMapMap &);
         void saveHostname(const QString &);
         Connection *findRegisteredConnection(const QString &);

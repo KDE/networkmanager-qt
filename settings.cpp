@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "connection.h"
 #include "manager_p.h"
 
-NM_GLOBAL_STATIC(NetworkManager::Settings::SettingsPrivate, globalSettings);
+NM_GLOBAL_STATIC(NetworkManager::Settings::SettingsPrivate, globalSettings)
 
 NetworkManager::Settings::SettingsPrivate::SettingsPrivate()
     : iface(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, QDBusConnection::systemBus())
@@ -61,12 +61,12 @@ QList<NetworkManager::Settings::Connection*> NetworkManager::Settings::SettingsP
     return list;
 }
 
-QString NetworkManager::Settings::SettingsPrivate::hostname()
+QString NetworkManager::Settings::SettingsPrivate::hostname() const
 {
     return m_hostname;
 }
 
-bool NetworkManager::Settings::SettingsPrivate::canModify()
+bool NetworkManager::Settings::SettingsPrivate::canModify() const
 {
     return m_canModify;
 }

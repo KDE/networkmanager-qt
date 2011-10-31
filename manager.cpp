@@ -49,13 +49,13 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate() : watcher(DBUS_SE
     connect(&watcher, SIGNAL(serviceRegistered(const QString &)), SLOT(daemonRegistered()));
     connect(&watcher, SIGNAL(serviceUnregistered(const QString&)), SLOT(daemonUnregistered()));
     connect( &iface, SIGNAL(DeviceAdded(const QDBusObjectPath &)),
-                this, SLOT(slotDeviceAdded(const QDBusObjectPath &)));
+             this, SLOT(slotDeviceAdded(const QDBusObjectPath &)));
     connect( &iface, SIGNAL(DeviceRemoved(const QDBusObjectPath &)),
-                this, SLOT(slotDeviceRemoved(const QDBusObjectPath &)));
+             this, SLOT(slotDeviceRemoved(const QDBusObjectPath &)));
     connect( &iface, SIGNAL(PropertiesChanged(const QVariantMap &)),
-                this, SLOT(propertiesChanged(const QVariantMap &)));
+             this, SLOT(propertiesChanged(const QVariantMap &)));
     connect( &iface, SIGNAL(StateChanged(uint)),
-                this, SLOT(stateChanged(uint)));
+             this, SLOT(stateChanged(uint)));
     init();
 }
 
@@ -100,7 +100,7 @@ NetworkManager::NetworkManagerPrivate::~NetworkManagerPrivate()
 
 }
 
-QString NetworkManager::NetworkManagerPrivate::version()
+QString NetworkManager::NetworkManagerPrivate::version() const
 {
     return iface.version();
 }
@@ -352,7 +352,7 @@ void NetworkManager::NetworkManagerPrivate::setLogging(NetworkManager::LogLevel 
     iface.SetLogging(logLevel, logDomains.join(QLatin1String(",")));
 }
 
-QStringMap NetworkManager::NetworkManagerPrivate::getPermissions()
+QStringMap NetworkManager::NetworkManagerPrivate::permissions()
 {
     return iface.GetPermissions();
 }
@@ -522,7 +522,7 @@ QList<NetworkManager::ActiveConnection*> NetworkManager::NetworkManagerPrivate::
     return list;
 }
 
-QStringList NetworkManager::NetworkManagerPrivate::activeConnectionsPaths()
+QStringList NetworkManager::NetworkManagerPrivate::activeConnectionsPaths() const
 {
     return m_activeConnections.keys();
 }
@@ -642,9 +642,9 @@ void NetworkManager::setLogging(NetworkManager::LogLevel level, NetworkManager::
     globalNetworkManager->setLogging(level, domains);
 }
 
-QStringMap NetworkManager::getPermissions()
+QStringMap NetworkManager::permissions()
 {
-    return globalNetworkManager->getPermissions();
+    return globalNetworkManager->permissions();
 }
 
 NetworkManager::Device::Types NetworkManager::supportedInterfaceTypes()

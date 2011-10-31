@@ -63,7 +63,7 @@ public:
     Device * createNetworkInterface(const QString &uni);
     QMap<QString, Device *> networkInterfaceMap;
     // for frontend to call
-    QString version();
+    QString version() const;
     NetworkManager::Status status() const;
     DeviceList networkInterfaces();
     Device * findNetworkInterface(const QString &uni);
@@ -78,7 +78,7 @@ public:
     void addAndActivateConnection(const QString & interfaceUni, const QVariantMapMap & connection, const QString & connectionParameter);
     void deactivateConnection(const QString & activeConnection);
     QList<ActiveConnection*> activeConnections();
-    QStringList activeConnectionsPaths();
+    QStringList activeConnectionsPaths() const;
     Device::Types supportedInterfaceTypes() const;
     void setNetworkingEnabled(bool enabled);
     void setWirelessEnabled(bool enabled);
@@ -86,7 +86,7 @@ public:
     void setWimaxEnabled(bool enabled);
     void sleep(bool sleep);
     void setLogging(NetworkManager::LogLevel, NetworkManager::LogDomains);
-    QStringMap getPermissions();
+    QStringMap permissions();
 protected Q_SLOTS:
     void init();
     void slotDeviceAdded(const QDBusObjectPath &state);
