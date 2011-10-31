@@ -118,23 +118,23 @@ Q_SIGNALS:
      */
     void bsidChanged(const QString &);
     /**
-     * The device changed it's hardware address
+     * The device changed its hardware address
      */
     void hardwareAddressChanged(const QString &);
     /**
-     * The device changed it's center frequency
+     * The device changed its center frequency
      */
     void centerFrequencyChanged(uint);
     /**
-     * The device changed it's signal/noise ratio
+     * The device changed its signal/noise ratio
      */
     void cinrChanged(int);
     /**
-     * The device changed it's RSSI
+     * The device changed its RSSI
      */
     void rssiChanged(int);
     /**
-     * The device changed it's TxPower.
+     * The device changed its TxPower.
      */
     void txPowerChanged(int);
     /**

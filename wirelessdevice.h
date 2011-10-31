@@ -153,19 +153,19 @@ Q_SIGNALS:
      */
     void modeChanged(WirelessDevice::OperationMode);
     /**
-     * The device changed it's capabilities
+     * The device changed its capabilities
      */
     void wirelessCapabilitiesChanged(Capabilities);
     /**
-     * The device changed it's hardware address
+     * The device changed its hardware address
      */
     void hardwareAddressChanged(const QString &);
     /**
-     * The device changed it's permanent hardware address
+     * The device changed its permanent hardware address
      */
     void permanentHardwareAddressChanged(const QString &);
     /**
-     * The device changed it's capabilities
+     * The device changed its properties
      */
     void wirelessPropertiesChanged(uint);
     /**

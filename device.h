@@ -149,7 +149,7 @@ public:
      * State becoming ACTIVATED.
      */
     QString ipInterfaceName() const;
-    /*
+    /**
      * Handle for the system driver controlling this network interface
      */
     QString driver() const;
@@ -178,7 +178,7 @@ public:
     bool isActive() const;
     /**
      * Retrieves the current state of the device.
-     * Tthis a high level view of the device. It is user oriented, so
+     * This is a high level view of the device. It is user oriented, so
      * actually it provides state coming from different layers.
      *
      * @return the current connection state
@@ -227,8 +227,8 @@ Q_SIGNALS:
     /**
      * This signal is emitted when the device's link status changed.
      *
-     * @param new_state the new state of the connection
-     * @param old_state the previous state of the connection
+     * @param newstate the new state of the connection
+     * @param oldstate the previous state of the connection
      * @param reason the reason for the state change, if any.  ReasonNone where the backend
      * provides no reason.
      * @see Device::State

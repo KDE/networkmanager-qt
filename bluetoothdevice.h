@@ -76,9 +76,9 @@ public:
     /**
      * The NetworkInterface type.
      *
-     * @return the NetworkInterface::Type.  This always returns NetworkInterface::Bluetooth
+     * @return the NetworkManager::Device::Type.  This always returns NetworkManager::Device::Bluetooth
      */
-    virtual NetworkManager::Device::Type type() const;
+    virtual Type type() const;
 
 public Q_SLOTS:
     void btPropertiesChanged(const QVariantMap & changedProperties);

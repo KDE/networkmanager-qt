@@ -49,7 +49,7 @@ NetworkManager::OlpcMeshDevice::~OlpcMeshDevice()
 
 NetworkManager::Device::Type NetworkManager::OlpcMeshDevice::type() const
 {
-        return NetworkManager::Device::OlpcMesh;
+    return NetworkManager::Device::OlpcMesh;
 }
 
 QString NetworkManager::OlpcMeshDevice::hardwareAddress() const

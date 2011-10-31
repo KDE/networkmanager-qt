@@ -42,13 +42,13 @@ Q_DECLARE_PRIVATE(OlpcMeshDevice)
 
 public:
     /**
-     * Creates a new WimaxDevice object.
+     * Creates a new OlpcMeshDevice object.
      *
      * @param path the DBus path of the device
      */
     OlpcMeshDevice(const QString & path, QObject * parent);
     /**
-     * Destroys a WimaxDevice object.
+     * Destroys a OlpcMeshDevice object.
      */
     ~OlpcMeshDevice();
     /**
@@ -80,7 +80,7 @@ Q_SIGNALS:
      */
     void companionChanged(Device *);
     /**
-     * The device changed it's hardware address
+     * The device changed its hardware address
      */
     void hardwareAddressChanged(const QString &);
 };

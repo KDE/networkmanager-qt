@@ -64,12 +64,12 @@ class NMQT_EXPORT WirelessNetwork : public QObject
 Q_SIGNALS:
     /**
      * Indicate that the signal strength changed
-     * @param signal strength as a percentage.
+     * @param strength strength as a percentage.
      */
     void signalStrengthChanged(int strength);
     /**
      * Indicate that the reference access point changed
-     * @param apUni new access point or 0 if none
+     * @param apUni new access point or empty string if none
      */
     void referenceAccessPointChanged(const QString &apUni);
     /**
@@ -77,7 +77,7 @@ Q_SIGNALS:
      * (meaning the network has disappeared from view of the network interface)
      * @param ssid the SSID of this network
      */
-    void disappeared(const QString &);
+    void disappeared(const QString & ssid);
 private Q_SLOTS:
     void accessPointAppeared(const QString &);
     void accessPointDisappeared(const QString &);
