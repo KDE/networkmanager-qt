@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "nmdebug.h"
 
 NetworkManager::BluetoothDevicePrivate::BluetoothDevicePrivate(const QString & path, QObject * owner)
-    : DevicePrivate(path, owner), btIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+    : ModemDevicePrivate(path, owner), btIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
     btCapabilities = static_cast<QFlags<NetworkManager::BluetoothDevice::Capability> >(btIface.btCapabilities());
     hardwareAddress = btIface.hwAddress();
@@ -34,7 +34,7 @@ NetworkManager::BluetoothDevicePrivate::BluetoothDevicePrivate(const QString & p
 }
 
 NetworkManager::BluetoothDevice::BluetoothDevice(const QString & path, QObject * parent)
-    : Device(*new BluetoothDevicePrivate(path, this), parent)
+    : ModemDevice(*new BluetoothDevicePrivate(path, this), parent)
 {
     Q_D(BluetoothDevice);
     connect( &d->btIface, SIGNAL(PropertiesChanged(const QVariantMap &)),

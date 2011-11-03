@@ -20,11 +20,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef BTNETWORKINTERFACE_P_H
 #define BTNETWORKINTERFACE_P_H
 
-#include "device_p.h"
+#include "modemdevice_p.h"
 #include "dbus/nm-device-btinterface.h"
 
 namespace NetworkManager {
-class BluetoothDevicePrivate : public DevicePrivate
+class BluetoothDevicePrivate : public ModemDevicePrivate
 {
 public:
     BluetoothDevicePrivate(const QString &path, QObject *owner);

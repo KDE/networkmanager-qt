@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "device.h"
+#include "modemdevice.h"
 
 #ifndef NM_BTNETWORKINTERFACE_H
 #define NM_BTNETWORKINTERFACE_H
@@ -30,7 +30,7 @@ namespace NetworkManager {
 
 class BluetoothDevicePrivate;
 
-class NMQT_EXPORT BluetoothDevice: public Device
+class NMQT_EXPORT BluetoothDevice: public ModemDevice
 {
 Q_OBJECT
 Q_DECLARE_PRIVATE(BluetoothDevice)
