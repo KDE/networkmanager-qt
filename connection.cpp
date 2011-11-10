@@ -63,7 +63,12 @@ NetworkManager::Settings::Connection::Connection(const QString & path, QObject *
     qDBusRegisterMetaType<QMap<QString, QVariant> >();
     qDBusRegisterMetaType<QMap<QString, QMap<QString, QVariant> > >();
 
-    d->connection = d->iface.GetSettings();
+    QDBusReply<QVariantMapMap> reply = d->iface.GetSettings();
+    if (reply.isValid()) {
+        d->connection = reply.value();
+    } else {
+        d->connection = QVariantMapMap();
+    }
     d->path = path;
 
     //nmDebug() << m_connection;
