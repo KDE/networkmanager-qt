@@ -19,6 +19,7 @@ find_package(NetworkManager REQUIRED)
 add_definitions(${QT_DEFINITIONS})
 
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES} ${CMAKE_INCLUDE_PATH})
+link_directories(${CMAKE_LIBRARY_PATH})
 
 include_directories(
    ${NETWORKMANAGER_INCLUDE_DIRS}
