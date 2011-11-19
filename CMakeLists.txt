@@ -18,7 +18,7 @@ find_package(NetworkManager REQUIRED)
 
 add_definitions(${QT_DEFINITIONS})
 
-include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES})
+include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES} ${CMAKE_INCLUDE_PATH})
 
 include_directories(
    ${NETWORKMANAGER_INCLUDE_DIRS}
@@ -125,10 +125,9 @@ qt4_automoc(${DBUS_INTERFACE_SRCS})
 
 add_library(nm-qt SHARED ${nmqt_MOC} ${nmqt_PART_SRCS} ${DBUS_INTERFACE_SRCS})
 
-find_file(LIBMM_FOUND libmm-qt/manager.h /usr/include NO_DEFAULT_PATH)
+find_file(LIBMM_FOUND libmm-qt/manager.h /usr/include ${CMAKE_INCLUDE_PATH})
 if (NOT LIBMM_FOUND)
-    message("ERROR: libmm-qt not found")
-    return()
+    message(FATAL_ERROR "ERROR: libmm-qt not found")
 endif (NOT LIBMM_FOUND)
 
 # TODO: dlopen libmm-qt to make it a runtime dependency instead of compile
