@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(libnm-qt)
 
+set(VERSION 0.9.0)
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_MODULE_PATH})
 
@@ -142,5 +143,9 @@ install( FILES
    include/libnm-qt COMPONENT Devel)
 
 set_property(TARGET nm-qt PROPERTY COMPILE_DEFINITIONS MAKE_NMQT_LIB)
-set_property(TARGET nm-qt PROPERTY VERSION 0.9.0)
+set_property(TARGET nm-qt PROPERTY VERSION ${VERSION})
 set_property(TARGET nm-qt PROPERTY SOVERSION 0)
+
+message(STATUS "Writing pkg-config file...")
+configure_file(${CMAKE_SOURCE_DIR}/libnm-qt.pc.cmake ${CMAKE_BINARY_DIR}/libnm-qt.pc @ONLY)
+install(FILES ${CMAKE_BINARY_DIR}/libnm-qt.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/")
