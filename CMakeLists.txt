@@ -17,10 +17,16 @@ endif()
 find_package(Qt4 REQUIRED)
 find_package(NetworkManager REQUIRED)
 
+pkg_check_modules(LIBMMQT REQUIRED libmm-qt)
+if (NOT LIBMMQT_FOUND)
+    message(FATAL_ERROR "ERROR: libmm-qt not found")
+endif (NOT LIBMMQT_FOUND)
+
 add_definitions(${QT_DEFINITIONS})
 
-include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES} ${CMAKE_INCLUDE_PATH})
-link_directories(${CMAKE_LIBRARY_PATH})
+include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES}
+                    ${LIBMMQT_INCLUDE_DIRS} ${CMAKE_INCLUDE_PATH})
+link_directories(${LIBMMQT_LIBRARY_DIRS} ${CMAKE_LIBRARY_PATH})
 
 include_directories(
    ${NETWORKMANAGER_INCLUDE_DIRS}
@@ -127,11 +133,6 @@ qt4_automoc(${DBUS_INTERFACE_SRCS})
 
 add_library(nm-qt SHARED ${nmqt_MOC} ${nmqt_PART_SRCS} ${DBUS_INTERFACE_SRCS})
 
-find_file(LIBMM_FOUND libmm-qt/manager.h /usr/include ${CMAKE_INCLUDE_PATH})
-if (NOT LIBMM_FOUND)
-    message(FATAL_ERROR "ERROR: libmm-qt not found")
-endif (NOT LIBMM_FOUND)
-
 # TODO: dlopen libmm-qt to make it a runtime dependency instead of compile
 # time dependency.
 target_link_libraries(nm-qt mm-qt ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
@@ -148,4 +149,4 @@ set_property(TARGET nm-qt PROPERTY SOVERSION 0)
 
 message(STATUS "Writing pkg-config file...")
 configure_file(${CMAKE_SOURCE_DIR}/libnm-qt.pc.cmake ${CMAKE_BINARY_DIR}/libnm-qt.pc @ONLY)
-install(FILES ${CMAKE_BINARY_DIR}/libnm-qt.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/")
+install(FILES ${CMAKE_BINARY_DIR}/libnm-qt.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig/")
