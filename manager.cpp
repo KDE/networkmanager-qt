@@ -135,7 +135,7 @@ NetworkManager::ActiveConnection * NetworkManager::NetworkManagerPrivate::findRe
 
 NetworkManager::Device *NetworkManager::NetworkManagerPrivate::createNetworkInterface(const QString &uni)
 {
-    nmDebug();
+    //nmDebug();
     OrgFreedesktopNetworkManagerDeviceInterface devIface(NetworkManagerPrivate::DBUS_SERVICE, uni, QDBusConnection::systemBus());
     uint deviceType = devIface.deviceType();
     NetworkManager::Device * createdInterface = 0;
