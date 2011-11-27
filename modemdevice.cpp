@@ -18,10 +18,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <libmm-qt/manager.h>
-
 #include "modemdevice.h"
 #include "modemdevice_p.h"
+
+#include <libmm-qt/manager.h>
+
 #include "manager_p.h"
 
 NetworkManager::ModemDevicePrivate::ModemDevicePrivate(const QString & path, QObject * owner)

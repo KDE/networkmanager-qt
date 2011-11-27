@@ -18,9 +18,10 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "wirelessnetworkinterfaceenvironment.h"
+
 #include <QMutableHashIterator>
 
-#include "wirelessnetworkinterfaceenvironment.h"
 #include "manager.h"
 #include "accesspoint.h"
 #include "wirelessdevice.h"

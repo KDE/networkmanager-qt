@@ -18,8 +18,8 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "generic-types.h"
 #include "activeconnection.h"
+#include "generic-types.h"
 
 const QDBusArgument &operator>>(const QDBusArgument &argument, ActiveConnection &ac)
 {

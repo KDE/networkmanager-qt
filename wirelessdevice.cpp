@@ -18,10 +18,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <libnm-glib/nm-device-wifi.h>
-
 #include "wirelessdevice.h"
 #include "wirelessdevice_p.h"
+
+#include <libnm-glib/nm-device-wifi.h>
+
 #include "accesspoint.h"
 #include "manager_p.h"
 
