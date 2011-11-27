@@ -175,7 +175,7 @@ NetworkManager::IPv4Config NetworkManager::Device::ipV4Config() const
             //convert ipaddresses into object
             UIntListList addresses = iface.addresses();
             QList<NetworkManager::IPv4Address> addressObjects;
-            foreach (UIntList addressList, addresses) {
+            foreach (const UIntList &addressList, addresses) {
                 if ( addressList.count() == 3 ) {
                     NetworkManager::IPv4Address addr(ntohl(addressList[0]), ntohl(addressList[1]), ntohl(addressList[2]));
                     addressObjects.append(addr);
@@ -184,7 +184,7 @@ NetworkManager::IPv4Config NetworkManager::Device::ipV4Config() const
             //convert routes into objects
             UIntListList routes = iface.routes();
             QList<NetworkManager::IPv4Route> routeObjects;
-            foreach (UIntList routeList, routes) {
+            foreach (const UIntList &routeList, routes) {
                 if ( routeList.count() == 4 ) {
                     NetworkManager::IPv4Route addr(ntohl(routeList[0]), ntohl(routeList[1]), ntohl(routeList[2]), ntohl(routeList[3]));
                     routeObjects.append(addr);
