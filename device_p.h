@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "dbus/nm-deviceinterface.h"
 #include "nmpropertyhelper.h"
 
-
 namespace NetworkManager
 {
 
