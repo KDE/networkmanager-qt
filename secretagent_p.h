@@ -33,7 +33,7 @@ namespace NetworkManager
     {
     Q_OBJECT
     public:
-        SecretAgentPrivate(const QString &, SecretAgent * parent = 0);
+        explicit SecretAgentPrivate(const QString &, SecretAgent * parent = 0);
         virtual ~SecretAgentPrivate();
     private Q_SLOTS:
         void registerAgent();

@@ -46,7 +46,7 @@ public:
            KeyMgmtPsk = 0x100, KeyMgmt8021x = 0x200 };
     Q_DECLARE_FLAGS(Capabilities, Capability)
     Q_DECLARE_FLAGS(WpaFlags, WpaFlag)
-    AccessPoint( const QString & path, QObject * parent = 0 );
+    explicit AccessPoint( const QString & path, QObject * parent = 0 );
     virtual ~AccessPoint();
 
     QString uni() const;

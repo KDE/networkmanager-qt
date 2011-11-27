@@ -39,7 +39,7 @@ public:
      */
     enum NetworkType { Unknown = 0x1, Home = 0x2, Partner = 0x3, RoamingPartner = 0x4 };
 
-    WimaxNsp( const QString & path, QObject * parent = 0 );
+    explicit WimaxNsp( const QString & path, QObject * parent = 0 );
     virtual ~WimaxNsp();
 
     QString uni() const;

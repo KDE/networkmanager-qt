@@ -37,7 +37,7 @@ namespace NetworkManager
     Q_OBJECT
     Q_DECLARE_PRIVATE(SecretAgent)
     public:
-        SecretAgent(const QString &, QObject * parent = 0);
+        explicit SecretAgent(const QString &, QObject * parent = 0);
         virtual ~SecretAgent();
     public Q_SLOTS:
         virtual QVariantMapMap GetSecrets(const QVariantMapMap&, const QDBusObjectPath&, const QString&, const QStringList&, uint) = 0;

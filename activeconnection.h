@@ -50,8 +50,8 @@ public:
      *
      * @param path the DBus path of the device
      */
-    ActiveConnection(const QString & path, QObject * parent = 0);
-    ActiveConnection(ActiveConnectionPrivate &dd, QObject * parent = 0);
+    explicit ActiveConnection(const QString & path, QObject * parent = 0);
+    explicit ActiveConnection(ActiveConnectionPrivate &dd, QObject * parent = 0);
     /**
      * Destroys a ActiveConnection object.
      */

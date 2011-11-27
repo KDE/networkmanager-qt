@@ -40,7 +40,7 @@ namespace Settings
     Q_OBJECT
     Q_DECLARE_PRIVATE(Connection)
     public:
-        Connection(const QString &path, QObject * parent = 0);
+        explicit Connection(const QString &path, QObject * parent = 0);
         ~Connection();
         QString uuid() const;
         QString path() const;
