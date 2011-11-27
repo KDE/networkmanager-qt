@@ -180,7 +180,7 @@ void NetworkManager::Settings::Connection::connectionRemoved()
 {
     Q_D(Connection);
     emit removed(d->path);
-    d->uuid = QString();
+    d->uuid.clear();
     d->connection = QVariantMapMap();
     d->path = QString();
 }
