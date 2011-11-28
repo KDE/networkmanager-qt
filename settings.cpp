@@ -48,8 +48,8 @@ void NetworkManager::Settings::SettingsPrivate::init()
     m_canModify = iface.canModify();
     m_hostname = iface.hostname();
 
-    connect(&iface, SIGNAL(PropertiesChanged(const QVariantMap &)), this, SLOT(propertiesChanged(const QVariantMap &)));
-    connect(&iface, SIGNAL(NewConnection(const QDBusObjectPath &)), this, SLOT(slotConnectionAdded(const QDBusObjectPath&)));
+    connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), this, SLOT(propertiesChanged(QVariantMap)));
+    connect(&iface, SIGNAL(NewConnection(QDBusObjectPath)), this, SLOT(slotConnectionAdded(QDBusObjectPath)));
 }
 
 QList<NetworkManager::Settings::Connection*> NetworkManager::Settings::SettingsPrivate::listConnections()
@@ -141,7 +141,7 @@ NetworkManager::Settings::Connection* NetworkManager::Settings::SettingsPrivate:
     } else {
         rc = new NetworkManager::Settings::Connection(path, this);
         connections.insert(path, rc);
-        connect(rc, SIGNAL(removed(const QString &)), this, SLOT(connectionRemoved(const QString &)));
+        connect(rc, SIGNAL(removed(QString)), this, SLOT(connectionRemoved(QString)));
     }
     return rc;
 }

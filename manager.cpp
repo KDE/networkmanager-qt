@@ -46,14 +46,14 @@ NM_GLOBAL_STATIC(NetworkManager::NetworkManagerPrivate, globalNetworkManager)
 NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate() : watcher(DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForOwnerChange, this),
     iface( NetworkManager::NetworkManagerPrivate::DBUS_SERVICE, NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH, QDBusConnection::systemBus())
 {
-    connect(&watcher, SIGNAL(serviceRegistered(const QString &)), SLOT(daemonRegistered()));
-    connect(&watcher, SIGNAL(serviceUnregistered(const QString&)), SLOT(daemonUnregistered()));
-    connect( &iface, SIGNAL(DeviceAdded(const QDBusObjectPath &)),
-             this, SLOT(slotDeviceAdded(const QDBusObjectPath &)));
-    connect( &iface, SIGNAL(DeviceRemoved(const QDBusObjectPath &)),
-             this, SLOT(slotDeviceRemoved(const QDBusObjectPath &)));
-    connect( &iface, SIGNAL(PropertiesChanged(const QVariantMap &)),
-             this, SLOT(propertiesChanged(const QVariantMap &)));
+    connect(&watcher, SIGNAL(serviceRegistered(QString)), SLOT(daemonRegistered()));
+    connect(&watcher, SIGNAL(serviceUnregistered(QString)), SLOT(daemonUnregistered()));
+    connect( &iface, SIGNAL(DeviceAdded(QDBusObjectPath)),
+             this, SLOT(slotDeviceAdded(QDBusObjectPath)));
+    connect( &iface, SIGNAL(DeviceRemoved(QDBusObjectPath)),
+             this, SLOT(slotDeviceRemoved(QDBusObjectPath)));
+    connect( &iface, SIGNAL(PropertiesChanged(QVariantMap)),
+             this, SLOT(propertiesChanged(QVariantMap)));
     connect( &iface, SIGNAL(StateChanged(uint)),
              this, SLOT(stateChanged(uint)));
     init();

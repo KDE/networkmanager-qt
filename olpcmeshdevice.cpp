@@ -38,8 +38,8 @@ NetworkManager::OlpcMeshDevice::OlpcMeshDevice(const QString & path, QObject * p
     d->activeChannel = d->iface.activeChannel();
     d->companion = d->iface.companion().path();
 
-    connect( &d->iface, SIGNAL(PropertiesChanged(const QVariantMap &)),
-                this, SLOT(propertiesChanged(const QVariantMap &)));
+    connect( &d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
+                this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::OlpcMeshDevice::~OlpcMeshDevice()

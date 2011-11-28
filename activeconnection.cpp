@@ -59,8 +59,8 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString & path, QObject
 {
     Q_D(ActiveConnection);
 
-    connect( &d->iface, SIGNAL(PropertiesChanged(const QVariantMap &)),
-                this, SLOT(propertiesChanged(const QVariantMap &)));
+    connect( &d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
+             this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, QObject * parent)
@@ -68,8 +68,8 @@ NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, 
 {
     Q_D(ActiveConnection);
 
-    connect( &d->iface, SIGNAL(PropertiesChanged(const QVariantMap &)),
-             this, SLOT(propertiesChanged(const QVariantMap &)));
+    connect( &d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
+             this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::ActiveConnection::~ActiveConnection()

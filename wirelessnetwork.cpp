@@ -28,8 +28,8 @@ NetworkManager::WirelessNetwork::WirelessNetwork(NetworkManager::AccessPoint *ap
     d->ssid = ap->ssid();
     d->strength = -1;
     d->wirelessNetworkInterface = wni;
-    connect(d->wirelessNetworkInterface, SIGNAL(accessPointAppeared(const QString&)), this, SLOT(accessPointAppeared(const QString&)));
-    connect(d->wirelessNetworkInterface, SIGNAL(accessPointDisappeared(const QString&)), this, SLOT(accessPointDisappeared(const QString&)));
+    connect(d->wirelessNetworkInterface, SIGNAL(accessPointAppeared(QString)), this, SLOT(accessPointAppeared(QString)));
+    connect(d->wirelessNetworkInterface, SIGNAL(accessPointDisappeared(QString)), this, SLOT(accessPointDisappeared(QString)));
     addAccessPointInternal(ap);
 }
 

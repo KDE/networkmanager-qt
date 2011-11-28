@@ -52,8 +52,8 @@ NetworkManager::VpnConnection::VpnConnection(const QString & path, QObject * par
     Q_D(VpnConnection);
     d->banner = d->iface.banner();
     d->state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(d->iface.vpnState());
-    connect( &d->iface, SIGNAL(PropertiesChanged(const QVariantMap &)),
-                this, SLOT(propertiesChanged(const QVariantMap &)));
+    connect( &d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
+                this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::VpnConnection::~VpnConnection()

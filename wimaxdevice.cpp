@@ -43,12 +43,12 @@ NetworkManager::WimaxDevice::WimaxDevice(const QString & path, QObject * parent)
     d->rssi = d->wimaxIface.rssi();
     d->txPower = d->wimaxIface.txPower();
 
-    connect( &d->wimaxIface, SIGNAL(PropertiesChanged(const QVariantMap &)),
-                this, SLOT(wimaxPropertiesChanged(const QVariantMap &)));
-    connect( &d->wimaxIface, SIGNAL(NspAdded(const QDBusObjectPath &)),
-                this, SLOT(nspAdded(const QDBusObjectPath &)));
-    connect( &d->wimaxIface, SIGNAL(NspRemoved(const QDBusObjectPath &)),
-                this, SLOT(nspRemoved(const QDBusObjectPath &)));
+    connect( &d->wimaxIface, SIGNAL(PropertiesChanged(QVariantMap)),
+                this, SLOT(wimaxPropertiesChanged(QVariantMap)));
+    connect( &d->wimaxIface, SIGNAL(NspAdded(QDBusObjectPath)),
+                this, SLOT(nspAdded(QDBusObjectPath)));
+    connect( &d->wimaxIface, SIGNAL(NspRemoved(QDBusObjectPath)),
+                this, SLOT(nspRemoved(QDBusObjectPath)));
 
 
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();

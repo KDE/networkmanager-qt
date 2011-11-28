@@ -48,8 +48,8 @@ NetworkManager::WirelessNetworkInterfaceEnvironment::WirelessNetworkInterfaceEnv
         accessPointAppearedInternal(apUni);
     }
     // for managing our list of wireless networks
-    connect(iface, SIGNAL(accessPointAppeared(const QString&)),
-            SLOT(accessPointAppeared(const QString&)));
+    connect(iface, SIGNAL(accessPointAppeared(QString)),
+            SLOT(accessPointAppeared(QString)));
     connect(NetworkManager::notifier(), SIGNAL(wirelessEnabledChanged(bool)),
             SLOT(wirelessEnabledChanged(bool)));
 }
@@ -100,7 +100,7 @@ void NetworkManager::WirelessNetworkInterfaceEnvironment::accessPointAppearedInt
     } else if (!d->networks.contains(ssid)) {
         NetworkManager::WirelessNetwork * net = new NetworkManager::WirelessNetwork(ap, d->iface, this);
         d->networks.insert(ssid, net);
-        connect(net, SIGNAL(disappeared(const QString&)), SLOT(removeNetwork(const QString&)));
+        connect(net, SIGNAL(disappeared(QString)), SLOT(removeNetwork(QString)));
         emit networkAppeared(ssid);
     }
 

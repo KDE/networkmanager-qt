@@ -64,8 +64,8 @@ NetworkManager::AccessPoint::AccessPoint( const QString& path, QObject * parent 
         d->maxBitRate = d->iface.maxBitrate();
         // make this a static on WirelessNetworkInterface
         d->mode = WirelessDevice::convertOperationMode(d->iface.mode());
-        connect( &d->iface, SIGNAL(PropertiesChanged(const QVariantMap &)),
-                this, SLOT(propertiesChanged(const QVariantMap &)));
+        connect( &d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
+                this, SLOT(propertiesChanged(QVariantMap)));
     }
 }
 

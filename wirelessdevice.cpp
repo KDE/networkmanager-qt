@@ -46,12 +46,12 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString & path, QObject * p
     d->activeAccessPoint = d->wirelessIface.activeAccessPoint().path();
     d->wirelessCapabilities = convertCapabilities(d->wirelessIface.wirelessCapabilities());
 
-    connect( &d->wirelessIface, SIGNAL(PropertiesChanged(const QVariantMap &)),
-                this, SLOT(wirelessPropertiesChanged(const QVariantMap &)));
-    connect( &d->wirelessIface, SIGNAL(AccessPointAdded(const QDBusObjectPath &)),
-                this, SLOT(accessPointAdded(const QDBusObjectPath &)));
-    connect( &d->wirelessIface, SIGNAL(AccessPointRemoved(const QDBusObjectPath &)),
-                this, SLOT(accessPointRemoved(const QDBusObjectPath &)));
+    connect( &d->wirelessIface, SIGNAL(PropertiesChanged(QVariantMap)),
+                this, SLOT(wirelessPropertiesChanged(QVariantMap)));
+    connect( &d->wirelessIface, SIGNAL(AccessPointAdded(QDBusObjectPath)),
+                this, SLOT(accessPointAdded(QDBusObjectPath)));
+    connect( &d->wirelessIface, SIGNAL(AccessPointRemoved(QDBusObjectPath)),
+                this, SLOT(accessPointRemoved(QDBusObjectPath)));
 
 
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
