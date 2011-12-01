@@ -55,8 +55,9 @@ void NetworkManager::Settings::SettingsPrivate::init()
 QList<NetworkManager::Settings::Connection*> NetworkManager::Settings::SettingsPrivate::listConnections()
 {
     QList<NetworkManager::Settings::Connection*> list;
-    foreach (const QString &path, connections.keys()) {
-        list.append(findRegisteredConnection(path));
+    QMap<QString, Connection*>::const_iterator i;
+    for (i = connections.constBegin(); i != connections.constEnd(); ++i) {
+        list.append(findRegisteredConnection(i.key()));
     }
     return list;
 }
@@ -155,8 +156,9 @@ void NetworkManager::Settings::SettingsPrivate::connectionRemoved(const QString 
 
 void NetworkManager::Settings::SettingsPrivate::daemonUnregistered()
 {
-    foreach (const QString &path, connections.keys()) {
-        connectionRemoved(path);
+    QMap<QString, Connection*>::const_iterator i;
+    for (i = connections.constBegin(); i != connections.constEnd(); ++i) {
+        connectionRemoved(i.key());
     }
     connections.clear();
 }

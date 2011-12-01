@@ -76,8 +76,7 @@ void NetworkManager::NetworkManagerPrivate::init()
     {
         nmDebug() << "Device list";
         QList <QDBusObjectPath> devices = deviceList.value();
-        foreach (const QDBusObjectPath &op, devices)
-        {
+        foreach (const QDBusObjectPath &op, devices) {
             networkInterfaceMap.insert(op.path(), 0);
             nmDebug() << "  " << op.path();
         }
@@ -177,13 +176,13 @@ NetworkManager::DeviceList NetworkManager::NetworkManagerPrivate::networkInterfa
 {
     DeviceList list;
 
-    foreach (const QString &uni, networkInterfaceMap.keys())
-    {
-        Device * networkInterface = findRegisteredNetworkInterface(uni);
+    QMap<QString, Device *>::const_iterator i;
+    for (i = networkInterfaceMap.constBegin(); i != networkInterfaceMap.constEnd(); ++i) {
+        Device * networkInterface = findRegisteredNetworkInterface(i.key());
         if (networkInterface) {
             list.append(networkInterface);
         } else {
-            qWarning() << "warning: null network Interface for" << uni;
+            qWarning() << "warning: null network Interface for" << i.key();
         }
     }
 
@@ -503,8 +502,9 @@ void NetworkManager::NetworkManagerPrivate::daemonRegistered()
 void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
 {
     stateChanged(NM_STATE_UNKNOWN);
-    foreach(const QString &path, networkInterfaceMap.keys()) {
-        deviceRemoved(path);
+    QMap<QString, Device *>::const_iterator i;
+    for (i = networkInterfaceMap.constBegin(); i != networkInterfaceMap.constEnd(); ++i) {
+        deviceRemoved(i.key());
     }
     networkInterfaceMap.clear();
     qDeleteAll(m_activeConnections);
@@ -516,8 +516,9 @@ void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
 QList<NetworkManager::ActiveConnection*> NetworkManager::NetworkManagerPrivate::activeConnections()
 {
     QList<NetworkManager::ActiveConnection*> list;
-    foreach (const QString &path, m_activeConnections.keys()) {
-        list.append(findRegisteredActiveConnection(path));
+    QMap<QString, ActiveConnection*>::const_iterator i;
+    for (i = m_activeConnections.constBegin(); i != m_activeConnections.constEnd(); ++i) {
+        list.append(findRegisteredActiveConnection(i.key()));
     }
     return list;
 }
