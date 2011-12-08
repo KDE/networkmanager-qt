@@ -38,7 +38,7 @@
    <value key="ProjectExplorer.Target.ActiveDeployConfiguration" type="int">0</value>
    <value key="ProjectExplorer.Target.ActiveRunConfiguration" type="int">0</value>
    <valuemap key="ProjectExplorer.Target.BuildConfiguration.0" type="QVariantMap">
-    <value key="CMakeProjectManager.CMakeBuildConfiguration.BuildDirectory" type="QString">/space/kde/builds/mobile/libnm-qt-flat</value>
+    <value key="CMakeProjectManager.CMakeBuildConfiguration.BuildDirectory" type="QString">/space/kde/builds/mobile/libQtNetworkManager-flat</value>
     <value key="CMakeProjectManager.CMakeBuildConfiguration.ToolChain" type="QString">ProjectExplorer.ToolChain.Gcc:/opt/icecream/bin/g++.x86-linux-generic-elf-32bit.</value>
     <value key="ProjectExplorer.BuildCOnfiguration.ToolChain" type="QString">ProjectExplorer.ToolChain.Gcc:/opt/icecream/bin/g++.x86-linux-generic-elf-32bit.</value>
     <valuemap key="ProjectExplorer.BuildConfiguration.BuildStepList.0" type="QVariantMap">

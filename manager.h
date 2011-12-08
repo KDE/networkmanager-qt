@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NM_NETWORKMANAGER_H
 #define NM_NETWORKMANAGER_H
 
-#include "nmqt-export.h"
+#include "QtNetworkManager-export.h"
 
 #include <QtCore/QtGlobal>
 #include <Qt/QtDBus>

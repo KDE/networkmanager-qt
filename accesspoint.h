@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NM_ACCESSPOINT_H
 
 #include "wirelessdevice.h"
-#include "nmqt-export.h"
+#include "QtNetworkManager-export.h"
 
 namespace NetworkManager {
 

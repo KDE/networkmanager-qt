@@ -21,11 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NM_MODEMDEVICE_H
 #define NM_MODEMDEVICE_H
 
-#include <libmm-qt/modemgsmcardinterface.h>
-#include <libmm-qt/modemgsmnetworkinterface.h>
+#include <QtModemManager/modemgsmcardinterface.h>
+#include <QtModemManager/modemgsmnetworkinterface.h>
 
 #include "device.h"
-#include "nmqt-export.h"
+#include "QtNetworkManager-export.h"
 
 namespace NetworkManager
 {

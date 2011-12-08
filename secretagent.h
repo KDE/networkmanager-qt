@@ -25,7 +25,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDBusContext>
 #include <QDBusObjectPath>
 
-#include "nmqt-export.h"
+#include "QtNetworkManager-export.h"
 #include "generic-types.h"
 
 namespace NetworkManager

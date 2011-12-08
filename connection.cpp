@@ -115,7 +115,7 @@ void NetworkManager::Settings::Connection::secrets(const QString &setting)
     QString id = QUuid().toString();
     QDBusPendingReply<QVariantMapMap> reply = d->iface.GetSecrets(setting);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
-    watcher->setProperty("libnm-qt_id", id);
+    watcher->setProperty("libQtNetworkManager_id", id);
     connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this,  SLOT(secretsArrived(QDBusPendingCallWatcher*)));
 }
 
@@ -125,7 +125,7 @@ void NetworkManager::Settings::Connection::secretsArrived(QDBusPendingCallWatche
     if (!watcher)
         return;
     QDBusPendingReply<QVariantMapMap> reply = *watcher;
-    QString id = watcher->property("libnm-qt_id").value<QString>();
+    QString id = watcher->property("libQtNetworkManager_id").value<QString>();
     bool success = true;
     QVariantMapMap set;
     QString message;

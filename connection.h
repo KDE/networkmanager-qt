@@ -21,7 +21,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NM_SETTINGS_CONNECTION_H
 #define NM_SETTINGS__CONNECTION_H
 
-#include "nmqt-export.h"
+#include "QtNetworkManager-export.h"
 
 #include <QObject>
 #include "device.h"

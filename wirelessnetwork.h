@@ -21,7 +21,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NM_WIRELESSNETWORK_H
 #define NM_WIRELESSNETWORK_H
 
-#include "nmqt-export.h"
+#include "QtNetworkManager-export.h"
 
 #include <QtCore/QObject>
 #include "accesspoint.h"

@@ -77,7 +77,7 @@ QString NetworkManager::Settings::SettingsPrivate::addConnection(const QVariantM
     QDBusPendingReply<QDBusObjectPath> reply = iface.AddConnection(connection);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, 0);
     QString id = QUuid().toString();
-    watcher->setProperty("libnm-qt_id", id);
+    watcher->setProperty("libQtNetworkManager_id", id);
     connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this, SLOT(onConnectionAddArrived(QDBusPendingCallWatcher*)));
     return id;
 }
@@ -85,7 +85,7 @@ QString NetworkManager::Settings::SettingsPrivate::addConnection(const QVariantM
 void NetworkManager::Settings::SettingsPrivate::onConnectionAddArrived(QDBusPendingCallWatcher *watcher)
 {
     QDBusPendingReply<QDBusObjectPath> reply = *watcher;
-    QString id = watcher->property("libnm-qt_id").value<QString>();
+    QString id = watcher->property("libQtNetworkManager_id").value<QString>();
     QString message;
     bool success = true;
     if (!reply.isValid()) {

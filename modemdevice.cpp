@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "modemdevice.h"
 #include "modemdevice_p.h"
 
-#include <libmm-qt/manager.h>
+#include <QtModemManager/manager.h>
 
 #include "manager_p.h"
 

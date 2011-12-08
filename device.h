@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QObject>
 #include <QtCore/QtGlobal>
 
-#include "nmqt-export.h"
+#include "QtNetworkManager-export.h"
 
 #include "generic-types.h"
 #include "ipv4config.h"

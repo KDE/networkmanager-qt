@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef WIRELESSNETWORKINTERFACEENVIRONMENT_H
 #define WIRELESSNETWORKINTERFACEENVIRONMENT_H
 
-#include "nmqt-export.h"
+#include "QtNetworkManager-export.h"
 
 #include <QObject>
 

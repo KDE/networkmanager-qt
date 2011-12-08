@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NM_WIMAXNSP_H
 #define NM_WIMAXNSP_H
 
-#include "nmqt-export.h"
+#include "QtNetworkManager-export.h"
 
 #include "wimaxdevice.h"
 

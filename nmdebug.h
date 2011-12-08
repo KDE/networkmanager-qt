@@ -24,6 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 
 #define nmDebug() \
-	qDebug() << "libnm-qt" << QCoreApplication::applicationName() << '(' << QCoreApplication::applicationPid() << ')' << __PRETTY_FUNCTION__ << ':'
+	qDebug() << "libQtNetworkManager" << QCoreApplication::applicationName() << '(' << QCoreApplication::applicationPid() << ')' << __PRETTY_FUNCTION__ << ':'
 
 #endif

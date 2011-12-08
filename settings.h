@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NM_SETTINGS_H
 #define NM_SETTINGS_H
 
-#include "nmqt-export.h"
+#include "QtNetworkManager-export.h"
 
 #include <QObject>
 #include "generic-types.h"

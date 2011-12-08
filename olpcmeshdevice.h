@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "device.h"
 
-#include "nmqt-export.h"
+#include "QtNetworkManager-export.h"
 
 #include <QDBusObjectPath>
 

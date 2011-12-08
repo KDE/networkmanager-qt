@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(libnm-qt)
+project(libQtNetworkManager)
 
 set(VERSION 0.9.0)
 set(CMAKE_BUILD_TYPE Debug)
@@ -11,16 +11,16 @@ set(LIB_SUFFIX "" CACHE STRING "Define suffix of library directory name (32/64)"
 find_package(Qt4 REQUIRED)
 find_package(NetworkManager REQUIRED)
 
-pkg_check_modules(LIBMMQT REQUIRED libmm-qt)
-if (NOT LIBMMQT_FOUND)
-    message(FATAL_ERROR "ERROR: libmm-qt not found")
-endif (NOT LIBMMQT_FOUND)
+pkg_check_modules(LIBMODEMMANAGERQT REQUIRED QtModemManager)
+if (NOT LIBMODEMMANAGERQT_FOUND)
+    message(FATAL_ERROR "ERROR: libQtModemManager not found")
+endif (NOT LIBMODEMMANAGERQT_FOUND)
 
 add_definitions(${QT_DEFINITIONS})
 
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES}
-                    ${LIBMMQT_INCLUDE_DIRS} ${CMAKE_INCLUDE_PATH})
-link_directories(${LIBMMQT_LIBRARY_DIRS} ${CMAKE_LIBRARY_PATH})
+                    ${LIBMODEMMANAGERQT_INCLUDE_DIRS} ${CMAKE_INCLUDE_PATH})
+link_directories(${LIBMODEMMANAGERQT_LIBRARY_DIRS} ${CMAKE_LIBRARY_PATH})
 
 include_directories(
    ${NETWORKMANAGER_INCLUDE_DIRS}
@@ -34,7 +34,7 @@ include_directories(
 
 #add_subdirectory(tests)
 
-set(nmqt_HEADERS
+set(QtNetworkManager_HEADERS
 manager.h
 device.h
 wireddevice.h
@@ -55,10 +55,10 @@ wirelessnetwork.h
 wirelessnetworkinterfaceenvironment.h
 secretagent.h
 dbus/generic-types.h
-nmqt-export.h
+QtNetworkManager-export.h
 )
 
-set(nmqt_PRIVATE_HEADERS
+set(QtNetworkManager_PRIVATE_HEADERS
 activeconnection_p.h
 bluetoothdevice_p.h
 device_p.h
@@ -73,7 +73,7 @@ wirelessnetwork_p.h
 secretagent_p.h
 )
 
-set(nmqt_PART_SRCS
+set(QtNetworkManager_PART_SRCS
    accesspoint.cpp
    activeconnection.cpp
    vpnconnection.cpp
@@ -122,25 +122,25 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-vpn-connectioninterface.cpp
    )
 
-qt4_wrap_cpp(nmqt_MOC ${nmqt_HEADERS} ${nmqt_PRIVATE_HEADERS})
+qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_HEADERS} ${QtNetworkManager_PRIVATE_HEADERS})
 qt4_automoc(${DBUS_INTERFACE_SRCS})
 
-add_library(nm-qt SHARED ${nmqt_MOC} ${nmqt_PART_SRCS} ${DBUS_INTERFACE_SRCS})
+add_library(QtNetworkManager SHARED ${QtNetworkManager_MOC} ${QtNetworkManager_PART_SRCS} ${DBUS_INTERFACE_SRCS})
 
-# TODO: dlopen libmm-qt to make it a runtime dependency instead of compile
+# TODO: dlopen libQtModemManager to make it a runtime dependency instead of compile
 # time dependency.
-target_link_libraries(nm-qt mm-qt ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
-install(TARGETS nm-qt DESTINATION lib${LIB_SUFFIX})
+target_link_libraries(QtNetworkManager QtModemManager ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
+install(TARGETS QtNetworkManager DESTINATION lib${LIB_SUFFIX})
 
 install( FILES
-   ${nmqt_HEADERS}
+   ${QtNetworkManager_HEADERS}
    DESTINATION
-   include/libnm-qt COMPONENT Devel)
+   include/QtNetworkManager COMPONENT Devel)
 
-set_property(TARGET nm-qt PROPERTY COMPILE_DEFINITIONS MAKE_NMQT_LIB)
-set_property(TARGET nm-qt PROPERTY VERSION ${VERSION})
-set_property(TARGET nm-qt PROPERTY SOVERSION 0)
+set_property(TARGET QtNetworkManager PROPERTY COMPILE_DEFINITIONS MAKE_NMQT_LIB)
+set_property(TARGET QtNetworkManager PROPERTY VERSION ${VERSION})
+set_property(TARGET QtNetworkManager PROPERTY SOVERSION 0)
 
 message(STATUS "Writing pkg-config file...")
-configure_file(${CMAKE_SOURCE_DIR}/libnm-qt.pc.cmake ${CMAKE_BINARY_DIR}/libnm-qt.pc @ONLY)
-install(FILES ${CMAKE_BINARY_DIR}/libnm-qt.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig/")
+configure_file(${CMAKE_SOURCE_DIR}/QtNetworkManager.pc.cmake ${CMAKE_BINARY_DIR}/QtNetworkManager.pc @ONLY)
+install(FILES ${CMAKE_BINARY_DIR}/QtNetworkManager.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig/")

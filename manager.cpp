@@ -159,7 +159,7 @@ NetworkManager::Device *NetworkManager::NetworkManagerPrivate::createNetworkInte
             break;
         default:
             if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
-                nmDebug() << "libnm-qt: Can't create object of type " << deviceType << "for" << uni;
+                nmDebug() << "libQtNetworkManager: Can't create object of type " << deviceType << "for" << uni;
             }
             break;
     }
