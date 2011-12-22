@@ -42,7 +42,7 @@ class NMQT_EXPORT Device : public QObject
     Q_FLAGS(Types)
     Q_DECLARE_PRIVATE(Device)
 
-    Q_PROPERTY(QString uni READ uni WRITE setUni)
+    Q_PROPERTY(QString uni READ uni)
     Q_PROPERTY(QString interfaceName READ interfaceName WRITE setInterfaceName)
     Q_PROPERTY(QString ipInterfaceName READ ipInterfaceName)
     Q_PROPERTY(QString driver READ driver WRITE setDriver)
@@ -169,7 +169,9 @@ public:
      * Only valid when device is Activated.
      */
     IPv6Config ipV6Config() const;
-    // willtodo: implement Dhcp4,6Config
+
+    // TODO: implement Dhcp4Config and Dhcp6Config
+
     /**
      * Retrieves the activation status of this network interface.
      *
@@ -208,10 +210,9 @@ public:
      * Is the firmware needed by the device missing?
      */
     bool firmwareMissing() const;
-    // willtodo: check if this can be removed/merged with uni()
+
     QString udi() const;
-    //willtodo: remove
-    void setUni(const QVariant&);
+
     void setInterfaceName(const QVariant&);
     void setDriver(const QVariant&);
     void setConnectionState(const QVariant&);

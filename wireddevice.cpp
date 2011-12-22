@@ -81,18 +81,6 @@ bool NetworkManager::WiredDevice::carrier() const
     return d->carrier;
 }
 
-void NetworkManager::WiredDevice::setCarrier(const QVariant& carrier)
-{
-    Q_D(WiredDevice);
-    d->carrier = carrier.toBool();
-}
-
-void NetworkManager::WiredDevice::setBitRate(const QVariant& bitrate)
-{
-    Q_D(WiredDevice);
-    d->bitrate = bitrate.toInt() * 1000;
-}
-
 void NetworkManager::WiredDevice::wiredPropertiesChanged(const QVariantMap &properties)
 {
     Q_D(WiredDevice);

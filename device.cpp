@@ -102,12 +102,6 @@ QString NetworkManager::Device::uni() const
     return d->uni;
 }
 
-void NetworkManager::Device::setUni(const QVariant & uni)
-{
-    Q_D(Device);
-    d->uni = uni.toString();
-}
-
 QString NetworkManager::Device::interfaceName() const
 {
     Q_D(const Device);

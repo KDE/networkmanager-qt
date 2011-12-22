@@ -37,7 +37,7 @@ Q_DECLARE_PRIVATE(WiredDevice)
 Q_PROPERTY(QString hardwareAddress READ hardwareAddress)
 Q_PROPERTY(QString permanentHardwareAddress READ permanentHardwareAddress)
 Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
-Q_PROPERTY(int bitRate READ bitRate WRITE setBitRate NOTIFY bitRateChanged)
+Q_PROPERTY(int bitRate READ bitRate NOTIFY bitRateChanged)
 
 public:
     WiredDevice(const QString & path, QObject * parent);
@@ -50,9 +50,6 @@ public:
     QString permanentHardwareAddress() const;
     int bitRate() const;
     bool carrier() const;
-    //willtodo: remove
-    void setBitRate(const QVariant&);
-    void setCarrier(const QVariant&);
 protected Q_SLOTS:
     void wiredPropertiesChanged(const QVariantMap &);
 Q_SIGNALS:

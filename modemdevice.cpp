@@ -40,7 +40,7 @@ NetworkManager::ModemDevice::ModemDevice(const QString & path, QObject * parent)
 void NetworkManager::ModemDevice::initModemProperties()
 {
     Q_D(ModemDevice);
-    //willtodo: get properties and store them
+    //TODO: get properties and store them
     d->modemCapabilities = convertModemCapabilities(d->modemIface.modemCapabilities());
     d->currentCapabilities = convertModemCapabilities(d->modemIface.currentCapabilities());
     d->m_modemUdi = getUdiForModemManager();
