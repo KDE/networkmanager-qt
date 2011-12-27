@@ -47,7 +47,9 @@ olpcmeshdevice.h
 wimaxdevice.h
 wimaxnsp.h
 ipv4config.h
+dhcp4config.h
 ipv6config.h
+dhcp6config.h
 settings.h
 activeconnection.h
 vpnconnection.h
@@ -79,7 +81,9 @@ set(QtNetworkManager_PART_SRCS
    vpnconnection.cpp
    connection.cpp
    ipv4config.cpp
+   dhcp4config.cpp
    ipv6config.cpp
+   dhcp6config.cpp
    manager.cpp
    modemdevice.cpp
    device.cpp

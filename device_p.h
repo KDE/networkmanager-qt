@@ -36,7 +36,6 @@ public:
     virtual ~DevicePrivate();
     OrgFreedesktopNetworkManagerDeviceInterface deviceIface;
     Device::Capabilities capabilities;
-    //bool isLinkUp;
     QString uni;
     QString udi;
     int designSpeed;
@@ -48,7 +47,8 @@ public:
     int ipV4Address;
     QString interfaceName;
     bool firmwareMissing;
-    NetworkManagerPrivate * manager;
+    Dhcp4Config * dhcp4Config;
+    Dhcp6Config * dhcp6Config;
 
     static NetworkManager::Device::Capabilities convertCapabilities(uint);
     static NetworkManager::Device::State convertState(uint);

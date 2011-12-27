@@ -113,7 +113,6 @@ protected Q_SLOTS:
 private:
     static AccessPoint::Capabilities convertCapabilities(int);
     static AccessPoint::WpaFlags convertWpaFlags(uint);
-private:
     AccessPointPrivate * d_ptr;
 };
 

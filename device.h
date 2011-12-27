@@ -29,6 +29,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "generic-types.h"
 #include "ipv4config.h"
 #include "ipv6config.h"
+#include "dhcp4config.h"
+#include "dhcp6config.h"
 
 namespace NetworkManager {
 class DevicePrivate;
@@ -170,7 +172,13 @@ public:
      */
     IPv6Config ipV6Config() const;
 
-    // TODO: implement Dhcp4Config and Dhcp6Config
+    /**
+     * Get the DHCP options returned by the DHCP server
+     * or 0 if the device is not Activated or does not
+     * use DHCP configuration.
+     */
+    Dhcp4Config * dhcp4Config();
+    Dhcp6Config * dhcp6Config();
 
     /**
      * Retrieves the activation status of this network interface.

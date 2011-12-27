@@ -20,15 +20,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "device.h"
 #include "device_p.h"
+#include "manager.h"
 #include "manager_p.h"
 
 #include <arpa/inet.h>
 
 #include "dbus/nm-ip4-configinterface.h"
 #include "dbus/nm-ip6-configinterface.h"
-#include "manager.h"
 
-NetworkManager::DevicePrivate::DevicePrivate( const QString & path, QObject * owner ) : deviceIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()), uni(path), designSpeed(0)
+NetworkManager::DevicePrivate::DevicePrivate( const QString & path, QObject * owner ) : deviceIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()), uni(path), designSpeed(0), dhcp4Config(0), dhcp6Config(0)
 {
     Q_UNUSED(owner);
     driver = deviceIface.driver();
@@ -248,6 +248,42 @@ NetworkManager::IPv6Config NetworkManager::Device::ipV6Config() const
             return NetworkManager::IPv6Config();
         }
     }
+}
+
+NetworkManager::Dhcp4Config * NetworkManager::Device::dhcp4Config()
+{
+    Q_D(Device);
+    QDBusObjectPath objPath = d->deviceIface.dhcp4Config();
+    if (d->connectionState != NetworkManager::Device::Activated ||
+        objPath.path().isEmpty()) {
+        delete d->dhcp4Config;
+        d->dhcp4Config = 0;
+        return 0;
+    }
+
+    if (!d->dhcp4Config || d->dhcp4Config->path() != objPath.path()) {
+        delete d->dhcp4Config;
+        d->dhcp4Config = new Dhcp4Config(objPath.path(), this);
+    }
+    return d->dhcp4Config;
+}
+
+NetworkManager::Dhcp6Config * NetworkManager::Device::dhcp6Config()
+{
+    Q_D(Device);
+    QDBusObjectPath objPath = d->deviceIface.dhcp6Config();
+    if (d->connectionState != NetworkManager::Device::Activated ||
+        objPath.path().isEmpty()) {
+        delete d->dhcp6Config;
+        d->dhcp6Config = 0;
+        return 0;
+    }
+
+    if (!d->dhcp6Config || d->dhcp6Config->path() != objPath.path()) {
+        delete d->dhcp6Config;
+        d->dhcp6Config = new Dhcp6Config(objPath.path(), this);
+    }
+    return d->dhcp6Config;
 }
 
 bool NetworkManager::Device::isActive() const
