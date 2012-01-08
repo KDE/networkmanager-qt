@@ -41,7 +41,7 @@
         Flags describing the capabilities of the device.
       </tp:docstring>
     </property>
-    <property name="Ip4Address" type="i" access="read">
+    <property name="Ip4Address" type="u" access="read">
       <tp:docstring>
         The IPv4 address bound to the device. FIXME: what about devices with >1 IP address?
       </tp:docstring>

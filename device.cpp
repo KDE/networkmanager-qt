@@ -22,6 +22,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "device_p.h"
 #include "manager.h"
 #include "manager_p.h"
+#include "nmdebug.h"
 
 #include <arpa/inet.h>
 
@@ -153,7 +154,7 @@ QString NetworkManager::Device::udi() const
 int NetworkManager::Device::ipV4Address() const
 {
     Q_D(const Device);
-    return ntohl(d->ipV4Address);
+    return d->ipV4Address;
 }
 
 NetworkManager::IPv4Config NetworkManager::Device::ipV4Config() const
@@ -346,6 +347,9 @@ void NetworkManager::Device::deviceStateChanged(uint new_state, uint old_state, 
 {
     Q_D(Device);
     d->connectionState = NetworkManager::DevicePrivate::convertState(new_state);
+    if (new_state == Activated) {
+        d->ipV4Address = d->deviceIface.ip4Address();
+    }
     emit stateChanged(d->connectionState, NetworkManager::DevicePrivate::convertState(old_state), NetworkManager::DevicePrivate::convertReason(reason));
 }
 
