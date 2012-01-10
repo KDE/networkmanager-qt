@@ -225,7 +225,7 @@ bool NetworkManager::NetworkManagerPrivate::isWimaxHardwareEnabled() const
     return m_isWimaxHardwareEnabled;
 }
 
-QDBusPendingReply<QDBusObjectPath> NetworkManager::NetworkManagerPrivate::activateConnection(const QString & interfaceUni, const QString & connectionUni, const QString & connectionParameter)
+QDBusPendingReply<QDBusObjectPath> NetworkManager::NetworkManagerPrivate::activateConnection(const QString & connectionUni, const QString & interfaceUni, const QString & connectionParameter)
 {
     QString extra_connection_parameter = connectionParameter;
     if (extra_connection_parameter.isEmpty()) {
@@ -238,7 +238,7 @@ QDBusPendingReply<QDBusObjectPath> NetworkManager::NetworkManagerPrivate::activa
     return iface.ActivateConnection(connPath, interfacePath, QDBusObjectPath(extra_connection_parameter));
 }
 
-QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::NetworkManagerPrivate::addAndActivateConnection(const QString & interfaceUni, const QVariantMapMap& connection, const QString & connectionParameter)
+QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::NetworkManagerPrivate::addAndActivateConnection(const QVariantMapMap& connection, const QString & interfaceUni, const QString & connectionParameter)
 {
     QString extra_connection_parameter = connectionParameter;
     if (extra_connection_parameter.isEmpty()) {
@@ -579,14 +579,14 @@ NetworkManager::Device * NetworkManager::findNetworkInterface(const QString & un
     return globalNetworkManager->findRegisteredNetworkInterface(uni);
 }
 
-QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::addAndActivateConnection(const QString & interfaceUni, const QVariantMapMap & connection, const QString & connectionParameter)
+QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::addAndActivateConnection(const QVariantMapMap & connection, const QString & interfaceUni, const QString & connectionParameter)
 {
-    globalNetworkManager->addAndActivateConnection(interfaceUni, connection, connectionParameter);
+    return globalNetworkManager->addAndActivateConnection(connection, interfaceUni, connectionParameter);
 }
 
-QDBusPendingReply<QDBusObjectPath> NetworkManager::activateConnection(const QString & interfaceUni, const QString & connectionUni, const QString & connectionParameter)
+QDBusPendingReply<QDBusObjectPath> NetworkManager::activateConnection(const QString & connectionUni, const QString & interfaceUni, const QString & connectionParameter)
 {
-    globalNetworkManager->activateConnection(interfaceUni, connectionUni, connectionParameter);
+    return globalNetworkManager->activateConnection(connectionUni, interfaceUni, connectionParameter);
 }
 
 void NetworkManager::deactivateConnection( const QString & activeConnectionPath )
