@@ -133,7 +133,7 @@ add_library(QtNetworkManager SHARED ${QtNetworkManager_MOC} ${QtNetworkManager_P
 
 # TODO: dlopen libQtModemManager to make it a runtime dependency instead of compile
 # time dependency.
-target_link_libraries(QtNetworkManager QtModemManager ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
+target_link_libraries(QtNetworkManager QtModemManager ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
 install(TARGETS QtNetworkManager DESTINATION lib${LIB_SUFFIX})
 
 install( FILES
