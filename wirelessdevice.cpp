@@ -130,7 +130,7 @@ NetworkManager::AccessPoint * NetworkManager::WirelessDevice::findAccessPoint(co
     QMap<QString,NetworkManager::AccessPoint *>::ConstIterator mapIt = d->apMap.constFind(uni);
     if (mapIt != d->apMap.constEnd() && mapIt.value() != 0) {
         ap = mapIt.value();
-    } else {
+    } else if (mapIt != d->apMap.constEnd()) {
         ap = new NetworkManager::AccessPoint(uni, 0);
         d->apMap.insert(uni, ap);
     }
