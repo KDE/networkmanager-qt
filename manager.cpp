@@ -506,6 +506,7 @@ void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
     QMap<QString, Device *>::const_iterator i;
     for (i = networkInterfaceMap.constBegin(); i != networkInterfaceMap.constEnd(); ++i) {
         deviceRemoved(i.key());
+        i.value()->deleteLater();
     }
     networkInterfaceMap.clear();
     qDeleteAll(m_activeConnections);
