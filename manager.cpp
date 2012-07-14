@@ -133,9 +133,9 @@ int NetworkManager::NetworkManagerPrivate::compareVersion(const QString & versio
         y = sl[1].toInt();
         z = sl[2].toInt();
     } else {
-        m_x = -1;
-        m_y = -1;
-        m_z = -1;
+        x = -1;
+        y = -1;
+        z = -1;
     }
 
     return compareVersion(x, y, z);
