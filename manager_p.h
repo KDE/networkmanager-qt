@@ -55,6 +55,14 @@ public:
     bool m_isWimaxEnabled;
     bool m_isWimaxHardwareEnabled;
 
+    // to store NetworkManager's version.
+    int m_x;
+    int m_y;
+    int m_z;
+    void parseVersion(const QString & version);
+    int compareVersion(const QString & version);
+    int compareVersion(const int x, const int y, const int z) const;
+
     bool m_isNetworkingEnabled;
     QMap<QString, ActiveConnection*> m_activeConnections;
     ActiveConnection * findRegisteredActiveConnection(const QString &);
