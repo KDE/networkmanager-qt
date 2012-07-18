@@ -147,7 +147,7 @@ int NetworkManager::NetworkManagerPrivate::compareVersion(const int x, const int
         return 1;
     } else if (x < m_x) {
         return -1;
-    } if (y > m_y) {
+    } else if (y > m_y) {
         return 1;
     } else if (y < m_y) {
         return -1;
