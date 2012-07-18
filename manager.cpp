@@ -65,7 +65,7 @@ void NetworkManager::NetworkManagerPrivate::parseVersion(const QString & version
 {
     QStringList sl = version.split('.');
 
-    if (sl.size() == 3) {
+    if (sl.size() > 2) {
         m_x = sl[0].toInt();
         m_y = sl[1].toInt();
         m_z = sl[2].toInt();
@@ -128,7 +128,7 @@ int NetworkManager::NetworkManagerPrivate::compareVersion(const QString & versio
 
     QStringList sl = version.split('.');
 
-    if (sl.size() == 3) {
+    if (sl.size() > 2) {
         x = sl[0].toInt();
         y = sl[1].toInt();
         z = sl[2].toInt();
