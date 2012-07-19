@@ -143,17 +143,17 @@ int NetworkManager::NetworkManagerPrivate::compareVersion(const QString & versio
 
 int NetworkManager::NetworkManagerPrivate::compareVersion(const int x, const int y, const int z) const
 {
-    if (x > m_x) {
+    if (m_x > x) {
         return 1;
-    } else if (x < m_x) {
+    } else if (m_x < x) {
         return -1;
-    } else if (y > m_y) {
+    } else if (m_y > y) {
         return 1;
-    } else if (y < m_y) {
+    } else if (m_y < y) {
         return -1;
-    } else if (z > m_z) {
+    } else if (m_z > z) {
         return 1;
-    } else if (z < m_z) {
+    } else if (m_z < z) {
         return -1;
     }
     return 0;
