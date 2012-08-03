@@ -25,7 +25,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "QtNetworkManager-export.h"
 
 #include <QtCore/QtGlobal>
-#include <Qt/QtDBus>
+#include <QtDBus/QtDBus>
 
 #include "device.h"
 //#include "notifier.h"
