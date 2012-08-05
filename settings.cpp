@@ -21,10 +21,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include "settings_p.h"
 #include "macros.h"
-#include <QDBusObjectPath>
-
 #include "connection.h"
 #include "manager_p.h"
+
+#include <QDBusObjectPath>
+
+#include <nm-setting-connection.h>
 
 NM_GLOBAL_STATIC(NetworkManager::Settings::SettingsPrivate, globalSettings)
 
@@ -76,7 +78,8 @@ QString NetworkManager::Settings::SettingsPrivate::addConnection(const QVariantM
 {
     QDBusPendingReply<QDBusObjectPath> reply = iface.AddConnection(connection);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, 0);
-    QString id = QUuid().toString();
+    QVariantMap connectionSettings = connection.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));    
+    QString id = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString();
     watcher->setProperty("libQtNetworkManager_id", id);
     connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this, SLOT(onConnectionAddArrived(QDBusPendingCallWatcher*)));
     return id;
