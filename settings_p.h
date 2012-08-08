@@ -52,7 +52,7 @@ namespace Settings
         OrgFreedesktopNetworkManagerSettingsInterface iface;
     protected Q_SLOTS:
         void slotConnectionAdded(const QDBusObjectPath &);
-        void connectionRemoved(const QString &);
+        void onConnectionRemoved(const QString &);
         void propertiesChanged(const QVariantMap &);
         void onConnectionAddArrived(QDBusPendingCallWatcher *);
         void daemonUnregistered();

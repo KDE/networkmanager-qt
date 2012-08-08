@@ -149,12 +149,12 @@ NetworkManager::Settings::Connection* NetworkManager::Settings::SettingsPrivate:
     } else {
         rc = new NetworkManager::Settings::Connection(path, this);
         connections.insert(path, rc);
-        connect(rc, SIGNAL(removed(QString)), this, SLOT(connectionRemoved(QString)));
+        connect(rc, SIGNAL(removed(QString)), this, SLOT(onConnectionRemoved(QString)));
     }
     return rc;
 }
 
-void NetworkManager::Settings::SettingsPrivate::connectionRemoved(const QString &path)
+void NetworkManager::Settings::SettingsPrivate::onConnectionRemoved(const QString &path)
 {
     NetworkManager::Settings::Connection *rc = connections.take(path);
     emit connectionRemoved(path);
@@ -165,7 +165,7 @@ void NetworkManager::Settings::SettingsPrivate::daemonUnregistered()
 {
     QMap<QString, Connection*>::const_iterator i;
     for (i = connections.constBegin(); i != connections.constEnd(); ++i) {
-        connectionRemoved(i.key());
+        onConnectionRemoved(i.key());
     }
     connections.clear();
 }
