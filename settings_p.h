@@ -51,7 +51,7 @@ namespace Settings
         QString m_hostname;
         OrgFreedesktopNetworkManagerSettingsInterface iface;
     protected Q_SLOTS:
-        void slotConnectionAdded(const QDBusObjectPath &);
+        void onConnectionAdded(const QDBusObjectPath &);
         void onConnectionRemoved(const QString &);
         void propertiesChanged(const QVariantMap &);
         void onConnectionAddArrived(QDBusPendingCallWatcher *);

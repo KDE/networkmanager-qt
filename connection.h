@@ -61,9 +61,9 @@ namespace Settings
     private:
         ConnectionPrivate *d_ptr;
     private Q_SLOTS:
-        void secretsArrived(QDBusPendingCallWatcher *);
-        void connectionUpdated();
-        void connectionRemoved();
+        void onSecretsArrived(QDBusPendingCallWatcher *);
+        void onConnectionUpdated();
+        void onConnectionRemoved();
     Q_SIGNALS:
         /**
          * Reports the secrets retrieved.

@@ -97,8 +97,8 @@ public:
     QStringMap permissions();
 protected Q_SLOTS:
     void init();
-    void slotDeviceAdded(const QDBusObjectPath &state);
-    void slotDeviceRemoved(const QDBusObjectPath &state);
+    void onDeviceAdded(const QDBusObjectPath &state);
+    void onDeviceRemoved(const QDBusObjectPath &state);
     void stateChanged(uint state);
     void propertiesChanged(const QVariantMap &properties);
     void daemonRegistered();

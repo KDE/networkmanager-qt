@@ -51,9 +51,9 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate() : watcher(DBUS_SE
     connect(&watcher, SIGNAL(serviceRegistered(QString)), SLOT(daemonRegistered()));
     connect(&watcher, SIGNAL(serviceUnregistered(QString)), SLOT(daemonUnregistered()));
     connect( &iface, SIGNAL(DeviceAdded(QDBusObjectPath)),
-             this, SLOT(slotDeviceAdded(QDBusObjectPath)));
+             this, SLOT(onDeviceAdded(QDBusObjectPath)));
     connect( &iface, SIGNAL(DeviceRemoved(QDBusObjectPath)),
-             this, SLOT(slotDeviceRemoved(QDBusObjectPath)));
+             this, SLOT(onDeviceRemoved(QDBusObjectPath)));
     connect( &iface, SIGNAL(PropertiesChanged(QVariantMap)),
              this, SLOT(propertiesChanged(QVariantMap)));
     connect( &iface, SIGNAL(StateChanged(uint)),
@@ -411,7 +411,7 @@ QStringMap NetworkManager::NetworkManagerPrivate::permissions()
     return iface.GetPermissions();
 }
 
-void NetworkManager::NetworkManagerPrivate::slotDeviceAdded(const QDBusObjectPath & objpath)
+void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath & objpath)
 {
     nmDebug();
     if (!networkInterfaceMap.contains(objpath.path())) {
@@ -420,7 +420,7 @@ void NetworkManager::NetworkManagerPrivate::slotDeviceAdded(const QDBusObjectPat
     emit deviceAdded(objpath.path());
 }
 
-void NetworkManager::NetworkManagerPrivate::slotDeviceRemoved(const QDBusObjectPath & objpath)
+void NetworkManager::NetworkManagerPrivate::onDeviceRemoved(const QDBusObjectPath & objpath)
 {
     nmDebug();
     NetworkManager::Device * device = networkInterfaceMap.take(objpath.path());

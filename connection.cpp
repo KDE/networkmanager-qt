@@ -82,8 +82,8 @@ NetworkManager::Settings::Connection::Connection(const QString & path, QObject *
             d->id = connectionSetting.value(QLatin1String(NM_SETTING_CONNECTION_ID)).toString();
         }
     }
-    connect(&d->iface, SIGNAL(Updated()), this, SLOT(connectionUpdated()));
-    connect(&d->iface, SIGNAL(Removed()), this, SLOT(connectionRemoved()));
+    connect(&d->iface, SIGNAL(Updated()), this, SLOT(onConnectionUpdated()));
+    connect(&d->iface, SIGNAL(Removed()), this, SLOT(onConnectionRemoved()));
 }
 
 NetworkManager::Settings::Connection::~Connection()
@@ -116,10 +116,10 @@ void NetworkManager::Settings::Connection::secrets(const QString &setting)
     QDBusPendingReply<QVariantMapMap> reply = d->iface.GetSecrets(setting);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
     watcher->setProperty("libQtNetworkManager_id", id);
-    connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this,  SLOT(secretsArrived(QDBusPendingCallWatcher*)));
+    connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this,  SLOT(onSecretsArrived(QDBusPendingCallWatcher*)));
 }
 
-void NetworkManager::Settings::Connection::secretsArrived(QDBusPendingCallWatcher *watcher)
+void NetworkManager::Settings::Connection::onSecretsArrived(QDBusPendingCallWatcher *watcher)
 {
     Q_D(Connection);
     if (!watcher)
@@ -169,14 +169,14 @@ QString NetworkManager::Settings::Connection::path() const
     return d->path;
 }
 
-void NetworkManager::Settings::Connection::connectionUpdated()
+void NetworkManager::Settings::Connection::onConnectionUpdated()
 {
     Q_D(Connection);
     d->connection = d->iface.GetSettings();
     emit updated(d->connection);
 }
 
-void NetworkManager::Settings::Connection::connectionRemoved()
+void NetworkManager::Settings::Connection::onConnectionRemoved()
 {
     Q_D(Connection);
     emit removed(d->path);
