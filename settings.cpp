@@ -35,6 +35,10 @@ NetworkManager::Settings::SettingsPrivate::SettingsPrivate()
 {
     connect(NetworkManager::notifier(), SIGNAL(serviceDisappeared()), this, SLOT(daemonUnregistered()));
     connect(NetworkManager::notifier(), SIGNAL(serviceAppeared()), this, SLOT(init()));
+
+    if (NetworkManager::status() != NetworkManager::Unknown) {
+        init();
+    }
 }
 
 void NetworkManager::Settings::SettingsPrivate::init()
