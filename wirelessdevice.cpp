@@ -209,7 +209,8 @@ void NetworkManager::WirelessDevice::accessPointRemoved(const QDBusObjectPath &a
     }
     NetworkManager::AccessPoint * ap = d->apMap.take(apPath.path());
     emit accessPointDisappeared(apPath.path());
-    ap->deleteLater();
+    if (ap)
+        ap->deleteLater();
 }
 
 NetworkManager::WirelessDevice::OperationMode NetworkManager::WirelessDevice::convertOperationMode(uint theirMode)
