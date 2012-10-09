@@ -172,7 +172,12 @@ QString NetworkManager::Settings::Connection::path() const
 void NetworkManager::Settings::Connection::onConnectionUpdated()
 {
     Q_D(Connection);
-    d->connection = d->iface.GetSettings();
+    QDBusReply<QVariantMapMap> reply = d->iface.GetSettings();
+    if (reply.isValid()) {
+        d->connection = reply.value();
+    } else {
+        d->connection = QVariantMapMap();
+    }
     emit updated(d->connection);
 }
 
