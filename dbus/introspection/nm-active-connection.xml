@@ -2,11 +2,25 @@
 
 <node name="/" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <interface name="org.freedesktop.NetworkManager.Connection.Active">
+      <tp:docstring>
+      Objects that implement the Connection.Active interface represent an attempt
+      to connect to a network using the details provided by a Connection object.
+      The Connection.Active object tracks the life-cycle of the connection
+      attempt and if successful indicates whether the connected network is the
+      "default" or preferred network for access.
+    </tp:docstring>
+
     <property name="Connection" type="o" access="read">
       <tp:docstring>The path of the connection.</tp:docstring>
     </property>
     <property name="SpecificObject" type="o" access="read">
       <tp:docstring>A specific object associated with the active connection.</tp:docstring>
+    </property>
+    <property name="Uuid" type="s" access="read">
+      <tp:docstring>
+        The UUID of the connection, provided as a convenience so that clients
+        do not have to retrieve all connection details.
+      </tp:docstring>
     </property>
     <property name="Devices" type="ao" access="read">
       <tp:docstring>Array of object paths representing devices which are part of this active connection.</tp:docstring>
@@ -22,6 +36,9 @@
     </property>
     <property name="Vpn" type="b" access="read">
       <tp:docstring>Whether this active connection is also a VPN connection.</tp:docstring>
+    </property>
+    <property name="Master" type="o" access="read">
+      <tp:docstring>The path to the master device if the connection is a slave.</tp:docstring>
     </property>
 
     <signal name="PropertiesChanged">

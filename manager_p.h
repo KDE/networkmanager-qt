@@ -75,6 +75,7 @@ public:
     NetworkManager::Status status() const;
     DeviceList networkInterfaces();
     Device * findNetworkInterface(const QString &uni);
+    Device * findDeviceByIpIface(const QString &iface);
     bool isNetworkingEnabled() const;
     bool isWirelessEnabled() const;
     bool isWirelessHardwareEnabled() const;

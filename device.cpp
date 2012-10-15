@@ -29,6 +29,67 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "dbus/nm-ip4-configinterface.h"
 #include "dbus/nm-ip6-configinterface.h"
 
+namespace NetworkManager
+{
+class DeviceStateReason::Private
+{
+public:
+    Private(Device::State st, Device::StateChangeReason rsn):
+	state(st),
+	reason(rsn)
+    {}
+    Private():
+	state(Device::UnknownState),
+	reason(Device::UnknownReason)
+    {}
+    Device::State state;
+    Device::StateChangeReason reason;
+};
+}
+
+NetworkManager::DeviceStateReason::DeviceStateReason(Device::State state, Device::StateChangeReason reason)
+: d(new Private(state, reason))
+{
+}
+
+NetworkManager::DeviceStateReason::DeviceStateReason(const NetworkManager::DeviceStateReason &other)
+: d(new Private(*other.d))
+{
+}
+
+NetworkManager::DeviceStateReason::~DeviceStateReason()
+{
+    delete d;
+}
+
+NetworkManager::Device::State NetworkManager::DeviceStateReason::state() const
+{
+    return d->state;
+}
+
+NetworkManager::Device::StateChangeReason NetworkManager::DeviceStateReason::reason() const
+{
+    return d->reason;
+}
+
+NetworkManager::DeviceStateReason & NetworkManager::DeviceStateReason::operator=(const NetworkManager::DeviceStateReason &other)
+{
+    if (&other != this) {
+	*d = *other.d;
+    }
+    return *this;
+}
+
+void NetworkManager::DeviceStateReason::setState(const Device::State state)
+{
+    d->state = state;
+}
+
+void NetworkManager::DeviceStateReason::setReason(const Device::StateChangeReason reason)
+{
+    d->reason = reason;
+}
+
 NetworkManager::DevicePrivate::DevicePrivate( const QString & path, QObject * owner ) : deviceIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()), uni(path), designSpeed(0), dhcp4Config(0), dhcp6Config(0)
 {
     Q_UNUSED(owner);
@@ -38,11 +99,14 @@ NetworkManager::DevicePrivate::DevicePrivate( const QString & path, QObject * ow
     managed = deviceIface.managed();
     udi = deviceIface.udi();
     firmwareMissing = deviceIface.firmwareMissing();
+    driverVersion = deviceIface.driverVersion();
+    firmwareVersion = deviceIface.firmwareVersion();
+    autoconnect = deviceIface.autoconnect();
+    reason = NetworkManager::DevicePrivate::convertReason(deviceIface.stateReason().reason);
 }
 
 NetworkManager::DevicePrivate::~DevicePrivate()
 {
-
 }
 
 NetworkManager::Device::Capabilities NetworkManager::DevicePrivate::convertCapabilities(uint theirCaps)
@@ -64,7 +128,6 @@ NetworkManager::Device::StateChangeReason NetworkManager::DevicePrivate::convert
     NetworkManager::Device::StateChangeReason ourReason = (NetworkManager::Device::StateChangeReason)theirReason;
     return ourReason;
 }
-
 
 NetworkManager::Device::Device(const QString & path, QObject * parent) : QObject(parent), d_ptr(new DevicePrivate(path, this))
 {
@@ -127,6 +190,18 @@ QString NetworkManager::Device::driver() const
     return d->driver;
 }
 
+QString NetworkManager::Device::driverVersion() const
+{
+    Q_D(const Device);
+    return d->driverVersion;
+}
+
+QString NetworkManager::Device::firmwareVersion() const
+{
+    Q_D(const Device);
+    return d->firmwareVersion;
+}
+
 NetworkManager::ActiveConnection *NetworkManager::Device::activeConnection()
 {
     Q_D(const Device);
@@ -137,6 +212,19 @@ bool NetworkManager::Device::firmwareMissing() const
 {
     Q_D(const Device);
     return d->firmwareMissing;
+}
+
+bool NetworkManager::Device::autoconnect() const
+{
+    Q_D(const Device);
+    return d->autoconnect;
+}
+
+void NetworkManager::Device::setAutoconnect(const QVariant & autoconnect)
+{
+    Q_D(Device);
+    d->autoconnect = autoconnect.toBool();
+    d->deviceIface.setAutoconnect(d->autoconnect);
 }
 
 void NetworkManager::Device::setDriver(const QVariant & driver)
@@ -155,6 +243,12 @@ int NetworkManager::Device::ipV4Address() const
 {
     Q_D(const Device);
     return d->ipV4Address;
+}
+
+NetworkManager::DeviceStateReason NetworkManager::Device::stateReason() const
+{
+    Q_D(const Device);
+    return DeviceStateReason(d->connectionState, d->reason);
 }
 
 NetworkManager::IPv4Config NetworkManager::Device::ipV4Config() const
@@ -347,6 +441,7 @@ void NetworkManager::Device::deviceStateChanged(uint new_state, uint old_state, 
 {
     Q_D(Device);
     d->connectionState = NetworkManager::DevicePrivate::convertState(new_state);
+    d->reason = NetworkManager::DevicePrivate::convertReason(reason);
     if (new_state == Activated) {
         d->ipV4Address = d->deviceIface.ip4Address();
     }

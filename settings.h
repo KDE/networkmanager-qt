@@ -48,6 +48,7 @@ namespace Settings
     NMQT_EXPORT QList<NetworkManager::Settings::Connection*> listConnections();
     NMQT_EXPORT NetworkManager::Settings::Connection* findConnection(const QString &);
     NMQT_EXPORT QString addConnection(const QVariantMapMap &);
+    NMQT_EXPORT NetworkManager::Settings::Connection * findConnectionByUuid(const QString&);
     NMQT_EXPORT void saveHostname(const QString &);
     NMQT_EXPORT bool canModify();
     NMQT_EXPORT QString hostname();

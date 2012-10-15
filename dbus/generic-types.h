@@ -71,4 +71,15 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, IpV6DBusRoute &ro
 // ipv6 nameservers
 typedef QList<QByteArray> IpV6DBusNameservers;
 Q_DECLARE_METATYPE(IpV6DBusNameservers)
+
+typedef struct
+{
+    uint state;
+    uint reason;
+} DeviceDBusStateReason;
+Q_DECLARE_METATYPE(DeviceDBusStateReason)
+
+QDBusArgument &operator<<(QDBusArgument &argument, const DeviceDBusStateReason &reason);
+const QDBusArgument &operator>>(const QDBusArgument &argument, DeviceDBusStateReason &reason);
+
 #endif // GENERIC_TYPES_H

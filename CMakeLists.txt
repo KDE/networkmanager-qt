@@ -125,6 +125,7 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-settingsinterface.cpp
    dbus/nm-settings-connectioninterface.cpp
    dbus/nm-vpn-connectioninterface.cpp
+   dbus/nm-vpn-plugininterface.cpp
    )
 
 qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_HEADERS} ${QtNetworkManager_PRIVATE_HEADERS})

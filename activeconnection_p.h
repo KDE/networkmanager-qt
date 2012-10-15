@@ -44,6 +44,8 @@ namespace NetworkManager
         QString specificObject;
         ActiveConnection::State state;
         bool vpn;
+	QString uuid;
+	QString master;
         OrgFreedesktopNetworkManagerConnectionActiveInterface iface;
     };
 }

@@ -25,7 +25,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore/QtGlobal>
 
 #include "QtNetworkManager-export.h"
-
 #include "generic-types.h"
 #include "ipv4config.h"
 #include "ipv6config.h"
@@ -35,6 +34,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 namespace NetworkManager {
 class DevicePrivate;
 class ActiveConnection;
+class DeviceStateReason;
 
 class NMQT_EXPORT Device : public QObject
 {
@@ -48,11 +48,15 @@ class NMQT_EXPORT Device : public QObject
     Q_PROPERTY(QString interfaceName READ interfaceName WRITE setInterfaceName)
     Q_PROPERTY(QString ipInterfaceName READ ipInterfaceName)
     Q_PROPERTY(QString driver READ driver WRITE setDriver)
+    Q_PROPERTY(QString driverVersion READ driverVersion)
+    Q_PROPERTY(QString firmwareVersion READ firmwareVersion)
     Q_PROPERTY(QVariant genericCapabilities READ capabilitiesV WRITE setCapabilitiesV)
     Q_PROPERTY(int ipV4Address READ ipV4Address)
     Q_PROPERTY(bool managed READ managed WRITE setManaged)
     Q_PROPERTY(QString udi READ udi)
     Q_PROPERTY(bool firmwareMissing READ firmwareMissing)
+    Q_PROPERTY(bool autoconnect READ autoconnect WRITE setAutoconnect)
+    Q_PROPERTY(DeviceStateReason stateReason READ stateReason)
 
     //Q_PROPERTY(Solid::Control::IPv4Config ipV4Config READ ipV4Config WRITE setIpV4Config)
     Q_PROPERTY(State State READ state)
@@ -86,7 +90,9 @@ public:
                                     GsmPinCheckFailedReason=34, FirmwareMissingReason=35, DeviceRemovedReason=36,
                                     SleepingReason=37, ConnectionRemovedReason=38, UserRequestedReason=39, CarrierReason=40,
                                     ConnectionAssumedReason=41, SupplicantAvailableReason=42, ModemNotFoundReason=43, BluetoothFailedReason=44,
-                                    Reserved = 65536 };
+                                    GsmSimNotInserted=45, GsmSimPinRequired=46, GsmSimPukRequired=47,GsmSimWrong=48 , InfiniBandMode=49,
+				    DependencyFailed=50, Br2684Failed=51, ModemManagerUnavailable=52, SsidNotFound=53, SecondaryConnectionFailed=54,
+				    Reserved = 65536 };
     /**
      * Possible Device capabilities
      * - IsManageable: denotes that the device can be controlled by this API
@@ -104,7 +110,8 @@ public:
      * - OlpcMesh: OLPC Mesh networking device
      * - Wimax: WiMax WWAN technology
      */
-    enum Type { UnknownType = 0x0, Ethernet = 0x1, Wifi = 0x2, Unused1 = 0x3, Unused2 = 0x4, Bluetooth = 0x5, OlpcMesh = 0x6, Wimax = 0x7, Modem = 0x8 };
+    enum Type { UnknownType = 0x0, Ethernet = 0x1, Wifi = 0x2, Unused1 = 0x3, Unused2 = 0x4, Bluetooth = 0x5, OlpcMesh = 0x6, Wimax = 0x7, Modem = 0x8,
+		InfiniBand = 0x9, Bond = 0x10, VLAN = 0x11, ADSL = 0x12};
 
     Q_DECLARE_FLAGS(Capabilities, Capability)
     Q_DECLARE_FLAGS(Types, Type)
@@ -155,6 +162,14 @@ public:
      * Handle for the system driver controlling this network interface
      */
     QString driver() const;
+    /**
+     * The driver version.
+     */
+    QString driverVersion() const;
+    /**
+     * The firmware version.
+     */
+    QString firmwareVersion() const;
     /**
      * Disconnects a device and prevents the device from automatically
      * activating further connections without user intervention.
@@ -218,9 +233,17 @@ public:
      * Is the firmware needed by the device missing?
      */
     bool firmwareMissing() const;
-
+    /**
+     * If the device is allowed to autoconnect.
+     */
+    bool autoconnect() const;
+    /**
+     * The current state and reason for changing to that state.
+     */
+    DeviceStateReason stateReason() const;
     QString udi() const;
 
+    void setAutoconnect(const QVariant&);
     void setInterfaceName(const QVariant&);
     void setDriver(const QVariant&);
     void setConnectionState(const QVariant&);
@@ -256,6 +279,23 @@ typedef QList<Device*> DeviceList;
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Capabilities)
 Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Types)
+
+class NMQT_EXPORT DeviceStateReason
+{
+public:
+    DeviceStateReason(Device::State state, Device::StateChangeReason reason);
+    DeviceStateReason(const DeviceStateReason&);
+    ~DeviceStateReason();
+    Device::State state() const;
+    Device::StateChangeReason reason() const;
+    DeviceStateReason &operator=(const DeviceStateReason&);
+private:
+    void setState(const Device::State state);
+    void setReason(const Device::StateChangeReason reason);
+
+    class Private;
+    Private * d;
+};
 
 }
 

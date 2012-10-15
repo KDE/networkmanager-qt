@@ -153,6 +153,11 @@ namespace NetworkManager {
      */
     NMQT_EXPORT Device * findNetworkInterface(const QString &uni);
     /**
+     * Return the network device referenced by its IP
+       interface name. This is not system independent so programs that will use this method will not be portable.
+     */
+    NMQT_EXPORT Device * findDeviceByIpFace(const QString &iface);
+    /**
      * Retrieves the status of networking (as a whole) in the system.
      * This is distinct from whether the system's networking is online or offline.
      * To check that, see @ref NetworkStatus.

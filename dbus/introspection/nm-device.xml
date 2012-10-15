@@ -36,12 +36,22 @@
         The driver handling the device.
       </tp:docstring>
     </property>
+    <property name="DriverVersion" type="s" access="read">
+      <tp:docstring>
+        The version of the driver handling the device.
+      </tp:docstring>
+    </property>
+    <property name="FirmwareVersion" type="s" access="read">
+      <tp:docstring>
+        The firmware version for the device.
+      </tp:docstring>
+    </property>
     <property name="Capabilities" type="u" access="read" tp:type="NM_DEVICE_CAP">
       <tp:docstring>
         Flags describing the capabilities of the device.
       </tp:docstring>
     </property>
-    <property name="Ip4Address" type="u" access="read">
+    <property name="Ip4Address" type="i" access="read">
       <tp:docstring>
         The IPv4 address bound to the device. FIXME: what about devices with >1 IP address?
       </tp:docstring>
@@ -50,6 +60,12 @@
       <tp:docstring>
         The current state of the device.
       </tp:docstring>
+    </property>
+    <property name="StateReason" type="(uu)" access="read" tp:type="NM_DEVICE_STATE_REASON_STRUCT">
+      <annotation name="com.trolltech.QtDBus.QtTypeName"  value="DeviceDBusStateReason"/>
+	<tp:docstring>
+	    The current state and reason for changing to that state.
+	</tp:docstring>
     </property>
     <property name="ActiveConnection" type="o" access="read">
         <tp:docstring>
@@ -86,6 +102,14 @@
         Whether or not this device is managed by NetworkManager.
       </tp:docstring>
     </property>
+    <property name="Autoconnect" type="b" access="readwrite">
+      <tp:docstring>
+        If TRUE, indicates the device is allowed to autoconnect.  If FALSE,
+        manual intervention is required before the device will automatically
+        connect to a known network, such as activating a connection using the
+        device, or setting this property to TRUE.
+      </tp:docstring>
+    </property>
     <property name="FirmwareMissing" type="b" access="read">
       <tp:docstring>
         If TRUE, indicates the device is likely missing firmware necessary for
@@ -95,6 +119,11 @@
     <property name="DeviceType" type="u" access="read" tp:type="NM_DEVICE_TYPE">
       <tp:docstring>
         The general type of the network device; ie Ethernet, WiFi, etc.
+      </tp:docstring>
+    </property>
+    <property name="AvailableConnections" type="ao" access="read">
+      <tp:docstring>
+        An array of object paths of every configured connection that is currently 'available' through this device.
       </tp:docstring>
     </property>
 
@@ -234,6 +263,26 @@
           The device is a modem supporting one or more of analog telephone,
           CDMA/EVDO, GSM/UMTS/HSPA, or LTE standards to access a cellular or
           wireline data network.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="INFINIBAND" value="9">
+        <tp:docstring>
+          The device is an IP-capable InfiniBand interface.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="BOND" value="10">
+        <tp:docstring>
+          The device is a bond master interface.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="VLAN" value="11">
+        <tp:docstring>
+          The device is a VLAN interface.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="ADSL" value="12">
+        <tp:docstring>
+          The device is an ADSL device supporting PPPoE and PPPoATM protocols.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -475,8 +524,69 @@
         <tp:docstring>
           The Bluetooth connection timed out or failed.
         </tp:docstring>
+      <tp:enumvalue suffix="GSM_SIM_NOT_INSERTED" value="45">
+        <tp:docstring>
+          GSM Modem's SIM Card not inserted.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="GSM_SIM_PIN_REQUIRED" value="46">
+        <tp:docstring>
+          GSM Modem's SIM Pin required.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="GSM_SIM_PUK_REQUIRED" value="47">
+        <tp:docstring>
+          GSM Modem's SIM Puk required.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="GSM_SIM_WRONG" value="48">
+        <tp:docstring>
+          GSM Modem's SIM wrong
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="INFINIBAND_MODE" value="49">
+        <tp:docstring>
+          InfiniBand device does not support connected mode.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="DEPENDENCY_FAILED" value="50">
+        <tp:docstring>
+          A dependency of the connection failed.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="BR2684_FAILED" value="51">
+        <tp:docstring>
+          Problem with the RFC 2684 Ethernet over ADSL bridge.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="MODEM_MANAGER_UNAVAILABLE" value="52">
+        <tp:docstring>
+          ModemManager was not running or quit unexpectedly.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="SSID_NOT_FOUND" value="53">
+        <tp:docstring>
+          The 802.11 Wi-Fi network could not be found.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="SECONDARY_CONNECTION_FAILED" value="54">
+        <tp:docstring>
+          A secondary connection of the base connection failed.
+        </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
 
+    <tp:struct name="NM_DEVICE_STATE_REASON_STRUCT">
+      <tp:member type="u" name="state" tp:type="NM_DEVICE_STATE">
+        <tp:docstring>
+          The device state.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="u" name="reason" tp:type="NM_DEVICE_STATE_REASON">
+        <tp:docstring>
+          The reason for originally changing to the device state.
+        </tp:docstring>
+      </tp:member>
+    </tp:struct>
   </interface>
 </node>

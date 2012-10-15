@@ -244,6 +244,19 @@ NetworkManager::DeviceList NetworkManager::NetworkManagerPrivate::networkInterfa
     return list;
 }
 
+NetworkManager::Device* NetworkManager::NetworkManagerPrivate::findDeviceByIpIface (const QString& iface)
+{
+    QMap<QString, Device *>::const_iterator i;
+    for (i = networkInterfaceMap.constBegin(); i != networkInterfaceMap.constEnd(); ++i) {
+        Device * networkInterface = findRegisteredNetworkInterface(i.key());
+        if (networkInterface && networkInterface->interfaceName() == iface) {
+            return networkInterface;
+        }
+    }
+
+    return 0;
+}
+
 bool NetworkManager::NetworkManagerPrivate::isNetworkingEnabled() const
 {
     return m_isNetworkingEnabled;
@@ -642,6 +655,11 @@ bool NetworkManager::isWirelessHardwareEnabled()
 NetworkManager::Device * NetworkManager::findNetworkInterface(const QString & uni)
 {
     return globalNetworkManager->findRegisteredNetworkInterface(uni);
+}
+
+NetworkManager::Device* NetworkManager::findDeviceByIpFace (const QString& iface)
+{
+    return globalNetworkManager->findDeviceByIpIface(iface);
 }
 
 QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::addAndActivateConnection(const QVariantMapMap & connection, const QString & interfaceUni, const QString & connectionParameter)

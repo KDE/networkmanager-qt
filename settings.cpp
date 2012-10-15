@@ -68,6 +68,19 @@ QList<NetworkManager::Settings::Connection*> NetworkManager::Settings::SettingsP
     return list;
 }
 
+NetworkManager::Settings::Connection * NetworkManager::Settings::SettingsPrivate::findConnectionByUuid(const QString & uuid)
+{
+    QList<NetworkManager::Settings::Connection*> list;
+    QMap<QString, Connection*>::const_iterator i;
+    for (i = connections.constBegin(); i != connections.constEnd(); ++i) {
+        NetworkManager::Settings::Connection * connection = findRegisteredConnection(i.key());
+	if (connection->uuid() == uuid)
+	    return connection;
+    }
+
+    return 0;
+}
+
 QString NetworkManager::Settings::SettingsPrivate::hostname() const
 {
     return m_hostname;
@@ -173,6 +186,11 @@ void NetworkManager::Settings::SettingsPrivate::daemonUnregistered()
 QList<NetworkManager::Settings::Connection*> NetworkManager::Settings::listConnections()
 {
     return globalSettings->listConnections();
+}
+
+NetworkManager::Settings::Connection * NetworkManager::Settings::findConnectionByUuid (const QString & uuid)
+{
+    return globalSettings->findConnectionByUuid(uuid);
 }
 
 NetworkManager::Settings::Connection* NetworkManager::Settings::findConnection(const QString &path)

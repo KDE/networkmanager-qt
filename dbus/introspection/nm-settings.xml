@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<node name="/" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<node name="/org/freedesktop/NetworkManager/Settings" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <interface name="org.freedesktop.NetworkManager.Settings">
     <tp:docstring>
       The Settings interface allows clients to view and administrate the connections stored and used by NetworkManager.
@@ -14,6 +14,23 @@
       <arg name="connections" type="ao" direction="out">
         <tp:docstring>
           List of connections.
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <method name="GetConnectionByUuid">
+      <tp:docstring>
+        Retrieve the object path of a connection, given that connection's UUID.
+      </tp:docstring>
+      <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_settings_get_connection_by_uuid"/>
+      <arg name="uuid" type="s" direction="in">
+        <tp:docstring>
+          The UUID to find the connection object path for.
+        </tp:docstring>
+      </arg>
+      <arg name="connection" type="o" direction="out">
+        <tp:docstring>
+          The connection's object path.
         </tp:docstring>
       </arg>
     </method>

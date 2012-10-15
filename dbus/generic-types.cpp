@@ -84,3 +84,19 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, QStringMap & mydi
     argument.endMap();
     return argument;
 }
+
+QDBusArgument &operator<<(QDBusArgument &argument, const DeviceDBusStateReason & reason)
+{
+    argument.beginStructure();
+    argument << reason.state << reason.reason;
+    argument.endStructure();
+    return argument;
+}
+
+const QDBusArgument &operator>>(const QDBusArgument &argument, DeviceDBusStateReason &reason)
+{
+    argument.beginStructure();
+    argument >> reason.state >> reason.reason;
+    argument.endStructure();
+    return argument;
+}

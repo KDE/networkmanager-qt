@@ -87,6 +87,12 @@ QStringList NetworkManager::WirelessDevice::accessPoints() const
     return d->apMap.keys();
 }
 
+QDBusPendingReply<> NetworkManager::WirelessDevice::requestScan(QVariantMap & options)
+{
+    Q_D(WirelessDevice);
+    return d->wirelessIface.RequestScan(options);
+}
+
 QString NetworkManager::WirelessDevice::activeAccessPoint() const
 {
     Q_D(const WirelessDevice);

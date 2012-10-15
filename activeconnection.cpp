@@ -23,6 +23,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "connection.h"
 #include "settings.h"
 #include "device.h"
+#include "manager.h"
 
 #include <QDBusObjectPath>
 
@@ -40,6 +41,8 @@ NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &
     specificObject = iface.specificObject().path();
     state = NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(iface.state());
     vpn = iface.vpn();
+    uuid = iface.uuid();
+    master = iface.master().path();
     foreach (const QDBusObjectPath &devicePath, iface.devices()) {
         devices.append(devicePath.path());
     }
@@ -101,6 +104,12 @@ bool NetworkManager::ActiveConnection::default6() const
     return d->default6;
 }
 
+NetworkManager::Device* NetworkManager::ActiveConnection::master() const
+{
+    Q_D(const ActiveConnection);
+    return NetworkManager::findNetworkInterface(d->master);
+}
+
 QString NetworkManager::ActiveConnection::specificObject() const
 {
     Q_D(const ActiveConnection);
@@ -117,6 +126,12 @@ bool NetworkManager::ActiveConnection::vpn() const
 {
     Q_D(const ActiveConnection);
     return d->vpn;
+}
+
+QString NetworkManager::ActiveConnection::uuid() const
+{
+    Q_D(const ActiveConnection);
+    return d->uuid;
 }
 
 QStringList NetworkManager::ActiveConnection::deviceUnis() const
@@ -143,9 +158,11 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap & cha
     QLatin1String connectionKey("Connection"),
                   default4Key("Default"),
                   default6Key("Default6"),
+                  master("Master"),
                   specificObjectKey("SpecificObject"),
                   stateKey("State"),
                   vpnKey("Vpn"),
+                  uuid("Uuid"),
                   devicesKey("Devices");
     QVariantMap::const_iterator it = changedProperties.find(connectionKey);
     if (it != changedProperties.end()) {
@@ -165,6 +182,12 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap & cha
         emit default6Changed(d->default6);
         propKeys.removeOne(default6Key);
     }
+    it = changedProperties.find(master);
+    if (it != changedProperties.end()) {
+	d->master = qdbus_cast<QDBusObjectPath>(*it).path();
+	emit masterChanged(NetworkManager::findNetworkInterface(d->master));
+	propKeys.removeOne(master);
+    }
     it = changedProperties.find(specificObjectKey);
     if (it != changedProperties.end()) {
         d->specificObject = qdbus_cast<QDBusObjectPath>(*it).path();
@@ -182,6 +205,12 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap & cha
         d->vpn = it->toBool();
         emit vpnChanged(d->vpn);
         propKeys.removeOne(vpnKey);
+    }
+    it = changedProperties.find(uuid);
+    if (it != changedProperties.end()) {
+	d->uuid = it->toString();
+	emit uuidChanged(d->uuid);
+	propKeys.removeOne(uuid);
     }
     it = changedProperties.find(devicesKey);
     if (it != changedProperties.end()) {

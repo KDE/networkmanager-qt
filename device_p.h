@@ -49,6 +49,10 @@ public:
     bool firmwareMissing;
     Dhcp4Config * dhcp4Config;
     Dhcp6Config * dhcp6Config;
+    QString driverVersion;
+    QString firmwareVersion;
+    bool autoconnect;
+    Device::StateChangeReason reason;
 
     static NetworkManager::Device::Capabilities convertCapabilities(uint);
     static NetworkManager::Device::State convertState(uint);

@@ -73,6 +73,10 @@ public:
      */
     bool default6() const;
     /**
+     * Returns the master device if the connection is a slave.
+     */
+    NetworkManager::Device* master() const;
+    /**
      * The path of the specific object associated with the connection.
      */
     QString specificObject() const;
@@ -84,6 +88,10 @@ public:
      * Whether this is a VPN connection
      */
     bool vpn() const;
+    /**
+     * The UUID of the connection.
+     */
+    QString uuid() const;
     /**
      * list of device UNIs which are part of this connection.
      */
@@ -113,6 +121,10 @@ Q_SIGNALS:
      */
     void default6Changed(bool);
     /**
+     * The master device changed.
+     */
+    void masterChanged(NetworkManager::Device*);
+    /**
      * The specific object changed
      */
     void specificObjectChanged(const QString &);
@@ -124,6 +136,10 @@ Q_SIGNALS:
      * The VPN property changed.
      */
     void vpnChanged(bool);
+    /**
+     * The uuid changed.
+     */
+    void uuidChanged(QString);
     /**
      * The list of devices changed.
      */

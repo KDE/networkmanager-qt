@@ -25,6 +25,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "device.h"
 
 #include <QDBusObjectPath>
+#include <QDBusPendingReply>
 
 namespace NetworkManager
 {
@@ -82,6 +83,11 @@ public:
      * List of wireless networks currently visible to the hardware
      */
     AccessPointList accessPoints() const;
+    /**
+     * @param options Options of scan
+     * No documentation for options yet, see http://projects.gnome.org/NetworkManager/developers/api/09/spec.html#org.freedesktop.NetworkManager.Device.Wireless
+     */
+    QDBusPendingReply<> requestScan(QVariantMap & options);
     /**
      * Identifier of the network this interface is currently associated with
      */
