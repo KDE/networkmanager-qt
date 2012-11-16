@@ -19,4 +19,4 @@ set(exampleQtNetworkManager_SRCS
 )
 
 add_executable(exampleQtNetworkManager ${exampleQtNetworkManager_SRCS})
-target_link_libraries(exampleQtNetworkManager QtNetworkManager)
+target_link_libraries(exampleQtNetworkManager QtNetworkManager QtCore QtNetwork)
