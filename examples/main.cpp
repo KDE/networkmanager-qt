@@ -63,6 +63,7 @@ int main()
                 QHostAddress addr;
                 addr.setAddress(dev->ipV4Config().addresses().at(0).address());
                 qout << "ip address: " << addr.toString() << "\n";
+                qout << "ip address (raw): " << dev->ipV4Address() << "\n";
 
                 if (dev->ipV4Config().routes().isEmpty()) {
                     qout << "default gateway: <not set>\n";
