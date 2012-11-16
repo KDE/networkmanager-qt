@@ -79,6 +79,7 @@ void NetworkManager::NetworkManagerPrivate::parseVersion(const QString & version
 void NetworkManager::NetworkManagerPrivate::init()
 {
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
+    qDBusRegisterMetaType<DeviceDBusStateReason>();
     nmState = iface.state();
     parseVersion(iface.version());
     m_isWirelessHardwareEnabled = iface.wirelessHardwareEnabled();
