@@ -24,6 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QtNetworkManager/manager.h>
 #include <QtNetworkManager/device.h>
+#include <QtNetworkManager/activeconnection.h>
+#include <QtNetworkManager/connection.h>
+#include <QtNetworkManager/connectionsettings.h>
 
 QString typeAsString(const int type)
 {
@@ -95,4 +98,12 @@ int main()
         }
     }
     qout << "\n";
+
+    QList<NetworkManager::ActiveConnection*> lst = NetworkManager::activeConnections();
+
+    foreach (const NetworkManager::ActiveConnection * con, lst) {
+	NetworkManager::Settings::ConnectionSettings * settings = new NetworkManager::Settings::ConnectionSettings();
+	settings->fromMap(con->connection()->settings());
+	qDebug() << "\n\n";
+    }
 }

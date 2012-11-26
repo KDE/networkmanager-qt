@@ -27,6 +27,7 @@ include_directories(
    ${NM-UTIL_INCLUDE_DIRS}
    ${NM-GLIB_INCLUDE_DIRS}
    ${CMAKE_CURRENT_SOURCE_DIR}/dbus
+   ${CMAKE_CURRENT_SOURCE_DIR}/settings
    ${CMAKE_CURRENT_BUILD_DIR}
 )
 
@@ -34,6 +35,8 @@ include_directories(
 #add_subdirectory(fakemanager)
 
 #add_subdirectory(tests)
+
+#add_subdirectory(settings)
 
 set(QtNetworkManager_HEADERS
 manager.h
@@ -74,6 +77,9 @@ wireddevice_p.h
 wirelessdevice_p.h
 wirelessnetwork_p.h
 secretagent_p.h
+settings/connectionsettings_p.h
+settings/802-3-ethernet_p.h
+settings/gsmsetting_p.h
 )
 
 set(QtNetworkManager_PART_SRCS
@@ -128,10 +134,24 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-vpn-plugininterface.cpp
    )
 
-qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_HEADERS} ${QtNetworkManager_PRIVATE_HEADERS})
+set(CONNECTIONS_SETTINGS_SRCS
+    settings/setting.cpp
+    settings/connectionsettings.cpp
+    settings/802-3-ethernet.cpp
+    settings/gsmsetting.cpp
+    )
+
+set(CONNECTIONS_SETTINGS_HEADERS
+    settings/setting.h
+    settings/connectionsettings.h
+    settings/802-3-ethernet.h
+    settings/gsmsetting.h
+    )
+
+qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_HEADERS} ${QtNetworkManager_PRIVATE_HEADERS} ${CONNECTIONS_SETTINGS_HEADERS})
 qt4_automoc(${DBUS_INTERFACE_SRCS})
 
-add_library(QtNetworkManager SHARED ${QtNetworkManager_MOC} ${QtNetworkManager_PART_SRCS} ${DBUS_INTERFACE_SRCS})
+add_library(QtNetworkManager SHARED ${QtNetworkManager_PART_SRCS} ${DBUS_INTERFACE_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${QtNetworkManager_MOC} )
 
 # TODO: dlopen libQtModemManager to make it a runtime dependency instead of compile
 # time dependency.
@@ -140,6 +160,7 @@ install(TARGETS QtNetworkManager DESTINATION lib${LIB_SUFFIX})
 
 install( FILES
    ${QtNetworkManager_HEADERS}
+   ${CONNECTIONS_SETTINGS_HEADERS}
    DESTINATION
    include/QtNetworkManager COMPONENT Devel)
 

@@ -95,7 +95,7 @@ QString NetworkManager::Settings::SettingsPrivate::addConnection(const QVariantM
 {
     QDBusPendingReply<QDBusObjectPath> reply = iface.AddConnection(connection);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, 0);
-    QVariantMap connectionSettings = connection.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));    
+    QVariantMap connectionSettings = connection.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
     QString id = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString();
     watcher->setProperty("libQtNetworkManager_id", id);
     connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this, SLOT(onConnectionAddArrived(QDBusPendingCallWatcher*)));
