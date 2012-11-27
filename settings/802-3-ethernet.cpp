@@ -35,10 +35,12 @@ NetworkManager::Settings::WiredSettingPrivate::WiredSettingPrivate():
 }
 
 NetworkManager::Settings::WiredSetting::WiredSetting():
+    Setting(Setting::Wired),
     d_ptr(new WiredSettingPrivate())
 { }
 
 NetworkManager::Settings::WiredSetting::WiredSetting(NetworkManager::Settings::WiredSetting *setting):
+    Setting(setting),
     d_ptr(new WiredSettingPrivate())
 {
     setPort(setting->port());

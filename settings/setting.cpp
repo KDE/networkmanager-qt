@@ -20,6 +20,27 @@
 
 #include "setting.h"
 
+#include <nm-setting-bond.h>
+#include <nm-setting-cdma.h>
+#include <nm-setting-connection.h>
+#include <nm-setting-wired.h>
+#include <nm-setting-ip4-config.h>
+#include <nm-setting-ip6-config.h>
+#include <nm-setting-8021x.h>
+#include <nm-setting-gsm.h>
+#include <nm-setting-bluetooth.h>
+#include <nm-setting-olpc-mesh.h>
+#include <nm-setting-ppp.h>
+#include <nm-setting-pppoe.h>
+#include <nm-setting-serial.h>
+#include <nm-setting-vlan.h>
+#include <nm-setting-vpn.h>
+#include <nm-setting-wireless.h>
+#include <nm-setting-wireless-security.h>
+#include <nm-setting-wimax.h>
+
+#include <QDebug>
+
 namespace NetworkManager
 {
 namespace Settings
@@ -29,31 +50,146 @@ namespace Settings
     {
     public:
 	SettingPrivate();
-	virtual ~SettingPrivate();
 
-	Setting::SettingsType type;
+	Setting::SettingType type;
 	bool initialized;
     };
 }
 }
 
+//TODO default values
 NetworkManager::Settings::SettingPrivate::SettingPrivate():
     type(),
     initialized(false)
 { }
 
-NetworkManager::Settings::SettingPrivate::~SettingPrivate()
-{ }
+QString NetworkManager::Settings::Setting::typeAsString(const NetworkManager::Settings::Setting::SettingType type)
+{
+    QString typeString;
 
-NetworkManager::Settings::Setting::Setting():
+    switch (type) {
+        case Cdma:
+            typeString = QLatin1String(NM_SETTING_CDMA_SETTING_NAME);
+            break;
+        case Gsm:
+            typeString = QLatin1String(NM_SETTING_GSM_SETTING_NAME);
+            break;
+        case Bluetooth:
+            typeString = QLatin1String(NM_SETTING_BLUETOOTH_SETTING_NAME);
+            break;
+        case Ipv4:
+            typeString = QLatin1String(NM_SETTING_IP4_CONFIG_SETTING_NAME);
+            break;
+        case Ipv6:
+            typeString = QLatin1String(NM_SETTING_IP6_CONFIG_SETTING_NAME);
+            break;
+        case Ppp:
+            typeString = QLatin1String(NM_SETTING_PPP_SETTING_NAME);
+            break;
+        case Pppoe:
+            typeString = QLatin1String(NM_SETTING_PPPOE_SETTING_NAME);
+            break;
+        case Security8021x:
+            typeString = QLatin1String(NM_SETTING_802_1X_SETTING_NAME);
+            break;
+        case Serial:
+            typeString = QLatin1String(NM_SETTING_SERIAL_SETTING_NAME);
+            break;
+        case Vpn:
+            typeString = QLatin1String(NM_SETTING_VPN_SETTING_NAME);
+            break;
+        case Wired:
+            typeString = QLatin1String(NM_SETTING_WIRED_SETTING_NAME);
+            break;
+        case Wireless:
+            typeString = QLatin1String(NM_SETTING_WIRELESS_SETTING_NAME);
+            break;
+        case WirelessSecurity:
+            typeString = QLatin1String(NM_SETTING_WIRELESS_SECURITY_SETTING_NAME);
+            break;
+	case OlpcMesh:
+	    typeString = QLatin1String(NM_SETTING_OLPC_MESH_SETTING_NAME);
+	    break;
+	case Vlan:
+	    typeString = QLatin1String(NM_SETTING_VLAN_SETTING_NAME);
+	    break;
+	case Wimax:
+	    typeString = QLatin1String(NM_SETTING_WIMAX_SETTING_NAME);
+	    break;
+	case Bond:
+	    typeString = QLatin1String(NM_SETTING_BOND_SETTING_NAME);
+	    break;
+        default:
+            break;
+    }
+
+    return typeString;
+}
+
+NetworkManager::Settings::Setting::SettingType NetworkManager::Settings::Setting::typeFromString(const QString& typeString)
+{
+    SettingType type = Wired;
+
+    if (typeString == QLatin1String(NM_SETTING_CDMA_SETTING_NAME)) {
+        type = Cdma;
+    } else if (typeString == QLatin1String(NM_SETTING_GSM_SETTING_NAME)) {
+        type = Gsm;
+    } else if (typeString == QLatin1String(NM_SETTING_BLUETOOTH_SETTING_NAME)) {
+        type = Bluetooth;
+    } else if (typeString == QLatin1String(NM_SETTING_IP4_CONFIG_SETTING_NAME)) {
+        type = Ipv4;
+    } else if (typeString == QLatin1String(NM_SETTING_IP6_CONFIG_SETTING_NAME)) {
+        type = Ipv6;
+    } else if (typeString == QLatin1String(NM_SETTING_PPP_SETTING_NAME)) {
+        type = Ppp;
+    } else if (typeString == QLatin1String(NM_SETTING_PPPOE_SETTING_NAME)) {
+        type = Pppoe;
+    } else if (typeString == QLatin1String(NM_SETTING_SERIAL_SETTING_NAME)) {
+        type = Serial;
+    } else if (typeString == QLatin1String(NM_SETTING_802_1X_SETTING_NAME)) {
+        type = Security8021x;
+    } else if (typeString == QLatin1String(NM_SETTING_VPN_SETTING_NAME)) {
+        type = Vpn;
+    } else if (typeString == QLatin1String(NM_SETTING_WIRED_SETTING_NAME)) {
+        type = Wired;
+    } else if (typeString == QLatin1String(NM_SETTING_WIRELESS_SETTING_NAME)) {
+        type = Wireless;
+    } else if (typeString == QLatin1String(NM_SETTING_WIRELESS_SECURITY_SETTING_NAME)) {
+        type = WirelessSecurity;
+    } else if (typeString == QLatin1String(NM_SETTING_OLPC_MESH_SETTING_NAME)) {
+	type = OlpcMesh;
+    } else if (typeString == QLatin1String(NM_SETTING_VLAN_SETTING_NAME)) {
+	type = Vlan;
+    } else if (typeString == QLatin1String(NM_SETTING_WIMAX_SETTING_NAME)) {
+	type = Wimax;
+    } else if (typeString == QLatin1String(NM_SETTING_BOND_SETTING_NAME)) {
+	type = Bond;
+    }
+
+    return type;
+}
+
+NetworkManager::Settings::Setting::Setting(SettingType type):
     d_ptr(new SettingPrivate())
-{ }
+{
+    setType(type);
+}
 
 NetworkManager::Settings::Setting::Setting(NetworkManager::Settings::Setting* setting):
     d_ptr(new SettingPrivate())
 {
     setInitialized(setting->isNull());
     setType(setting->type());
+}
+
+NetworkManager::Settings::Setting::~Setting()
+{
+    delete d_ptr;
+}
+
+void NetworkManager::Settings::Setting::fromMap(const QVariantMap& map)
+{
+    //TODO
 }
 
 void NetworkManager::Settings::Setting::setInitialized(const bool initialized)
@@ -67,24 +203,25 @@ bool NetworkManager::Settings::Setting::isNull() const
 {
     Q_D(const Setting);
 
-    return d->initialized;
+    return !d->initialized;
 }
 
-void NetworkManager::Settings::Setting::setType(const NetworkManager::Settings::Setting::SettingsType type)
+void NetworkManager::Settings::Setting::setType(const NetworkManager::Settings::Setting::SettingType type)
 {
     Q_D(Setting);
 
     d->type = type;
 }
 
-NetworkManager::Settings::Setting::SettingsType NetworkManager::Settings::Setting::type() const
+NetworkManager::Settings::Setting::SettingType NetworkManager::Settings::Setting::type() const
 {
     Q_D(const Setting);
 
     return d->type;
 }
 
-NetworkManager::Settings::Setting::~Setting()
+void NetworkManager::Settings::Setting::printSetting()
 {
-    delete d_ptr;
+    qDebug() << "TYPE - " << typeAsString(type());
+    qDebug() << "INITIALIZED - " << !isNull();
 }

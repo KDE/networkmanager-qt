@@ -24,6 +24,7 @@
 
 #include "QtNetworkManager-export.h"
 #include "device.h"
+#include "setting.h"
 
 #include <QString>
 #include <QDateTime>
@@ -42,7 +43,7 @@ namespace Settings
 	    enum ConnectionType {Unknown = 0, Wired, Wireless, Gsm, Cdma, Vpn, Pppoe, Bluetooth};
 
 	    static ConnectionType typeFromString(const QString & typeString);
-	    static QString stringFromType(const ConnectionType type);
+	    static QString typeAsString(const ConnectionType type);
 
 	    ConnectionSettings();
 	    ConnectionSettings(ConnectionSettings *);
@@ -50,7 +51,7 @@ namespace Settings
 
 	    QString name() const;
 
-	    void fromMap(const QVariantMapMap & settings);
+	    void fromMap(const QVariantMapMap & map);
 
 	    void setId(const QString & id);
 	    QString id() const;
@@ -83,11 +84,17 @@ namespace Settings
 	    void setSlaveType(const QString & type);
 	    QString slaveType() const;
 
+	    QList<Setting*> settings() const;
 	    //FOR DEBUG
 	    void printSetting();
 
     protected:
 	ConnectionSettingsPrivate *d_ptr;
+
+    private:
+	void addSetting(Setting * setting);
+	void clearSettings();
+	void initSettings();
     };
 }
 }

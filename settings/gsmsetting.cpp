@@ -23,6 +23,8 @@
 
 #include <nm-setting-gsm.h>
 
+#include <QDebug>
+
 NetworkManager::Settings::GsmSettingPrivate::GsmSettingPrivate():
     name(QString("gsm")),
     number(QString()),
@@ -40,10 +42,12 @@ NetworkManager::Settings::GsmSettingPrivate::GsmSettingPrivate():
 }
 
 NetworkManager::Settings::GsmSetting::GsmSetting():
+    Setting(Setting::Gsm),
     d_ptr(new GsmSettingPrivate())
 { }
 
 NetworkManager::Settings::GsmSetting::GsmSetting(GsmSetting * setting):
+    Setting(setting),
     d_ptr(new GsmSettingPrivate())
 {
     setNumber(setting->number());
@@ -270,4 +274,21 @@ void NetworkManager::Settings::GsmSetting::fromMap(const QVariantMap& setting)
     if (setting.contains(QLatin1String(NM_SETTING_GSM_HOME_ONLY))) {
 	setHomeOnly(setting.value(QLatin1String(NM_SETTING_GSM_HOME_ONLY)).toBool());
     }
+}
+
+void NetworkManager::Settings::GsmSetting::printSetting()
+{
+    NetworkManager::Settings::Setting::printSetting();
+
+    qDebug() << "NUMBER - " << number();
+    qDebug() << "USERNAME - " << username();
+    qDebug() << "PASSWORD - " << password();
+    qDebug() << "PASSWORD FLAGS - " << passwordFlags();
+    qDebug() << "APN - " << apn();
+    qDebug() << "NETWORK ID - " << networkId();
+    qDebug() << "NETWORK TYPE - " << networkType();
+    qDebug() << "ALLOWED BAND - " << allowedBand();
+    qDebug() << "PIN - " << pin();
+    qDebug() << "PIN FLAGS - " << pinFlags();
+    qDebug() << "HOME ONLY - " << homeOnly();
 }

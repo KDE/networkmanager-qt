@@ -26,6 +26,8 @@
 #include <QString>
 #include <QDateTime>
 
+#include "setting.h"
+
 namespace NetworkManager
 {
 namespace Settings
@@ -46,6 +48,7 @@ namespace Settings
 	QString zone;
 	NetworkManager::Device * master;
 	QString slaveType;
+	QList<Setting *> settings;
     };
 }
 }

@@ -29,8 +29,10 @@
 #include <nm-setting-pppoe.h>
 #include <nm-setting-vpn.h>
 
-#include <QUuid>
+#include <gsmsetting.h>
 
+#include <QUuid>
+//TODO default values
 NetworkManager::Settings::ConnectionSettingsPrivate::ConnectionSettingsPrivate():
     name(QString("connection")),
     id(QString()),
@@ -69,7 +71,7 @@ NetworkManager::Settings::ConnectionSettings::ConnectionType NetworkManager::Set
     return type;
 }
 
-QString NetworkManager::Settings::ConnectionSettings::stringFromType(const NetworkManager::Settings::ConnectionSettings::ConnectionType type)
+QString NetworkManager::Settings::ConnectionSettings::typeAsString(const NetworkManager::Settings::ConnectionSettings::ConnectionType type)
 {
     QString typeString;
 
@@ -120,16 +122,39 @@ NetworkManager::Settings::ConnectionSettings::ConnectionSettings(NetworkManager:
     setZone(settings->zone());
     setMaster(settings->master());
     setSlaveType(settings->slaveType());
+
+    initSettings();
 }
 
 NetworkManager::Settings::ConnectionSettings::~ConnectionSettings()
 {
+    clearSettings();
+
     delete d_ptr;
 }
 
-void NetworkManager::Settings::ConnectionSettings::fromMap(const QVariantMapMap& settings)
+void NetworkManager::Settings::ConnectionSettings::initSettings()
 {
-    QVariantMap connectionSettings = settings.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
+    clearSettings();
+
+    switch(connectionType()) {
+	case Wired:
+	case Wireless:
+	case Gsm:
+	    addSetting(new GsmSetting());
+	case Cdma:
+	case Vpn:
+	case Pppoe:
+	case Bluetooth:
+	case Unknown:
+	default:
+	    break;
+    }
+}
+
+void NetworkManager::Settings::ConnectionSettings::fromMap(const QVariantMapMap& map)
+{
+    QVariantMap connectionSettings = map.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
 
     setId(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_ID)).toString());
     setUuid(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString());
@@ -168,6 +193,15 @@ void NetworkManager::Settings::ConnectionSettings::fromMap(const QVariantMapMap&
 
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_SLAVE_TYPE))) {
 	//TODO
+    }
+
+    foreach (Setting * setting, settings()) {
+	if (map.contains(setting->typeAsString(setting->type()))) {
+	    setting->fromMap(map.value(setting->typeAsString(setting->type())));
+	    setting->setInitialized(true);
+	} else {
+	    setting->setInitialized(false);
+	}
     }
 
     printSetting();
@@ -213,6 +247,8 @@ void NetworkManager::Settings::ConnectionSettings::setConnectionType(const Netwo
     Q_D(ConnectionSettings);
 
     d->type = type;
+
+    initSettings();
 }
 
 NetworkManager::Settings::ConnectionSettings::ConnectionType NetworkManager::Settings::ConnectionSettings::connectionType() const
@@ -327,16 +363,50 @@ QString NetworkManager::Settings::ConnectionSettings::slaveType() const
     return d->slaveType;
 }
 
+QList< NetworkManager::Settings::Setting* > NetworkManager::Settings::ConnectionSettings::settings() const
+{
+    Q_D(const ConnectionSettings);
+
+    return d->settings;
+}
+
 //FOR DEBUG
 void NetworkManager::Settings::ConnectionSettings::printSetting()
 {
+    qDebug() << "CONNECTION SETTINGS";
+    qDebug() << "===================";
+
     qDebug() << "NAME - " << name();
     qDebug() << "ID - " << id();
     qDebug() << "UUID - " << uuid();
-    qDebug() << "TYPE - " << stringFromType(connectionType());
+    qDebug() << "TYPE - " << typeAsString(connectionType());
     qDebug() << "PERMISSIONS - " << permissions();
     qDebug() << "AUTOCONNECT - " << autoconnect();
     qDebug() << "TIMESTAMP - " << timestamp();
     qDebug() << "READONLY - " << readOnly();
     //TODO - master, slaveType
+    qDebug() << "===================";
+    foreach (Setting * setting, settings()) {
+	qDebug() << setting->typeAsString(setting->type()).toUpper() << " SETTINGS";
+	qDebug() << "---------------------------";
+	setting->printSetting();
+	qDebug() << "\n";
+    }
 }
+
+void NetworkManager::Settings::ConnectionSettings::addSetting(NetworkManager::Settings::Setting* setting)
+{
+    Q_D(ConnectionSettings);
+
+    d->settings.push_back(setting);
+}
+
+void NetworkManager::Settings::ConnectionSettings::clearSettings()
+{
+    Q_D(ConnectionSettings);
+
+    while (!d->settings.isEmpty()) {
+        delete d->settings.takeFirst();
+    }
+
+    d->settings.clear();}

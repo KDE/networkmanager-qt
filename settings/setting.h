@@ -33,12 +33,15 @@ namespace Settings
 
     class NMQT_EXPORT Setting
     {
-	enum SettingsType {Cdma, Gsm, Infiniband, Ipv4, Ipv6, Ppp, Pppoe, Security8021x, Serial,
-			   Vpn, Wired, Wireless, WirelessSecurity, Bluetooth, OlpcMesh, Vlan, Wimax};
-
     Q_DECLARE_PRIVATE(Setting);
     public:
-	Setting();
+	enum SettingType {Cdma, Gsm, Infiniband, Ipv4, Ipv6, Ppp, Pppoe, Security8021x, Serial,
+			   Vpn, Wired, Wireless, WirelessSecurity, Bluetooth, OlpcMesh, Vlan, Wimax, Bond};
+
+	static QString typeAsString(const SettingType type);
+	static SettingType typeFromString(const QString & type);
+
+	Setting(SettingType type);
 	Setting(Setting * setting);
 	virtual ~Setting();
 
@@ -48,8 +51,8 @@ namespace Settings
 
 	bool isNull() const;
 
-	void setType(const SettingsType type);
-	SettingsType type() const;
+	void setType(const SettingType type);
+	SettingType type() const;
 
 	//FOR DEBUG
 	virtual void printSetting();

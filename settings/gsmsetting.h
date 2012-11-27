@@ -79,6 +79,9 @@ namespace Settings
 
 	void fromMap(const QVariantMap & setting);
 
+	//FOR DEBUG
+	void printSetting();
+
     private:
 	GsmSettingPrivate * d_ptr;
     };
