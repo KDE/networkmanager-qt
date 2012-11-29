@@ -21,15 +21,22 @@
 #include "802-3-ethernet.h"
 #include "802-3-ethernet_p.h"
 
+#include <nm-setting-wired.h>
+
+#include <QDebug>
+
 NetworkManager::Settings::WiredSettingPrivate::WiredSettingPrivate():
     name("802-3-ethernet"),
+    port(NetworkManager::Settings::WiredSetting::mii),
     speed(0),
-    port(NetworkManager::Settings::WiredSetting::Mii),
+    duplex(NetworkManager::Settings::WiredSetting::full),
+    autoNegotiate(true),
+    macAddress(QByteArray()),
     clonedMacAddress(QByteArray()),
     macAddressBlacklist(QStringList()),
     mtu(0),
     s390Subchannels(QStringList()),
-    s390NetType(NetworkManager::Settings::WiredSetting::Ctc),
+    s390NetType(NetworkManager::Settings::WiredSetting::ctc),
     s390Options(QMap<QString, QString>())
 {
 }
@@ -224,5 +231,89 @@ QMap< QString, QString > NetworkManager::Settings::WiredSetting::s390Options() c
 
 void NetworkManager::Settings::WiredSetting::fromMap(const QVariantMap& setting)
 {
-    NetworkManager::Settings::Setting::fromMap(setting);
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_PORT))) {
+	QString port = setting.value(QLatin1String(NM_SETTING_WIRED_PORT)).toString();
+
+	if (port == "tp") {
+	    setPort(tp);
+	} else if (port == "aui") {
+	    setPort(aui);
+	} else if (port == "bnc") {
+	    setPort(bnc);
+	} else if (port == "mii") {
+	    setPort(mii);
+	}
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_SPEED))) {
+	setSpeed(setting.value(QLatin1String(NM_SETTING_WIRED_SPEED)).toUInt());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_DUPLEX))) {
+	QString duplex = setting.value(QLatin1String(NM_SETTING_WIRED_DUPLEX)).toString();
+
+	if (duplex == "half") {
+	    setDuplexType(half);
+	} else if (duplex == "full") {
+
+	}
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_AUTO_NEGOTIATE))) {
+	setAutoNegotiate(setting.value(QLatin1String(NM_SETTING_WIRED_AUTO_NEGOTIATE)).toBool());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS))) {
+	setMacAddress(setting.value(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS)).toByteArray());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_CLONED_MAC_ADDRESS))) {
+	setClonedMacAddress(setting.value(QLatin1String(NM_SETTING_WIRED_CLONED_MAC_ADDRESS)).toByteArray());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST))) {
+	setMacAddressBlacklist(setting.value(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST)).toStringList());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_MTU))) {
+	setMtu(setting.value(QLatin1String(NM_SETTING_WIRED_MTU)).toUInt());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_S390_SUBCHANNELS))) {
+	setS390Subchannels(setting.value(QLatin1String(NM_SETTING_WIRED_S390_SUBCHANNELS)).toStringList());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE))) {
+	QString nettype = setting.value(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE)).toString();
+
+	if (nettype == "qeth") {
+	    setS390NetType(qeth);
+	} else if (nettype == "lcs") {
+	    setS390NetType(lcs);
+	} else if (nettype == "ctc") {
+	    setS390NetType(ctc);
+	}
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS))) {
+	//TODO
+    }
 }
+
+void NetworkManager::Settings::WiredSetting::printSetting()
+{
+    NetworkManager::Settings::Setting::printSetting();
+
+    qDebug() << "PORT - " << port();
+    qDebug() << "SPEED - " << speed();
+    qDebug() << "DUPLEX TYPE - " << duplexType();
+    qDebug() << "AUTO NEGOTIATE - " << autoNegotiate();
+    qDebug() << "MAC ADDRESS - " << macAddress();
+    qDebug() << "CLONED MAC ADDRESS - " << clonedMacAddress();
+    qDebug() << "MAC ADDRES BLACKLIST - " << macAddressBlacklist();
+    qDebug() << "MTU - " << mtu();
+    qDebug() << "S390 SUBCHANNELS - " << s390Subchannels();
+    qDebug() << "S390 TYPE - " << s390NetType();
+    qDebug() << "S390 OPTIONS - " << s390Options();
+}
+

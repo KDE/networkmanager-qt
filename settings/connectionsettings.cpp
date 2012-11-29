@@ -24,11 +24,12 @@
 
 #include <nm-setting-connection.h>
 #include <nm-setting-wired.h>
-#include <nm-setting-wireless.h>
 #include <nm-setting-cdma.h>
 #include <nm-setting-pppoe.h>
 #include <nm-setting-vpn.h>
 
+#include <802-3-ethernet.h>
+#include <802-11-wireless.h>
 #include <gsmsetting.h>
 
 #include <QUuid>
@@ -139,14 +140,24 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
 
     switch(connectionType()) {
 	case Wired:
+	    addSetting(new WiredSetting());
+	    break;
 	case Wireless:
+	    addSetting(new WirelessSetting());
+	    break;
 	case Gsm:
 	    addSetting(new GsmSetting());
+	    break;
 	case Cdma:
+	    break;
 	case Vpn:
+	    break;
 	case Pppoe:
+	    break;
 	case Bluetooth:
+	    break;
 	case Unknown:
+	    break;
 	default:
 	    break;
     }

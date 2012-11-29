@@ -38,8 +38,7 @@ NetworkManager::Settings::GsmSettingPrivate::GsmSettingPrivate():
     pinFlags(NetworkManager::Settings::GsmSetting::None),
     allowedBand(1),
     homeOnly(false)
-{
-}
+{ }
 
 NetworkManager::Settings::GsmSetting::GsmSetting():
     Setting(Setting::Gsm),

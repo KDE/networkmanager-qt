@@ -46,7 +46,7 @@ QString typeAsString(const int type)
 
 int main()
 {
-    QTextStream qout(stdout, QIODevice::WriteOnly);
+    /*QTextStream qout(stdout, QIODevice::WriteOnly);
 
     NetworkManager::DeviceList list = NetworkManager::networkInterfaces();
 
@@ -97,13 +97,12 @@ int main()
             }
         }
     }
-    qout << "\n";
+    qout << "\n";*/
 
     QList<NetworkManager::ActiveConnection*> lst = NetworkManager::activeConnections();
 
     foreach (const NetworkManager::ActiveConnection * con, lst) {
 	NetworkManager::Settings::ConnectionSettings * settings = new NetworkManager::Settings::ConnectionSettings();
 	settings->fromMap(con->connection()->settings());
-	qDebug() << "\n\n";
     }
 }

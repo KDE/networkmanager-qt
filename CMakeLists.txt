@@ -79,6 +79,7 @@ wirelessnetwork_p.h
 secretagent_p.h
 settings/connectionsettings_p.h
 settings/802-3-ethernet_p.h
+settings/802-11-wireless_p.h
 settings/gsmsetting_p.h
 )
 
@@ -138,6 +139,7 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/setting.cpp
     settings/connectionsettings.cpp
     settings/802-3-ethernet.cpp
+    settings/802-11-wireless.cpp
     settings/gsmsetting.cpp
     )
 
@@ -145,6 +147,7 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/setting.h
     settings/connectionsettings.h
     settings/802-3-ethernet.h
+    settings/802-11-wireless.h
     settings/gsmsetting.h
     )
 

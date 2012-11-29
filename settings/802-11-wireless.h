@@ -18,46 +18,53 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_WIREDSETTING_H
-#define NM_WIREDSETTING_H
+#ifndef WIRELESSSETTING_H
+#define WIRELESSSETTING_H
 
 #include "QtNetworkManager-export.h"
 #include "setting.h"
 
 #include <QStringList>
-#include <QMap>
 
 namespace NetworkManager
 {
 namespace Settings
 {
-    class WiredSettingPrivate;
+    class WirelessSettingPrivate;
 
-    class NMQT_EXPORT WiredSetting : public Setting
+    class NMQT_EXPORT WirelessSetting : public Setting
     {
-    Q_DECLARE_PRIVATE(WiredSetting)
+    Q_DECLARE_PRIVATE(WirelessSetting)
+    enum NetworkMode {infrastructure, adhoc};
+    //TODO enum name
+    enum FrequencyBand {a, bg};
     public:
-	enum PortType {tp, aui, bnc, mii};
-	enum DuplexType {half, full};
-	enum S390Nettype {qeth, lcs, ctc};
-
-	WiredSetting();
-	WiredSetting(WiredSetting *);
-	~WiredSetting();
+	WirelessSetting();
+	WirelessSetting(WirelessSetting * setting);
+	virtual ~WirelessSetting();
 
 	QString name() const;
 
-	void setPort(const PortType port);
-	PortType port() const;
+	void setSsid(const QByteArray & ssid);
+	QByteArray ssid() const;
 
-	void setSpeed(const quint32 speed);
-	quint32 speed() const;
+	void setMode(const NetworkMode mode);
+	NetworkMode mode() const;
 
-	void setDuplexType(const DuplexType type);
-	DuplexType duplexType() const;
+	void setBand(const FrequencyBand band);
+	FrequencyBand band() const;
 
-	void setAutoNegotiate(const bool autoNegotiate);
-	bool autoNegotiate() const;
+	void setChannel(const quint32 channel);
+	quint32 channel() const;
+
+	void setBssid(const QByteArray & bssid);
+	QByteArray bssid() const;
+
+	void setRate(const quint32 rate);
+	quint32 rate() const;
+
+	void setTxPower(const quint32 power);
+	quint32 txPower() const;
 
 	void setMacAddress(const QByteArray & address);
 	QByteArray macAddress() const;
@@ -71,23 +78,25 @@ namespace Settings
 	void setMtu(const quint32 mtu);
 	quint32 mtu() const;
 
-	void setS390Subchannels(const QStringList & channels);
-	QStringList s390Subchannels() const;
+	void setSeenBssids(const QStringList & list);
+	QStringList seenBssids() const;
 
-	void setS390NetType(const S390Nettype type);
-	S390Nettype s390NetType() const;
+	void setSecurity(const QString & security);
+	QString security() const;
 
-	void setS390Options(const QMap<QString, QString> & options);
-	QMap<QString, QString> s390Options() const;
+	void setHidden(const bool hidden);
+	bool hidden() const;
 
 	void fromMap(const QVariantMap & setting);
 
 	//FOR DEBUG
 	void printSetting();
+
     protected:
-	WiredSettingPrivate *d_ptr;
+	WirelessSettingPrivate * d_ptr;
     };
 }
 }
 
-#endif // NM_WIREDSETTING_H
+#endif // WIRELESSSETTING_H
+
