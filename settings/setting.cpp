@@ -225,3 +225,5 @@ void NetworkManager::Settings::Setting::printSetting()
     qDebug() << "TYPE - " << typeAsString(type());
     qDebug() << "INITIALIZED - " << !isNull();
 }
+
+

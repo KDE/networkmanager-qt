@@ -27,16 +27,16 @@
 
 NetworkManager::Settings::WiredSettingPrivate::WiredSettingPrivate():
     name("802-3-ethernet"),
-    port(NetworkManager::Settings::WiredSetting::mii),
+    port(NetworkManager::Settings::WiredSetting::Mii),
     speed(0),
-    duplex(NetworkManager::Settings::WiredSetting::full),
+    duplex(NetworkManager::Settings::WiredSetting::Full),
     autoNegotiate(true),
     macAddress(QByteArray()),
     clonedMacAddress(QByteArray()),
     macAddressBlacklist(QStringList()),
     mtu(0),
     s390Subchannels(QStringList()),
-    s390NetType(NetworkManager::Settings::WiredSetting::ctc),
+    s390NetType(NetworkManager::Settings::WiredSetting::Ctc),
     s390Options(QMap<QString, QString>())
 {
 }
@@ -235,13 +235,13 @@ void NetworkManager::Settings::WiredSetting::fromMap(const QVariantMap& setting)
 	QString port = setting.value(QLatin1String(NM_SETTING_WIRED_PORT)).toString();
 
 	if (port == "tp") {
-	    setPort(tp);
+	    setPort(Tp);
 	} else if (port == "aui") {
-	    setPort(aui);
+	    setPort(Aui);
 	} else if (port == "bnc") {
-	    setPort(bnc);
+	    setPort(Bnc);
 	} else if (port == "mii") {
-	    setPort(mii);
+	    setPort(Mii);
 	}
     }
 
@@ -253,9 +253,9 @@ void NetworkManager::Settings::WiredSetting::fromMap(const QVariantMap& setting)
 	QString duplex = setting.value(QLatin1String(NM_SETTING_WIRED_DUPLEX)).toString();
 
 	if (duplex == "half") {
-	    setDuplexType(half);
+	    setDuplexType(Half);
 	} else if (duplex == "full") {
-
+            setDuplexType(Full);
 	}
     }
 
@@ -287,11 +287,11 @@ void NetworkManager::Settings::WiredSetting::fromMap(const QVariantMap& setting)
 	QString nettype = setting.value(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE)).toString();
 
 	if (nettype == "qeth") {
-	    setS390NetType(qeth);
+	    setS390NetType(Qeth);
 	} else if (nettype == "lcs") {
-	    setS390NetType(lcs);
+	    setS390NetType(Lcs);
 	} else if (nettype == "ctc") {
-	    setS390NetType(ctc);
+	    setS390NetType(Ctc);
 	}
     }
 

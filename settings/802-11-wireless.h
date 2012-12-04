@@ -35,9 +35,9 @@ namespace Settings
     class NMQT_EXPORT WirelessSetting : public Setting
     {
     Q_DECLARE_PRIVATE(WirelessSetting)
-    enum NetworkMode {infrastructure, adhoc};
+    enum NetworkMode {Infrastructure, Adhoc};
     //TODO enum name
-    enum FrequencyBand {a, bg};
+    enum FrequencyBand {A, Bg};
     public:
 	WirelessSetting();
 	WirelessSetting(WirelessSetting * setting);

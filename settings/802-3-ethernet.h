@@ -37,9 +37,9 @@ namespace Settings
     {
     Q_DECLARE_PRIVATE(WiredSetting)
     public:
-	enum PortType {tp, aui, bnc, mii};
-	enum DuplexType {half, full};
-	enum S390Nettype {qeth, lcs, ctc};
+	enum PortType {Tp, Aui, Bnc, Mii};
+	enum DuplexType {Half, Full};
+	enum S390Nettype {Qeth, Lcs, Ctc};
 
 	WiredSetting();
 	WiredSetting(WiredSetting *);

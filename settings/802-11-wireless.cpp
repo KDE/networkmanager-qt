@@ -27,10 +27,11 @@
 
 #include <QDebug>
 
+// TODO: default values
 NetworkManager::Settings::WirelessSettingPrivate::WirelessSettingPrivate():
     name(QString("802-11-wireless")),
     ssid(QByteArray()),
-    mode(NetworkManager::Settings::WirelessSetting::infrastructure),
+    mode(NetworkManager::Settings::WirelessSetting::Infrastructure),
     band(),
     channel(0),
     bssid(QByteArray()),
@@ -287,18 +288,18 @@ void NetworkManager::Settings::WirelessSetting::fromMap(const QVariantMap& setti
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_MODE))) {
 	QString mode = setting.value(QLatin1String(NM_SETTING_WIRELESS_MODE)).toString();
 	if (mode == "infrastructure") {
-	    setMode(infrastructure);
+	    setMode(Infrastructure);
 	} else if (mode == "adhoc") {
-	    setMode(adhoc);
+	    setMode(Adhoc);
 	}
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_BAND))) {
 	QString band = setting.value(QLatin1String(NM_SETTING_WIRELESS_BAND)).toString();
 	if (band == "a") {
-	    setBand(a);
+	    setBand(A);
 	} else if (band == "bg") {
-	    setBand(bg);
+	    setBand(Bg);
 	}
     }
 
