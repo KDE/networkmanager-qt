@@ -72,7 +72,7 @@ NetworkManager::Settings::ConnectionSettings::ConnectionType NetworkManager::Set
     return type;
 }
 
-QString NetworkManager::Settings::ConnectionSettings::typeAsString(const NetworkManager::Settings::ConnectionSettings::ConnectionType type)
+QString NetworkManager::Settings::ConnectionSettings::typeAsString(NetworkManager::Settings::ConnectionSettings::ConnectionType type)
 {
     QString typeString;
 
@@ -253,7 +253,7 @@ QString NetworkManager::Settings::ConnectionSettings::uuid() const
     return d->uuid;
 }
 
-void NetworkManager::Settings::ConnectionSettings::setConnectionType(const NetworkManager::Settings::ConnectionSettings::ConnectionType type)
+void NetworkManager::Settings::ConnectionSettings::setConnectionType(NetworkManager::Settings::ConnectionSettings::ConnectionType type)
 {
     Q_D(ConnectionSettings);
 
@@ -290,7 +290,7 @@ QHash< QString, QString > NetworkManager::Settings::ConnectionSettings::permissi
     return d->permissions;
 }
 
-void NetworkManager::Settings::ConnectionSettings::setAutoconnect(const bool autoconnect)
+void NetworkManager::Settings::ConnectionSettings::setAutoconnect(bool autoconnect)
 {
     Q_D(ConnectionSettings);
 
@@ -318,7 +318,7 @@ QDateTime NetworkManager::Settings::ConnectionSettings::timestamp() const
     return d->timestamp;
 }
 
-void NetworkManager::Settings::ConnectionSettings::setReadOnly(const bool readonly)
+void NetworkManager::Settings::ConnectionSettings::setReadOnly(bool readonly)
 {
     Q_D(ConnectionSettings);
 

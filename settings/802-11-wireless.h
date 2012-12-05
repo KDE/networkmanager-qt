@@ -48,22 +48,22 @@ namespace Settings
 	void setSsid(const QByteArray & ssid);
 	QByteArray ssid() const;
 
-	void setMode(const NetworkMode mode);
+	void setMode(NetworkMode mode);
 	NetworkMode mode() const;
 
-	void setBand(const FrequencyBand band);
+	void setBand(FrequencyBand band);
 	FrequencyBand band() const;
 
-	void setChannel(const quint32 channel);
+	void setChannel(quint32 channel);
 	quint32 channel() const;
 
 	void setBssid(const QByteArray & bssid);
 	QByteArray bssid() const;
 
-	void setRate(const quint32 rate);
+	void setRate(quint32 rate);
 	quint32 rate() const;
 
-	void setTxPower(const quint32 power);
+	void setTxPower(quint32 power);
 	quint32 txPower() const;
 
 	void setMacAddress(const QByteArray & address);
@@ -75,7 +75,7 @@ namespace Settings
 	void setMacAddressBlacklist(const QStringList & list);
 	QStringList macAddressBlacklist() const;
 
-	void setMtu(const quint32 mtu);
+	void setMtu(quint32 mtu);
 	quint32 mtu() const;
 
 	void setSeenBssids(const QStringList & list);
@@ -84,7 +84,7 @@ namespace Settings
 	void setSecurity(const QString & security);
 	QString security() const;
 
-	void setHidden(const bool hidden);
+	void setHidden(bool hidden);
 	bool hidden() const;
 
 	void fromMap(const QVariantMap & setting);

@@ -47,16 +47,16 @@ namespace Settings
 
 	QString name() const;
 
-	void setPort(const PortType port);
+	void setPort(PortType port);
 	PortType port() const;
 
-	void setSpeed(const quint32 speed);
+	void setSpeed(quint32 speed);
 	quint32 speed() const;
 
-	void setDuplexType(const DuplexType type);
+	void setDuplexType(DuplexType type);
 	DuplexType duplexType() const;
 
-	void setAutoNegotiate(const bool autoNegotiate);
+	void setAutoNegotiate(bool autoNegotiate);
 	bool autoNegotiate() const;
 
 	void setMacAddress(const QByteArray & address);
@@ -68,13 +68,13 @@ namespace Settings
 	void setMacAddressBlacklist(const QStringList & list);
 	QStringList macAddressBlacklist() const;
 
-	void setMtu(const quint32 mtu);
+	void setMtu(quint32 mtu);
 	quint32 mtu() const;
 
 	void setS390Subchannels(const QStringList & channels);
 	QStringList s390Subchannels() const;
 
-	void setS390NetType(const S390Nettype type);
+	void setS390NetType(S390Nettype type);
 	S390Nettype s390NetType() const;
 
 	void setS390Options(const QMap<QString, QString> & options);

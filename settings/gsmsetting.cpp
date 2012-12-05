@@ -116,7 +116,7 @@ QString NetworkManager::Settings::GsmSetting::password() const
     return d->password;
 }
 
-void NetworkManager::Settings::GsmSetting::setPasswordFlags(const GsmSetting::SecretFlagType flags)
+void NetworkManager::Settings::GsmSetting::setPasswordFlags(GsmSetting::SecretFlagType flags)
 {
     Q_D(GsmSetting);
 
@@ -158,7 +158,7 @@ QString NetworkManager::Settings::GsmSetting::networkId() const
     return d->networkId;
 }
 
-void NetworkManager::Settings::GsmSetting::setNetworkType(const qint32 type)
+void NetworkManager::Settings::GsmSetting::setNetworkType(qint32 type)
 {
     Q_D(GsmSetting);
 
@@ -186,7 +186,7 @@ QString NetworkManager::Settings::GsmSetting::pin() const
     return d->pin;
 }
 
-void NetworkManager::Settings::GsmSetting::setPinFlags(const GsmSetting::SecretFlagType flags)
+void NetworkManager::Settings::GsmSetting::setPinFlags(GsmSetting::SecretFlagType flags)
 {
     Q_D(GsmSetting);
 
@@ -200,7 +200,7 @@ NetworkManager::Settings::GsmSetting::SecretFlagType NetworkManager::Settings::G
     return d->pinFlags;
 }
 
-void NetworkManager::Settings::GsmSetting::setAllowedBand(const quint32 band)
+void NetworkManager::Settings::GsmSetting::setAllowedBand(quint32 band)
 {
     Q_D(GsmSetting);
 
@@ -214,7 +214,7 @@ quint32 NetworkManager::Settings::GsmSetting::allowedBand() const
     return d->allowedBand;
 }
 
-void NetworkManager::Settings::GsmSetting::setHomeOnly(const bool homeOnly)
+void NetworkManager::Settings::GsmSetting::setHomeOnly(bool homeOnly)
 {
     Q_D(GsmSetting);
 

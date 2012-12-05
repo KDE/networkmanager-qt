@@ -38,7 +38,7 @@ namespace Settings
 	enum SettingType {Cdma, Gsm, Infiniband, Ipv4, Ipv6, Ppp, Pppoe, Security8021x, Serial,
 			   Vpn, Wired, Wireless, WirelessSecurity, Bluetooth, OlpcMesh, Vlan, Wimax, Bond};
 
-	static QString typeAsString(const SettingType type);
+	static QString typeAsString(SettingType type);
 	static SettingType typeFromString(const QString & type);
 
 	Setting(SettingType type);
@@ -47,11 +47,11 @@ namespace Settings
 
 	virtual void fromMap(const QVariantMap & map);
 
-	void setInitialized(const bool initialized);
+	void setInitialized(bool initialized);
 
 	bool isNull() const;
 
-	void setType(const SettingType type);
+	void setType(SettingType type);
 	SettingType type() const;
 
 	//FOR DEBUG

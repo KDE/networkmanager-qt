@@ -52,3 +52,4 @@ namespace Settings
 }
 
 #endif // WIRELESSSETTING_P_H
+

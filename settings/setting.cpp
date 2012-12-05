@@ -63,7 +63,7 @@ NetworkManager::Settings::SettingPrivate::SettingPrivate():
     initialized(false)
 { }
 
-QString NetworkManager::Settings::Setting::typeAsString(const NetworkManager::Settings::Setting::SettingType type)
+QString NetworkManager::Settings::Setting::typeAsString(NetworkManager::Settings::Setting::SettingType type)
 {
     QString typeString;
 
@@ -192,7 +192,7 @@ void NetworkManager::Settings::Setting::fromMap(const QVariantMap& map)
     //TODO
 }
 
-void NetworkManager::Settings::Setting::setInitialized(const bool initialized)
+void NetworkManager::Settings::Setting::setInitialized(bool initialized)
 {
     Q_D(Setting);
 
@@ -206,7 +206,7 @@ bool NetworkManager::Settings::Setting::isNull() const
     return !d->initialized;
 }
 
-void NetworkManager::Settings::Setting::setType(const NetworkManager::Settings::Setting::SettingType type)
+void NetworkManager::Settings::Setting::setType(NetworkManager::Settings::Setting::SettingType type)
 {
     Q_D(Setting);
 

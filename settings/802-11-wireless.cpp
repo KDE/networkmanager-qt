@@ -97,7 +97,7 @@ QByteArray NetworkManager::Settings::WirelessSetting::ssid() const
     return d->ssid;
 }
 
-void NetworkManager::Settings::WirelessSetting::setMode(const NetworkManager::Settings::WirelessSetting::NetworkMode mode)
+void NetworkManager::Settings::WirelessSetting::setMode(NetworkManager::Settings::WirelessSetting::NetworkMode mode)
 {
     Q_D(WirelessSetting);
 
@@ -111,7 +111,7 @@ NetworkManager::Settings::WirelessSetting::NetworkMode NetworkManager::Settings:
     return d->mode;
 }
 
-void NetworkManager::Settings::WirelessSetting::setBand(const NetworkManager::Settings::WirelessSetting::FrequencyBand band)
+void NetworkManager::Settings::WirelessSetting::setBand(NetworkManager::Settings::WirelessSetting::FrequencyBand band)
 {
     Q_D(WirelessSetting);
 
@@ -125,7 +125,7 @@ NetworkManager::Settings::WirelessSetting::FrequencyBand NetworkManager::Setting
     return d->band;
 }
 
-void NetworkManager::Settings::WirelessSetting::setChannel(const quint32 channel)
+void NetworkManager::Settings::WirelessSetting::setChannel(quint32 channel)
 {
     Q_D(WirelessSetting);
 
@@ -153,7 +153,7 @@ QByteArray NetworkManager::Settings::WirelessSetting::bssid() const
     return d->bssid;
 }
 
-void NetworkManager::Settings::WirelessSetting::setRate(const quint32 rate)
+void NetworkManager::Settings::WirelessSetting::setRate(quint32 rate)
 {
     Q_D(WirelessSetting);
 
@@ -167,7 +167,7 @@ quint32 NetworkManager::Settings::WirelessSetting::rate() const
     return d->rate;
 }
 
-void NetworkManager::Settings::WirelessSetting::setTxPower(const quint32 power)
+void NetworkManager::Settings::WirelessSetting::setTxPower(quint32 power)
 {
     Q_D(WirelessSetting);
 
@@ -223,7 +223,7 @@ QStringList NetworkManager::Settings::WirelessSetting::macAddressBlacklist() con
     return d->macAddressBlacklist;
 }
 
-void NetworkManager::Settings::WirelessSetting::setMtu(const quint32 mtu)
+void NetworkManager::Settings::WirelessSetting::setMtu(quint32 mtu)
 {
     Q_D(WirelessSetting);
 
@@ -265,7 +265,7 @@ QString NetworkManager::Settings::WirelessSetting::security() const
     return d->security;
 }
 
-void NetworkManager::Settings::WirelessSetting::setHidden(const bool hidden)
+void NetworkManager::Settings::WirelessSetting::setHidden(bool hidden)
 {
     Q_D(WirelessSetting);
 

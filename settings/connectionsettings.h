@@ -59,20 +59,20 @@ namespace Settings
 	    void setUuid(const QString & uuid);
 	    QString uuid() const;
 
-	    void setConnectionType(const ConnectionType type);
+	    void setConnectionType(ConnectionType type);
 	    ConnectionType connectionType() const;
 
 	    void addToPermissions(const QString & user, const QString & type);
 	    void setPermissions(const QHash<QString, QString> & perm);
 	    QHash<QString, QString> permissions() const;
 
-	    void setAutoconnect(const bool autoconnect);
+	    void setAutoconnect(bool autoconnect);
 	    bool autoconnect() const;
 
 	    void setTimestamp(const QDateTime & timestamp);
 	    QDateTime timestamp() const;
 
-	    void setReadOnly(const bool readonly);
+	    void setReadOnly(bool readonly);
 	    bool readOnly() const;
 
 	    void setZone(const QString & zone);

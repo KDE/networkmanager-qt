@@ -53,7 +53,7 @@ namespace Settings
 	void setPassword(const QString & password);
 	QString password() const;
 
-	void setPasswordFlags(const SecretFlagType flags);
+	void setPasswordFlags(SecretFlagType flags);
 	SecretFlagType passwordFlags() const;
 
 	void setApn(const QString & apn);
@@ -62,19 +62,19 @@ namespace Settings
 	void setNetworkId(const QString & id);
 	QString networkId() const;
 
-	void setNetworkType(const qint32 type);
+	void setNetworkType(qint32 type);
 	qint32 networkType() const;
 
 	void setPin(const QString & pin);
 	QString pin() const;
 
-	void setPinFlags(const SecretFlagType flags);
+	void setPinFlags(SecretFlagType flags);
 	SecretFlagType pinFlags() const;
 
-	void setAllowedBand(const quint32 band);
+	void setAllowedBand(quint32 band);
 	quint32 allowedBand() const;
 
-	void setHomeOnly(const bool homeOnly);
+	void setHomeOnly(bool homeOnly);
 	bool homeOnly() const;
 
 	void fromMap(const QVariantMap & setting);

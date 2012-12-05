@@ -75,7 +75,7 @@ QString NetworkManager::Settings::WiredSetting::name() const
     return d->name;
 }
 
-void NetworkManager::Settings::WiredSetting::setPort(const NetworkManager::Settings::WiredSetting::PortType port)
+void NetworkManager::Settings::WiredSetting::setPort(NetworkManager::Settings::WiredSetting::PortType port)
 {
     Q_D(WiredSetting);
 
@@ -89,7 +89,7 @@ NetworkManager::Settings::WiredSetting::PortType NetworkManager::Settings::Wired
     return d->port;
 }
 
-void NetworkManager::Settings::WiredSetting::setSpeed(const quint32 speed)
+void NetworkManager::Settings::WiredSetting::setSpeed(quint32 speed)
 {
     Q_D(WiredSetting);
 
@@ -103,7 +103,7 @@ quint32 NetworkManager::Settings::WiredSetting::speed() const
     return d->speed;
 }
 
-void NetworkManager::Settings::WiredSetting::setDuplexType(const NetworkManager::Settings::WiredSetting::DuplexType type)
+void NetworkManager::Settings::WiredSetting::setDuplexType(NetworkManager::Settings::WiredSetting::DuplexType type)
 {
     Q_D(WiredSetting);
 
@@ -117,7 +117,7 @@ NetworkManager::Settings::WiredSetting::DuplexType NetworkManager::Settings::Wir
     return d->duplex;
 }
 
-void NetworkManager::Settings::WiredSetting::setAutoNegotiate(const bool autoNegotiate)
+void NetworkManager::Settings::WiredSetting::setAutoNegotiate(bool autoNegotiate)
 {
     Q_D(WiredSetting);
 
@@ -173,7 +173,7 @@ QStringList NetworkManager::Settings::WiredSetting::macAddressBlacklist() const
     return d->macAddressBlacklist;
 }
 
-void NetworkManager::Settings::WiredSetting::setMtu(const quint32 mtu)
+void NetworkManager::Settings::WiredSetting::setMtu(quint32 mtu)
 {
     Q_D(WiredSetting);
 
@@ -201,7 +201,7 @@ QStringList NetworkManager::Settings::WiredSetting::s390Subchannels() const
     return d->s390Subchannels;
 }
 
-void NetworkManager::Settings::WiredSetting::setS390NetType(const NetworkManager::Settings::WiredSetting::S390Nettype type)
+void NetworkManager::Settings::WiredSetting::setS390NetType(NetworkManager::Settings::WiredSetting::S390Nettype type)
 {
     Q_D(WiredSetting);
 
