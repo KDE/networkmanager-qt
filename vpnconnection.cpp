@@ -104,3 +104,5 @@ NetworkManager::VpnConnection::operator VpnConnection*()
     else
         return 0;
 }
+
+#include "vpnconnection.moc"

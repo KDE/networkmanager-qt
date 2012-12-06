@@ -227,3 +227,4 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap & cha
     //}
 }
 
+#include "activeconnection.moc"

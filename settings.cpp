@@ -222,3 +222,5 @@ NetworkManager::Settings::Notifier* NetworkManager::Settings::notifier()
 {
     return globalSettings;
 }
+
+#include "settings.moc"

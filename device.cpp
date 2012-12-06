@@ -453,3 +453,4 @@ NetworkManager::Device::Type NetworkManager::Device::type() const
         return NetworkManager::Device::UnknownType;
 }
 
+#include "device.moc"

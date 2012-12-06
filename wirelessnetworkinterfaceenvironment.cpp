@@ -150,3 +150,5 @@ void NetworkManager::WirelessNetworkInterfaceEnvironment::wirelessEnabledChanged
 }
 
 // vim: sw=4 sts=4 et tw=100
+
+#include "wirelessnetworkinterfaceenvironment.moc"

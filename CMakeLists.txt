@@ -61,21 +61,6 @@ dbus/generic-types.h
 QtNetworkManager-export.h
 )
 
-set(QtNetworkManager_PRIVATE_HEADERS
-activeconnection_p.h
-bluetoothdevice_p.h
-device_p.h
-manager_p.h
-modemdevice_p.h
-olpcmeshdevice_p.h
-settings_p.h
-wimaxdevice_p.h
-wireddevice_p.h
-wirelessdevice_p.h
-wirelessnetwork_p.h
-secretagent_p.h
-)
-
 set(QtNetworkManager_PART_SRCS
    accesspoint.cpp
    activeconnection.cpp
@@ -128,7 +113,7 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-vpn-plugininterface.cpp
    )
 
-qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_HEADERS} ${QtNetworkManager_PRIVATE_HEADERS})
+qt4_automoc(${QtNetworkManager_PART_SRCS})
 qt4_automoc(${DBUS_INTERFACE_SRCS})
 
 add_library(QtNetworkManager SHARED ${QtNetworkManager_MOC} ${QtNetworkManager_PART_SRCS} ${DBUS_INTERFACE_SRCS})

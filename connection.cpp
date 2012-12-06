@@ -190,3 +190,5 @@ void NetworkManager::Settings::Connection::onConnectionRemoved()
     d->path.clear();
 }
 // vim: sw=4 sts=4 et tw=100
+
+#include "connection.moc"

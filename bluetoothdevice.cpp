@@ -91,3 +91,5 @@ QString NetworkManager::BluetoothDevice::name() const
 }
 
 // vim: sw=4 sts=4 et tw=100
+
+#include "bluetoothdevice.moc"

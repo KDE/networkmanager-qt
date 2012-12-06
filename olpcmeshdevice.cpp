@@ -100,3 +100,5 @@ void NetworkManager::OlpcMeshDevice::propertiesChanged(const QVariantMap & chang
     //    nmDebug() << "Unhandled properties: " << propKeys;
     //}
 }
+
+#include "olpcmeshdevice.moc"

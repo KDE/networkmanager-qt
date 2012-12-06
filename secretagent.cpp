@@ -61,3 +61,5 @@ NetworkManager::SecretAgent::~SecretAgent()
 {
     delete d_ptr;
 }
+
+#include "secretagent.moc"

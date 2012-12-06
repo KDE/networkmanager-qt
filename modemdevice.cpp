@@ -165,3 +165,5 @@ void NetworkManager::ModemDevice::setModemNetworkIface(ModemManager::ModemGsmNet
 }
 
 // vim: sw=4 sts=4 et tw=100
+
+#include "modemdevice.moc"
