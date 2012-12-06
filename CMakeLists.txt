@@ -61,6 +61,11 @@ dbus/generic-types.h
 QtNetworkManager-export.h
 )
 
+set(QtNetworkManager_PRIVATE_HEADERS
+settings_p.h
+manager_p.h
+)
+
 set(QtNetworkManager_PART_SRCS
    accesspoint.cpp
    activeconnection.cpp
@@ -113,6 +118,7 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-vpn-plugininterface.cpp
    )
 
+qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_PRIVATE_HEADERS})
 qt4_automoc(${QtNetworkManager_PART_SRCS})
 qt4_automoc(${DBUS_INTERFACE_SRCS})
 
