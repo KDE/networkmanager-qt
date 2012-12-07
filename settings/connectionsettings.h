@@ -78,8 +78,8 @@ namespace Settings
 	    void setZone(const QString & zone);
 	    QString zone() const;
 
-	    void setMaster(NetworkManager::Device * master);
-	    NetworkManager::Device * master() const;
+	    void setMaster(const QString & master);
+	    QString master() const;
 
 	    void setSlaveType(const QString & type);
 	    QString slaveType() const;

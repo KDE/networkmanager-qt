@@ -27,12 +27,11 @@
 
 #include <QDebug>
 
-// TODO: default values
 NetworkManager::Settings::WirelessSettingPrivate::WirelessSettingPrivate():
     name(QString("802-11-wireless")),
     ssid(QByteArray()),
     mode(NetworkManager::Settings::WirelessSetting::Infrastructure),
-    band(),
+    band(WirelessSetting::Automatic),
     channel(0),
     bssid(QByteArray()),
     rate(0),

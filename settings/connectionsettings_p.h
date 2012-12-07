@@ -46,7 +46,7 @@ namespace Settings
 	QDateTime timestamp;
 	bool readOnly;
 	QString zone;
-	NetworkManager::Device * master;
+	QString master;
 	QString slaveType;
 	QList<Setting *> settings;
     };

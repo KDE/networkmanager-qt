@@ -21,6 +21,8 @@
 #include "802-3-ethernet.h"
 #include "802-3-ethernet_p.h"
 
+#include <QtNetworkManager/generic-types.h>
+
 #include <nm-setting-wired.h>
 
 #include <QDebug>
@@ -296,7 +298,14 @@ void NetworkManager::Settings::WiredSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS))) {
-	//TODO
+        QMap<QString, QString> tmp;
+	if (setting.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).canConvert<QDBusArgument>()) {
+            QDBusArgument arg = setting.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).value<QDBusArgument>();
+            tmp = qdbus_cast<QStringMap>(arg);
+        } else {
+            tmp = setting.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).value<QStringMap>();
+        }
+        setS390Options(tmp);
     }
 }
 

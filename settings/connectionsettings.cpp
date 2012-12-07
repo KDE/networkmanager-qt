@@ -34,18 +34,18 @@
 #include <ipv4.h>
 
 #include <QUuid>
-//TODO default values
+
 NetworkManager::Settings::ConnectionSettingsPrivate::ConnectionSettingsPrivate():
     name(QString("connection")),
     id(QString()),
     uuid(QUuid().toString()),
-    type(),
+    type(ConnectionSettings::Wired),
     permissions(QHash<QString,QString>()),
     autoconnect(true),
-    timestamp(),
-    readOnly(),
+    timestamp(QDateTime()),
+    readOnly(false),
     zone(QString()),
-    master(),
+    master(QString()),
     slaveType(QString())
 {
 }
@@ -207,11 +207,11 @@ void NetworkManager::Settings::ConnectionSettings::fromMap(const QVariantMapMap&
     }
 
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_MASTER))) {
-	//TODO
+        setMaster(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_MASTER)).toString());
     }
 
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_SLAVE_TYPE))) {
-	//TODO
+	setSlaveType(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_SLAVE_TYPE)).toString());
     }
 
     foreach (Setting * setting, settings()) {
@@ -354,14 +354,14 @@ QString NetworkManager::Settings::ConnectionSettings::zone() const
     return d->zone;
 }
 
-void NetworkManager::Settings::ConnectionSettings::setMaster(NetworkManager::Device* master)
+void NetworkManager::Settings::ConnectionSettings::setMaster(const QString & master)
 {
     Q_D(ConnectionSettings);
 
     d->master = master;
 }
 
-NetworkManager::Device* NetworkManager::Settings::ConnectionSettings::master() const
+QString NetworkManager::Settings::ConnectionSettings::master() const
 {
     Q_D(const ConnectionSettings);
 
@@ -403,7 +403,8 @@ void NetworkManager::Settings::ConnectionSettings::printSetting()
     qDebug() << "AUTOCONNECT - " << autoconnect();
     qDebug() << "TIMESTAMP - " << timestamp();
     qDebug() << "READONLY - " << readOnly();
-    //TODO - master, slaveType
+    qDebug() << "MASTER - " << master();
+    qDebug() << "SLAVE TYPE - " << slaveType();
     qDebug() << "===================";
     foreach (Setting * setting, settings()) {
 	qDebug() << setting->typeAsString(setting->type()).toUpper() << " SETTINGS";
