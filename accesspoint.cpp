@@ -236,3 +236,4 @@ NetworkManager::AccessPoint::WpaFlags NetworkManager::AccessPoint::convertWpaFla
     return (NetworkManager::AccessPoint::WpaFlags)theirFlags;
 }
 
+#include "accesspoint.moc"

@@ -34,10 +34,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "nm-agent-managerinterface.h"
 
 NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id, NetworkManager::SecretAgent *parent)
-: agent(parent), agentManager(NetworkManagerPrivate::DBUS_SERVICE, QLatin1String(NM_DBUS_PATH_AGENT_MANAGER), QDBusConnection::systemBus(), parent),
+: q_ptr(parent), agent(parent), agentManager(NetworkManagerPrivate::DBUS_SERVICE, QLatin1String(NM_DBUS_PATH_AGENT_MANAGER), QDBusConnection::systemBus(), parent),
 watcher(NetworkManagerPrivate::DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForRegistration, parent), agentId(id)
 {
-    connect(&watcher, SIGNAL(serviceRegistered(QString)), this, SLOT(registerAgent()));
+    Q_Q(SecretAgent);
+    watcher.connect(&watcher, SIGNAL(serviceRegistered(QString)), q, SLOT(registerAgent()));
     registerAgent();
 }
 
@@ -59,5 +60,8 @@ NetworkManager::SecretAgent::SecretAgent(const QString &id, QObject * parent)
 
 NetworkManager::SecretAgent::~SecretAgent()
 {
-    delete d_ptr;
+    Q_D(SecretAgent);
+    delete d;
 }
+
+#include "secretagent.moc"

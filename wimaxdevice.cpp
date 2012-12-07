@@ -222,3 +222,4 @@ void NetworkManager::WimaxDevice::nspRemoved(const QDBusObjectPath &nspPath)
     emit nspDisappeared(nspPath.path());
 }
 
+#include "wimaxdevice.moc"

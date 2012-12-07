@@ -122,3 +122,4 @@ void NetworkManager::WiredDevice::wiredPropertiesChanged(const QVariantMap &prop
     }
 }
 
+#include "wireddevice.moc"

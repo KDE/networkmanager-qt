@@ -129,3 +129,5 @@ NetworkManager::WimaxNsp::NetworkType NetworkManager::WimaxNsp::convertNetworkTy
     }
     return NetworkManager::WimaxNsp::Unknown;
 }
+
+#include "wimaxnsp.moc"

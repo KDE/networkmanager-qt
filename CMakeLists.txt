@@ -65,18 +65,8 @@ QtNetworkManager-export.h
 )
 
 set(QtNetworkManager_PRIVATE_HEADERS
-activeconnection_p.h
-bluetoothdevice_p.h
-device_p.h
-manager_p.h
-modemdevice_p.h
-olpcmeshdevice_p.h
 settings_p.h
-wimaxdevice_p.h
-wireddevice_p.h
-wirelessdevice_p.h
-wirelessnetwork_p.h
-secretagent_p.h
+manager_p.h
 settings/connectionsettings_p.h
 settings/802-3-ethernet_p.h
 settings/802-11-wireless_p.h
@@ -151,7 +141,8 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/gsmsetting.h
     )
 
-qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_HEADERS} ${QtNetworkManager_PRIVATE_HEADERS} ${CONNECTIONS_SETTINGS_HEADERS})
+qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_PRIVATE_HEADERS})
+qt4_automoc(${QtNetworkManager_PART_SRCS})
 qt4_automoc(${DBUS_INTERFACE_SRCS})
 
 add_library(QtNetworkManager SHARED ${QtNetworkManager_PART_SRCS} ${DBUS_INTERFACE_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${QtNetworkManager_MOC} )

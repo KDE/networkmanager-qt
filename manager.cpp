@@ -750,3 +750,4 @@ NetworkManager::Notifier * NetworkManager::notifier()
     return globalNetworkManager;
 }
 
+#include "manager.moc"
