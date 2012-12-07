@@ -31,6 +31,7 @@
 #include <802-3-ethernet.h>
 #include <802-11-wireless.h>
 #include <gsmsetting.h>
+#include <ipv4.h>
 
 #include <QUuid>
 //TODO default values
@@ -141,20 +142,27 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
     switch(connectionType()) {
 	case Wired:
 	    addSetting(new WiredSetting());
+            addSetting(new Ipv4Setting());
 	    break;
 	case Wireless:
 	    addSetting(new WirelessSetting());
+            addSetting(new Ipv4Setting());
 	    break;
 	case Gsm:
 	    addSetting(new GsmSetting());
-	    break;
+            addSetting(new Ipv4Setting());
+            break;
 	case Cdma:
+            addSetting(new Ipv4Setting());
 	    break;
 	case Vpn:
+            addSetting(new Ipv4Setting());
 	    break;
 	case Pppoe:
+            addSetting(new Ipv4Setting());
 	    break;
 	case Bluetooth:
+            addSetting(new Ipv4Setting());
 	    break;
 	case Unknown:
 	    break;
