@@ -39,7 +39,7 @@ namespace Settings
     public:
 	enum PortType {Tp, Aui, Bnc, Mii};
 	enum DuplexType {Half, Full};
-	enum S390Nettype {Qeth, Lcs, Ctc};
+	enum S390Nettype {Undefined = 0, Qeth, Lcs, Ctc};
 
 	WiredSetting();
 	WiredSetting(WiredSetting *);
@@ -81,6 +81,8 @@ namespace Settings
 	QMap<QString, QString> s390Options() const;
 
 	void fromMap(const QVariantMap & setting);
+
+        QVariantMap toMap() const;
 
 	//FOR DEBUG
 	void printSetting();

@@ -38,7 +38,7 @@ NetworkManager::Settings::WiredSettingPrivate::WiredSettingPrivate():
     macAddressBlacklist(QStringList()),
     mtu(0),
     s390Subchannels(QStringList()),
-    s390NetType(NetworkManager::Settings::WiredSetting::Ctc),
+    s390NetType(NetworkManager::Settings::WiredSetting::Undefined),
     s390Options(QMap<QString, QString>())
 {
 }
@@ -308,6 +308,78 @@ void NetworkManager::Settings::WiredSetting::fromMap(const QVariantMap& setting)
         setS390Options(tmp);
     }
 }
+
+QVariantMap NetworkManager::Settings::WiredSetting::toMap() const
+{
+    QVariantMap setting;
+
+    switch (port()) {
+        case Tp:
+            setting.insert(QLatin1String(NM_SETTING_WIRED_PORT), "tp");
+            break;
+        case Aui:
+            setting.insert(QLatin1String(NM_SETTING_WIRED_PORT), "aui");
+            break;
+        case Bnc:
+            setting.insert(QLatin1String(NM_SETTING_WIRED_PORT), "bnc");
+            break;
+        case Mii:
+            setting.insert(QLatin1String(NM_SETTING_WIRED_PORT), "mii");
+            break;
+    }
+
+    setting.insert(QLatin1String(NM_SETTING_WIRED_SPEED), speed());
+
+    switch (duplexType()) {
+        case Half:
+            setting.insert(QLatin1String(NM_SETTING_WIRED_DUPLEX), "half");
+            break;
+        case Full:
+            setting.insert(QLatin1String(NM_SETTING_WIRED_DUPLEX), "full");
+            break;
+    }
+
+    setting.insert(QLatin1String(NM_SETTING_WIRED_AUTO_NEGOTIATE), autoNegotiate());
+
+    if (!macAddress().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS), macAddress());
+    }
+    if (!clonedMacAddress().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRED_CLONED_MAC_ADDRESS), clonedMacAddress());
+    }
+    if (!macAddressBlacklist().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST), macAddressBlacklist());
+    }
+    if (mtu() > 0) {
+        setting.insert(QLatin1String(NM_SETTING_WIRED_MTU), mtu());
+    }
+    if (!s390Subchannels().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRED_S390_SUBCHANNELS), s390Subchannels());
+    }
+
+    switch (s390NetType()) {
+        case Qeth:
+            setting.insert(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE), "qeth");
+            break;
+        case Lcs:
+            setting.insert(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE), "lcs");
+            break;
+        case Ctc:
+            setting.insert(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE), "ctc");
+            break;
+    }
+
+    if (!s390Options().isEmpty()) {
+        QMap<QString, QVariant> map;
+        foreach (const QString & key, s390Options().keys()) {
+            map.insert(key, QVariant(s390Options().value(key)));
+        }
+        setting.insert(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS), map);
+    }
+
+    return setting;
+}
+
 
 void NetworkManager::Settings::WiredSetting::printSetting()
 {

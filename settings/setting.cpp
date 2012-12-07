@@ -187,11 +187,6 @@ NetworkManager::Settings::Setting::~Setting()
     delete d_ptr;
 }
 
-void NetworkManager::Settings::Setting::fromMap(const QVariantMap& map)
-{
-    //TODO
-}
-
 void NetworkManager::Settings::Setting::setInitialized(bool initialized)
 {
     Q_D(Setting);

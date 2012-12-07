@@ -47,6 +47,8 @@ namespace Settings
 
 	virtual void fromMap(const QVariantMap & map);
 
+        virtual QVariantMap toMap() const;
+
 	void setInitialized(bool initialized);
 
 	bool isNull() const;

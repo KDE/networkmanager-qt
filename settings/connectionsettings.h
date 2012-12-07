@@ -53,6 +53,8 @@ namespace Settings
 
 	    void fromMap(const QVariantMapMap & map);
 
+            QVariantMapMap toMap() const;
+
 	    void setId(const QString & id);
 	    QString id() const;
 

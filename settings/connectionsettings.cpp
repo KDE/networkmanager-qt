@@ -223,7 +223,37 @@ void NetworkManager::Settings::ConnectionSettings::fromMap(const QVariantMapMap&
 	}
     }
 
+    // DEBUG
     printSetting();
+}
+
+QVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const
+{
+    QVariantMapMap settings;
+    QVariantMap connectionSetting;
+
+    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_ID), id());
+    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_UUID), uuid());
+    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_TYPE), typeAsString(connectionType()));
+
+    QStringList perm;
+    foreach (const QString & key, permissions().keys()) {
+        QString tmp = key + ":" + permissions().value(key);
+        perm << tmp;
+    }
+    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS), perm);
+    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT), autoconnect());
+    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP), timestamp().toTime_t());
+    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_READ_ONLY), readOnly());
+    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_ZONE), zone());
+    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_MASTER), master());
+    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_SLAVE_TYPE), slaveType());
+
+    settings.insert(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME), connectionSetting);
+
+    //TODO: add others setting
+
+    return settings;
 }
 
 QString NetworkManager::Settings::ConnectionSettings::name() const
