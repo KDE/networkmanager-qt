@@ -215,6 +215,14 @@ NetworkManager::Settings::Setting::SettingType NetworkManager::Settings::Setting
     return d->type;
 }
 
+void NetworkManager::Settings::Setting::fromMap(const QVariantMap& map)
+{
+}
+
+QVariantMap NetworkManager::Settings::Setting::toMap() const
+{
+}
+
 void NetworkManager::Settings::Setting::printSetting()
 {
     qDebug() << "TYPE - " << typeAsString(type());
