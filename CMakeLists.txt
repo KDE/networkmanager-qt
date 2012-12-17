@@ -36,7 +36,7 @@ include_directories(
 
 #add_subdirectory(tests)
 
-#add_subdirectory(settings)
+add_subdirectory(tests)
 
 set(QtNetworkManager_HEADERS
 manager.h
