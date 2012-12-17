@@ -19,8 +19,8 @@
 */
 
 
-#ifndef CONNECTIONSETTINGS_P_H
-#define CONNECTIONSETTINGS_P_H
+#ifndef NM_CONNECTIONSETTINGS_P_H
+#define NM_CONNECTIONSETTINGS_P_H
 
 #include <QHash>
 #include <QString>
@@ -53,4 +53,4 @@ namespace Settings
 }
 }
 
-#endif // CONNECTIONSETTINGS_P_H
+#endif // NM_CONNECTIONSETTINGS_P_H

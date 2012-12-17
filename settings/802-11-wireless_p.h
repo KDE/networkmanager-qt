@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef WIRELESSSETTING_P_H
-#define WIRELESSSETTING_P_H
+#ifndef NM_WIRELESSSETTING_P_H
+#define NM_WIRELESSSETTING_P_H
 
 #include <QStringList>
 
@@ -51,5 +51,5 @@ namespace Settings
 }
 }
 
-#endif // WIRELESSSETTING_P_H
+#endif // NM_WIRELESSSETTING_P_H
 

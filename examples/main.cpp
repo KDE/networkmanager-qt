@@ -28,6 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtNetworkManager/connection.h>
 #include <QtNetworkManager/connectionsettings.h>
 
+#include <QtNetworkManager/802-3-ethernet.h>
+
 QString typeAsString(const int type)
 {
     switch (type) {
@@ -98,6 +100,7 @@ int main()
         }
     }
     qout << "\n";*/
+    NetworkManager::Settings::WiredSetting setting;
 
     QList<NetworkManager::ActiveConnection*> lst = NetworkManager::activeConnections();
 

@@ -380,7 +380,6 @@ QVariantMap NetworkManager::Settings::WiredSetting::toMap() const
     return setting;
 }
 
-
 void NetworkManager::Settings::WiredSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();

@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef WIRELESSSETTING_H
-#define WIRELESSSETTING_H
+#ifndef NM_WIRELESSSETTING_H
+#define NM_WIRELESSSETTING_H
 
 #include "QtNetworkManager-export.h"
 #include "setting.h"
@@ -35,9 +35,10 @@ namespace Settings
     class NMQT_EXPORT WirelessSetting : public Setting
     {
     Q_DECLARE_PRIVATE(WirelessSetting)
-    enum NetworkMode {Infrastructure, Adhoc};
-    enum FrequencyBand {Automatic, A, Bg};
     public:
+        enum NetworkMode {Infrastructure, Adhoc};
+        enum FrequencyBand {Automatic, A, Bg};
+
 	WirelessSetting();
 	WirelessSetting(WirelessSetting * setting);
 	virtual ~WirelessSetting();
@@ -88,6 +89,8 @@ namespace Settings
 
 	void fromMap(const QVariantMap & setting);
 
+        QVariantMap toMap() const;
+
 	//FOR DEBUG
 	void printSetting();
 
@@ -97,5 +100,5 @@ namespace Settings
 }
 }
 
-#endif // WIRELESSSETTING_H
+#endif // NM_WIRELESSSETTING_H
 

@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef GSMSETTING_P_H
-#define GSMSETTING_P_H
+#ifndef NM_GSMSETTING_P_H
+#define NM_GSMSETTING_P_H
 
 #include <QString>
 
@@ -48,4 +48,4 @@ namespace Settings
 }
 }
 
-#endif // GSMSETTING_P_H
+#endif // NM_GSMSETTING_P_H

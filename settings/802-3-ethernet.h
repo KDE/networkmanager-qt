@@ -42,7 +42,7 @@ namespace Settings
 	enum S390Nettype {Undefined = 0, Qeth, Lcs, Ctc};
 
 	WiredSetting();
-	WiredSetting(WiredSetting *);
+	WiredSetting(WiredSetting * setting);
 	~WiredSetting();
 
 	QString name() const;
@@ -86,6 +86,7 @@ namespace Settings
 
 	//FOR DEBUG
 	void printSetting();
+
     protected:
 	WiredSettingPrivate *d_ptr;
     };
