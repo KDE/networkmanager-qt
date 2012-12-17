@@ -21,8 +21,6 @@
 #include "802-11-wireless.h"
 #include "802-11-wireless_p.h"
 
-#include "802-11-wireless.h"
-
 #include <nm-setting-wireless.h>
 
 #include <QDebug>
@@ -286,9 +284,9 @@ void NetworkManager::Settings::WirelessSetting::fromMap(const QVariantMap& setti
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_MODE))) {
 	QString mode = setting.value(QLatin1String(NM_SETTING_WIRELESS_MODE)).toString();
-	if (mode == "infrastructure") {
+	if (mode == QLatin1String(NM_SETTING_WIRELESS_MODE_INFRA)) {
 	    setMode(Infrastructure);
-	} else if (mode == "adhoc") {
+	} else if (mode == QLatin1String(NM_SETTING_WIRELESS_MODE_ADHOC)) {
 	    setMode(Adhoc);
 	}
     }
@@ -346,6 +344,72 @@ void NetworkManager::Settings::WirelessSetting::fromMap(const QVariantMap& setti
 	setHidden(setting.value(QLatin1String(NM_SETTING_WIRELESS_HIDDEN)).toBool());
     }
 }
+
+QVariantMap NetworkManager::Settings::WirelessSetting::toMap() const
+{
+    QVariantMap setting;
+
+    if (!ssid().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_SSID), ssid());
+    }
+
+    if (mode() == Infrastructure) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_MODE), QLatin1String(NM_SETTING_WIRELESS_MODE_INFRA));
+    } else {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_MODE), QLatin1String(NM_SETTING_WIRELESS_MODE_ADHOC));
+
+        if (band() != Automatic) {
+            if (band() == A) {
+                setting.insert(QLatin1String(NM_SETTING_WIRELESS_BAND), "a");
+            } else if (band() ==  Bg) {
+                setting.insert(QLatin1String(NM_SETTING_WIRELESS_BAND), "bg");
+            }
+        }
+
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_CHANNEL), channel());
+    }
+
+    if (!bssid().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_BSSID), bssid());
+    }
+
+    if (rate()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_RATE), rate());
+    }
+
+    if (txPower()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_TX_POWER), txPower());
+    }
+
+    if (!macAddress().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS), macAddress());
+    }
+
+    if (!clonedMacAddress().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS), clonedMacAddress());
+    }
+
+    if (!macAddressBlacklist().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_BLACKLIST), macAddressBlacklist());
+    }
+
+    if (mtu()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_MTU), mtu());
+    }
+
+    if (!seenBssids().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_SEEN_BSSIDS), seenBssids());
+    }
+
+    if (!security().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_SEC), security());
+    }
+
+    setting.insert(QLatin1String(NM_SETTING_WIRELESS_HIDDEN), hidden());
+
+    return setting;
+}
+
 
 void NetworkManager::Settings::WirelessSetting::printSetting()
 {
