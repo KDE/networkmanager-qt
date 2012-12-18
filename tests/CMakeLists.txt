@@ -24,3 +24,11 @@ set(wiredsetting_SRCS wiredsetting.cpp )
 kde4_add_unit_test(wiredsetting TESTNAME libnm-wiredsetting ${wiredsetting_SRCS})
 
 target_link_libraries(wiredsetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
+
+# GSM setting tests
+
+set(gsmsetting_SRCS gsmsetting.cpp)
+
+kde4_add_unit_test(gsmsetting TESTNAME libnm-gsmsetting ${gsmsetting_SRCS})
+
+target_link_libraries(gsmsetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
