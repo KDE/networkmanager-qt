@@ -258,10 +258,6 @@ void NetworkManager::Settings::GsmSetting::fromMap(const QVariantMap& setting)
 	setNetworkType(setting.value(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE)).toInt());
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS))) {
-	setAllowedBand(setting.value(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS)).toUInt());
-    }
-
     if (setting.contains(QLatin1String(NM_SETTING_GSM_PIN))) {
 	setPin(setting.value(QLatin1String(NM_SETTING_GSM_PIN)).toString());
     }
@@ -270,10 +266,54 @@ void NetworkManager::Settings::GsmSetting::fromMap(const QVariantMap& setting)
 	setPinFlags((SecretFlagType)setting.value(QLatin1String(NM_SETTING_GSM_PIN_FLAGS)).toInt());
     }
 
+    if (setting.contains(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS))) {
+        setAllowedBand(setting.value(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS)).toUInt());
+    }
+
     if (setting.contains(QLatin1String(NM_SETTING_GSM_HOME_ONLY))) {
 	setHomeOnly(setting.value(QLatin1String(NM_SETTING_GSM_HOME_ONLY)).toBool());
     }
 }
+
+QVariantMap NetworkManager::Settings::GsmSetting::toMap() const
+{
+    QVariantMap setting;
+
+    if (!number().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_GSM_NUMBER), number());
+    }
+
+    if (!username().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_GSM_USERNAME), username());
+    }
+
+    if (!password().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_GSM_PASSWORD), password());
+    }
+
+    setting.insert(QLatin1String(NM_SETTING_GSM_PASSWORD_FLAGS), passwordFlags());
+
+    if (!apn().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_GSM_APN), apn());
+    }
+
+    if (!networkId().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_GSM_NETWORK_ID), networkId());
+    }
+
+    setting.insert(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE), networkType());
+
+    if (!pin().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_GSM_PIN), pin());
+    }
+
+    setting.insert(QLatin1String(NM_SETTING_GSM_PIN_FLAGS), pinFlags());
+    setting.insert(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS), allowedBand());
+    setting.insert(QLatin1String(NM_SETTING_GSM_HOME_ONLY), homeOnly());
+
+    return setting;
+}
+
 
 void NetworkManager::Settings::GsmSetting::printSetting()
 {

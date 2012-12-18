@@ -79,6 +79,8 @@ namespace Settings
 
 	void fromMap(const QVariantMap & setting);
 
+        QVariantMap toMap() const;
+
 	//FOR DEBUG
 	void printSetting();
 
