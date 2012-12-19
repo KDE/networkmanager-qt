@@ -38,7 +38,7 @@ namespace Settings
     {
     Q_DECLARE_PRIVATE(Ipv4Setting)
     public:
-        enum MethodType {Automatic, LinkLocal, Manual, Shared, Disabled};
+        enum ConfigMethod {Automatic, LinkLocal, Manual, Shared, Disabled};
 
         Ipv4Setting();
         Ipv4Setting(Ipv4Setting * setting);
@@ -46,8 +46,8 @@ namespace Settings
 
         QString name() const;
 
-        void setMethodType(MethodType type);
-        MethodType methodType() const;
+        void setMethod(ConfigMethod method);
+        ConfigMethod method() const;
 
         void setDns(const QList<QHostAddress> & dns);
         QList<QHostAddress> dns() const;
@@ -83,6 +83,8 @@ namespace Settings
         bool mayFail() const;
 
         void fromMap(const QVariantMap & setting);
+
+        //QVariant toMap() const;
 
         //FOR DEBUB
         void printSetting();

@@ -53,7 +53,7 @@ NetworkManager::Settings::Ipv4Setting::Ipv4Setting(NetworkManager::Settings::Ipv
     Setting(setting),
     d_ptr(new Ipv4SettingPrivate())
 {
-    setMethodType(setting->methodType());
+    setMethod(setting->method());
     setDns(setting->dns());
     setDnsSearch(setting->dnsSearch());
     setAddresses(setting->addresses());
@@ -79,14 +79,14 @@ QString NetworkManager::Settings::Ipv4Setting::name() const
     return d->name;
 }
 
-void NetworkManager::Settings::Ipv4Setting::setMethodType(NetworkManager::Settings::Ipv4Setting::MethodType type)
+void NetworkManager::Settings::Ipv4Setting::setMethod(NetworkManager::Settings::Ipv4Setting::ConfigMethod type)
 {
     Q_D(Ipv4Setting);
 
     d->method = type;
 }
 
-NetworkManager::Settings::Ipv4Setting::MethodType NetworkManager::Settings::Ipv4Setting::methodType() const
+NetworkManager::Settings::Ipv4Setting::ConfigMethod NetworkManager::Settings::Ipv4Setting::method() const
 {
     Q_D(const Ipv4Setting);
 
@@ -253,17 +253,17 @@ void NetworkManager::Settings::Ipv4Setting::fromMap(const QVariantMap& setting)
         QString methodType = setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD)).toString();
 
         if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_AUTO)) {
-            setMethodType(Automatic);
+            setMethod(Automatic);
         } else if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_LINK_LOCAL)) {
-            setMethodType(LinkLocal);
+            setMethod(LinkLocal);
         } else if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_MANUAL)) {
-            setMethodType(Manual);
+            setMethod(Manual);
         } else if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_SHARED)) {
-            setMethodType(Shared);
+            setMethod(Shared);
         } else if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_DISABLED)) {
-            setMethodType(Disabled);
+            setMethod(Disabled);
         } else {
-            setMethodType(Automatic);
+            setMethod(Automatic);
         }
     }
 
@@ -379,7 +379,7 @@ void NetworkManager::Settings::Ipv4Setting::printSetting()
     NetworkManager::Settings::Setting::printSetting();
 
     qDebug() << "NAME - " << name();
-    qDebug() << "METHOD - " << methodType();
+    qDebug() << "METHOD - " << method();
     qDebug() << "DNS SERVERS -";
     foreach (const QHostAddress & address, dns()) {
         qDebug() << address.toString() << ", ";

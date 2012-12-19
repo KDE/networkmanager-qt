@@ -36,7 +36,7 @@ namespace Settings
         Ipv4SettingPrivate();
 
         QString name;
-        NetworkManager::Settings::Ipv4Setting::MethodType method;
+        NetworkManager::Settings::Ipv4Setting::ConfigMethod method;
         QList<QHostAddress> dns;
         QStringList dnsSearch;
         QList<NetworkManager::IPv4Address> addresses;
