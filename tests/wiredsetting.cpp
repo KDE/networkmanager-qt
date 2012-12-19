@@ -21,10 +21,8 @@
 #include "wiredsetting.h"
 
 #include <nm-setting-wired.h>
+#include <QtNetworkManager/generic-types.h>
 #include <QtNetworkManager/802-3-ethernet.h>
-
-typedef QMap<QString,QString> MapStringString;
-Q_DECLARE_METATYPE(MapStringString)
 
 void WiredSetting::testSetting_data()
 {
@@ -38,20 +36,31 @@ void WiredSetting::testSetting_data()
     QTest::addColumn<quint32>("mtu");
     QTest::addColumn<QStringList>("s390Subchannels");
     QTest::addColumn<QString>("s390NetType");
-    QTest::addColumn<MapStringString>("s390Options");
+    QTest::addColumn<QStringMap>("s390Options");
+
+    QStringList macAddressBlacklist;
+    macAddressBlacklist << "00:08:C7:1B:8C:02";
+
+    QStringList s390Subchannels;
+    s390Subchannels << "0.0.09a0";
+    s390Subchannels << "0.0.09a1";
+    s390Subchannels << "0.0.09a2";
+
+    QMap<QString, QString> s390Options;
+    s390Options.insert("portno","0");
 
     QTest::newRow("setting1")
-            << QString("tp") // port
-            << (quint32) 100 // speed
-            << QString("full") // duplex
-            << false // autoNegotiate
-            << QByteArray("00-B0-D0-86-BB-F7") // macAddress
-            << QByteArray()  // clonedMacAddress
-            << QStringList() // macAddressBlacklist
-            << (quint32) 200 // mtu
-            << QStringList() // s390Subchannels
-            << QString("qeth") // s390NetType
-            << MapStringString(); // s390Options
+            << QString("tp")                    // port
+            << (quint32) 100                    // speed
+            << QString("full")                  // duplex
+            << false                            // autoNegotiate
+            << QByteArray("00-B0-D0-86-BB-F7")  // macAddress
+            << QByteArray("00-14-22-01-23-4")   // clonedMacAddress
+            << macAddressBlacklist              // macAddressBlacklist
+            << (quint32) 200                    // mtu
+            << s390Subchannels                  // s390Subchannels
+            << QString("qeth")                  // s390NetType
+            << s390Options;                     // s390Options
 }
 
 void WiredSetting::testSetting()
@@ -61,12 +70,12 @@ void WiredSetting::testSetting()
     QFETCH(QString, duplex);
     QFETCH(bool, autoNegotiate);
     QFETCH(QByteArray, macAddress);
-    //QFETCH(QByteArray, clonedMacAddress);
-    //QFETCH(QStringList, macAddressBlacklist);
+    QFETCH(QByteArray, clonedMacAddress);
+    QFETCH(QStringList, macAddressBlacklist);
     QFETCH(quint32, mtu);
-    //QFETCH(QStringList, s390Subchannels);
+    QFETCH(QStringList, s390Subchannels);
     QFETCH(QString, s390NetType);
-    //QFETCH(MapStringString, s390Options);
+    QFETCH(QStringMap, s390Options);
 
     QVariantMap map;
 
@@ -75,12 +84,12 @@ void WiredSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_WIRED_DUPLEX), duplex);
     map.insert(QLatin1String(NM_SETTING_WIRED_AUTO_NEGOTIATE), autoNegotiate);
     map.insert(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS), macAddress);
-    //map.insert(QLatin1String(NM_SETTING_WIRED_CLONED_MAC_ADDRESS), clonedMacAddress);
-    //map.insert(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST), macAddressBlacklist);
+    map.insert(QLatin1String(NM_SETTING_WIRED_CLONED_MAC_ADDRESS), clonedMacAddress);
+    map.insert(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST), macAddressBlacklist);
     map.insert(QLatin1String(NM_SETTING_WIRED_MTU), mtu);
-    //map.insert(QLatin1String(NM_SETTING_WIRED_S390_SUBCHANNELS), s390Subchannels);
+    map.insert(QLatin1String(NM_SETTING_WIRED_S390_SUBCHANNELS), s390Subchannels);
     map.insert(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE), s390NetType);
-    //map.insert(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS), s390Options);
+    map.insert(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS), QVariant::fromValue(s390Options));
 
     NetworkManager::Settings::WiredSetting setting;
     setting.fromMap(map);
@@ -88,8 +97,13 @@ void WiredSetting::testSetting()
     QVariantMap map1 = setting.toMap();
 
     foreach (const QString & key, map.keys()) {
-        QCOMPARE(map.value(key), map1.value(key));
+        if (key != QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)) {
+            QCOMPARE(map.value(key), map1.value(key));
+        }
     }
+
+    QCOMPARE(map.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).value<QStringMap>(),
+             map1.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).value<QStringMap>());
 }
 
 QTEST_MAIN(WiredSetting)

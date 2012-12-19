@@ -40,21 +40,27 @@ void WirelessSetting::testSetting_data()
     QTest::addColumn<QString>("security");
     QTest::addColumn<bool>("hidden");
 
+    QStringList macAddressBlacklist;
+    macAddressBlacklist << "00:08:C7:1B:8C:02";
+
+    QStringList seenBssids;
+    seenBssids << "0005.9a3e.7c0f";
+
     QTest::newRow("setting1")
-            << QByteArray("test") // ssid
-            << QString("adhoc") // mode
-            << QString("bg") // band
-            << (quint32)1 // channel
-            << QByteArray() // bssid
-            << (quint32)2 // rate
-            << (quint32)3 // txPower
-            << QByteArray("00-B0-D0-86-BB-F7") // macAddress
-            << QByteArray()  // clonedMacAddress
-            << QStringList() // macAddressBlacklist
-            << (quint32)4 // mtu
-            << QStringList() // seenBssids
-            << QString("802-11-wireless-security") // security
-            << true; // hidden
+            << QByteArray("test")                       // ssid
+            << QString("adhoc")                         // mode
+            << QString("bg")                            // band
+            << (quint32)1                               // channel
+            << QByteArray("0011.2161.b7c0")             // bssid
+            << (quint32)2                               // rate
+            << (quint32)3                               // txPower
+            << QByteArray("00-B0-D0-86-BB-F7")          // macAddress
+            << QByteArray("00-14-22-01-23-4")           // clonedMacAddress
+            << macAddressBlacklist                      // macAddressBlacklist
+            << (quint32)4                               // mtu
+            << seenBssids                               // seenBssids
+            << QString("802-11-wireless-security")      // security
+            << true;                                    // hidden
 }
 
 void WirelessSetting::testSetting()
@@ -63,14 +69,14 @@ void WirelessSetting::testSetting()
     QFETCH(QString, mode);
     QFETCH(QString, band);
     QFETCH(quint32, channel);
-    //QFETCH(QByteArray, bssid);
+    QFETCH(QByteArray, bssid);
     QFETCH(quint32, rate);
     QFETCH(quint32, txPower);
     QFETCH(QByteArray, macAddress);
-    //QFETCH(QByteArray, clonedMacAddress);
-    //QFETCH(QStringList, macAddressBlacklist);
+    QFETCH(QByteArray, clonedMacAddress);
+    QFETCH(QStringList, macAddressBlacklist);
     QFETCH(quint32, mtu);
-    //QFETCH(QStringList, seenBssids);
+    QFETCH(QStringList, seenBssids);
     QFETCH(QString, security);
     QFETCH(bool, hidden);
 
@@ -80,14 +86,14 @@ void WirelessSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_WIRELESS_MODE), mode);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_BAND), band);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_CHANNEL), channel);
-    //map.insert(QLatin1String(NM_SETTING_WIRELESS_BSSID), bssid);
+    map.insert(QLatin1String(NM_SETTING_WIRELESS_BSSID), bssid);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_RATE), rate);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_TX_POWER), txPower);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS), macAddress);
-    //map.insert(QLatin1String(NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS), clonedMacAddress);
-    //map.insert(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_BLACKLIST), macAddressBlacklist);
+    map.insert(QLatin1String(NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS), clonedMacAddress);
+    map.insert(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_BLACKLIST), macAddressBlacklist);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_MTU), mtu);
-    //map.insert(QLatin1String(NM_SETTING_WIRELESS_SEEN_BSSIDS), seenBssids);
+    map.insert(QLatin1String(NM_SETTING_WIRELESS_SEEN_BSSIDS), seenBssids);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_SEC), security);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_HIDDEN), hidden);
 

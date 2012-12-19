@@ -22,21 +22,16 @@
 
 #include <arpa/inet.h>
 #include <nm-setting-ip4-config.h>
+#include <QtNetworkManager/generic-types.h>
 #include <QtNetworkManager/ipv4.h>
-
-typedef QList<uint> ListUint;
-Q_DECLARE_METATYPE(ListUint)
-
-typedef QList<ListUint> ListListUint;
-Q_DECLARE_METATYPE(ListListUint)
 
 void IPv4Setting::testSetting_data()
 {
     QTest::addColumn<QString>("method");
-    QTest::addColumn<ListUint>("dns");
+    QTest::addColumn<UIntList>("dns");
     QTest::addColumn<QStringList>("dnsSearch");
-    QTest::addColumn<ListListUint>("addresses");
-    QTest::addColumn<ListListUint>("routes");
+    QTest::addColumn<UIntListList>("addresses");
+    QTest::addColumn<UIntListList>("routes");
     QTest::addColumn<bool>("ignoreAutoRoutes");
     QTest::addColumn<bool>("ignoreAutoDns");
     QTest::addColumn<QString>("dhcpClientId");
@@ -86,10 +81,10 @@ void IPv4Setting::testSetting_data()
 void IPv4Setting::testSetting()
 {
     QFETCH(QString, method);
-    QFETCH(ListUint, dns);
+    QFETCH(UIntList, dns);
     QFETCH(QStringList, dnsSearch);
-    QFETCH(ListListUint, addresses);
-    QFETCH(ListListUint, routes);
+    QFETCH(UIntListList, addresses);
+    QFETCH(UIntListList, routes);
     QFETCH(bool, ignoreAutoRoutes);
     QFETCH(bool, ignoreAutoDns);
     QFETCH(QString, dhcpClientId);
@@ -127,13 +122,12 @@ void IPv4Setting::testSetting()
         }
     }
 
-    /* TODO: This doesn't work, don't know why???
-     * QCOMPARE(map.value(QLatin1String(NM_SETTING_IP4_CONFIG_DNS)).value<QList<uint> >(),
-             map1.value(QLatin1String(NM_SETTING_IP4_CONFIG_DNS)).value<QList<uint> >());*/
-    QCOMPARE(map.value(QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES)).value<QList<QList<uint> > >(),
-             map.value(QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES)).value<QList<QList<uint> > >());
-    QCOMPARE(map.value(QLatin1String(NM_SETTING_IP4_CONFIG_ROUTES)).value<QList<QList<uint> > >(),
-             map.value(QLatin1String(NM_SETTING_IP4_CONFIG_ROUTES)).value<QList<QList<uint> > >());
+    QCOMPARE(map.value(QLatin1String(NM_SETTING_IP4_CONFIG_DNS)).value<UIntList>(),
+             map1.value(QLatin1String(NM_SETTING_IP4_CONFIG_DNS)).value<UIntList>());
+    QCOMPARE(map.value(QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES)).value<UIntListList>(),
+             map.value(QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES)).value<UIntListList>());
+    QCOMPARE(map.value(QLatin1String(NM_SETTING_IP4_CONFIG_ROUTES)).value<UIntListList>(),
+             map.value(QLatin1String(NM_SETTING_IP4_CONFIG_ROUTES)).value<UIntListList>());
 }
 
 QTEST_MAIN(IPv4Setting)

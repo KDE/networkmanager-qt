@@ -38,17 +38,17 @@ void GsmSetting::testSetting_data()
     QTest::addColumn<bool>("homeOnly");
 
     QTest::newRow("setting1")
-            << QString("0123456789") // number
-            << QString("foo") // username
-            << QString("bar") // password
-            << (qint32) 2 // passwordFlags
-            << QString("test") // apn
-            << QString("MCC-MNC") // networkId
-            << (qint32) 1 // networkType
-            << QString("1010") // pin
-            << (qint32) 4 // pinFlags
-            << (quint32) 0 // allowedBand
-            << true; // homeOnly
+            << QString("0123456789")    // number
+            << QString("foo")           // username
+            << QString("bar")           // password
+            << (qint32) 2               // passwordFlags
+            << QString("test")          // apn
+            << QString("MCC-MNC")       // networkId
+            << (qint32) 1               // networkType
+            << QString("1010")          // pin
+            << (qint32) 4               // pinFlags
+            << (quint32) 0              // allowedBand
+            << true;                    // homeOnly
 }
 
 void GsmSetting::testSetting()
