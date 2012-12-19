@@ -9,6 +9,14 @@ include_directories( ${CMAKE_CURRENT_SOURCE_DIR}
                      ${QTNETWORK_INCLUDE_DIRS}
                      ${QTNETWORKMANAGER_INCLUDE_DIRS})
 
+# Connection setting tests
+
+set(connectionsetting_SRCS connectionsetting.cpp)
+
+kde4_add_unit_test(connectionsetting TESTNAME libnm-connectionsetting ${connectionsetting_SRCS})
+
+target_link_libraries(connectionsetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
+
 # Wireless setting tests
 
 set(wirelesssetting_SRCS wirelesssetting.cpp )
