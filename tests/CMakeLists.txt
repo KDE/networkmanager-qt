@@ -32,3 +32,11 @@ set(gsmsetting_SRCS gsmsetting.cpp)
 kde4_add_unit_test(gsmsetting TESTNAME libnm-gsmsetting ${gsmsetting_SRCS})
 
 target_link_libraries(gsmsetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
+
+# IPv4 setting tests
+
+set(ipv4setting_SRCS ipv4setting.cpp)
+
+kde4_add_unit_test(ipv4setting TESTNAME libnm-ipv4setting ${ipv4setting_SRCS})
+
+target_link_libraries(ipv4setting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
