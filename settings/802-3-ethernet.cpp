@@ -374,11 +374,7 @@ QVariantMap NetworkManager::Settings::WiredSetting::toMap() const
     }
 
     if (!s390Options().isEmpty()) {
-        QMap<QString, QVariant> map;
-        foreach (const QString & key, s390Options().keys()) {
-            map.insert(key, QVariant(s390Options().value(key)));
-        }
-        setting.insert(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS), map);
+        setting.insert(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS), QVariant::fromValue(s390Options()));
     }
 
     return setting;
