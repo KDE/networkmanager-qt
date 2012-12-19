@@ -374,6 +374,93 @@ void NetworkManager::Settings::Ipv4Setting::fromMap(const QVariantMap& setting)
     }
 }
 
+QVariantMap NetworkManager::Settings::Ipv4Setting::toMap() const
+{
+    QVariantMap setting;
+
+    if (method() == Automatic) {
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD), QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_AUTO));
+    } else if (method() == LinkLocal) {
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD), QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_LINK_LOCAL));
+    } else if (method() == Manual) {
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD), QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_MANUAL));
+    } else if (method() == Shared) {
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD), QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_SHARED));
+    } else if (method() == Disabled) {
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD), QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_DISABLED));
+    }
+
+    if (!dns().isEmpty()) {
+        QList<uint> dbusDns;
+        foreach (const QHostAddress & dns, dns()) {
+            dbusDns << htonl(dns.toIPv4Address());
+        }
+
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_DNS), QVariant::fromValue(dbusDns));
+    }
+
+    if (!dnsSearch().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_DNS_SEARCH), dnsSearch());
+    }
+
+    if (!addresses().isEmpty()) {
+        QList<QList<uint> > dbusAddresses;
+        foreach (const NetworkManager::IPv4Address & addr, addresses()) {
+            QList<uint> dbusAddress;
+            dbusAddress << htonl(addr.address())
+                << addr.netMask()
+                << htonl(addr.gateway());
+            dbusAddresses << dbusAddress;
+        }
+
+      setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES), QVariant::fromValue(dbusAddresses));
+    }
+
+    if (!routes().isEmpty()) {
+        QList<QList<uint> > dbusRoutes;
+        foreach (const NetworkManager::IPv4Route & route, routes()) {
+            QList<uint> dbusRoute;
+            dbusRoute << htonl(route.route())
+                << route.prefix()
+                << htonl(route.nextHop())
+                << route.metric();
+            dbusRoutes << dbusRoute;
+        }
+
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_ROUTES), QVariant::fromValue(dbusRoutes));
+    }
+
+    if (ignoreAutoRoutes()) {
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES), ignoreAutoRoutes());
+    }
+
+    if (ignoreAutoDns()) {
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS), ignoreAutoDns());
+    }
+
+    if (!dhcpClientId().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_DHCP_CLIENT_ID), dhcpClientId());
+    }
+
+    if (!dhcpSendHostname()) {
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_DHCP_SEND_HOSTNAME), dhcpSendHostname());
+    }
+
+    if (!dhcpHostname().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_DHCP_HOSTNAME), dhcpHostname());
+    }
+
+    if (neverDefault()) {
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_NEVER_DEFAULT), neverDefault());
+    }
+
+    if (!mayFail()) {
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_MAY_FAIL), mayFail());
+    }
+
+    return setting;
+}
+
 void NetworkManager::Settings::Ipv4Setting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
