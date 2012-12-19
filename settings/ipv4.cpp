@@ -250,7 +250,21 @@ bool NetworkManager::Settings::Ipv4Setting::mayFail() const
 void NetworkManager::Settings::Ipv4Setting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD))) {
-        setMethodType((MethodType)setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD)).toInt());
+        QString methodType = setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD)).toString();
+
+        if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_AUTO)) {
+            setMethodType(Automatic);
+        } else if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_LINK_LOCAL)) {
+            setMethodType(LinkLocal);
+        } else if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_MANUAL)) {
+            setMethodType(Manual);
+        } else if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_SHARED)) {
+            setMethodType(Shared);
+        } else if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_DISABLED)) {
+            setMethodType(Disabled);
+        } else {
+            setMethodType(Automatic);
+        }
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_DNS))) {
