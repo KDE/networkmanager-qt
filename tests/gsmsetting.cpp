@@ -48,7 +48,7 @@ void GsmSetting::testSetting_data()
             << QString("1010") // pin
             << (qint32) 4 // pinFlags
             << (quint32) 0 // allowedBand
-            << false; // homeOnly
+            << true; // homeOnly
 }
 
 void GsmSetting::testSetting()
@@ -84,6 +84,7 @@ void GsmSetting::testSetting()
 
     QVariantMap map1 = setting.toMap();
 
+    // Will fail if set some default values, because they are skipped in toMap() method
     foreach (const QString & key, map.keys()) {
         QCOMPARE(map.value(key), map1.value(key));
     }

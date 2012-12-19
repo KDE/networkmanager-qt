@@ -328,7 +328,9 @@ QVariantMap NetworkManager::Settings::WiredSetting::toMap() const
             break;
     }
 
-    setting.insert(QLatin1String(NM_SETTING_WIRED_SPEED), speed());
+    if (speed()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRED_SPEED), speed());
+    }
 
     switch (duplexType()) {
         case Half:
@@ -339,7 +341,9 @@ QVariantMap NetworkManager::Settings::WiredSetting::toMap() const
             break;
     }
 
-    setting.insert(QLatin1String(NM_SETTING_WIRED_AUTO_NEGOTIATE), autoNegotiate());
+    if (!autoNegotiate()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRED_AUTO_NEGOTIATE), autoNegotiate());
+    }
 
     if (!macAddress().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS), macAddress());
@@ -350,7 +354,7 @@ QVariantMap NetworkManager::Settings::WiredSetting::toMap() const
     if (!macAddressBlacklist().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST), macAddressBlacklist());
     }
-    if (mtu() > 0) {
+    if (mtu()) {
         setting.insert(QLatin1String(NM_SETTING_WIRED_MTU), mtu());
     }
     if (!s390Subchannels().isEmpty()) {

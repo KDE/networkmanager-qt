@@ -366,7 +366,9 @@ QVariantMap NetworkManager::Settings::WirelessSetting::toMap() const
             }
         }
 
-        setting.insert(QLatin1String(NM_SETTING_WIRELESS_CHANNEL), channel());
+        if (channel()) {
+            setting.insert(QLatin1String(NM_SETTING_WIRELESS_CHANNEL), channel());
+        }
     }
 
     if (!bssid().isEmpty()) {
@@ -405,7 +407,9 @@ QVariantMap NetworkManager::Settings::WirelessSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SEC), security());
     }
 
-    setting.insert(QLatin1String(NM_SETTING_WIRELESS_HIDDEN), hidden());
+    if (hidden()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_HIDDEN), hidden());
+    }
 
     return setting;
 }

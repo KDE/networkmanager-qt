@@ -301,15 +301,23 @@ QVariantMap NetworkManager::Settings::GsmSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_GSM_NETWORK_ID), networkId());
     }
 
-    setting.insert(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE), networkType());
+    if (networkType() != -1) {
+        setting.insert(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE), networkType());
+    }
 
     if (!pin().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_GSM_PIN), pin());
     }
 
     setting.insert(QLatin1String(NM_SETTING_GSM_PIN_FLAGS), pinFlags());
-    setting.insert(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS), allowedBand());
-    setting.insert(QLatin1String(NM_SETTING_GSM_HOME_ONLY), homeOnly());
+
+    if (allowedBand() != 1) {
+        setting.insert(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS), allowedBand());
+    }
+
+    if (homeOnly()) {
+        setting.insert(QLatin1String(NM_SETTING_GSM_HOME_ONLY), homeOnly());
+    }
 
     return setting;
 }

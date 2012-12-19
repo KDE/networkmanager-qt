@@ -54,7 +54,7 @@ void WirelessSetting::testSetting_data()
             << (quint32)4 // mtu
             << QStringList() // seenBssids
             << QString("802-11-wireless-security") // security
-            << false; // hidden
+            << true; // hidden
 }
 
 void WirelessSetting::testSetting()
@@ -96,6 +96,7 @@ void WirelessSetting::testSetting()
 
     QVariantMap map1 = setting.toMap();
 
+    // Will fail if set some default values, because they are skipped in toMap() method
     foreach (const QString & key, map.keys()) {
         QCOMPARE(map.value(key), map1.value(key));
     }
