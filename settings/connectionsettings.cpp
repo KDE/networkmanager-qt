@@ -24,6 +24,9 @@
 
 #include <nm-setting-connection.h>
 #include <nm-setting-wired.h>
+#include <nm-setting-wireless.h>
+#include <nm-setting-gsm.h>
+#include <nm-setting-bluetooth.h>
 #include <nm-setting-cdma.h>
 #include <nm-setting-pppoe.h>
 #include <nm-setting-vpn.h>
@@ -54,19 +57,19 @@ NetworkManager::Settings::ConnectionSettings::ConnectionType NetworkManager::Set
 {
     ConnectionSettings::ConnectionType type = Wired;
 
-    if (typeString == QLatin1String("802-3-ethernet")) {
+    if (typeString == QLatin1String(NM_SETTING_WIRED_SETTING_NAME)) {
         type = Wired;
-    } else if (typeString == QLatin1String("802-11-wireless")) {
+    } else if (typeString == QLatin1String(NM_SETTING_WIRELESS_SETTING_NAME)) {
         type = Wireless;
-    } else if (typeString == QLatin1String("gsm")) {
+    } else if (typeString == QLatin1String(NM_SETTING_GSM_SETTING_NAME)) {
         type = Gsm;
-    } else if (typeString == QLatin1String("cdma")) {
+    } else if (typeString == QLatin1String(NM_SETTING_CDMA_SETTING_NAME)) {
         type = Cdma;
-    } else if (typeString == QLatin1String("bluetooth")) {
+    } else if (typeString == QLatin1String(NM_SETTING_BLUETOOTH_SETTING_NAME)) {
         type = Bluetooth;
-    } else if (typeString == QLatin1String("vpn")) {
+    } else if (typeString == QLatin1String(NM_SETTING_VPN_SETTING_NAME)) {
         type = Vpn;
-    } else if (typeString == QLatin1String("pppoe")) {
+    } else if (typeString == QLatin1String(NM_SETTING_PPPOE_SETTING_NAME)) {
         type = Pppoe;
     }
 
@@ -224,7 +227,7 @@ void NetworkManager::Settings::ConnectionSettings::fromMap(const QVariantMapMap&
     }
 
     // DEBUG
-    printSetting();
+    //printSetting();
 }
 
 QVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const
@@ -232,26 +235,53 @@ QVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const
     QVariantMapMap settings;
     QVariantMap connectionSetting;
 
-    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_ID), id());
-    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_UUID), uuid());
-    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_TYPE), typeAsString(connectionType()));
-
-    QStringList perm;
-    foreach (const QString & key, permissions().keys()) {
-        QString tmp = key + ":" + permissions().value(key);
-        perm << tmp;
+    if (!id().isEmpty()) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_ID), id());
     }
-    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS), perm);
-    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT), autoconnect());
-    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP), timestamp().toTime_t());
-    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_READ_ONLY), readOnly());
-    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_ZONE), zone());
-    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_MASTER), master());
-    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_SLAVE_TYPE), slaveType());
+
+    if (!uuid().isEmpty()) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_UUID), uuid());
+    }
+
+    if (connectionType()) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_TYPE), typeAsString(connectionType()));
+    }
+
+    if (!permissions().isEmpty()) {
+        QStringList perm;
+        foreach (const QString & key, permissions().keys()) {
+            QString tmp = "user:" + key + ":" + permissions().value(key);
+            perm << tmp;
+        }
+
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS), perm);
+    }
+
+    if (!autoconnect()) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT), autoconnect());
+    }
+
+    if (timestamp().isValid()) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP), timestamp().toTime_t());
+    }
+
+    if (readOnly()) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_READ_ONLY), readOnly());
+    }
+
+    if (!zone().isEmpty()) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_ZONE), zone());
+    }
+
+    if (!master().isEmpty()) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_MASTER), master());
+    }
+
+    if (!slaveType().isEmpty()) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_SLAVE_TYPE), slaveType());
+    }
 
     settings.insert(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME), connectionSetting);
-
-    //TODO: add others setting
 
     return settings;
 }
@@ -431,7 +461,7 @@ void NetworkManager::Settings::ConnectionSettings::printSetting()
     qDebug() << "TYPE - " << typeAsString(connectionType());
     qDebug() << "PERMISSIONS - " << permissions();
     qDebug() << "AUTOCONNECT - " << autoconnect();
-    qDebug() << "TIMESTAMP - " << timestamp();
+    qDebug() << "TIMESTAMP - " << timestamp().toTime_t();
     qDebug() << "READONLY - " << readOnly();
     qDebug() << "MASTER - " << master();
     qDebug() << "SLAVE TYPE - " << slaveType();
