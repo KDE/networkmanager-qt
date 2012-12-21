@@ -48,3 +48,11 @@ set(ipv4setting_SRCS ipv4setting.cpp)
 kde4_add_unit_test(ipv4setting TESTNAME libnm-ipv4setting ${ipv4setting_SRCS})
 
 target_link_libraries(ipv4setting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
+
+# IPv6 setting tests
+
+set(ipv6setting_SRCS ipv6setting.cpp)
+
+kde4_add_unit_test(ipv6setting TESTNAME libnm-ipv6setting ${ipv6setting_SRCS})
+
+target_link_libraries(ipv6setting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
