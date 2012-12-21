@@ -35,6 +35,7 @@
 #include <802-11-wireless.h>
 #include <gsmsetting.h>
 #include <ipv4.h>
+#include <ipv6.h>
 
 #include <QUuid>
 
@@ -146,26 +147,33 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
 	case Wired:
 	    addSetting(new WiredSetting());
             addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
 	    break;
 	case Wireless:
 	    addSetting(new WirelessSetting());
             addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
 	    break;
 	case Gsm:
 	    addSetting(new GsmSetting());
             addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
             break;
 	case Cdma:
             addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
 	    break;
 	case Vpn:
             addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
 	    break;
 	case Pppoe:
             addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
 	    break;
 	case Bluetooth:
             addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
 	    break;
 	case Unknown:
 	    break;
@@ -227,7 +235,7 @@ void NetworkManager::Settings::ConnectionSettings::fromMap(const QVariantMapMap&
     }
 
     // DEBUG
-    //printSetting();
+    printSetting();
 }
 
 QVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const

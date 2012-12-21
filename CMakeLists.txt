@@ -72,6 +72,7 @@ settings/802-3-ethernet_p.h
 settings/802-11-wireless_p.h
 settings/gsmsetting_p.h
 settings/ipv4_p.h
+settings/ipv6_p.h
 )
 
 set(QtNetworkManager_PART_SRCS
@@ -133,6 +134,7 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/802-11-wireless.cpp
     settings/gsmsetting.cpp
     settings/ipv4.cpp
+    settings/ipv6.cpp
     )
 
 set(CONNECTIONS_SETTINGS_HEADERS
@@ -142,6 +144,7 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/802-11-wireless.h
     settings/gsmsetting.h
     settings/ipv4.h
+    settings/ipv6.h
     )
 
 qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_PRIVATE_HEADERS})
