@@ -450,6 +450,17 @@ QString NetworkManager::Settings::ConnectionSettings::slaveType() const
     return d->slaveType;
 }
 
+NetworkManager::Settings::Setting* NetworkManager::Settings::ConnectionSettings::setting(NetworkManager::Settings::Setting::SettingType type) const
+{
+    foreach (Setting * setting, settings()) {
+        if (setting->type() == type) {
+            return setting;
+        }
+    }
+
+    return 0;
+}
+
 QList< NetworkManager::Settings::Setting* > NetworkManager::Settings::ConnectionSettings::settings() const
 {
     Q_D(const ConnectionSettings);

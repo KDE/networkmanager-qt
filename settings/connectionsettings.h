@@ -86,6 +86,8 @@ namespace Settings
 	    void setSlaveType(const QString & type);
 	    QString slaveType() const;
 
+            Setting * setting(Setting::SettingType type) const;
+
 	    QList<Setting*> settings() const;
 	    //FOR DEBUG
 	    void printSetting();
