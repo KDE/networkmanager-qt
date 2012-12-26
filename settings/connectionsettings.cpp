@@ -33,6 +33,7 @@
 
 #include <802-3-ethernet.h>
 #include <802-11-wireless.h>
+#include <802-11-wireless-security.h>
 #include <gsmsetting.h>
 #include <ipv4.h>
 #include <ipv6.h>
@@ -151,6 +152,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
 	    break;
 	case Wireless:
 	    addSetting(new WirelessSetting());
+            addSetting(new WirelessSecuritySetting());
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
 	    break;

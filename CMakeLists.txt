@@ -70,6 +70,7 @@ manager_p.h
 settings/connectionsettings_p.h
 settings/802-3-ethernet_p.h
 settings/802-11-wireless_p.h
+settings/802-11-wireless-security_p.h
 settings/gsmsetting_p.h
 settings/ipv4_p.h
 settings/ipv6_p.h
@@ -132,9 +133,11 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/connectionsettings.cpp
     settings/802-3-ethernet.cpp
     settings/802-11-wireless.cpp
+    settings/802-11-wireless-security.cpp
     settings/gsmsetting.cpp
     settings/ipv4.cpp
     settings/ipv6.cpp
+
     )
 
 set(CONNECTIONS_SETTINGS_HEADERS
@@ -142,6 +145,7 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/connectionsettings.h
     settings/802-3-ethernet.h
     settings/802-11-wireless.h
+    settings/802-11-wireless-security.h
     settings/gsmsetting.h
     settings/ipv4.h
     settings/ipv6.h
@@ -171,3 +175,5 @@ set_property(TARGET QtNetworkManager PROPERTY SOVERSION 0)
 message(STATUS "Writing pkg-config file...")
 configure_file(${CMAKE_SOURCE_DIR}/QtNetworkManager.pc.cmake ${CMAKE_BINARY_DIR}/QtNetworkManager.pc @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/QtNetworkManager.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig/")
+
+add_subdirectory(examples/createconnection)
