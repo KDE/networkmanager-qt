@@ -36,8 +36,6 @@ namespace Settings
     {
     Q_DECLARE_PRIVATE(GsmSetting)
     public:
-	enum SecretFlagType {None = 0, AgentOwned = 0x01, NotSaved = 0x02, NotRequired = 0x04};
-
 	GsmSetting();
 	GsmSetting(GsmSetting *);
 	~GsmSetting();

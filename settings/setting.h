@@ -37,8 +37,9 @@ namespace Settings
     public:
 	enum SettingType {Cdma, Gsm, Infiniband, Ipv4, Ipv6, Ppp, Pppoe, Security8021x, Serial,
 			   Vpn, Wired, Wireless, WirelessSecurity, Bluetooth, OlpcMesh, Vlan, Wimax, Bond};
+        enum SecretFlagType {None = 0, AgentOwned = 0x01, NotSaved = 0x02, NotRequired = 0x04};
 
-	static QString typeAsString(SettingType type);
+        static QString typeAsString(SettingType type);
 	static SettingType typeFromString(const QString & type);
 
 	Setting(SettingType type);
