@@ -568,6 +568,8 @@ QVariantMap NetworkManager::Settings::WirelessSecuritySetting::toMap() const
     if (leapPasswordFlags()) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS), leapPasswordFlags());
     }
+
+    return setting;
 }
 
 void NetworkManager::Settings::WirelessSecuritySetting::printSetting()
