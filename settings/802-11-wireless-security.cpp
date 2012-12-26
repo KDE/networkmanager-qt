@@ -425,11 +425,11 @@ void NetworkManager::Settings::WirelessSecuritySetting::fromMap(const QVariantMa
     }
 
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_FLAGS))) {
-        setWepKeyFlags((SecretFlagType)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_FLAGS)).toInt());
+        setWepKeyFlags((SecretFlagType)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_FLAGS)).toUInt());
     }
 
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_TYPE))) {
-        setWepKeyType((WepKeyType)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_TYPE)).toInt());
+        setWepKeyType((WepKeyType)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_TYPE)).toUInt());
     }
 
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK))) {
