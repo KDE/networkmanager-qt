@@ -25,6 +25,15 @@ kde4_add_unit_test(wirelesssetting TESTNAME libnm-wirelesssetting ${wirelesssett
 
 target_link_libraries(wirelesssetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
 
+# Wireless security setting tests
+
+set(wirelesssecuritysetting_SRCS wirelesssecuritysetting.cpp )
+
+kde4_add_unit_test(wirelesssecuritysetting TESTNAME libnm-wirelesssecuritysetting ${wirelesssecuritysetting_SRCS})
+
+target_link_libraries(wirelesssecuritysetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
+
+
 # Wired setting tests
 
 set(wiredsetting_SRCS wiredsetting.cpp )
