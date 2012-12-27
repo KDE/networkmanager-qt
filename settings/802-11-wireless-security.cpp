@@ -577,6 +577,7 @@ void NetworkManager::Settings::WirelessSecuritySetting::printSetting()
     NetworkManager::Settings::Setting::printSetting();
 
     qDebug() << "NAME - " << name();
+    qDebug() << "KEY MGMG - " << keyMgmt();
     qDebug() << "WEP TX KEYINDEX - " << wepTxKeyindex();
     qDebug() << "AUTH ALG - " << authAlg();
     qDebug() << "PROTO - " << proto();
