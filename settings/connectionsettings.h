@@ -46,6 +46,7 @@ namespace Settings
 	    static QString typeAsString(const ConnectionType type);
 
 	    ConnectionSettings();
+            ConnectionSettings(ConnectionType type);
 	    ConnectionSettings(ConnectionSettings *);
 	    virtual ~ConnectionSettings();
 

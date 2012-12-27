@@ -116,6 +116,12 @@ NetworkManager::Settings::ConnectionSettings::ConnectionSettings():
     d_ptr(new ConnectionSettingsPrivate())
 { }
 
+NetworkManager::Settings::ConnectionSettings::ConnectionSettings(NetworkManager::Settings::ConnectionSettings::ConnectionType type):
+    d_ptr(new ConnectionSettingsPrivate())
+{
+    setConnectionType(type);
+}
+
 NetworkManager::Settings::ConnectionSettings::ConnectionSettings(NetworkManager::Settings::ConnectionSettings* settings):
     d_ptr(new ConnectionSettingsPrivate())
 {
@@ -235,14 +241,11 @@ void NetworkManager::Settings::ConnectionSettings::fromMap(const QVariantMapMap&
 	    setting->setInitialized(false);
 	}
     }
-
-    // DEBUG
-    printSetting();
 }
 
 QVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const
 {
-    QVariantMapMap settings;
+    QVariantMapMap result;
     QVariantMap connectionSetting;
 
     if (!id().isEmpty()) {
@@ -291,9 +294,13 @@ QVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_SLAVE_TYPE), slaveType());
     }
 
-    settings.insert(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME), connectionSetting);
+    result.insert(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME), connectionSetting);
 
-    return settings;
+    foreach (Setting * setting, settings()) {
+        QVariantMap map = setting->toMap();
+        result.insert(setting->name(), map);
+    }
+    return result;
 }
 
 QString NetworkManager::Settings::ConnectionSettings::name() const
@@ -510,4 +517,5 @@ void NetworkManager::Settings::ConnectionSettings::clearSettings()
         delete d->settings.takeFirst();
     }
 
-    d->settings.clear();}
+    d->settings.clear();
+}
