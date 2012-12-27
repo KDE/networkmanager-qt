@@ -281,6 +281,7 @@ void NetworkManager::Settings::Ipv4Setting::fromMap(const QVariantMap& setting)
             QHostAddress tmpHost(ntohl(utmp));
             dbusDns << tmpHost;
         }
+
         setDns(dbusDns);
     }
 
@@ -413,7 +414,7 @@ QVariantMap NetworkManager::Settings::Ipv4Setting::toMap() const
             dbusAddresses << dbusAddress;
         }
 
-      setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES), QVariant::fromValue(dbusAddresses));
+        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES), QVariant::fromValue(dbusAddresses));
     }
 
     if (!routes().isEmpty()) {
