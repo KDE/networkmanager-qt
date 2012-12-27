@@ -46,9 +46,11 @@ namespace Settings
 	Setting(Setting * setting);
 	virtual ~Setting();
 
-	virtual void fromMap(const QVariantMap & map);
+	virtual void fromMap(const QVariantMap & map) = 0;
 
-        virtual QVariantMap toMap() const;
+        virtual QVariantMap toMap() const = 0;
+
+        virtual QString name() const = 0;
 
 	void setInitialized(bool initialized);
 
