@@ -42,6 +42,7 @@ NetworkManager::Settings::WirelessSecuritySettingPrivate::WirelessSecuritySettin
     wepKeyFlags(NetworkManager::Settings::Setting::None),
     wepKeyType(NetworkManager::Settings::WirelessSecuritySetting::NotSpecified),
     psk(QString()),
+    pskFlags(NetworkManager::Settings::Setting::None),
     leapPassword(QString()),
     leapPasswordFlags(NetworkManager::Settings::Setting::None)
 { }
