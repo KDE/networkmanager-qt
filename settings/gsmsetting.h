@@ -75,6 +75,14 @@ namespace Settings
 	void setHomeOnly(bool homeOnly);
 	bool homeOnly() const;
 
+        void secretsFromMap(const QVariantMap & secrets);
+
+        bool hasSecrets() const;
+
+        QVariantMap secretsToMap() const;
+
+        QStringList needSecrets() const;
+
 	void fromMap(const QVariantMap & setting);
 
         QVariantMap toMap() const;

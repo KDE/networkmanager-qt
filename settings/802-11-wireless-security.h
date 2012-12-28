@@ -100,6 +100,14 @@ namespace Settings
         void setLeapPasswordFlags(SecretFlagType type);
         SecretFlagType leapPasswordFlags() const;
 
+        void secretsFromMap(const QVariantMap & secrets);
+
+        bool hasSecrets() const;
+
+        QVariantMap secretsToMap() const;
+
+        QStringList needSecrets() const;
+
         void fromMap(const QVariantMap & map);
 
         QVariantMap toMap() const;

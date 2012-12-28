@@ -326,6 +326,30 @@ NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::Wire
     return d->leapPasswordFlags;
 }
 
+bool NetworkManager::Settings::WirelessSecuritySetting::hasSecrets() const
+{
+    //TODO
+    return NetworkManager::Settings::Setting::hasSecrets();
+}
+
+void NetworkManager::Settings::WirelessSecuritySetting::secretsFromMap(const QVariantMap& secrets)
+{
+    //TODO
+    NetworkManager::Settings::Setting::secretsFromMap(secrets);
+}
+
+QVariantMap NetworkManager::Settings::WirelessSecuritySetting::secretsToMap() const
+{
+    //TODO
+    return NetworkManager::Settings::Setting::secretsToMap();
+}
+
+QStringList NetworkManager::Settings::WirelessSecuritySetting::needSecrets() const
+{
+    //TODO
+    return NetworkManager::Settings::Setting::needSecrets();
+}
+
 void NetworkManager::Settings::WirelessSecuritySetting::fromMap(const QVariantMap& map)
 {
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT))) {

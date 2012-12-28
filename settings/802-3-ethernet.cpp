@@ -231,6 +231,11 @@ QMap< QString, QString > NetworkManager::Settings::WiredSetting::s390Options() c
     return d->s390Options;
 }
 
+bool NetworkManager::Settings::WiredSetting::hasSecrets() const
+{
+    return false;
+}
+
 void NetworkManager::Settings::WiredSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_PORT))) {

@@ -215,6 +215,11 @@ NetworkManager::Settings::Ipv6Setting::IPv6Privacy NetworkManager::Settings::Ipv
     return d->privacy;
 }
 
+bool NetworkManager::Settings::Ipv6Setting::hasSecrets() const
+{
+    return false;
+}
+
 void NetworkManager::Settings::Ipv6Setting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_IP6_CONFIG_METHOD))) {

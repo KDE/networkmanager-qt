@@ -276,6 +276,11 @@ bool NetworkManager::Settings::WirelessSetting::hidden() const
     return d->hidden;
 }
 
+bool NetworkManager::Settings::WirelessSetting::hasSecrets() const
+{
+    return false;
+}
+
 void NetworkManager::Settings::WirelessSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_SSID))) {

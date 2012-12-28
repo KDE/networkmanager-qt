@@ -187,6 +187,26 @@ NetworkManager::Settings::Setting::~Setting()
     delete d_ptr;
 }
 
+bool NetworkManager::Settings::Setting::hasSecrets() const
+{
+    return false;
+}
+
+QStringList NetworkManager::Settings::Setting::needSecrets() const
+{
+    return QStringList();
+}
+
+void NetworkManager::Settings::Setting::secretsFromMap(const QVariantMap& map)
+{
+    Q_UNUSED(map);
+}
+
+QVariantMap NetworkManager::Settings::Setting::secretsToMap() const
+{
+    return QVariantMap();
+}
+
 void NetworkManager::Settings::Setting::setInitialized(bool initialized)
 {
     Q_D(Setting);

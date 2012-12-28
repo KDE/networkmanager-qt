@@ -228,6 +228,60 @@ bool NetworkManager::Settings::GsmSetting::homeOnly() const
     return d->homeOnly;
 }
 
+bool NetworkManager::Settings::GsmSetting::hasSecrets() const
+{
+    if (passwordFlags() == None || passwordFlags() == AgentOwned) {
+        return true;
+    }
+
+    if (pinFlags() == None || passwordFlags() == AgentOwned) {
+        return true;
+    }
+
+    return false;
+}
+
+void NetworkManager::Settings::GsmSetting::secretsFromMap(const QVariantMap& secrets)
+{
+    if (secrets.contains(QLatin1String(NM_SETTING_GSM_PASSWORD))) {
+        setPassword(secrets.value(QLatin1String(NM_SETTING_GSM_PASSWORD)).toString());
+    }
+
+    if (secrets.contains(QLatin1String(NM_SETTING_GSM_PIN))) {
+        setPin(secrets.value(QLatin1String(NM_SETTING_GSM_PIN)).toString());
+    }
+}
+
+QVariantMap NetworkManager::Settings::GsmSetting::secretsToMap() const
+{
+    QVariantMap secrets;
+
+    if (!password().isEmpty()) {
+        secrets.insert(QLatin1String(NM_SETTING_GSM_PASSWORD), password());
+    }
+
+    if (!pin().isEmpty()) {
+        secrets.insert(QLatin1String(NM_SETTING_GSM_PIN), pin());
+    }
+
+    return secrets;
+}
+
+QStringList NetworkManager::Settings::GsmSetting::needSecrets() const
+{
+    QStringList list;
+
+    if (password().isEmpty() && !passwordFlags() == NotRequired) {
+        list << QLatin1String(NM_SETTING_GSM_PASSWORD);
+    }
+
+    if (pin().isEmpty() && !pinFlags() == NotRequired) {
+        list << QLatin1String(NM_SETTING_GSM_PIN);
+    }
+
+    return list;
+}
+
 void NetworkManager::Settings::GsmSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_GSM_NUMBER))) {
@@ -238,6 +292,7 @@ void NetworkManager::Settings::GsmSetting::fromMap(const QVariantMap& setting)
 	setUsername(setting.value(QLatin1String(NM_SETTING_GSM_USERNAME)).toString());
     }
 
+    // Secrets
     if (setting.contains(QLatin1String(NM_SETTING_GSM_PASSWORD))) {
 	setPassword(setting.value(QLatin1String(NM_SETTING_GSM_PASSWORD)).toString());
     }
@@ -258,6 +313,7 @@ void NetworkManager::Settings::GsmSetting::fromMap(const QVariantMap& setting)
 	setNetworkType(setting.value(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE)).toInt());
     }
 
+    // Secrets
     if (setting.contains(QLatin1String(NM_SETTING_GSM_PIN))) {
 	setPin(setting.value(QLatin1String(NM_SETTING_GSM_PIN)).toString());
     }

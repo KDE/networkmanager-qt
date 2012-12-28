@@ -82,6 +82,8 @@ namespace Settings
         void setMayFail(bool mayFail);
         bool mayFail() const;
 
+        bool hasSecrets() const;
+
         void fromMap(const QVariantMap & setting);
 
         QVariantMap toMap() const;

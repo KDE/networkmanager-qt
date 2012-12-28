@@ -24,6 +24,7 @@
 #include "QtNetworkManager-export.h"
 
 #include <QVariantMap>
+#include <QStringList>
 
 namespace NetworkManager
 {
@@ -49,6 +50,14 @@ namespace Settings
 	virtual void fromMap(const QVariantMap & map) = 0;
 
         virtual QVariantMap toMap() const = 0;
+
+        virtual bool hasSecrets() const;
+
+        virtual void secretsFromMap(const QVariantMap & map);
+
+        virtual QVariantMap secretsToMap() const;
+
+        virtual QStringList needSecrets() const;
 
         virtual QString name() const = 0;
 
