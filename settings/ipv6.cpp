@@ -463,7 +463,7 @@ QVariantMap NetworkManager::Settings::Ipv6Setting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_IP6_CONFIG_MAY_FAIL), mayFail());
     }
 
-    if (privacy() != -1) {
+    if (privacy() != Undefined) {
         setting.insert(QLatin1String(NM_SETTING_IP6_CONFIG_IP6_PRIVACY), privacy());
     }
 
