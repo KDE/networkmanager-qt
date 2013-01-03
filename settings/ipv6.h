@@ -39,7 +39,7 @@ namespace Settings
     Q_DECLARE_PRIVATE(Ipv6Setting)
     public:
         enum ConfigMethod {Automatic, Dhcp, LinkLocal, Manual, Ignored};
-        enum IPv6Privacy {Undefined = -1, Disabled, PreferPublic, PreferTemporary};
+        enum IPv6Privacy {Unknown = -1, Disabled, PreferPublic, PreferTemporary};
 
         Ipv6Setting();
         Ipv6Setting(Ipv6Setting * setting);

@@ -40,7 +40,7 @@ NetworkManager::Settings::Ipv6SettingPrivate::Ipv6SettingPrivate():
     ignoreAutoDns(false),
     neverDefault(false),
     mayFail(true),
-    privacy(NetworkManager::Settings::Ipv6Setting::Undefined)
+    privacy(NetworkManager::Settings::Ipv6Setting::Unknown)
 { }
 
 NetworkManager::Settings::Ipv6Setting::Ipv6Setting():
@@ -458,7 +458,7 @@ QVariantMap NetworkManager::Settings::Ipv6Setting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_IP6_CONFIG_MAY_FAIL), mayFail());
     }
 
-    if (privacy() != Undefined) {
+    if (privacy() != Unknown) {
         setting.insert(QLatin1String(NM_SETTING_IP6_CONFIG_IP6_PRIVACY), privacy());
     }
 
