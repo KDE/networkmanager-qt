@@ -246,8 +246,7 @@ void NetworkManager::Settings::Ipv6Setting::fromMap(const QVariantMap& setting)
         QList<QHostAddress> dbusDns;
 
         dnsArg.beginArray();
-        while(!dnsArg.atEnd())
-        {
+        while (!dnsArg.atEnd()) {
             QByteArray utmp;
             dnsArg >> utmp;
             Q_IPV6ADDR tmp;
@@ -271,13 +270,11 @@ void NetworkManager::Settings::Ipv6Setting::fromMap(const QVariantMap& setting)
         QList<NetworkManager::IPv6Address> addresses;
 
         addressArg.beginArray();
-        while(!addressArg.atEnd())
-        {
+        while (!addressArg.atEnd()) {
             IpV6DBusAddress addressMap;
             addressArg >> addressMap;
 
-            if (addressMap.address.isEmpty() || !addressMap.netMask || addressMap.gateway.isEmpty())
-            {
+            if (addressMap.address.isEmpty() || !addressMap.netMask || addressMap.gateway.isEmpty()) {
                 qDebug() << "Invalid address format detected.";
                 continue;
             }
@@ -307,8 +304,7 @@ void NetworkManager::Settings::Ipv6Setting::fromMap(const QVariantMap& setting)
         QList<NetworkManager::IPv6Route> routes;
 
         routeArg.beginArray();
-        while(!routeArg.atEnd())
-        {
+        while (!routeArg.atEnd()) {
             IpV6DBusRoute routeMap;
             routeArg >> routeMap;
 
@@ -325,8 +321,7 @@ void NetworkManager::Settings::Ipv6Setting::fromMap(const QVariantMap& setting)
             }
 
             NetworkManager::IPv6Route route(addr, routeMap.prefix, nexthop, routeMap.metric);
-            if (!route.isValid())
-            {
+            if (!route.isValid()) {
                 qDebug() << "Invalid route format detected.";
                 continue;
             }
