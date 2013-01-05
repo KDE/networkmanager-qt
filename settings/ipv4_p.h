@@ -21,7 +21,7 @@
 #ifndef NM_IPV4SETTING_P_H
 #define NM_IPV4SETTING_P_H
 
-#include <QtNetworkManager/ipv4config.h>
+#include <ipv4config.h>
 
 #include <QStringList>
 #include <QHostAddress>

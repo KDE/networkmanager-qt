@@ -22,7 +22,7 @@
 #include "ipv4_p.h"
 
 #include <arpa/inet.h>
-#include <QtNetworkManager/generic-types.h>
+#include <dbus/generic-types.h>
 
 #include <nm-setting-ip4-config.h>
 

@@ -21,7 +21,7 @@
 #ifndef NM_IPV6SETTING_H
 #define NM_IPV6SETTING_H
 
-#include <QtNetworkManager/ipv6config.h>
+#include <ipv6config.h>
 #include "QtNetworkManager-export.h"
 #include "setting.h"
 

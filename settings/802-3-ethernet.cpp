@@ -21,7 +21,7 @@
 #include "802-3-ethernet.h"
 #include "802-3-ethernet_p.h"
 
-#include <QtNetworkManager/generic-types.h>
+#include <dbus/generic-types.h>
 
 #include <nm-setting-wired.h>
 
