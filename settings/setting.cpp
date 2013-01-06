@@ -57,9 +57,8 @@ namespace Settings
 }
 }
 
-//TODO default values
 NetworkManager::Settings::SettingPrivate::SettingPrivate():
-    type(),
+    type(Setting::Wired),
     initialized(false)
 { }
 
