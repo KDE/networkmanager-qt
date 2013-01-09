@@ -22,7 +22,7 @@
 #include "ipv4_p.h"
 
 #include <arpa/inet.h>
-#include <dbus/generic-types.h>
+#include "generic-types.h"
 
 #include <nm-setting-ip4-config.h>
 

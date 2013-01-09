@@ -22,8 +22,9 @@
 #include "ipv6_p.h"
 
 #include <arpa/inet.h>
-#include <dbus/generic-types.h>
-#include <ipv4config.h>
+
+#include "dbus/generic-types.h"
+#include "ipv4config.h"
 
 #include <nm-setting-ip6-config.h>
 
