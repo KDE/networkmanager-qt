@@ -102,8 +102,6 @@ namespace Settings
 
         void secretsFromMap(const QVariantMap & secrets);
 
-        bool hasSecrets() const;
-
         QVariantMap secretsToMap() const;
 
         QStringList needSecrets() const;
