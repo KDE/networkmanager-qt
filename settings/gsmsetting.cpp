@@ -343,6 +343,7 @@ QVariantMap NetworkManager::Settings::GsmSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_GSM_USERNAME), username());
     }
 
+    // SECRETS
     if (!password().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_GSM_PASSWORD), password());
     }
@@ -361,6 +362,7 @@ QVariantMap NetworkManager::Settings::GsmSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE), networkType());
     }
 
+    // SECRETS
     if (!pin().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_GSM_PIN), pin());
     }
