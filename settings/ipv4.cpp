@@ -305,14 +305,12 @@ void NetworkManager::Settings::Ipv4Setting::fromMap(const QVariantMap& setting)
         }
 
         foreach(const QList<uint> & uintList, temp) {
-            if (uintList.count() != 3)
-            {
+            if (uintList.count() != 3) {
                 continue;
             }
 
             NetworkManager::IPv4Address addr((quint32)ntohl(uintList.at(0)), (quint32)uintList.at(1), (quint32) ntohl(uintList.at(2)));
-            if (!addr.isValid())
-            {
+            if (!addr.isValid()) {
                 continue;
             }
 
@@ -333,14 +331,12 @@ void NetworkManager::Settings::Ipv4Setting::fromMap(const QVariantMap& setting)
         }
 
         foreach(const QList<uint> & uintList, temp) {
-            if (uintList.count() != 4)
-            {
+            if (uintList.count() != 4) {
               continue;
             }
 
             NetworkManager::IPv4Route route((quint32)ntohl(uintList.at(0)), (quint32)uintList.at(1), (quint32)ntohl(uintList.at(2)), (quint32)uintList.at(3));
-            if (!route.isValid())
-            {
+            if (!route.isValid()) {
                 continue;
             }
             routes << route;
