@@ -41,9 +41,9 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, QStringMap & mydi
 
 typedef struct
 {
-    QList<quint8> address;
+    QByteArray address;
     uint netMask;
-    QList<quint8> gateway;
+    QByteArray gateway;
 } IpV6DBusAddress;
 
 Q_DECLARE_METATYPE(IpV6DBusAddress)
@@ -55,9 +55,9 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, IpV6DBusAddress &
 
 typedef struct
 {
-    QList<quint8> destination;
+    QByteArray destination;
     uint prefix;
-    QList<quint8> nexthop;
+    QByteArray nexthop;
     uint metric;
 } IpV6DBusRoute;
 
