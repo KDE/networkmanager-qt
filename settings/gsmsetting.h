@@ -97,6 +97,4 @@ namespace Settings
 }
 }
 
-
-
 #endif // NM_GSMSETTING_H
