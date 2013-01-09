@@ -24,15 +24,16 @@
 #include <nm-setting-ip6-config.h>
 #include <QtNetworkManager/generic-types.h>
 #include <QtNetworkManager/ipv6.h>
+#include <QtNetworkManager/ipv6config.h>
 
 //TODO: Test DNS,IPv6Addresses and IPv6Routes
 void IPv6Setting::testSetting_data()
 {
     QTest::addColumn<QString>("method");
-    //QTest::addColumn<IpV6DBusNameservers>("dns");
+    QTest::addColumn<IpV6DBusNameservers>("dns");
     QTest::addColumn<QStringList>("dnsSearch");
-    //QTest::addColumn<IpV6DBusAddressList>("addresses");
-    //QTest::addColumn<IpV6DBusRouteList>("routes");
+    QTest::addColumn<IpV6DBusAddressList>("addresses");
+    QTest::addColumn<IpV6DBusRouteList>("routes");
     QTest::addColumn<bool>("ignoreAutoRoutes");
     QTest::addColumn<bool>("ignoreAutoDns");
     QTest::addColumn<bool>("neverDefault");
@@ -43,12 +44,31 @@ void IPv6Setting::testSetting_data()
     dnsSearch << "foo.com";
     dnsSearch << "foo.bar";
 
+    IpV6DBusNameservers dns;
+    QByteArray dnsAddr1("2607:f0d0:1002:0051:0000:0000:0000:0004");
+    dns << dnsAddr1;
+
+    IpV6DBusAddressList addresses;
+    IpV6DBusAddress address;
+    address.address = QByteArray("2001:0db8:0000:0000:0000::1428:57ab");
+    address.netMask = 64;
+    address.gateway = QByteArray("2001:0db8:0:f101::1");
+    addresses << address;
+
+    IpV6DBusRouteList routes;
+    IpV6DBusRoute route;
+    route.destination = QByteArray("2001:0db8:0000:0000:0000::1428:57ab");
+    route.prefix = 48;
+    route.nexthop = QByteArray("2001:638:500:101:2e0:81ff:fe24:37c6");
+    route.metric = 1024;
+    routes << route;
+
     QTest::newRow("setting1")
             << QString("auto")       // method
-    //        << dns                   // dns
+            << dns                   // dns
             << dnsSearch             // dnsSearch
-    //        << addresses             // addresses
-    //        << routes                // routes
+            << addresses             // addresses
+            << routes                // routes
             << true                  // ignoreAutoRoutes
             << true                  // ignoreAutoDns
             << true                  // neverDefault
@@ -59,10 +79,10 @@ void IPv6Setting::testSetting_data()
 void IPv6Setting::testSetting()
 {
     QFETCH(QString, method);
-    //QFETCH(IpV6DBusNameservers, dns);
+    QFETCH(IpV6DBusNameservers, dns);
     QFETCH(QStringList, dnsSearch);
-    //QFETCH(IpV6DBusAddressList, addresses);
-    //QFETCH(IpV6DBusRouteList, routes);
+    QFETCH(IpV6DBusAddressList, addresses);
+    QFETCH(IpV6DBusRouteList, routes);
     QFETCH(bool, ignoreAutoRoutes);
     QFETCH(bool, ignoreAutoDns);
     QFETCH(bool, neverDefault);
@@ -72,10 +92,10 @@ void IPv6Setting::testSetting()
     QVariantMap map;
 
     map.insert(QLatin1String(NM_SETTING_IP6_CONFIG_METHOD), method);
-    //map.insert(QLatin1String(NM_SETTING_IP6_CONFIG_DNS), QVariant::fromValue(dns));
+    map.insert(QLatin1String(NM_SETTING_IP6_CONFIG_DNS), QVariant::fromValue(dns));
     map.insert(QLatin1String(NM_SETTING_IP6_CONFIG_DNS_SEARCH), dnsSearch);
-    //map.insert(QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES), QVariant::fromValue(addresses));
-    //map.insert(QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES), QVariant::fromValue(routes));
+    map.insert(QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES), QVariant::fromValue(addresses));
+    map.insert(QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES), QVariant::fromValue(routes));
     map.insert(QLatin1String(NM_SETTING_IP6_CONFIG_IGNORE_AUTO_ROUTES), ignoreAutoRoutes);
     map.insert(QLatin1String(NM_SETTING_IP6_CONFIG_IGNORE_AUTO_DNS), ignoreAutoDns);
     map.insert(QLatin1String(NM_SETTING_IP6_CONFIG_NEVER_DEFAULT), neverDefault);
@@ -96,12 +116,43 @@ void IPv6Setting::testSetting()
         }
     }
 
-    /*QCOMPARE(map.value(QLatin1String(NM_SETTING_IP6_CONFIG_DNS)).value<IpV6DBusNameservers>(),
-             map1.value(QLatin1String(NM_SETTING_IP6_CONFIG_DNS)).value<IpV6DBusNameservers>());
-    QCOMPARE(map.value(QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES)).value<IpV6DBusAddressList>(),
-             map.value(QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES)).value<IpV6DBusAddressList>());
-    QCOMPARE(map.value(QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES)).value<IpV6DBusRouteList>(),
-             map.value(QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES)).value<IpV6DBusRouteList>());*/
+    IpV6DBusNameservers nameServers1 = map.value(QLatin1String(NM_SETTING_IP6_CONFIG_DNS)).value<IpV6DBusNameservers>();
+    IpV6DBusNameservers nameServers2 = map1.value(QLatin1String(NM_SETTING_IP6_CONFIG_DNS)).value<IpV6DBusNameservers>();
+
+    for (int i = 0; i < nameServers1.size(); i++) {
+        QHostAddress dnsAddr1(QString(nameServers1.at(i)));
+        QHostAddress dnsAddr2(QString(nameServers2.at(i)));
+        QCOMPARE(dnsAddr1, dnsAddr2);
+    }
+
+    IpV6DBusAddressList addresses1 = map.value(QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES)).value<IpV6DBusAddressList>();
+    IpV6DBusAddressList addresses2 = map1.value(QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES)).value<IpV6DBusAddressList>();
+
+    for (int i = 0; i < addresses1.size(); i++) {
+        QHostAddress addr1(QString(addresses1.at(i).address));
+        QHostAddress addr2(QString(addresses2.at(i).address));
+        QHostAddress gateway1(QString(addresses1.at(i).gateway));
+        QHostAddress gateway2(QString(addresses2.at(i).gateway));
+
+        QCOMPARE(addr1, addr2);
+        QCOMPARE(addresses1.at(i).netMask, addresses2.at(i).netMask);
+        QCOMPARE(gateway1, gateway2);
+    }
+
+    IpV6DBusRouteList routes1 = map.value(QLatin1String(NM_SETTING_IP6_CONFIG_IGNORE_AUTO_ROUTES)).value<IpV6DBusRouteList>();
+    IpV6DBusRouteList routes2 = map1.value(QLatin1String(NM_SETTING_IP6_CONFIG_IGNORE_AUTO_ROUTES)).value<IpV6DBusRouteList>();
+
+    for (int i = 0; i < routes1.size(); i++) {
+        QHostAddress destination1(QString(routes1.at(i).destination));
+        QHostAddress destination2(QString(routes2.at(i).destination));
+        QHostAddress nexthop1(QString(routes1.at(i).nexthop));
+        QHostAddress nexthop2(QString(routes2.at(i).nexthop));
+
+        QCOMPARE(destination1, destination2);
+        QCOMPARE(routes1.at(i).prefix, routes2.at(i).prefix);
+        QCOMPARE(nexthop1, nexthop2);
+        QCOMPARE(routes1.at(i).metric, routes2.at(i).metric);
+    }
 }
 
 QTEST_MAIN(IPv6Setting)
