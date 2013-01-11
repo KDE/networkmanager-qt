@@ -81,3 +81,11 @@ set(bondsetting_SRCS bondsetting.cpp)
 kde4_add_unit_test(bondsetting TESTNAME libnm-bondsetting ${bondsetting_SRCS})
 
 target_link_libraries(bondsetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
+
+# Cdma setting tests
+
+set(cdmasetting_SRCS cdmasetting.cpp)
+
+kde4_add_unit_test(cdmasetting TESTNAME libnm-cdmasetting ${cdmasetting_SRCS})
+
+target_link_libraries(cdmasetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
