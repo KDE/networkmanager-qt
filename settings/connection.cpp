@@ -19,8 +19,8 @@
 */
 
 
-#include "connectionsettings.h"
-#include "connectionsettings_p.h"
+#include "connection.h"
+#include "connection_p.h"
 
 #include <nm-setting-connection.h>
 #include <nm-setting-wired.h>
@@ -34,7 +34,7 @@
 #include <802-3-ethernet.h>
 #include <802-11-wireless.h>
 #include <802-11-wireless-security.h>
-#include <gsmsetting.h>
+#include <gsm.h>
 #include <ipv4.h>
 #include <ipv6.h>
 

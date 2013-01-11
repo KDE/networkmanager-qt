@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "gsmsetting.h"
-#include "gsmsetting_p.h"
+#include "gsm.h"
+#include "gsm_p.h"
 
 #include <nm-setting-gsm.h>
 
