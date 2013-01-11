@@ -79,6 +79,7 @@ settings/ipv4_p.h
 settings/ipv6_p.h
 #settings/802-1x_p.h
 settings/bluetooth_p.h
+settings/bond_p.h
 )
 
 set(QtNetworkManager_PART_SRCS
@@ -144,6 +145,7 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/ipv6.cpp
     #settings/802-1x.cpp
     settings/bluetooth.cpp
+    settings/bond.cpp
     )
 
 set(CONNECTIONS_SETTINGS_HEADERS
@@ -157,6 +159,7 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/ipv6.h
     #settings/802-1x.h
     settings/bluetooth.h
+    settings/bond.h
     )
 
 qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_PRIVATE_HEADERS})

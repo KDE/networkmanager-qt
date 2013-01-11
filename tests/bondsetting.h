@@ -18,41 +18,19 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "bluetoothsetting.h"
+#ifndef BONDSETTING_H
+#define BONDSETTING_H
 
-#include <nm-setting-bluetooth.h>
-#include <QtNetworkManager/settings/bluetooth.h>
+#include <QtTest>
+#include <QtCore>
 
-void BluetoothSetting::testSetting_data()
+class BondSetting : public QObject
 {
-    QTest::addColumn<QByteArray>("address");
-    QTest::addColumn<QString>("type");
+    Q_OBJECT
 
-    QTest::newRow("setting1")
-            << QByteArray("00:02:72:00:d4:1a")  // address
-            << QString("panu");                 // type
+    private Q_SLOTS:
+        void testSetting_data();
+        void testSetting();
+};
 
-}
-
-void BluetoothSetting::testSetting()
-{
-    QFETCH(QByteArray, address);
-    QFETCH(QString, type);
-
-    QVariantMap map;
-
-    map.insert(QLatin1String(NM_SETTING_BLUETOOTH_BDADDR), address);
-    map.insert(QLatin1String(NM_SETTING_BLUETOOTH_TYPE), type);
-
-    NetworkManager::Settings::BluetoothSetting setting;
-    setting.fromMap(map);
-
-    QVariantMap map1 = setting.toMap();
-
-    foreach (const QString & key, map.keys()) {
-        QCOMPARE(map.value(key), map1.value(key));
-    }
-}
-
-QTEST_MAIN(BluetoothSetting)
-#include "bluetoothsetting.moc"
+#endif // BONDSETTING_H

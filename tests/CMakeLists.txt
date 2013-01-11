@@ -73,3 +73,11 @@ set(bluetoothsetting_SRCS bluetoothsetting.cpp)
 kde4_add_unit_test(bluetoothsetting TESTNAME libnm-bluetoothsetting ${bluetoothsetting_SRCS})
 
 target_link_libraries(bluetoothsetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
+
+# Bond setting tests
+
+set(bondsetting_SRCS bondsetting.cpp)
+
+kde4_add_unit_test(bondsetting TESTNAME libnm-bondsetting ${bondsetting_SRCS})
+
+target_link_libraries(bondsetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
