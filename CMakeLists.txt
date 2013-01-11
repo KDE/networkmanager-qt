@@ -34,7 +34,10 @@ include_directories(
 #add_subdirectory(dbus)
 #add_subdirectory(fakemanager)
 
-#add_subdirectory(tests)
+option(BUILD_EXAMPLES "Build example applications" FALSE)
+if (BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif(BUILD_EXAMPLES)
 
 add_subdirectory(tests)
 
@@ -67,13 +70,14 @@ QtNetworkManager-export.h
 set(QtNetworkManager_PRIVATE_HEADERS
 settings_p.h
 manager_p.h
-settings/connectionsettings_p.h
+settings/connection_p.h
 settings/802-3-ethernet_p.h
 settings/802-11-wireless_p.h
 settings/802-11-wireless-security_p.h
-settings/gsmsetting_p.h
+settings/gsm_p.h
 settings/ipv4_p.h
 settings/ipv6_p.h
+#settings/802-1x_p.h
 )
 
 set(QtNetworkManager_PART_SRCS
@@ -130,25 +134,26 @@ set(DBUS_INTERFACE_SRCS
 
 set(CONNECTIONS_SETTINGS_SRCS
     settings/setting.cpp
-    settings/connectionsettings.cpp
+    settings/connection.cpp
     settings/802-3-ethernet.cpp
     settings/802-11-wireless.cpp
     settings/802-11-wireless-security.cpp
-    settings/gsmsetting.cpp
+    settings/gsm.cpp
     settings/ipv4.cpp
     settings/ipv6.cpp
-
+    #settings/802-1x.cpp
     )
 
 set(CONNECTIONS_SETTINGS_HEADERS
     settings/setting.h
-    settings/connectionsettings.h
+    settings/connection.h
     settings/802-3-ethernet.h
     settings/802-11-wireless.h
     settings/802-11-wireless-security.h
-    settings/gsmsetting.h
+    settings/gsm.h
     settings/ipv4.h
     settings/ipv6.h
+    #settings/802-1x.h
     )
 
 qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_PRIVATE_HEADERS})
@@ -164,9 +169,13 @@ install(TARGETS QtNetworkManager DESTINATION lib${LIB_SUFFIX})
 
 install( FILES
    ${QtNetworkManager_HEADERS}
-   ${CONNECTIONS_SETTINGS_HEADERS}
    DESTINATION
    include/QtNetworkManager COMPONENT Devel)
+
+install( FILES
+   ${CONNECTIONS_SETTINGS_HEADERS}
+   DESTINATION
+   include/QtNetworkManager/settings COMPONENT Devel)
 
 set_property(TARGET QtNetworkManager PROPERTY COMPILE_DEFINITIONS MAKE_NMQT_LIB)
 set_property(TARGET QtNetworkManager PROPERTY VERSION ${VERSION})
@@ -175,5 +184,3 @@ set_property(TARGET QtNetworkManager PROPERTY SOVERSION 0)
 message(STATUS "Writing pkg-config file...")
 configure_file(${CMAKE_SOURCE_DIR}/QtNetworkManager.pc.cmake ${CMAKE_BINARY_DIR}/QtNetworkManager.pc @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/QtNetworkManager.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig/")
-
-add_subdirectory(examples/createconnection)
