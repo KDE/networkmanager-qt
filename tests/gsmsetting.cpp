@@ -21,7 +21,7 @@
 #include "gsmsetting.h"
 
 #include <nm-setting-gsm.h>
-#include <QtNetworkManager/gsmsetting.h>
+#include <QtNetworkManager/settings/gsm.h>
 
 void GsmSetting::testSetting_data()
 {

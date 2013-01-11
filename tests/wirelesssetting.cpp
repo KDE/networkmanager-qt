@@ -21,7 +21,7 @@
 #include "wirelesssetting.h"
 
 #include <nm-setting-wireless.h>
-#include <QtNetworkManager/802-11-wireless.h>
+#include <QtNetworkManager/settings/802-11-wireless.h>
 
 void WirelessSetting::testSetting_data()
 {

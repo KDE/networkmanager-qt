@@ -22,7 +22,7 @@
 
 #include <nm-setting-wired.h>
 #include <QtNetworkManager/generic-types.h>
-#include <QtNetworkManager/802-3-ethernet.h>
+#include <QtNetworkManager/settings/802-3-ethernet.h>
 
 void WiredSetting::testSetting_data()
 {

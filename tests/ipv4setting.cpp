@@ -23,7 +23,7 @@
 #include <arpa/inet.h>
 #include <nm-setting-ip4-config.h>
 #include <QtNetworkManager/generic-types.h>
-#include <QtNetworkManager/ipv4.h>
+#include <QtNetworkManager/settings/ipv4.h>
 
 void IPv4Setting::testSetting_data()
 {

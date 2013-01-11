@@ -21,7 +21,7 @@
 #include "wirelesssecuritysetting.h"
 
 #include <nm-setting-wireless-security.h>
-#include <QtNetworkManager/802-11-wireless-security.h>
+#include <QtNetworkManager/settings/802-11-wireless-security.h>
 
 void WirelessSecuritySetting::testSetting_data()
 {

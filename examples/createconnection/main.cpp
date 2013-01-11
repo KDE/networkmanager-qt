@@ -26,10 +26,10 @@
 #include <QtNetworkManager/accesspoint.h>
 #include <QtNetworkManager/generic-types.h>
 #include <QtNetworkManager/connection.h>
-#include <QtNetworkManager/connectionsettings.h>
-#include <QtNetworkManager/802-11-wireless.h>
-#include <QtNetworkManager/802-11-wireless-security.h>
-#include <QtNetworkManager/ipv4.h>
+#include <QtNetworkManager/settings/connection.h>
+#include <QtNetworkManager/settings/802-11-wireless.h>
+#include <QtNetworkManager/settings/802-11-wireless-security.h>
+#include <QtNetworkManager/settings/ipv4.h>
 
 #include <QDBusMetaType>
 #include <QTextStream>

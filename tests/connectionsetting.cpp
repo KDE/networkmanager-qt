@@ -21,7 +21,7 @@
 #include "connectionsetting.h"
 
 #include <nm-setting-connection.h>
-#include <QtNetworkManager/connectionsettings.h>
+#include <QtNetworkManager/settings/connection.h>
 
 void ConnectionSetting::testSetting_data()
 {

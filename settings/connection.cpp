@@ -31,12 +31,12 @@
 #include <nm-setting-pppoe.h>
 #include <nm-setting-vpn.h>
 
-#include <802-3-ethernet.h>
-#include <802-11-wireless.h>
-#include <802-11-wireless-security.h>
-#include <gsm.h>
-#include <ipv4.h>
-#include <ipv6.h>
+#include "802-3-ethernet.h"
+#include "802-11-wireless.h"
+#include "802-11-wireless-security.h"
+#include "gsm.h"
+#include "ipv4.h"
+#include "ipv6.h"
 
 #include <QUuid>
 

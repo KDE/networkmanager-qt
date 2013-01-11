@@ -23,7 +23,7 @@
 #include <arpa/inet.h>
 #include <nm-setting-ip6-config.h>
 #include <QtNetworkManager/generic-types.h>
-#include <QtNetworkManager/ipv6.h>
+#include <QtNetworkManager/settings/ipv6.h>
 #include <QtNetworkManager/ipv6config.h>
 
 //TODO: Test DNS,IPv6Addresses and IPv6Routes
