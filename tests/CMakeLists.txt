@@ -65,3 +65,11 @@ set(ipv6setting_SRCS ipv6setting.cpp)
 kde4_add_unit_test(ipv6setting TESTNAME libnm-ipv6setting ${ipv6setting_SRCS})
 
 target_link_libraries(ipv6setting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
+
+# Bluetooth setting tests
+
+set(bluetoothsetting_SRCS bluetoothsetting.cpp)
+
+kde4_add_unit_test(bluetoothsetting TESTNAME libnm-bluetoothsetting ${bluetoothsetting_SRCS})
+
+target_link_libraries(bluetoothsetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
