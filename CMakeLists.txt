@@ -81,6 +81,7 @@ settings/ipv6_p.h
 settings/bluetooth_p.h
 settings/bond_p.h
 settings/cdma_p.h
+settings/infiniband_p.h
 )
 
 set(QtNetworkManager_PART_SRCS
@@ -148,6 +149,7 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/bluetooth.cpp
     settings/bond.cpp
     settings/cdma.cpp
+    settings/infiniband.cpp
     )
 
 set(CONNECTIONS_SETTINGS_HEADERS
@@ -163,6 +165,7 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/bluetooth.h
     settings/bond.h
     settings/cdma.h
+    settings/infiniband.h
     )
 
 qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_PRIVATE_HEADERS})

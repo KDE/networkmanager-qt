@@ -89,3 +89,11 @@ set(cdmasetting_SRCS cdmasetting.cpp)
 kde4_add_unit_test(cdmasetting TESTNAME libnm-cdmasetting ${cdmasetting_SRCS})
 
 target_link_libraries(cdmasetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
+
+# Infiniband setting tests
+
+set(infiniband_SRCS infinibandsetting.cpp)
+
+kde4_add_unit_test(infiniband TESTNAME libnm-infiniband ${infiniband_SRCS})
+
+target_link_libraries(infiniband QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
