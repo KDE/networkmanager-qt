@@ -92,8 +92,16 @@ target_link_libraries(cdmasetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_
 
 # Infiniband setting tests
 
-set(infiniband_SRCS infinibandsetting.cpp)
+set(infinibandsetting_SRCS infinibandsetting.cpp)
 
-kde4_add_unit_test(infiniband TESTNAME libnm-infiniband ${infiniband_SRCS})
+kde4_add_unit_test(infinibandsetting TESTNAME libnm-infinibandsetting ${infinibandsetting_SRCS})
 
-target_link_libraries(infiniband QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
+target_link_libraries(infinibandsetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
+
+# PPP setting tests
+
+set(pppsetting_SRCS pppsetting.cpp)
+
+kde4_add_unit_test(pppsetting TESTNAME libnm-pppsetting ${pppsetting_SRCS})
+
+target_link_libraries(pppsetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
