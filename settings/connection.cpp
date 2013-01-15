@@ -34,7 +34,12 @@
 #include "802-3-ethernet.h"
 #include "802-11-wireless.h"
 #include "802-11-wireless-security.h"
+#include "bluetooth.h"
+#include "bond.h"
 #include "gsm.h"
+#include "cdma.h"
+#include "infiniband.h"
+#include "ppp.h"
 #include "ipv4.h"
 #include "ipv6.h"
 
@@ -151,38 +156,87 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
     clearSettings();
 
     switch(connectionType()) {
-	case Wired:
-	    addSetting(new WiredSetting());
-            addSetting(new Ipv4Setting());
-            addSetting(new Ipv6Setting());
-	    break;
-	case Wireless:
-	    addSetting(new WirelessSetting());
-            addSetting(new WirelessSecuritySetting());
-            addSetting(new Ipv4Setting());
-            addSetting(new Ipv6Setting());
-	    break;
-	case Gsm:
-	    addSetting(new GsmSetting());
+        case Adsl:
+            //TODO: Implement ADSL setting
+            //addSetting(new AdslSetting());
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
             break;
-	case Cdma:
+        case Bond:
+            addSetting(new BondSetting());
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
-	    break;
-	case Vpn:
+            break;
+        case Bluetooth:
+            addSetting(new BluetoothSetting());
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
-	    break;
-	case Pppoe:
+            //TODO: check for Bluetooth type
+            addSetting(new GsmSetting());
+            addSetting(new CdmaSetting());
+            addSetting(new PPPSetting());
+            //TODO: implement Serial setting
+            //addSetting(new SerialSetting());
+            break;
+        case Cdma:
+            addSetting(new CdmaSetting());
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
-	    break;
-	case Bluetooth:
+            addSetting(new PPPSetting());
+            break;
+        case Gsm:
+            addSetting(new GsmSetting());
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
-	    break;
+            addSetting(new PPPSetting());
+            break;
+        case Infiniband:
+            addSetting(new InfinibandSetting());
+            addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
+        case OLPCMesh:
+            addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
+            //TODO: implement OLPCMesh setting
+            //addSetting(new OLPCMeshSetting());
+        case Pppoe:
+            addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
+            addSetting(new PPPSetting());
+            //TODO: Implement PPPoESetting
+            //addSetting(new PppoeSetting());
+            addSetting(new WiredSetting());
+        case Vlan:
+            addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
+            //TODO: Implement VLan setting
+            //addSetting(new VlanSetting());
+        case Vpn:
+            addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
+            //TODO: Implement VPN setting
+            //addSetting(new VpnSetting());
+            break;
+        case Wimax:
+            addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
+            //TODO: Implement Wimax setting
+            //addSetting(new WimaxSetting());
+        case Wired:
+            addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
+            //TODO: Implement Security8021xSetting
+            //addSetting(new Security8021xSetting());
+            addSetting(new WiredSetting());
+            break;
+        case Wireless:
+            addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
+            //TODO: Implement Security8021xSetting
+            //addSetting(new Security8021xSetting());
+            addSetting(new WirelessSetting());
+            addSetting(new WirelessSecuritySetting());
+            break;
 	case Unknown:
 	    break;
 	default:
