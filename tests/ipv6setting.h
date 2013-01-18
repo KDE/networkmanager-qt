@@ -22,7 +22,6 @@
 #define IPV6SETTING_H
 
 #include <QtTest>
-#include <QtCore>
 
 class IPv6Setting : public QObject
 {

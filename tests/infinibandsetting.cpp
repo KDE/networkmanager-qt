@@ -20,8 +20,9 @@
 
 #include "infinibandsetting.h"
 
+#include "../settings/infiniband.h"
+
 #include <nm-setting-infiniband.h>
-#include <QtNetworkManager/settings/infiniband.h>
 
 void InfinibandSetting::testSetting_data()
 {

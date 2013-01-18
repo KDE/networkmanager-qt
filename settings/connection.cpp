@@ -22,15 +22,6 @@
 #include "connection.h"
 #include "connection_p.h"
 
-#include <nm-setting-connection.h>
-#include <nm-setting-wired.h>
-#include <nm-setting-wireless.h>
-#include <nm-setting-gsm.h>
-#include <nm-setting-bluetooth.h>
-#include <nm-setting-cdma.h>
-#include <nm-setting-pppoe.h>
-#include <nm-setting-vpn.h>
-
 #include "802-3-ethernet.h"
 #include "802-11-wireless.h"
 #include "802-11-wireless-security.h"
@@ -44,7 +35,16 @@
 #include "ipv4.h"
 #include "ipv6.h"
 
-#include <QUuid>
+#include <nm-setting-connection.h>
+#include <nm-setting-wired.h>
+#include <nm-setting-wireless.h>
+#include <nm-setting-gsm.h>
+#include <nm-setting-bluetooth.h>
+#include <nm-setting-cdma.h>
+#include <nm-setting-pppoe.h>
+#include <nm-setting-vpn.h>
+
+#include <QtCore/QUuid>
 
 NetworkManager::Settings::ConnectionSettingsPrivate::ConnectionSettingsPrivate():
     name(QString("connection")),

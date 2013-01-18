@@ -23,7 +23,7 @@
 
 #include <nm-setting-adsl.h>
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 NetworkManager::Settings::AdslSettingPrivate::AdslSettingPrivate():
     name(QString("adsl")),

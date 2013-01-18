@@ -20,11 +20,12 @@
 
 #include "ipv6setting.h"
 
+#include "generic-types.h"
+#include "ipv6config.h"
+#include "../settings/ipv6.h"
+
 #include <arpa/inet.h>
 #include <nm-setting-ip6-config.h>
-#include <QtNetworkManager/generic-types.h>
-#include <QtNetworkManager/settings/ipv6.h>
-#include <QtNetworkManager/ipv6config.h>
 
 //TODO: Test DNS,IPv6Addresses and IPv6Routes
 void IPv6Setting::testSetting_data()

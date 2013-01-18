@@ -20,8 +20,9 @@
 
 #include "adslsetting.h"
 
+#include "../settings/adsl.h"
+
 #include <nm-setting-adsl.h>
-#include <QtNetworkManager/settings/adsl.h>
 
 void AdslSetting::testSetting_data()
 {

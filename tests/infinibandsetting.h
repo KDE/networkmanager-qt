@@ -22,7 +22,6 @@
 #define INFINIBANDSETTING_H
 
 #include <QtTest>
-#include <QtCore>
 
 class InfinibandSetting : public QObject
 {

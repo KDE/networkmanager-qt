@@ -22,7 +22,6 @@
 #define WIREDSETTING_H
 
 #include <QtTest>
-#include <QtCore>
 
 class WiredSetting : public QObject
 {

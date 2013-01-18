@@ -20,8 +20,9 @@
 
 #include "cdmasetting.h"
 
+#include "../settings/cdma.h"
+
 #include <nm-setting-cdma.h>
-#include <QtNetworkManager/settings/cdma.h>
 
 void CdmaSetting::testSetting_data()
 {

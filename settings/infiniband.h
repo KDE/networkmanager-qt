@@ -21,10 +21,10 @@
 #ifndef NM_INFINIBANDSETTING_H
 #define NM_INFINIBANDSETTING_H
 
-#include "QtNetworkManager-export.h"
+#include "../QtNetworkManager-export.h"
 #include "setting.h"
 
-#include <QString>
+#include <QtCore/QString>
 
 namespace NetworkManager
 {

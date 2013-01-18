@@ -23,7 +23,7 @@
 
 #include <nm-setting-wireless.h>
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 NetworkManager::Settings::WirelessSettingPrivate::WirelessSettingPrivate():
     name(QString("802-11-wireless")),

@@ -22,11 +22,11 @@
 #ifndef NM_CONNECTIONSETTINGS_P_H
 #define NM_CONNECTIONSETTINGS_P_H
 
-#include <QHash>
-#include <QString>
-#include <QDateTime>
-
 #include "setting.h"
+
+#include <QtCore/QHash>
+#include <QtCore/QString>
+#include <QtCore/QDateTime>
 
 namespace NetworkManager
 {

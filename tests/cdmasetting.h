@@ -22,7 +22,6 @@
 #define CDMASETTING_H
 
 #include <QtTest>
-#include <QtCore>
 
 class CdmaSetting : public QObject
 {

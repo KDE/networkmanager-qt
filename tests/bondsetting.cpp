@@ -20,8 +20,9 @@
 
 #include "bondsetting.h"
 
+#include "../settings/bond.h"
+
 #include <nm-setting-bond.h>
-#include <QtNetworkManager/settings/bond.h>
 
 void BondSetting::testSetting_data()
 {

@@ -31,8 +31,8 @@
 #include <QtNetworkManager/settings/802-11-wireless-security.h>
 #include <QtNetworkManager/settings/ipv4.h>
 
-#include <QDBusMetaType>
-#include <QTextStream>
+#include <QtDBus/QDBusMetaType>
+#include <QtCore/QTextStream>
 
 using namespace NetworkManager;
 

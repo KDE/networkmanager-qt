@@ -20,13 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <arpa/inet.h>
 
-#include <QTextStream>
+#include <QtCore/QTextStream>
 
 #include <QtNetworkManager/manager.h>
 #include <QtNetworkManager/device.h>
 #include <QtNetworkManager/activeconnection.h>
 #include <QtNetworkManager/connection.h>
-#include <QtNetworkManager/ipv4.h>
 
 QString typeAsString(const int type)
 {

@@ -20,10 +20,11 @@
 
 #include "ipv4setting.h"
 
+#include "generic-types.h"
+#include "../settings/ipv4.h"
+
 #include <arpa/inet.h>
 #include <nm-setting-ip4-config.h>
-#include <QtNetworkManager/generic-types.h>
-#include <QtNetworkManager/settings/ipv4.h>
 
 void IPv4Setting::testSetting_data()
 {

@@ -20,8 +20,9 @@
 
 #include "connectionsetting.h"
 
+#include "../settings/connection.h"
+
 #include <nm-setting-connection.h>
-#include <QtNetworkManager/settings/connection.h>
 
 void ConnectionSetting::testSetting_data()
 {

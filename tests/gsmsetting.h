@@ -22,7 +22,6 @@
 #define GSMSETTING_H
 
 #include <QtTest>
-#include <QtCore>
 
 class GsmSetting : public QObject
 {

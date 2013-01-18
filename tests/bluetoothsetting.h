@@ -22,7 +22,6 @@
 #define BLUETOOTHSETTING_H
 
 #include <QtTest>
-#include <QtCore>
 
 class BluetoothSetting : public QObject
 {

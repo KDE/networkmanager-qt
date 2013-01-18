@@ -21,11 +21,11 @@
 #ifndef NM_BONDSETTING_H
 #define NM_BONDSETTING_H
 
-#include "QtNetworkManager-export.h"
+#include "../QtNetworkManager-export.h"
 #include "generic-types.h"
 #include "setting.h"
 
-#include <QString>
+#include <QtCore/QString>
 
 namespace NetworkManager
 {

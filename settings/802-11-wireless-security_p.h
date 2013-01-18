@@ -21,8 +21,8 @@
 #ifndef NM_WIRELESSSECURITYSETTING_P_H
 #define NM_WIRELESSSECURITYSETTING_P_H
 
-#include <QString>
-#include <QList>
+#include <QtCore/QString>
+#include <QtCore/QList>
 
 namespace NetworkManager
 {

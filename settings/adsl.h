@@ -21,11 +21,11 @@
 #ifndef NM_ADSLSETTING_H
 #define NM_ADSLSETTING_H
 
-#include "QtNetworkManager-export.h"
+#include "../QtNetworkManager-export.h"
 #include "generic-types.h"
 #include "setting.h"
 
-#include <QString>
+#include <QtCore/QString>
 
 namespace NetworkManager
 {

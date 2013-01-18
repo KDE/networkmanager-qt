@@ -20,8 +20,9 @@
 
 #include "gsmsetting.h"
 
+#include "../settings/gsm.h"
+
 #include <nm-setting-gsm.h>
-#include <QtNetworkManager/settings/gsm.h>
 
 void GsmSetting::testSetting_data()
 {

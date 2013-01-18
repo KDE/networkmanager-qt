@@ -23,7 +23,7 @@
 
 #include <nm-setting-gsm.h>
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 NetworkManager::Settings::GsmSettingPrivate::GsmSettingPrivate():
     name(QString("gsm")),

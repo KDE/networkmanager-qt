@@ -20,8 +20,9 @@
 
 #include "bluetoothsetting.h"
 
+#include "../settings/bluetooth.h"
+
 #include <nm-setting-bluetooth.h>
-#include <QtNetworkManager/settings/bluetooth.h>
 
 void BluetoothSetting::testSetting_data()
 {

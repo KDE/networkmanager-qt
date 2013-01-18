@@ -39,13 +39,12 @@
 #include <nm-setting-wireless-security.h>
 #include <nm-setting-wimax.h>
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 namespace NetworkManager
 {
 namespace Settings
 {
-
     class SettingPrivate
     {
     public:
@@ -239,5 +238,3 @@ void NetworkManager::Settings::Setting::printSetting()
     qDebug() << "TYPE - " << typeAsString(type());
     qDebug() << "INITIALIZED - " << !isNull();
 }
-
-

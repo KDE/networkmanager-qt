@@ -24,7 +24,7 @@
 
 #include <nm-setting-wireless-security.h>
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 NetworkManager::Settings::WirelessSecuritySettingPrivate::WirelessSecuritySettingPrivate():
     name(QString("802-11-wireless-security")),

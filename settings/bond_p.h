@@ -23,7 +23,7 @@
 
 #include "generic-types.h"
 
-#include <QString>
+#include <QtCore/QString>
 
 namespace NetworkManager
 {

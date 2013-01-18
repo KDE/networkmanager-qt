@@ -22,7 +22,6 @@
 #define ADSLSETTING_H
 
 #include <QtTest>
-#include <QtCore>
 
 class AdslSetting : public QObject
 {

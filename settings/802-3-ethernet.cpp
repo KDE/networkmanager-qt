@@ -25,7 +25,7 @@
 
 #include <nm-setting-wired.h>
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 NetworkManager::Settings::WiredSettingPrivate::WiredSettingPrivate():
     name("802-3-ethernet"),

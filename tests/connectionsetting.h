@@ -22,7 +22,6 @@
 #define CONNECTIONSETTING_H
 
 #include <QtTest>
-#include <QtCore>
 
 class ConnectionSetting : public QObject
 {

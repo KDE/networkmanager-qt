@@ -21,10 +21,10 @@
 #ifndef NM_BLUETOOTHSETTING_H
 #define NM_BLUETOOTHSETTING_H
 
-#include "QtNetworkManager-export.h"
+#include "../QtNetworkManager-export.h"
 #include "setting.h"
 
-#include <QString>
+#include <QtCore/QString>
 
 namespace NetworkManager
 {

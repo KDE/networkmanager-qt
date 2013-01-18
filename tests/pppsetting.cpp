@@ -20,8 +20,9 @@
 
 #include "pppsetting.h"
 
+#include "../settings/ppp.h"
+
 #include <nm-setting-ppp.h>
-#include <QtNetworkManager/settings/ppp.h>
 
 void PPPSetting::testSetting_data()
 {

@@ -23,7 +23,7 @@
 
 #include <nm-setting-ppp.h>
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 NetworkManager::Settings::PPPSettingPrivate::PPPSettingPrivate():
     name(QString("ppp")),

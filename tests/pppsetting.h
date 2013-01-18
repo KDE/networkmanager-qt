@@ -22,7 +22,6 @@
 #define PPPSETTING_H
 
 #include <QtTest>
-#include <QtCore>
 
 class PPPSetting : public QObject
 {

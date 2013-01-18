@@ -21,10 +21,10 @@
 #ifndef SETTING_H
 #define SETTING_H
 
-#include "QtNetworkManager-export.h"
+#include "../QtNetworkManager-export.h"
 
-#include <QVariantMap>
-#include <QStringList>
+#include <QtCore/QVariantMap>
+#include <QtCore/QStringList>
 
 namespace NetworkManager
 {

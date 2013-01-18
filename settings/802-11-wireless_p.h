@@ -21,7 +21,7 @@
 #ifndef NM_WIRELESSSETTING_P_H
 #define NM_WIRELESSSETTING_P_H
 
-#include <QStringList>
+#include <QtCore/QStringList>
 
 namespace NetworkManager
 {

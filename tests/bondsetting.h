@@ -22,7 +22,6 @@
 #define BONDSETTING_H
 
 #include <QtTest>
-#include <QtCore>
 
 class BondSetting : public QObject
 {

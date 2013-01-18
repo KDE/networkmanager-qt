@@ -21,12 +21,12 @@
 #ifndef NM_IPV6SETTING_H
 #define NM_IPV6SETTING_H
 
-#include "ipv6config.h"
-#include "QtNetworkManager-export.h"
+#include "../ipv6config.h"
+#include "../QtNetworkManager-export.h"
 #include "setting.h"
 
-#include <QStringList>
-#include <QHostAddress>
+#include <QtCore/QStringList>
+#include <QtNetwork/QHostAddress>
 
 namespace NetworkManager
 {

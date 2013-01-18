@@ -21,10 +21,10 @@
 #ifndef NM_WIRELESSSETTING_H
 #define NM_WIRELESSSETTING_H
 
-#include "QtNetworkManager-export.h"
+#include "../QtNetworkManager-export.h"
 #include "setting.h"
 
-#include <QStringList>
+#include <QtCore/QStringList>
 
 namespace NetworkManager
 {

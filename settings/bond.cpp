@@ -23,7 +23,7 @@
 
 #include <nm-setting-bond.h>
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 NetworkManager::Settings::BondSettingPrivate::BondSettingPrivate():
     name(QString("bond")),

@@ -21,14 +21,13 @@
 #include "ipv6.h"
 #include "ipv6_p.h"
 
+#include "generic-types.h"
+#include "../ipv4config.h"
+
 #include <arpa/inet.h>
-
-#include "dbus/generic-types.h"
-#include "ipv4config.h"
-
 #include <nm-setting-ip6-config.h>
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 NetworkManager::Settings::Ipv6SettingPrivate::Ipv6SettingPrivate():
     name(QString("ipv6")),

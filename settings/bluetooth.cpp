@@ -23,7 +23,7 @@
 
 #include <nm-setting-bluetooth.h>
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 NetworkManager::Settings::BluetoothSettingPrivate::BluetoothSettingPrivate():
     name(QString("bluetooth")),

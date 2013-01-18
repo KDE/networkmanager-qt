@@ -22,7 +22,6 @@
 #define WIRELESSSECURITYSETTING_H
 
 #include <QtTest>
-#include <QtCore>
 
 class WirelessSecuritySetting : public QObject
 {

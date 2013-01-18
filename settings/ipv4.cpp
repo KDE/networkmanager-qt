@@ -21,12 +21,12 @@
 #include "ipv4.h"
 #include "ipv4_p.h"
 
-#include <arpa/inet.h>
 #include "generic-types.h"
 
+#include <arpa/inet.h>
 #include <nm-setting-ip4-config.h>
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 NetworkManager::Settings::Ipv4SettingPrivate::Ipv4SettingPrivate():
     name(QString("ipv4")),

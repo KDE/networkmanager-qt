@@ -21,12 +21,12 @@
 #ifndef NM_IPV4SETTING_H
 #define NM_IPV4SETTING_H
 
-#include "ipv4config.h"
-#include "QtNetworkManager-export.h"
+#include "../ipv4config.h"
+#include "../QtNetworkManager-export.h"
 #include "setting.h"
 
-#include <QStringList>
-#include <QHostAddress>
+#include <QtCore/QStringList>
+#include <QtNetwork/QHostAddress>
 
 namespace NetworkManager
 {

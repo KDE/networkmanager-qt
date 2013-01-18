@@ -23,7 +23,7 @@
 
 #include <nm-setting-cdma.h>
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 NetworkManager::Settings::CdmaSettingPrivate::CdmaSettingPrivate():
     name(QString("cdma")),

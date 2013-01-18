@@ -22,7 +22,6 @@
 #define WIRELESSSETTING_H
 
 #include <QtTest>
-#include <QtCore>
 
 class WirelessSetting : public QObject
 {

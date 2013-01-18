@@ -22,7 +22,6 @@
 #define IPV4SETTING_H
 
 #include <QtTest>
-#include <QtCore>
 
 class IPv4Setting : public QObject
 {

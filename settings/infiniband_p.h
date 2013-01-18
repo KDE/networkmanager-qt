@@ -21,7 +21,7 @@
 #ifndef NM_INFINIBANDSETTING_P_H
 #define NM_INFINIBANDSETTING_P_H
 
-#include <QString>
+#include <QtCore/QString>
 
 namespace NetworkManager
 {

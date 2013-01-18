@@ -22,13 +22,13 @@
 #ifndef NM_CONNECTIONSETTINGS_H
 #define NM_CONNECTIONSETTINGS_H
 
-#include "QtNetworkManager-export.h"
-#include "device.h"
+#include "../QtNetworkManager-export.h"
+#include "../device.h"
 #include "setting.h"
 
-#include <QString>
-#include <QDateTime>
-#include <QHash>
+#include <QtCore/QString>
+#include <QtCore/QDateTime>
+#include <QtCore/QHash>
 
 namespace NetworkManager
 {

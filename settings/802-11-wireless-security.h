@@ -22,10 +22,10 @@
 #ifndef NM_WIRELESSSECURITYSETTING_H
 #define NM_WIRELESSSECURITYSETTING_H
 
-#include "QtNetworkManager-export.h"
+#include "../QtNetworkManager-export.h"
 #include "setting.h"
 
-#include <QStringList>
+#include <QtCore/QStringList>
 
 namespace NetworkManager
 {

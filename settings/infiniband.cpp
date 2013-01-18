@@ -23,7 +23,7 @@
 
 #include <nm-setting-infiniband.h>
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 NetworkManager::Settings::InfinibandSettingPrivate::InfinibandSettingPrivate():
     name(QString("infiniband")),
