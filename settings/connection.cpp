@@ -142,7 +142,7 @@ NetworkManager::Settings::ConnectionSettings::ConnectionSettings(NetworkManager:
     setMaster(settings->master());
     setSlaveType(settings->slaveType());
 
-    initSettings();
+    initSettings(settings);
 }
 
 NetworkManager::Settings::ConnectionSettings::~ConnectionSettings()
@@ -241,6 +241,98 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
 	    break;
 	default:
 	    break;
+    }
+}
+
+void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::Settings::ConnectionSettings* connectionSettings)
+{
+    clearSettings();
+
+    switch(connectionType()) {
+        case Adsl:
+            addSetting(new AdslSetting(static_cast<AdslSetting*>(connectionSettings->setting(Setting::Adsl))));
+            addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
+            addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
+            break;
+        case Bond:
+            addSetting(new BondSetting(static_cast<BondSetting*>(connectionSettings->setting(Setting::Bond))));
+            addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
+            addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
+            break;
+        case Bluetooth:
+            addSetting(new BluetoothSetting(static_cast<BluetoothSetting*>(connectionSettings->setting(Setting::Bluetooth))));
+            addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
+            addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
+            //TODO: check for Bluetooth type
+            addSetting(new GsmSetting(static_cast<GsmSetting*>(connectionSettings->setting(Setting::Gsm))));
+            addSetting(new CdmaSetting(static_cast<CdmaSetting*>(connectionSettings->setting(Setting::Cdma))));
+            addSetting(new PPPSetting(static_cast<PPPSetting*>(connectionSettings->setting(Setting::Ppp))));
+            //TODO: implement Serial setting
+            //addSetting(new SerialSetting(static_cast<SerialSetting*>(connectionSettings->setting(Setting::Serial))));
+            break;
+        case Cdma:
+            addSetting(new CdmaSetting(static_cast<CdmaSetting*>(connectionSettings->setting(Setting::Cdma))));
+            addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
+            addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
+            addSetting(new PPPSetting(static_cast<PPPSetting*>(connectionSettings->setting(Setting::Ppp))));
+            break;
+        case Gsm:
+            addSetting(new GsmSetting(static_cast<GsmSetting*>(connectionSettings->setting(Setting::Gsm))));
+            addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
+            addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
+            addSetting(new PPPSetting(static_cast<PPPSetting*>(connectionSettings->setting(Setting::Ppp))));
+            break;
+        case Infiniband:
+            addSetting(new InfinibandSetting(static_cast<InfinibandSetting*>(connectionSettings->setting(Setting::Infiniband))));
+            addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
+            addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
+        case OLPCMesh:
+            addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
+            //TODO: implement OLPCMesh setting
+            //addSetting(new OLPCMeshSetting(static_cast<OlpcMeshSetting*>(connectionSettings->setting(Setting::OlpcMesh))));
+        case Pppoe:
+            addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
+            addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
+            addSetting(new PPPSetting(static_cast<PPPSetting*>(connectionSettings->setting(Setting::Ppp))));
+            //TODO: Implement PPPoESetting
+            //addSetting(new PppoeSetting(static_cast<PppoeSetting*>(connectionSettings->setting(Setting::Pppoe))));
+            addSetting(new WiredSetting(static_cast<WiredSetting*>(connectionSettings->setting(Setting::Wired))));
+        case Vlan:
+            addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
+            addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
+            //TODO: Implement VLan setting
+            //addSetting(new VlanSetting(static_cast<VlanSetting*>(connectionSettings->setting(Setting::Vlan))));
+        case Vpn:
+            addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
+            addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
+            //TODO: Implement VPN setting
+            //addSetting(new VpnSetting(static_cast<VpnSetting*>(connectionSettings->setting(Setting::Vpn))));
+            break;
+        case Wimax:
+            addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
+            addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
+            //TODO: Implement Wimax setting
+            //addSetting(new WimaxSetting(static_cast<WimaxSetting*>(connectionSettings->setting(Setting::Wimax))));
+        case Wired:
+            addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
+            addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
+            //TODO: Implement Security8021xSetting
+            //addSetting(new Security8021xSetting(static_cast<Security8021xSetting*>(connectionSettings->setting(Setting::Security8021x))));
+            addSetting(new WiredSetting());
+            break;
+        case Wireless:
+            addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
+            addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
+            //TODO: Implement Security8021xSetting
+            //addSetting(new Security8021xSetting(static_cast<Security8021xSetting*>(connectionSettings->setting(Setting::Security8021x))));
+            addSetting(new WirelessSetting(static_cast<WirelessSetting*>(connectionSettings->setting(Setting::Wireless))));
+            addSetting(new WirelessSecuritySetting(static_cast<WirelessSecuritySetting*>(connectionSettings->setting(Setting::WirelessSecurity))));
+            break;
+        case Unknown:
+            break;
+        default:
+            break;
     }
 }
 

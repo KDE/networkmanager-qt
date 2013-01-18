@@ -100,6 +100,7 @@ namespace Settings
 	void addSetting(Setting * setting);
 	void clearSettings();
 	void initSettings();
+        void initSettings(ConnectionSettings * connectionSettings);
     };
 }
 }
