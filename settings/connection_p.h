@@ -19,8 +19,8 @@
 */
 
 
-#ifndef NM_CONNECTIONSETTINGS_P_H
-#define NM_CONNECTIONSETTINGS_P_H
+#ifndef NMQT_CONNECTIONSETTINGS_P_H
+#define NMQT_CONNECTIONSETTINGS_P_H
 
 #include "setting.h"
 
@@ -53,4 +53,4 @@ namespace Settings
 }
 }
 
-#endif // NM_CONNECTIONSETTINGS_P_H
+#endif // NMQT_CONNECTIONSETTINGS_P_H

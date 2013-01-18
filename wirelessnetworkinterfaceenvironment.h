@@ -18,8 +18,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef WIRELESSNETWORKINTERFACEENVIRONMENT_H
-#define WIRELESSNETWORKINTERFACEENVIRONMENT_H
+#ifndef NMQT_WIRELESSNETWORKINTERFACEENVIRONMENT_H
+#define NMQT_WIRELESSNETWORKINTERFACEENVIRONMENT_H
 
 #include "QtNetworkManager-export.h"
 
@@ -65,4 +65,4 @@ private:
 };
 
 }
-#endif // WIRELESSNETWORKINTERFACEENVIRONMENT_H
+#endif // NMQT_WIRELESSNETWORKINTERFACEENVIRONMENT_H

@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BONDSETTING_H
-#define BONDSETTING_H
+#ifndef NMQT_BONDSETTING_TEST_H
+#define NMQT_BONDSETTING_TEST_H
 
 #include <QtTest>
 
@@ -32,4 +32,4 @@ class BondSetting : public QObject
         void testSetting();
 };
 
-#endif // BONDSETTING_H
+#endif // NMQT_BONDSETTING_TEST_H

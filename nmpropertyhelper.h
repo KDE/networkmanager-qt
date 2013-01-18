@@ -20,8 +20,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 // class that can extract values out of a properties map into a QObject's properties
 
-#ifndef NM_PROPERTY_HELPER_H
-#define NM_PROPERTY_HELPER_H
+#ifndef NMQT_PROPERTY_HELPER_H
+#define NMQT_PROPERTY_HELPER_H
 
 #include <QPair>
 

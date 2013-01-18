@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_PPPSETTING_P_H
-#define NM_PPPSETTING_P_H
+#ifndef NMQT_PPPSETTING_P_H
+#define NMQT_PPPSETTING_P_H
 
 #include <QtCore/QString>
 
@@ -55,4 +55,4 @@ namespace Settings
 }
 }
 
-#endif // NM_PPPSETTING_P_H
+#endif // NMQT_PPPSETTING_P_H

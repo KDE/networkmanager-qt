@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_CDMA_H
-#define NM_CDMA_H
+#ifndef NMQT_CDMASETTING_H
+#define NMQT_CDMASETTING_H
 
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
@@ -73,4 +73,4 @@ namespace Settings
 }
 }
 
-#endif // NM_CDMA_H
+#endif // NMQT_CDMASETTING_H

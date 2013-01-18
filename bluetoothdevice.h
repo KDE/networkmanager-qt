@@ -21,8 +21,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "modemdevice.h"
 
-#ifndef NM_BLUETOOTH_DEVICE_H
-#define NM_BLUETOOTH_DEVICE_H
+#ifndef NMQT_BLUETOOTH_DEVICE_H
+#define NMQT_BLUETOOTH_DEVICE_H
 
 #include "QtNetworkManager-export.h"
 

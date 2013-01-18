@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ADSLSETTING_H
-#define ADSLSETTING_H
+#ifndef NMQT_ADSLSETTING_TEST_H
+#define NMQT_ADSLSETTING_TEST_H
 
 #include <QtTest>
 
@@ -32,4 +32,4 @@ class AdslSetting : public QObject
         void testSetting();
 };
 
-#endif // ADSLSETTING_H
+#endif // NMQT_ADSLSETTING_TEST_H

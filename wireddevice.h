@@ -18,8 +18,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_WIREDDEVICE_H
-#define NM_WIREDDEVICE_H
+#ifndef NMQT_WIREDDEVICE_H
+#define NMQT_WIREDDEVICE_H
 
 #include "QtNetworkManager-export.h"
 
@@ -61,5 +61,5 @@ Q_SIGNALS:
 
 }
 
-#endif // NM_WIREDDEVICE_H
+#endif // NMQT_WIREDDEVICE_H
 

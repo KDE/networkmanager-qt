@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_INFINIBANDSETTING_P_H
-#define NM_INFINIBANDSETTING_P_H
+#ifndef NMQT_INFINIBANDSETTING_P_H
+#define NMQT_INFINIBANDSETTING_P_H
 
 #include <QtCore/QString>
 
@@ -40,4 +40,4 @@ namespace Settings
 }
 }
 
-#endif // NM_INFINIBANDSETTING_P_H
+#endif // NMQT_INFINIBANDSETTING_P_H

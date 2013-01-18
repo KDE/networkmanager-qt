@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_ADSLSETTING_H
-#define NM_ADSLSETTING_H
+#ifndef NMQT_ADSLSETTING_H
+#define NMQT_ADSLSETTING_H
 
 #include "../QtNetworkManager-export.h"
 #include "generic-types.h"
@@ -82,4 +82,4 @@ namespace Settings
 }
 }
 
-#endif // NM_ADSLSETTING_H
+#endif // NMQT_ADSLSETTING_H

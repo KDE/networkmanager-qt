@@ -19,8 +19,8 @@
 */
 
 
-#ifndef NM_WIRELESSSECURITYSETTING_H
-#define NM_WIRELESSSECURITYSETTING_H
+#ifndef NMQT_WIRELESSSECURITYSETTING_H
+#define NMQT_WIRELESSSECURITYSETTING_H
 
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
@@ -120,4 +120,4 @@ namespace Settings
 }
 }
 
-#endif // NM_WIRELESSSECURITYSETTING_H
+#endif // NMQT_WIRELESSSECURITYSETTING_H

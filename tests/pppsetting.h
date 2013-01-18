@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef PPPSETTING_H
-#define PPPSETTING_H
+#ifndef NMQT_PPPSETTING_TEST_H
+#define NMQT_PPPSETTING_TEST_H
 
 #include <QtTest>
 
@@ -32,4 +32,4 @@ class PPPSetting : public QObject
         void testSetting();
 };
 
-#endif // PPPSETTING_H
+#endif // NMQT_PPPSETTING_TEST_H

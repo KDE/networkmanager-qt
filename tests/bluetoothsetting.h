@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BLUETOOTHSETTING_H
-#define BLUETOOTHSETTING_H
+#ifndef NMQT_BLUETOOTHSETTING_TEST_H
+#define NMQT_BLUETOOTHSETTING_TEST_H
 
 #include <QtTest>
 
@@ -32,4 +32,4 @@ class BluetoothSetting : public QObject
         void testSetting();
 };
 
-#endif // GSMSETTING_H
+#endif // NMQT_BLUETOOTHSETTING_TEST_H

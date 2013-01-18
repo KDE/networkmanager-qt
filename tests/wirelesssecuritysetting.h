@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef WIRELESSSECURITYSETTING_H
-#define WIRELESSSECURITYSETTING_H
+#ifndef NMQT_WIRELESSSECURITYSETTING_TEST_H
+#define NMQT_WIRELESSSECURITYSETTING_TEST_H
 
 #include <QtTest>
 
@@ -32,4 +32,4 @@ class WirelessSecuritySetting : public QObject
         void testSetting();
 };
 
-#endif // WIRELESSSECURITYSETTING_H
+#endif // NMQT_WIRELESSSECURITYSETTING_TEST_H

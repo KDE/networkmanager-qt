@@ -18,8 +18,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_ACTIVECONNECTION_H
-#define NM_ACTIVECONNECTION_H
+#ifndef NMQT_ACTIVECONNECTION_H
+#define NMQT_ACTIVECONNECTION_H
 
 #include "QtNetworkManager-export.h"
 
@@ -147,5 +147,5 @@ Q_SIGNALS:
 };
 
 } // namespace NetworkManager
-#endif //NM_ACTIVECONNECTION_H
+#endif // NMQT_ACTIVECONNECTION_H
 

@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_INFINIBANDSETTING_H
-#define NM_INFINIBANDSETTING_H
+#ifndef NMQT_INFINIBANDSETTING_H
+#define NMQT_INFINIBANDSETTING_H
 
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
@@ -68,4 +68,4 @@ namespace Settings
 }
 }
 
-#endif // NM_INFINIBANDSETTING_H
+#endif // NMQT_INFINIBANDSETTING_H

@@ -17,8 +17,8 @@ Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef NM_BLUETOOTH_DEVICE_P_H
-#define NM_BLUETOOTH_DEVICE_P_H
+#ifndef NMQT_BLUETOOTH_DEVICE_P_H
+#define NMQT_BLUETOOTH_DEVICE_P_H
 
 #include "modemdevice_p.h"
 #include "dbus/nm-device-btinterface.h"
@@ -34,4 +34,4 @@ public:
     QString name;
 };
 }
-#endif // NM_BLUETOOTH_DEVICE_P_H
+#endif // NMQT__BLUETOOTH_DEVICE_P_H

@@ -18,8 +18,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_WIMAXDEVICE_P_H
-#define NM_WIMAXDEVICE_P_H
+#ifndef NMQT_WIMAXDEVICE_P_H
+#define NMQT_WIMAXDEVICE_P_H
 
 #include "device_p.h"
 #include "dbus/nm-device-wimaxinterface.h"

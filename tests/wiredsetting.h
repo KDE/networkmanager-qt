@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef WIREDSETTING_H
-#define WIREDSETTING_H
+#ifndef NMQT_WIREDSETTING_TEST_H
+#define NMQT_WIREDSETTING_TEST_H
 
 #include <QtTest>
 
@@ -32,4 +32,4 @@ class WiredSetting : public QObject
         void testSetting();
 };
 
-#endif // WIREDSETTING_H
+#endif // NMQT_WIREDSETTING_TEST_H

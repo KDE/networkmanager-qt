@@ -18,8 +18,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_MODEMDEVICE_H
-#define NM_MODEMDEVICE_H
+#ifndef NMQT_MODEMDEVICE_H
+#define NMQT_MODEMDEVICE_H
 
 #include <QtModemManager/modemgsmcardinterface.h>
 #include <QtModemManager/modemgsmnetworkinterface.h>

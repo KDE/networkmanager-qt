@@ -18,8 +18,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_OLPCMESHDEVICE_H
-#define NM_OLPCMESHDEVICE_H
+#ifndef NMQT_OLPCMESHDEVICE_H
+#define NMQT_OLPCMESHDEVICE_H
 
 #include "device.h"
 
@@ -86,5 +86,5 @@ Q_SIGNALS:
 };
 
 } // namespace NetworkManager
-#endif //NM_WIMAXDEVICE_H
+#endif //NMQT_OLPCMESHDEVICE_H
 

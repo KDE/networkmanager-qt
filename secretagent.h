@@ -18,8 +18,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_SECRETAGENT_H
-#define NM_SECRETAGENT_H
+#ifndef NMQT_SECRETAGENT_H
+#define NMQT_SECRETAGENT_H
 
 #include <QObject>
 #include <QDBusContext>
@@ -50,4 +50,4 @@ namespace NetworkManager
     };
 }
 
-#endif // NM_SECRETAGENT_H
+#endif // NMQT_SECRETAGENT_H

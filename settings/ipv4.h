@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_IPV4SETTING_H
-#define NM_IPV4SETTING_H
+#ifndef NMQT_IPV4SETTING_H
+#define NMQT_IPV4SETTING_H
 
 #include "../ipv4config.h"
 #include "../QtNetworkManager-export.h"
@@ -98,4 +98,4 @@ namespace Settings
 }
 }
 
-#endif // NM_IPV4SETTING_H
+#endif // NMQT_IPV4SETTING_H

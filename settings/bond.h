@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_BONDSETTING_H
-#define NM_BONDSETTING_H
+#ifndef NMQT_BONDSETTING_H
+#define NMQT_BONDSETTING_H
 
 #include "../QtNetworkManager-export.h"
 #include "generic-types.h"
@@ -65,4 +65,4 @@ namespace Settings
 }
 }
 
-#endif // NM_BONDSETTING_H
+#endif // NMQT_BONDSETTING_H

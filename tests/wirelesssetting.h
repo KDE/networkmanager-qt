@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef WIRELESSSETTING_H
-#define WIRELESSSETTING_H
+#ifndef NMQT_WIRELESSSETTING_TEST_H
+#define NMQT_WIRELESSSETTING_TEST_H
 
 #include <QtTest>
 
@@ -32,4 +32,4 @@ class WirelessSetting : public QObject
         void testSetting();
 };
 
-#endif // WIRELESSSETTING_H
+#endif // NMQT_WIRELESSSETTING_TEST_H

@@ -18,8 +18,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_SETTINGS_CONNECTION_H
-#define NM_SETTINGS_CONNECTION_H
+#ifndef NMQT_SETTINGS_CONNECTION_H
+#define NMQT_SETTINGS_CONNECTION_H
 
 #include "QtNetworkManager-export.h"
 

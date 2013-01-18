@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_WIRELESSSECURITYSETTING_P_H
-#define NM_WIRELESSSECURITYSETTING_P_H
+#ifndef NMQT_WIRELESSSECURITYSETTING_P_H
+#define NMQT_WIRELESSSECURITYSETTING_P_H
 
 #include <QtCore/QString>
 #include <QtCore/QList>
@@ -55,5 +55,5 @@ namespace Settings
 }
 }
 
-#endif // NM_WIRELESSSECURITYSETTING_P_H
+#endif // NMQT_WIRELESSSECURITYSETTING_P_H
 

@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef GSMSETTING_H
-#define GSMSETTING_H
+#ifndef NMQT_GSMSETTING_TEST_H
+#define NMQT_GSMSETTING_TEST_H
 
 #include <QtTest>
 
@@ -32,4 +32,4 @@ class GsmSetting : public QObject
         void testSetting();
 };
 
-#endif // GSMSETTING_H
+#endif // NMQT_GSMSETTING_TEST_H

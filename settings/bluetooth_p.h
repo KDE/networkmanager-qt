@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_BLUETOOTHSETTING_P_H
-#define NM_BLUETOOTHSETTING_P_H
+#ifndef NMQT_BLUETOOTHSETTING_P_H
+#define NMQT_BLUETOOTHSETTING_P_H
 
 #include <QtCore/QString>
 
@@ -39,4 +39,4 @@ namespace Settings
 }
 }
 
-#endif // NM_BLUETOOTHSETTING_P_H
+#endif // NMQT_BLUETOOTHSETTING_P_H

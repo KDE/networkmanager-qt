@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef INFINIBANDSETTING_H
-#define INFINIBANDSETTING_H
+#ifndef NMQT_INFINIBANDSETTING_TEST_H
+#define NMQT_INFINIBANDSETTING_TEST_H
 
 #include <QtTest>
 
@@ -32,4 +32,4 @@ class InfinibandSetting : public QObject
         void testSetting();
 };
 
-#endif // INFINIBANDSETTING_H
+#endif // NMQT_INFINIBANDSETTING_TEST_H

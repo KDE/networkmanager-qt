@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_BLUETOOTHSETTING_H
-#define NM_BLUETOOTHSETTING_H
+#ifndef NMQT_BLUETOOTHSETTING_H
+#define NMQT_BLUETOOTHSETTING_H
 
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
@@ -66,4 +66,4 @@ namespace Settings
 }
 }
 
-#endif // NM_BLUETOOTHSETTING_H
+#endif // NMQT_BLUETOOTHSETTING_H

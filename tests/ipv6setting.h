@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef IPV6SETTING_H
-#define IPV6SETTING_H
+#ifndef NMQT_IPV6SETTING_TEST_H
+#define NMQT_IPV6SETTING_TEST_H
 
 #include <QtTest>
 
@@ -32,4 +32,4 @@ class IPv6Setting : public QObject
         void testSetting();
 };
 
-#endif // IPV6SETTING_H
+#endif // NMQT_IPV6SETTING_TEST_H

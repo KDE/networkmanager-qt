@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef IPV4SETTING_H
-#define IPV4SETTING_H
+#ifndef NMQT_IPV4SETTING_TEST_H
+#define NMQT_IPV4SETTING_TEST_H
 
 #include <QtTest>
 
@@ -32,4 +32,4 @@ class IPv4Setting : public QObject
         void testSetting();
 };
 
-#endif // IPV4SETTING_H
+#endif // NMQT_IPV4SETTING_TEST_H

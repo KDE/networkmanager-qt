@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CDMASETTING_H
-#define CDMASETTING_H
+#ifndef NMQT_CDMASETTING_TEST_H
+#define NMQT_CDMASETTING_TEST_H
 
 #include <QtTest>
 
@@ -32,4 +32,4 @@ class CdmaSetting : public QObject
         void testSetting();
 };
 
-#endif // CDMASETTING_H
+#endif // NMQT_CDMASETTING_TEST_H

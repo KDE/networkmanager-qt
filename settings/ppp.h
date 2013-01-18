@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_PPPSETTING_H
-#define NM_PPPSETTING_H
+#ifndef NMQT_PPPSETTING_H
+#define NMQT_PPPSETTING_H
 
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
@@ -112,4 +112,4 @@ namespace Settings
 }
 }
 
-#endif // NM_PPPSETTING_H
+#endif // NMQT_PPPSETTING_H
