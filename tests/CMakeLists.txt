@@ -74,6 +74,14 @@ kde4_add_unit_test(bluetoothsetting TESTNAME libnm-bluetoothsetting ${bluetooths
 
 target_link_libraries(bluetoothsetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
 
+# Adsl setting tests
+
+set(adslsetting_SRCS adslsetting.cpp)
+
+kde4_add_unit_test(adslsetting TESTNAME libnm-adslsetting ${adslsetting_SRCS})
+
+target_link_libraries(adslsetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
+
 # Bond setting tests
 
 set(bondsetting_SRCS bondsetting.cpp)

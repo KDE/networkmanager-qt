@@ -78,6 +78,7 @@ settings/gsm_p.h
 settings/ipv4_p.h
 settings/ipv6_p.h
 #settings/802-1x_p.h
+settings/adsl_p.h
 settings/bluetooth_p.h
 settings/bond_p.h
 settings/cdma_p.h
@@ -147,6 +148,7 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/ipv4.cpp
     settings/ipv6.cpp
     #settings/802-1x.cpp
+    settings/adsl.cpp
     settings/bluetooth.cpp
     settings/bond.cpp
     settings/cdma.cpp
@@ -164,6 +166,7 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/ipv4.h
     settings/ipv6.h
     #settings/802-1x.h
+    settings/adsl.h
     settings/bluetooth.h
     settings/bond.h
     settings/cdma.h
