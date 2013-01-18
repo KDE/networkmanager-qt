@@ -34,6 +34,7 @@
 #include "802-3-ethernet.h"
 #include "802-11-wireless.h"
 #include "802-11-wireless-security.h"
+#include "adsl.h"
 #include "bluetooth.h"
 #include "bond.h"
 #include "gsm.h"
@@ -157,8 +158,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
 
     switch(connectionType()) {
         case Adsl:
-            //TODO: Implement ADSL setting
-            //addSetting(new AdslSetting());
+            addSetting(new AdslSetting());
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
             break;
