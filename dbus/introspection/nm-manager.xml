@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<!--
-  READ ME! READ ME! READ ME! READ ME! READ ME!
-
-  This file needs to be kept in sync with nm-manager-client.xml with the exception of
-  the legacy methods at the end of this file.
--->
-
-<node name="/" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<node name="/org/freedesktop/NetworkManager" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <interface name="org.freedesktop.NetworkManager">
     <method name="GetDevices">
       <tp:docstring>
@@ -225,11 +218,30 @@
         <tp:docstring>
           A combination of logging domains separated by commas (','), or "NONE"
           to disable logging.  Each domain enables logging for operations
-          related to that domain.  Available domains are: [NONE, HW, RFKILL,
-          ETHER, WIFI, BT, MB, DHCP4, DHCP6, PPP, WIFI_SCAN, IP4, IP6, AUTOIP4,
-          DNS, VPN, SHARING, SUPPLICANT, USER_SET, SYS_SET, SUSPEND, CORE,
-          DEVICE, OLPC] If an empty string is given, the log level is changed
-          but the current set of log domains remains unchanged.
+          related to that domain.  Available domains are: [HW, RFKILL, ETHER,
+          WIFI, BT, MB, DHCP4, DHCP6, PPP, WIFI_SCAN, IP4, IP6, AUTOIP4, DNS,
+          VPN, SHARING, SUPPLICANT, AGENTS, SETTINGS, SUSPEND, CORE, DEVICE,
+          OLPC, WIMAX, INFINIBAND, FIREWALL, ADSL, BOND, VLAN].  In addition to
+          these domains, the following special domains can be used: [NONE, ALL,
+          DEFAULT, DHCP, IP].  If an empty string is given, the log level is
+          changed but the current set of log domains remains unchanged.
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <method name="GetLogging">
+      <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_manager_get_logging"/>
+      <tp:docstring>
+        Get current logging verbosity level and operations domains.
+      </tp:docstring>
+      <arg name="level" type="s" direction="out">
+        <tp:docstring>
+          One of [ERR, WARN, INFO, DEBUG].
+        </tp:docstring>
+      </arg>
+      <arg name="domains" type="s" direction="out">
+        <tp:docstring>
+          For available domains see SetLogging() call.
         </tp:docstring>
       </arg>
     </method>

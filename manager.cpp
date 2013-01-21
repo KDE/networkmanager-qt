@@ -598,6 +598,11 @@ QStringList NetworkManager::NetworkManagerPrivate::activeConnectionsPaths() cons
     return m_activeConnections.keys();
 }
 
+QDBusPendingReply< QString, QString > NetworkManager::NetworkManagerPrivate::getLogging()
+{
+    return iface.GetLogging();
+}
+
 QString NetworkManager::version()
 {
     return globalNetworkManager->version();
@@ -676,6 +681,11 @@ QDBusPendingReply<QDBusObjectPath> NetworkManager::activateConnection(const QStr
 void NetworkManager::deactivateConnection( const QString & activeConnectionPath )
 {
     globalNetworkManager->deactivateConnection(activeConnectionPath);
+}
+
+QDBusPendingReply< QString, QString > NetworkManager::getLogging()
+{
+    globalNetworkManager->getLogging();
 }
 
 void NetworkManager::setNetworkingEnabled(bool enabled)

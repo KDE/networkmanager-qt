@@ -44,7 +44,7 @@ Q_OBJECT
 Q_DECLARE_PRIVATE(ActiveConnection)
 
 public:
-    enum State {Unknown = 0, Activating, Activated, Deactivating};
+    enum State {Unknown = 0, Activating, Activated, Deactivating, Deactivated};
     /**
      * Creates a new ActiveConnection object.
      *

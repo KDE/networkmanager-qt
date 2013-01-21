@@ -2,7 +2,7 @@
 
 <node name="/" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <interface name="org.freedesktop.NetworkManager.Connection.Active">
-      <tp:docstring>
+    <tp:docstring>
       Objects that implement the Connection.Active interface represent an attempt
       to connect to a network using the details provided by a Connection object.
       The Connection.Active object tracks the life-cycle of the connection
@@ -28,7 +28,7 @@
     <property name="State" type="u" access="read" tp:type="NM_ACTIVE_CONNECTION_STATE">
       <tp:docstring>The state of this active connection.</tp:docstring>
     </property>
-    <property name="Default" type="b" access="read">
+    <property name="Default4" type="b" access="read">
       <tp:docstring>Whether this active connection is the default IPv4 connection, i.e. whether it currently owns the default IPv4 route.</tp:docstring>
     </property>
     <property name="Default6" type="b" access="read">
@@ -69,6 +69,11 @@
       <tp:enumvalue suffix="DEACTIVATING" value="3">
         <tp:docstring>
           The connection is being torn down and cleaned up.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="DEACTIVATED" value="4">
+        <tp:docstring>
+          The connection is no longer active.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>

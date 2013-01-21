@@ -63,17 +63,17 @@
     </property>
     <property name="StateReason" type="(uu)" access="read" tp:type="NM_DEVICE_STATE_REASON_STRUCT">
       <annotation name="com.trolltech.QtDBus.QtTypeName"  value="DeviceDBusStateReason"/>
-	<tp:docstring>
-	    The current state and reason for changing to that state.
-	</tp:docstring>
+      <tp:docstring>
+        The current state and reason for changing to that state.
+      </tp:docstring>
     </property>
     <property name="ActiveConnection" type="o" access="read">
-        <tp:docstring>
-            Object path of an ActiveConnection object that "owns" this device during
-            activation.  The ActiveConnection object tracks the life-cycle of a
-            connection to a specific network and implements the
-            org.freedesktop.NetworkManager.Connection.Active D-Bus interface.
-        </tp:docstring>
+      <tp:docstring>
+        Object path of an ActiveConnection object that "owns" this device during
+        activation.  The ActiveConnection object tracks the life-cycle of a
+        connection to a specific network and implements the
+        org.freedesktop.NetworkManager.Connection.Active D-Bus interface.
+      </tp:docstring>
     </property>
     <property name="Ip4Config" type="o" access="read">
       <tp:docstring>
@@ -283,6 +283,11 @@
       <tp:enumvalue suffix="ADSL" value="12">
         <tp:docstring>
           The device is an ADSL device supporting PPPoE and PPPoATM protocols.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="BRIDGE" value="13">
+        <tp:docstring>
+          The device is a bridge interface.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -524,6 +529,7 @@
         <tp:docstring>
           The Bluetooth connection timed out or failed.
         </tp:docstring>
+      </tp:enumvalue>
       <tp:enumvalue suffix="GSM_SIM_NOT_INSERTED" value="45">
         <tp:docstring>
           GSM Modem's SIM Card not inserted.

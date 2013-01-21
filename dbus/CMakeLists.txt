@@ -14,26 +14,35 @@
 
 # Just the hardware related files to begin with, as these are already present in Solid
 find_package(Qt4 REQUIRED)
-set( INTERFACE_INTROSPECTION_XML_FILES
-   #introspection/nm-active-connection.xml
+
+set(INTERFACE_INTROSPECTION_XML_FILES
    introspection/nm-access-point.xml
+   introspection/nm-active-connection.xml
+   introspection/nm-agent-manager.xml
+   introspection/nm-device-adsl.xml
+   introspection/nm-device-bond.xml
+   introspection/nm-device-bridge.xml
    introspection/nm-device-bt.xml
    introspection/nm-device-ethernet.xml
+   introspection/nm-device-infiniband.xml
    introspection/nm-device-modem.xml
+   introspection/nm-device-olpc-mesh.xml
+   introspection/nm-device-vlan.xml
    introspection/nm-device-wifi.xml
    introspection/nm-device-wimax.xml
-   introspection/nm-device-olpc-mesh.xml
-   introspection/nm-wimax-nsp.xml
    introspection/nm-device.xml
    introspection/nm-dhcp4-config.xml
    introspection/nm-dhcp6-config.xml
    introspection/nm-ip4-config.xml
    introspection/nm-ip6-config.xml
    introspection/nm-manager.xml
-   introspection/nm-agent-manager.xml
+   introspection/nm-ppp-manager.xml
+   introspection/nm-secret-agent.xml
+   introspection/nm-settings-connection.xml
    introspection/nm-settings.xml
    introspection/nm-vpn-connection.xml
-   introspection/nm-settings-connection.xml
+   introspection/nm-vpn-plugin.xml
+   introspection/nm-wimax-nsp.xml
    )
 
 set_property( SOURCE ${INTERFACE_INTROSPECTION_XML_FILES} PROPERTY INCLUDE generic-types.h)
@@ -46,24 +55,14 @@ set_source_files_properties( ${INTERFACE_INTROSPECTION_XML_FILES} ${ADAPTER_INTR
 set( UNUSED_XML
 )
 
-
 set( FILES_TO_BUILD
    )
+
 set ( UNUSED_FILES
-   activeconnection.cpp
-   nm-manager-clientinterface.cpp
-   nm-deviceinterface.cpp
-   nm-access-pointinterface.cpp
-   nm-device-802-3-ethernetinterface.cpp
-   nm-device-802-11-wirelessinterface.cpp
-   nm-ip4-configinterface.cpp
+   #activeconnection.cpp
 )
 
 set( UNUSED_GENERATED_FILES
-   nm-vpn-connectioninterface.cpp
-   nm-exported-connectioninterface.cpp
-   nm-vpn-managerinterface.cpp
-   nm-vpn-plugininterface.cpp
 )
 
 QT4_ADD_DBUS_INTERFACES( FILES_TO_BUILD ${INTERFACE_INTROSPECTION_XML_FILES} )

@@ -88,6 +88,7 @@ public:
     void deactivateConnection(const QString & activeConnection);
     QList<ActiveConnection*> activeConnections();
     QStringList activeConnectionsPaths() const;
+    QDBusPendingReply<QString, QString> getLogging();
     Device::Types supportedInterfaceTypes() const;
     void setNetworkingEnabled(bool enabled);
     void setWirelessEnabled(bool enabled);

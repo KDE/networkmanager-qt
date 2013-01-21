@@ -3,8 +3,8 @@
 <node name="/" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <interface name="org.freedesktop.NetworkManager.IP6Config">
     <property name="Addresses" type="a(ayuay)" access="read">
-      <tp:docstring>Tuples of IPv6 address/prefix/gateway.</tp:docstring>
       <annotation name="com.trolltech.QtDBus.QtTypeName" value="IpV6DBusAddressList"/>
+      <tp:docstring>Tuples of IPv6 address/prefix/gateway.</tp:docstring>
     </property>
     <property name="Nameservers" type="aay" access="read">
       <annotation name="com.trolltech.QtDBus.QtTypeName" value="IpV6DBusNameservers"/>
@@ -14,8 +14,8 @@
       <tp:docstring>A list of domains this address belongs to.</tp:docstring>
     </property>
     <property name="Routes" type="a(ayuayu)" access="read">
-      <tp:docstring>Tuples of IPv6 route/prefix/next-hop/metric.</tp:docstring>
       <annotation name="com.trolltech.QtDBus.QtTypeName" value="IpV6DBusRouteList"/>
+      <tp:docstring>Tuples of IPv6 route/prefix/next-hop/metric.</tp:docstring>
     </property>
   </interface>
 </node>

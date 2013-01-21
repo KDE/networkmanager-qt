@@ -61,7 +61,7 @@
       </tp:enumvalue>
       <tp:enumvalue suffix="IP_CONFIG_GET" value="4">
         <tp:docstring>
-          The VPN connection is getting an IP address.  FIXME: Should be an -ING 
+          The VPN connection is getting an IP address.  FIXME: Should be an -ING
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="ACTIVATED" value="5">

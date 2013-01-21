@@ -234,6 +234,10 @@ namespace NetworkManager {
      */
     NMQT_EXPORT QStringList activeConnectionsPaths();
     /**
+     * Get current logging verbosity level and operations domains
+     */
+    NMQT_EXPORT QDBusPendingReply<QString, QString> getLogging();
+    /**
      * find an ActiveConnection object for an active connection id
      *
      * @param uni the id of the ActiveConnection
