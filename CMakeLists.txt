@@ -33,7 +33,6 @@ include_directories(
 )
 
 #add_subdirectory(dbus)
-#add_subdirectory(fakemanager)
 
 option(BUILD_EXAMPLES "Build example applications" FALSE)
 if (BUILD_EXAMPLES)
@@ -43,136 +42,143 @@ endif(BUILD_EXAMPLES)
 add_subdirectory(tests)
 
 set(QtNetworkManager_HEADERS
-manager.h
-device.h
-wireddevice.h
-wirelessdevice.h
-accesspoint.h
-connection.h
-modemdevice.h
-bluetoothdevice.h
-olpcmeshdevice.h
-wimaxdevice.h
-wimaxnsp.h
-ipv4config.h
-dhcp4config.h
-ipv6config.h
-dhcp6config.h
-settings.h
-activeconnection.h
-vpnconnection.h
-wirelessnetwork.h
-wirelessnetworkinterfaceenvironment.h
-secretagent.h
-dbus/generic-types.h
-QtNetworkManager-export.h
+    accesspoint.h
+    activeconnection.h
+    bluetoothdevice.h
+    connection.h
+    device.h
+    dhcp4config.h
+    dhcp6config.h
+    ipv4config.h
+    ipv6config.h
+    manager.h
+    modemdevice.h
+    olpcmeshdevice.h
+    secretagent.h
+    settings.h
+    vpnconnection.h
+    vpnplugin.h
+    wimaxdevice.h
+    wimaxnsp.h
+    wireddevice.h
+    wirelessdevice.h
+    wirelessnetwork.h
+    wirelessnetworkinterfaceenvironment.h
+    dbus/generic-types.h
+    QtNetworkManager-export.h
 )
 
 set(QtNetworkManager_PRIVATE_HEADERS
-settings_p.h
-manager_p.h
-settings/connection_p.h
-settings/802-3-ethernet_p.h
-settings/802-11-wireless_p.h
-settings/802-11-wireless-security_p.h
-settings/gsm_p.h
-settings/ipv4_p.h
-settings/ipv6_p.h
-#settings/802-1x_p.h
-settings/adsl_p.h
-settings/bluetooth_p.h
-settings/bond_p.h
-settings/cdma_p.h
-settings/infiniband_p.h
-settings/ppp_p.h
+    manager_p.h
+    settings_p.h
+    settings/802-3-ethernet_p.h
+    settings/802-11-wireless_p.h
+    settings/802-11-wireless-security_p.h
+    #settings/802-1x_p.h
+    settings/adsl_p.h
+    settings/bluetooth_p.h
+    settings/bond_p.h
+    settings/cdma_p.h
+    settings/connection_p.h
+    settings/gsm_p.h
+    settings/ipv4_p.h
+    settings/ipv6_p.h
+    settings/infiniband_p.h
+    settings/ppp_p.h
 )
 
 set(QtNetworkManager_PART_SRCS
-   accesspoint.cpp
-   activeconnection.cpp
-   vpnconnection.cpp
-   connection.cpp
-   ipv4config.cpp
-   dhcp4config.cpp
-   ipv6config.cpp
-   dhcp6config.cpp
-   manager.cpp
-   modemdevice.cpp
-   device.cpp
-   settings.cpp
-   wireddevice.cpp
-   wirelessdevice.cpp
-   wirelessnetwork.cpp
-   wirelessnetworkinterfaceenvironment.cpp
-   bluetoothdevice.cpp
-   olpcmeshdevice.cpp
-   wimaxdevice.cpp
-   wimaxnsp.cpp
-   secretagent.cpp
-   dbus/generic-types.cpp
-   #nmpropertyhelper.cpp
+    accesspoint.cpp
+    activeconnection.cpp
+    bluetoothdevice.cpp
+    connection.cpp
+    device.cpp
+    dhcp4config.cpp
+    dhcp6config.cpp
+    ipv4config.cpp
+    ipv6config.cpp
+    #nmpropertyhelper.cpp
+    manager.cpp
+    modemdevice.cpp
+    olpcmeshdevice.cpp
+    secretagent.cpp
+    settings.cpp
+    vpnconnection.cpp
+    vpnplugin.cpp
+    wimaxdevice.cpp
+    wimaxnsp.cpp
+    wireddevice.cpp
+    wirelessdevice.cpp
+    wirelessnetwork.cpp
+    wirelessnetworkinterfaceenvironment.cpp
+    dbus/generic-types.cpp
 )
 
 set(DBUS_INTERFACE_SRCS
-   dbus/nm-agent-managerinterface.cpp
-   dbus/nm-secret-agentadaptor.cpp
-   dbus/nm-active-connectioninterface.cpp
    dbus/nm-access-pointinterface.cpp
-   dbus/nm-wimax-nspinterface.cpp
+   dbus/nm-active-connectioninterface.cpp
+   dbus/nm-agent-managerinterface.cpp
+   dbus/nm-device-adslinterface.cpp
+   dbus/nm-device-bondinterface.cpp
+   dbus/nm-device-bridgeinterface.cpp
    dbus/nm-device-btinterface.cpp
    dbus/nm-device-ethernetinterface.cpp
+   dbus/nm-device-infinibandinterface.cpp
    dbus/nm-device-modeminterface.cpp
+   dbus/nm-device-olpc-meshinterface.cpp
+   dbus/nm-device-vlaninterface.cpp
    dbus/nm-device-wifiinterface.cpp
    dbus/nm-device-wimaxinterface.cpp
-   dbus/nm-device-olpc-meshinterface.cpp
    dbus/nm-deviceinterface.cpp
-   dbus/nm-ip4-configinterface.cpp
-   dbus/nm-ip6-configinterface.cpp
    dbus/nm-dhcp4-configinterface.cpp
    dbus/nm-dhcp6-configinterface.cpp
+   dbus/nm-ip4-configinterface.cpp
+   dbus/nm-ip6-configinterface.cpp
    dbus/nm-managerinterface.cpp
-   dbus/nm-agent-managerinterface.cpp
+   dbus/nm-ppp-managerinterface.cpp
+   #dbus/nm-secret-agentinterface.cpp
    dbus/nm-secret-agentadaptor.cpp
-   dbus/nm-settingsinterface.cpp
    dbus/nm-settings-connectioninterface.cpp
+   dbus/nm-settingsinterface.cpp
    dbus/nm-vpn-connectioninterface.cpp
    dbus/nm-vpn-plugininterface.cpp
+   dbus/nm-wimax-nspinterface.cpp
    )
 
 set(CONNECTIONS_SETTINGS_SRCS
-    settings/setting.cpp
-    settings/connection.cpp
     settings/802-3-ethernet.cpp
     settings/802-11-wireless.cpp
     settings/802-11-wireless-security.cpp
-    settings/gsm.cpp
-    settings/ipv4.cpp
-    settings/ipv6.cpp
     #settings/802-1x.cpp
     settings/adsl.cpp
     settings/bluetooth.cpp
     settings/bond.cpp
     settings/cdma.cpp
+    settings/connection.cpp
+    settings/gsm.cpp
+    settings/ipv4.cpp
+    settings/ipv6.cpp
     settings/infiniband.cpp
     settings/ppp.cpp
+    settings/setting.cpp
     )
 
 set(CONNECTIONS_SETTINGS_HEADERS
-    settings/setting.h
-    settings/connection.h
     settings/802-3-ethernet.h
     settings/802-11-wireless.h
     settings/802-11-wireless-security.h
-    settings/gsm.h
-    settings/ipv4.h
-    settings/ipv6.h
     #settings/802-1x.h
     settings/adsl.h
     settings/bluetooth.h
     settings/bond.h
     settings/cdma.h
+    settings/connection.h
+    settings/gsm.h
+    settings/ipv4.h
+    settings/ipv6.h
     settings/infiniband.h
     settings/ppp.h
+    settings/setting.h
     )
 
 qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_PRIVATE_HEADERS})
