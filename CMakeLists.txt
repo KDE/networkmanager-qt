@@ -46,6 +46,7 @@ set(QtNetworkManager_HEADERS
     activeconnection.h
     adsldevice.h
     bluetoothdevice.h
+    bonddevice.h
     connection.h
     device.h
     dhcp4config.h
@@ -93,6 +94,7 @@ set(QtNetworkManager_PART_SRCS
     activeconnection.cpp
     adsldevice.cpp
     bluetoothdevice.cpp
+    bonddevice.cpp
     connection.cpp
     device.cpp
     dhcp4config.cpp
