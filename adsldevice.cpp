@@ -81,9 +81,9 @@ void NetworkManager::AdslDevice::onPropertiesChanged(const QVariantMap& properti
 
     if (properties.contains(QLatin1String("Carrier"))) {
         d->carrier = properties.value(QLatin1String("Carrier")).toBool();
+        emit carrierChanged(d->carrier);
     }
 
-    emit carrierChanged(d->carrier);
 }
 
 #include "adsldevice.moc"
