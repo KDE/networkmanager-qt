@@ -44,6 +44,7 @@ add_subdirectory(tests)
 set(QtNetworkManager_HEADERS
     accesspoint.h
     activeconnection.h
+    adsldevice.h
     bluetoothdevice.h
     connection.h
     device.h
@@ -90,6 +91,7 @@ set(QtNetworkManager_PRIVATE_HEADERS
 set(QtNetworkManager_PART_SRCS
     accesspoint.cpp
     activeconnection.cpp
+    adsldevice.cpp
     bluetoothdevice.cpp
     connection.cpp
     device.cpp
