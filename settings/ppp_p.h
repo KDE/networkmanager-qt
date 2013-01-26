@@ -27,10 +27,10 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class PPPSettingPrivate
+    class PppSettingPrivate
     {
     public:
-        PPPSettingPrivate();
+        PppSettingPrivate();
 
         QString name;
         bool noauth;

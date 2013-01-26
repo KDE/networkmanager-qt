@@ -174,7 +174,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
             //TODO: check for Bluetooth type
             addSetting(new GsmSetting());
             addSetting(new CdmaSetting());
-            addSetting(new PPPSetting());
+            addSetting(new PppSetting());
             //TODO: implement Serial setting
             //addSetting(new SerialSetting());
             break;
@@ -182,13 +182,13 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
             addSetting(new CdmaSetting());
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
-            addSetting(new PPPSetting());
+            addSetting(new PppSetting());
             break;
         case Gsm:
             addSetting(new GsmSetting());
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
-            addSetting(new PPPSetting());
+            addSetting(new PppSetting());
             break;
         case Infiniband:
             addSetting(new InfinibandSetting());
@@ -202,8 +202,8 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
         case Pppoe:
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
-            addSetting(new PPPSetting());
-            //TODO: Implement PPPoESetting
+            addSetting(new PppSetting());
+            //TODO: Implement PppoESetting
             //addSetting(new PppoeSetting());
             addSetting(new WiredSetting());
         case Vlan:
@@ -266,7 +266,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::
             //TODO: check for Bluetooth type
             addSetting(new GsmSetting(static_cast<GsmSetting*>(connectionSettings->setting(Setting::Gsm))));
             addSetting(new CdmaSetting(static_cast<CdmaSetting*>(connectionSettings->setting(Setting::Cdma))));
-            addSetting(new PPPSetting(static_cast<PPPSetting*>(connectionSettings->setting(Setting::Ppp))));
+            addSetting(new PppSetting(static_cast<PppSetting*>(connectionSettings->setting(Setting::Ppp))));
             //TODO: implement Serial setting
             //addSetting(new SerialSetting(static_cast<SerialSetting*>(connectionSettings->setting(Setting::Serial))));
             break;
@@ -274,13 +274,13 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::
             addSetting(new CdmaSetting(static_cast<CdmaSetting*>(connectionSettings->setting(Setting::Cdma))));
             addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
             addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
-            addSetting(new PPPSetting(static_cast<PPPSetting*>(connectionSettings->setting(Setting::Ppp))));
+            addSetting(new PppSetting(static_cast<PppSetting*>(connectionSettings->setting(Setting::Ppp))));
             break;
         case Gsm:
             addSetting(new GsmSetting(static_cast<GsmSetting*>(connectionSettings->setting(Setting::Gsm))));
             addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
             addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
-            addSetting(new PPPSetting(static_cast<PPPSetting*>(connectionSettings->setting(Setting::Ppp))));
+            addSetting(new PppSetting(static_cast<PppSetting*>(connectionSettings->setting(Setting::Ppp))));
             break;
         case Infiniband:
             addSetting(new InfinibandSetting(static_cast<InfinibandSetting*>(connectionSettings->setting(Setting::Infiniband))));
@@ -294,8 +294,8 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::
         case Pppoe:
             addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
             addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
-            addSetting(new PPPSetting(static_cast<PPPSetting*>(connectionSettings->setting(Setting::Ppp))));
-            //TODO: Implement PPPoESetting
+            addSetting(new PppSetting(static_cast<PppSetting*>(connectionSettings->setting(Setting::Ppp))));
+            //TODO: Implement PppoESetting
             //addSetting(new PppoeSetting(static_cast<PppoeSetting*>(connectionSettings->setting(Setting::Pppoe))));
             addSetting(new WiredSetting(static_cast<WiredSetting*>(connectionSettings->setting(Setting::Wired))));
         case Vlan:

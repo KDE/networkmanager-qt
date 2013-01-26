@@ -23,7 +23,7 @@
 
 #include <QtTest>
 
-class PPPSetting : public QObject
+class PppSetting : public QObject
 {
     Q_OBJECT
 

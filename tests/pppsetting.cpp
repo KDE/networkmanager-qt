@@ -24,7 +24,7 @@
 
 #include <nm-setting-ppp.h>
 
-void PPPSetting::testSetting_data()
+void PppSetting::testSetting_data()
 {
     QTest::addColumn<bool>("noAuth");
     QTest::addColumn<bool>("refuseEap");
@@ -67,7 +67,7 @@ void PPPSetting::testSetting_data()
 
 }
 
-void PPPSetting::testSetting()
+void PppSetting::testSetting()
 {
     QFETCH(bool, noAuth);
     QFETCH(bool, refuseEap);
@@ -119,5 +119,5 @@ void PPPSetting::testSetting()
     }
 }
 
-QTEST_MAIN(PPPSetting)
+QTEST_MAIN(PppSetting)
 #include "pppsetting.moc"

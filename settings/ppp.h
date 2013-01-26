@@ -30,15 +30,15 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class PPPSettingPrivate;
+    class PppSettingPrivate;
 
-    class NMQT_EXPORT PPPSetting : public Setting
+    class NMQT_EXPORT PppSetting : public Setting
     {
-    Q_DECLARE_PRIVATE(PPPSetting)
+    Q_DECLARE_PRIVATE(PppSetting)
     public:
-        PPPSetting();
-        PPPSetting(PPPSetting *);
-        ~PPPSetting();
+        PppSetting();
+        PppSetting(PppSetting *);
+        ~PppSetting();
 
         QString name() const;
 
@@ -106,7 +106,7 @@ namespace Settings
         void printSetting();
 
     private:
-        PPPSettingPrivate * d_ptr;
+        PppSettingPrivate * d_ptr;
     };
 
 }
