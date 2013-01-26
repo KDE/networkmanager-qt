@@ -109,7 +109,7 @@ void PppSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_PPP_LCP_ECHO_FAILURE), lcpEchoFailure);
     map.insert(QLatin1String(NM_SETTING_PPP_LCP_ECHO_INTERVAL), lcpEchoInterval);
 
-    NetworkManager::Settings::PPPSetting setting;
+    NetworkManager::Settings::PppSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();
