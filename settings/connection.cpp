@@ -35,14 +35,20 @@
 #include "ipv4.h"
 #include "ipv6.h"
 
-#include <nm-setting-connection.h>
-#include <nm-setting-wired.h>
-#include <nm-setting-wireless.h>
-#include <nm-setting-gsm.h>
+#include <nm-setting-adsl.h>
+#include <nm-setting-bond.h>
 #include <nm-setting-bluetooth.h>
 #include <nm-setting-cdma.h>
+#include <nm-setting-connection.h>
+#include <nm-setting-gsm.h>
+#include <nm-setting-infiniband.h>
+#include <nm-setting-olpc-mesh.h>
 #include <nm-setting-pppoe.h>
+#include <nm-setting-vlan.h>
 #include <nm-setting-vpn.h>
+#include <nm-setting-wimax.h>
+#include <nm-setting-wired.h>
+#include <nm-setting-wireless.h>
 
 #include <QtCore/QUuid>
 
@@ -65,20 +71,32 @@ NetworkManager::Settings::ConnectionSettings::ConnectionType NetworkManager::Set
 {
     ConnectionSettings::ConnectionType type = Wired;
 
-    if (typeString == QLatin1String(NM_SETTING_WIRED_SETTING_NAME)) {
+    if (typeString == QLatin1String(NM_SETTING_ADSL_SETTING_NAME)) {
+        type = Adsl;
+    } else if (typeString == QLatin1String(NM_SETTING_BOND_SETTING_NAME)) {
+        type = Bond;
+    } else if (typeString == QLatin1String(NM_SETTING_BLUETOOTH_SETTING_NAME)) {
+        type = Bluetooth;
+    } else if (typeString == QLatin1String(NM_SETTING_CDMA_SETTING_NAME)) {
+        type = Cdma;
+    } else if (typeString == QLatin1String(NM_SETTING_GSM_SETTING_NAME)) {
+        type = Gsm;
+    } else if (typeString == QLatin1String(NM_SETTING_INFINIBAND_SETTING_NAME)) {
+        type = Infiniband;
+    } else if (typeString == QLatin1String(NM_SETTING_OLPC_MESH_SETTING_NAME)) {
+        type = OLPCMesh;
+    } else if (typeString == QLatin1String(NM_SETTING_PPPOE_SETTING_NAME)) {
+        type = Pppoe;
+    } else if (typeString == QLatin1String(NM_SETTING_VLAN_SETTING_NAME)) {
+        type = Vlan;
+    } else if (typeString == QLatin1String(NM_SETTING_VPN_SETTING_NAME)) {
+        type = Vpn;
+    } else if (typeString == QLatin1String(NM_SETTING_WIMAX_SETTING_NAME)) {
+        type = Wimax;
+    } else if (typeString == QLatin1String(NM_SETTING_WIRED_SETTING_NAME)) {
         type = Wired;
     } else if (typeString == QLatin1String(NM_SETTING_WIRELESS_SETTING_NAME)) {
         type = Wireless;
-    } else if (typeString == QLatin1String(NM_SETTING_GSM_SETTING_NAME)) {
-        type = Gsm;
-    } else if (typeString == QLatin1String(NM_SETTING_CDMA_SETTING_NAME)) {
-        type = Cdma;
-    } else if (typeString == QLatin1String(NM_SETTING_BLUETOOTH_SETTING_NAME)) {
-        type = Bluetooth;
-    } else if (typeString == QLatin1String(NM_SETTING_VPN_SETTING_NAME)) {
-        type = Vpn;
-    } else if (typeString == QLatin1String(NM_SETTING_PPPOE_SETTING_NAME)) {
-        type = Pppoe;
     }
 
     return type;
@@ -89,30 +107,48 @@ QString NetworkManager::Settings::ConnectionSettings::typeAsString(NetworkManage
     QString typeString;
 
     switch (type) {
-        case Wired:
-            typeString = QLatin1String("802-3-ethernet");
+        case Adsl:
+            typeString = QLatin1String(NM_SETTING_ADSL_SETTING_NAME);
             break;
-        case Wireless:
-            typeString = QLatin1String("802-11-wireless");
-            break;
-        case Gsm:
-            typeString = QLatin1String("gsm");
-            break;
-        case Cdma:
-            typeString = QLatin1String("cdma");
+        case Bond:
+            typeString = QLatin1String(NM_SETTING_BOND_SETTING_NAME);
             break;
         case Bluetooth:
-            typeString = QLatin1String("bluetooth");
+            typeString = QLatin1String(NM_SETTING_BLUETOOTH_SETTING_NAME);
             break;
-        case Vpn:
-            typeString = QLatin1String("vpn");
+        case Cdma:
+            typeString = QLatin1String(NM_SETTING_CDMA_SETTING_NAME);
+            break;
+        case Gsm:
+            typeString = QLatin1String(NM_SETTING_GSM_SETTING_NAME);
+            break;
+        case Infiniband:
+            typeString = QLatin1String(NM_SETTING_INFINIBAND_SETTING_NAME);
+            break;
+        case OLPCMesh:
+            typeString = QLatin1String(NM_SETTING_OLPC_MESH_SETTING_NAME);
             break;
         case Pppoe:
-            typeString = QLatin1String("pppoe");
+            typeString = QLatin1String(NM_SETTING_PPPOE_SETTING_NAME);
+            break;
+        case Vlan:
+            typeString = QLatin1String(NM_SETTING_VLAN_SETTING_NAME);
+            break;
+        case Vpn:
+            typeString = QLatin1String(NM_SETTING_VPN_SETTING_NAME);
+            break;
+        case Wimax:
+            typeString = QLatin1String(NM_SETTING_WIRED_SETTING_NAME);
+            break;
+        case Wired:
+            typeString = QLatin1String(NM_SETTING_WIRED_SETTING_NAME);
+            break;
+        case Wireless:
+            typeString = QLatin1String(NM_SETTING_WIRELESS_SETTING_NAME);
             break;
         default:
             break;
-    }
+    };
 
     return typeString;
 }
