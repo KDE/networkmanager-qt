@@ -40,9 +40,9 @@ public:
     inline QDBusObjectPath connection() const
     { return qvariant_cast< QDBusObjectPath >(property("Connection")); }
 
-    Q_PROPERTY(bool Default4 READ default4)
+    Q_PROPERTY(bool Default READ default4)
     inline bool default4() const
-    { return qvariant_cast< bool >(property("Default4")); }
+    { return qvariant_cast< bool >(property("Default")); }
 
     Q_PROPERTY(bool Default6 READ default6)
     inline bool default6() const
