@@ -113,3 +113,11 @@ set(pppsetting_SRCS pppsetting.cpp)
 kde4_add_unit_test(pppsetting TESTNAME libnm-pppsetting ${pppsetting_SRCS})
 
 target_link_libraries(pppsetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})
+
+# PPP setting tests
+
+set(pppoesetting_SRCS pppoesetting.cpp)
+
+kde4_add_unit_test(pppoesetting TESTNAME libnm-pppoesetting ${pppoesetting_SRCS})
+
+target_link_libraries(pppoesetting QtNetworkManager QtCore QtNetwork ${QT_QTTEST_LIBRARY})

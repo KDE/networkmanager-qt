@@ -87,6 +87,7 @@ set(QtNetworkManager_PRIVATE_HEADERS
     settings/ipv6_p.h
     settings/infiniband_p.h
     settings/ppp_p.h
+    settings/pppoe_p.h
 )
 
 set(QtNetworkManager_PART_SRCS
@@ -164,6 +165,7 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/ipv6.cpp
     settings/infiniband.cpp
     settings/ppp.cpp
+    settings/pppoe.cpp
     settings/setting.cpp
     )
 
@@ -182,6 +184,7 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/ipv6.h
     settings/infiniband.h
     settings/ppp.h
+    settings/pppoe.h
     settings/setting.h
     )
 
