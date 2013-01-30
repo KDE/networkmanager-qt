@@ -271,11 +271,11 @@ QStringList NetworkManager::Settings::GsmSetting::needSecrets() const
 {
     QStringList list;
 
-    if (password().isEmpty() && !passwordFlags() == NotRequired) {
+    if (password().isEmpty() && passwordFlags() != NotRequired) {
         list << QLatin1String(NM_SETTING_GSM_PASSWORD);
     }
 
-    if (pin().isEmpty() && !pinFlags() == NotRequired) {
+    if (pin().isEmpty() && pinFlags() != NotRequired) {
         list << QLatin1String(NM_SETTING_GSM_PIN);
     }
 
