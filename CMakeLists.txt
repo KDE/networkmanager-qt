@@ -88,6 +88,7 @@ set(QtNetworkManager_PRIVATE_HEADERS
     settings/infiniband_p.h
     settings/ppp_p.h
     settings/pppoe_p.h
+    settings/serial_p.h
 )
 
 set(QtNetworkManager_PART_SRCS
@@ -167,6 +168,7 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/ppp.cpp
     settings/pppoe.cpp
     settings/setting.cpp
+    settings/serial.cpp
     )
 
 set(CONNECTIONS_SETTINGS_HEADERS
@@ -186,6 +188,7 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/ppp.h
     settings/pppoe.h
     settings/setting.h
+    settings/serial.h
     )
 
 qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_PRIVATE_HEADERS})
