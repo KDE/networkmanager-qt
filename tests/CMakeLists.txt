@@ -25,6 +25,7 @@ LIBNM_TESTS(
     infinibandsetting
     ipv4setting
     ipv6setting
+    olpcmeshsetting
     pppsetting
     pppoesetting
     serialsetting
