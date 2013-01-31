@@ -245,8 +245,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
         case Vlan:
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
-            //TODO: Implement VLan setting
-            //addSetting(new VlanSetting());
+            addSetting(new VlanSetting());
         case Vpn:
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());

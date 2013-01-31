@@ -90,6 +90,7 @@ set(QtNetworkManager_PRIVATE_HEADERS
     settings/ppp_p.h
     settings/pppoe_p.h
     settings/serial_p.h
+    settings/vlan_p.h
 )
 
 set(QtNetworkManager_PART_SRCS
@@ -171,6 +172,7 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/pppoe.cpp
     settings/setting.cpp
     settings/serial.cpp
+    settings/vlan.cpp
     )
 
 set(CONNECTIONS_SETTINGS_HEADERS
@@ -192,6 +194,7 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/pppoe.h
     settings/setting.h
     settings/serial.h
+    settings/vlan.h
     )
 
 qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_PRIVATE_HEADERS})

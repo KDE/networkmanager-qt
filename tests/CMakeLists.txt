@@ -29,6 +29,7 @@ LIBNM_TESTS(
     pppsetting
     pppoesetting
     serialsetting
+    vlansetting
     wiredsetting
     wirelesssetting
     wirelesssecuritysetting
