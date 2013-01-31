@@ -23,6 +23,7 @@
 #include "connection_p.h"
 
 #include "802-3-ethernet.h"
+#include "802-11-olpc-mesh.h"
 #include "802-11-wireless.h"
 #include "802-11-wireless-security.h"
 #include "adsl.h"
@@ -31,9 +32,11 @@
 #include "gsm.h"
 #include "cdma.h"
 #include "infiniband.h"
-#include "ppp.h"
 #include "ipv4.h"
 #include "ipv6.h"
+#include "ppp.h"
+#include "pppoe.h"
+#include "serial.h"
 
 #include <nm-setting-adsl.h>
 #include <nm-setting-bond.h>
@@ -211,8 +214,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
             addSetting(new GsmSetting());
             addSetting(new CdmaSetting());
             addSetting(new PppSetting());
-            //TODO: implement Serial setting
-            //addSetting(new SerialSetting());
+            addSetting(new SerialSetting());
             break;
         case Cdma:
             addSetting(new CdmaSetting());
@@ -233,14 +235,12 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
         case OLPCMesh:
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
-            //TODO: implement OLPCMesh setting
-            //addSetting(new OLPCMeshSetting());
+            addSetting(new OlpcMeshSetting());
         case Pppoe:
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
             addSetting(new PppSetting());
-            //TODO: Implement PppoESetting
-            //addSetting(new PppoeSetting());
+            addSetting(new PppoeSetting());
             addSetting(new WiredSetting());
         case Vlan:
             addSetting(new Ipv4Setting());
