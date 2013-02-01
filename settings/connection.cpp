@@ -37,6 +37,7 @@
 #include "ppp.h"
 #include "pppoe.h"
 #include "serial.h"
+#include "vlan.h"
 
 #include <nm-setting-adsl.h>
 #include <nm-setting-bond.h>
