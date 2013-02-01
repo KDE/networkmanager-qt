@@ -21,8 +21,6 @@
 #ifndef NMQT_BONDSETTING_P_H
 #define NMQT_BONDSETTING_P_H
 
-#include "generic-types.h"
-
 #include <QtCore/QString>
 
 namespace NetworkManager
