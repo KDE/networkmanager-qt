@@ -77,7 +77,7 @@ set(QtNetworkManager_PRIVATE_HEADERS
     settings/802-11-olpc-mesh_p.h
     settings/802-11-wireless_p.h
     settings/802-11-wireless-security_p.h
-    #settings/802-1x_p.h
+    settings/802-1x_p.h
     settings/adsl_p.h
     settings/bluetooth_p.h
     settings/bond_p.h
@@ -158,7 +158,7 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/802-11-olpc-mesh.cpp
     settings/802-11-wireless.cpp
     settings/802-11-wireless-security.cpp
-    #settings/802-1x.cpp
+    settings/802-1x.cpp
     settings/adsl.cpp
     settings/bluetooth.cpp
     settings/bond.cpp
@@ -180,7 +180,7 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/802-11-olpc-mesh.h
     settings/802-11-wireless.h
     settings/802-11-wireless-security.h
-    #settings/802-1x.h
+    settings/802-1x.h
     settings/adsl.h
     settings/bluetooth.h
     settings/bond.h

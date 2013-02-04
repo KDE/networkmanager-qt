@@ -16,6 +16,7 @@ MACRO(LIBNM_TESTS)
 ENDMACRO(LIBNM_TESTS)
 
 LIBNM_TESTS(
+    8021xsetting
     adslsetting
     bluetoothsetting
     bondsetting
