@@ -26,6 +26,7 @@
 #include "802-11-olpc-mesh.h"
 #include "802-11-wireless.h"
 #include "802-11-wireless-security.h"
+#include "802-1x.h"
 #include "adsl.h"
 #include "bluetooth.h"
 #include "bond.h"
@@ -53,6 +54,7 @@
 #include <nm-setting-wimax.h>
 #include <nm-setting-wired.h>
 #include <nm-setting-wireless.h>
+
 
 #include <QtCore/QUuid>
 
@@ -261,15 +263,13 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
         case Wired:
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
-            //TODO: Implement Security8021xSetting
-            //addSetting(new Security8021xSetting());
+            addSetting(new Security8021xSetting());
             addSetting(new WiredSetting());
             break;
         case Wireless:
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
-            //TODO: Implement Security8021xSetting
-            //addSetting(new Security8021xSetting());
+            addSetting(new Security8021xSetting());
             addSetting(new WirelessSetting());
             addSetting(new WirelessSecuritySetting());
             break;
@@ -303,8 +303,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::
             addSetting(new GsmSetting(static_cast<GsmSetting*>(connectionSettings->setting(Setting::Gsm))));
             addSetting(new CdmaSetting(static_cast<CdmaSetting*>(connectionSettings->setting(Setting::Cdma))));
             addSetting(new PppSetting(static_cast<PppSetting*>(connectionSettings->setting(Setting::Ppp))));
-            //TODO: implement Serial setting
-            //addSetting(new SerialSetting(static_cast<SerialSetting*>(connectionSettings->setting(Setting::Serial))));
+            addSetting(new SerialSetting(static_cast<SerialSetting*>(connectionSettings->setting(Setting::Serial))));
             break;
         case Cdma:
             addSetting(new CdmaSetting(static_cast<CdmaSetting*>(connectionSettings->setting(Setting::Cdma))));
@@ -325,20 +324,17 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::
         case OLPCMesh:
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
-            //TODO: implement OLPCMesh setting
-            //addSetting(new OLPCMeshSetting(static_cast<OlpcMeshSetting*>(connectionSettings->setting(Setting::OlpcMesh))));
+            addSetting(new OlpcMeshSetting(static_cast<OlpcMeshSetting*>(connectionSettings->setting(Setting::OlpcMesh))));
         case Pppoe:
             addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
             addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
             addSetting(new PppSetting(static_cast<PppSetting*>(connectionSettings->setting(Setting::Ppp))));
-            //TODO: Implement PppoESetting
-            //addSetting(new PppoeSetting(static_cast<PppoeSetting*>(connectionSettings->setting(Setting::Pppoe))));
+            addSetting(new PppoeSetting(static_cast<PppoeSetting*>(connectionSettings->setting(Setting::Pppoe))));
             addSetting(new WiredSetting(static_cast<WiredSetting*>(connectionSettings->setting(Setting::Wired))));
         case Vlan:
             addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
             addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
-            //TODO: Implement VLan setting
-            //addSetting(new VlanSetting(static_cast<VlanSetting*>(connectionSettings->setting(Setting::Vlan))));
+            addSetting(new VlanSetting(static_cast<VlanSetting*>(connectionSettings->setting(Setting::Vlan))));
         case Vpn:
             addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
             addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
@@ -353,15 +349,13 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::
         case Wired:
             addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
             addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
-            //TODO: Implement Security8021xSetting
-            //addSetting(new Security8021xSetting(static_cast<Security8021xSetting*>(connectionSettings->setting(Setting::Security8021x))));
+            addSetting(new Security8021xSetting(static_cast<Security8021xSetting*>(connectionSettings->setting(Setting::Security8021x))));
             addSetting(new WiredSetting());
             break;
         case Wireless:
             addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
             addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
-            //TODO: Implement Security8021xSetting
-            //addSetting(new Security8021xSetting(static_cast<Security8021xSetting*>(connectionSettings->setting(Setting::Security8021x))));
+            addSetting(new Security8021xSetting(static_cast<Security8021xSetting*>(connectionSettings->setting(Setting::Security8021x))));
             addSetting(new WirelessSetting(static_cast<WirelessSetting*>(connectionSettings->setting(Setting::Wireless))));
             addSetting(new WirelessSecuritySetting(static_cast<WirelessSecuritySetting*>(connectionSettings->setting(Setting::WirelessSecurity))));
             break;
@@ -416,8 +410,8 @@ void NetworkManager::Settings::ConnectionSettings::fromMap(const QVariantMapMap&
     }
 
     foreach (Setting * setting, settings()) {
-	if (map.contains(setting->typeAsString(setting->type()))) {
-	    setting->fromMap(map.value(setting->typeAsString(setting->type())));
+	if (map.contains(setting->name())) {
+	    setting->fromMap(map.value(setting->name()));
 	    setting->setInitialized(true);
 	} else {
 	    setting->setInitialized(false);
