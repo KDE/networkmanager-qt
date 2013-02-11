@@ -563,17 +563,74 @@ bool NetworkManager::Settings::Security8021xSetting::systemCaCertificates() cons
 
 QStringList NetworkManager::Settings::Security8021xSetting::needSecrets() const
 {
-    // TODO
+    QStringList secrets;
+
+    if (eapMethods().contains(EapMethodTls) && privateKeyPassword().isEmpty() &&
+               privateKeyPasswordFlags() != NotRequired) {
+        secrets << QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD);
+    } else if ((eapMethods().contains(EapMethodTtls) || eapMethods().contains(EapMethodPeap) ||
+                eapMethods().contains(EapMethodLeap) || eapMethods().contains(EapMethodFast)) &&
+                password().isEmpty() && passwordFlags() != NotRequired) {
+        secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD);
+        secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW);
+    } else if (eapMethods().contains(EapMethodSim) && pin().isEmpty() && pinFlags() != NotRequired) {
+        secrets << QLatin1String(NM_SETTING_802_1X_PIN);
+    }
+
+    if ((phase2AuthMethod() == AuthMethodTls || phase2AuthEapMethod() == AuthEapMethodTls) &&
+        phase2PrivateKeyPassword().isEmpty() && phase2PrivateKeyPasswordFlags() != NotRequired) {
+        secrets << QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD);
+    }
+
+    return secrets;
 }
 
 void NetworkManager::Settings::Security8021xSetting::secretsFromMap(const QVariantMap& secrets)
 {
-    // TODO
+    if (secrets.contains(QLatin1String(NM_SETTING_802_1X_PASSWORD))) {
+        setPassword(secrets.value(QLatin1String(NM_SETTING_802_1X_PASSWORD)).toString());
+    }
+
+    if (secrets.contains(QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW))) {
+        setPasswordRaw(secrets.value(QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW)).toByteArray());
+    }
+
+    if (secrets.contains(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD))) {
+        setPrivateKeyPassword(secrets.value(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD)).toString());
+    }
+
+    if (secrets.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD))) {
+        setPhase2PrivateKeyPassword(secrets.value(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD)).toString());
+    }
+
+    if (secrets.contains(QLatin1String(NM_SETTING_802_1X_PIN))) {
+        setPin(secrets.value(QLatin1String(NM_SETTING_802_1X_PIN)).toString());
+    }
 }
 
 QVariantMap NetworkManager::Settings::Security8021xSetting::secretsToMap() const
 {
-    // TODO
+    QVariantMap secrets;
+
+    if (!password().isEmpty()) {
+        secrets.insert(QLatin1String(NM_SETTING_802_1X_PASSWORD), password());
+    }
+
+    if (!passwordRaw().isEmpty()) {
+        secrets.insert(QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW), passwordRaw());
+    }
+
+    if (!privateKeyPassword().isEmpty()) {
+        secrets.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD), privateKeyPassword());
+    }
+
+    if (!phase2PrivateKeyPassword().isEmpty()) {
+        secrets.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD), phase2PrivateKeyPassword());
+    }
+
+    if (!pin().isEmpty()) {
+        secrets.insert(QLatin1String(NM_SETTING_802_1X_PIN), pin());
+    }
 }
 
 void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& setting)
