@@ -239,11 +239,11 @@ void NetworkManager::Settings::BridgeSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "INTERFACE NAME - " << interfaceName();
-    qDebug() << "STP - " << stp();
-    qDebug() << "PRIORITY - " << priority();
-    qDebug() << "FORWARD DELAY - " << forwardDelay();
-    qDebug() << "HELLO TIME - " << helloTime();
-    qDebug() << "MAX AGE - " << maxAge();
-    qDebug() << "AGEINT TIME - " << ageintTime();
+    qDebug() << NM_SETTING_BRIDGE_INTERFACE_NAME << ": " << interfaceName();
+    qDebug() << NM_SETTING_BRIDGE_STP << ": " << stp();
+    qDebug() << NM_SETTING_BRIDGE_PRIORITY << ": " << priority();
+    qDebug() << NM_SETTING_BRIDGE_FORWARD_DELAY << ": " << forwardDelay();
+    qDebug() << NM_SETTING_BRIDGE_HELLO_TIME << ": " << helloTime();
+    qDebug() << NM_SETTING_BRIDGE_MAX_AGE << ": " << maxAge();
+    qDebug() << NM_SETTING_BRIDGE_AGEING_TIME << ": " << ageintTime();
 }

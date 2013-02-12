@@ -191,8 +191,8 @@ void NetworkManager::Settings::PppoeSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "SERVICE -" << service();
-    qDebug() << "USERNAME - " << username();
-    qDebug() << "PASSWORD - " << password();
-    qDebug() << "PASSWORD FLAGS - " << passwordFlags();
+    qDebug() << NM_SETTING_PPPOE_SERVICE << ": " << service();
+    qDebug() << NM_SETTING_PPPOE_USERNAME << ": " << username();
+    qDebug() << NM_SETTING_PPPOE_PASSWORD << ": " << password();
+    qDebug() << NM_SETTING_PPPOE_PASSWORD_FLAGS << ": " << passwordFlags();
 }

@@ -203,9 +203,9 @@ void NetworkManager::Settings::SerialSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "BAUD - " << baud();
-    qDebug() << "BITS - " << bits();
-    qDebug() << "PARITY - " << parity();
-    qDebug() << "STOPBITS - " << stopbits();
-    qDebug() << "SEND DELAY - " << sendDelay();
+    qDebug() << NM_SETTING_SERIAL_BAUD << ": " << baud();
+    qDebug() << NM_SETTING_SERIAL_BITS << ": " << bits();
+    qDebug() << NM_SETTING_SERIAL_PARITY << ": " << parity();
+    qDebug() << NM_SETTING_SERIAL_STOPBITS << ": " << stopbits();
+    qDebug() << NM_SETTING_SERIAL_SEND_DELAY << ": " << sendDelay();
 }

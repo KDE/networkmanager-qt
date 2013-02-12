@@ -277,11 +277,11 @@ void NetworkManager::Settings::AdslSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "USERNAME - " << username();
-    qDebug() << "PASSWORD - " << password();
-    qDebug() << "PASSWORD FLAGS - " << passwordFlags();
-    qDebug() << "PROTOCOL - " << protocol();
-    qDebug() << "ENCAPSULATION - " << encapsulation();
-    qDebug() << "VPI - " << vpi();
-    qDebug() << "VCI - " << vci();
+    qDebug() << NM_SETTING_ADSL_USERNAME << ": " << username();
+    qDebug() << NM_SETTING_ADSL_PASSWORD << ": " << password();
+    qDebug() << NM_SETTING_ADSL_PASSWORD_FLAGS << ": " << passwordFlags();
+    qDebug() << NM_SETTING_ADSL_PROTOCOL << ": " << protocol();
+    qDebug() << NM_SETTING_ADSL_ENCAPSULATION << ": " << encapsulation();
+    qDebug() << NM_SETTING_ADSL_VPI << ": " << vpi();
+    qDebug() << NM_SETTING_ADSL_VCI << ": " << vci();
 }

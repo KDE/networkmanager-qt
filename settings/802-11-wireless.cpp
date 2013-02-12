@@ -424,18 +424,18 @@ void NetworkManager::Settings::WirelessSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "NAME - " << name();
-    qDebug() << "SSID - " << ssid();
-    qDebug() << "MODE - " << mode();
-    qDebug() << "BAND - " << band();
-    qDebug() << "CHANNEL - " << channel();
-    qDebug() << "BSSID - " << bssid();
-    qDebug() << "RATE - " << rate();
-    qDebug() << "MAC ADDRESS - " << macAddress();
-    qDebug() << "CLONED MAC ADDRESS - " << clonedMacAddress();
-    qDebug() << "MAC ADDRESS BLACKLIST - " << macAddressBlacklist();
-    qDebug() << "MTU - " << mtu();
-    qDebug() << "SEEN BSSIDS - " << seenBssids();
-    qDebug() << "SECURITY - " << security();
-    qDebug() << "HIDDEN - " << hidden();
+    qDebug() << NM_SETTING_WIRELESS_SSID << ": " << ssid();
+    qDebug() << NM_SETTING_WIRELESS_MODE << ": " << mode();
+    qDebug() << NM_SETTING_WIRELESS_BAND << ": " << band();
+    qDebug() << NM_SETTING_WIRELESS_CHANNEL << ": " << channel();
+    qDebug() << NM_SETTING_WIRELESS_BSSID << ": " << bssid();
+    qDebug() << NM_SETTING_WIRELESS_RATE << ": " << rate();
+    qDebug() << NM_SETTING_WIRELESS_TX_POWER << ": " << txPower();
+    qDebug() << NM_SETTING_WIRELESS_MAC_ADDRESS << ": " << macAddress();
+    qDebug() << NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS << ": " << clonedMacAddress();
+    qDebug() << NM_SETTING_WIRELESS_MAC_ADDRESS_BLACKLIST << ": " << macAddressBlacklist();
+    qDebug() << NM_SETTING_WIRELESS_MTU << ": " << mtu();
+    qDebug() << NM_SETTING_WIRELESS_SEEN_BSSIDS << ": " << seenBssids();
+    qDebug() << NM_SETTING_WIRELESS_SEC << ": " << security();
+    qDebug() << NM_SETTING_WIRELESS_HIDDEN << ": " << hidden();
 }

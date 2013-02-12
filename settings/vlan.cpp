@@ -215,10 +215,10 @@ void NetworkManager::Settings::VlanSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "INTERFACE NAME - " << interfaceName();
-    qDebug() << "PARENT - " << parent();
-    qDebug() << "ID - " << id();
-    qDebug() << "FLAGS - " << flags();
-    qDebug() << "INGRESS PRIORITY MAP - " << ingressPriorityMap();
-    qDebug() << "EGRESS PRIORITY MAP - " << egressPriorityMap();
+    qDebug() << NM_SETTING_VLAN_INTERFACE_NAME << ": " << interfaceName();
+    qDebug() << NM_SETTING_VLAN_PARENT << ": " << parent();
+    qDebug() << NM_SETTING_VLAN_ID << ": " << id();
+    qDebug() << NM_SETTING_VLAN_FLAGS << ": " << flags();
+    qDebug() << NM_SETTING_VLAN_INGRESS_PRIORITY_MAP << ": " << ingressPriorityMap();
+    qDebug() << NM_SETTING_VLAN_EGRESS_PRIORITY_MAP << ": " << egressPriorityMap();
 }

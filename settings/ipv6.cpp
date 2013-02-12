@@ -399,24 +399,23 @@ void NetworkManager::Settings::Ipv6Setting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "NAME - " << name();
-    qDebug() << "METHOD - " << method();
-    qDebug() << "DNS SERVERS -";
+    qDebug() << NM_SETTING_IP6_CONFIG_METHOD << ": " << method();
+    qDebug() << NM_SETTING_IP6_CONFIG_DNS << ": ";
     foreach (const QHostAddress & address, dns()) {
         qDebug() << address.toString() << ", ";
     }
-    qDebug() << "DNS SEARCH - " << dnsSearch();
-    qDebug() << "ADDRESSES - ";
+    qDebug() << NM_SETTING_IP6_CONFIG_DNS_SEARCH << ": " << dnsSearch();
+    qDebug() << NM_SETTING_IP6_CONFIG_ADDRESSES << ": ";
     foreach (const NetworkManager::IPv6Address & address, addresses()) {
-        qDebug() << QHostAddress(address.address()).toString() << " - " << QHostAddress(address.gateway()).toString() << " - " << address.netMask()  << ", ";
+        qDebug() << QHostAddress(address.address()).toString() << ": " << QHostAddress(address.gateway()).toString() << ": " << address.netMask()  << ", ";
     }
-    qDebug() << "ROUTES - ";
+    qDebug() << NM_SETTING_IP6_CONFIG_ROUTES << ": ";
     foreach (const NetworkManager::IPv6Route & route, routes()) {
-        qDebug() << QHostAddress(route.route()).toString() << " - " << route.metric() << " - " << QHostAddress(route.nextHop()).toString() << " - " << route.metric() << ", ";
+        qDebug() << QHostAddress(route.route()).toString() << ": " << route.metric() << ": " << QHostAddress(route.nextHop()).toString() << ": " << route.metric() << ", ";
     }
-    qDebug() << "IGNORE AUTO ROUTES - " << ignoreAutoRoutes();
-    qDebug() << "IGNORE AUTO DNS - " << ignoreAutoDns();
-    qDebug() << "NEVER DEFAULT - " << neverDefault();
-    qDebug() << "MAY FAIL - " << mayFail();
-    qDebug() << "PRIVACY - " << privacy();
+    qDebug() << NM_SETTING_IP6_CONFIG_IGNORE_AUTO_ROUTES << ": " << ignoreAutoRoutes();
+    qDebug() << NM_SETTING_IP6_CONFIG_IGNORE_AUTO_DNS << ": " << ignoreAutoDns();
+    qDebug() << NM_SETTING_IP6_CONFIG_NEVER_DEFAULT << ": " << neverDefault();
+    qDebug() << NM_SETTING_IP6_CONFIG_MAY_FAIL << ": " << mayFail();
+    qDebug() << NM_SETTING_IP6_CONFIG_IP6_PRIVACY << ": " << privacy();
 }

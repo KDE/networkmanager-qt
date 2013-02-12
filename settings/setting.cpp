@@ -235,6 +235,6 @@ NetworkManager::Settings::Setting::SettingType NetworkManager::Settings::Setting
 
 void NetworkManager::Settings::Setting::printSetting()
 {
-    qDebug() << "TYPE - " << typeAsString(type());
-    qDebug() << "INITIALIZED - " << !isNull();
+    qDebug() << "type: " << typeAsString(type());
+    qDebug() << "initialized: " << !isNull();
 }

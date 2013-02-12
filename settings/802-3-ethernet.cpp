@@ -389,16 +389,15 @@ void NetworkManager::Settings::WiredSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "PORT - " << port();
-    qDebug() << "SPEED - " << speed();
-    qDebug() << "DUPLEX TYPE - " << duplexType();
-    qDebug() << "AUTO NEGOTIATE - " << autoNegotiate();
-    qDebug() << "MAC ADDRESS - " << macAddress();
-    qDebug() << "CLONED MAC ADDRESS - " << clonedMacAddress();
-    qDebug() << "MAC ADDRES BLACKLIST - " << macAddressBlacklist();
-    qDebug() << "MTU - " << mtu();
-    qDebug() << "S390 SUBCHANNELS - " << s390Subchannels();
-    qDebug() << "S390 TYPE - " << s390NetType();
-    qDebug() << "S390 OPTIONS - " << s390Options();
+    qDebug() << NM_SETTING_WIRED_PORT << ": " << port();
+    qDebug() << NM_SETTING_WIRED_SPEED << ": " << speed();
+    qDebug() << NM_SETTING_WIRED_DUPLEX << ": " << duplexType();
+    qDebug() << NM_SETTING_WIRED_AUTO_NEGOTIATE << ": " << autoNegotiate();
+    qDebug() << NM_SETTING_WIRED_MAC_ADDRESS << ": " << macAddress();
+    qDebug() << NM_SETTING_WIRED_CLONED_MAC_ADDRESS << ": " << clonedMacAddress();
+    qDebug() << NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST << ": " << macAddressBlacklist();
+    qDebug() << NM_SETTING_WIRED_MTU << ": " << mtu();
+    qDebug() << NM_SETTING_WIRED_S390_SUBCHANNELS << ": " << s390Subchannels();
+    qDebug() << NM_SETTING_WIRED_S390_NETTYPE << ": " << s390NetType();
+    qDebug() << NM_SETTING_WIRED_S390_OPTIONS << ": " << s390Options();
 }
-

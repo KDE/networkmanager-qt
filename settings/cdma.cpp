@@ -194,8 +194,8 @@ void NetworkManager::Settings::CdmaSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "NUMBER - " << number();
-    qDebug() << "USERNAME - " << username();
-    qDebug() << "PASSWORD - " << password();
-    qDebug() << "PASSWORD FLAGS - " << passwordFlags();
+    qDebug() << NM_SETTING_CDMA_NUMBER << ": " << number();
+    qDebug() << NM_SETTING_CDMA_USERNAME << ": " << username();
+    qDebug() << NM_SETTING_CDMA_PASSWORD << ": " << password();
+    qDebug() << NM_SETTING_CDMA_PASSWORD_FLAGS << ": " << passwordFlags();
 }

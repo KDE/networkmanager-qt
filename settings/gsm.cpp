@@ -385,15 +385,15 @@ void NetworkManager::Settings::GsmSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "NUMBER - " << number();
-    qDebug() << "USERNAME - " << username();
-    qDebug() << "PASSWORD - " << password();
-    qDebug() << "PASSWORD FLAGS - " << passwordFlags();
-    qDebug() << "APN - " << apn();
-    qDebug() << "NETWORK ID - " << networkId();
-    qDebug() << "NETWORK TYPE - " << networkType();
-    qDebug() << "ALLOWED BAND - " << allowedBand();
-    qDebug() << "PIN - " << pin();
-    qDebug() << "PIN FLAGS - " << pinFlags();
-    qDebug() << "HOME ONLY - " << homeOnly();
+    qDebug() << NM_SETTING_GSM_NUMBER << ": " << number();
+    qDebug() << NM_SETTING_GSM_USERNAME << ": " << username();
+    qDebug() << NM_SETTING_GSM_PASSWORD << ": " << password();
+    qDebug() << NM_SETTING_GSM_PASSWORD_FLAGS << ": " << passwordFlags();
+    qDebug() << NM_SETTING_GSM_APN << ": " << apn();
+    qDebug() << NM_SETTING_GSM_NETWORK_ID << ": " << networkId();
+    qDebug() << NM_SETTING_GSM_NETWORK_TYPE << ": " << networkType();
+    qDebug() << NM_SETTING_GSM_ALLOWED_BANDS << ": " << allowedBand();
+    qDebug() << NM_SETTING_GSM_PIN << ": " << pin();
+    qDebug() << NM_SETTING_GSM_PIN_FLAGS << ": " << pinFlags();
+    qDebug() << NM_SETTING_GSM_HOME_ONLY << ": " << homeOnly();
 }

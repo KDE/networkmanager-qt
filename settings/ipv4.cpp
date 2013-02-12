@@ -467,26 +467,25 @@ void NetworkManager::Settings::Ipv4Setting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "NAME - " << name();
-    qDebug() << "METHOD - " << method();
-    qDebug() << "DNS SERVERS -";
+    qDebug() << NM_SETTING_IP4_CONFIG_METHOD << ": " << method();
+    qDebug() << NM_SETTING_IP4_CONFIG_DNS << ": ";
     foreach (const QHostAddress & address, dns()) {
         qDebug() << address.toString() << ", ";
     }
-    qDebug() << "DNS SEARCH - " << dnsSearch();
-    qDebug() << "ADDRESSES - ";
+    qDebug() << NM_SETTING_IP4_CONFIG_DNS_SEARCH << ": " << dnsSearch();
+    qDebug() << NM_SETTING_IP4_CONFIG_ADDRESSES << ": ";
     foreach (const NetworkManager::IPv4Address & address, addresses()) {
-        qDebug() << address.address() << " - " << address.gateway() << " - " << address.netMask()  << ", ";
+        qDebug() << address.address() << ": " << address.gateway() << ": " << address.netMask()  << ", ";
     }
-    qDebug() << "ROUTES - ";
+    qDebug() << NM_SETTING_IP4_CONFIG_ROUTES << ": ";
     foreach (const NetworkManager::IPv4Route & route, routes()) {
         qDebug() << route.route() << ",";
     }
-    qDebug() << "IGNORE AUTO ROUTES - " << ignoreAutoRoutes();
-    qDebug() << "IGNORE AUTO DNS - " << ignoreAutoDns();
-    qDebug() << "DHCP CLIENT ID - " << dhcpClientId();
-    qDebug() << "DHCP SEND HOSTNAME - " << dhcpSendHostname();
-    qDebug() << "DHCP HOSTNAME - " << dhcpHostname();
-    qDebug() << "NEVER DEFAULT - " << neverDefault();
-    qDebug() << "MAY FAIL - " << mayFail();
+    qDebug() << NM_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES << ": " << ignoreAutoRoutes();
+    qDebug() << NM_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS << ": " << ignoreAutoDns();
+    qDebug() << NM_SETTING_IP4_CONFIG_DHCP_CLIENT_ID << ": " << dhcpClientId();
+    qDebug() << NM_SETTING_IP4_CONFIG_DHCP_SEND_HOSTNAME << ": " << dhcpSendHostname();
+    qDebug() << NM_SETTING_IP4_CONFIG_DHCP_HOSTNAME << ": " << dhcpHostname();
+    qDebug() << NM_SETTING_IP4_CONFIG_NEVER_DEFAULT << ": " << neverDefault();
+    qDebug() << NM_SETTING_IP4_CONFIG_MAY_FAIL << ": " << mayFail();
 }

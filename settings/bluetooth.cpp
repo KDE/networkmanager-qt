@@ -132,6 +132,6 @@ void NetworkManager::Settings::BluetoothSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "BLUETOOTH ADDRESS - " << bluetoothAddress();
-    qDebug() << "TYPE - " << type();
+    qDebug() << NM_SETTING_BLUETOOTH_BDADDR << ": " << bluetoothAddress();
+    qDebug() << NM_SETTING_BLUETOOTH_TYPE << ": " << type();
 }

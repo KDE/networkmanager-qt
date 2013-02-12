@@ -126,6 +126,6 @@ void NetworkManager::Settings::BondSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "INTERFACE NAME - " << interfaceName();
-    qDebug() << "OPTIONS - " << options();
+    qDebug() << NM_SETTING_BOND_INTERFACE_NAME << ": " << interfaceName();
+    qDebug() << NM_SETTING_BOND_OPTIONS << ": " << options();
 }

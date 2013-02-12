@@ -119,6 +119,6 @@ void NetworkManager::Settings::WimaxSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "NETWORK NAME - " << networkName();
-    qDebug() << "MAC ADDRESS - " << macAddress();
+    qDebug() << NM_SETTING_WIMAX_NETWORK_NAME << ": " << networkName();
+    qDebug() << NM_SETTING_WIMAX_MAC_ADDRESS << ": " << macAddress();
 }

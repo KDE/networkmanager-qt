@@ -659,16 +659,16 @@ void NetworkManager::Settings::ConnectionSettings::printSetting()
     qDebug() << "CONNECTION SETTINGS";
     qDebug() << "===================";
 
-    qDebug() << "NAME - " << name();
-    qDebug() << "ID - " << id();
-    qDebug() << "UUID - " << uuid();
-    qDebug() << "TYPE - " << typeAsString(connectionType());
-    qDebug() << "PERMISSIONS - " << permissions();
-    qDebug() << "AUTOCONNECT - " << autoconnect();
-    qDebug() << "TIMESTAMP - " << timestamp().toTime_t();
-    qDebug() << "READONLY - " << readOnly();
-    qDebug() << "MASTER - " << master();
-    qDebug() << "SLAVE TYPE - " << slaveType();
+    qDebug() << NM_SETTING_CONNECTION_ID << ": " << id();
+    qDebug() << NM_SETTING_CONNECTION_UUID << ": " << uuid();
+    qDebug() << NM_SETTING_CONNECTION_TYPE << ": " << typeAsString(connectionType());
+    qDebug() << NM_SETTING_CONNECTION_PERMISSIONS << ": " << permissions();
+    qDebug() << NM_SETTING_CONNECTION_AUTOCONNECT << ": " << autoconnect();
+    qDebug() << NM_SETTING_CONNECTION_TIMESTAMP << ": " << timestamp().toTime_t();
+    qDebug() << NM_SETTING_CONNECTION_READ_ONLY << ": " << readOnly();
+    qDebug() << NM_SETTING_CONNECTION_ZONE << ": " << zone();
+    qDebug() << NM_SETTING_CONNECTION_MASTER << "- " << master();
+    qDebug() << NM_SETTING_CONNECTION_SLAVE_TYPE << ": " << slaveType();
     qDebug() << "===================";
     foreach (Setting * setting, settings()) {
 	qDebug() << setting->typeAsString(setting->type()).toUpper() << " SETTINGS";

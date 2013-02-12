@@ -503,22 +503,22 @@ void NetworkManager::Settings::PppSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "NO AUTH - " << noAuth();
-    qDebug() << "REFUSE EAP - " << refuseEap();
-    qDebug() << "REFUSE PAP - " << refusePap();
-    qDebug() << "REFUSE CHAP - " << refuseChap();
-    qDebug() << "REFUSE MSCHAP - " << refuseMschap();
-    qDebug() << "REFUSE MSCHAP2 - " << refuseMschapv2();
-    qDebug() << "NO BSD COMPRESSION - " << noBsdComp();
-    qDebug() << "NO DEFLATE COMPRESSION - " << noDeflate();
-    qDebug() << "NO VJ COMPRESSION - " << noVjComp();
-    qDebug() << "REQUIRE MPPE - " << requireMppe();
-    qDebug() << "REQUIRE MPPE128 - " << requireMppe128();
-    qDebug() << "MPPE STATEFUL - " << mppeStateful();
-    qDebug() << "CONTROL RTS AND CTS - " << cRtsCts();
-    qDebug() << "BAUDRATE - " << baud();
-    qDebug() << "MRU - " << mru();
-    qDebug() << "MTU - " << mtu();
-    qDebug() << "LCP ECHO FAILURE - " << lcpEchoFailure();
-    qDebug() << "LCP ECHO INTERVAL - " << lcpEchoInterval();
+    qDebug() << NM_SETTING_PPP_NOAUTH << ": " << noAuth();
+    qDebug() << NM_SETTING_PPP_REFUSE_EAP << ": " << refuseEap();
+    qDebug() << NM_SETTING_PPP_REFUSE_PAP << ": " << refusePap();
+    qDebug() << NM_SETTING_PPP_REFUSE_CHAP << ": " << refuseChap();
+    qDebug() << NM_SETTING_PPP_REFUSE_MSCHAP << ": " << refuseMschap();
+    qDebug() << NM_SETTING_PPP_REFUSE_MSCHAPV2 << ": " << refuseMschapv2();
+    qDebug() << NM_SETTING_PPP_NOBSDCOMP << ": " << noBsdComp();
+    qDebug() << NM_SETTING_PPP_NODEFLATE << ": " << noDeflate();
+    qDebug() << NM_SETTING_PPP_NO_VJ_COMP << ": " << noVjComp();
+    qDebug() << NM_SETTING_PPP_REQUIRE_MPPE << ": " << requireMppe();
+    qDebug() << NM_SETTING_PPP_REQUIRE_MPPE_128 << ": " << requireMppe128();
+    qDebug() << NM_SETTING_PPP_MPPE_STATEFUL << ": " << mppeStateful();
+    qDebug() << NM_SETTING_PPP_CRTSCTS << ": " << cRtsCts();
+    qDebug() << NM_SETTING_PPP_BAUD << ": " << baud();
+    qDebug() << NM_SETTING_PPP_MRU << ": " << mru();
+    qDebug() << NM_SETTING_PPP_MTU << ": " << mtu();
+    qDebug() << NM_SETTING_PPP_LCP_ECHO_FAILURE << ": " << lcpEchoFailure();
+    qDebug() << NM_SETTING_PPP_LCP_ECHO_INTERVAL << ": " << lcpEchoInterval();
 }

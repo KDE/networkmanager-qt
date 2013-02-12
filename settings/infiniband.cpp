@@ -153,7 +153,7 @@ void NetworkManager::Settings::InfinibandSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "MAC ADDRESS - " << macAddress();
-    qDebug() << "MTU - " << mtu();
-    qDebug() << "TRANSPORT MODE - " << transportMode();
+    qDebug() << NM_SETTING_INFINIBAND_MAC_ADDRESS << ": " << macAddress();
+    qDebug() << NM_SETTING_INFINIBAND_MTU << ": " << mtu();
+    qDebug() << NM_SETTING_INFINIBAND_TRANSPORT_MODE << ": " << transportMode();
 }

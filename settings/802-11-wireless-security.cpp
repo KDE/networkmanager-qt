@@ -705,23 +705,22 @@ void NetworkManager::Settings::WirelessSecuritySetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << "NAME - " << name();
-    qDebug() << "KEY MGMG - " << keyMgmt();
-    qDebug() << "WEP TX KEYINDEX - " << wepTxKeyindex();
-    qDebug() << "AUTH ALG - " << authAlg();
-    qDebug() << "PROTO - " << proto();
-    qDebug() << "PAIRWISE - " << pairwise();
-    qDebug() << "GROUP - " << group();
-    qDebug() << "LEAP USERNAME - " << leapUsername();
-    qDebug() << "WEP KEY0 - " << wepKey0();
-    qDebug() << "WEP KEY1 - " << wepKey1();
-    qDebug() << "WEP KEY2 - " << wepKey2();
-    qDebug() << "WEP KEY3 - " << wepKey3();
-    qDebug() << "WEP KEY FLAGS - " << wepKeyFlags();
-    qDebug() << "WEP KEY TYPE - " << wepKeyType();
-    qDebug() << "PSK - " << psk();
-    qDebug() << "PSK FLAGS - " << pskFlags();
-    qDebug() << "LEAP PASSWORD - " << leapPassword();
-    qDebug() << "LEAP PASSWORD FLAGS - " << leapPasswordFlags();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_KEY_MGMT << ": " << name();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_WEP_TX_KEYIDX << ": " << wepTxKeyindex();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_AUTH_ALG << ": " << authAlg();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_PROTO << ": " << proto();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_PAIRWISE << ": " << pairwise();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_GROUP << ": " << group();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_LEAP_USERNAME << ": " << leapUsername();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY0 << ": " << wepKey0();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY1 << ": " << wepKey1();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY2 << ": " << wepKey2();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY3 << ": " << wepKey3();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY_FLAGS << ": " << wepKeyFlags();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY_TYPE << ": " << wepKeyType();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_PSK << ": " << psk();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_PSK_FLAGS << ": " << pskFlags();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD << ": " << leapPassword();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS << ": " << leapPasswordFlags();
 }
 
