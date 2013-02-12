@@ -83,6 +83,7 @@ set(QtNetworkManager_PRIVATE_HEADERS
     settings/bluetooth_p.h
     settings/bond_p.h
     settings/bridge_p.h
+    settings/bridgeport_p.h
     settings/cdma_p.h
     settings/connection_p.h
     settings/gsm_p.h
@@ -168,6 +169,7 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/bluetooth.cpp
     settings/bond.cpp
     settings/bridge.cpp
+    settings/bridgeport.cpp
     settings/cdma.cpp
     settings/connection.cpp
     settings/gsm.cpp
@@ -193,6 +195,7 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/bluetooth.h
     settings/bond.h
     settings/bridge.h
+    settings/bridgeport.h
     settings/cdma.h
     settings/connection.h
     settings/gsm.h
