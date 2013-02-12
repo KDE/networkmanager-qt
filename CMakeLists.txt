@@ -82,6 +82,7 @@ set(QtNetworkManager_PRIVATE_HEADERS
     settings/adsl_p.h
     settings/bluetooth_p.h
     settings/bond_p.h
+    settings/bridge_p.h
     settings/cdma_p.h
     settings/connection_p.h
     settings/gsm_p.h
@@ -91,7 +92,9 @@ set(QtNetworkManager_PRIVATE_HEADERS
     settings/ppp_p.h
     settings/pppoe_p.h
     settings/serial_p.h
+    #settings/template_p.h
     settings/vlan_p.h
+    settings/wimax_p.h
 )
 
 set(QtNetworkManager_PART_SRCS
@@ -164,6 +167,7 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/adsl.cpp
     settings/bluetooth.cpp
     settings/bond.cpp
+    settings/bridge.cpp
     settings/cdma.cpp
     settings/connection.cpp
     settings/gsm.cpp
@@ -174,7 +178,9 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/pppoe.cpp
     settings/setting.cpp
     settings/serial.cpp
+    #settings/template.cpp
     settings/vlan.cpp
+    settings/wimax.cpp
     )
 
 set(CONNECTIONS_SETTINGS_HEADERS
@@ -186,6 +192,7 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/adsl.h
     settings/bluetooth.h
     settings/bond.h
+    settings/bridge.h
     settings/cdma.h
     settings/connection.h
     settings/gsm.h
@@ -196,7 +203,9 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/pppoe.h
     settings/setting.h
     settings/serial.h
+    #settings/template.h
     settings/vlan.h
+    settings/wimax.h
     )
 
 qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_PRIVATE_HEADERS})

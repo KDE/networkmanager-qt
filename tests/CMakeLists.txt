@@ -20,6 +20,7 @@ LIBNM_TESTS(
     adslsetting
     bluetoothsetting
     bondsetting
+    bridgesetting
     cdmasetting
     connectionsetting
     gsmsetting
