@@ -165,11 +165,11 @@ quint32 NetworkManager::Settings::AdslSetting::vci() const
     return d->vci;
 }
 
-QStringList NetworkManager::Settings::AdslSetting::needSecrets() const
+QStringList NetworkManager::Settings::AdslSetting::needSecrets(const bool requestNew) const
 {
     QStringList secrets;
 
-    if (password().isEmpty() && passwordFlags() != NotRequired) {
+    if ((password().isEmpty() || requestNew) && passwordFlags() != NotRequired) {
         secrets << QLatin1String(NM_SETTING_ADSL_PASSWORD);
     }
 

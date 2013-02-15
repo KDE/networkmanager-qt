@@ -384,7 +384,7 @@ QVariantMap NetworkManager::Settings::WirelessSecuritySetting::secretsToMap() co
     return secrets;
 }
 
-QStringList NetworkManager::Settings::WirelessSecuritySetting::needSecrets() const
+QStringList NetworkManager::Settings::WirelessSecuritySetting::needSecrets(const bool requestNew) const
 {
     QStringList secrets;
 
@@ -392,25 +392,25 @@ QStringList NetworkManager::Settings::WirelessSecuritySetting::needSecrets() con
         if (wepKeyFlags() != Setting::NotRequired) {
             switch (wepTxKeyindex()) {
                 case 0:
-                    if (wepKey0().isEmpty()) {
+                    if (wepKey0().isEmpty() || requestNew) {
                         secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY0);
                         return secrets;
                     }
                     break;
                 case 1:
-                    if (wepKey1().isEmpty()) {
+                    if (wepKey1().isEmpty() || requestNew) {
                         secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY1);
                         return secrets;
                     }
                     break;
                 case 2:
-                    if (wepKey2().isEmpty()) {
+                    if (wepKey2().isEmpty() || requestNew) {
                         secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY2);
                         return secrets;
                     }
                     break;
                 case 3:
-                    if (wepKey3().isEmpty()) {
+                    if (wepKey3().isEmpty() || requestNew) {
                         secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY3);
                         return secrets;
                     }
@@ -422,7 +422,7 @@ QStringList NetworkManager::Settings::WirelessSecuritySetting::needSecrets() con
     if (keyMgmt() == WpaNone ||
         keyMgmt() == WpaPsk) {
         if (pskFlags() != Setting::NotRequired) {
-            if (psk().isEmpty()) {
+            if (psk().isEmpty() || requestNew) {
                 secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK);
                 return secrets;
             }
@@ -432,7 +432,7 @@ QStringList NetworkManager::Settings::WirelessSecuritySetting::needSecrets() con
     if (authAlg() == Leap &&
         keyMgmt() == Ieee8021x) {
         if (leapPasswordFlags() != Setting::NotRequired) {
-            if (leapPassword().isEmpty()) {
+            if (leapPassword().isEmpty() || requestNew) {
                 secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD);
                 return secrets;
             }

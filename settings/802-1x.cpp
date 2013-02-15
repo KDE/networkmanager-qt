@@ -561,24 +561,24 @@ bool NetworkManager::Settings::Security8021xSetting::systemCaCertificates() cons
     return d->systemCaCerts;
 }
 
-QStringList NetworkManager::Settings::Security8021xSetting::needSecrets() const
+QStringList NetworkManager::Settings::Security8021xSetting::needSecrets(const bool requestNew) const
 {
     QStringList secrets;
 
-    if (eapMethods().contains(EapMethodTls) && privateKeyPassword().isEmpty() &&
+    if (eapMethods().contains(EapMethodTls) && (privateKeyPassword().isEmpty() || requestNew) &&
                privateKeyPasswordFlags() != NotRequired) {
         secrets << QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD);
     } else if ((eapMethods().contains(EapMethodTtls) || eapMethods().contains(EapMethodPeap) ||
                 eapMethods().contains(EapMethodLeap) || eapMethods().contains(EapMethodFast)) &&
-                password().isEmpty() && passwordFlags() != NotRequired) {
+                (password().isEmpty() || requestNew) && passwordFlags() != NotRequired) {
         secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD);
         secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW);
-    } else if (eapMethods().contains(EapMethodSim) && pin().isEmpty() && pinFlags() != NotRequired) {
+    } else if (eapMethods().contains(EapMethodSim) && (pin().isEmpty() || requestNew) && pinFlags() != NotRequired) {
         secrets << QLatin1String(NM_SETTING_802_1X_PIN);
     }
 
     if ((phase2AuthMethod() == AuthMethodTls || phase2AuthEapMethod() == AuthEapMethodTls) &&
-        phase2PrivateKeyPassword().isEmpty() && phase2PrivateKeyPasswordFlags() != NotRequired) {
+        (phase2PrivateKeyPassword().isEmpty() || requestNew) && phase2PrivateKeyPasswordFlags() != NotRequired) {
         secrets << QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD);
     }
 

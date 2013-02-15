@@ -116,11 +116,11 @@ NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::Cdma
     return d->passwordFlags;
 }
 
-QStringList NetworkManager::Settings::CdmaSetting::needSecrets() const
+QStringList NetworkManager::Settings::CdmaSetting::needSecrets(const bool requestNew) const
 {
     QStringList secrets;
     if (!username().isEmpty()) {
-        if (password().isEmpty() && passwordFlags() != NotRequired) {
+        if ((password().isEmpty() || requestNew) && passwordFlags() != NotRequired) {
             secrets << QLatin1String(NM_SETTING_CDMA_PASSWORD);
         }
     }

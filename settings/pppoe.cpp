@@ -116,11 +116,11 @@ NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::Pppo
     return d->passwordFlags;
 }
 
-QStringList NetworkManager::Settings::PppoeSetting::needSecrets() const
+QStringList NetworkManager::Settings::PppoeSetting::needSecrets(const bool requestNew) const
 {
     QStringList secrets;
 
-    if (password().isEmpty() && passwordFlags() != Setting::NotRequired) {
+    if ((password().isEmpty() || requestNew) && passwordFlags() != Setting::NotRequired) {
         secrets << QLatin1String(NM_SETTING_PPPOE_PASSWORD);
     }
 

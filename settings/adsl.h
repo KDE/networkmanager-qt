@@ -67,7 +67,7 @@ namespace Settings
         void setVci(quint32 vci);
         quint32 vci() const;
 
-        QStringList needSecrets() const;
+        QStringList needSecrets(const bool requestNew = false) const;
 
         void fromMap(const QVariantMap & setting);
 

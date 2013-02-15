@@ -267,15 +267,15 @@ QVariantMap NetworkManager::Settings::GsmSetting::secretsToMap() const
     return secrets;
 }
 
-QStringList NetworkManager::Settings::GsmSetting::needSecrets() const
+QStringList NetworkManager::Settings::GsmSetting::needSecrets(const bool requestNew) const
 {
     QStringList list;
 
-    if (password().isEmpty() && passwordFlags() != NotRequired) {
+    if ((password().isEmpty() || requestNew) && passwordFlags() != NotRequired) {
         list << QLatin1String(NM_SETTING_GSM_PASSWORD);
     }
 
-    if (pin().isEmpty() && pinFlags() != NotRequired) {
+    if ((pin().isEmpty() || requestNew) && pinFlags() != NotRequired) {
         list << QLatin1String(NM_SETTING_GSM_PIN);
     }
 

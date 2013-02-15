@@ -145,7 +145,7 @@ namespace Settings
         void setSystemCaCertificates(bool use);
         bool systemCaCertificates() const;
 
-        QStringList needSecrets() const;
+        QStringList needSecrets(const bool requestNew = false) const;
 
         void secretsFromMap(const QVariantMap & secrets);
 

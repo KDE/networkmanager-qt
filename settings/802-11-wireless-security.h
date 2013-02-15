@@ -104,7 +104,7 @@ namespace Settings
 
         QVariantMap secretsToMap() const;
 
-        QStringList needSecrets() const;
+        QStringList needSecrets(const bool requestNew = false) const;
 
         void fromMap(const QVariantMap & map);
 
