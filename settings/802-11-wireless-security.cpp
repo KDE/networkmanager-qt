@@ -384,7 +384,7 @@ QVariantMap NetworkManager::Settings::WirelessSecuritySetting::secretsToMap() co
     return secrets;
 }
 
-QStringList NetworkManager::Settings::WirelessSecuritySetting::needSecrets(const bool requestNew) const
+QStringList NetworkManager::Settings::WirelessSecuritySetting::needSecrets(bool requestNew) const
 {
     QStringList secrets;
 

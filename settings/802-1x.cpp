@@ -561,7 +561,7 @@ bool NetworkManager::Settings::Security8021xSetting::systemCaCertificates() cons
     return d->systemCaCerts;
 }
 
-QStringList NetworkManager::Settings::Security8021xSetting::needSecrets(const bool requestNew) const
+QStringList NetworkManager::Settings::Security8021xSetting::needSecrets(bool requestNew) const
 {
     QStringList secrets;
 

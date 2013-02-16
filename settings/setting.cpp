@@ -190,7 +190,7 @@ bool NetworkManager::Settings::Setting::hasSecrets() const
     return false;
 }
 
-QStringList NetworkManager::Settings::Setting::needSecrets(const bool requestNew = false) const
+QStringList NetworkManager::Settings::Setting::needSecrets(bool requestNew) const
 {
     return QStringList();
 }

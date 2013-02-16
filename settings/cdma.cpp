@@ -116,7 +116,7 @@ NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::Cdma
     return d->passwordFlags;
 }
 
-QStringList NetworkManager::Settings::CdmaSetting::needSecrets(const bool requestNew) const
+QStringList NetworkManager::Settings::CdmaSetting::needSecrets(bool requestNew) const
 {
     QStringList secrets;
     if (!username().isEmpty()) {

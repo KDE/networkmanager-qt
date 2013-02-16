@@ -165,7 +165,7 @@ quint32 NetworkManager::Settings::AdslSetting::vci() const
     return d->vci;
 }
 
-QStringList NetworkManager::Settings::AdslSetting::needSecrets(const bool requestNew) const
+QStringList NetworkManager::Settings::AdslSetting::needSecrets(bool requestNew) const
 {
     QStringList secrets;
 

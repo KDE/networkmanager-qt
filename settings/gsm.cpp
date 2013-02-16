@@ -267,7 +267,7 @@ QVariantMap NetworkManager::Settings::GsmSetting::secretsToMap() const
     return secrets;
 }
 
-QStringList NetworkManager::Settings::GsmSetting::needSecrets(const bool requestNew) const
+QStringList NetworkManager::Settings::GsmSetting::needSecrets(bool requestNew) const
 {
     QStringList list;
 

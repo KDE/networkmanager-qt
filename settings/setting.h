@@ -57,7 +57,7 @@ namespace Settings
 
         virtual QVariantMap secretsToMap() const;
 
-        virtual QStringList needSecrets(const bool) const;
+        virtual QStringList needSecrets(bool requestNew = false) const;
 
         virtual QString name() const = 0;
 

@@ -116,7 +116,7 @@ NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::Pppo
     return d->passwordFlags;
 }
 
-QStringList NetworkManager::Settings::PppoeSetting::needSecrets(const bool requestNew) const
+QStringList NetworkManager::Settings::PppoeSetting::needSecrets(bool requestNew) const
 {
     QStringList secrets;
 

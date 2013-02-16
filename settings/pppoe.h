@@ -54,7 +54,7 @@ namespace Settings
         void setPasswordFlags(Setting::SecretFlagType flags);
         Setting::SecretFlagType passwordFlags() const;
 
-        QStringList needSecrets(const bool requestNew = false) const;
+        QStringList needSecrets(bool requestNew = false) const;
 
         void secretsFromMap(const QVariantMap & secrets);
 
