@@ -95,6 +95,7 @@ set(QtNetworkManager_PRIVATE_HEADERS
     settings/serial_p.h
     #settings/template_p.h
     settings/vlan_p.h
+    settings/vpn_p.h
     settings/wimax_p.h
 )
 
@@ -182,6 +183,7 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/serial.cpp
     #settings/template.cpp
     settings/vlan.cpp
+    settings/vpn.cpp
     settings/wimax.cpp
     )
 
@@ -208,6 +210,7 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/serial.h
     #settings/template.h
     settings/vlan.h
+    settings/vpn.h
     settings/wimax.h
     )
 
