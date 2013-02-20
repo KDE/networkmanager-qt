@@ -22,5 +22,3 @@ add_executable(exampleQtNetworkManager ${exampleQtNetworkManager_SRCS})
 target_link_libraries(exampleQtNetworkManager QtNetworkManager QtCore QtNetwork)
 
 add_subdirectory(createconnection)
-add_subdirectory(settings)
-add_subdirectory(test)
