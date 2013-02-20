@@ -488,7 +488,9 @@ QVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const
 
     foreach (Setting * setting, settings()) {
         QVariantMap map = setting->toMap();
-        result.insert(setting->name(), map);
+        if (!map.isEmpty()) {
+            result.insert(setting->name(), map);
+        }
     }
     return result;
 }
