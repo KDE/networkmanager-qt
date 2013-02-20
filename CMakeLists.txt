@@ -150,7 +150,7 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-ip4-configinterface.cpp
    dbus/nm-ip6-configinterface.cpp
    dbus/nm-managerinterface.cpp
-   #dbus/nm-ppp-managerinterface.cpp
+   dbus/nm-ppp-managerinterface.cpp
    #dbus/nm-secret-agentinterface.cpp
    dbus/nm-secret-agentadaptor.cpp
    dbus/nm-settings-connectioninterface.cpp
