@@ -37,7 +37,7 @@ namespace Settings
     {
     Q_DECLARE_PRIVATE(WirelessSecuritySetting)
     public:
-        enum KeyMgmt {Wep, Ieee8021x, WpaNone, WpaPsk, WpaEap};
+        enum KeyMgmt {Unknown = -1, Wep, Ieee8021x, WpaNone, WpaPsk, WpaEap};
         enum AuthAlg {None, Open, Shared, Leap};
         enum WpaProtocolVersion {Wpa, Rsn};
         enum WpaEncryptionCapabilities {Wep40, Wep104, Tkip, Ccmp};

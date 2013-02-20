@@ -28,7 +28,7 @@
 
 NetworkManager::Settings::WirelessSecuritySettingPrivate::WirelessSecuritySettingPrivate():
     name(QString("802-11-wireless-security")),
-    keyMgmt(NetworkManager::Settings::WirelessSecuritySetting::Wep),
+    keyMgmt(NetworkManager::Settings::WirelessSecuritySetting::Unknown),
     wepTxKeyidx(0),
     authAlg(NetworkManager::Settings::WirelessSecuritySetting::None),
     proto(QList<NetworkManager::Settings::WirelessSecuritySetting::WpaProtocolVersion>()),
@@ -586,8 +586,6 @@ QVariantMap NetworkManager::Settings::WirelessSecuritySetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT), "wpa-psk");
     } else if (keyMgmt() == WpaEap) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT), "wpa-eap");
-    } else {
-        setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT), "none");
     }
 
     if (wepTxKeyindex()) {
