@@ -703,7 +703,7 @@ void NetworkManager::Settings::WirelessSecuritySetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_KEY_MGMT << ": " << name();
+    qDebug() << NM_SETTING_WIRELESS_SECURITY_KEY_MGMT << ": " << keyMgmt();
     qDebug() << NM_SETTING_WIRELESS_SECURITY_WEP_TX_KEYIDX << ": " << wepTxKeyindex();
     qDebug() << NM_SETTING_WIRELESS_SECURITY_AUTH_ALG << ": " << authAlg();
     qDebug() << NM_SETTING_WIRELESS_SECURITY_PROTO << ": " << proto();
