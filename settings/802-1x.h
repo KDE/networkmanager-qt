@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SECURITY8021XSETTING_H
-#define NMQT_SECURITY8021XSETTING_H
+#ifndef NMQT_SETTINGS_SECURITY8021XSETTING_H
+#define NMQT_SETTINGS_SECURITY8021XSETTING_H
 
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
@@ -163,4 +163,4 @@ namespace Settings
 }
 }
 
-#endif // NMQT_SECURITY8021XSETTING_H
+#endif // NMQT_SETTINGS_SECURITY8021XSETTING_H

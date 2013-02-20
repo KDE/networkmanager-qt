@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_BRIDGESETTING_H
-#define NMQT_BRIDGESETTING_H
+#ifndef NMQT_SETTINGS_BRIDGESETTING_H
+#define NMQT_SETTINGS_BRIDGESETTING_H
 
 #include "../QtNetworkManager-export.h"
 #include "generic-types.h"
@@ -79,4 +79,4 @@ namespace Settings
 }
 }
 
-#endif // NMQT_BRIDGESETTING_H
+#endif // NMQT_SETTINGS_BRIDGESETTING_H

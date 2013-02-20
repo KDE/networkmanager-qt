@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_GSMSETTING_H
-#define NMQT_GSMSETTING_H
+#ifndef NMQT_SETTINGS_GSMSETTING_H
+#define NMQT_SETTINGS_GSMSETTING_H
 
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
@@ -97,4 +97,4 @@ namespace Settings
 }
 }
 
-#endif // NMQT_GSMSETTING_H
+#endif // NMQT_SETTINGS_GSMSETTING_H

@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_VLANSETTING_H
-#define NMQT_VLANSETTING_H
+#ifndef NMQT_SETTINGS_VLANSETTING_H
+#define NMQT_SETTINGS_VLANSETTING_H
 
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
@@ -77,4 +77,4 @@ namespace Settings
 }
 }
 
-#endif // NMQT_VLANSETTING_H
+#endif // NMQT_SETTINGS_VLANSETTING_H

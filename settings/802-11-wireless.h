@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_WIRELESSSETTING_H
-#define NMQT_WIRELESSSETTING_H
+#ifndef NMQT_SETTINGS_WIRELESSSETTING_H
+#define NMQT_SETTINGS_WIRELESSSETTING_H
 
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
@@ -102,5 +102,5 @@ namespace Settings
 }
 }
 
-#endif // NMQT_WIRELESSSETTING_H
+#endif // NMQT_SETTINGS_WIRELESSSETTING_H
 

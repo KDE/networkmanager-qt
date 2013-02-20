@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_VPNSETTING_H
-#define NMQT_VPNSETTING_H
+#ifndef NMQT_SETTINGS_VPNSETTING_H
+#define NMQT_SETTINGS_VPNSETTING_H
 
 #include "../QtNetworkManager-export.h"
 #include "generic-types.h"
@@ -70,4 +70,4 @@ namespace Settings
 }
 }
 
-#endif // NMQT_VPNSETTING_H
+#endif // NMQT_SETTINGS_VPNSETTING_H

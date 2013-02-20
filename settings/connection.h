@@ -19,8 +19,8 @@
 */
 
 
-#ifndef NMQT_CONNECTIONSETTINGS_H
-#define NMQT_CONNECTIONSETTINGS_H
+#ifndef NMQT_SETTINGS_CONNECTIONSETTINGS_H
+#define NMQT_SETTINGS_CONNECTIONSETTINGS_H
 
 #include "../QtNetworkManager-export.h"
 #include "../device.h"
@@ -105,4 +105,4 @@ namespace Settings
 }
 }
 
-#endif // NMQT_CONNECTIONSETTINGS_H
+#endif // NMQT_SETTINGS_CONNECTIONSETTINGS_H

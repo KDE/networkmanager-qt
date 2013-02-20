@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_WIREDSETTING_P_H
-#define NMQT_WIREDSETTING_P_H
+#ifndef NMQT_SETTINGS_WIREDSETTING_P_H
+#define NMQT_SETTINGS_WIREDSETTING_P_H
 
 #include <QtCore/QStringList>
 #include <QtCore/QMap>
@@ -49,4 +49,4 @@ namespace Settings
 }
 }
 
-#endif // NMQT_WIREDSETTING_P_H
+#endif // NMQT_SETTINGS_WIREDSETTING_P_H
