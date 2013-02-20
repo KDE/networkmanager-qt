@@ -33,6 +33,7 @@
 
 #include <QtDBus/QDBusMetaType>
 #include <QtCore/QTextStream>
+#include <QtCore/QUuid>
 
 using namespace NetworkManager;
 
@@ -55,35 +56,37 @@ int main()
     }
 
     QStringList accessPointList = wifiDevice->accessPoints();
-    QByteArray ssid;
+    QString ssid;
     QString result;
     QString accessPointPath;
+
     foreach (const QString & ap, accessPointList) {
         AccessPoint accessPoint(ap);
-        qout << "Do you want to connect to " << accessPoint.ssid() << "?" << endl;
-        qout << "Yes/No: " << flush;
-        qin >> result;
+        // For simplification we use APs only with Wep security or without any security
+        if (accessPoint.wpaFlags().testFlag(AccessPoint::PairWep40) ||
+            accessPoint.wpaFlags().testFlag(AccessPoint::PairWep104) ||
+            accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep40) ||
+            accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep104) ||
+            !accessPoint.wpaFlags()) {
 
-        if (result == "Yes" || result == "yes" || result == "y" || result == "YES") {
-            ssid = accessPoint.rawSsid();
-            accessPointPath = ap;
-            break;
+            qout << "Do you want to connect to " << accessPoint.ssid() << "?" << endl;
+            qout << "Yes/No: " << flush;
+            qin >> result;
+
+            if (result == "Yes" || result == "yes" || result == "y" || result == "YES") {
+                ssid = accessPoint.ssid();
+                accessPointPath = ap;
+                break;
+            }
         }
     }
 
-    // Connection setting - here you can specify what you want for this setting
-    settings->setId(QString(ssid));
-    // Must be different from the others connections
-    settings->setUuid("2815492f-7e56-435e-b2e9-246bd7cdc668");
+    settings->setId(ssid);
+    settings->setUuid(QUuid::createUuid().toString().mid(1, QUuid::createUuid().toString().length() - 2));
 
-    // Wireless setting - here you can specify what you want for this setting
     Settings::WirelessSetting * wirelessSetting = dynamic_cast<Settings::WirelessSetting *>(settings->setting(Settings::Setting::Wireless));
-    wirelessSetting->setSsid(ssid);
+    wirelessSetting->setSsid(ssid.toAscii());
 
-    // Wireless security setting - here you can specify what you want for this setting
-    Settings::WirelessSecuritySetting::Setting * wirelessSecuritySetting = dynamic_cast<Settings::WirelessSecuritySetting *>(settings->setting(Settings::Setting::WirelessSecurity));
-
-    // IPv4 setting - here you can specify what you want for this setting
     Settings::Ipv4Setting * ipv4Setting = dynamic_cast<Settings::Ipv4Setting *>(settings->setting(Settings::Setting::Ipv4));
     ipv4Setting->setMethod(Settings::Ipv4Setting::Automatic);
 
@@ -97,8 +100,14 @@ int main()
         newSettings->fromMap(connection.settings());
         // Print resulting settings
         newSettings->printSetting();
-    }
 
-    /* Furthermore, you can find out what security setting is required for this connection and fill it or you can use some NetworkManagement
-       in your computer (works with KDE NetworkManagement) */
+        Settings::WirelessSecuritySetting * wirelessSecuritySetting = dynamic_cast<Settings::WirelessSecuritySetting *>(newSettings->setting(Settings::Setting::WirelessSecurity));
+        if (!wirelessSecuritySetting->needSecrets().isEmpty()) {
+            qDebug() << "Need secrets: " << wirelessSecuritySetting->needSecrets();
+            // TODO: fill missing secrets
+        }
+
+    } else {
+        qDebug() << "Connection failed: " << reply.error();
+    }
 }
