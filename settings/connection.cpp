@@ -318,7 +318,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::
             addSetting(new SerialSetting(static_cast<SerialSetting*>(connectionSettings->setting(Setting::Serial))));
             break;
         case Bridge:
-            addSetting(new BridgeSetting(static_cast<BluetoothSetting*>(connectionSettings->setting(Setting::Bridge))));
+            addSetting(new BridgeSetting(static_cast<BridgeSetting*>(connectionSettings->setting(Setting::Bridge))));
             addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
             addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
         case Cdma:
