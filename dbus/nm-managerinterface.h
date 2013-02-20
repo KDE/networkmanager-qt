@@ -96,16 +96,6 @@ public Q_SLOTS: // METHODS
         argumentList << QVariant::fromValue(connection) << QVariant::fromValue(device) << QVariant::fromValue(specific_object);
         return asyncCallWithArgumentList(QLatin1String("AddAndActivateConnection"), argumentList);
     }
-    inline QDBusReply<QDBusObjectPath> AddAndActivateConnection(const QVariantMapMap &connection, const QDBusObjectPath &device, const QDBusObjectPath &specific_object, QDBusObjectPath &active_connection)
-    {
-        QList<QVariant> argumentList;
-        argumentList << QVariant::fromValue(connection) << QVariant::fromValue(device) << QVariant::fromValue(specific_object);
-        QDBusMessage reply = callWithArgumentList(QDBus::Block, QLatin1String("AddAndActivateConnection"), argumentList);
-        if (reply.type() == QDBusMessage::ReplyMessage && reply.arguments().count() == 2) {
-            active_connection = qdbus_cast<QDBusObjectPath>(reply.arguments().at(1));
-        }
-        return reply;
-    }
 
     inline QDBusPendingReply<> DeactivateConnection(const QDBusObjectPath &active_connection)
     {
@@ -138,15 +128,6 @@ public Q_SLOTS: // METHODS
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QLatin1String("GetLogging"), argumentList);
-    }
-    inline QDBusReply<QString> GetLogging(QString &domains)
-    {
-        QList<QVariant> argumentList;
-        QDBusMessage reply = callWithArgumentList(QDBus::Block, QLatin1String("GetLogging"), argumentList);
-        if (reply.type() == QDBusMessage::ReplyMessage && reply.arguments().count() == 2) {
-            domains = qdbus_cast<QString>(reply.arguments().at(1));
-        }
-        return reply;
     }
 
     inline QDBusPendingReply<QStringMap> GetPermissions()

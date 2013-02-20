@@ -42,15 +42,6 @@ public Q_SLOTS: // METHODS
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QLatin1String("NeedSecrets"), argumentList);
     }
-    inline QDBusReply<QString> NeedSecrets(QString &password)
-    {
-        QList<QVariant> argumentList;
-        QDBusMessage reply = callWithArgumentList(QDBus::Block, QLatin1String("NeedSecrets"), argumentList);
-        if (reply.type() == QDBusMessage::ReplyMessage && reply.arguments().count() == 2) {
-            password = qdbus_cast<QString>(reply.arguments().at(1));
-        }
-        return reply;
-    }
 
     inline QDBusPendingReply<> SetIp4Config(const QVariantMap &config)
     {
