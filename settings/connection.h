@@ -40,7 +40,7 @@ namespace Settings
     {
 	Q_DECLARE_PRIVATE(ConnectionSettings)
 	public:
-            enum ConnectionType {Unknown = 0, Adsl, Bond, Bluetooth, Cdma, Gsm, Infiniband, OLPCMesh, Pppoe, Vlan, Vpn, Wimax, Wired, Wireless};
+            enum ConnectionType {Unknown = 0, Adsl, Bluetooth, Bond, Bridge, Cdma, Gsm, Infiniband, OLPCMesh, Pppoe, Vlan, Vpn, Wimax, Wired, Wireless};
 
 	    static ConnectionType typeFromString(const QString & typeString);
 	    static QString typeAsString(const ConnectionType type);

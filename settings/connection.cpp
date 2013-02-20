@@ -30,6 +30,8 @@
 #include "adsl.h"
 #include "bluetooth.h"
 #include "bond.h"
+#include "bridge.h"
+#include "bridgeport.h"
 #include "gsm.h"
 #include "cdma.h"
 #include "infiniband.h"
@@ -39,10 +41,13 @@
 #include "pppoe.h"
 #include "serial.h"
 #include "vlan.h"
+#include "vpn.h"
+#include "wimax.h"
 
 #include <nm-setting-adsl.h>
 #include <nm-setting-bond.h>
 #include <nm-setting-bluetooth.h>
+#include <nm-setting-bridge.h>
 #include <nm-setting-cdma.h>
 #include <nm-setting-connection.h>
 #include <nm-setting-gsm.h>
@@ -79,10 +84,12 @@ NetworkManager::Settings::ConnectionSettings::ConnectionType NetworkManager::Set
 
     if (typeString == QLatin1String(NM_SETTING_ADSL_SETTING_NAME)) {
         type = Adsl;
-    } else if (typeString == QLatin1String(NM_SETTING_BOND_SETTING_NAME)) {
-        type = Bond;
     } else if (typeString == QLatin1String(NM_SETTING_BLUETOOTH_SETTING_NAME)) {
         type = Bluetooth;
+    } else if (typeString == QLatin1String(NM_SETTING_BOND_SETTING_NAME)) {
+        type = Bond;
+    } else if (typeString == QLatin1String(NM_SETTING_BRIDGE_SETTING_NAME)) {
+        type = Bridge;
     } else if (typeString == QLatin1String(NM_SETTING_CDMA_SETTING_NAME)) {
         type = Cdma;
     } else if (typeString == QLatin1String(NM_SETTING_GSM_SETTING_NAME)) {
@@ -121,6 +128,9 @@ QString NetworkManager::Settings::ConnectionSettings::typeAsString(NetworkManage
             break;
         case Bluetooth:
             typeString = QLatin1String(NM_SETTING_BLUETOOTH_SETTING_NAME);
+            break;
+        case Bridge:
+            typeString = QLatin1String(NM_SETTING_BRIDGE_SETTING_NAME);
             break;
         case Cdma:
             typeString = QLatin1String(NM_SETTING_CDMA_SETTING_NAME);
@@ -219,6 +229,10 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
             addSetting(new PppSetting());
             addSetting(new SerialSetting());
             break;
+        case Bridge:
+            addSetting(new BridgeSetting());
+            addSetting(new Ipv4Setting());
+            addSetting(new Ipv6Setting());
         case Cdma:
             addSetting(new CdmaSetting());
             addSetting(new Ipv4Setting());
@@ -252,14 +266,12 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
         case Vpn:
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
-            //TODO: Implement VPN setting
-            //addSetting(new VpnSetting());
+            addSetting(new VpnSetting());
             break;
         case Wimax:
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
-            //TODO: Implement Wimax setting
-            //addSetting(new WimaxSetting());
+            addSetting(new WimaxSetting());
         case Wired:
             addSetting(new Ipv4Setting());
             addSetting(new Ipv6Setting());
@@ -305,6 +317,10 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::
             addSetting(new PppSetting(static_cast<PppSetting*>(connectionSettings->setting(Setting::Ppp))));
             addSetting(new SerialSetting(static_cast<SerialSetting*>(connectionSettings->setting(Setting::Serial))));
             break;
+        case Bridge:
+            addSetting(new BridgeSetting(static_cast<BluetoothSetting*>(connectionSettings->setting(Setting::Bridge))));
+            addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
+            addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
         case Cdma:
             addSetting(new CdmaSetting(static_cast<CdmaSetting*>(connectionSettings->setting(Setting::Cdma))));
             addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
@@ -338,14 +354,12 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::
         case Vpn:
             addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
             addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
-            //TODO: Implement VPN setting
-            //addSetting(new VpnSetting(static_cast<VpnSetting*>(connectionSettings->setting(Setting::Vpn))));
+            addSetting(new VpnSetting(static_cast<VpnSetting*>(connectionSettings->setting(Setting::Vpn))));
             break;
         case Wimax:
             addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
             addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
-            //TODO: Implement Wimax setting
-            //addSetting(new WimaxSetting(static_cast<WimaxSetting*>(connectionSettings->setting(Setting::Wimax))));
+            addSetting(new WimaxSetting(static_cast<WimaxSetting*>(connectionSettings->setting(Setting::Wimax))));
         case Wired:
             addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
             addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
