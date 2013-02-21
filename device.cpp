@@ -22,6 +22,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "device_p.h"
 #include "manager.h"
 #include "manager_p.h"
+#include "connection.h"
 #include "nmdebug.h"
 
 #include <arpa/inet.h>
@@ -206,6 +207,21 @@ NetworkManager::ActiveConnection *NetworkManager::Device::activeConnection()
 {
     Q_D(const Device);
     return NetworkManager::findActiveConnection(d->deviceIface.activeConnection().path());
+}
+
+QList< NetworkManager::Settings::Connection* > NetworkManager::Device::availableConnections()
+{
+    Q_D(const Device);
+
+    QList<NetworkManager::Settings::Connection*> list;
+    QList<QDBusObjectPath> availableConnections = d->deviceIface.availableConnections();
+
+    foreach (const QDBusObjectPath & path, availableConnections) {
+        NetworkManager::Settings::Connection * con = new NetworkManager::Settings::Connection(path.path(), 0);
+        list << con;
+    }
+
+    return list;
 }
 
 bool NetworkManager::Device::firmwareMissing() const

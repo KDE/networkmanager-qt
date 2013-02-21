@@ -36,6 +36,10 @@ class DevicePrivate;
 class ActiveConnection;
 class DeviceStateReason;
 
+namespace Settings {
+class Connection;
+}
+
 class NMQT_EXPORT Device : public QObject
 {
     Q_OBJECT
@@ -147,6 +151,12 @@ public:
      * @returns A valid ActiveConnection object or 0 if no active connection was found
      */
     ActiveConnection* activeConnection();
+    /**
+     * Returns available connections for this device
+     *
+     * @returns List of availables connection
+     */
+    QList<NetworkManager::Settings::Connection*> availableConnections();
     /**
      * The system name for the network interface
      */
