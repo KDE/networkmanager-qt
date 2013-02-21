@@ -95,6 +95,15 @@ int main()
                 }
             }
         }
+
+        QList<NetworkManager::Settings::Connection*> connections = dev->availableConnections();
+
+        qout << "available connections: ";
+
+        foreach (NetworkManager::Settings::Connection *con, connections) {
+            qDebug() << "con";
+            qout << con->settings().value("connection").value("id").toString();
+        }
     }
     qout << "\n";
 }
