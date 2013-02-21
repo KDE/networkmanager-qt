@@ -67,7 +67,7 @@ NetworkManager::InfinibandDevicePrivate::~InfinibandDevicePrivate()
 
 NetworkManager::Device::Type NetworkManager::InfinibandDevice::type() const
 {
-    return NetworkManager::Device::ADSL;
+    return NetworkManager::Device::InfiniBand;
 }
 
 bool NetworkManager::InfinibandDevice::carrier() const

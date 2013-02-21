@@ -69,7 +69,7 @@ NetworkManager::BondDevicePrivate::~BondDevicePrivate()
 
 NetworkManager::Device::Type NetworkManager::BondDevice::type() const
 {
-    return NetworkManager::Device::ADSL;
+    return NetworkManager::Device::Bond;
 }
 
 bool NetworkManager::BondDevice::carrier() const

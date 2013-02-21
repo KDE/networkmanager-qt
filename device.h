@@ -111,7 +111,7 @@ public:
      * - Wimax: WiMax WWAN technology
      */
     enum Type { UnknownType = 0x0, Ethernet = 0x1, Wifi = 0x2, Unused1 = 0x3, Unused2 = 0x4, Bluetooth = 0x5, OlpcMesh = 0x6, Wimax = 0x7, Modem = 0x8,
-		InfiniBand = 0x9, Bond = 0x10, VLAN = 0x11, ADSL = 0x12, Bridge = 0x13};
+		InfiniBand = 0x9, Bond = 0x10, Vlan = 0x11, Adsl = 0x12, Bridge = 0x13};
 
     Q_DECLARE_FLAGS(Capabilities, Capability)
     Q_DECLARE_FLAGS(Types, Type)

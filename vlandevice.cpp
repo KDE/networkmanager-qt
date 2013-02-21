@@ -69,7 +69,7 @@ NetworkManager::VlanDevicePrivate::~VlanDevicePrivate()
 
 NetworkManager::Device::Type NetworkManager::VlanDevice::type() const
 {
-    return NetworkManager::Device::ADSL;
+    return NetworkManager::Device::Vlan;
 }
 
 bool NetworkManager::VlanDevice::carrier() const

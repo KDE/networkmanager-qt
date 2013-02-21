@@ -65,7 +65,7 @@ NetworkManager::AdslDevicePrivate::~AdslDevicePrivate()
 
 NetworkManager::Device::Type NetworkManager::AdslDevice::type() const
 {
-    return NetworkManager::Device::ADSL;
+    return NetworkManager::Device::Adsl;
 }
 
 bool NetworkManager::AdslDevice::carrier() const

@@ -69,7 +69,7 @@ NetworkManager::BridgeDevicePrivate::~BridgeDevicePrivate()
 
 NetworkManager::Device::Type NetworkManager::BridgeDevice::type() const
 {
-    return NetworkManager::Device::ADSL;
+    return NetworkManager::Device::Bridge;
 }
 
 bool NetworkManager::BridgeDevice::carrier() const
