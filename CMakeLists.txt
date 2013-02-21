@@ -60,6 +60,7 @@ set(QtNetworkManager_HEADERS
     olpcmeshdevice.h
     secretagent.h
     settings.h
+    vlandevice.h
     vpnconnection.h
     vpnplugin.h
     wimaxdevice.h
@@ -120,6 +121,7 @@ set(QtNetworkManager_PART_SRCS
     olpcmeshdevice.cpp
     secretagent.cpp
     settings.cpp
+    vlandevice.cpp
     vpnconnection.cpp
     vpnplugin.cpp
     wimaxdevice.cpp
