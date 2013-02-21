@@ -36,7 +36,7 @@ namespace Settings
     {
     Q_DECLARE_PRIVATE(WirelessSetting)
     public:
-        enum NetworkMode {Infrastructure, Adhoc};
+        enum NetworkMode {Infrastructure, Adhoc, Ap};
         enum FrequencyBand {Automatic, A, Bg};
 
 	WirelessSetting();

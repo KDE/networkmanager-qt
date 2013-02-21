@@ -293,7 +293,9 @@ void NetworkManager::Settings::WirelessSetting::fromMap(const QVariantMap& setti
 	    setMode(Infrastructure);
 	} else if (mode == QLatin1String(NM_SETTING_WIRELESS_MODE_ADHOC)) {
 	    setMode(Adhoc);
-	}
+	} else if (mode == QLatin1String(NM_SETTING_WIRELESS_MODE_AP)) {
+            setMode(Ap);
+        }
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_BAND))) {
@@ -360,20 +362,22 @@ QVariantMap NetworkManager::Settings::WirelessSetting::toMap() const
 
     if (mode() == Infrastructure) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_MODE), QLatin1String(NM_SETTING_WIRELESS_MODE_INFRA));
-    } else {
+    } else if (mode() == Adhoc) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_MODE), QLatin1String(NM_SETTING_WIRELESS_MODE_ADHOC));
+    } else if (mode() == Ap) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_MODE), QLatin1String(NM_SETTING_WIRELESS_MODE_AP));
+    }
 
-        if (band() != Automatic) {
-            if (band() == A) {
-                setting.insert(QLatin1String(NM_SETTING_WIRELESS_BAND), "a");
-            } else if (band() ==  Bg) {
-                setting.insert(QLatin1String(NM_SETTING_WIRELESS_BAND), "bg");
-            }
+    if (band() != Automatic) {
+        if (band() == A) {
+            setting.insert(QLatin1String(NM_SETTING_WIRELESS_BAND), "a");
+        } else if (band() ==  Bg) {
+            setting.insert(QLatin1String(NM_SETTING_WIRELESS_BAND), "bg");
         }
+    }
 
-        if (channel()) {
-            setting.insert(QLatin1String(NM_SETTING_WIRELESS_CHANNEL), channel());
-        }
+    if (channel()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_CHANNEL), channel());
     }
 
     if (!bssid().isEmpty()) {
