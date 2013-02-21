@@ -34,6 +34,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "bluetoothdevice.h"
 #include "wimaxdevice.h"
 #include "olpcmeshdevice.h"
+#include "adsldevice.h"
+#include "infinibanddevice.h"
+#include "vlandevice.h"
+#include "bonddevice.h"
+#include "bridgedevice.h"
 #include "activeconnection.h"
 #include "vpnconnection.h"
 
@@ -212,6 +217,21 @@ NetworkManager::Device *NetworkManager::NetworkManagerPrivate::createNetworkInte
             break;
         case NM_DEVICE_TYPE_OLPC_MESH:
             createdInterface = new NetworkManager::OlpcMeshDevice(uni, this);
+            break;
+        case NM_DEVICE_TYPE_INFINIBAND:
+            createdInterface = new NetworkManager::AdslDevice(uni, this);
+            break;
+        case NM_DEVICE_TYPE_BOND:
+            createdInterface = new NetworkManager::BondDevice(uni, this);
+            break;
+        case NM_DEVICE_TYPE_VLAN:
+            createdInterface = new NetworkManager::VlanDevice(uni, this);
+            break;
+        case NM_DEVICE_TYPE_ADSL:
+            createdInterface = new NetworkManager::AdslDevice(uni, this);
+            break;
+        case NM_DEVICE_TYPE_BRIDGE:
+            createdInterface = new NetworkManager::BridgeDevice(uni, this);
             break;
         default:
             if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
@@ -416,6 +436,18 @@ void NetworkManager::NetworkManagerPrivate::setLogging(NetworkManager::LogLevel 
             logDomains << QLatin1String("DEVICE");
         if (domains.testFlag(NetworkManager::OLPC))
             logDomains << QLatin1String("OLPC");
+        if (domains.testFlag(NetworkManager::Wimax))
+            logDomains << QLatin1String("WIMAX");
+        if (domains.testFlag(NetworkManager::Infiniband))
+            logDomains << QLatin1String("INFINIBAND");
+        if (domains.testFlag(NetworkManager::Firewall))
+            logDomains << QLatin1String("FIREWALL");
+        if (domains.testFlag(NetworkManager::Adsl))
+            logDomains << QLatin1String("ADSL");
+        if (domains.testFlag(NetworkManager::Bond))
+            logDomains << QLatin1String("BOND");
+        if (domains.testFlag(NetworkManager::Vlan))
+            logDomains << QLatin1String("VLAN");
     }
     iface.SetLogging(logLevel, logDomains.join(QLatin1String(",")));
 }
@@ -751,7 +783,12 @@ NetworkManager::Device::Types NetworkManager::supportedInterfaceTypes()
            NetworkManager::Device::Modem |
            NetworkManager::Device::Wimax |
            NetworkManager::Device::Bluetooth |
-           NetworkManager::Device::OlpcMesh
+           NetworkManager::Device::OlpcMesh |
+           NetworkManager::Device::InfiniBand |
+           NetworkManager::Device::Bond |
+           NetworkManager::Device::Vlan |
+           NetworkManager::Device::Adsl |
+           NetworkManager::Device::Bridge
            );
 }
 

@@ -55,7 +55,8 @@ namespace NetworkManager {
     };
     enum LogLevel {Error, Warning, Info, Debug};
     Q_FLAGS(LogDomains)
-    enum LogDomain {NoChange, None, Hardware, RFKill, Ethernet, WiFi, Bluetooth, MobileBroadBand, DHCP4, DHCP6, PPP, WiFiScan, IPv4, IPv6, AutoIPv4, DNS, VPN, Sharing, Supplicant, UserSet, SysSet, Suspend, Core, Devices, OLPC};
+    enum LogDomain {NoChange, None, Hardware, RFKill, Ethernet, WiFi, Bluetooth, MobileBroadBand, DHCP4, DHCP6, PPP, WiFiScan, IPv4, IPv6,
+                    AutoIPv4, DNS, VPN, Sharing, Supplicant, UserSet, SysSet, Suspend, Core, Devices, OLPC, Wimax, Infiniband, Firewall, Adsl, Bond, Vlan};
     Q_DECLARE_FLAGS(LogDomains, LogDomain)
     class NMQT_EXPORT Notifier : public QObject
     {
