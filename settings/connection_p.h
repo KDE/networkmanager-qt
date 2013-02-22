@@ -48,6 +48,7 @@ namespace Settings
 	QString zone;
 	QString master;
 	QString slaveType;
+        QStringList secondaries;
 	QList<Setting *> settings;
     };
 }

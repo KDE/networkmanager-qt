@@ -423,6 +423,10 @@ void NetworkManager::Settings::ConnectionSettings::fromMap(const QVariantMapMap&
 	setSlaveType(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_SLAVE_TYPE)).toString());
     }
 
+    if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_SECONDARIES))) {
+        setSecondaries(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_SECONDARIES)).toStringList());
+    }
+
     foreach (Setting * setting, settings()) {
 	if (map.contains(setting->name())) {
 	    setting->fromMap(map.value(setting->name()));
@@ -482,6 +486,10 @@ QVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const
 
     if (!slaveType().isEmpty()) {
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_SLAVE_TYPE), slaveType());
+    }
+
+    if (!secondaries().isEmpty()) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_SECONDARIES), secondaries());
     }
 
     result.insert(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME), connectionSetting);
@@ -651,6 +659,20 @@ QString NetworkManager::Settings::ConnectionSettings::slaveType() const
     return d->slaveType;
 }
 
+void NetworkManager::Settings::ConnectionSettings::setSecondaries(const QStringList& secondaries)
+{
+    Q_D(ConnectionSettings);
+
+    d->secondaries = secondaries;
+}
+
+QStringList NetworkManager::Settings::ConnectionSettings::secondaries() const
+{
+    Q_D(const ConnectionSettings);
+
+    return d->secondaries;
+}
+
 NetworkManager::Settings::Setting* NetworkManager::Settings::ConnectionSettings::setting(NetworkManager::Settings::Setting::SettingType type) const
 {
     foreach (Setting * setting, settings()) {
@@ -685,6 +707,7 @@ void NetworkManager::Settings::ConnectionSettings::printSetting()
     qDebug() << NM_SETTING_CONNECTION_ZONE << ": " << zone();
     qDebug() << NM_SETTING_CONNECTION_MASTER << "- " << master();
     qDebug() << NM_SETTING_CONNECTION_SLAVE_TYPE << ": " << slaveType();
+    qDebug() << NM_SETTING_CONNECTION_SECONDARIES << ": " << secondaries();
     qDebug() << "===================";
     foreach (Setting * setting, settings()) {
 	qDebug() << setting->typeAsString(setting->type()).toUpper() << " SETTINGS";
