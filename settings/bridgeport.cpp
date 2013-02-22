@@ -27,8 +27,8 @@
 
 NetworkManager::Settings::BridgePortSettingPrivate::BridgePortSettingPrivate():
     name(QString("bridge-port")),
-    priority(0),
-    pathCost(0),
+    priority(32),
+    pathCost(100),
     hairpinMode(false)
 { }
 
@@ -124,11 +124,11 @@ QVariantMap NetworkManager::Settings::BridgePortSetting::toMap() const
 {
     QVariantMap setting;
 
-    if (priority()) {
+    if (priority() != 32) {
         setting.insert(QLatin1String(NM_SETTING_BRIDGE_PORT_PRIORITY), priority());
     }
 
-    if (pathCost()) {
+    if (pathCost() != 100) {
         setting.insert(QLatin1String(NM_SETTING_BRIDGE_PORT_PATH_COST), pathCost());
     }
 
