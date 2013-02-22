@@ -29,11 +29,11 @@ NetworkManager::Settings::BridgeSettingPrivate::BridgeSettingPrivate():
     name(QString("bridge")),
     interfaceName(QString()),
     stp(true),
-    priority(0),
-    forwardDelay(0),
-    helloTime(0),
-    maxAge(0),
-    ageintTime(0)
+    priority(128),
+    forwardDelay(15),
+    helloTime(2),
+    maxAge(20),
+    ageintTime(300)
 { }
 
 NetworkManager::Settings::BridgeSetting::BridgeSetting():
@@ -212,23 +212,23 @@ QVariantMap NetworkManager::Settings::BridgeSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_BRIDGE_STP), stp());
     }
 
-    if (priority()) {
+    if (priority() != 128) {
         setting.insert(QLatin1String(NM_SETTING_BRIDGE_PRIORITY), priority());
     }
 
-    if (forwardDelay()) {
+    if (forwardDelay() != 15) {
         setting.insert(QLatin1String(NM_SETTING_BRIDGE_FORWARD_DELAY), forwardDelay());
     }
 
-    if (helloTime()) {
+    if (helloTime() != 2) {
         setting.insert(QLatin1String(NM_SETTING_BRIDGE_HELLO_TIME), helloTime());
     }
 
-    if (maxAge()) {
+    if (maxAge() != 20) {
         setting.insert(QLatin1String(NM_SETTING_BRIDGE_MAX_AGE), maxAge());
     }
 
-    if (ageintTime()) {
+    if (ageintTime() != 300) {
         setting.insert(QLatin1String(NM_SETTING_BRIDGE_AGEING_TIME), ageintTime());
     }
 
