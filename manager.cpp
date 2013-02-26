@@ -452,7 +452,7 @@ void NetworkManager::NetworkManagerPrivate::setLogging(NetworkManager::LogLevel 
     iface.SetLogging(logLevel, logDomains.join(QLatin1String(",")));
 }
 
-QStringMap NetworkManager::NetworkManagerPrivate::permissions() const
+QStringMap NetworkManager::NetworkManagerPrivate::permissions()
 {
     return iface.GetPermissions();
 }
