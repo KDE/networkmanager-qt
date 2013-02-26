@@ -40,7 +40,7 @@ namespace Settings
     public:
         SettingsPrivate();
         QList<NetworkManager::Settings::Connection*> listConnections();
-	NetworkManager::Settings::Connection* findConnectionByUuid(const QString &uuid);
+        NetworkManager::Settings::Connection* findConnectionByUuid(const QString &uuid);
         QString hostname() const;
         bool canModify() const;
         QString addConnection(const QVariantMapMap &);

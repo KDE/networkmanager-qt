@@ -24,8 +24,9 @@
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
 
+#include "generic-types.h"
+
 #include <QtCore/QStringList>
-#include <QtCore/QMap>
 
 namespace NetworkManager
 {
@@ -77,8 +78,8 @@ public:
     void setS390NetType(S390Nettype type);
     S390Nettype s390NetType() const;
 
-    void setS390Options(const QMap<QString, QString> & options);
-    QMap<QString, QString> s390Options() const;
+    void setS390Options(const QStringMap &options);
+    QStringMap s390Options() const;
 
     bool hasSecrets() const;
 

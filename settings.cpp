@@ -70,7 +70,6 @@ QList<NetworkManager::Settings::Connection*> NetworkManager::Settings::SettingsP
 
 NetworkManager::Settings::Connection * NetworkManager::Settings::SettingsPrivate::findConnectionByUuid(const QString & uuid)
 {
-    QList<NetworkManager::Settings::Connection*> list;
     QMap<QString, Connection*>::const_iterator i;
     for (i = connections.constBegin(); i != connections.constEnd(); ++i) {
         NetworkManager::Settings::Connection * connection = findRegisteredConnection(i.key());
