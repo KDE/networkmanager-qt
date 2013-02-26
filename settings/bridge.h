@@ -31,51 +31,51 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class BridgeSettingPrivate;
+class BridgeSettingPrivate;
 
-    class NMQT_EXPORT BridgeSetting : public Setting
-    {
+class NMQT_EXPORT BridgeSetting : public Setting
+{
     Q_DECLARE_PRIVATE(BridgeSetting)
-    public:
-        BridgeSetting();
-        BridgeSetting(BridgeSetting *);
-        ~BridgeSetting();
+public:
+    BridgeSetting();
+    BridgeSetting(BridgeSetting *);
+    ~BridgeSetting();
 
-        QString name() const;
+    QString name() const;
 
-        void setInterfaceName(const QString & name);
-        QString interfaceName() const;
+    void setInterfaceName(const QString & name);
+    QString interfaceName() const;
 
-        void setStp(bool enabled);
-        bool stp() const;
+    void setStp(bool enabled);
+    bool stp() const;
 
-        void setPriority(quint16 priority);
-        quint16 priority() const;
+    void setPriority(quint16 priority);
+    quint16 priority() const;
 
-        void setForwardDelay(quint16 delay);
-        quint16 forwardDelay() const;
+    void setForwardDelay(quint16 delay);
+    quint16 forwardDelay() const;
 
-        void setHelloTime(quint16 time);
-        quint16 helloTime() const;
+    void setHelloTime(quint16 time);
+    quint16 helloTime() const;
 
-        void setMaxAge(quint16 age);
-        quint16 maxAge() const;
+    void setMaxAge(quint16 age);
+    quint16 maxAge() const;
 
-        void setAgeintTime(quint32 time);
-        quint32 ageintTime() const;
+    void setAgeintTime(quint32 time);
+    quint32 ageintTime() const;
 
-        bool hasSecrets() const;
+    bool hasSecrets() const;
 
-        void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-        //FOR DEBUG
-        void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    private:
-        BridgeSettingPrivate * d_ptr;
-    };
+private:
+    BridgeSettingPrivate * d_ptr;
+};
 }
 }
 

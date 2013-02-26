@@ -30,49 +30,49 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class SettingPrivate;
+class SettingPrivate;
 
-    class NMQT_EXPORT Setting
-    {
-    Q_DECLARE_PRIVATE(Setting);
-    public:
-	enum SettingType {Adsl, Cdma, Gsm, Infiniband, Ipv4, Ipv6, Ppp, Pppoe, Security8021x, Serial,
-			   Vpn, Wired, Wireless, WirelessSecurity, Bluetooth, OlpcMesh, Vlan, Wimax, Bond, Bridge, BridgePort};
-        enum SecretFlagType {None = 0, AgentOwned = 0x01, NotSaved = 0x02, NotRequired = 0x04};
+class NMQT_EXPORT Setting
+{
+    Q_DECLARE_PRIVATE(Setting)
+public:
+    enum SettingType {Adsl, Cdma, Gsm, Infiniband, Ipv4, Ipv6, Ppp, Pppoe, Security8021x, Serial,
+                      Vpn, Wired, Wireless, WirelessSecurity, Bluetooth, OlpcMesh, Vlan, Wimax, Bond, Bridge, BridgePort};
+    enum SecretFlagType {None = 0, AgentOwned = 0x01, NotSaved = 0x02, NotRequired = 0x04};
 
-        static QString typeAsString(SettingType type);
-	static SettingType typeFromString(const QString & type);
+    static QString typeAsString(SettingType type);
+    static SettingType typeFromString(const QString & type);
 
-	Setting(SettingType type);
-	Setting(Setting * setting);
-	virtual ~Setting();
+    Setting(SettingType type);
+    Setting(Setting * setting);
+    virtual ~Setting();
 
-	virtual void fromMap(const QVariantMap & map) = 0;
+    virtual void fromMap(const QVariantMap & map) = 0;
 
-        virtual QVariantMap toMap() const = 0;
+    virtual QVariantMap toMap() const = 0;
 
-        virtual bool hasSecrets() const;
+    virtual bool hasSecrets() const;
 
-        virtual void secretsFromMap(const QVariantMap & map);
+    virtual void secretsFromMap(const QVariantMap & map);
 
-        virtual QVariantMap secretsToMap() const;
+    virtual QVariantMap secretsToMap() const;
 
-        virtual QStringList needSecrets(bool requestNew = false) const;
+    virtual QStringList needSecrets(bool requestNew = false) const;
 
-        virtual QString name() const = 0;
+    virtual QString name() const = 0;
 
-	void setInitialized(bool initialized);
+    void setInitialized(bool initialized);
 
-	bool isNull() const;
+    bool isNull() const;
 
-	void setType(SettingType type);
-	SettingType type() const;
+    void setType(SettingType type);
+    SettingType type() const;
 
-	//FOR DEBUG
-	virtual void printSetting();
-    private:
-	SettingPrivate * d_ptr;
-    };
+    //FOR DEBUG
+    virtual void printSetting();
+private:
+    SettingPrivate * d_ptr;
+};
 }
 }
 

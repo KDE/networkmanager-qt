@@ -30,47 +30,47 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class SerialSettingPrivate;
+class SerialSettingPrivate;
 
-    class NMQT_EXPORT SerialSetting : public Setting
-    {
+class NMQT_EXPORT SerialSetting : public Setting
+{
     Q_DECLARE_PRIVATE(SerialSetting)
-    public:
-        enum Parity {NoParity, EvenParity, OddParity};
+public:
+    enum Parity {NoParity, EvenParity, OddParity};
 
-        SerialSetting();
-        SerialSetting(SerialSetting *);
-        ~SerialSetting();
+    SerialSetting();
+    SerialSetting(SerialSetting *);
+    ~SerialSetting();
 
-        QString name() const;
+    QString name() const;
 
-        void setBaud(quint32 speed);
-        quint32 baud() const;
+    void setBaud(quint32 speed);
+    quint32 baud() const;
 
-        void setBits(quint32 byteWidth);
-        quint32 bits() const;
+    void setBits(quint32 byteWidth);
+    quint32 bits() const;
 
-        void setParity(Parity paritysetting);
-        Parity parity() const;
+    void setParity(Parity paritysetting);
+    Parity parity() const;
 
-        void setStopbits(quint32 number);
-        quint32 stopbits() const;
+    void setStopbits(quint32 number);
+    quint32 stopbits() const;
 
-        void setSendDelay(quint64 delay);
-        quint64 sendDelay() const;
+    void setSendDelay(quint64 delay);
+    quint64 sendDelay() const;
 
-        bool hasSecrets() const;
+    bool hasSecrets() const;
 
-        void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-        //FOR DEBUG
-        void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    private:
-        SerialSettingPrivate * d_ptr;
-    };
+private:
+    SerialSettingPrivate * d_ptr;
+};
 
 }
 }

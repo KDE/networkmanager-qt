@@ -239,26 +239,26 @@ QVariantMap NetworkManager::Settings::AdslSetting::toMap() const
 
     if (protocol() != UnknownProtocol) {
         switch (protocol()) {
-            case Pppoa:
-                setting.insert(QLatin1String(NM_SETTING_ADSL_PROTOCOL), QLatin1String(NM_SETTING_ADSL_PROTOCOL_PPPOA));
-                break;
-            case Pppoe:
-                setting.insert(QLatin1String(NM_SETTING_ADSL_PROTOCOL), QLatin1String(NM_SETTING_ADSL_PROTOCOL_PPPOE));
-                break;
-            case Ipoatm:
-                setting.insert(QLatin1String(NM_SETTING_ADSL_PROTOCOL), QLatin1String(NM_SETTING_ADSL_PROTOCOL_IPOATM));
-                break;
+        case Pppoa:
+            setting.insert(QLatin1String(NM_SETTING_ADSL_PROTOCOL), QLatin1String(NM_SETTING_ADSL_PROTOCOL_PPPOA));
+            break;
+        case Pppoe:
+            setting.insert(QLatin1String(NM_SETTING_ADSL_PROTOCOL), QLatin1String(NM_SETTING_ADSL_PROTOCOL_PPPOE));
+            break;
+        case Ipoatm:
+            setting.insert(QLatin1String(NM_SETTING_ADSL_PROTOCOL), QLatin1String(NM_SETTING_ADSL_PROTOCOL_IPOATM));
+            break;
         }
     }
 
     if (encapsulation() != UnknownEncapsulation) {
         switch (encapsulation()) {
-            case Vcmux:
-                setting.insert(QLatin1String(NM_SETTING_ADSL_ENCAPSULATION), QLatin1String(NM_SETTING_ADSL_ENCAPSULATION_VCMUX));
-                break;
-            case Llc:
-                setting.insert(QLatin1String(NM_SETTING_ADSL_ENCAPSULATION), QLatin1String(NM_SETTING_ADSL_ENCAPSULATION_LLC));
-                break;
+        case Vcmux:
+            setting.insert(QLatin1String(NM_SETTING_ADSL_ENCAPSULATION), QLatin1String(NM_SETTING_ADSL_ENCAPSULATION_VCMUX));
+            break;
+        case Llc:
+            setting.insert(QLatin1String(NM_SETTING_ADSL_ENCAPSULATION), QLatin1String(NM_SETTING_ADSL_ENCAPSULATION_LLC));
+            break;
         }
     }
 

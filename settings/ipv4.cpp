@@ -332,7 +332,7 @@ void NetworkManager::Settings::Ipv4Setting::fromMap(const QVariantMap& setting)
 
         foreach(const QList<uint> & uintList, temp) {
             if (uintList.count() != 4) {
-              continue;
+                continue;
             }
 
             NetworkManager::IPv4Route route((quint32)ntohl(uintList.at(0)), (quint32)uintList.at(1), (quint32)ntohl(uintList.at(2)), (quint32)uintList.at(3));
@@ -410,8 +410,8 @@ QVariantMap NetworkManager::Settings::Ipv4Setting::toMap() const
         foreach (const NetworkManager::IPv4Address & addr, addresses()) {
             QList<uint> dbusAddress;
             dbusAddress << htonl(addr.address())
-                << addr.netMask()
-                << htonl(addr.gateway());
+                        << addr.netMask()
+                        << htonl(addr.gateway());
             dbusAddresses << dbusAddress;
         }
 
@@ -423,9 +423,9 @@ QVariantMap NetworkManager::Settings::Ipv4Setting::toMap() const
         foreach (const NetworkManager::IPv4Route & route, routes()) {
             QList<uint> dbusRoute;
             dbusRoute << htonl(route.route())
-                << route.prefix()
-                << htonl(route.nextHop())
-                << route.metric();
+                      << route.prefix()
+                      << htonl(route.nextHop())
+                      << route.metric();
             dbusRoutes << dbusRoute;
         }
 

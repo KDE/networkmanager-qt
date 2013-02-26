@@ -239,72 +239,72 @@ bool NetworkManager::Settings::WiredSetting::hasSecrets() const
 void NetworkManager::Settings::WiredSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_PORT))) {
-	QString port = setting.value(QLatin1String(NM_SETTING_WIRED_PORT)).toString();
+        QString port = setting.value(QLatin1String(NM_SETTING_WIRED_PORT)).toString();
 
-	if (port == "tp") {
-	    setPort(Tp);
-	} else if (port == "aui") {
-	    setPort(Aui);
-	} else if (port == "bnc") {
-	    setPort(Bnc);
-	} else if (port == "mii") {
-	    setPort(Mii);
-	}
+        if (port == "tp") {
+            setPort(Tp);
+        } else if (port == "aui") {
+            setPort(Aui);
+        } else if (port == "bnc") {
+            setPort(Bnc);
+        } else if (port == "mii") {
+            setPort(Mii);
+        }
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_SPEED))) {
-	setSpeed(setting.value(QLatin1String(NM_SETTING_WIRED_SPEED)).toUInt());
+        setSpeed(setting.value(QLatin1String(NM_SETTING_WIRED_SPEED)).toUInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_DUPLEX))) {
-	QString duplex = setting.value(QLatin1String(NM_SETTING_WIRED_DUPLEX)).toString();
+        QString duplex = setting.value(QLatin1String(NM_SETTING_WIRED_DUPLEX)).toString();
 
-	if (duplex == "half") {
-	    setDuplexType(Half);
-	} else if (duplex == "full") {
+        if (duplex == "half") {
+            setDuplexType(Half);
+        } else if (duplex == "full") {
             setDuplexType(Full);
-	}
+        }
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_AUTO_NEGOTIATE))) {
-	setAutoNegotiate(setting.value(QLatin1String(NM_SETTING_WIRED_AUTO_NEGOTIATE)).toBool());
+        setAutoNegotiate(setting.value(QLatin1String(NM_SETTING_WIRED_AUTO_NEGOTIATE)).toBool());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS))) {
-	setMacAddress(setting.value(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS)).toByteArray());
+        setMacAddress(setting.value(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS)).toByteArray());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_CLONED_MAC_ADDRESS))) {
-	setClonedMacAddress(setting.value(QLatin1String(NM_SETTING_WIRED_CLONED_MAC_ADDRESS)).toByteArray());
+        setClonedMacAddress(setting.value(QLatin1String(NM_SETTING_WIRED_CLONED_MAC_ADDRESS)).toByteArray());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST))) {
-	setMacAddressBlacklist(setting.value(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST)).toStringList());
+        setMacAddressBlacklist(setting.value(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST)).toStringList());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_MTU))) {
-	setMtu(setting.value(QLatin1String(NM_SETTING_WIRED_MTU)).toUInt());
+        setMtu(setting.value(QLatin1String(NM_SETTING_WIRED_MTU)).toUInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_S390_SUBCHANNELS))) {
-	setS390Subchannels(setting.value(QLatin1String(NM_SETTING_WIRED_S390_SUBCHANNELS)).toStringList());
+        setS390Subchannels(setting.value(QLatin1String(NM_SETTING_WIRED_S390_SUBCHANNELS)).toStringList());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE))) {
-	QString nettype = setting.value(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE)).toString();
+        QString nettype = setting.value(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE)).toString();
 
-	if (nettype == "qeth") {
-	    setS390NetType(Qeth);
-	} else if (nettype == "lcs") {
-	    setS390NetType(Lcs);
-	} else if (nettype == "ctc") {
-	    setS390NetType(Ctc);
-	}
+        if (nettype == "qeth") {
+            setS390NetType(Qeth);
+        } else if (nettype == "lcs") {
+            setS390NetType(Lcs);
+        } else if (nettype == "ctc") {
+            setS390NetType(Ctc);
+        }
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS))) {
         QMap<QString, QString> tmp;
-	if (setting.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).canConvert<QDBusArgument>()) {
+        if (setting.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).canConvert<QDBusArgument>()) {
             QDBusArgument arg = setting.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).value<QDBusArgument>();
             tmp = qdbus_cast<QStringMap>(arg);
         } else {
@@ -319,18 +319,18 @@ QVariantMap NetworkManager::Settings::WiredSetting::toMap() const
     QVariantMap setting;
 
     switch (port()) {
-        case Tp:
-            setting.insert(QLatin1String(NM_SETTING_WIRED_PORT), "tp");
-            break;
-        case Aui:
-            setting.insert(QLatin1String(NM_SETTING_WIRED_PORT), "aui");
-            break;
-        case Bnc:
-            setting.insert(QLatin1String(NM_SETTING_WIRED_PORT), "bnc");
-            break;
-        case Mii:
-            setting.insert(QLatin1String(NM_SETTING_WIRED_PORT), "mii");
-            break;
+    case Tp:
+        setting.insert(QLatin1String(NM_SETTING_WIRED_PORT), "tp");
+        break;
+    case Aui:
+        setting.insert(QLatin1String(NM_SETTING_WIRED_PORT), "aui");
+        break;
+    case Bnc:
+        setting.insert(QLatin1String(NM_SETTING_WIRED_PORT), "bnc");
+        break;
+    case Mii:
+        setting.insert(QLatin1String(NM_SETTING_WIRED_PORT), "mii");
+        break;
     }
 
     if (speed()) {
@@ -338,12 +338,12 @@ QVariantMap NetworkManager::Settings::WiredSetting::toMap() const
     }
 
     switch (duplexType()) {
-        case Half:
-            setting.insert(QLatin1String(NM_SETTING_WIRED_DUPLEX), "half");
-            break;
-        case Full:
-            setting.insert(QLatin1String(NM_SETTING_WIRED_DUPLEX), "full");
-            break;
+    case Half:
+        setting.insert(QLatin1String(NM_SETTING_WIRED_DUPLEX), "half");
+        break;
+    case Full:
+        setting.insert(QLatin1String(NM_SETTING_WIRED_DUPLEX), "full");
+        break;
     }
 
     if (!autoNegotiate()) {
@@ -367,15 +367,15 @@ QVariantMap NetworkManager::Settings::WiredSetting::toMap() const
     }
 
     switch (s390NetType()) {
-        case Qeth:
-            setting.insert(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE), "qeth");
-            break;
-        case Lcs:
-            setting.insert(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE), "lcs");
-            break;
-        case Ctc:
-            setting.insert(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE), "ctc");
-            break;
+    case Qeth:
+        setting.insert(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE), "qeth");
+        break;
+    case Lcs:
+        setting.insert(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE), "lcs");
+        break;
+    case Ctc:
+        setting.insert(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE), "ctc");
+        break;
     }
 
     if (!s390Options().isEmpty()) {

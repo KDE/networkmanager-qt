@@ -30,84 +30,84 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class PppSettingPrivate;
+class PppSettingPrivate;
 
-    class NMQT_EXPORT PppSetting : public Setting
-    {
+class NMQT_EXPORT PppSetting : public Setting
+{
     Q_DECLARE_PRIVATE(PppSetting)
-    public:
-        PppSetting();
-        PppSetting(PppSetting *);
-        ~PppSetting();
+public:
+    PppSetting();
+    PppSetting(PppSetting *);
+    ~PppSetting();
 
-        QString name() const;
+    QString name() const;
 
-        void setNoAuth(bool require);
-        bool noAuth() const;
+    void setNoAuth(bool require);
+    bool noAuth() const;
 
-        void setRefuseEap(bool refuse);
-        bool refuseEap() const;
+    void setRefuseEap(bool refuse);
+    bool refuseEap() const;
 
-        void setRefusePap(bool refuse);
-        bool refusePap() const;
+    void setRefusePap(bool refuse);
+    bool refusePap() const;
 
-        void setRefuseChap(bool refuse);
-        bool refuseChap() const;
+    void setRefuseChap(bool refuse);
+    bool refuseChap() const;
 
-        void setRefuseMschap(bool refuse);
-        bool refuseMschap() const;
+    void setRefuseMschap(bool refuse);
+    bool refuseMschap() const;
 
-        void setRefuseMschapv2(bool refuse);
-        bool refuseMschapv2() const;
+    void setRefuseMschapv2(bool refuse);
+    bool refuseMschapv2() const;
 
-        void setNoBsdComp(bool require);
-        bool noBsdComp() const;
+    void setNoBsdComp(bool require);
+    bool noBsdComp() const;
 
-        void setNoDeflate(bool require);
-        bool noDeflate() const;
+    void setNoDeflate(bool require);
+    bool noDeflate() const;
 
-        void setNoVjComp(bool require);
-        bool noVjComp() const;
+    void setNoVjComp(bool require);
+    bool noVjComp() const;
 
-        void setRequireMppe(bool require);
-        bool requireMppe() const;
+    void setRequireMppe(bool require);
+    bool requireMppe() const;
 
-        void setRequireMppe128(bool require);
-        bool requireMppe128() const;
+    void setRequireMppe128(bool require);
+    bool requireMppe128() const;
 
-        void setMppeStateful(bool used);
-        bool mppeStateful() const;
+    void setMppeStateful(bool used);
+    bool mppeStateful() const;
 
-        void setCRtsCts(bool control);
-        bool cRtsCts() const;
+    void setCRtsCts(bool control);
+    bool cRtsCts() const;
 
-        void setBaud(quint32 baud);
-        quint32 baud() const;
+    void setBaud(quint32 baud);
+    quint32 baud() const;
 
-        void setMru(quint32 mru);
-        quint32 mru() const;
+    void setMru(quint32 mru);
+    quint32 mru() const;
 
-        void setMtu(quint32 mtu);
-        quint32 mtu() const;
+    void setMtu(quint32 mtu);
+    quint32 mtu() const;
 
-        void setLcpEchoFailure(quint32 number);
-        quint32 lcpEchoFailure() const;
+    void setLcpEchoFailure(quint32 number);
+    quint32 lcpEchoFailure() const;
 
-        void setLcpEchoInterval(quint32 interval);
-        quint32 lcpEchoInterval() const;
+    void setLcpEchoInterval(quint32 interval);
+    quint32 lcpEchoInterval() const;
 
-        bool hasSecrets() const;
+    bool hasSecrets() const;
 
-        void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-        //FOR DEBUG
-        void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    private:
-        PppSettingPrivate * d_ptr;
-    };
+private:
+    PppSettingPrivate * d_ptr;
+};
 
 }
 }

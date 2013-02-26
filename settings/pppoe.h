@@ -30,46 +30,46 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class PppoeSettingPrivate;
+class PppoeSettingPrivate;
 
-    class NMQT_EXPORT PppoeSetting : public Setting
-    {
+class NMQT_EXPORT PppoeSetting : public Setting
+{
     Q_DECLARE_PRIVATE(PppoeSetting)
-    public:
-        PppoeSetting();
-        PppoeSetting(PppoeSetting *);
-        ~PppoeSetting();
+public:
+    PppoeSetting();
+    PppoeSetting(PppoeSetting *);
+    ~PppoeSetting();
 
-        QString name() const;
+    QString name() const;
 
-        void setService(const QString & service);
-        QString service() const;
+    void setService(const QString & service);
+    QString service() const;
 
-        void setUsername(const QString & username);
-        QString username() const;
+    void setUsername(const QString & username);
+    QString username() const;
 
-        void setPassword(const QString & password);
-        QString password() const;
+    void setPassword(const QString & password);
+    QString password() const;
 
-        void setPasswordFlags(Setting::SecretFlagType flags);
-        Setting::SecretFlagType passwordFlags() const;
+    void setPasswordFlags(Setting::SecretFlagType flags);
+    Setting::SecretFlagType passwordFlags() const;
 
-        QStringList needSecrets(bool requestNew = false) const;
+    QStringList needSecrets(bool requestNew = false) const;
 
-        void secretsFromMap(const QVariantMap & secrets);
+    void secretsFromMap(const QVariantMap & secrets);
 
-        QVariantMap secretsToMap() const;
+    QVariantMap secretsToMap() const;
 
-        void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-        //FOR DEBUG
-        void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    private:
-        PppoeSettingPrivate * d_ptr;
-    };
+private:
+    PppoeSettingPrivate * d_ptr;
+};
 
 }
 }

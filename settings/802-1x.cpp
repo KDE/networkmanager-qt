@@ -566,11 +566,11 @@ QStringList NetworkManager::Settings::Security8021xSetting::needSecrets(bool req
     QStringList secrets;
 
     if (eapMethods().contains(EapMethodTls) && (privateKeyPassword().isEmpty() || requestNew) &&
-               privateKeyPasswordFlags() != NotRequired) {
+            privateKeyPasswordFlags() != NotRequired) {
         secrets << QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD);
     } else if ((eapMethods().contains(EapMethodTtls) || eapMethods().contains(EapMethodPeap) ||
                 eapMethods().contains(EapMethodLeap) || eapMethods().contains(EapMethodFast)) &&
-                (password().isEmpty() || requestNew) && passwordFlags() != NotRequired) {
+               (password().isEmpty() || requestNew) && passwordFlags() != NotRequired) {
         secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD);
         secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW);
     } else if (eapMethods().contains(EapMethodSim) && (pin().isEmpty() || requestNew) && pinFlags() != NotRequired) {
@@ -578,7 +578,7 @@ QStringList NetworkManager::Settings::Security8021xSetting::needSecrets(bool req
     }
 
     if ((phase2AuthMethod() == AuthMethodTls || phase2AuthEapMethod() == AuthEapMethodTls) &&
-        (phase2PrivateKeyPassword().isEmpty() || requestNew) && phase2PrivateKeyPasswordFlags() != NotRequired) {
+            (phase2PrivateKeyPassword().isEmpty() || requestNew) && phase2PrivateKeyPasswordFlags() != NotRequired) {
         secrets << QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD);
     }
 
@@ -898,12 +898,12 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
         QString version;
 
         switch (phase1PeapVersion()) {
-            case PeapVersionZero:
-                version = "0";
-                break;
-            case PeapVersionOne:
-                version = "1";
-                break;
+        case PeapVersionZero:
+            version = "0";
+            break;
+        case PeapVersionOne:
+            version = "1";
+            break;
         }
 
         setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPVER), version);
@@ -917,18 +917,18 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
         QString provisioning;
 
         switch (phase1FastProvisioning()) {
-            case FastProvisioningDisabled:
-                provisioning = "0";
-                break;
-            case FastProvisioningAllowUnauthenticated:
-                provisioning = "1";
-                break;
-            case FastProvisioningAllowAuthenticated:
-                provisioning = "2";
-                break;
-            case FastProvisioningAllowBoth:
-                provisioning = "3";
-                break;
+        case FastProvisioningDisabled:
+            provisioning = "0";
+            break;
+        case FastProvisioningAllowUnauthenticated:
+            provisioning = "1";
+            break;
+        case FastProvisioningAllowAuthenticated:
+            provisioning = "2";
+            break;
+        case FastProvisioningAllowBoth:
+            provisioning = "3";
+            break;
         }
 
         setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE1_FAST_PROVISIONING), provisioning);
@@ -938,30 +938,30 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
         QString authMethod;
 
         switch (phase2AuthMethod()) {
-            case AuthMethodPap:
-                authMethod = "pap";
-                break;
-            case AuthMethodChap:
-                authMethod = "chap";
-                break;
-            case AuthMethodMschap:
-                authMethod = "mschap";
-                break;
-            case AuthMethodMschapv2:
-                authMethod = "mschapv2";
-                break;
-            case AuthMethodGtc:
-                authMethod = "gtc";
-                break;
-            case AuthMethodOtp:
-                authMethod = "otp";
-                break;
-            case AuthMethodMd5:
-                authMethod = "md5";
-                break;
-            case AuthMethodTls:
-                authMethod = "tls";
-                break;
+        case AuthMethodPap:
+            authMethod = "pap";
+            break;
+        case AuthMethodChap:
+            authMethod = "chap";
+            break;
+        case AuthMethodMschap:
+            authMethod = "mschap";
+            break;
+        case AuthMethodMschapv2:
+            authMethod = "mschapv2";
+            break;
+        case AuthMethodGtc:
+            authMethod = "gtc";
+            break;
+        case AuthMethodOtp:
+            authMethod = "otp";
+            break;
+        case AuthMethodMd5:
+            authMethod = "md5";
+            break;
+        case AuthMethodTls:
+            authMethod = "tls";
+            break;
         }
 
         setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTH), authMethod);
@@ -971,21 +971,21 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
         QString authEapMethod;
 
         switch (phase2AuthEapMethod()) {
-            case AuthEapMethodMd5:
-                authEapMethod = "md5";
-                break;
-            case AuthEapMethodMschapv2:
-                authEapMethod = "mschapv2";
-                break;
-            case AuthEapMethodOtp:
-                authEapMethod = "otp";
-                break;
-            case AuthEapMethodGtc:
-                authEapMethod = "gtc";
-                break;
-            case AuthEapMethodTls:
-                authEapMethod = "tls";
-                break;
+        case AuthEapMethodMd5:
+            authEapMethod = "md5";
+            break;
+        case AuthEapMethodMschapv2:
+            authEapMethod = "mschapv2";
+            break;
+        case AuthEapMethodOtp:
+            authEapMethod = "otp";
+            break;
+        case AuthEapMethodGtc:
+            authEapMethod = "gtc";
+            break;
+        case AuthEapMethodTls:
+            authEapMethod = "tls";
+            break;
         }
 
         setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTHEAP), authEapMethod);

@@ -31,36 +31,36 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class WimaxSettingPrivate;
+class WimaxSettingPrivate;
 
-    class NMQT_EXPORT WimaxSetting : public Setting
-    {
+class NMQT_EXPORT WimaxSetting : public Setting
+{
     Q_DECLARE_PRIVATE(WimaxSetting)
-    public:
-        WimaxSetting();
-        WimaxSetting(WimaxSetting *);
-        ~WimaxSetting();
+public:
+    WimaxSetting();
+    WimaxSetting(WimaxSetting *);
+    ~WimaxSetting();
 
-        QString name() const;
+    QString name() const;
 
-        void setNetworkName(const QString & name);
-        QString networkName() const;
+    void setNetworkName(const QString & name);
+    QString networkName() const;
 
-        void setMacAddress(const QByteArray & address);
-        QByteArray macAddress() const;
+    void setMacAddress(const QByteArray & address);
+    QByteArray macAddress() const;
 
-        bool hasSecrets() const;
+    bool hasSecrets() const;
 
-        void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-        //FOR DEBUG
-        void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    private:
-        WimaxSettingPrivate * d_ptr;
-    };
+private:
+    WimaxSettingPrivate * d_ptr;
+};
 }
 }
 

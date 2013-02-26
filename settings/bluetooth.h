@@ -30,38 +30,38 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class BluetoothSettingPrivate;
+class BluetoothSettingPrivate;
 
-    class NMQT_EXPORT BluetoothSetting : public Setting
-    {
+class NMQT_EXPORT BluetoothSetting : public Setting
+{
     Q_DECLARE_PRIVATE(BluetoothSetting)
-    public:
-        enum Type {Unknown = 0, Dun, Panu};
+public:
+    enum Type {Unknown = 0, Dun, Panu};
 
-        BluetoothSetting();
-        BluetoothSetting(BluetoothSetting * setting);
-        ~BluetoothSetting();
+    BluetoothSetting();
+    BluetoothSetting(BluetoothSetting * setting);
+    ~BluetoothSetting();
 
-        QString name() const;
+    QString name() const;
 
-        void setBluetoothAddress(const QByteArray & address);
-        QByteArray bluetoothAddress() const;
+    void setBluetoothAddress(const QByteArray & address);
+    QByteArray bluetoothAddress() const;
 
-        void setType(Type type);
-        Type type() const;
+    void setType(Type type);
+    Type type() const;
 
-        bool hasSecrets() const;
+    bool hasSecrets() const;
 
-        void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-        //FOR DEBUG
-        void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    private:
-        BluetoothSettingPrivate * d_ptr;
-    };
+private:
+    BluetoothSettingPrivate * d_ptr;
+};
 
 }
 }

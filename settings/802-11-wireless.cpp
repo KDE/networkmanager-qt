@@ -284,71 +284,71 @@ bool NetworkManager::Settings::WirelessSetting::hasSecrets() const
 void NetworkManager::Settings::WirelessSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_SSID))) {
-	setSsid(setting.value(QLatin1String(NM_SETTING_WIRELESS_SSID)).toByteArray());
+        setSsid(setting.value(QLatin1String(NM_SETTING_WIRELESS_SSID)).toByteArray());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_MODE))) {
-	QString mode = setting.value(QLatin1String(NM_SETTING_WIRELESS_MODE)).toString();
-	if (mode == QLatin1String(NM_SETTING_WIRELESS_MODE_INFRA)) {
-	    setMode(Infrastructure);
-	} else if (mode == QLatin1String(NM_SETTING_WIRELESS_MODE_ADHOC)) {
-	    setMode(Adhoc);
-	} else if (mode == QLatin1String(NM_SETTING_WIRELESS_MODE_AP)) {
+        QString mode = setting.value(QLatin1String(NM_SETTING_WIRELESS_MODE)).toString();
+        if (mode == QLatin1String(NM_SETTING_WIRELESS_MODE_INFRA)) {
+            setMode(Infrastructure);
+        } else if (mode == QLatin1String(NM_SETTING_WIRELESS_MODE_ADHOC)) {
+            setMode(Adhoc);
+        } else if (mode == QLatin1String(NM_SETTING_WIRELESS_MODE_AP)) {
             setMode(Ap);
         }
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_BAND))) {
-	QString band = setting.value(QLatin1String(NM_SETTING_WIRELESS_BAND)).toString();
-	if (band == "a") {
-	    setBand(A);
-	} else if (band == "bg") {
-	    setBand(Bg);
-	}
+        QString band = setting.value(QLatin1String(NM_SETTING_WIRELESS_BAND)).toString();
+        if (band == "a") {
+            setBand(A);
+        } else if (band == "bg") {
+            setBand(Bg);
+        }
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_CHANNEL))) {
-	setChannel(setting.value(QLatin1String(NM_SETTING_WIRELESS_CHANNEL)).toUInt());
+        setChannel(setting.value(QLatin1String(NM_SETTING_WIRELESS_CHANNEL)).toUInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_BSSID))) {
-	setBssid(setting.value(QLatin1String(NM_SETTING_WIRELESS_BSSID)).toByteArray());
+        setBssid(setting.value(QLatin1String(NM_SETTING_WIRELESS_BSSID)).toByteArray());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_RATE))) {
-	setRate(setting.value(QLatin1String(NM_SETTING_WIRELESS_RATE)).toUInt());
+        setRate(setting.value(QLatin1String(NM_SETTING_WIRELESS_RATE)).toUInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_TX_POWER))) {
-	setTxPower(setting.value(QLatin1String(NM_SETTING_WIRELESS_TX_POWER)).toUInt());
+        setTxPower(setting.value(QLatin1String(NM_SETTING_WIRELESS_TX_POWER)).toUInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS))) {
-	setMacAddress(setting.value(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS)).toByteArray());
+        setMacAddress(setting.value(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS)).toByteArray());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS))) {
-	setClonedMacAddress(setting.value(QLatin1String(NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS)).toByteArray());
+        setClonedMacAddress(setting.value(QLatin1String(NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS)).toByteArray());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_BLACKLIST))) {
-	setMacAddressBlacklist(setting.value(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_BLACKLIST)).toStringList());
+        setMacAddressBlacklist(setting.value(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_BLACKLIST)).toStringList());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_MTU))) {
-	setMtu(setting.value(QLatin1String(NM_SETTING_WIRELESS_MTU)).toUInt());
+        setMtu(setting.value(QLatin1String(NM_SETTING_WIRELESS_MTU)).toUInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_SEEN_BSSIDS))) {
-	setSeenBssids(setting.value(QLatin1String(NM_SETTING_WIRELESS_SEEN_BSSIDS)).toStringList());
+        setSeenBssids(setting.value(QLatin1String(NM_SETTING_WIRELESS_SEEN_BSSIDS)).toStringList());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_SEC))) {
-	setSecurity(setting.value(QLatin1String(NM_SETTING_WIRELESS_SEC)).toString());
+        setSecurity(setting.value(QLatin1String(NM_SETTING_WIRELESS_SEC)).toString());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_HIDDEN))) {
-	setHidden(setting.value(QLatin1String(NM_SETTING_WIRELESS_HIDDEN)).toBool());
+        setHidden(setting.value(QLatin1String(NM_SETTING_WIRELESS_HIDDEN)).toBool());
     }
 }
 

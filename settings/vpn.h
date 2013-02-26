@@ -31,42 +31,42 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class VpnSettingPrivate;
+class VpnSettingPrivate;
 
-    class NMQT_EXPORT VpnSetting : public Setting
-    {
+class NMQT_EXPORT VpnSetting : public Setting
+{
     Q_DECLARE_PRIVATE(VpnSetting)
-    public:
-        VpnSetting();
-        VpnSetting(VpnSetting *);
-        ~VpnSetting();
+public:
+    VpnSetting();
+    VpnSetting(VpnSetting *);
+    ~VpnSetting();
 
-        QString name() const;
+    QString name() const;
 
-        void setServiceType(const QString & type);
-        QString serviceType() const;
+    void setServiceType(const QString & type);
+    QString serviceType() const;
 
-        void setUsername(const QString & username);
-        QString username() const;
+    void setUsername(const QString & username);
+    QString username() const;
 
-        void setData(const QStringMap & data);
-        QStringMap data() const;
+    void setData(const QStringMap & data);
+    QStringMap data() const;
 
-        void setSecrets(const QStringMap & secrets);
-        QStringMap secrets() const;
+    void setSecrets(const QStringMap & secrets);
+    QStringMap secrets() const;
 
-        bool hasSecrets() const;
+    bool hasSecrets() const;
 
-        void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-        //FOR DEBUG
-        void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    private:
-        VpnSettingPrivate * d_ptr;
-    };
+private:
+    VpnSettingPrivate * d_ptr;
+};
 }
 }
 

@@ -30,50 +30,50 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class VlanSettingPrivate;
+class VlanSettingPrivate;
 
-    class NMQT_EXPORT VlanSetting : public Setting
-    {
+class NMQT_EXPORT VlanSetting : public Setting
+{
     Q_DECLARE_PRIVATE(VlanSetting)
-    public:
-        enum Flag {None = 0, ReorderHeaders = 0x1, Gvrp = 0x2, LooseBinding = 0x4};
+public:
+    enum Flag {None = 0, ReorderHeaders = 0x1, Gvrp = 0x2, LooseBinding = 0x4};
 
-        VlanSetting();
-        VlanSetting(VlanSetting *);
-        ~VlanSetting();
+    VlanSetting();
+    VlanSetting(VlanSetting *);
+    ~VlanSetting();
 
-        QString name() const;
+    QString name() const;
 
-        void setInterfaceName(const QString & name);
-        QString interfaceName() const;
+    void setInterfaceName(const QString & name);
+    QString interfaceName() const;
 
-        void setParent(const QString & parent);
-        QString parent() const;
+    void setParent(const QString & parent);
+    QString parent() const;
 
-        void setId(quint32 id);
-        quint32 id() const;
+    void setId(quint32 id);
+    quint32 id() const;
 
-        void setFlags(Flag flags);
-        Flag flags() const;
+    void setFlags(Flag flags);
+    Flag flags() const;
 
-        void setIngressPriorityMap(const QStringList & map);
-        QStringList ingressPriorityMap() const;
+    void setIngressPriorityMap(const QStringList & map);
+    QStringList ingressPriorityMap() const;
 
-        void setEgressPriorityMap(const QStringList & map);
-        QStringList egressPriorityMap() const;
+    void setEgressPriorityMap(const QStringList & map);
+    QStringList egressPriorityMap() const;
 
-        bool hasSecrets() const;
+    bool hasSecrets() const;
 
-        void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-        //FOR DEBUG
-        void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    private:
-        VlanSettingPrivate * d_ptr;
-    };
+private:
+    VlanSettingPrivate * d_ptr;
+};
 }
 }
 

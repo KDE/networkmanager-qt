@@ -31,39 +31,39 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class BridgePortSettingPrivate;
+class BridgePortSettingPrivate;
 
-    class NMQT_EXPORT BridgePortSetting : public Setting
-    {
+class NMQT_EXPORT BridgePortSetting : public Setting
+{
     Q_DECLARE_PRIVATE(BridgePortSetting)
-    public:
-        BridgePortSetting();
-        BridgePortSetting(BridgePortSetting *);
-        ~BridgePortSetting();
+public:
+    BridgePortSetting();
+    BridgePortSetting(BridgePortSetting *);
+    ~BridgePortSetting();
 
-        QString name() const;
+    QString name() const;
 
-        void setPriority(quint16 priority);
-        quint16 priority() const;
+    void setPriority(quint16 priority);
+    quint16 priority() const;
 
-        void setPathCost(quint16 cost);
-        quint16 pathCost() const;
+    void setPathCost(quint16 cost);
+    quint16 pathCost() const;
 
-        void setHairpinMode(bool enable);
-        bool hairpinMode() const;
+    void setHairpinMode(bool enable);
+    bool hairpinMode() const;
 
-        bool hasSecrets() const;
+    bool hasSecrets() const;
 
-        void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-        //FOR DEBUG
-        void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    private:
-        BridgePortSettingPrivate * d_ptr;
-    };
+private:
+    BridgePortSettingPrivate * d_ptr;
+};
 }
 }
 

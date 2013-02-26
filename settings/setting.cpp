@@ -45,14 +45,14 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class SettingPrivate
-    {
-    public:
-	SettingPrivate();
+class SettingPrivate
+{
+public:
+    SettingPrivate();
 
-	Setting::SettingType type;
-	bool initialized;
-    };
+    Setting::SettingType type;
+    bool initialized;
+};
 }
 }
 
@@ -66,59 +66,59 @@ QString NetworkManager::Settings::Setting::typeAsString(NetworkManager::Settings
     QString typeString;
 
     switch (type) {
-        case Cdma:
-            typeString = QLatin1String(NM_SETTING_CDMA_SETTING_NAME);
-            break;
-        case Gsm:
-            typeString = QLatin1String(NM_SETTING_GSM_SETTING_NAME);
-            break;
-        case Bluetooth:
-            typeString = QLatin1String(NM_SETTING_BLUETOOTH_SETTING_NAME);
-            break;
-        case Ipv4:
-            typeString = QLatin1String(NM_SETTING_IP4_CONFIG_SETTING_NAME);
-            break;
-        case Ipv6:
-            typeString = QLatin1String(NM_SETTING_IP6_CONFIG_SETTING_NAME);
-            break;
-        case Ppp:
-            typeString = QLatin1String(NM_SETTING_PPP_SETTING_NAME);
-            break;
-        case Pppoe:
-            typeString = QLatin1String(NM_SETTING_PPPOE_SETTING_NAME);
-            break;
-        case Security8021x:
-            typeString = QLatin1String(NM_SETTING_802_1X_SETTING_NAME);
-            break;
-        case Serial:
-            typeString = QLatin1String(NM_SETTING_SERIAL_SETTING_NAME);
-            break;
-        case Vpn:
-            typeString = QLatin1String(NM_SETTING_VPN_SETTING_NAME);
-            break;
-        case Wired:
-            typeString = QLatin1String(NM_SETTING_WIRED_SETTING_NAME);
-            break;
-        case Wireless:
-            typeString = QLatin1String(NM_SETTING_WIRELESS_SETTING_NAME);
-            break;
-        case WirelessSecurity:
-            typeString = QLatin1String(NM_SETTING_WIRELESS_SECURITY_SETTING_NAME);
-            break;
-	case OlpcMesh:
-	    typeString = QLatin1String(NM_SETTING_OLPC_MESH_SETTING_NAME);
-	    break;
-	case Vlan:
-	    typeString = QLatin1String(NM_SETTING_VLAN_SETTING_NAME);
-	    break;
-	case Wimax:
-	    typeString = QLatin1String(NM_SETTING_WIMAX_SETTING_NAME);
-	    break;
-	case Bond:
-	    typeString = QLatin1String(NM_SETTING_BOND_SETTING_NAME);
-	    break;
-        default:
-            break;
+    case Cdma:
+        typeString = QLatin1String(NM_SETTING_CDMA_SETTING_NAME);
+        break;
+    case Gsm:
+        typeString = QLatin1String(NM_SETTING_GSM_SETTING_NAME);
+        break;
+    case Bluetooth:
+        typeString = QLatin1String(NM_SETTING_BLUETOOTH_SETTING_NAME);
+        break;
+    case Ipv4:
+        typeString = QLatin1String(NM_SETTING_IP4_CONFIG_SETTING_NAME);
+        break;
+    case Ipv6:
+        typeString = QLatin1String(NM_SETTING_IP6_CONFIG_SETTING_NAME);
+        break;
+    case Ppp:
+        typeString = QLatin1String(NM_SETTING_PPP_SETTING_NAME);
+        break;
+    case Pppoe:
+        typeString = QLatin1String(NM_SETTING_PPPOE_SETTING_NAME);
+        break;
+    case Security8021x:
+        typeString = QLatin1String(NM_SETTING_802_1X_SETTING_NAME);
+        break;
+    case Serial:
+        typeString = QLatin1String(NM_SETTING_SERIAL_SETTING_NAME);
+        break;
+    case Vpn:
+        typeString = QLatin1String(NM_SETTING_VPN_SETTING_NAME);
+        break;
+    case Wired:
+        typeString = QLatin1String(NM_SETTING_WIRED_SETTING_NAME);
+        break;
+    case Wireless:
+        typeString = QLatin1String(NM_SETTING_WIRELESS_SETTING_NAME);
+        break;
+    case WirelessSecurity:
+        typeString = QLatin1String(NM_SETTING_WIRELESS_SECURITY_SETTING_NAME);
+        break;
+    case OlpcMesh:
+        typeString = QLatin1String(NM_SETTING_OLPC_MESH_SETTING_NAME);
+        break;
+    case Vlan:
+        typeString = QLatin1String(NM_SETTING_VLAN_SETTING_NAME);
+        break;
+    case Wimax:
+        typeString = QLatin1String(NM_SETTING_WIMAX_SETTING_NAME);
+        break;
+    case Bond:
+        typeString = QLatin1String(NM_SETTING_BOND_SETTING_NAME);
+        break;
+    default:
+        break;
     }
 
     return typeString;
@@ -155,13 +155,13 @@ NetworkManager::Settings::Setting::SettingType NetworkManager::Settings::Setting
     } else if (typeString == QLatin1String(NM_SETTING_WIRELESS_SECURITY_SETTING_NAME)) {
         type = WirelessSecurity;
     } else if (typeString == QLatin1String(NM_SETTING_OLPC_MESH_SETTING_NAME)) {
-	type = OlpcMesh;
+        type = OlpcMesh;
     } else if (typeString == QLatin1String(NM_SETTING_VLAN_SETTING_NAME)) {
-	type = Vlan;
+        type = Vlan;
     } else if (typeString == QLatin1String(NM_SETTING_WIMAX_SETTING_NAME)) {
-	type = Wimax;
+        type = Wimax;
     } else if (typeString == QLatin1String(NM_SETTING_BOND_SETTING_NAME)) {
-	type = Bond;
+        type = Bond;
     }
 
     return type;

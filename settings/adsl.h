@@ -31,54 +31,54 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class AdslSettingPrivate;
+class AdslSettingPrivate;
 
-    class NMQT_EXPORT AdslSetting : public Setting
-    {
+class NMQT_EXPORT AdslSetting : public Setting
+{
     Q_DECLARE_PRIVATE(AdslSetting)
-    public:
-        enum Protocol {UnknownProtocol = 0, Pppoa, Pppoe, Ipoatm};
-        enum Encapsulation {UnknownEncapsulation = 0, Vcmux, Llc};
+public:
+    enum Protocol {UnknownProtocol = 0, Pppoa, Pppoe, Ipoatm};
+    enum Encapsulation {UnknownEncapsulation = 0, Vcmux, Llc};
 
-        AdslSetting();
-        AdslSetting(AdslSetting *);
-        ~AdslSetting();
+    AdslSetting();
+    AdslSetting(AdslSetting *);
+    ~AdslSetting();
 
-        QString name() const;
+    QString name() const;
 
-        void setUsername(const QString & username);
-        QString username() const;
+    void setUsername(const QString & username);
+    QString username() const;
 
-        void setPassword(const QString & password);
-        QString password() const;
+    void setPassword(const QString & password);
+    QString password() const;
 
-        void setPasswordFlags(SecretFlagType flags);
-        SecretFlagType passwordFlags() const;
+    void setPasswordFlags(SecretFlagType flags);
+    SecretFlagType passwordFlags() const;
 
-        void setProtocol(Protocol protocol);
-        Protocol protocol() const;
+    void setProtocol(Protocol protocol);
+    Protocol protocol() const;
 
-        void setEncapsulation(Encapsulation encapsulation);
-        Encapsulation encapsulation() const;
+    void setEncapsulation(Encapsulation encapsulation);
+    Encapsulation encapsulation() const;
 
-        void setVpi(quint32 vpi);
-        quint32 vpi() const;
+    void setVpi(quint32 vpi);
+    quint32 vpi() const;
 
-        void setVci(quint32 vci);
-        quint32 vci() const;
+    void setVci(quint32 vci);
+    quint32 vci() const;
 
-        QStringList needSecrets(bool requestNew = false) const;
+    QStringList needSecrets(bool requestNew = false) const;
 
-        void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-        //FOR DEBUG
-        void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    private:
-        AdslSettingPrivate * d_ptr;
-    };
+private:
+    AdslSettingPrivate * d_ptr;
+};
 }
 }
 

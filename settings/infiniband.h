@@ -30,41 +30,41 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class InfinibandSettingPrivate;
+class InfinibandSettingPrivate;
 
-    class NMQT_EXPORT InfinibandSetting : public Setting
-    {
+class NMQT_EXPORT InfinibandSetting : public Setting
+{
     Q_DECLARE_PRIVATE(InfinibandSetting)
-    public:
-        enum TransportMode {Unknown = 0, Datagram, Connected};
+public:
+    enum TransportMode {Unknown = 0, Datagram, Connected};
 
-        InfinibandSetting();
-        InfinibandSetting(InfinibandSetting *);
-        ~InfinibandSetting();
+    InfinibandSetting();
+    InfinibandSetting(InfinibandSetting *);
+    ~InfinibandSetting();
 
-        QString name() const;
+    QString name() const;
 
-        void setMacAddress(const QByteArray & address);
-        QByteArray macAddress() const;
+    void setMacAddress(const QByteArray & address);
+    QByteArray macAddress() const;
 
-        void setMtu(quint32 mtu);
-        quint32 mtu() const;
+    void setMtu(quint32 mtu);
+    quint32 mtu() const;
 
-        void setTransportMode(TransportMode mode);
-        TransportMode transportMode() const;
+    void setTransportMode(TransportMode mode);
+    TransportMode transportMode() const;
 
-        bool hasSecrets() const;
+    bool hasSecrets() const;
 
-        void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-        //FOR DEBUG
-        void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    private:
-        InfinibandSettingPrivate * d_ptr;
-    };
+private:
+    InfinibandSettingPrivate * d_ptr;
+};
 }
 }
 

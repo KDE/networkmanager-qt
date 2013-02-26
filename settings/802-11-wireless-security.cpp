@@ -391,36 +391,36 @@ QStringList NetworkManager::Settings::WirelessSecuritySetting::needSecrets(bool 
     if (keyMgmt() == Wep) {
         if (wepKeyFlags() != Setting::NotRequired) {
             switch (wepTxKeyindex()) {
-                case 0:
-                    if (wepKey0().isEmpty() || requestNew) {
-                        secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY0);
-                        return secrets;
-                    }
-                    break;
-                case 1:
-                    if (wepKey1().isEmpty() || requestNew) {
-                        secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY1);
-                        return secrets;
-                    }
-                    break;
-                case 2:
-                    if (wepKey2().isEmpty() || requestNew) {
-                        secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY2);
-                        return secrets;
-                    }
-                    break;
-                case 3:
-                    if (wepKey3().isEmpty() || requestNew) {
-                        secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY3);
-                        return secrets;
-                    }
-                    break;
+            case 0:
+                if (wepKey0().isEmpty() || requestNew) {
+                    secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY0);
+                    return secrets;
+                }
+                break;
+            case 1:
+                if (wepKey1().isEmpty() || requestNew) {
+                    secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY1);
+                    return secrets;
+                }
+                break;
+            case 2:
+                if (wepKey2().isEmpty() || requestNew) {
+                    secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY2);
+                    return secrets;
+                }
+                break;
+            case 3:
+                if (wepKey3().isEmpty() || requestNew) {
+                    secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY3);
+                    return secrets;
+                }
+                break;
             }
         }
     }
 
     if (keyMgmt() == WpaNone ||
-        keyMgmt() == WpaPsk) {
+            keyMgmt() == WpaPsk) {
         if (pskFlags() != Setting::NotRequired) {
             if (psk().isEmpty() || requestNew) {
                 secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK);
@@ -430,7 +430,7 @@ QStringList NetworkManager::Settings::WirelessSecuritySetting::needSecrets(bool 
     }
 
     if (authAlg() == Leap &&
-        keyMgmt() == Ieee8021x) {
+            keyMgmt() == Ieee8021x) {
         if (leapPasswordFlags() != Setting::NotRequired) {
             if (leapPassword().isEmpty() || requestNew) {
                 secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD);

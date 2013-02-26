@@ -34,77 +34,77 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class ConnectionSettingsPrivate;
+class ConnectionSettingsPrivate;
 
-    class NMQT_EXPORT ConnectionSettings
-    {
-	Q_DECLARE_PRIVATE(ConnectionSettings)
-	public:
-            enum ConnectionType {Unknown = 0, Adsl, Bluetooth, Bond, Bridge, Cdma, Gsm, Infiniband, OLPCMesh, Pppoe, Vlan, Vpn, Wimax, Wired, Wireless};
+class NMQT_EXPORT ConnectionSettings
+{
+    Q_DECLARE_PRIVATE(ConnectionSettings)
+public:
+    enum ConnectionType {Unknown = 0, Adsl, Bluetooth, Bond, Bridge, Cdma, Gsm, Infiniband, OLPCMesh, Pppoe, Vlan, Vpn, Wimax, Wired, Wireless};
 
-	    static ConnectionType typeFromString(const QString & typeString);
-	    static QString typeAsString(const ConnectionType type);
+    static ConnectionType typeFromString(const QString & typeString);
+    static QString typeAsString(const ConnectionType type);
 
-	    ConnectionSettings();
-            ConnectionSettings(ConnectionType type);
-	    ConnectionSettings(ConnectionSettings *);
-	    virtual ~ConnectionSettings();
+    ConnectionSettings();
+    ConnectionSettings(ConnectionType type);
+    ConnectionSettings(ConnectionSettings *);
+    virtual ~ConnectionSettings();
 
-	    QString name() const;
+    QString name() const;
 
-	    void fromMap(const QVariantMapMap & map);
+    void fromMap(const QVariantMapMap & map);
 
-            QVariantMapMap toMap() const;
+    QVariantMapMap toMap() const;
 
-	    void setId(const QString & id);
-	    QString id() const;
+    void setId(const QString & id);
+    QString id() const;
 
-	    void setUuid(const QString & uuid);
-	    QString uuid() const;
+    void setUuid(const QString & uuid);
+    QString uuid() const;
 
-	    void setConnectionType(ConnectionType type);
-	    ConnectionType connectionType() const;
+    void setConnectionType(ConnectionType type);
+    ConnectionType connectionType() const;
 
-	    void addToPermissions(const QString & user, const QString & type);
-	    void setPermissions(const QHash<QString, QString> & perm);
-	    QHash<QString, QString> permissions() const;
+    void addToPermissions(const QString & user, const QString & type);
+    void setPermissions(const QHash<QString, QString> & perm);
+    QHash<QString, QString> permissions() const;
 
-	    void setAutoconnect(bool autoconnect);
-	    bool autoconnect() const;
+    void setAutoconnect(bool autoconnect);
+    bool autoconnect() const;
 
-	    void setTimestamp(const QDateTime & timestamp);
-	    QDateTime timestamp() const;
+    void setTimestamp(const QDateTime & timestamp);
+    QDateTime timestamp() const;
 
-	    void setReadOnly(bool readonly);
-	    bool readOnly() const;
+    void setReadOnly(bool readonly);
+    bool readOnly() const;
 
-	    void setZone(const QString & zone);
-	    QString zone() const;
+    void setZone(const QString & zone);
+    QString zone() const;
 
-	    void setMaster(const QString & master);
-	    QString master() const;
+    void setMaster(const QString & master);
+    QString master() const;
 
-	    void setSlaveType(const QString & type);
-	    QString slaveType() const;
+    void setSlaveType(const QString & type);
+    QString slaveType() const;
 
-            void setSecondaries(const QStringList & secondaries);
-            QStringList secondaries() const;
+    void setSecondaries(const QStringList & secondaries);
+    QStringList secondaries() const;
 
-            Setting * setting(Setting::SettingType type) const;
+    Setting * setting(Setting::SettingType type) const;
 
-	    QList<Setting*> settings() const;
-	    //FOR DEBUG
-	    void printSetting();
+    QList<Setting*> settings() const;
+    //FOR DEBUG
+    void printSetting();
 
-    protected:
-	ConnectionSettingsPrivate *d_ptr;
+protected:
+    ConnectionSettingsPrivate *d_ptr;
 
-    private:
-	void addSetting(Setting * setting);
-	void clearSettings();
-	void initSettings();
-        void initSettings(ConnectionSettings * connectionSettings);
-    };
+private:
+    void addSetting(Setting * setting);
+    void clearSettings();
+    void initSettings();
+    void initSettings(ConnectionSettings * connectionSettings);
+};
 }
 }
 

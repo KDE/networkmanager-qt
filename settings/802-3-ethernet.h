@@ -31,67 +31,67 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class WiredSettingPrivate;
+class WiredSettingPrivate;
 
-    class NMQT_EXPORT WiredSetting : public Setting
-    {
+class NMQT_EXPORT WiredSetting : public Setting
+{
     Q_DECLARE_PRIVATE(WiredSetting)
-    public:
-	enum PortType {Tp, Aui, Bnc, Mii};
-	enum DuplexType {Half, Full};
-	enum S390Nettype {Undefined = 0, Qeth, Lcs, Ctc};
+public:
+    enum PortType {Tp, Aui, Bnc, Mii};
+    enum DuplexType {Half, Full};
+    enum S390Nettype {Undefined = 0, Qeth, Lcs, Ctc};
 
-	WiredSetting();
-	WiredSetting(WiredSetting * setting);
-	~WiredSetting();
+    WiredSetting();
+    WiredSetting(WiredSetting * setting);
+    ~WiredSetting();
 
-	QString name() const;
+    QString name() const;
 
-	void setPort(PortType port);
-	PortType port() const;
+    void setPort(PortType port);
+    PortType port() const;
 
-	void setSpeed(quint32 speed);
-	quint32 speed() const;
+    void setSpeed(quint32 speed);
+    quint32 speed() const;
 
-	void setDuplexType(DuplexType type);
-	DuplexType duplexType() const;
+    void setDuplexType(DuplexType type);
+    DuplexType duplexType() const;
 
-	void setAutoNegotiate(bool autoNegotiate);
-	bool autoNegotiate() const;
+    void setAutoNegotiate(bool autoNegotiate);
+    bool autoNegotiate() const;
 
-	void setMacAddress(const QByteArray & address);
-	QByteArray macAddress() const;
+    void setMacAddress(const QByteArray & address);
+    QByteArray macAddress() const;
 
-	void setClonedMacAddress(const QByteArray & address);
-	QByteArray clonedMacAddress() const;
+    void setClonedMacAddress(const QByteArray & address);
+    QByteArray clonedMacAddress() const;
 
-	void setMacAddressBlacklist(const QStringList & list);
-	QStringList macAddressBlacklist() const;
+    void setMacAddressBlacklist(const QStringList & list);
+    QStringList macAddressBlacklist() const;
 
-	void setMtu(quint32 mtu);
-	quint32 mtu() const;
+    void setMtu(quint32 mtu);
+    quint32 mtu() const;
 
-	void setS390Subchannels(const QStringList & channels);
-	QStringList s390Subchannels() const;
+    void setS390Subchannels(const QStringList & channels);
+    QStringList s390Subchannels() const;
 
-	void setS390NetType(S390Nettype type);
-	S390Nettype s390NetType() const;
+    void setS390NetType(S390Nettype type);
+    S390Nettype s390NetType() const;
 
-	void setS390Options(const QMap<QString, QString> & options);
-	QMap<QString, QString> s390Options() const;
+    void setS390Options(const QMap<QString, QString> & options);
+    QMap<QString, QString> s390Options() const;
 
-        bool hasSecrets() const;
+    bool hasSecrets() const;
 
-	void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-	//FOR DEBUG
-	void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    protected:
-	WiredSettingPrivate *d_ptr;
-    };
+protected:
+    WiredSettingPrivate *d_ptr;
+};
 }
 }
 

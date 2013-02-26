@@ -30,69 +30,69 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class GsmSettingPrivate;
+class GsmSettingPrivate;
 
-    class NMQT_EXPORT GsmSetting : public Setting
-    {
+class NMQT_EXPORT GsmSetting : public Setting
+{
     Q_DECLARE_PRIVATE(GsmSetting)
-    public:
-	GsmSetting();
-	GsmSetting(GsmSetting *);
-	~GsmSetting();
+public:
+    GsmSetting();
+    GsmSetting(GsmSetting *);
+    ~GsmSetting();
 
-	QString name() const;
+    QString name() const;
 
-	void setNumber(const QString & number);
-	QString number() const;
+    void setNumber(const QString & number);
+    QString number() const;
 
-	void setUsername(const QString & username);
-	QString username() const;
+    void setUsername(const QString & username);
+    QString username() const;
 
-	void setPassword(const QString & password);
-	QString password() const;
+    void setPassword(const QString & password);
+    QString password() const;
 
-	void setPasswordFlags(SecretFlagType flags);
-	SecretFlagType passwordFlags() const;
+    void setPasswordFlags(SecretFlagType flags);
+    SecretFlagType passwordFlags() const;
 
-	void setApn(const QString & apn);
-	QString apn() const;
+    void setApn(const QString & apn);
+    QString apn() const;
 
-	void setNetworkId(const QString & id);
-	QString networkId() const;
+    void setNetworkId(const QString & id);
+    QString networkId() const;
 
-	void setNetworkType(qint32 type);
-	qint32 networkType() const;
+    void setNetworkType(qint32 type);
+    qint32 networkType() const;
 
-	void setPin(const QString & pin);
-	QString pin() const;
+    void setPin(const QString & pin);
+    QString pin() const;
 
-	void setPinFlags(SecretFlagType flags);
-	SecretFlagType pinFlags() const;
+    void setPinFlags(SecretFlagType flags);
+    SecretFlagType pinFlags() const;
 
-	void setAllowedBand(quint32 band);
-	quint32 allowedBand() const;
+    void setAllowedBand(quint32 band);
+    quint32 allowedBand() const;
 
-	void setHomeOnly(bool homeOnly);
-	bool homeOnly() const;
+    void setHomeOnly(bool homeOnly);
+    bool homeOnly() const;
 
-        void secretsFromMap(const QVariantMap & secrets);
+    void secretsFromMap(const QVariantMap & secrets);
 
-        bool hasSecrets() const;
+    bool hasSecrets() const;
 
-        QVariantMap secretsToMap() const;
+    QVariantMap secretsToMap() const;
 
-        QStringList needSecrets(bool requestNew = false) const;
+    QStringList needSecrets(bool requestNew = false) const;
 
-	void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-	//FOR DEBUG
-	void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    private:
-	GsmSettingPrivate * d_ptr;
-    };
+private:
+    GsmSettingPrivate * d_ptr;
+};
 
 }
 }

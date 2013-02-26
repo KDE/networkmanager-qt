@@ -31,37 +31,37 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class BondSettingPrivate;
+class BondSettingPrivate;
 
-    class NMQT_EXPORT BondSetting : public Setting
-    {
+class NMQT_EXPORT BondSetting : public Setting
+{
     Q_DECLARE_PRIVATE(BondSetting)
-    public:
-        BondSetting();
-        BondSetting(BondSetting *);
-        ~BondSetting();
+public:
+    BondSetting();
+    BondSetting(BondSetting *);
+    ~BondSetting();
 
-        QString name() const;
+    QString name() const;
 
-        void setInterfaceName(const QString & name);
-        QString interfaceName() const;
+    void setInterfaceName(const QString & name);
+    QString interfaceName() const;
 
-        void addOption(const QString & option, const QString & value);
-        void setOptions(const QStringMap & options);
-        QStringMap options() const;
+    void addOption(const QString & option, const QString & value);
+    void setOptions(const QStringMap & options);
+    QStringMap options() const;
 
-        bool hasSecrets() const;
+    bool hasSecrets() const;
 
-        void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-        //FOR DEBUG
-        void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    private:
-        BondSettingPrivate * d_ptr;
-    };
+private:
+    BondSettingPrivate * d_ptr;
+};
 }
 }
 

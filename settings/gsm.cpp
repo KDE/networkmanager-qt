@@ -285,41 +285,41 @@ QStringList NetworkManager::Settings::GsmSetting::needSecrets(bool requestNew) c
 void NetworkManager::Settings::GsmSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_GSM_NUMBER))) {
-	setNumber(setting.value(QLatin1String(NM_SETTING_GSM_NUMBER)).toString());
+        setNumber(setting.value(QLatin1String(NM_SETTING_GSM_NUMBER)).toString());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_GSM_USERNAME))) {
-	setUsername(setting.value(QLatin1String(NM_SETTING_GSM_USERNAME)).toString());
+        setUsername(setting.value(QLatin1String(NM_SETTING_GSM_USERNAME)).toString());
     }
 
     // Secrets
     if (setting.contains(QLatin1String(NM_SETTING_GSM_PASSWORD))) {
-	setPassword(setting.value(QLatin1String(NM_SETTING_GSM_PASSWORD)).toString());
+        setPassword(setting.value(QLatin1String(NM_SETTING_GSM_PASSWORD)).toString());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_GSM_PASSWORD_FLAGS))) {
-	setPasswordFlags((SecretFlagType)setting.value(QLatin1String(NM_SETTING_GSM_PASSWORD_FLAGS)).toInt());
+        setPasswordFlags((SecretFlagType)setting.value(QLatin1String(NM_SETTING_GSM_PASSWORD_FLAGS)).toInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_GSM_APN))) {
-	setApn(setting.value(QLatin1String(NM_SETTING_GSM_APN)).toString());
+        setApn(setting.value(QLatin1String(NM_SETTING_GSM_APN)).toString());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_GSM_NETWORK_ID))) {
-	setNetworkId(setting.value(QLatin1String(NM_SETTING_GSM_NETWORK_ID)).toString());
+        setNetworkId(setting.value(QLatin1String(NM_SETTING_GSM_NETWORK_ID)).toString());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE))) {
-	setNetworkType(setting.value(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE)).toInt());
+        setNetworkType(setting.value(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE)).toInt());
     }
 
     // Secrets
     if (setting.contains(QLatin1String(NM_SETTING_GSM_PIN))) {
-	setPin(setting.value(QLatin1String(NM_SETTING_GSM_PIN)).toString());
+        setPin(setting.value(QLatin1String(NM_SETTING_GSM_PIN)).toString());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_GSM_PIN_FLAGS))) {
-	setPinFlags((SecretFlagType)setting.value(QLatin1String(NM_SETTING_GSM_PIN_FLAGS)).toInt());
+        setPinFlags((SecretFlagType)setting.value(QLatin1String(NM_SETTING_GSM_PIN_FLAGS)).toInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS))) {
@@ -327,7 +327,7 @@ void NetworkManager::Settings::GsmSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_GSM_HOME_ONLY))) {
-	setHomeOnly(setting.value(QLatin1String(NM_SETTING_GSM_HOME_ONLY)).toBool());
+        setHomeOnly(setting.value(QLatin1String(NM_SETTING_GSM_HOME_ONLY)).toBool());
     }
 }
 

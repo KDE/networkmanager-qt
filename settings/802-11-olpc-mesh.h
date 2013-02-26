@@ -30,39 +30,39 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class OlpcMeshSettingPrivate;
+class OlpcMeshSettingPrivate;
 
-    class NMQT_EXPORT OlpcMeshSetting : public Setting
-    {
+class NMQT_EXPORT OlpcMeshSetting : public Setting
+{
     Q_DECLARE_PRIVATE(OlpcMeshSetting)
-    public:
-        OlpcMeshSetting();
-        OlpcMeshSetting(OlpcMeshSetting *);
-        ~OlpcMeshSetting();
+public:
+    OlpcMeshSetting();
+    OlpcMeshSetting(OlpcMeshSetting *);
+    ~OlpcMeshSetting();
 
-        QString name() const;
+    QString name() const;
 
-        void setSsid(const QByteArray & ssid);
-        QByteArray ssid() const;
+    void setSsid(const QByteArray & ssid);
+    QByteArray ssid() const;
 
-        void setChannel(quint32 channel);
-        quint32 channel() const;
+    void setChannel(quint32 channel);
+    quint32 channel() const;
 
-        void setDhcpAnycastAddress(const QByteArray & address);
-        QByteArray dhcpAnycastAddress() const;
+    void setDhcpAnycastAddress(const QByteArray & address);
+    QByteArray dhcpAnycastAddress() const;
 
-        bool hasSecrets() const;
+    bool hasSecrets() const;
 
-        void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-        //FOR DEBUG
-        void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    private:
-        OlpcMeshSettingPrivate * d_ptr;
-    };
+private:
+    OlpcMeshSettingPrivate * d_ptr;
+};
 
 }
 }

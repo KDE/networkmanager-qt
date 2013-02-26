@@ -31,92 +31,92 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class WirelessSecuritySettingPrivate;
+class WirelessSecuritySettingPrivate;
 
-    class NMQT_EXPORT WirelessSecuritySetting : public Setting
-    {
+class NMQT_EXPORT WirelessSecuritySetting : public Setting
+{
     Q_DECLARE_PRIVATE(WirelessSecuritySetting)
-    public:
-        enum KeyMgmt {Unknown = -1, Wep, Ieee8021x, WpaNone, WpaPsk, WpaEap};
-        enum AuthAlg {None, Open, Shared, Leap};
-        enum WpaProtocolVersion {Wpa, Rsn};
-        enum WpaEncryptionCapabilities {Wep40, Wep104, Tkip, Ccmp};
-        enum WepKeyType {NotSpecified, Hex, Passphrase};
+public:
+    enum KeyMgmt {Unknown = -1, Wep, Ieee8021x, WpaNone, WpaPsk, WpaEap};
+    enum AuthAlg {None, Open, Shared, Leap};
+    enum WpaProtocolVersion {Wpa, Rsn};
+    enum WpaEncryptionCapabilities {Wep40, Wep104, Tkip, Ccmp};
+    enum WepKeyType {NotSpecified, Hex, Passphrase};
 
-        WirelessSecuritySetting();
-        WirelessSecuritySetting(WirelessSecuritySetting * setting);
-        virtual ~WirelessSecuritySetting();
+    WirelessSecuritySetting();
+    WirelessSecuritySetting(WirelessSecuritySetting * setting);
+    virtual ~WirelessSecuritySetting();
 
-        QString name() const;
+    QString name() const;
 
-        void setKeyMgmt(KeyMgmt mgmt);
-        KeyMgmt keyMgmt() const;
+    void setKeyMgmt(KeyMgmt mgmt);
+    KeyMgmt keyMgmt() const;
 
-        void setWepTxKeyindex(quint32 index);
-        quint32 wepTxKeyindex() const;
+    void setWepTxKeyindex(quint32 index);
+    quint32 wepTxKeyindex() const;
 
-        void setAuthAlg(AuthAlg alg);
-        AuthAlg authAlg() const;
+    void setAuthAlg(AuthAlg alg);
+    AuthAlg authAlg() const;
 
-        void setProto(const QList<WpaProtocolVersion> & list);
-        QList<WpaProtocolVersion> proto() const;
+    void setProto(const QList<WpaProtocolVersion> & list);
+    QList<WpaProtocolVersion> proto() const;
 
-        void setPairwise(const QList<WpaEncryptionCapabilities> & list);
-        QList<WpaEncryptionCapabilities> pairwise() const;
+    void setPairwise(const QList<WpaEncryptionCapabilities> & list);
+    QList<WpaEncryptionCapabilities> pairwise() const;
 
-        void setGroup(const QList<WpaEncryptionCapabilities> & list);
-        QList<WpaEncryptionCapabilities> group() const;
+    void setGroup(const QList<WpaEncryptionCapabilities> & list);
+    QList<WpaEncryptionCapabilities> group() const;
 
-        void setLeapUsername(const QString & username);
-        QString leapUsername() const;
+    void setLeapUsername(const QString & username);
+    QString leapUsername() const;
 
-        void setWepKey0(const QString key);
-        QString wepKey0() const;
+    void setWepKey0(const QString key);
+    QString wepKey0() const;
 
-        void setWepKey1(const QString key);
-        QString wepKey1() const;
+    void setWepKey1(const QString key);
+    QString wepKey1() const;
 
-        void setWepKey2(const QString key);
-        QString wepKey2() const;
+    void setWepKey2(const QString key);
+    QString wepKey2() const;
 
-        void setWepKey3(const QString key);
-        QString wepKey3() const;
+    void setWepKey3(const QString key);
+    QString wepKey3() const;
 
-        void setWepKeyFlags(SecretFlagType type);
-        SecretFlagType wepKeyFlags() const;
+    void setWepKeyFlags(SecretFlagType type);
+    SecretFlagType wepKeyFlags() const;
 
-        void setWepKeyType(WepKeyType type);
-        WepKeyType wepKeyType() const;
+    void setWepKeyType(WepKeyType type);
+    WepKeyType wepKeyType() const;
 
-        void setPsk(const QString & key);
-        QString psk() const;
+    void setPsk(const QString & key);
+    QString psk() const;
 
-        void setPskFlags(SecretFlagType type);
-        SecretFlagType pskFlags() const;
+    void setPskFlags(SecretFlagType type);
+    SecretFlagType pskFlags() const;
 
-        void setLeapPassword(const QString & password);
-        QString leapPassword() const;
+    void setLeapPassword(const QString & password);
+    QString leapPassword() const;
 
-        void setLeapPasswordFlags(SecretFlagType type);
-        SecretFlagType leapPasswordFlags() const;
+    void setLeapPasswordFlags(SecretFlagType type);
+    SecretFlagType leapPasswordFlags() const;
 
-        void secretsFromMap(const QVariantMap & secrets);
+    void secretsFromMap(const QVariantMap & secrets);
 
-        QVariantMap secretsToMap() const;
+    QVariantMap secretsToMap() const;
 
-        QStringList needSecrets(bool requestNew = false) const;
+    QStringList needSecrets(bool requestNew = false) const;
 
-        void fromMap(const QVariantMap & map);
+    void fromMap(const QVariantMap & map);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-        //FOR DEBUG
-        void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    protected:
-        WirelessSecuritySettingPrivate * d_ptr;
+protected:
+    WirelessSecuritySettingPrivate * d_ptr;
 
-    };
+};
 }
 }
 

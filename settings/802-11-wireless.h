@@ -30,75 +30,75 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class WirelessSettingPrivate;
+class WirelessSettingPrivate;
 
-    class NMQT_EXPORT WirelessSetting : public Setting
-    {
+class NMQT_EXPORT WirelessSetting : public Setting
+{
     Q_DECLARE_PRIVATE(WirelessSetting)
-    public:
-        enum NetworkMode {Infrastructure, Adhoc, Ap};
-        enum FrequencyBand {Automatic, A, Bg};
+public:
+    enum NetworkMode {Infrastructure, Adhoc, Ap};
+    enum FrequencyBand {Automatic, A, Bg};
 
-	WirelessSetting();
-	WirelessSetting(WirelessSetting * setting);
-	virtual ~WirelessSetting();
+    WirelessSetting();
+    WirelessSetting(WirelessSetting * setting);
+    virtual ~WirelessSetting();
 
-	QString name() const;
+    QString name() const;
 
-	void setSsid(const QByteArray & ssid);
-	QByteArray ssid() const;
+    void setSsid(const QByteArray & ssid);
+    QByteArray ssid() const;
 
-	void setMode(NetworkMode mode);
-	NetworkMode mode() const;
+    void setMode(NetworkMode mode);
+    NetworkMode mode() const;
 
-	void setBand(FrequencyBand band);
-	FrequencyBand band() const;
+    void setBand(FrequencyBand band);
+    FrequencyBand band() const;
 
-	void setChannel(quint32 channel);
-	quint32 channel() const;
+    void setChannel(quint32 channel);
+    quint32 channel() const;
 
-	void setBssid(const QByteArray & bssid);
-	QByteArray bssid() const;
+    void setBssid(const QByteArray & bssid);
+    QByteArray bssid() const;
 
-	void setRate(quint32 rate);
-	quint32 rate() const;
+    void setRate(quint32 rate);
+    quint32 rate() const;
 
-	void setTxPower(quint32 power);
-	quint32 txPower() const;
+    void setTxPower(quint32 power);
+    quint32 txPower() const;
 
-	void setMacAddress(const QByteArray & address);
-	QByteArray macAddress() const;
+    void setMacAddress(const QByteArray & address);
+    QByteArray macAddress() const;
 
-	void setClonedMacAddress(const QByteArray & address);
-	QByteArray clonedMacAddress() const;
+    void setClonedMacAddress(const QByteArray & address);
+    QByteArray clonedMacAddress() const;
 
-	void setMacAddressBlacklist(const QStringList & list);
-	QStringList macAddressBlacklist() const;
+    void setMacAddressBlacklist(const QStringList & list);
+    QStringList macAddressBlacklist() const;
 
-	void setMtu(quint32 mtu);
-	quint32 mtu() const;
+    void setMtu(quint32 mtu);
+    quint32 mtu() const;
 
-	void setSeenBssids(const QStringList & list);
-	QStringList seenBssids() const;
+    void setSeenBssids(const QStringList & list);
+    QStringList seenBssids() const;
 
-	void setSecurity(const QString & security);
-	QString security() const;
+    void setSecurity(const QString & security);
+    QString security() const;
 
-	void setHidden(bool hidden);
-	bool hidden() const;
+    void setHidden(bool hidden);
+    bool hidden() const;
 
-        bool hasSecrets() const;
+    bool hasSecrets() const;
 
-	void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-	//FOR DEBUG
-	void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    protected:
-	WirelessSettingPrivate * d_ptr;
-    };
+protected:
+    WirelessSettingPrivate * d_ptr;
+};
 }
 }
 
