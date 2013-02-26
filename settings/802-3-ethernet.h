@@ -37,8 +37,8 @@ class NMQT_EXPORT WiredSetting : public Setting
 {
     Q_DECLARE_PRIVATE(WiredSetting)
 public:
-    enum PortType {Tp, Aui, Bnc, Mii};
-    enum DuplexType {Half, Full};
+    enum PortType {UnknownPort = 0, Tp, Aui, Bnc, Mii};
+    enum DuplexType {UnknownDuplexType = 0, Half, Full};
     enum S390Nettype {Undefined = 0, Qeth, Lcs, Ctc};
 
     WiredSetting();

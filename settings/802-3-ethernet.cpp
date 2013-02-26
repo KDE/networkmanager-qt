@@ -29,9 +29,9 @@
 
 NetworkManager::Settings::WiredSettingPrivate::WiredSettingPrivate():
     name("802-3-ethernet"),
-    port(NetworkManager::Settings::WiredSetting::Mii),
+    port(NetworkManager::Settings::WiredSetting::UnknownPort),
     speed(0),
-    duplex(NetworkManager::Settings::WiredSetting::Full),
+    duplex(NetworkManager::Settings::WiredSetting::UnknownDuplexType),
     autoNegotiate(true),
     macAddress(QByteArray()),
     clonedMacAddress(QByteArray()),
