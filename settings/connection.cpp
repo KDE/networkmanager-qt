@@ -364,7 +364,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::
         addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
         addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
         addSetting(new Security8021xSetting(static_cast<Security8021xSetting*>(connectionSettings->setting(Setting::Security8021x))));
-        addSetting(new WiredSetting());
+        addSetting(new WiredSetting(static_cast<WiredSetting*>(connectionSettings->setting(Setting::Wired))));
         break;
     case Wireless:
         addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
