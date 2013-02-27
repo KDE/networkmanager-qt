@@ -705,7 +705,7 @@ void NetworkManager::Settings::ConnectionSettings::printSetting()
     qDebug() << NM_SETTING_CONNECTION_TIMESTAMP << ": " << timestamp().toTime_t();
     qDebug() << NM_SETTING_CONNECTION_READ_ONLY << ": " << readOnly();
     qDebug() << NM_SETTING_CONNECTION_ZONE << ": " << zone();
-    qDebug() << NM_SETTING_CONNECTION_MASTER << "- " << master();
+    qDebug() << NM_SETTING_CONNECTION_MASTER << ": " << master();
     qDebug() << NM_SETTING_CONNECTION_SLAVE_TYPE << ": " << slaveType();
     qDebug() << NM_SETTING_CONNECTION_SECONDARIES << ": " << secondaries();
     qDebug() << "===================";

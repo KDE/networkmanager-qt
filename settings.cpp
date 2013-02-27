@@ -73,8 +73,8 @@ NetworkManager::Settings::Connection * NetworkManager::Settings::SettingsPrivate
     QMap<QString, Connection*>::const_iterator i;
     for (i = connections.constBegin(); i != connections.constEnd(); ++i) {
         NetworkManager::Settings::Connection * connection = findRegisteredConnection(i.key());
-	if (connection->uuid() == uuid)
-	    return connection;
+        if (connection->uuid() == uuid)
+            return connection;
     }
 
     return 0;
@@ -126,7 +126,7 @@ void NetworkManager::Settings::SettingsPrivate::propertiesChanged(const QVariant
 {
     QStringList propKeys = changedProperties.keys();
     QLatin1String canModifyKey("CanModify"),
-                  hostnameKey("Hostname");
+            hostnameKey("Hostname");
     QVariantMap::const_iterator it = changedProperties.find(canModifyKey);
     if (it != changedProperties.end()) {
         m_canModify = it->toBool();
