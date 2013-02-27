@@ -121,7 +121,7 @@ QStringList NetworkManager::Settings::Ipv4Setting::dnsSearch() const
     return d->dnsSearch;
 }
 
-void NetworkManager::Settings::Ipv4Setting::setAddresses(const QList< NetworkManager::IPv4Address > ipv4addresses)
+void NetworkManager::Settings::Ipv4Setting::setAddresses(const QList<IPv4Address> & ipv4addresses)
 {
     Q_D(Ipv4Setting);
 
@@ -135,7 +135,7 @@ QList< NetworkManager::IPv4Address > NetworkManager::Settings::Ipv4Setting::addr
     return d->addresses;
 }
 
-void NetworkManager::Settings::Ipv4Setting::setRoutes(const QList< NetworkManager::IPv4Route > ipv4routes)
+void NetworkManager::Settings::Ipv4Setting::setRoutes(const QList<IPv4Route> &ipv4routes)
 {
     Q_D(Ipv4Setting);
 

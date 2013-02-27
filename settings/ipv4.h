@@ -55,10 +55,10 @@ public:
     void setDnsSearch(const QStringList & domains);
     QStringList dnsSearch() const;
 
-    void setAddresses(const QList<NetworkManager::IPv4Address> ipv4addresses);
+    void setAddresses(const QList<NetworkManager::IPv4Address> & ipv4addresses);
     QList<NetworkManager::IPv4Address> addresses() const;
 
-    void setRoutes(const QList<NetworkManager::IPv4Route> ipv4routes);
+    void setRoutes(const QList<NetworkManager::IPv4Route> & ipv4routes);
     QList<NetworkManager::IPv4Route> routes() const;
 
     void setIgnoreAutoRoutes(bool ignore);
