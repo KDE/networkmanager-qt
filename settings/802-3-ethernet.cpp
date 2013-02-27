@@ -20,6 +20,7 @@
 
 #include "802-3-ethernet.h"
 #include "802-3-ethernet_p.h"
+#include "generic-types.h"
 
 #include <nm-setting-wired.h>
 
@@ -215,14 +216,14 @@ NetworkManager::Settings::WiredSetting::S390Nettype NetworkManager::Settings::Wi
     return d->s390NetType;
 }
 
-void NetworkManager::Settings::WiredSetting::setS390Options(const QStringMap & options)
+void NetworkManager::Settings::WiredSetting::setS390Options(const QMap<QString, QString> &options)
 {
     Q_D(WiredSetting);
 
     d->s390Options = options;
 }
 
-QStringMap NetworkManager::Settings::WiredSetting::s390Options() const
+QMap<QString,QString> NetworkManager::Settings::WiredSetting::s390Options() const
 {
     Q_D(const WiredSetting);
 
