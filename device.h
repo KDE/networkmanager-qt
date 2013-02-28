@@ -125,7 +125,7 @@ public:
      *
      * @param backendObject the network object provided by the backend
      */
-    explicit Device( const QString & path, QObject * parent );
+    explicit Device( const QString & path, QObject * parent = 0);
     Device( DevicePrivate &dd, QObject * parent );
     /**
      * Destroys a NetworkInterface object.

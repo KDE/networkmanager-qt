@@ -43,8 +43,8 @@ Q_DECLARE_PRIVATE(ModemDevice)
 public:
     enum Capability { NoCapability = 0x0, Pots = 0x1, CdmaEvdo = 0x2, GsmUmts = 0x4, Lte = 0x8 };
     Q_DECLARE_FLAGS(Capabilities, Capability)
-    ModemDevice(const QString & path, QObject * parent);
-    ModemDevice( ModemDevicePrivate &dd, QObject * parent );
+    ModemDevice(const QString & path, QObject * parent = 0);
+    ModemDevice( ModemDevicePrivate &dd, QObject * parent = 0);
     virtual ~ModemDevice();
     /**
      * Return the type

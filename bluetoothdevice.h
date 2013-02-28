@@ -52,7 +52,7 @@ public:
     /**
      * Creates a new BtNetworkInterface object.
      */
-    BluetoothDevice(const QString & path, QObject * parent);
+    BluetoothDevice(const QString & path, QObject * parent = 0);
     /**
      * Destroys a BtNetworkInterface object.
      */

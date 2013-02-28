@@ -37,7 +37,7 @@ Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
 Q_PROPERTY(QList<QDBusObjectPath> slaves READ slaves NOTIFY slavesChanged)
 
 public:
-    BridgeDevice(const QString& path, QObject* parent);
+    BridgeDevice(const QString& path, QObject* parent = 0);
     virtual ~BridgeDevice();
 
     virtual Type type() const;

@@ -35,7 +35,7 @@ Q_DECLARE_PRIVATE(AdslDevice)
 Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
 
 public:
-    AdslDevice(const QString& path, QObject* parent);
+    AdslDevice(const QString& path, QObject* parent = 0);
     virtual ~AdslDevice();
 
     virtual Type type() const;

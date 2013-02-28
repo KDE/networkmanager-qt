@@ -37,7 +37,7 @@ Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
 Q_PROPERTY(QList<QDBusObjectPath> slaves READ slaves NOTIFY slavesChanged)
 
 public:
-    BondDevice(const QString& path, QObject* parent);
+    BondDevice(const QString& path, QObject* parent = 0);
     virtual ~BondDevice();
 
     virtual Type type() const;

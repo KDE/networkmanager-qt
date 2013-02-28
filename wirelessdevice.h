@@ -70,7 +70,7 @@ public:
      *
      * @param path the DBus path of the devise
      */
-    WirelessDevice(const QString & path, QObject * parent);
+    WirelessDevice(const QString & path, QObject * parent = 0);
     /**
      * Destroys a WirelessNetworkInterface object.
      */

@@ -40,7 +40,7 @@ Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
 Q_PROPERTY(int bitRate READ bitRate NOTIFY bitRateChanged)
 
 public:
-    WiredDevice(const QString & path, QObject * parent);
+    WiredDevice(const QString & path, QObject * parent = 0);
     virtual ~WiredDevice();
     /**
      * Return the type
