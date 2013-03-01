@@ -221,20 +221,20 @@ void NetworkManager::WirelessDevice::accessPointRemoved(const QDBusObjectPath &a
 
 NetworkManager::WirelessDevice::OperationMode NetworkManager::WirelessDevice::convertOperationMode(uint theirMode)
 {
-    NetworkManager::WirelessDevice::OperationMode ourMode = NetworkManager::WirelessDevice::Unassociated;
+    NetworkManager::WirelessDevice::OperationMode ourMode = NetworkManager::WirelessDevice::Unknown;
     switch ( theirMode ) {
         case NM_802_11_MODE_UNKNOWN:
-            ourMode = NetworkManager::WirelessDevice::Unassociated;
+            ourMode = NetworkManager::WirelessDevice::Unknown;
             break;
         case NM_802_11_MODE_ADHOC:
             ourMode = NetworkManager::WirelessDevice::Adhoc;
             break;
         case NM_802_11_MODE_INFRA:
-            ourMode = NetworkManager::WirelessDevice::Managed;
+            ourMode = NetworkManager::WirelessDevice::Infra;
             break;
 #if NM_CHECK_VERSION(0, 9, 8)
         case NM_802_11_MODE_AP:
-            ourMode = NetworkManager::WirelessDevice::ApMode;
+            ourMode = NetworkManager::WirelessDevice::AP;
             break;
 #endif
         default:

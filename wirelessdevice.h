@@ -18,8 +18,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NM_WIRELESSDEVICE_H
-#define NM_WIRELESSDEVICE_H
+#ifndef NMQT_WIRELESSDEVICE_H
+#define NMQT_WIRELESSDEVICE_H
 
 #include "QtNetworkManager-export.h"
 #include "device.h"
@@ -46,14 +46,12 @@ Q_DECLARE_PRIVATE(WirelessDevice)
 public:
     /**
      * The device's current operating mode
-     * Unassociated: not associated with a network
+     * Unknown: not associated with a network
      * Adhoc: part of an adhoc network
-     * Managed: a station in an infrastructure wireless network
-     * Master: access point in an infrastructure network
-     * Repeater: dumb repeater
-     * ApMode: the device is an access point/hotspot. Not valid for access point objects; used only for hotspot mode on the local machine.
+     * Infra: a station in an infrastructure wireless network
+     * AP: access point in an infrastructure network
      */
-    enum OperationMode { Unassociated, Adhoc, Managed, Master, Repeater, ApMode };
+    enum OperationMode { Unknown = 0, Adhoc, Infra, ApMode };
     /**
      * Capabilities (currently all encryption/authentication related) of the device
      * NoCapability = 0x0,
@@ -63,17 +61,17 @@ public:
      * Ccmp: CCMP encryption cipher
      * Wpa: WPA authentication protocol
      * Rsn: RSN authethication protocol
-     * Ap: device supports Access Point mode
-     * AdHoc: device supports Ad-Hoc mode
+     * ApCap: The device supports Access Point mode.
+     * AdhocCap: The device supports Ad-Hoc mode.
      */
-    enum Capability { NoCapability = 0x0, Wep40 = 0x1, Wep104 = 0x2, Tkip = 0x4, Ccmp = 0x8, Wpa = 0x10, Rsn = 0x20, Ap = 0x40, AdHoc = 0x80 };
+    enum Capability { NoCapability = 0x0, Wep40 = 0x1, Wep104 = 0x2, Tkip = 0x4, Ccmp = 0x8, Wpa = 0x10, Rsn = 0x20, ApCap = 0x40, AdhocCap = 0x80};
     Q_DECLARE_FLAGS(Capabilities, Capability)
     /**
      * Creates a new WirelessNetworkInterface object.
      *
      * @param path the DBus path of the devise
      */
-    WirelessDevice(const QString & path, QObject * parent);
+    WirelessDevice(const QString & path, QObject * parent = 0);
     /**
      * Destroys a WirelessNetworkInterface object.
      */
@@ -92,7 +90,7 @@ public:
      */
     QDBusPendingReply<> requestScan(QVariantMap & options);
     /**
-     * Identifier of the network this interface is currently associated with
+     * Identifier (path) of the network this interface is currently associated with
      */
     QString activeAccessPoint() const;
     /**
@@ -108,7 +106,7 @@ public:
      * Retrieves the operation mode of this network.
      *
      * @return the current mode
-     * @see Solid::Control::WirelessNetworkInterface::OperationMode
+     * @see OperationMode
      */
     WirelessDevice::OperationMode mode() const;
     /**
@@ -121,7 +119,7 @@ public:
      * Retrieves the capabilities of this wifi network.
      *
      * @return the flag set describing the capabilities
-     * @see Solid::Control::WirelessNetworkInterface::DeviceInterface
+     * @see Capabilities
      */
     WirelessDevice::Capabilities wirelessCapabilities() const;
 
@@ -187,5 +185,5 @@ Q_SIGNALS:
 };
 
 } // namespace NetworkManager
-#endif //NM_WIRELESSDEVICE_H
+#endif //NMQT_WIRELESSDEVICE_H
 
