@@ -51,8 +51,9 @@ public:
      * Managed: a station in an infrastructure wireless network
      * Master: access point in an infrastructure network
      * Repeater: dumb repeater
+     * ApMode: the device is an access point/hotspot. Not valid for access point objects; used only for hotspot mode on the local machine.
      */
-    enum OperationMode { Unassociated, Adhoc, Managed, Master, Repeater };
+    enum OperationMode { Unassociated, Adhoc, Managed, Master, Repeater, ApMode };
     /**
      * Capabilities (currently all encryption/authentication related) of the device
      * NoCapability = 0x0,
@@ -62,8 +63,10 @@ public:
      * Ccmp: CCMP encryption cipher
      * Wpa: WPA authentication protocol
      * Rsn: RSN authethication protocol
+     * Ap: device supports Access Point mode
+     * AdHoc: device supports Ad-Hoc mode
      */
-    enum Capability { NoCapability = 0x0, Wep40 = 0x1, Wep104 = 0x2, Tkip = 0x4, Ccmp = 0x8, Wpa = 0x10, Rsn = 0x20 };
+    enum Capability { NoCapability = 0x0, Wep40 = 0x1, Wep104 = 0x2, Tkip = 0x4, Ccmp = 0x8, Wpa = 0x10, Rsn = 0x20, Ap = 0x40, AdHoc = 0x80 };
     Q_DECLARE_FLAGS(Capabilities, Capability)
     /**
      * Creates a new WirelessNetworkInterface object.
