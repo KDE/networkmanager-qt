@@ -46,13 +46,12 @@ Q_DECLARE_PRIVATE(WirelessDevice)
 public:
     /**
      * The device's current operating mode
-     * Unassociated: not associated with a network
+     * Unknown: not associated with a network
      * Adhoc: part of an adhoc network
-     * Managed: a station in an infrastructure wireless network
-     * Master: access point in an infrastructure network
-     * Repeater: dumb repeater
+     * Infra: a station in an infrastructure wireless network
+     * AP: access point in an infrastructure network
      */
-    enum OperationMode { Unassociated, Adhoc, Managed, Master, Repeater };
+    enum OperationMode { Unknown = 0, Adhoc, Infra, AP };
     /**
      * Capabilities (currently all encryption/authentication related) of the device
      * NoCapability = 0x0,
@@ -62,8 +61,10 @@ public:
      * Ccmp: CCMP encryption cipher
      * Wpa: WPA authentication protocol
      * Rsn: RSN authethication protocol
+     * ApCap: The device supports Access Point mode.
+     * AdhocCap: The device supports Ad-Hoc mode.
      */
-    enum Capability { NoCapability = 0x0, Wep40 = 0x1, Wep104 = 0x2, Tkip = 0x4, Ccmp = 0x8, Wpa = 0x10, Rsn = 0x20 };
+    enum Capability { NoCapability = 0x0, Wep40 = 0x1, Wep104 = 0x2, Tkip = 0x4, Ccmp = 0x8, Wpa = 0x10, Rsn = 0x20, ApCap = 0x40, AdhocCap = 0x80};
     Q_DECLARE_FLAGS(Capabilities, Capability)
     /**
      * Creates a new WirelessNetworkInterface object.
@@ -89,7 +90,7 @@ public:
      */
     QDBusPendingReply<> requestScan(QVariantMap & options);
     /**
-     * Identifier of the network this interface is currently associated with
+     * Identifier (path) of the network this interface is currently associated with
      */
     QString activeAccessPoint() const;
     /**
@@ -105,7 +106,7 @@ public:
      * Retrieves the operation mode of this network.
      *
      * @return the current mode
-     * @see Solid::Control::WirelessNetworkInterface::OperationMode
+     * @see OperationMode
      */
     WirelessDevice::OperationMode mode() const;
     /**
@@ -118,7 +119,7 @@ public:
      * Retrieves the capabilities of this wifi network.
      *
      * @return the flag set describing the capabilities
-     * @see Solid::Control::WirelessNetworkInterface::DeviceInterface
+     * @see Capabilities
      */
     WirelessDevice::Capabilities wirelessCapabilities() const;
 
