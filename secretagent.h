@@ -46,7 +46,7 @@ namespace NetworkManager
         virtual void CancelGetSecrets(const QDBusObjectPath &, const QString &) = 0;
     private:
         SecretAgentPrivate *d_ptr;
-        Q_PRIVATE_SLOT(d_ptr, void registerAgent());
+        Q_PRIVATE_SLOT(d_ptr, void registerAgent())
     };
 }
 

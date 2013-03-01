@@ -50,7 +50,7 @@ public Q_SLOTS:
 
 Q_SIGNALS:
     void carrierChanged(bool plugged);
-    void hwAddressChanged(const QString addres);
+    void hwAddressChanged(const QString & address);
     void slavesChanged(const QList<QDBusObjectPath> & slaves);
 };
 

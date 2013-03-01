@@ -139,7 +139,7 @@ Q_SIGNALS:
     /**
      * The uuid changed.
      */
-    void uuidChanged(QString);
+    void uuidChanged(const QString &);
     /**
      * The list of devices changed.
      */

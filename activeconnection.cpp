@@ -67,7 +67,7 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString & path, QObject
 }
 
 NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, QObject * parent)
-: QObject(parent), d_ptr(&dd)
+    : QObject(parent), d_ptr(&dd)
 {
     Q_D(ActiveConnection);
 
@@ -156,14 +156,14 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap & cha
     //nmDebug() << changedProperties.keys();
     QStringList propKeys = changedProperties.keys();
     QLatin1String connectionKey("Connection"),
-                  default4Key("Default"),
-                  default6Key("Default6"),
-                  master("Master"),
-                  specificObjectKey("SpecificObject"),
-                  stateKey("State"),
-                  vpnKey("Vpn"),
-                  uuid("Uuid"),
-                  devicesKey("Devices");
+            default4Key("Default"),
+            default6Key("Default6"),
+            master("Master"),
+            specificObjectKey("SpecificObject"),
+            stateKey("State"),
+            vpnKey("Vpn"),
+            uuid("Uuid"),
+            devicesKey("Devices");
     QVariantMap::const_iterator it = changedProperties.find(connectionKey);
     if (it != changedProperties.end()) {
         d->connection = NetworkManager::Settings::findConnection(qdbus_cast<QDBusObjectPath>(*it).path());
@@ -184,9 +184,9 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap & cha
     }
     it = changedProperties.find(master);
     if (it != changedProperties.end()) {
-	d->master = qdbus_cast<QDBusObjectPath>(*it).path();
-	emit masterChanged(NetworkManager::findNetworkInterface(d->master));
-	propKeys.removeOne(master);
+        d->master = qdbus_cast<QDBusObjectPath>(*it).path();
+        emit masterChanged(NetworkManager::findNetworkInterface(d->master));
+        propKeys.removeOne(master);
     }
     it = changedProperties.find(specificObjectKey);
     if (it != changedProperties.end()) {
@@ -208,9 +208,9 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap & cha
     }
     it = changedProperties.find(uuid);
     if (it != changedProperties.end()) {
-	d->uuid = it->toString();
-	emit uuidChanged(d->uuid);
-	propKeys.removeOne(uuid);
+        d->uuid = it->toString();
+        emit uuidChanged(d->uuid);
+        propKeys.removeOne(uuid);
     }
     it = changedProperties.find(devicesKey);
     if (it != changedProperties.end()) {
