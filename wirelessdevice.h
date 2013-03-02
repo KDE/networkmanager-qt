@@ -51,7 +51,7 @@ public:
      * Infra: a station in an infrastructure wireless network
      * AP: access point in an infrastructure network
      */
-    enum OperationMode { Unknown = 0, Adhoc, Infra, ApMode };
+    enum OperationMode { Unknown = 0, Adhoc, Infra, AP };
     /**
      * Capabilities (currently all encryption/authentication related) of the device
      * NoCapability = 0x0,
