@@ -232,7 +232,7 @@ NetworkManager::WirelessDevice::OperationMode NetworkManager::WirelessDevice::co
         case NM_802_11_MODE_INFRA:
             ourMode = NetworkManager::WirelessDevice::Infra;
             break;
-#if NM_CHECK_VERSION(0, 9, 8)
+#if NM_CHECK_VERSION(0, 9, 7)
         case NM_802_11_MODE_AP:
             ourMode = NetworkManager::WirelessDevice::ApMode;
             break;
