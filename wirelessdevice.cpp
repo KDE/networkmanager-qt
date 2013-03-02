@@ -234,7 +234,7 @@ NetworkManager::WirelessDevice::OperationMode NetworkManager::WirelessDevice::co
             break;
 #if NM_CHECK_VERSION(0, 9, 8)
         case NM_802_11_MODE_AP:
-            ourMode = NetworkManager::WirelessDevice::AP;
+            ourMode = NetworkManager::WirelessDevice::ApMode;
             break;
 #endif
         default:
