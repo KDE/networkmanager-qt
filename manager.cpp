@@ -316,14 +316,18 @@ bool NetworkManager::NetworkManagerPrivate::isWimaxHardwareEnabled() const
 QDBusPendingReply<QDBusObjectPath> NetworkManager::NetworkManagerPrivate::activateConnection(const QString & connectionUni, const QString & interfaceUni, const QString & connectionParameter)
 {
     QString extra_connection_parameter = connectionParameter;
+    QString extra_interface_parameter = interfaceUni;
     if (extra_connection_parameter.isEmpty()) {
         extra_connection_parameter = QLatin1String("/");
+    }
+    if (extra_interface_parameter.isEmpty()) {
+        extra_interface_parameter = QLatin1String("/");
     }
     // TODO store error code
     QDBusObjectPath connPath(connectionUni);
     QDBusObjectPath interfacePath(interfaceUni);
     nmDebug() << "Activating connection" << connPath.path() << "on interface" << interfacePath.path() << "with extra" << extra_connection_parameter;
-    return iface.ActivateConnection(connPath, interfacePath, QDBusObjectPath(extra_connection_parameter));
+    return iface.ActivateConnection(connPath, QDBusObjectPath(extra_interface_parameter), QDBusObjectPath(extra_connection_parameter));
 }
 
 QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::NetworkManagerPrivate::addAndActivateConnection(const QVariantMapMap& connection, const QString & interfaceUni, const QString & connectionParameter)
