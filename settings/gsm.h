@@ -51,8 +51,8 @@ public:
     void setPassword(const QString & password);
     QString password() const;
 
-    void setPasswordFlags(SecretFlagType flags);
-    SecretFlagType passwordFlags() const;
+    void setPasswordFlags(SecretFlags flags);
+    SecretFlags passwordFlags() const;
 
     void setApn(const QString & apn);
     QString apn() const;
@@ -66,8 +66,8 @@ public:
     void setPin(const QString & pin);
     QString pin() const;
 
-    void setPinFlags(SecretFlagType flags);
-    SecretFlagType pinFlags() const;
+    void setPinFlags(SecretFlags flags);
+    SecretFlags pinFlags() const;
 
     void setAllowedBand(quint32 band);
     quint32 allowedBand() const;
@@ -76,8 +76,6 @@ public:
     bool homeOnly() const;
 
     void secretsFromMap(const QVariantMap & secrets);
-
-    bool hasSecrets() const;
 
     QVariantMap secretsToMap() const;
 

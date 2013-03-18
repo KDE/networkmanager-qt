@@ -116,14 +116,14 @@ QString NetworkManager::Settings::GsmSetting::password() const
     return d->password;
 }
 
-void NetworkManager::Settings::GsmSetting::setPasswordFlags(GsmSetting::SecretFlagType flags)
+void NetworkManager::Settings::GsmSetting::setPasswordFlags(GsmSetting::SecretFlags flags)
 {
     Q_D(GsmSetting);
 
     d->passwordFlags = flags;
 }
 
-NetworkManager::Settings::GsmSetting::SecretFlagType NetworkManager::Settings::GsmSetting::passwordFlags() const
+NetworkManager::Settings::GsmSetting::SecretFlags NetworkManager::Settings::GsmSetting::passwordFlags() const
 {
     Q_D(const GsmSetting);
 
@@ -186,14 +186,14 @@ QString NetworkManager::Settings::GsmSetting::pin() const
     return d->pin;
 }
 
-void NetworkManager::Settings::GsmSetting::setPinFlags(GsmSetting::SecretFlagType flags)
+void NetworkManager::Settings::GsmSetting::setPinFlags(GsmSetting::SecretFlags flags)
 {
     Q_D(GsmSetting);
 
     d->pinFlags = flags;
 }
 
-NetworkManager::Settings::GsmSetting::SecretFlagType NetworkManager::Settings::GsmSetting::pinFlags() const
+NetworkManager::Settings::GsmSetting::SecretFlags NetworkManager::Settings::GsmSetting::pinFlags() const
 {
     Q_D(const GsmSetting);
 
@@ -228,19 +228,6 @@ bool NetworkManager::Settings::GsmSetting::homeOnly() const
     return d->homeOnly;
 }
 
-bool NetworkManager::Settings::GsmSetting::hasSecrets() const
-{
-    if (passwordFlags() == None || passwordFlags() == AgentOwned) {
-        return true;
-    }
-
-    if (pinFlags() == None || passwordFlags() == AgentOwned) {
-        return true;
-    }
-
-    return false;
-}
-
 void NetworkManager::Settings::GsmSetting::secretsFromMap(const QVariantMap& secrets)
 {
     if (secrets.contains(QLatin1String(NM_SETTING_GSM_PASSWORD))) {
@@ -271,11 +258,11 @@ QStringList NetworkManager::Settings::GsmSetting::needSecrets(bool requestNew) c
 {
     QStringList list;
 
-    if ((password().isEmpty() || requestNew) && passwordFlags() != NotRequired) {
+    if ((password().isEmpty() || requestNew) && !passwordFlags().testFlag(NotRequired)) {
         list << QLatin1String(NM_SETTING_GSM_PASSWORD);
     }
 
-    if ((pin().isEmpty() || requestNew) && pinFlags() != NotRequired) {
+    if ((pin().isEmpty() || requestNew) && !pinFlags().testFlag(NotRequired)) {
         list << QLatin1String(NM_SETTING_GSM_PIN);
     }
 
@@ -298,7 +285,7 @@ void NetworkManager::Settings::GsmSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_GSM_PASSWORD_FLAGS))) {
-        setPasswordFlags((SecretFlagType)setting.value(QLatin1String(NM_SETTING_GSM_PASSWORD_FLAGS)).toInt());
+        setPasswordFlags((SecretFlags)setting.value(QLatin1String(NM_SETTING_GSM_PASSWORD_FLAGS)).toInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_GSM_APN))) {
@@ -319,7 +306,7 @@ void NetworkManager::Settings::GsmSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_GSM_PIN_FLAGS))) {
-        setPinFlags((SecretFlagType)setting.value(QLatin1String(NM_SETTING_GSM_PIN_FLAGS)).toInt());
+        setPinFlags((SecretFlags)setting.value(QLatin1String(NM_SETTING_GSM_PIN_FLAGS)).toInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS))) {
@@ -348,7 +335,7 @@ QVariantMap NetworkManager::Settings::GsmSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_GSM_PASSWORD), password());
     }
 
-    setting.insert(QLatin1String(NM_SETTING_GSM_PASSWORD_FLAGS), passwordFlags());
+    setting.insert(QLatin1String(NM_SETTING_GSM_PASSWORD_FLAGS), (int)passwordFlags());
 
     if (!apn().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_GSM_APN), apn());
@@ -367,7 +354,7 @@ QVariantMap NetworkManager::Settings::GsmSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_GSM_PIN), pin());
     }
 
-    setting.insert(QLatin1String(NM_SETTING_GSM_PIN_FLAGS), pinFlags());
+    setting.insert(QLatin1String(NM_SETTING_GSM_PIN_FLAGS),(int)pinFlags());
 
     if (allowedBand() != 1) {
         setting.insert(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS), allowedBand());

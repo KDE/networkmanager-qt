@@ -100,11 +100,6 @@ QByteArray NetworkManager::Settings::OlpcMeshSetting::dhcpAnycastAddress() const
     return d->dhcpAnycastAddress;
 }
 
-bool NetworkManager::Settings::OlpcMeshSetting::hasSecrets() const
-{
-    return false;
-}
-
 void NetworkManager::Settings::OlpcMeshSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_OLPC_MESH_SSID))) {

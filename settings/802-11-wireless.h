@@ -87,8 +87,6 @@ public:
     void setHidden(bool hidden);
     bool hidden() const;
 
-    bool hasSecrets() const;
-
     void fromMap(const QVariantMap & setting);
 
     QVariantMap toMap() const;

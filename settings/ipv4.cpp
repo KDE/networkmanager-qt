@@ -247,11 +247,6 @@ bool NetworkManager::Settings::Ipv4Setting::mayFail() const
     return d->mayFail;
 }
 
-bool NetworkManager::Settings::Ipv4Setting::hasSecrets() const
-{
-    return false;
-}
-
 void NetworkManager::Settings::Ipv4Setting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD))) {

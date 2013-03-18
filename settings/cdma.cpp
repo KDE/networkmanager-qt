@@ -102,14 +102,14 @@ QString NetworkManager::Settings::CdmaSetting::password() const
     return d->password;
 }
 
-void NetworkManager::Settings::CdmaSetting::setPasswordFlags(NetworkManager::Settings::Setting::SecretFlagType flags)
+void NetworkManager::Settings::CdmaSetting::setPasswordFlags(NetworkManager::Settings::Setting::SecretFlags flags)
 {
     Q_D(CdmaSetting);
 
     d->passwordFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::CdmaSetting::passwordFlags() const
+NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::CdmaSetting::passwordFlags() const
 {
     Q_D(const CdmaSetting);
 
@@ -120,7 +120,7 @@ QStringList NetworkManager::Settings::CdmaSetting::needSecrets(bool requestNew) 
 {
     QStringList secrets;
     if (!username().isEmpty()) {
-        if ((password().isEmpty() || requestNew) && passwordFlags() != NotRequired) {
+        if ((password().isEmpty() || requestNew) && !passwordFlags().testFlag(NotRequired)) {
             secrets << QLatin1String(NM_SETTING_CDMA_PASSWORD);
         }
     }
@@ -162,7 +162,7 @@ void NetworkManager::Settings::CdmaSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_CDMA_PASSWORD_FLAGS))) {
-        setPasswordFlags((Setting::SecretFlagType)setting.value(QLatin1String(NM_SETTING_CDMA_PASSWORD_FLAGS)).toUInt());
+        setPasswordFlags((Setting::SecretFlags)setting.value(QLatin1String(NM_SETTING_CDMA_PASSWORD_FLAGS)).toUInt());
     }
 }
 
@@ -184,7 +184,7 @@ QVariantMap NetworkManager::Settings::CdmaSetting::toMap() const
     }
 
     if (passwordFlags() != None) {
-        setting.insert(QLatin1String(NM_SETTING_CDMA_PASSWORD_FLAGS), passwordFlags());
+        setting.insert(QLatin1String(NM_SETTING_CDMA_PASSWORD_FLAGS), (int)passwordFlags());
     }
 
     return setting;

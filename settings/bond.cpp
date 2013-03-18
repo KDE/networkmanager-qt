@@ -91,11 +91,6 @@ QStringMap NetworkManager::Settings::BondSetting::options() const
     return d->options;
 }
 
-bool NetworkManager::Settings::BondSetting::hasSecrets() const
-{
-    return false;
-}
-
 void NetworkManager::Settings::BondSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_BOND_INTERFACE_NAME))) {

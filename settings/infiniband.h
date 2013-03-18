@@ -53,8 +53,6 @@ public:
     void setTransportMode(TransportMode mode);
     TransportMode transportMode() const;
 
-    bool hasSecrets() const;
-
     void fromMap(const QVariantMap & setting);
 
     QVariantMap toMap() const;

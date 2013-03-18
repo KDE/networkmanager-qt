@@ -116,11 +116,6 @@ QStringMap NetworkManager::Settings::VpnSetting::secrets() const
     return d->secrets;
 }
 
-bool NetworkManager::Settings::VpnSetting::hasSecrets() const
-{
-    return false;
-}
-
 void NetworkManager::Settings::VpnSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_VPN_SERVICE_TYPE))) {

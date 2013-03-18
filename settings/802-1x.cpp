@@ -393,14 +393,14 @@ QString NetworkManager::Settings::Security8021xSetting::password() const
     return d->password;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPasswordFlags(NetworkManager::Settings::Setting::SecretFlagType flags)
+void NetworkManager::Settings::Security8021xSetting::setPasswordFlags(NetworkManager::Settings::Setting::SecretFlags flags)
 {
     Q_D(Security8021xSetting);
 
     d->passwordFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::Security8021xSetting::passwordFlags() const
+NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::Security8021xSetting::passwordFlags() const
 {
     Q_D(const Security8021xSetting);
 
@@ -421,14 +421,14 @@ QByteArray NetworkManager::Settings::Security8021xSetting::passwordRaw() const
     return d->passwordRaw;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPasswordRawFlags(NetworkManager::Settings::Setting::SecretFlagType flags)
+void NetworkManager::Settings::Security8021xSetting::setPasswordRawFlags(NetworkManager::Settings::Setting::SecretFlags flags)
 {
     Q_D(Security8021xSetting);
 
     d->passwordRawFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::Security8021xSetting::passwordRawFlags() const
+NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::Security8021xSetting::passwordRawFlags() const
 {
     Q_D(const Security8021xSetting);
 
@@ -463,14 +463,14 @@ QString NetworkManager::Settings::Security8021xSetting::privateKeyPassword() con
     return d->privateKeyPassword;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPrivateKeyPasswordFlags(NetworkManager::Settings::Setting::SecretFlagType flags)
+void NetworkManager::Settings::Security8021xSetting::setPrivateKeyPasswordFlags(NetworkManager::Settings::Setting::SecretFlags flags)
 {
     Q_D(Security8021xSetting);
 
     d->privateKeyPasswordFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::Security8021xSetting::privateKeyPasswordFlags() const
+NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::Security8021xSetting::privateKeyPasswordFlags() const
 {
     Q_D(const Security8021xSetting);
 
@@ -505,14 +505,14 @@ QString NetworkManager::Settings::Security8021xSetting::phase2PrivateKeyPassword
     return d->phase2PrivateKeyPassword;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2PrivateKeyPasswordFlags(NetworkManager::Settings::Setting::SecretFlagType flags)
+void NetworkManager::Settings::Security8021xSetting::setPhase2PrivateKeyPasswordFlags(NetworkManager::Settings::Setting::SecretFlags flags)
 {
     Q_D(Security8021xSetting);
 
     d->phase2PrivateKeyPasswordFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::Security8021xSetting::phase2PrivateKeyPasswordFlags() const
+NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::Security8021xSetting::phase2PrivateKeyPasswordFlags() const
 {
     Q_D(const Security8021xSetting);
 
@@ -540,14 +540,14 @@ QString NetworkManager::Settings::Security8021xSetting::pin() const
     return d->pin;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPinFlags(NetworkManager::Settings::Setting::SecretFlagType flags)
+void NetworkManager::Settings::Security8021xSetting::setPinFlags(NetworkManager::Settings::Setting::SecretFlags flags)
 {
     Q_D(Security8021xSetting);
 
     d->pinFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::Security8021xSetting::pinFlags() const
+NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::Security8021xSetting::pinFlags() const
 {
     Q_D(const Security8021xSetting);
 
@@ -566,19 +566,19 @@ QStringList NetworkManager::Settings::Security8021xSetting::needSecrets(bool req
     QStringList secrets;
 
     if (eapMethods().contains(EapMethodTls) && (privateKeyPassword().isEmpty() || requestNew) &&
-            privateKeyPasswordFlags() != NotRequired) {
+            !privateKeyPasswordFlags().testFlag(NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD);
     } else if ((eapMethods().contains(EapMethodTtls) || eapMethods().contains(EapMethodPeap) ||
                 eapMethods().contains(EapMethodLeap) || eapMethods().contains(EapMethodFast)) &&
-               (password().isEmpty() || requestNew) && passwordFlags() != NotRequired) {
+               (password().isEmpty() || requestNew) && !passwordFlags().testFlag(NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD);
         secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW);
-    } else if (eapMethods().contains(EapMethodSim) && (pin().isEmpty() || requestNew) && pinFlags() != NotRequired) {
+    } else if (eapMethods().contains(EapMethodSim) && (pin().isEmpty() || requestNew) && !pinFlags().testFlag(NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PIN);
     }
 
     if ((phase2AuthMethod() == AuthMethodTls || phase2AuthEapMethod() == AuthEapMethodTls) &&
-            (phase2PrivateKeyPassword().isEmpty() || requestNew) && phase2PrivateKeyPasswordFlags() != NotRequired) {
+            (phase2PrivateKeyPassword().isEmpty() || requestNew) && !phase2PrivateKeyPasswordFlags().testFlag(NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD);
     }
 
@@ -786,7 +786,7 @@ void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& 
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PASSWORD_FLAGS))) {
-        setPasswordFlags((Setting::SecretFlagType)setting.value(QLatin1String(NM_SETTING_802_1X_PASSWORD_FLAGS)).toUInt());
+        setPasswordFlags((Setting::SecretFlags)setting.value(QLatin1String(NM_SETTING_802_1X_PASSWORD_FLAGS)).toUInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW))) {
@@ -794,7 +794,7 @@ void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& 
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW_FLAGS))) {
-        setPasswordRawFlags((Setting::SecretFlagType)setting.value(QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW_FLAGS)).toUInt());
+        setPasswordRawFlags((Setting::SecretFlags)setting.value(QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW_FLAGS)).toUInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY))) {
@@ -806,7 +806,7 @@ void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& 
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD_FLAGS))) {
-        setPrivateKeyPasswordFlags((Setting::SecretFlagType)setting.value(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD_FLAGS)).toUInt());
+        setPrivateKeyPasswordFlags((Setting::SecretFlags)setting.value(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD_FLAGS)).toUInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY))) {
@@ -818,7 +818,7 @@ void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& 
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD_FLAGS))) {
-        setPhase2PrivateKeyPasswordFlags((Setting::SecretFlagType)setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD_FLAGS)).toUInt());
+        setPhase2PrivateKeyPasswordFlags((Setting::SecretFlags)setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD_FLAGS)).toUInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PIN))) {
@@ -826,7 +826,7 @@ void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& 
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PIN_FLAGS))) {
-        setPinFlags((Setting::SecretFlagType)setting.value(QLatin1String(NM_SETTING_802_1X_PIN_FLAGS)).toUInt());
+        setPinFlags((Setting::SecretFlags)setting.value(QLatin1String(NM_SETTING_802_1X_PIN_FLAGS)).toUInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_SYSTEM_CA_CERTS))) {
@@ -1016,7 +1016,7 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
     }
 
     if (passwordFlags() != None) {
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PASSWORD_FLAGS), passwordFlags());
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PASSWORD_FLAGS), (int)passwordFlags());
     }
 
     if (!passwordRaw().isEmpty()) {
@@ -1024,7 +1024,7 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
     }
 
     if (passwordRawFlags() != None) {
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW_FLAGS), passwordRawFlags());
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW_FLAGS), (int)passwordRawFlags());
     }
 
     if (!privateKey().isEmpty()) {
@@ -1036,7 +1036,7 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
     }
 
     if (privateKeyPasswordFlags() != None) {
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD_FLAGS), privateKeyPasswordFlags());
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD_FLAGS), (int)privateKeyPasswordFlags());
     }
 
     if (!phase2PrivateKey().isEmpty()) {
@@ -1048,7 +1048,7 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
     }
 
     if (phase2PrivateKeyPasswordFlags() != None) {
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD_FLAGS), phase2PrivateKeyPasswordFlags());
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD_FLAGS), (int)phase2PrivateKeyPasswordFlags());
     }
 
     if (!pin().isEmpty()) {
@@ -1056,7 +1056,7 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
     }
 
     if (pinFlags() != None) {
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PIN_FLAGS), pinFlags());
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PIN_FLAGS), (int)pinFlags());
     }
 
     if (systemCaCertificates()) {

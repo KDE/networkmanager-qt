@@ -79,8 +79,6 @@ public:
     void setS390Options(const QMap<QString,QString> &options);
     QMap<QString,QString> s390Options() const;
 
-    bool hasSecrets() const;
-
     void fromMap(const QVariantMap & setting);
 
     QVariantMap toMap() const;

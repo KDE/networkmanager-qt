@@ -148,11 +148,6 @@ QStringList NetworkManager::Settings::VlanSetting::egressPriorityMap() const
     return d->egressPriorityMap;
 }
 
-bool NetworkManager::Settings::VlanSetting::hasSecrets() const
-{
-    return false;
-}
-
 void NetworkManager::Settings::VlanSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_VLAN_INTERFACE_NAME))) {

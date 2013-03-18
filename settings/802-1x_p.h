@@ -53,17 +53,17 @@ namespace Settings
         QStringList phase2AltSubjectMatches;
         QByteArray phase2ClientCert;
         QString password;
-        Setting::SecretFlagType passwordFlags;
+        Setting::SecretFlags passwordFlags;
         QByteArray passwordRaw;
-        Setting::SecretFlagType passwordRawFlags;
+        Setting::SecretFlags passwordRawFlags;
         QByteArray privateKey;
         QString privateKeyPassword;
-        Setting::SecretFlagType privateKeyPasswordFlags;
+        Setting::SecretFlags privateKeyPasswordFlags;
         QByteArray phase2PrivateKey;
         QString phase2PrivateKeyPassword;
-        Setting::SecretFlagType phase2PrivateKeyPasswordFlags;
+        Setting::SecretFlags phase2PrivateKeyPasswordFlags;
         QString pin;
-        Setting::SecretFlagType pinFlags;
+        Setting::SecretFlags pinFlags;
         bool systemCaCerts;
     };
 }

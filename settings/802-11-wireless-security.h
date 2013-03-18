@@ -82,8 +82,8 @@ public:
     void setWepKey3(const QString key);
     QString wepKey3() const;
 
-    void setWepKeyFlags(SecretFlagType type);
-    SecretFlagType wepKeyFlags() const;
+    void setWepKeyFlags(SecretFlags type);
+    SecretFlags wepKeyFlags() const;
 
     void setWepKeyType(WepKeyType type);
     WepKeyType wepKeyType() const;
@@ -91,14 +91,14 @@ public:
     void setPsk(const QString & key);
     QString psk() const;
 
-    void setPskFlags(SecretFlagType type);
-    SecretFlagType pskFlags() const;
+    void setPskFlags(SecretFlags type);
+    SecretFlags pskFlags() const;
 
     void setLeapPassword(const QString & password);
     QString leapPassword() const;
 
-    void setLeapPasswordFlags(SecretFlagType type);
-    SecretFlagType leapPasswordFlags() const;
+    void setLeapPasswordFlags(SecretFlags type);
+    SecretFlags leapPasswordFlags() const;
 
     void secretsFromMap(const QVariantMap & secrets);
 

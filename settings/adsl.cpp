@@ -95,14 +95,14 @@ QString NetworkManager::Settings::AdslSetting::password() const
     return d->password;
 }
 
-void NetworkManager::Settings::AdslSetting::setPasswordFlags(NetworkManager::Settings::Setting::SecretFlagType flags)
+void NetworkManager::Settings::AdslSetting::setPasswordFlags(NetworkManager::Settings::Setting::SecretFlags flags)
 {
     Q_D(AdslSetting);
 
     d->passwordFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::AdslSetting::passwordFlags() const
+NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::AdslSetting::passwordFlags() const
 {
     Q_D(const AdslSetting);
 
@@ -169,7 +169,7 @@ QStringList NetworkManager::Settings::AdslSetting::needSecrets(bool requestNew) 
 {
     QStringList secrets;
 
-    if ((password().isEmpty() || requestNew) && passwordFlags() != NotRequired) {
+    if ((password().isEmpty() || requestNew) && !passwordFlags().testFlag(NotRequired)) {
         secrets << QLatin1String(NM_SETTING_ADSL_PASSWORD);
     }
 
@@ -187,7 +187,7 @@ void NetworkManager::Settings::AdslSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_ADSL_PASSWORD_FLAGS))) {
-        setPasswordFlags((Setting::SecretFlagType)setting.value(QLatin1String(NM_SETTING_ADSL_PASSWORD_FLAGS)).toUInt());
+        setPasswordFlags((Setting::SecretFlags)setting.value(QLatin1String(NM_SETTING_ADSL_PASSWORD_FLAGS)).toUInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_ADSL_PROTOCOL))) {
@@ -234,7 +234,7 @@ QVariantMap NetworkManager::Settings::AdslSetting::toMap() const
     }
 
     if (passwordFlags() != None) {
-        setting.insert(QLatin1String(NM_SETTING_ADSL_PASSWORD_FLAGS), passwordFlags());
+        setting.insert(QLatin1String(NM_SETTING_ADSL_PASSWORD_FLAGS), (int)passwordFlags());
     }
 
     if (protocol() != UnknownProtocol) {

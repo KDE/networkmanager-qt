@@ -51,8 +51,6 @@ public:
     void setDhcpAnycastAddress(const QByteArray & address);
     QByteArray dhcpAnycastAddress() const;
 
-    bool hasSecrets() const;
-
     void fromMap(const QVariantMap & setting);
 
     QVariantMap toMap() const;

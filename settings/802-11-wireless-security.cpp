@@ -242,14 +242,14 @@ QString NetworkManager::Settings::WirelessSecuritySetting::wepKey3() const
     return d->wepKey3;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setWepKeyFlags(NetworkManager::Settings::Setting::SecretFlagType type)
+void NetworkManager::Settings::WirelessSecuritySetting::setWepKeyFlags(NetworkManager::Settings::Setting::SecretFlags type)
 {
     Q_D(WirelessSecuritySetting);
 
     d->wepKeyFlags = type;
 }
 
-NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::WirelessSecuritySetting::wepKeyFlags() const
+NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::WirelessSecuritySetting::wepKeyFlags() const
 {
     Q_D(const WirelessSecuritySetting);
 
@@ -284,14 +284,14 @@ QString NetworkManager::Settings::WirelessSecuritySetting::psk() const
     return d->psk;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setPskFlags(NetworkManager::Settings::Setting::SecretFlagType type)
+void NetworkManager::Settings::WirelessSecuritySetting::setPskFlags(NetworkManager::Settings::Setting::SecretFlags type)
 {
     Q_D(WirelessSecuritySetting);
 
     d->pskFlags = type;
 }
 
-NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::WirelessSecuritySetting::pskFlags() const
+NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::WirelessSecuritySetting::pskFlags() const
 {
     Q_D(const WirelessSecuritySetting);
 
@@ -312,14 +312,14 @@ QString NetworkManager::Settings::WirelessSecuritySetting::leapPassword() const
     return d->leapPassword;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setLeapPasswordFlags(NetworkManager::Settings::Setting::SecretFlagType type)
+void NetworkManager::Settings::WirelessSecuritySetting::setLeapPasswordFlags(NetworkManager::Settings::Setting::SecretFlags type)
 {
     Q_D(WirelessSecuritySetting);
 
     d->leapPasswordFlags = type;
 }
 
-NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::WirelessSecuritySetting::leapPasswordFlags() const
+NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::WirelessSecuritySetting::leapPasswordFlags() const
 {
     Q_D(const WirelessSecuritySetting);
 
@@ -389,7 +389,7 @@ QStringList NetworkManager::Settings::WirelessSecuritySetting::needSecrets(bool 
     QStringList secrets;
 
     if (keyMgmt() == Wep) {
-        if (wepKeyFlags() != Setting::NotRequired) {
+        if (!wepKeyFlags().testFlag(Setting::NotRequired)) {
             switch (wepTxKeyindex()) {
             case 0:
                 if (wepKey0().isEmpty() || requestNew) {
@@ -546,7 +546,7 @@ void NetworkManager::Settings::WirelessSecuritySetting::fromMap(const QVariantMa
     }
 
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_FLAGS))) {
-        setWepKeyFlags((SecretFlagType)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_FLAGS)).toUInt());
+        setWepKeyFlags((SecretFlags)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_FLAGS)).toUInt());
     }
 
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_TYPE))) {
@@ -559,7 +559,7 @@ void NetworkManager::Settings::WirelessSecuritySetting::fromMap(const QVariantMa
     }
 
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK_FLAGS))) {
-        setPskFlags((SecretFlagType)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK_FLAGS)).toInt());
+        setPskFlags((SecretFlags)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK_FLAGS)).toInt());
     }
 
     // SECRETS
@@ -568,7 +568,7 @@ void NetworkManager::Settings::WirelessSecuritySetting::fromMap(const QVariantMa
     }
 
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS))) {
-        setLeapPasswordFlags((SecretFlagType)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS)).toInt());
+        setLeapPasswordFlags((SecretFlags)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS)).toInt());
     }
 }
 
@@ -671,7 +671,7 @@ QVariantMap NetworkManager::Settings::WirelessSecuritySetting::toMap() const
     }
 
     if (wepKeyFlags()) {
-        setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_FLAGS), wepKeyFlags());
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_FLAGS), (int)wepKeyFlags());
     }
 
     if (wepKeyType()) {
@@ -684,7 +684,7 @@ QVariantMap NetworkManager::Settings::WirelessSecuritySetting::toMap() const
     }
 
     if (pskFlags()) {
-        setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK_FLAGS), pskFlags());
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK_FLAGS), (int)pskFlags());
     }
 
     // SECRETS
@@ -693,7 +693,7 @@ QVariantMap NetworkManager::Settings::WirelessSecuritySetting::toMap() const
     }
 
     if (leapPasswordFlags()) {
-        setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS), leapPasswordFlags());
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS), (int)leapPasswordFlags());
     }
 
     return setting;

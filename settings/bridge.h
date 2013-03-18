@@ -64,8 +64,6 @@ public:
     void setAgeintTime(quint32 time);
     quint32 ageintTime() const;
 
-    bool hasSecrets() const;
-
     void fromMap(const QVariantMap & setting);
 
     QVariantMap toMap() const;

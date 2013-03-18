@@ -60,11 +60,6 @@ QString NetworkManager::Settings::TemplateSetting::name() const
     return d->name;
 }
 
-bool NetworkManager::Settings::TemplateSetting::hasSecrets() const
-{
-    return false;
-}
-
 void NetworkManager::Settings::TemplateSetting::fromMap(const QVariantMap& setting)
 {
     /*

@@ -100,11 +100,6 @@ NetworkManager::Settings::InfinibandSetting::TransportMode NetworkManager::Setti
     return d->transportMode;
 }
 
-bool NetworkManager::Settings::InfinibandSetting::hasSecrets() const
-{
-    return false;
-}
-
 void NetworkManager::Settings::InfinibandSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_INFINIBAND_MAC_ADDRESS))) {

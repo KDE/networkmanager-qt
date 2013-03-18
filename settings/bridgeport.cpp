@@ -100,11 +100,6 @@ bool NetworkManager::Settings::BridgePortSetting::hairpinMode() const
     return d->hairpinMode;
 }
 
-bool NetworkManager::Settings::BridgePortSetting::hasSecrets() const
-{
-    return false;
-}
-
 void NetworkManager::Settings::BridgePortSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_BRIDGE_PORT_PRIORITY))) {

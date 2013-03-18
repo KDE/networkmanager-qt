@@ -51,8 +51,8 @@ public:
     void setPassword(const QString & password);
     QString password() const;
 
-    void setPasswordFlags(SecretFlagType flags);
-    SecretFlagType passwordFlags() const;
+    void setPasswordFlags(SecretFlags flags);
+    SecretFlags passwordFlags() const;
 
     QStringList needSecrets(bool requestNew = false) const;
 

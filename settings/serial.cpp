@@ -132,11 +132,6 @@ quint64 NetworkManager::Settings::SerialSetting::sendDelay() const
     return d->sendDelay;
 }
 
-bool NetworkManager::Settings::SerialSetting::hasSecrets() const
-{
-    return false;
-}
-
 void NetworkManager::Settings::SerialSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_SERIAL_BAUD))) {

@@ -50,8 +50,6 @@ public:
     void setOptions(const QStringMap & options);
     QStringMap options() const;
 
-    bool hasSecrets() const;
-
     void fromMap(const QVariantMap & setting);
 
     QVariantMap toMap() const;

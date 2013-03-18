@@ -102,14 +102,14 @@ QString NetworkManager::Settings::PppoeSetting::password() const
     return d->password;
 }
 
-void NetworkManager::Settings::PppoeSetting::setPasswordFlags(NetworkManager::Settings::Setting::SecretFlagType flags)
+void NetworkManager::Settings::PppoeSetting::setPasswordFlags(NetworkManager::Settings::Setting::SecretFlags flags)
 {
     Q_D(PppoeSetting);
 
     d->passwordFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlagType NetworkManager::Settings::PppoeSetting::passwordFlags() const
+NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::PppoeSetting::passwordFlags() const
 {
     Q_D(const PppoeSetting);
 
@@ -120,7 +120,7 @@ QStringList NetworkManager::Settings::PppoeSetting::needSecrets(bool requestNew)
 {
     QStringList secrets;
 
-    if ((password().isEmpty() || requestNew) && passwordFlags() != Setting::NotRequired) {
+    if ((password().isEmpty() || requestNew) && !passwordFlags().testFlag(Setting::NotRequired)) {
         secrets << QLatin1String(NM_SETTING_PPPOE_PASSWORD);
     }
 
@@ -160,7 +160,7 @@ void NetworkManager::Settings::PppoeSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_PPPOE_PASSWORD_FLAGS))) {
-        setPasswordFlags((Setting::SecretFlagType)setting.value(QLatin1String(NM_SETTING_PPPOE_PASSWORD_FLAGS)).toUInt());
+        setPasswordFlags((Setting::SecretFlags)setting.value(QLatin1String(NM_SETTING_PPPOE_PASSWORD_FLAGS)).toUInt());
     }
 }
 
@@ -181,7 +181,7 @@ QVariantMap NetworkManager::Settings::PppoeSetting::toMap() const
     }
 
     if (passwordFlags()) {
-        setting.insert(QLatin1String(NM_SETTING_PPPOE_PASSWORD_FLAGS), passwordFlags());
+        setting.insert(QLatin1String(NM_SETTING_PPPOE_PASSWORD_FLAGS), (int)passwordFlags());
     }
 
     return setting;

@@ -49,8 +49,6 @@ public:
     void setMacAddress(const QByteArray & address);
     QByteArray macAddress() const;
 
-    bool hasSecrets() const;
-
     void fromMap(const QVariantMap & setting);
 
     QVariantMap toMap() const;

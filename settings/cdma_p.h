@@ -36,7 +36,7 @@ namespace Settings
         QString number;
         QString username;
         QString password;
-        NetworkManager::Settings::Setting::SecretFlagType passwordFlags;
+        NetworkManager::Settings::Setting::SecretFlags passwordFlags;
     };
 }
 }

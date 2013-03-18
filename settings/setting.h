@@ -25,6 +25,7 @@
 
 #include <QtCore/QVariantMap>
 #include <QtCore/QStringList>
+#include <QtCore/QFlags>
 
 namespace NetworkManager
 {
@@ -39,6 +40,7 @@ public:
     enum SettingType {Adsl, Cdma, Gsm, Infiniband, Ipv4, Ipv6, Ppp, Pppoe, Security8021x, Serial,
                       Vpn, Wired, Wireless, WirelessSecurity, Bluetooth, OlpcMesh, Vlan, Wimax, Bond, Bridge, BridgePort};
     enum SecretFlagType {None = 0, AgentOwned = 0x01, NotSaved = 0x02, NotRequired = 0x04};
+    Q_DECLARE_FLAGS(SecretFlags, SecretFlagType);
 
     static QString typeAsString(SettingType type);
     static SettingType typeFromString(const QString & type);
@@ -50,8 +52,6 @@ public:
     virtual void fromMap(const QVariantMap & map) = 0;
 
     virtual QVariantMap toMap() const = 0;
-
-    virtual bool hasSecrets() const;
 
     virtual void secretsFromMap(const QVariantMap & map);
 
@@ -73,6 +73,7 @@ public:
 private:
     SettingPrivate * d_ptr;
 };
+Q_DECLARE_OPERATORS_FOR_FLAGS(Setting::SecretFlags)
 }
 }
 

@@ -45,12 +45,12 @@ namespace Settings
         QString wepKey1;
         QString wepKey2;
         QString wepKey3;
-        NetworkManager::Settings::Setting::SecretFlagType wepKeyFlags;
+        NetworkManager::Settings::Setting::SecretFlags wepKeyFlags;
         NetworkManager::Settings::WirelessSecuritySetting::WepKeyType wepKeyType;
         QString psk;
-        NetworkManager::Settings::Setting::SecretFlagType pskFlags;
+        NetworkManager::Settings::Setting::SecretFlags pskFlags;
         QString leapPassword;
-        NetworkManager::Settings::Setting::SecretFlagType leapPasswordFlags;
+        NetworkManager::Settings::Setting::SecretFlags leapPasswordFlags;
     };
 }
 }

@@ -164,11 +164,6 @@ quint32 NetworkManager::Settings::BridgeSetting::ageintTime() const
     return d->ageintTime;
 }
 
-bool NetworkManager::Settings::BridgeSetting::hasSecrets() const
-{
-    return false;
-}
-
 void NetworkManager::Settings::BridgeSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_BRIDGE_INTERFACE_NAME))) {

@@ -52,8 +52,8 @@ public:
     void setPassword(const QString & password);
     QString password() const;
 
-    void setPasswordFlags(SecretFlagType flags);
-    SecretFlagType passwordFlags() const;
+    void setPasswordFlags(SecretFlags flags);
+    SecretFlags passwordFlags() const;
 
     void setProtocol(Protocol protocol);
     Protocol protocol() const;

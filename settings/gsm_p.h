@@ -36,12 +36,12 @@ namespace Settings
 	QString number;
 	QString username;
 	QString password;
-	NetworkManager::Settings::Setting::SecretFlagType passwordFlags;
+	NetworkManager::Settings::Setting::SecretFlags passwordFlags;
 	QString apn;
 	QString networkId;
 	qint32 networkType;
 	QString pin;
-	NetworkManager::Settings::Setting::SecretFlagType pinFlags;
+	NetworkManager::Settings::Setting::SecretFlags pinFlags;
 	quint32 allowedBand;
 	bool homeOnly;
     };

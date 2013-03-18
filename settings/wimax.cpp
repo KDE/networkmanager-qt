@@ -84,11 +84,6 @@ QByteArray NetworkManager::Settings::WimaxSetting::macAddress() const
     return d->macAddress;
 }
 
-bool NetworkManager::Settings::WimaxSetting::hasSecrets() const
-{
-    return false;
-}
-
 void NetworkManager::Settings::WimaxSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_WIMAX_NETWORK_NAME))) {

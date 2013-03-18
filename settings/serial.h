@@ -59,8 +59,6 @@ public:
     void setSendDelay(quint64 delay);
     quint64 sendDelay() const;
 
-    bool hasSecrets() const;
-
     void fromMap(const QVariantMap & setting);
 
     QVariantMap toMap() const;

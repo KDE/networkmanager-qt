@@ -84,11 +84,6 @@ NetworkManager::Settings::BluetoothSetting::Type NetworkManager::Settings::Bluet
     return d->type;
 }
 
-bool NetworkManager::Settings::BluetoothSetting::hasSecrets() const
-{
-    return false;
-}
-
 void NetworkManager::Settings::BluetoothSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_BLUETOOTH_BDADDR))) {

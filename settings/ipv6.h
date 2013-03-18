@@ -77,8 +77,6 @@ public:
     void setPrivacy(IPv6Privacy privacy);
     IPv6Privacy privacy() const;
 
-    bool hasSecrets() const;
-
     void fromMap(const QVariantMap & setting);
 
     QVariantMap toMap() const;

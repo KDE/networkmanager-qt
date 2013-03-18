@@ -35,7 +35,7 @@ namespace Settings
         QString name;
         QString username;
         QString password;
-        NetworkManager::Settings::Setting::SecretFlagType passwordFlags;
+        NetworkManager::Settings::Setting::SecretFlags passwordFlags;
         NetworkManager::Settings::AdslSetting::Protocol protocol;
         NetworkManager::Settings::AdslSetting::Encapsulation encapsulation;
         quint32 vpi;

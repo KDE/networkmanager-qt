@@ -185,11 +185,6 @@ NetworkManager::Settings::Setting::~Setting()
     delete d_ptr;
 }
 
-bool NetworkManager::Settings::Setting::hasSecrets() const
-{
-    return false;
-}
-
 QStringList NetworkManager::Settings::Setting::needSecrets(bool requestNew) const
 {
     return QStringList();

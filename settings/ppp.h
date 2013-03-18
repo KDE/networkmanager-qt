@@ -96,8 +96,6 @@ public:
     void setLcpEchoInterval(quint32 interval);
     quint32 lcpEchoInterval() const;
 
-    bool hasSecrets() const;
-
     void fromMap(const QVariantMap & setting);
 
     QVariantMap toMap() const;

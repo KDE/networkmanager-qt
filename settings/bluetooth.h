@@ -50,8 +50,6 @@ public:
     void setType(Type type);
     Type type() const;
 
-    bool hasSecrets() const;
-
     void fromMap(const QVariantMap & setting);
 
     QVariantMap toMap() const;

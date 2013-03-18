@@ -62,8 +62,6 @@ public:
     void setEgressPriorityMap(const QStringList & map);
     QStringList egressPriorityMap() const;
 
-    bool hasSecrets() const;
-
     void fromMap(const QVariantMap & setting);
 
     QVariantMap toMap() const;
