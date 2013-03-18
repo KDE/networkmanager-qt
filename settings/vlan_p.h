@@ -36,7 +36,7 @@ namespace Settings
         QString interfaceName;
         QString parent;
         quint32 id;
-        NetworkManager::Settings::VlanSetting::Flag flags;
+        NetworkManager::Settings::VlanSetting::Flags flags;
         QStringList ingressPriorityMap;
         QStringList egressPriorityMap;
     };

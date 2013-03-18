@@ -37,6 +37,7 @@ class NMQT_EXPORT VlanSetting : public Setting
     Q_DECLARE_PRIVATE(VlanSetting)
 public:
     enum Flag {None = 0, ReorderHeaders = 0x1, Gvrp = 0x2, LooseBinding = 0x4};
+    Q_DECLARE_FLAGS(Flags, Flag);
 
     VlanSetting();
     VlanSetting(VlanSetting *);
@@ -53,8 +54,8 @@ public:
     void setId(quint32 id);
     quint32 id() const;
 
-    void setFlags(Flag flags);
-    Flag flags() const;
+    void setFlags(Flags flags);
+    Flags flags() const;
 
     void setIngressPriorityMap(const QStringList & map);
     QStringList ingressPriorityMap() const;
@@ -72,6 +73,7 @@ public:
 private:
     VlanSettingPrivate * d_ptr;
 };
+Q_DECLARE_OPERATORS_FOR_FLAGS(VlanSetting::Flags)
 }
 }
 

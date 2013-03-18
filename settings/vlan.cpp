@@ -106,14 +106,14 @@ quint32 NetworkManager::Settings::VlanSetting::id() const
     return d->id;
 }
 
-void NetworkManager::Settings::VlanSetting::setFlags(NetworkManager::Settings::VlanSetting::Flag flags)
+void NetworkManager::Settings::VlanSetting::setFlags(NetworkManager::Settings::VlanSetting::Flags flags)
 {
     Q_D(VlanSetting);
 
     d->flags = flags;
 }
 
-NetworkManager::Settings::VlanSetting::Flag NetworkManager::Settings::VlanSetting::flags() const
+NetworkManager::Settings::VlanSetting::Flags NetworkManager::Settings::VlanSetting::flags() const
 {
     Q_D(const VlanSetting);
 
@@ -192,7 +192,7 @@ QVariantMap NetworkManager::Settings::VlanSetting::toMap() const
     }
 
     if (flags() != None) {
-        setting.insert(QLatin1String(NM_SETTING_VLAN_FLAGS), flags());
+        setting.insert(QLatin1String(NM_SETTING_VLAN_FLAGS), (int)flags());
     }
 
     if (!ingressPriorityMap().isEmpty()) {
