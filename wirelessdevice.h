@@ -49,7 +49,7 @@ public:
      * Unknown: not associated with a network
      * Adhoc: part of an adhoc network
      * Infra: a station in an infrastructure wireless network
-     * AP: access point in an infrastructure network
+     * APMode: access point in an infrastructure network
      */
     enum OperationMode { Unknown = 0, Adhoc, Infra, ApMode };
     /**
