@@ -36,9 +36,9 @@ namespace NetworkManager
     {
     Q_OBJECT
     Q_DECLARE_PRIVATE(SecretAgent)
-    enum GetSecretsFlag { None = 0, AllowInteraction = 0x01, RequestNew = 0x02, UserRequested = 0x04 };
-    Q_DECLARE_FLAGS(GetSecretsFlags, GetSecretsFlag)
     public:
+        enum GetSecretsFlag { None = 0, AllowInteraction = 0x01, RequestNew = 0x02, UserRequested = 0x04 };
+        Q_DECLARE_FLAGS(GetSecretsFlags, GetSecretsFlag)
         explicit SecretAgent(const QString &, QObject * parent = 0);
         virtual ~SecretAgent();
     public Q_SLOTS:
@@ -51,7 +51,7 @@ namespace NetworkManager
         Q_PRIVATE_SLOT(d_ptr, void registerAgent())
     };
 }
-// Q_DECLARE_OPERATORS_FOR_FLAGS(NetworkManager::SecretAgent::GetSecretsFlags)
+Q_DECLARE_OPERATORS_FOR_FLAGS(NetworkManager::SecretAgent::GetSecretsFlags)
 
 
 #endif // NMQT_SECRETAGENT_H
