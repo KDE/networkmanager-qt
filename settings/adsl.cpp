@@ -187,7 +187,7 @@ void NetworkManager::Settings::AdslSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_ADSL_PASSWORD_FLAGS))) {
-        setPasswordFlags((Setting::SecretFlags)setting.value(QLatin1String(NM_SETTING_ADSL_PASSWORD_FLAGS)).toUInt());
+        setPasswordFlags((Setting::SecretFlags)setting.value(QLatin1String(NM_SETTING_ADSL_PASSWORD_FLAGS)).toInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_ADSL_PROTOCOL))) {

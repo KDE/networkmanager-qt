@@ -162,7 +162,7 @@ void NetworkManager::Settings::CdmaSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_CDMA_PASSWORD_FLAGS))) {
-        setPasswordFlags((Setting::SecretFlags)setting.value(QLatin1String(NM_SETTING_CDMA_PASSWORD_FLAGS)).toUInt());
+        setPasswordFlags((Setting::SecretFlags)setting.value(QLatin1String(NM_SETTING_CDMA_PASSWORD_FLAGS)).toInt());
     }
 }
 

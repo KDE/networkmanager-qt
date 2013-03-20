@@ -85,6 +85,7 @@ void NetworkManager::NetworkManagerPrivate::init()
 {
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
     qDBusRegisterMetaType<DeviceDBusStateReason>();
+    qDBusRegisterMetaType<QStringMap>();
     nmState = iface.state();
     parseVersion(iface.version());
     m_isWirelessHardwareEnabled = iface.wirelessHardwareEnabled();

@@ -421,7 +421,7 @@ QStringList NetworkManager::Settings::WirelessSecuritySetting::needSecrets(bool 
 
     if (keyMgmt() == WpaNone ||
             keyMgmt() == WpaPsk) {
-        if (pskFlags() != Setting::NotRequired) {
+        if (!pskFlags().testFlag(Setting::NotRequired)) {
             if (psk().isEmpty() || requestNew) {
                 secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK);
                 return secrets;
@@ -431,7 +431,7 @@ QStringList NetworkManager::Settings::WirelessSecuritySetting::needSecrets(bool 
 
     if (authAlg() == Leap &&
             keyMgmt() == Ieee8021x) {
-        if (leapPasswordFlags() != Setting::NotRequired) {
+        if (!leapPasswordFlags().testFlag(Setting::NotRequired)) {
             if (leapPassword().isEmpty() || requestNew) {
                 secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD);
                 return secrets;
@@ -546,7 +546,7 @@ void NetworkManager::Settings::WirelessSecuritySetting::fromMap(const QVariantMa
     }
 
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_FLAGS))) {
-        setWepKeyFlags((SecretFlags)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_FLAGS)).toUInt());
+        setWepKeyFlags((SecretFlags)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_FLAGS)).toInt());
     }
 
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_TYPE))) {
