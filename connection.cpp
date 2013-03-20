@@ -41,6 +41,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "device.h"
 #include "activeconnection.h"
 #include "nm-settings-connectioninterface.h"
+#include "generic-types.h"
 
 class NetworkManager::Settings::ConnectionPrivate
 {
@@ -60,8 +61,7 @@ NetworkManager::Settings::Connection::Connection(const QString & path, QObject *
 : QObject(parent), d_ptr(new ConnectionPrivate(path))
 {
     Q_D(Connection);
-    qDBusRegisterMetaType<QMap<QString, QVariant> >();
-    qDBusRegisterMetaType<QMap<QString, QMap<QString, QVariant> > >();
+    qDBusRegisterMetaType<QVariantMapMap>();
 
     QDBusReply<QVariantMapMap> reply = d->iface.GetSettings();
     if (reply.isValid()) {
@@ -75,7 +75,7 @@ NetworkManager::Settings::Connection::Connection(const QString & path, QObject *
 
     if ( d->connection.contains(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME))) {
         QVariantMap connectionSetting = d->connection.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
-        if (connectionSetting.contains(QLatin1String(NM_SETTING_CONNECTION_ID))) {
+        if (connectionSetting.contains(QLatin1String(NM_SETTING_CONNECTION_UUID))) {
             d->uuid = connectionSetting.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString();
         }
         if (connectionSetting.contains(QLatin1String(NM_SETTING_CONNECTION_ID))) {
