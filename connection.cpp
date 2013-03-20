@@ -175,6 +175,16 @@ void NetworkManager::Settings::Connection::onConnectionUpdated()
     QDBusReply<QVariantMapMap> reply = d->iface.GetSettings();
     if (reply.isValid()) {
         d->connection = reply.value();
+
+        if ( d->connection.contains(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME))) {
+            QVariantMap connectionSetting = d->connection.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
+            if (connectionSetting.contains(QLatin1String(NM_SETTING_CONNECTION_ID))) {
+                d->uuid = connectionSetting.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString();
+            }
+            if (connectionSetting.contains(QLatin1String(NM_SETTING_CONNECTION_ID))) {
+                d->id = connectionSetting.value(QLatin1String(NM_SETTING_CONNECTION_ID)).toString();
+            }
+        }
     } else {
         d->connection = QVariantMapMap();
     }
