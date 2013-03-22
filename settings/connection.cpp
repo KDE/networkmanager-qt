@@ -233,6 +233,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
         addSetting(new BridgeSetting());
         addSetting(new Ipv4Setting());
         addSetting(new Ipv6Setting());
+        break;
     case Cdma:
         addSetting(new CdmaSetting());
         addSetting(new Ipv4Setting());
@@ -249,20 +250,24 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
         addSetting(new InfinibandSetting());
         addSetting(new Ipv4Setting());
         addSetting(new Ipv6Setting());
+        break;
     case OLPCMesh:
         addSetting(new Ipv4Setting());
         addSetting(new Ipv6Setting());
         addSetting(new OlpcMeshSetting());
+        break;
     case Pppoe:
         addSetting(new Ipv4Setting());
-        addSetting(new Ipv6Setting());
+        //addSetting(new Ipv6Setting());
         addSetting(new PppSetting());
         addSetting(new PppoeSetting());
         addSetting(new WiredSetting());
+        break;
     case Vlan:
         addSetting(new Ipv4Setting());
         addSetting(new Ipv6Setting());
         addSetting(new VlanSetting());
+        break;
     case Vpn:
         addSetting(new Ipv4Setting());
         addSetting(new Ipv6Setting());
@@ -272,6 +277,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
         addSetting(new Ipv4Setting());
         addSetting(new Ipv6Setting());
         addSetting(new WimaxSetting());
+        break;
     case Wired:
         addSetting(new Ipv4Setting());
         addSetting(new Ipv6Setting());
@@ -321,6 +327,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::
         addSetting(new BridgeSetting(static_cast<BridgeSetting*>(connectionSettings->setting(Setting::Bridge))));
         addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
         addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
+        break;
     case Cdma:
         addSetting(new CdmaSetting(static_cast<CdmaSetting*>(connectionSettings->setting(Setting::Cdma))));
         addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
@@ -337,20 +344,24 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::
         addSetting(new InfinibandSetting(static_cast<InfinibandSetting*>(connectionSettings->setting(Setting::Infiniband))));
         addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
         addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
+        break;
     case OLPCMesh:
         addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
         addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
         addSetting(new OlpcMeshSetting(static_cast<OlpcMeshSetting*>(connectionSettings->setting(Setting::OlpcMesh))));
+        break;
     case Pppoe:
         addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
-        addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
+        //addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
         addSetting(new PppSetting(static_cast<PppSetting*>(connectionSettings->setting(Setting::Ppp))));
         addSetting(new PppoeSetting(static_cast<PppoeSetting*>(connectionSettings->setting(Setting::Pppoe))));
         addSetting(new WiredSetting(static_cast<WiredSetting*>(connectionSettings->setting(Setting::Wired))));
+        break;
     case Vlan:
         addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
         addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
         addSetting(new VlanSetting(static_cast<VlanSetting*>(connectionSettings->setting(Setting::Vlan))));
+        break;
     case Vpn:
         addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
         addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
@@ -360,6 +371,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::
         addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
         addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
         addSetting(new WimaxSetting(static_cast<WimaxSetting*>(connectionSettings->setting(Setting::Wimax))));
+        break;
     case Wired:
         addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
         addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
