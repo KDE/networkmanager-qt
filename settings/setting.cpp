@@ -176,7 +176,7 @@ NetworkManager::Settings::Setting::Setting(SettingType type):
 NetworkManager::Settings::Setting::Setting(NetworkManager::Settings::Setting* setting):
     d_ptr(new SettingPrivate())
 {
-    setInitialized(setting->isNull());
+    setInitialized(!setting->isNull());
     setType(setting->type());
 }
 
