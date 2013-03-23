@@ -174,10 +174,10 @@ NetworkManager::Settings::ConnectionSettings::ConnectionSettings():
     d_ptr(new ConnectionSettingsPrivate())
 { }
 
-NetworkManager::Settings::ConnectionSettings::ConnectionSettings(NetworkManager::Settings::ConnectionSettings::ConnectionType type):
+NetworkManager::Settings::ConnectionSettings::ConnectionSettings(NetworkManager::Settings::ConnectionSettings::ConnectionType type, NMBluetoothCapabilities bt_cap):
     d_ptr(new ConnectionSettingsPrivate())
 {
-    setConnectionType(type);
+    setConnectionType(type, bt_cap);
 }
 
 NetworkManager::Settings::ConnectionSettings::ConnectionSettings(NetworkManager::Settings::ConnectionSettings* settings):
@@ -204,7 +204,7 @@ NetworkManager::Settings::ConnectionSettings::~ConnectionSettings()
     delete d_ptr;
 }
 
-void NetworkManager::Settings::ConnectionSettings::initSettings()
+void NetworkManager::Settings::ConnectionSettings::initSettings(NMBluetoothCapabilities bt_cap)
 {
     clearSettings();
 
@@ -223,11 +223,11 @@ void NetworkManager::Settings::ConnectionSettings::initSettings()
         addSetting(new BluetoothSetting());
         addSetting(new Ipv4Setting());
         addSetting(new Ipv6Setting());
-        //TODO: check for Bluetooth type
-        addSetting(new GsmSetting());
-        addSetting(new CdmaSetting());
-        addSetting(new PppSetting());
-        addSetting(new SerialSetting());
+        if (bt_cap == NM_BT_CAPABILITY_DUN) {
+            addSetting(new GsmSetting());
+            addSetting(new PppSetting());
+            addSetting(new SerialSetting());
+        }
         break;
     case Bridge:
         addSetting(new BridgeSetting());
@@ -317,11 +317,11 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::
         addSetting(new BluetoothSetting(static_cast<BluetoothSetting*>(connectionSettings->setting(Setting::Bluetooth))));
         addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
         addSetting(new Ipv6Setting(static_cast<Ipv6Setting*>(connectionSettings->setting(Setting::Ipv6))));
-        //TODO: check for Bluetooth type
-        addSetting(new GsmSetting(static_cast<GsmSetting*>(connectionSettings->setting(Setting::Gsm))));
-        addSetting(new CdmaSetting(static_cast<CdmaSetting*>(connectionSettings->setting(Setting::Cdma))));
-        addSetting(new PppSetting(static_cast<PppSetting*>(connectionSettings->setting(Setting::Ppp))));
-        addSetting(new SerialSetting(static_cast<SerialSetting*>(connectionSettings->setting(Setting::Serial))));
+        if (setting(Setting::Gsm) && setting(Setting::Ppp) && setting(Setting::Serial)) {
+            addSetting(new GsmSetting(static_cast<GsmSetting*>(connectionSettings->setting(Setting::Gsm))));
+            addSetting(new PppSetting(static_cast<PppSetting*>(connectionSettings->setting(Setting::Ppp))));
+            addSetting(new SerialSetting(static_cast<SerialSetting*>(connectionSettings->setting(Setting::Serial))));
+        }
         break;
     case Bridge:
         addSetting(new BridgeSetting(static_cast<BridgeSetting*>(connectionSettings->setting(Setting::Bridge))));
@@ -550,13 +550,13 @@ QString NetworkManager::Settings::ConnectionSettings::uuid() const
     return d->uuid;
 }
 
-void NetworkManager::Settings::ConnectionSettings::setConnectionType(NetworkManager::Settings::ConnectionSettings::ConnectionType type)
+void NetworkManager::Settings::ConnectionSettings::setConnectionType(NetworkManager::Settings::ConnectionSettings::ConnectionType type, NMBluetoothCapabilities bt_cap)
 {
     Q_D(ConnectionSettings);
 
     d->type = type;
 
-    initSettings();
+    initSettings(bt_cap);
 }
 
 NetworkManager::Settings::ConnectionSettings::ConnectionType NetworkManager::Settings::ConnectionSettings::connectionType() const

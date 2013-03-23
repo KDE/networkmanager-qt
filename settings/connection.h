@@ -26,6 +26,8 @@
 #include "../device.h"
 #include "setting.h"
 
+#include <NetworkManager.h>
+
 #include <QtCore/QString>
 #include <QtCore/QDateTime>
 #include <QtCore/QHash>
@@ -46,7 +48,7 @@ public:
     static QString typeAsString(const ConnectionType type);
 
     ConnectionSettings();
-    ConnectionSettings(ConnectionType type);
+    ConnectionSettings(ConnectionType type, NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
     ConnectionSettings(ConnectionSettings *);
     virtual ~ConnectionSettings();
 
@@ -62,7 +64,7 @@ public:
     void setUuid(const QString & uuid);
     QString uuid() const;
 
-    void setConnectionType(ConnectionType type);
+    void setConnectionType(ConnectionType type, NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
     ConnectionType connectionType() const;
 
     void addToPermissions(const QString & user, const QString & type);
@@ -102,7 +104,7 @@ protected:
 private:
     void addSetting(Setting * setting);
     void clearSettings();
-    void initSettings();
+    void initSettings(NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
     void initSettings(ConnectionSettings * connectionSettings);
 };
 }
