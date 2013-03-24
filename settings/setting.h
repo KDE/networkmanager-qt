@@ -46,7 +46,7 @@ public:
     static QString typeAsString(SettingType type);
     static SettingType typeFromString(const QString & type);
 
-    Setting(SettingType type);
+    explicit Setting(SettingType type);
     Setting(Setting * setting);
     virtual ~Setting();
 
@@ -71,7 +71,8 @@ public:
 
     //FOR DEBUG
     virtual void printSetting();
-private:
+
+protected:
     SettingPrivate * d_ptr;
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(Setting::SecretFlags)

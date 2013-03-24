@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_PPPOESETTING_H
-#define NMQT_SETTINGS_PPPOESETTING_H
+#ifndef NMQT_SETTINGS_PPPOE_H
+#define NMQT_SETTINGS_PPPOE_H
 
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
@@ -67,11 +67,11 @@ public:
     //FOR DEBUG
     void printSetting();
 
-private:
+protected:
     PppoeSettingPrivate * d_ptr;
 };
 
 }
 }
 
-#endif // NMQT_SETTINGS_PPPOESETTING_H
+#endif // NMQT_SETTINGS_PPPOE_H

@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_OLPCMESHSETTING_H
-#define NMQT_SETTINGS_OLPCMESHSETTING_H
+#ifndef NMQT_SETTINGS_802_11_OLPC_MESH_H
+#define NMQT_SETTINGS_802_11_OLPC_MESH_H
 
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
@@ -58,11 +58,11 @@ public:
     //FOR DEBUG
     void printSetting();
 
-private:
+protected:
     OlpcMeshSettingPrivate * d_ptr;
 };
 
 }
 }
 
-#endif // NMQT_SETTINGS_OLPCMESHSETTING_H
+#endif // NMQT_SETTINGS_802_11_OLPC_MESH_H

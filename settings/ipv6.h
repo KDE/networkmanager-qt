@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_IPV6SETTING_H
-#define NMQT_SETTINGS_IPV6SETTING_H
+#ifndef NMQT_SETTINGS_IPV6_H
+#define NMQT_SETTINGS_IPV6_H
 
 #include "../ipv6config.h"
 #include "../QtNetworkManager-export.h"
@@ -91,4 +91,4 @@ protected:
 }
 }
 
-#endif // NMQT_SETTINGS_IPV6SETTING_H
+#endif // NMQT_SETTINGS_IPV6_H

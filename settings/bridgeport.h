@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_BRIDGEPORTSETTING_H
-#define NMQT_SETTINGS_BRIDGEPORTSETTING_H
+#ifndef NMQT_SETTINGS_BRIDGEPORT_H
+#define NMQT_SETTINGS_BRIDGEPORT_H
 
 #include "../QtNetworkManager-export.h"
 #include "generic-types.h"
@@ -59,10 +59,10 @@ public:
     //FOR DEBUG
     void printSetting();
 
-private:
+protected:
     BridgePortSettingPrivate * d_ptr;
 };
 }
 }
 
-#endif // NMQT_SETTINGS_BRIDGEPORTSETTING_H
+#endif // NMQT_SETTINGS_BRIDGEPORT_H

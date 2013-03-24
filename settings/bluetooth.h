@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_BLUETOOTHSETTING_H
-#define NMQT_SETTINGS_BLUETOOTHSETTING_H
+#ifndef NMQT_SETTINGS_BLUETOOTH_H
+#define NMQT_SETTINGS_BLUETOOTH_H
 
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
@@ -57,11 +57,11 @@ public:
     //FOR DEBUG
     void printSetting();
 
-private:
+protected:
     BluetoothSettingPrivate * d_ptr;
 };
 
 }
 }
 
-#endif // NMQT_SETTINGS_BLUETOOTHSETTING_H
+#endif // NMQT_SETTINGS_BLUETOOTH_H

@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_WIREDSETTING_H
-#define NMQT_SETTINGS_WIREDSETTING_H
+#ifndef NMQT_SETTINGS_802_3_ETHERNET_H
+#define NMQT_SETTINGS_802_3_ETHERNET_H
 
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
@@ -92,4 +92,4 @@ protected:
 }
 }
 
-#endif // NMQT_SETTINGS_WIREDSETTING_H
+#endif // NMQT_SETTINGS_802_3_ETHERNET_H

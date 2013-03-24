@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_ADSLSETTING_P_H
-#define NMQT_SETTINGS_ADSLSETTING_P_H
+#ifndef NMQT_SETTINGS_ADSL_P_H
+#define NMQT_SETTINGS_ADSL_P_H
 
 #include <QtCore/QString>
 

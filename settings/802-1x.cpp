@@ -878,10 +878,10 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
 
         switch (phase1PeapVersion()) {
         case PeapVersionZero:
-            version = "0";
+            version = '0';
             break;
         case PeapVersionOne:
-            version = "1";
+            version = '1';
             break;
         }
 
@@ -897,16 +897,16 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
 
         switch (phase1FastProvisioning()) {
         case FastProvisioningDisabled:
-            provisioning = "0";
+            provisioning = '0';
             break;
         case FastProvisioningAllowUnauthenticated:
-            provisioning = "1";
+            provisioning = '1';
             break;
         case FastProvisioningAllowAuthenticated:
-            provisioning = "2";
+            provisioning = '2';
             break;
         case FastProvisioningAllowBoth:
-            provisioning = "3";
+            provisioning = '3';
             break;
         }
 

@@ -462,7 +462,7 @@ QVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const
     if (!permissions().isEmpty()) {
         QStringList perm;
         foreach(const QString & key, permissions().keys()) {
-            QString tmp = "user:" + key + ":" + permissions().value(key);
+            QString tmp = "user:" + key + ':' + permissions().value(key);
             perm << tmp;
         }
 

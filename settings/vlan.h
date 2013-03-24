@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_VLANSETTING_H
-#define NMQT_SETTINGS_VLANSETTING_H
+#ifndef NMQT_SETTINGS_VLAN_H
+#define NMQT_SETTINGS_VLAN_H
 
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
@@ -70,11 +70,11 @@ public:
     //FOR DEBUG
     void printSetting();
 
-private:
+protected:
     VlanSettingPrivate * d_ptr;
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(VlanSetting::Flags)
 }
 }
 
-#endif // NMQT_SETTINGS_VLANSETTING_H
+#endif // NMQT_SETTINGS_VLAN_H

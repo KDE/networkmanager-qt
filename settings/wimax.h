@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_WIMAXSETTING_H
-#define NMQT_SETTINGS_WIMAXSETTING_H
+#ifndef NMQT_SETTINGS_WIMAX_H
+#define NMQT_SETTINGS_WIMAX_H
 
 #include "../QtNetworkManager-export.h"
 #include "generic-types.h"
@@ -56,10 +56,10 @@ public:
     //FOR DEBUG
     void printSetting();
 
-private:
+protected:
     WimaxSettingPrivate * d_ptr;
 };
 }
 }
 
-#endif // NMQT_SETTINGS_WIMAXSETTING_H
+#endif // NMQT_SETTINGS_WIMAX_H

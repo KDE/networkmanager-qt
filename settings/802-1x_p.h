@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_SECURITY8021XSETTING_P_H
-#define NMQT_SETTINGS_SECURITY8021XSETTING_P_H
+#ifndef NMQT_SETTINGS_802_1X_P_H
+#define NMQT_SETTINGS_802_1X_P_H
 
 #include <QtCore/QStringList>
 
@@ -69,4 +69,4 @@ public:
 }
 }
 
-#endif // NMQT_SETTINGS_SECURITY8021XSETTING_P_H
+#endif // NMQT_SETTINGS_802_1X_P_H
