@@ -23,6 +23,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "manager.h"
 #include "manager_p.h"
 #include "connection.h"
+#include "settings.h"
 #include "nmdebug.h"
 
 #include <arpa/inet.h>
@@ -217,8 +218,10 @@ QList< NetworkManager::Settings::Connection* > NetworkManager::Device::available
     QList<QDBusObjectPath> availableConnections = d->deviceIface.availableConnections();
 
     foreach (const QDBusObjectPath & path, availableConnections) {
-        NetworkManager::Settings::Connection * con = new NetworkManager::Settings::Connection(path.path(), 0);
-        list << con;
+        NetworkManager::Settings::Connection * con = NetworkManager::Settings::findConnection(path.path());
+        if (con) {
+            list << con;
+        }
     }
 
     return list;
