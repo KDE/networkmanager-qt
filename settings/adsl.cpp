@@ -27,8 +27,6 @@
 
 NetworkManager::Settings::AdslSettingPrivate::AdslSettingPrivate():
     name(QString("adsl")),
-    username(QString()),
-    password(QString()),
     passwordFlags(Setting::None),
     protocol(AdslSetting::UnknownProtocol),
     encapsulation(AdslSetting::UnknownEncapsulation),

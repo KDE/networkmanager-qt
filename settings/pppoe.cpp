@@ -27,9 +27,6 @@
 
 NetworkManager::Settings::PppoeSettingPrivate::PppoeSettingPrivate():
     name(QString("pppoe")),
-    service(QString()),
-    username(QString()),
-    password(QString()),
     passwordFlags(Setting::None)
 { }
 

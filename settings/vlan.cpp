@@ -27,12 +27,8 @@
 
 NetworkManager::Settings::VlanSettingPrivate::VlanSettingPrivate():
     name(QString("vlan")),
-    interfaceName(QString()),
-    parent(QString()),
     id(0),
-    flags(VlanSetting::None),
-    ingressPriorityMap(QStringList()),
-    egressPriorityMap(QStringList())
+    flags(VlanSetting::None)
 { }
 
 NetworkManager::Settings::VlanSetting::VlanSetting():

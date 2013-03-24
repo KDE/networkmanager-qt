@@ -27,7 +27,6 @@
 
 NetworkManager::Settings::InfinibandSettingPrivate::InfinibandSettingPrivate():
     name(QString("infiniband")),
-    macAddress(QByteArray()),
     mtu(0),
     transportMode(InfinibandSetting::Unknown)
 { }

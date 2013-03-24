@@ -32,15 +32,9 @@ NetworkManager::Settings::WiredSettingPrivate::WiredSettingPrivate():
     speed(0),
     duplex(NetworkManager::Settings::WiredSetting::UnknownDuplexType),
     autoNegotiate(true),
-    macAddress(QByteArray()),
-    clonedMacAddress(QByteArray()),
-    macAddressBlacklist(QStringList()),
     mtu(0),
-    s390Subchannels(QStringList()),
-    s390NetType(NetworkManager::Settings::WiredSetting::Undefined),
-    s390Options(QMap<QString, QString>())
-{
-}
+    s390NetType(NetworkManager::Settings::WiredSetting::Undefined)
+{ }
 
 NetworkManager::Settings::WiredSetting::WiredSetting():
     Setting(Setting::Wired),

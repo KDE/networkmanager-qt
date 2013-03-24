@@ -27,7 +27,6 @@
 
 NetworkManager::Settings::BridgeSettingPrivate::BridgeSettingPrivate():
     name(QString("bridge")),
-    interfaceName(QString()),
     stp(true),
     priority(128),
     forwardDelay(15),

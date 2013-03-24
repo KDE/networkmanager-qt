@@ -27,14 +27,8 @@
 
 NetworkManager::Settings::GsmSettingPrivate::GsmSettingPrivate():
     name(QString("gsm")),
-    number(QString()),
-    username(QString()),
-    password(QString()),
     passwordFlags(NetworkManager::Settings::GsmSetting::None),
-    apn(QString()),
-    networkId(QString()),
     networkType(-1),
-    pin(QString()),
     pinFlags(NetworkManager::Settings::GsmSetting::None),
     allowedBand(1),
     homeOnly(false)

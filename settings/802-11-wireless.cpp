@@ -27,19 +27,12 @@
 
 NetworkManager::Settings::WirelessSettingPrivate::WirelessSettingPrivate():
     name(QString("802-11-wireless")),
-    ssid(QByteArray()),
     mode(NetworkManager::Settings::WirelessSetting::Infrastructure),
     band(WirelessSetting::Automatic),
     channel(0),
-    bssid(QByteArray()),
     rate(0),
     txPower(0),
-    macAddress(QByteArray()),
-    clonedMacAddress(QByteArray()),
-    macAddressBlacklist(QStringList()),
     mtu(0),
-    seenBssids(QStringList()),
-    security(QString()),
     hidden(false)
 { }
 

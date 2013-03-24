@@ -26,9 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::BondSettingPrivate::BondSettingPrivate():
-    name(QString("bond")),
-    interfaceName(QString()),
-    options(QStringMap())
+    name(QString("bond"))
 { }
 
 NetworkManager::Settings::BondSetting::BondSetting():

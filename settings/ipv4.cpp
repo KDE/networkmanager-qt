@@ -31,15 +31,9 @@
 NetworkManager::Settings::Ipv4SettingPrivate::Ipv4SettingPrivate():
     name(QString("ipv4")),
     method(NetworkManager::Settings::Ipv4Setting::Automatic),
-    dns(QList<QHostAddress>()),
-    dnsSearch(QStringList()),
-    addresses(QList<NetworkManager::IPv4Address>()),
-    routes(QList<NetworkManager::IPv4Route>()),
     ignoreAutoRoutes(false),
     ignoreAutoDns(false),
-    dhcpClientId(QString()),
     dhcpSendHostname(true),
-    dhcpHostname(QString()),
     neverDefault(false),
     mayFail(true)
 { }

@@ -27,9 +27,7 @@
 
 NetworkManager::Settings::OlpcMeshSettingPrivate::OlpcMeshSettingPrivate():
     name(QString("802-11-olpc-mesh")),
-    ssid(QByteArray()),
-    channel(0),
-    dhcpAnycastAddress(QByteArray())
+    channel(0)
 { }
 
 NetworkManager::Settings::OlpcMeshSetting::OlpcMeshSetting():

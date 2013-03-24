@@ -27,7 +27,6 @@
 
 NetworkManager::Settings::BluetoothSettingPrivate::BluetoothSettingPrivate():
     name(QString("bluetooth")),
-    bdaddr(QByteArray()),
     type(BluetoothSetting::Unknown)
 { }
 

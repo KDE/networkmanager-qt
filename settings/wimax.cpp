@@ -26,9 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::WimaxSettingPrivate::WimaxSettingPrivate():
-    name(QString("wimax")),
-    networkName(QString()),
-    macAddress(QByteArray())
+    name(QString("wimax"))
 { }
 
 NetworkManager::Settings::WimaxSetting::WimaxSetting():

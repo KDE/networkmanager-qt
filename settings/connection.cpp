@@ -65,18 +65,11 @@
 
 NetworkManager::Settings::ConnectionSettingsPrivate::ConnectionSettingsPrivate():
     name(QString("connection")),
-    id(QString()),
     uuid(QUuid().toString()),
     type(ConnectionSettings::Wired),
-    permissions(QHash<QString,QString>()),
     autoconnect(true),
-    timestamp(QDateTime()),
-    readOnly(false),
-    zone(QString()),
-    master(QString()),
-    slaveType(QString())
-{
-}
+    readOnly(false)
+{ }
 
 NetworkManager::Settings::ConnectionSettings::ConnectionType NetworkManager::Settings::ConnectionSettings::typeFromString(const QString & typeString)
 {

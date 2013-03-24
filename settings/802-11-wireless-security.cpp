@@ -31,22 +31,11 @@ NetworkManager::Settings::WirelessSecuritySettingPrivate::WirelessSecuritySettin
     keyMgmt(NetworkManager::Settings::WirelessSecuritySetting::Unknown),
     wepTxKeyidx(0),
     authAlg(NetworkManager::Settings::WirelessSecuritySetting::None),
-    proto(QList<NetworkManager::Settings::WirelessSecuritySetting::WpaProtocolVersion>()),
-    pairwise(QList<NetworkManager::Settings::WirelessSecuritySetting::WpaEncryptionCapabilities>()),
-    group(QList<NetworkManager::Settings::WirelessSecuritySetting::WpaEncryptionCapabilities>()),
-    leapUsername(QString()),
-    wepKey0(QString()),
-    wepKey1(QString()),
-    wepKey2(QString()),
-    wepKey3(QString()),
     wepKeyFlags(NetworkManager::Settings::Setting::None),
     wepKeyType(NetworkManager::Settings::WirelessSecuritySetting::NotSpecified),
-    psk(QString()),
     pskFlags(NetworkManager::Settings::Setting::None),
-    leapPassword(QString()),
     leapPasswordFlags(NetworkManager::Settings::Setting::None)
 { }
-
 
 NetworkManager::Settings::WirelessSecuritySetting::WirelessSecuritySetting():
     Setting(Setting::WirelessSecurity),

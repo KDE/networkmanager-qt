@@ -27,9 +27,6 @@
 
 NetworkManager::Settings::CdmaSettingPrivate::CdmaSettingPrivate():
     name(QString("cdma")),
-    number(QString()),
-    username(QString()),
-    password(QString()),
     passwordFlags(Setting::None)
 { }
 

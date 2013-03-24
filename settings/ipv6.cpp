@@ -32,10 +32,6 @@
 NetworkManager::Settings::Ipv6SettingPrivate::Ipv6SettingPrivate():
     name(QString("ipv6")),
     method(NetworkManager::Settings::Ipv6Setting::Automatic),
-    dns(QList<QHostAddress>()),
-    dnsSearch(QStringList()),
-    addresses(QList<NetworkManager::IPv6Address>()),
-    routes(QList<NetworkManager::IPv6Route>()),
     ignoreAutoRoutes(false),
     ignoreAutoDns(false),
     neverDefault(false),
