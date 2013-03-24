@@ -63,7 +63,6 @@ NetworkManager::Settings::WirelessSecuritySetting::WirelessSecuritySetting(Netwo
     setProto(setting->proto());
     setPairwise(setting->pairwise());
     setGroup(setting->group());
-    setLeapPassword(setting->leapPassword());
     setWepKey0(setting->wepKey0());
     setWepKey1(setting->wepKey1());
     setWepKey2(setting->wepKey2());
