@@ -51,7 +51,7 @@ int main()
     // We have to find some wireless device
     foreach (Device * dev, deviceList) {
         if (dev->type() == Device::Wifi) {
-            wifiDevice = dynamic_cast<WirelessDevice*>(dev);
+            wifiDevice = qobject_cast<WirelessDevice*>(dev);
             break;
         }
     }
