@@ -95,7 +95,7 @@ public:
     Setting * setting(Setting::SettingType type) const;
 
     QList<Setting*> settings() const;
-    //FOR DEBUG
+
     void printSetting();
 
 protected:

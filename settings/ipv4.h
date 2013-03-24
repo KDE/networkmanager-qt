@@ -86,7 +86,6 @@ public:
 
     QVariantMap toMap() const;
 
-    //FOR DEBUB
     void printSetting();
 
 protected:

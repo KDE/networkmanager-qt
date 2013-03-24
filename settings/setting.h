@@ -69,7 +69,6 @@ public:
     void setType(SettingType type);
     SettingType type() const;
 
-    //FOR DEBUG
     virtual void printSetting();
 
 protected:

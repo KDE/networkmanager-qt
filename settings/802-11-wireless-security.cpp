@@ -513,22 +513,22 @@ void NetworkManager::Settings::WirelessSecuritySetting::fromMap(const QVariantMa
         setLeapUsername(map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_USERNAME)).toString());
     }
 
-    // SECRETS
+    // Secrets
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY0))) {
         setWepKey0(map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY0)).toString());
     }
 
-    // SECRETS
+    // Secrets
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY1))) {
         setWepKey1(map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY1)).toString());
     }
 
-    // SECRETS
+    // Secrets
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY2))) {
         setWepKey2(map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY2)).toString());
     }
 
-    // SECRETS
+    // Secrets
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY3))) {
         setWepKey3(map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY3)).toString());
     }
@@ -541,7 +541,7 @@ void NetworkManager::Settings::WirelessSecuritySetting::fromMap(const QVariantMa
         setWepKeyType((WepKeyType)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_TYPE)).toUInt());
     }
 
-    // SECRETS
+    // Secrets
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK))) {
         setPsk(map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK)).toString());
     }
@@ -550,7 +550,7 @@ void NetworkManager::Settings::WirelessSecuritySetting::fromMap(const QVariantMa
         setPskFlags((SecretFlags)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK_FLAGS)).toInt());
     }
 
-    // SECRETS
+    // Secrets
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD))) {
         setLeapPassword(map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD)).toString());
     }
@@ -638,22 +638,22 @@ QVariantMap NetworkManager::Settings::WirelessSecuritySetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_USERNAME), leapUsername());
     }
 
-    // SECRETS
+    // Secrets
     if (!wepKey0().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY0), wepKey0());
     }
 
-    // SECRETS
+    // Secrets
     if (!wepKey1().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY1), wepKey1());
     }
 
-    // SECRETS
+    // Secrets
     if (!wepKey2().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY2), wepKey2());
     }
 
-    // SECRETS
+    // Secrets
     if (!wepKey3().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY3), wepKey3());
     }
@@ -666,7 +666,7 @@ QVariantMap NetworkManager::Settings::WirelessSecuritySetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY_TYPE), wepKeyType());
     }
 
-    // SECRETS
+    // Secrets
     if (!psk().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK), psk());
     }
@@ -675,7 +675,7 @@ QVariantMap NetworkManager::Settings::WirelessSecuritySetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK_FLAGS), (int)pskFlags());
     }
 
-    // SECRETS
+    // Secrets
     if (!leapPassword().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD), leapPassword());
     }
