@@ -178,7 +178,7 @@ void NetworkManager::Settings::Connection::onConnectionUpdated()
 
         if ( d->connection.contains(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME))) {
             QVariantMap connectionSetting = d->connection.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
-            if (connectionSetting.contains(QLatin1String(NM_SETTING_CONNECTION_ID))) {
+            if (connectionSetting.contains(QLatin1String(NM_SETTING_CONNECTION_UUID))) {
                 d->uuid = connectionSetting.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString();
             }
             if (connectionSetting.contains(QLatin1String(NM_SETTING_CONNECTION_ID))) {
