@@ -27,15 +27,15 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class BondSettingPrivate
-    {
-    public:
-        BondSettingPrivate();
+class BondSettingPrivate
+{
+public:
+    BondSettingPrivate();
 
-        QString name;
-        QString interfaceName;
-        QStringMap options;
-    };
+    QString name;
+    QString interfaceName;
+    QStringMap options;
+};
 }
 }
 

@@ -27,27 +27,27 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class WirelessSettingPrivate
-    {
-    public:
-	WirelessSettingPrivate();
+class WirelessSettingPrivate
+{
+public:
+    WirelessSettingPrivate();
 
-	QString name;
-	QByteArray ssid;
-	NetworkManager::Settings::WirelessSetting::NetworkMode mode;
-	NetworkManager::Settings::WirelessSetting::FrequencyBand band;
-	quint32 channel;
-	QByteArray bssid;
-	quint32 rate;
-	quint32 txPower;
-	QByteArray macAddress;
-	QByteArray clonedMacAddress;
-	QStringList macAddressBlacklist;
-	quint32 mtu;
-	QStringList seenBssids;
-	QString security;
-	bool hidden;
-    };
+    QString name;
+    QByteArray ssid;
+    NetworkManager::Settings::WirelessSetting::NetworkMode mode;
+    NetworkManager::Settings::WirelessSetting::FrequencyBand band;
+    quint32 channel;
+    QByteArray bssid;
+    quint32 rate;
+    quint32 txPower;
+    QByteArray macAddress;
+    QByteArray clonedMacAddress;
+    QStringList macAddressBlacklist;
+    quint32 mtu;
+    QStringList seenBssids;
+    QString security;
+    bool hidden;
+};
 }
 }
 

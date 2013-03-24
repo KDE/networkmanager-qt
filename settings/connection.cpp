@@ -201,7 +201,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NMBluetoothCapab
 {
     clearSettings();
 
-    switch(connectionType()) {
+    switch (connectionType()) {
     case Adsl:
         addSetting(new AdslSetting());
         addSetting(new Ipv4Setting());
@@ -295,7 +295,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NetworkManager::
 {
     clearSettings();
 
-    switch(connectionType()) {
+    switch (connectionType()) {
     case Adsl:
         addSetting(new AdslSetting(static_cast<AdslSetting*>(connectionSettings->setting(Setting::Adsl))));
         addSetting(new Ipv4Setting(static_cast<Ipv4Setting*>(connectionSettings->setting(Setting::Ipv4))));
@@ -395,9 +395,9 @@ void NetworkManager::Settings::ConnectionSettings::fromMap(const QVariantMapMap&
 
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS))) {
         QStringList permissions = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS)).toStringList();
-        foreach (const QString &permission, permissions) {
+        foreach(const QString & permission, permissions) {
             QStringList split = permission.split(QLatin1String(":"), QString::KeepEmptyParts);
-            addToPermissions(split.at(1),split.at(2));
+            addToPermissions(split.at(1), split.at(2));
         }
     }
 
@@ -432,7 +432,7 @@ void NetworkManager::Settings::ConnectionSettings::fromMap(const QVariantMapMap&
         setSecondaries(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_SECONDARIES)).toStringList());
     }
 
-    foreach (Setting * setting, settings()) {
+    foreach(Setting * setting, settings()) {
         if (map.contains(setting->name())) {
             setting->fromMap(map.value(setting->name()));
             setting->setInitialized(true);
@@ -461,7 +461,7 @@ QVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const
 
     if (!permissions().isEmpty()) {
         QStringList perm;
-        foreach (const QString & key, permissions().keys()) {
+        foreach(const QString & key, permissions().keys()) {
             QString tmp = "user:" + key + ":" + permissions().value(key);
             perm << tmp;
         }
@@ -499,7 +499,7 @@ QVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const
 
     result.insert(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME), connectionSetting);
 
-    foreach (Setting * setting, settings()) {
+    foreach(Setting * setting, settings()) {
         QVariantMap map = setting->toMap();
         if (!map.isEmpty() && !setting->isNull()) {
             result.insert(setting->name(), map);
@@ -680,7 +680,7 @@ QStringList NetworkManager::Settings::ConnectionSettings::secondaries() const
 
 NetworkManager::Settings::Setting* NetworkManager::Settings::ConnectionSettings::setting(NetworkManager::Settings::Setting::SettingType type) const
 {
-    foreach (Setting * setting, settings()) {
+    foreach(Setting * setting, settings()) {
         if (setting->type() == type) {
             return setting;
         }
@@ -714,7 +714,7 @@ void NetworkManager::Settings::ConnectionSettings::printSetting()
     qDebug() << NM_SETTING_CONNECTION_SLAVE_TYPE << ": " << slaveType();
     qDebug() << NM_SETTING_CONNECTION_SECONDARIES << ": " << secondaries();
     qDebug() << "===================";
-    foreach (Setting * setting, settings()) {
+    foreach(Setting * setting, settings()) {
         qDebug() << setting->typeAsString(setting->type()).toUpper() << " SETTINGS";
         qDebug() << "---------------------------";
         setting->printSetting();

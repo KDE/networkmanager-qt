@@ -27,13 +27,13 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class TemplateSettingPrivate
-    {
-    public:
-        TemplateSettingPrivate();
+class TemplateSettingPrivate
+{
+public:
+    TemplateSettingPrivate();
 
-        QString name;
-    };
+    QString name;
+};
 }
 }
 

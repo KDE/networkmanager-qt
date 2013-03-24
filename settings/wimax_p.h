@@ -27,15 +27,15 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class WimaxSettingPrivate
-    {
-    public:
-        WimaxSettingPrivate();
+class WimaxSettingPrivate
+{
+public:
+    WimaxSettingPrivate();
 
-        QString name;
-        QString networkName;
-        QByteArray macAddress;
-    };
+    QString name;
+    QString networkName;
+    QByteArray macAddress;
+};
 }
 }
 

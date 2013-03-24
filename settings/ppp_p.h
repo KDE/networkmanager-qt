@@ -27,31 +27,31 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class PppSettingPrivate
-    {
-    public:
-        PppSettingPrivate();
+class PppSettingPrivate
+{
+public:
+    PppSettingPrivate();
 
-        QString name;
-        bool noauth;
-        bool refuseEap;
-        bool refusePap;
-        bool refuseChap;
-        bool refuseMschap;
-        bool refuseMschapv2;
-        bool nobsdcomp;
-        bool nodeflate;
-        bool noVjComp;
-        bool requireMppe;
-        bool requireMppe128;
-        bool mppeStateful;
-        bool crtscts;
-        quint32 baud;
-        quint32 mru;
-        quint32 mtu;
-        quint32 lcpEchoFailure;
-        quint32 lcpEchoInterval;
-    };
+    QString name;
+    bool noauth;
+    bool refuseEap;
+    bool refusePap;
+    bool refuseChap;
+    bool refuseMschap;
+    bool refuseMschapv2;
+    bool nobsdcomp;
+    bool nodeflate;
+    bool noVjComp;
+    bool requireMppe;
+    bool requireMppe128;
+    bool mppeStateful;
+    bool crtscts;
+    quint32 baud;
+    quint32 mru;
+    quint32 mtu;
+    quint32 lcpEchoFailure;
+    quint32 lcpEchoInterval;
+};
 }
 }
 

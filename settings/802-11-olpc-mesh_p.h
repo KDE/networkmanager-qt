@@ -27,16 +27,16 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class OlpcMeshSettingPrivate
-    {
-    public:
-        OlpcMeshSettingPrivate();
+class OlpcMeshSettingPrivate
+{
+public:
+    OlpcMeshSettingPrivate();
 
-        QString name;
-        QByteArray ssid;
-        quint32 channel;
-        QByteArray dhcpAnycastAddress;
-    };
+    QString name;
+    QByteArray ssid;
+    quint32 channel;
+    QByteArray dhcpAnycastAddress;
+};
 }
 }
 

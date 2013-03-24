@@ -617,7 +617,7 @@ void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_EAP))) {
         QStringList methods = setting.value(QLatin1String(NM_SETTING_802_1X_EAP)).toStringList();
         QList<EapMethod> eapMethods;
-        foreach (const QString & method, methods) {
+        foreach(const QString & method, methods) {
             if (method == "leap") {
                 eapMethods << EapMethodLeap;
             } else if (method == "md5") {
@@ -1063,7 +1063,7 @@ void NetworkManager::Settings::Security8021xSetting::printSetting()
     qDebug() << NM_SETTING_802_1X_PHASE1_FAST_PROVISIONING << ": " << phase1FastProvisioning();
     qDebug() << NM_SETTING_802_1X_PHASE2_AUTH << ": " << phase2AuthMethod();
     qDebug() << NM_SETTING_802_1X_PHASE2_AUTHEAP << ": " << phase2AuthEapMethod();
-    qDebug() << NM_SETTING_802_1X_PHASE2_CA_CERT << ": "<< phase2CaCertificate();
+    qDebug() << NM_SETTING_802_1X_PHASE2_CA_CERT << ": " << phase2CaCertificate();
     qDebug() << NM_SETTING_802_1X_PHASE2_CA_PATH << ": " << phase2CaPath();
     qDebug() << NM_SETTING_802_1X_PHASE2_SUBJECT_MATCH << ": " << phase2SubjectMatch();
     qDebug() << NM_SETTING_802_1X_PHASE2_ALTSUBJECT_MATCHES << ": " << phase2AltSubjectMatches();

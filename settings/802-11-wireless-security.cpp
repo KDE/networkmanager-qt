@@ -465,7 +465,7 @@ void NetworkManager::Settings::WirelessSecuritySetting::fromMap(const QVariantMa
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PROTO))) {
         QStringList strList = map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PROTO)).toStringList();
         QList<WpaProtocolVersion> list;
-        foreach (const QString & str, strList) {
+        foreach(const QString & str, strList) {
             if (str == "wpa") {
                 list.push_back(Wpa);
             } else if (str == "rsn") {
@@ -478,7 +478,7 @@ void NetworkManager::Settings::WirelessSecuritySetting::fromMap(const QVariantMa
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PAIRWISE))) {
         QStringList strList = map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PAIRWISE)).toStringList();
         QList<WpaEncryptionCapabilities> list;
-        foreach (const QString & str, strList) {
+        foreach(const QString & str, strList) {
             if (str == "wep40") {
                 list.push_back(Wep40);
             } else if (str == "wep104") {
@@ -495,7 +495,7 @@ void NetworkManager::Settings::WirelessSecuritySetting::fromMap(const QVariantMa
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_GROUP))) {
         QStringList strList = map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_GROUP)).toStringList();
         QList<WpaEncryptionCapabilities> list;
-        foreach (const QString & str, strList) {
+        foreach(const QString & str, strList) {
             if (str == "wep40") {
                 list.push_back(Wep40);
             } else if (str == "wep104") {

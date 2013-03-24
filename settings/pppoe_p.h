@@ -27,17 +27,17 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class PppoeSettingPrivate
-    {
-    public:
-        PppoeSettingPrivate();
+class PppoeSettingPrivate
+{
+public:
+    PppoeSettingPrivate();
 
-        QString name;
-        QString service;
-        QString username;
-        QString password;
-        NetworkManager::Settings::Setting::SecretFlags passwordFlags;
-    };
+    QString name;
+    QString service;
+    QString username;
+    QString password;
+    NetworkManager::Settings::Setting::SecretFlags passwordFlags;
+};
 }
 }
 

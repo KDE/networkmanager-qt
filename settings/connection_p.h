@@ -32,25 +32,25 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class ConnectionSettingsPrivate
-    {
-    public:
-	ConnectionSettingsPrivate();
+class ConnectionSettingsPrivate
+{
+public:
+    ConnectionSettingsPrivate();
 
-	QString name;
-	QString id;
-	QString uuid;
-	NetworkManager::Settings::ConnectionSettings::ConnectionType type;
-	QHash<QString,QString> permissions;
-	bool autoconnect;
-	QDateTime timestamp;
-	bool readOnly;
-	QString zone;
-	QString master;
-	QString slaveType;
-        QStringList secondaries;
-	QList<Setting *> settings;
-    };
+    QString name;
+    QString id;
+    QString uuid;
+    NetworkManager::Settings::ConnectionSettings::ConnectionType type;
+    QHash<QString, QString> permissions;
+    bool autoconnect;
+    QDateTime timestamp;
+    bool readOnly;
+    QString zone;
+    QString master;
+    QString slaveType;
+    QStringList secondaries;
+    QList<Setting *> settings;
+};
 }
 }
 

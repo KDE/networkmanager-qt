@@ -39,9 +39,11 @@ public:
     enum PeapLabel {PeapLabelUnknown = 0, PeapLabelForce};
     enum FastProvisioning {FastProvisioningUnknown = -1, FastProvisioningDisabled, FastProvisioningAllowUnauthenticated, FastProvisioningAllowAuthenticated, FastProvisioningAllowBoth};
     enum AuthMethod {AuthMethodUnknown = 0, AuthMethodPap, AuthMethodChap, AuthMethodMschap, AuthMethodMschapv2,
-                     AuthMethodGtc, AuthMethodOtp, AuthMethodMd5, AuthMethodTls};
+                     AuthMethodGtc, AuthMethodOtp, AuthMethodMd5, AuthMethodTls
+                    };
     enum AuthEapMethod {AuthEapMethodUnknown = 0, AuthEapMethodMd5, AuthEapMethodMschapv2,
-                        AuthEapMethodOtp, AuthEapMethodGtc, AuthEapMethodTls};
+                        AuthEapMethodOtp, AuthEapMethodGtc, AuthEapMethodTls
+                       };
 
     Security8021xSetting();
     Security8021xSetting(Security8021xSetting* setting);

@@ -76,8 +76,8 @@ public:
     void setS390NetType(S390Nettype type);
     S390Nettype s390NetType() const;
 
-    void setS390Options(const QMap<QString,QString> &options);
-    QMap<QString,QString> s390Options() const;
+    void setS390Options(const QMap<QString, QString> &options);
+    QMap<QString, QString> s390Options() const;
 
     void fromMap(const QVariantMap & setting);
 

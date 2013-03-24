@@ -27,24 +27,24 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class GsmSettingPrivate
-    {
-    public:
-	GsmSettingPrivate();
+class GsmSettingPrivate
+{
+public:
+    GsmSettingPrivate();
 
-	QString name;
-	QString number;
-	QString username;
-	QString password;
-	NetworkManager::Settings::Setting::SecretFlags passwordFlags;
-	QString apn;
-	QString networkId;
-	qint32 networkType;
-	QString pin;
-	NetworkManager::Settings::Setting::SecretFlags pinFlags;
-	quint32 allowedBand;
-	bool homeOnly;
-    };
+    QString name;
+    QString number;
+    QString username;
+    QString password;
+    NetworkManager::Settings::Setting::SecretFlags passwordFlags;
+    QString apn;
+    QString networkId;
+    qint32 networkType;
+    QString pin;
+    NetworkManager::Settings::Setting::SecretFlags pinFlags;
+    quint32 allowedBand;
+    bool homeOnly;
+};
 }
 }
 

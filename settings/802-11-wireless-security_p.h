@@ -28,30 +28,30 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class WirelessSecuritySettingPrivate
-    {
-    public:
-        WirelessSecuritySettingPrivate();
+class WirelessSecuritySettingPrivate
+{
+public:
+    WirelessSecuritySettingPrivate();
 
-        QString name;
-        NetworkManager::Settings::WirelessSecuritySetting::KeyMgmt keyMgmt;
-        quint32 wepTxKeyidx;
-        NetworkManager::Settings::WirelessSecuritySetting::AuthAlg authAlg;
-        QList<NetworkManager::Settings::WirelessSecuritySetting::WpaProtocolVersion> proto;
-        QList<NetworkManager::Settings::WirelessSecuritySetting::WpaEncryptionCapabilities> pairwise;
-        QList<NetworkManager::Settings::WirelessSecuritySetting::WpaEncryptionCapabilities> group;
-        QString leapUsername;
-        QString wepKey0;
-        QString wepKey1;
-        QString wepKey2;
-        QString wepKey3;
-        NetworkManager::Settings::Setting::SecretFlags wepKeyFlags;
-        NetworkManager::Settings::WirelessSecuritySetting::WepKeyType wepKeyType;
-        QString psk;
-        NetworkManager::Settings::Setting::SecretFlags pskFlags;
-        QString leapPassword;
-        NetworkManager::Settings::Setting::SecretFlags leapPasswordFlags;
-    };
+    QString name;
+    NetworkManager::Settings::WirelessSecuritySetting::KeyMgmt keyMgmt;
+    quint32 wepTxKeyidx;
+    NetworkManager::Settings::WirelessSecuritySetting::AuthAlg authAlg;
+    QList<NetworkManager::Settings::WirelessSecuritySetting::WpaProtocolVersion> proto;
+    QList<NetworkManager::Settings::WirelessSecuritySetting::WpaEncryptionCapabilities> pairwise;
+    QList<NetworkManager::Settings::WirelessSecuritySetting::WpaEncryptionCapabilities> group;
+    QString leapUsername;
+    QString wepKey0;
+    QString wepKey1;
+    QString wepKey2;
+    QString wepKey3;
+    NetworkManager::Settings::Setting::SecretFlags wepKeyFlags;
+    NetworkManager::Settings::WirelessSecuritySetting::WepKeyType wepKeyType;
+    QString psk;
+    NetworkManager::Settings::Setting::SecretFlags pskFlags;
+    QString leapPassword;
+    NetworkManager::Settings::Setting::SecretFlags leapPasswordFlags;
+};
 }
 }
 

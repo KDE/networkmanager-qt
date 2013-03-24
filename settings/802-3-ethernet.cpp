@@ -217,7 +217,7 @@ void NetworkManager::Settings::WiredSetting::setS390Options(const QMap<QString, 
     d->s390Options = options;
 }
 
-QMap<QString,QString> NetworkManager::Settings::WiredSetting::s390Options() const
+QMap<QString, QString> NetworkManager::Settings::WiredSetting::s390Options() const
 {
     Q_D(const WiredSetting);
 

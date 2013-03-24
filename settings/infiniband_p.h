@@ -27,16 +27,16 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class InfinibandSettingPrivate
-    {
-    public:
-        InfinibandSettingPrivate();
+class InfinibandSettingPrivate
+{
+public:
+    InfinibandSettingPrivate();
 
-        QString name;
-        QByteArray macAddress;
-        quint32 mtu;
-        NetworkManager::Settings::InfinibandSetting::TransportMode transportMode;
-    };
+    QString name;
+    QByteArray macAddress;
+    quint32 mtu;
+    NetworkManager::Settings::InfinibandSetting::TransportMode transportMode;
+};
 }
 }
 

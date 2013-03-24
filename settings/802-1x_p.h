@@ -27,45 +27,45 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class Security8021xSettingPrivate
-    {
-    public:
-        Security8021xSettingPrivate();
+class Security8021xSettingPrivate
+{
+public:
+    Security8021xSettingPrivate();
 
-        QString name;
-        QList<Security8021xSetting::EapMethod> eap;
-        QString identity;
-        QString anonymousIdentity;
-        QString pacFile;
-        QByteArray caCert;
-        QString caPath;
-        QString subjectMatch;
-        QStringList altSubjectMatches;
-        QByteArray clientCert;
-        Security8021xSetting::PeapVersion phase1PeapVer;
-        Security8021xSetting::PeapLabel phase1PeapLabel;
-        Security8021xSetting::FastProvisioning phase1FastProvisioning;
-        Security8021xSetting::AuthMethod phase2AuthMethod;
-        Security8021xSetting::AuthEapMethod phase2AuthEapMethod;
-        QByteArray phase2CaCert;
-        QString phase2CaPath;
-        QString phase2SubjectMatch;
-        QStringList phase2AltSubjectMatches;
-        QByteArray phase2ClientCert;
-        QString password;
-        Setting::SecretFlags passwordFlags;
-        QByteArray passwordRaw;
-        Setting::SecretFlags passwordRawFlags;
-        QByteArray privateKey;
-        QString privateKeyPassword;
-        Setting::SecretFlags privateKeyPasswordFlags;
-        QByteArray phase2PrivateKey;
-        QString phase2PrivateKeyPassword;
-        Setting::SecretFlags phase2PrivateKeyPasswordFlags;
-        QString pin;
-        Setting::SecretFlags pinFlags;
-        bool systemCaCerts;
-    };
+    QString name;
+    QList<Security8021xSetting::EapMethod> eap;
+    QString identity;
+    QString anonymousIdentity;
+    QString pacFile;
+    QByteArray caCert;
+    QString caPath;
+    QString subjectMatch;
+    QStringList altSubjectMatches;
+    QByteArray clientCert;
+    Security8021xSetting::PeapVersion phase1PeapVer;
+    Security8021xSetting::PeapLabel phase1PeapLabel;
+    Security8021xSetting::FastProvisioning phase1FastProvisioning;
+    Security8021xSetting::AuthMethod phase2AuthMethod;
+    Security8021xSetting::AuthEapMethod phase2AuthEapMethod;
+    QByteArray phase2CaCert;
+    QString phase2CaPath;
+    QString phase2SubjectMatch;
+    QStringList phase2AltSubjectMatches;
+    QByteArray phase2ClientCert;
+    QString password;
+    Setting::SecretFlags passwordFlags;
+    QByteArray passwordRaw;
+    Setting::SecretFlags passwordRawFlags;
+    QByteArray privateKey;
+    QString privateKeyPassword;
+    Setting::SecretFlags privateKeyPasswordFlags;
+    QByteArray phase2PrivateKey;
+    QString phase2PrivateKeyPassword;
+    Setting::SecretFlags phase2PrivateKeyPasswordFlags;
+    QString pin;
+    Setting::SecretFlags pinFlags;
+    bool systemCaCerts;
+};
 }
 }
 

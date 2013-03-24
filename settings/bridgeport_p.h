@@ -27,16 +27,16 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class BridgePortSettingPrivate
-    {
-    public:
-        BridgePortSettingPrivate();
+class BridgePortSettingPrivate
+{
+public:
+    BridgePortSettingPrivate();
 
-        QString name;
-        quint16 priority;
-        quint16 pathCost;
-        bool hairpinMode;
-    };
+    QString name;
+    quint16 priority;
+    quint16 pathCost;
+    bool hairpinMode;
+};
 }
 }
 

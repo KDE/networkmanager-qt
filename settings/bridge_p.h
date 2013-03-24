@@ -27,20 +27,20 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class BridgeSettingPrivate
-    {
-    public:
-        BridgeSettingPrivate();
+class BridgeSettingPrivate
+{
+public:
+    BridgeSettingPrivate();
 
-        QString name;
-        QString interfaceName;
-        bool stp;
-        quint16 priority;
-        quint16 forwardDelay;
-        quint16 helloTime;
-        quint16 maxAge;
-        quint32 ageintTime;
-    };
+    QString name;
+    QString interfaceName;
+    bool stp;
+    quint16 priority;
+    quint16 forwardDelay;
+    quint16 helloTime;
+    quint16 maxAge;
+    quint32 ageintTime;
+};
 }
 }
 

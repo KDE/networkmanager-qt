@@ -31,9 +31,9 @@ NetworkManager::Settings::TemplateSettingPrivate::TemplateSettingPrivate():
 { }
 
 NetworkManager::Settings::TemplateSetting::TemplateSetting():
-    /* TODO: Uncomment and replace the template with the setting that you want to implement
-     *       This setting must also be added into the enum in base class
-     */
+/* TODO: Uncomment and replace the template with the setting that you want to implement
+ *       This setting must also be added into the enum in base class
+ */
     //Setting(Setting::Template),
     d_ptr(new TemplateSettingPrivate())
 { }

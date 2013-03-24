@@ -27,18 +27,18 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class SerialSettingPrivate
-    {
-    public:
-        SerialSettingPrivate();
+class SerialSettingPrivate
+{
+public:
+    SerialSettingPrivate();
 
-        QString name;
-        quint32 baud;
-        quint32 bits;
-        NetworkManager::Settings::SerialSetting::Parity parity;
-        quint32 stopbits;
-        quint64 sendDelay;
-    };
+    QString name;
+    quint32 baud;
+    quint32 bits;
+    NetworkManager::Settings::SerialSetting::Parity parity;
+    quint32 stopbits;
+    quint64 sendDelay;
+};
 }
 }
 

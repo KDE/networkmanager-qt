@@ -235,7 +235,7 @@ void NetworkManager::Settings::Ipv6Setting::fromMap(const QVariantMap& setting)
         IpV6DBusNameservers dnsArg = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_DNS)).value<IpV6DBusNameservers>();
         QList<QHostAddress> dbusDns;
 
-        foreach (const QByteArray &dns, dnsArg) {
+        foreach(const QByteArray & dns, dnsArg) {
             QHostAddress tmpHost;
             tmpHost.setAddress(QString(dns));
             dbusDns << tmpHost;
@@ -252,7 +252,7 @@ void NetworkManager::Settings::Ipv6Setting::fromMap(const QVariantMap& setting)
         IpV6DBusAddressList addressArg = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES)).value<IpV6DBusAddressList>();
         QList<NetworkManager::IPv6Address> addresses;
 
-        foreach (const IpV6DBusAddress & address, addressArg) {
+        foreach(const IpV6DBusAddress & address, addressArg) {
             QHostAddress tmpAddress;
             tmpAddress.setAddress(QString(address.address));
             QHostAddress tmpGateway;
@@ -269,7 +269,7 @@ void NetworkManager::Settings::Ipv6Setting::fromMap(const QVariantMap& setting)
         IpV6DBusRouteList routeArg = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES)).value<IpV6DBusRouteList>();
         QList<NetworkManager::IPv6Route> routes;
 
-        foreach (const IpV6DBusRoute & dbusRoute, routeArg) {
+        foreach(const IpV6DBusRoute & dbusRoute, routeArg) {
             QHostAddress tmpDestination;
             tmpDestination.setAddress(QString(dbusRoute.destination));
             QHostAddress tmpNexthop;
@@ -321,7 +321,7 @@ QVariantMap NetworkManager::Settings::Ipv6Setting::toMap() const
 
     if (!dns().isEmpty()) {
         QList<QByteArray> dbusDns;
-        foreach (const QHostAddress &dns, dns()) {
+        foreach(const QHostAddress & dns, dns()) {
             dbusDns << dns.toString().toAscii();
         }
 
@@ -335,7 +335,7 @@ QVariantMap NetworkManager::Settings::Ipv6Setting::toMap() const
     if (!addresses().isEmpty()) {
         IpV6DBusAddressList dbusAddresses;
 
-        foreach (const NetworkManager::IPv6Address &addr, addresses()) {
+        foreach(const NetworkManager::IPv6Address & addr, addresses()) {
             IpV6DBusAddress dbusAddress;
             dbusAddress.address = QHostAddress(addr.address()).toString().toAscii();
             dbusAddress.netMask = addr.netMask();
@@ -350,7 +350,7 @@ QVariantMap NetworkManager::Settings::Ipv6Setting::toMap() const
     if (!routes().isEmpty()) {
         IpV6DBusRouteList dbusRoutes;
 
-        foreach (const NetworkManager::IPv6Route &route, routes()) {
+        foreach(const NetworkManager::IPv6Route & route, routes()) {
             IpV6DBusRoute dbusRoute;
             dbusRoute.destination = QHostAddress(route.route()).toString().toAscii();
             dbusRoute.prefix = route.prefix();
@@ -392,16 +392,16 @@ void NetworkManager::Settings::Ipv6Setting::printSetting()
 
     qDebug() << NM_SETTING_IP6_CONFIG_METHOD << ": " << method();
     qDebug() << NM_SETTING_IP6_CONFIG_DNS << ": ";
-    foreach (const QHostAddress & address, dns()) {
+    foreach(const QHostAddress & address, dns()) {
         qDebug() << address.toString() << ", ";
     }
     qDebug() << NM_SETTING_IP6_CONFIG_DNS_SEARCH << ": " << dnsSearch();
     qDebug() << NM_SETTING_IP6_CONFIG_ADDRESSES << ": ";
-    foreach (const NetworkManager::IPv6Address & address, addresses()) {
+    foreach(const NetworkManager::IPv6Address & address, addresses()) {
         qDebug() << QHostAddress(address.address()).toString() << ": " << QHostAddress(address.gateway()).toString() << ": " << address.netMask()  << ", ";
     }
     qDebug() << NM_SETTING_IP6_CONFIG_ROUTES << ": ";
-    foreach (const NetworkManager::IPv6Route & route, routes()) {
+    foreach(const NetworkManager::IPv6Route & route, routes()) {
         qDebug() << QHostAddress(route.route()).toString() << ": " << route.metric() << ": " << QHostAddress(route.nextHop()).toString() << ": " << route.metric() << ", ";
     }
     qDebug() << NM_SETTING_IP6_CONFIG_IGNORE_AUTO_ROUTES << ": " << ignoreAutoRoutes();

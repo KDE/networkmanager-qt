@@ -29,17 +29,17 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class VpnSettingPrivate
-    {
-    public:
-        VpnSettingPrivate();
+class VpnSettingPrivate
+{
+public:
+    VpnSettingPrivate();
 
-        QString name;
-        QString serviceType;
-        QString username;
-        QStringMap data;
-        QStringMap secrets;
-    };
+    QString name;
+    QString serviceType;
+    QString username;
+    QStringMap data;
+    QStringMap secrets;
+};
 }
 }
 

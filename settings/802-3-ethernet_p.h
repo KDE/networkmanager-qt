@@ -28,24 +28,24 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class WiredSettingPrivate
-    {
-    public:
-	WiredSettingPrivate();
+class WiredSettingPrivate
+{
+public:
+    WiredSettingPrivate();
 
-	QString name;
-	NetworkManager::Settings::WiredSetting::PortType port;
-	quint32 speed;
-	NetworkManager::Settings::WiredSetting::DuplexType duplex;
-	bool autoNegotiate;
-	QByteArray macAddress;
-	QByteArray clonedMacAddress;
-	QStringList macAddressBlacklist;
-	quint32 mtu;
-	QStringList s390Subchannels;
-	NetworkManager::Settings::WiredSetting::S390Nettype s390NetType;
-	QMap<QString, QString> s390Options;
-    };
+    QString name;
+    NetworkManager::Settings::WiredSetting::PortType port;
+    quint32 speed;
+    NetworkManager::Settings::WiredSetting::DuplexType duplex;
+    bool autoNegotiate;
+    QByteArray macAddress;
+    QByteArray clonedMacAddress;
+    QStringList macAddressBlacklist;
+    quint32 mtu;
+    QStringList s390Subchannels;
+    NetworkManager::Settings::WiredSetting::S390Nettype s390NetType;
+    QMap<QString, QString> s390Options;
+};
 }
 }
 

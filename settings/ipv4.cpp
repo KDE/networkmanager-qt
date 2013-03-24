@@ -383,7 +383,7 @@ QVariantMap NetworkManager::Settings::Ipv4Setting::toMap() const
 
     if (!dns().isEmpty()) {
         QList<uint> dbusDns;
-        foreach (const QHostAddress & dns, dns()) {
+        foreach(const QHostAddress & dns, dns()) {
             dbusDns << htonl(dns.toIPv4Address());
         }
 
@@ -396,7 +396,7 @@ QVariantMap NetworkManager::Settings::Ipv4Setting::toMap() const
 
     if (!addresses().isEmpty()) {
         QList<QList<uint> > dbusAddresses;
-        foreach (const NetworkManager::IPv4Address & addr, addresses()) {
+        foreach(const NetworkManager::IPv4Address & addr, addresses()) {
             QList<uint> dbusAddress;
             dbusAddress << htonl(addr.address())
                         << addr.netMask()
@@ -409,7 +409,7 @@ QVariantMap NetworkManager::Settings::Ipv4Setting::toMap() const
 
     if (!routes().isEmpty()) {
         QList<QList<uint> > dbusRoutes;
-        foreach (const NetworkManager::IPv4Route & route, routes()) {
+        foreach(const NetworkManager::IPv4Route & route, routes()) {
             QList<uint> dbusRoute;
             dbusRoute << htonl(route.route())
                       << route.prefix()
@@ -458,16 +458,16 @@ void NetworkManager::Settings::Ipv4Setting::printSetting()
 
     qDebug() << NM_SETTING_IP4_CONFIG_METHOD << ": " << method();
     qDebug() << NM_SETTING_IP4_CONFIG_DNS << ": ";
-    foreach (const QHostAddress & address, dns()) {
+    foreach(const QHostAddress & address, dns()) {
         qDebug() << address.toString() << ", ";
     }
     qDebug() << NM_SETTING_IP4_CONFIG_DNS_SEARCH << ": " << dnsSearch();
     qDebug() << NM_SETTING_IP4_CONFIG_ADDRESSES << ": ";
-    foreach (const NetworkManager::IPv4Address & address, addresses()) {
+    foreach(const NetworkManager::IPv4Address & address, addresses()) {
         qDebug() << address.address() << ": " << address.gateway() << ": " << address.netMask()  << ", ";
     }
     qDebug() << NM_SETTING_IP4_CONFIG_ROUTES << ": ";
-    foreach (const NetworkManager::IPv4Route & route, routes()) {
+    foreach(const NetworkManager::IPv4Route & route, routes()) {
         qDebug() << route.route() << ",";
     }
     qDebug() << NM_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES << ": " << ignoreAutoRoutes();

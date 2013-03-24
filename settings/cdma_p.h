@@ -27,17 +27,17 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class CdmaSettingPrivate
-    {
-    public:
-        CdmaSettingPrivate();
+class CdmaSettingPrivate
+{
+public:
+    CdmaSettingPrivate();
 
-        QString name;
-        QString number;
-        QString username;
-        QString password;
-        NetworkManager::Settings::Setting::SecretFlags passwordFlags;
-    };
+    QString name;
+    QString number;
+    QString username;
+    QString password;
+    NetworkManager::Settings::Setting::SecretFlags passwordFlags;
+};
 }
 }
 

@@ -27,20 +27,20 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class AdslSettingPrivate
-    {
-    public:
-        AdslSettingPrivate();
+class AdslSettingPrivate
+{
+public:
+    AdslSettingPrivate();
 
-        QString name;
-        QString username;
-        QString password;
-        NetworkManager::Settings::Setting::SecretFlags passwordFlags;
-        NetworkManager::Settings::AdslSetting::Protocol protocol;
-        NetworkManager::Settings::AdslSetting::Encapsulation encapsulation;
-        quint32 vpi;
-        quint32 vci;
-    };
+    QString name;
+    QString username;
+    QString password;
+    NetworkManager::Settings::Setting::SecretFlags passwordFlags;
+    NetworkManager::Settings::AdslSetting::Protocol protocol;
+    NetworkManager::Settings::AdslSetting::Encapsulation encapsulation;
+    quint32 vpi;
+    quint32 vci;
+};
 }
 }
 

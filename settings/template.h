@@ -31,28 +31,28 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class TemplateSettingPrivate;
+class TemplateSettingPrivate;
 
-    class NMQT_EXPORT TemplateSetting : public Setting
-    {
+class NMQT_EXPORT TemplateSetting : public Setting
+{
     Q_DECLARE_PRIVATE(TemplateSetting)
-    public:
-        TemplateSetting();
-        TemplateSetting(TemplateSetting *);
-        ~TemplateSetting();
+public:
+    TemplateSetting();
+    TemplateSetting(TemplateSetting *);
+    ~TemplateSetting();
 
-        QString name() const;
+    QString name() const;
 
-        void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap & setting);
 
-        QVariantMap toMap() const;
+    QVariantMap toMap() const;
 
-        //FOR DEBUG
-        void printSetting();
+    //FOR DEBUG
+    void printSetting();
 
-    private:
-        TemplateSettingPrivate * d_ptr;
-    };
+private:
+    TemplateSettingPrivate * d_ptr;
+};
 }
 }
 

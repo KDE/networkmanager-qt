@@ -27,19 +27,19 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class VlanSettingPrivate
-    {
-    public:
-        VlanSettingPrivate();
+class VlanSettingPrivate
+{
+public:
+    VlanSettingPrivate();
 
-        QString name;
-        QString interfaceName;
-        QString parent;
-        quint32 id;
-        NetworkManager::Settings::VlanSetting::Flags flags;
-        QStringList ingressPriorityMap;
-        QStringList egressPriorityMap;
-    };
+    QString name;
+    QString interfaceName;
+    QString parent;
+    quint32 id;
+    NetworkManager::Settings::VlanSetting::Flags flags;
+    QStringList ingressPriorityMap;
+    QStringList egressPriorityMap;
+};
 }
 }
 

@@ -136,7 +136,7 @@ void NetworkManager::Settings::OlpcMeshSetting::printSetting()
 {
     NetworkManager::Settings::Setting::printSetting();
 
-    qDebug() << NM_SETTING_OLPC_MESH_SSID << ": "<< ssid();
-    qDebug() << NM_SETTING_OLPC_MESH_CHANNEL << ": "<< channel();
-    qDebug() << NM_SETTING_OLPC_MESH_DHCP_ANYCAST_ADDRESS << ": "<< dhcpAnycastAddress();
+    qDebug() << NM_SETTING_OLPC_MESH_SSID << ": " << ssid();
+    qDebug() << NM_SETTING_OLPC_MESH_CHANNEL << ": " << channel();
+    qDebug() << NM_SETTING_OLPC_MESH_DHCP_ANYCAST_ADDRESS << ": " << dhcpAnycastAddress();
 }

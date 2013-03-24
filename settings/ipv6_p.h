@@ -30,23 +30,23 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class Ipv6SettingPrivate
-    {
-    public:
-        Ipv6SettingPrivate();
+class Ipv6SettingPrivate
+{
+public:
+    Ipv6SettingPrivate();
 
-        QString name;
-        NetworkManager::Settings::Ipv6Setting::ConfigMethod method;
-        QList<QHostAddress> dns;
-        QStringList dnsSearch;
-        QList<NetworkManager::IPv6Address> addresses;
-        QList<NetworkManager::IPv6Route> routes;
-        bool ignoreAutoRoutes;
-        bool ignoreAutoDns;
-        bool neverDefault;
-        bool mayFail;
-        NetworkManager::Settings::Ipv6Setting::IPv6Privacy privacy;
-    };
+    QString name;
+    NetworkManager::Settings::Ipv6Setting::ConfigMethod method;
+    QList<QHostAddress> dns;
+    QStringList dnsSearch;
+    QList<NetworkManager::IPv6Address> addresses;
+    QList<NetworkManager::IPv6Route> routes;
+    bool ignoreAutoRoutes;
+    bool ignoreAutoDns;
+    bool neverDefault;
+    bool mayFail;
+    NetworkManager::Settings::Ipv6Setting::IPv6Privacy privacy;
+};
 }
 }
 #endif // NMQT_SETTINGS_IPV6SETTING_P_H

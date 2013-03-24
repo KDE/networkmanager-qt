@@ -38,7 +38,8 @@ class NMQT_EXPORT Setting
     Q_DECLARE_PRIVATE(Setting)
 public:
     enum SettingType {Adsl, Cdma, Gsm, Infiniband, Ipv4, Ipv6, Ppp, Pppoe, Security8021x, Serial,
-                      Vpn, Wired, Wireless, WirelessSecurity, Bluetooth, OlpcMesh, Vlan, Wimax, Bond, Bridge, BridgePort};
+                      Vpn, Wired, Wireless, WirelessSecurity, Bluetooth, OlpcMesh, Vlan, Wimax, Bond, Bridge, BridgePort
+                     };
     enum SecretFlagType {None = 0, AgentOwned = 0x01, NotSaved = 0x02, NotRequired = 0x04};
     Q_DECLARE_FLAGS(SecretFlags, SecretFlagType)
 

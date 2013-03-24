@@ -110,12 +110,12 @@ QVariantMap NetworkManager::Settings::BluetoothSetting::toMap() const
 
     if (type() != Unknown) {
         switch (type()) {
-            case Dun:
-                setting.insert(QLatin1String(NM_SETTING_BLUETOOTH_TYPE), QLatin1String(NM_SETTING_BLUETOOTH_TYPE_DUN));
-                break;
-            case Panu:
-                setting.insert(QLatin1String(NM_SETTING_BLUETOOTH_TYPE), QLatin1String(NM_SETTING_BLUETOOTH_TYPE_PANU));
-                break;
+        case Dun:
+            setting.insert(QLatin1String(NM_SETTING_BLUETOOTH_TYPE), QLatin1String(NM_SETTING_BLUETOOTH_TYPE_DUN));
+            break;
+        case Panu:
+            setting.insert(QLatin1String(NM_SETTING_BLUETOOTH_TYPE), QLatin1String(NM_SETTING_BLUETOOTH_TYPE_PANU));
+            break;
         }
     }
 

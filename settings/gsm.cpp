@@ -348,7 +348,7 @@ QVariantMap NetworkManager::Settings::GsmSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_GSM_PIN), pin());
     }
 
-    setting.insert(QLatin1String(NM_SETTING_GSM_PIN_FLAGS),(int)pinFlags());
+    setting.insert(QLatin1String(NM_SETTING_GSM_PIN_FLAGS), (int)pinFlags());
 
     if (allowedBand() != 1) {
         setting.insert(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS), allowedBand());

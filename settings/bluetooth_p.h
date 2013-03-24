@@ -27,15 +27,15 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class BluetoothSettingPrivate
-    {
-    public:
-        BluetoothSettingPrivate();
+class BluetoothSettingPrivate
+{
+public:
+    BluetoothSettingPrivate();
 
-        QString name;
-        QByteArray bdaddr;
-        NetworkManager::Settings::BluetoothSetting::Type type;
-    };
+    QString name;
+    QByteArray bdaddr;
+    NetworkManager::Settings::BluetoothSetting::Type type;
+};
 }
 }
 

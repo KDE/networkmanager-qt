@@ -30,25 +30,25 @@ namespace NetworkManager
 {
 namespace Settings
 {
-    class Ipv4SettingPrivate
-    {
-    public:
-        Ipv4SettingPrivate();
+class Ipv4SettingPrivate
+{
+public:
+    Ipv4SettingPrivate();
 
-        QString name;
-        NetworkManager::Settings::Ipv4Setting::ConfigMethod method;
-        QList<QHostAddress> dns;
-        QStringList dnsSearch;
-        QList<NetworkManager::IPv4Address> addresses;
-        QList<NetworkManager::IPv4Route> routes;
-        bool ignoreAutoRoutes;
-        bool ignoreAutoDns;
-        QString dhcpClientId;
-        bool dhcpSendHostname;
-        QString dhcpHostname;
-        bool neverDefault;
-        bool mayFail;
-    };
+    QString name;
+    NetworkManager::Settings::Ipv4Setting::ConfigMethod method;
+    QList<QHostAddress> dns;
+    QStringList dnsSearch;
+    QList<NetworkManager::IPv4Address> addresses;
+    QList<NetworkManager::IPv4Route> routes;
+    bool ignoreAutoRoutes;
+    bool ignoreAutoDns;
+    QString dhcpClientId;
+    bool dhcpSendHostname;
+    QString dhcpHostname;
+    bool neverDefault;
+    bool mayFail;
+};
 }
 }
 #endif // NMQT_SETTINGS_IPV4SETTING_P_H
