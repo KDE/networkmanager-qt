@@ -39,7 +39,7 @@ public:
     NetworkManager::Settings::Setting::SecretFlags passwordFlags;
     QString apn;
     QString networkId;
-    qint32 networkType;
+    NetworkManager::Settings::GsmSetting::NetworkType networkType;
     QString pin;
     NetworkManager::Settings::Setting::SecretFlags pinFlags;
     quint32 allowedBand;

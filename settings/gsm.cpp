@@ -28,7 +28,7 @@
 NetworkManager::Settings::GsmSettingPrivate::GsmSettingPrivate():
     name(QString("gsm")),
     passwordFlags(NetworkManager::Settings::GsmSetting::None),
-    networkType(-1),
+    networkType(NetworkManager::Settings::GsmSetting::Any),
     pinFlags(NetworkManager::Settings::GsmSetting::None),
     allowedBand(1),
     homeOnly(false)
@@ -152,14 +152,14 @@ QString NetworkManager::Settings::GsmSetting::networkId() const
     return d->networkId;
 }
 
-void NetworkManager::Settings::GsmSetting::setNetworkType(qint32 type)
+void NetworkManager::Settings::GsmSetting::setNetworkType(NetworkType type)
 {
     Q_D(GsmSetting);
 
     d->networkType = type;
 }
 
-qint32 NetworkManager::Settings::GsmSetting::networkType() const
+NetworkManager::Settings::GsmSetting::NetworkType NetworkManager::Settings::GsmSetting::networkType() const
 {
     Q_D(const GsmSetting);
 
@@ -291,7 +291,7 @@ void NetworkManager::Settings::GsmSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE))) {
-        setNetworkType(setting.value(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE)).toInt());
+        setNetworkType((NetworkType)setting.value(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE)).toInt());
     }
 
     // Secrets

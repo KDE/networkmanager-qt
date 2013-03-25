@@ -36,6 +36,8 @@ class NMQT_EXPORT GsmSetting : public Setting
 {
     Q_DECLARE_PRIVATE(GsmSetting)
 public:
+    enum NetworkType { Any = -1, Only3G, GprsEdgeOnly, Prefer3G, Prefer2G, Prefer4GLte, Only4GLte };
+
     GsmSetting();
     GsmSetting(GsmSetting *);
     ~GsmSetting();
@@ -60,8 +62,8 @@ public:
     void setNetworkId(const QString & id);
     QString networkId() const;
 
-    void setNetworkType(qint32 type);
-    qint32 networkType() const;
+    void setNetworkType(NetworkType type);
+    NetworkType networkType() const;
 
     void setPin(const QString & pin);
     QString pin() const;
