@@ -42,7 +42,7 @@ public:
 
 NetworkManager::BridgeDevicePrivate::BridgeDevicePrivate(const QString& path, QObject* owner):
     DevicePrivate(path, owner), iface(NetworkManagerPrivate::DBUS_SERVICE, path,QDBusConnection::systemBus()),
-    carrier(false), hwAddress(QString()), slaves(QList<QDBusObjectPath>())
+    carrier(false), slaves(QList<QDBusObjectPath>())
 {
 }
 

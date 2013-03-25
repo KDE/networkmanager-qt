@@ -108,15 +108,13 @@ QVariantMap NetworkManager::Settings::BluetoothSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_BLUETOOTH_BDADDR), bluetoothAddress());
     }
 
-    if (type() != Unknown) {
-        switch (type()) {
-        case Dun:
-            setting.insert(QLatin1String(NM_SETTING_BLUETOOTH_TYPE), QLatin1String(NM_SETTING_BLUETOOTH_TYPE_DUN));
-            break;
-        case Panu:
-            setting.insert(QLatin1String(NM_SETTING_BLUETOOTH_TYPE), QLatin1String(NM_SETTING_BLUETOOTH_TYPE_PANU));
-            break;
-        }
+    switch (type()) {
+    case Dun:
+        setting.insert(QLatin1String(NM_SETTING_BLUETOOTH_TYPE), QLatin1String(NM_SETTING_BLUETOOTH_TYPE_DUN));
+        break;
+    case Panu:
+        setting.insert(QLatin1String(NM_SETTING_BLUETOOTH_TYPE), QLatin1String(NM_SETTING_BLUETOOTH_TYPE_PANU));
+        break;
     }
 
     return setting;

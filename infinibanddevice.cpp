@@ -41,7 +41,7 @@ public:
 
 NetworkManager::InfinibandDevicePrivate::InfinibandDevicePrivate(const QString& path, QObject* owner):
     DevicePrivate(path, owner), iface(NetworkManagerPrivate::DBUS_SERVICE, path,QDBusConnection::systemBus()),
-    carrier(false), hwAddress(QString())
+    carrier(false)
 {
 }
 

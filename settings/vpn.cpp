@@ -27,8 +27,6 @@
 
 NetworkManager::Settings::VpnSettingPrivate::VpnSettingPrivate():
     name(QString("vpn")),
-    serviceType(QString()),
-    username(QString()),
     data(QStringMap()),
     secrets(QStringMap())
 { }
