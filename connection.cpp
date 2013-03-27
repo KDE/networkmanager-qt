@@ -112,7 +112,7 @@ QVariantMapMap NetworkManager::Settings::Connection::settings() const
 void NetworkManager::Settings::Connection::secrets(const QString &setting)
 {
     Q_D(Connection);
-    QString id = QUuid().toString();
+    QString id = uuid();
     QDBusPendingReply<QVariantMapMap> reply = d->iface.GetSecrets(setting);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
     watcher->setProperty("libQtNetworkManager_id", id);
