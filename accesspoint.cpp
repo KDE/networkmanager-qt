@@ -57,7 +57,7 @@ NetworkManager::AccessPoint::AccessPoint( const QString& path, QObject * parent 
         d->wpaFlags = convertWpaFlags( d->iface.wpaFlags() );
         d->rsnFlags = convertWpaFlags( d->iface.rsnFlags() );
         d->signalStrength = d->iface.strength();
-        d->ssid = d->iface.ssid();
+        d->ssid = QString::fromUtf8(d->iface.ssid());
         d->rawSsid = d->iface.ssid();
         d->frequency = d->iface.frequency();
         d->hardwareAddress = d->iface.hwAddress();
