@@ -93,7 +93,7 @@ int main()
 
     // For wireless setting we have to specify SSID
     Settings::WirelessSetting * wirelessSetting = dynamic_cast<Settings::WirelessSetting *>(settings->setting(Settings::Setting::Wireless));
-    wirelessSetting->setSsid(ssid.toAscii());
+    wirelessSetting->setSsid(ssid.toUtf8());
 
     Settings::Ipv4Setting * ipv4Setting = dynamic_cast<Settings::Ipv4Setting *>(settings->setting(Settings::Setting::Ipv4));
     ipv4Setting->setMethod(Settings::Ipv4Setting::Automatic);
