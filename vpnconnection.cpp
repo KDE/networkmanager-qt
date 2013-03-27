@@ -54,6 +54,8 @@ NetworkManager::VpnConnection::VpnConnection(const QString & path, QObject * par
     d->state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(d->iface.vpnState());
     connect( &d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
                 this, SLOT(propertiesChanged(QVariantMap)));
+    connect( &d->iface, SIGNAL(VpnStateChanged(uint,uint)),
+                this, SLOT(vpnStateChanged(uint,uint)));
 }
 
 NetworkManager::VpnConnection::~VpnConnection()
@@ -94,6 +96,15 @@ void NetworkManager::VpnConnection::propertiesChanged(const QVariantMap & change
     //if (propKeys.count()) {
     //    nmDebug() << "Unhandled properties: " << propKeys;
     //}
+}
+
+void NetworkManager::VpnConnection::vpnStateChanged(uint state, uint reason)
+{
+    Q_D(VpnConnection);
+    Q_UNUSED(reason);
+
+    d->state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(state);
+    emit stateChanged(d->state);
 }
 
 NetworkManager::VpnConnection::operator VpnConnection*()

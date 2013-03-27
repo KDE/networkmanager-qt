@@ -52,7 +52,7 @@ public:
      *
      * @param path the DBus path of the device
      */
-    VpnConnection(const QString & path, QObject * parent);
+    VpnConnection(const QString & path, QObject * parent = 0);
     /**
      * Destroys a VpnConnection object.
      */
@@ -75,7 +75,7 @@ public:
 
 protected Q_SLOTS:
     void propertiesChanged(const QVariantMap &);
-
+    void vpnStateChanged(uint state, uint reason);
 Q_SIGNALS:
     /**
      * This signal is emitted when the connection banner has changed
