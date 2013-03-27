@@ -46,6 +46,7 @@ public:
 
     static ConnectionType typeFromString(const QString & typeString);
     static QString typeAsString(const ConnectionType type);
+    static QString createNewUuid();
 
     ConnectionSettings();
     ConnectionSettings(ConnectionType type, NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);

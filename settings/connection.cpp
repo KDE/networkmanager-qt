@@ -162,6 +162,10 @@ QString NetworkManager::Settings::ConnectionSettings::typeAsString(NetworkManage
     return typeString;
 }
 
+QString NetworkManager::Settings::ConnectionSettings::createNewUuid()
+{
+    return QUuid::createUuid().toString().mid(1, QUuid::createUuid().toString().length() - 2);
+}
 
 NetworkManager::Settings::ConnectionSettings::ConnectionSettings():
     d_ptr(new ConnectionSettingsPrivate())
