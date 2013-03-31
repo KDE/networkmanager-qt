@@ -37,7 +37,7 @@ NetworkManager::BluetoothDevice::BluetoothDevice(const QString & path, QObject *
     : ModemDevice(*new BluetoothDevicePrivate(path, this), parent)
 {
     Q_D(BluetoothDevice);
-    connect( &d->btIface, SIGNAL(PropertiesChanged(QVariantMap)),
+    connect(&d->btIface, SIGNAL(PropertiesChanged(QVariantMap)),
             this, SLOT(btPropertiesChanged(QVariantMap)));
 }
 
@@ -47,7 +47,7 @@ NetworkManager::BluetoothDevice::~BluetoothDevice()
 
 NetworkManager::Device::Type NetworkManager::BluetoothDevice::type() const
 {
-        return NetworkManager::Device::Bluetooth;
+    return NetworkManager::Device::Bluetooth;
 }
 
 void NetworkManager::BluetoothDevice::btPropertiesChanged(const QVariantMap & changedProperties)

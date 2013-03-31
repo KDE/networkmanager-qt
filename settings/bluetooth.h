@@ -36,7 +36,7 @@ class NMQT_EXPORT BluetoothSetting : public Setting
 {
     Q_DECLARE_PRIVATE(BluetoothSetting)
 public:
-    enum Type {Unknown = 0, Dun, Panu};
+    enum ProfileType {Unknown = 0, Dun, Panu};
 
     BluetoothSetting();
     BluetoothSetting(BluetoothSetting * setting);
@@ -47,8 +47,8 @@ public:
     void setBluetoothAddress(const QByteArray & address);
     QByteArray bluetoothAddress() const;
 
-    void setType(Type type);
-    Type type() const;
+    void setProfileType(ProfileType type);
+    ProfileType profileType() const;
 
     void fromMap(const QVariantMap & setting);
 

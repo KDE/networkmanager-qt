@@ -69,14 +69,14 @@ QByteArray NetworkManager::Settings::BluetoothSetting::bluetoothAddress() const
     return d->bdaddr;
 }
 
-void NetworkManager::Settings::BluetoothSetting::setType(NetworkManager::Settings::BluetoothSetting::Type type)
+void NetworkManager::Settings::BluetoothSetting::setProfileType(NetworkManager::Settings::BluetoothSetting::ProfileType type)
 {
     Q_D(BluetoothSetting);
 
     d->type = type;
 }
 
-NetworkManager::Settings::BluetoothSetting::Type NetworkManager::Settings::BluetoothSetting::type() const
+NetworkManager::Settings::BluetoothSetting::ProfileType NetworkManager::Settings::BluetoothSetting::profileType() const
 {
     Q_D(const BluetoothSetting);
 
@@ -93,9 +93,9 @@ void NetworkManager::Settings::BluetoothSetting::fromMap(const QVariantMap& sett
         QString type = setting.value(QLatin1String(NM_SETTING_BLUETOOTH_TYPE)).toString();
 
         if (type == QLatin1String(NM_SETTING_BLUETOOTH_TYPE_DUN)) {
-            setType(Dun);
+            setProfileType(Dun);
         } else if (type == QLatin1String(NM_SETTING_BLUETOOTH_TYPE_PANU)) {
-            setType(Panu);
+            setProfileType(Panu);
         }
     }
 }

@@ -34,7 +34,7 @@ public:
 
     QString name;
     QByteArray bdaddr;
-    NetworkManager::Settings::BluetoothSetting::Type type;
+    NetworkManager::Settings::BluetoothSetting::ProfileType type;
 };
 }
 }
