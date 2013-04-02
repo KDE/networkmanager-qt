@@ -86,9 +86,9 @@ public:
     inline QString interface() const
     { return qvariant_cast< QString >(property("Interface")); }
 
-    Q_PROPERTY(int Ip4Address READ ip4Address)
-    inline int ip4Address() const
-    { return qvariant_cast< int >(property("Ip4Address")); }
+    Q_PROPERTY(uint Ip4Address READ ip4Address)
+    inline uint ip4Address() const
+    { return qvariant_cast< uint >(property("Ip4Address")); }
 
     Q_PROPERTY(QDBusObjectPath Ip4Config READ ip4Config)
     inline QDBusObjectPath ip4Config() const
