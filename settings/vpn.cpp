@@ -114,6 +114,25 @@ QStringMap NetworkManager::Settings::VpnSetting::secrets() const
     return d->secrets;
 }
 
+void NetworkManager::Settings::VpnSetting::secretsFromMap(const QVariantMap& secrets)
+{
+    if (secrets.contains(QLatin1String(NM_SETTING_VPN_SECRETS))) {
+        setSecrets(qdbus_cast<QStringMap>(secrets.value(QLatin1String(NM_SETTING_VPN_SECRETS))));
+    }
+}
+
+QVariantMap NetworkManager::Settings::VpnSetting::secretsToMap() const
+{
+    QVariantMap secretsMap;
+
+    if (!secrets().isEmpty()) {
+        secretsMap.insert(QLatin1String(NM_SETTING_VPN_SECRETS), QVariant::fromValue<QStringMap>(secrets()));
+    }
+
+    qDebug() << secretsMap;
+    return secretsMap;
+}
+
 void NetworkManager::Settings::VpnSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_VPN_SERVICE_TYPE))) {
