@@ -1,5 +1,6 @@
 /*
     Copyright 2012-2013  Jan Grulich <jgrulich@redhat.com>
+    Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -298,12 +299,15 @@ void NetworkManager::Settings::Ipv4Setting::fromMap(const QVariantMap& setting)
                 continue;
             }
 
-            NetworkManager::IPv4Address addr((quint32)ntohl(uintList.at(0)), (quint32)uintList.at(1), (quint32) ntohl(uintList.at(2)));
-            if (!addr.isValid()) {
+            NetworkManager::IPv4Address address;
+            address.setIp(QHostAddress(ntohl(uintList.at(0))));
+            address.setPrefixLength(uintList.at(1));
+            address.setGateway(QHostAddress(ntohl(uintList.at(2))));
+            if (!address.isValid()) {
                 continue;
             }
 
-            addresses << addr;
+            addresses << address;
         }
 
         setAddresses(addresses);
@@ -324,7 +328,11 @@ void NetworkManager::Settings::Ipv4Setting::fromMap(const QVariantMap& setting)
                 continue;
             }
 
-            NetworkManager::IPv4Route route((quint32)ntohl(uintList.at(0)), (quint32)uintList.at(1), (quint32)ntohl(uintList.at(2)), (quint32)uintList.at(3));
+            NetworkManager::IPv4Route route;
+            route.setIp(QHostAddress(ntohl(uintList.at(0))));
+            route.setPrefixLength(uintList.at(1));
+            route.setNextHop(QHostAddress(ntohl(uintList.at(2))));
+            route.setMetric((quint32)uintList.at(3));
             if (!route.isValid()) {
                 continue;
             }
@@ -398,9 +406,9 @@ QVariantMap NetworkManager::Settings::Ipv4Setting::toMap() const
         QList<QList<uint> > dbusAddresses;
         foreach(const NetworkManager::IPv4Address & addr, addresses()) {
             QList<uint> dbusAddress;
-            dbusAddress << htonl(addr.address())
-                        << addr.netMask()
-                        << htonl(addr.gateway());
+            dbusAddress << htonl(addr.ip().toIPv4Address())
+                        << addr.netmask().toIPv4Address()
+                        << htonl(addr.gateway().toIPv4Address());
             dbusAddresses << dbusAddress;
         }
 
@@ -411,9 +419,9 @@ QVariantMap NetworkManager::Settings::Ipv4Setting::toMap() const
         QList<QList<uint> > dbusRoutes;
         foreach(const NetworkManager::IPv4Route & route, routes()) {
             QList<uint> dbusRoute;
-            dbusRoute << htonl(route.route())
-                      << route.prefix()
-                      << htonl(route.nextHop())
+            dbusRoute << htonl(route.route().ip().toIPv4Address())
+                      << route.route().netmask().toIPv4Address()
+                      << htonl(route.nextHop().toIPv4Address())
                       << route.metric();
             dbusRoutes << dbusRoute;
         }
@@ -464,11 +472,11 @@ void NetworkManager::Settings::Ipv4Setting::printSetting()
     qDebug() << NM_SETTING_IP4_CONFIG_DNS_SEARCH << ": " << dnsSearch();
     qDebug() << NM_SETTING_IP4_CONFIG_ADDRESSES << ": ";
     foreach(const NetworkManager::IPv4Address & address, addresses()) {
-        qDebug() << address.address() << ": " << address.gateway() << ": " << address.netMask()  << ", ";
+        qDebug() << address.ip() << ": " << address.gateway() << ": " << address.netmask()  << ", ";
     }
     qDebug() << NM_SETTING_IP4_CONFIG_ROUTES << ": ";
     foreach(const NetworkManager::IPv4Route & route, routes()) {
-        qDebug() << route.route() << ",";
+        qDebug() << route.ip() << ",";
     }
     qDebug() << NM_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES << ": " << ignoreAutoRoutes();
     qDebug() << NM_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS << ": " << ignoreAutoDns();

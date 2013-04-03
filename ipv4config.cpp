@@ -1,5 +1,6 @@
 /*
 Copyright 2008,2011 Will Stephenson <wstephenson@kde.org>
+Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -25,7 +26,7 @@ class NetworkManager::IPv4Config::Private
 {
 public:
     Private(const QList<IPv4Address> &theAddresses,
-        const QList<quint32> &theNameservers,
+        const QList<QHostAddress> &theNameservers,
         const QStringList &theDomains, const QList<IPv4Route> &theRoutes)
         : addresses(theAddresses), nameservers(theNameservers),
         domains(theDomains), routes(theRoutes)
@@ -33,7 +34,7 @@ public:
     Private()
     {}
     QList<IPv4Address> addresses;
-    QList<quint32> nameservers;
+    QList<QHostAddress> nameservers;
     QStringList domains;
     QList<IPv4Route> routes;
 };
@@ -42,40 +43,19 @@ public:
 class IPv4Address::Private
 {
 public:
-    Private(quint32 theAddress, quint32 theNetMask, quint32 theGateway)
-        : address(theAddress), netMask(theNetMask), gateway(theGateway)
-    {}
-    Private()
-        : address(0), netMask(0), gateway(0)
-    {}
-    quint32 address;
-    quint32 netMask;
-    quint32 gateway;
+    QHostAddress gateway;
 };
 
 class NetworkManager::IPv4Route::Private
 {
 public:
-    Private(quint32 theRoute, quint32 thePrefix, quint32 theNextHop, quint32 theMetric)
-        : route(theRoute), prefix(thePrefix), nextHop(theNextHop), metric(theMetric)
-    {}
-    Private()
-        : route(0), prefix(0), nextHop(0), metric(0)
-    {}
-    quint32 route;
-    quint32 prefix;
-    quint32 nextHop;
+    QHostAddress nextHop;
     quint32 metric;
 };
 }
 
-NetworkManager::IPv4Address::IPv4Address(quint32 address, quint32 netMask, quint32 gateway)
-: d(new Private(address, netMask, gateway))
-{
-}
-
 NetworkManager::IPv4Address::IPv4Address()
-: d(new Private())
+: d(new Private)
 {
 }
 
@@ -84,22 +64,23 @@ NetworkManager::IPv4Address::~IPv4Address()
     delete d;
 }
 
-NetworkManager::IPv4Address::IPv4Address(const NetworkManager::IPv4Address &other)
-: d(new Private(*other.d))
+NetworkManager::IPv4Address::IPv4Address(const NetworkManager::IPv4Address &other) :
+    d(new Private)
 {
+    *this = other;
 }
 
-quint32 NetworkManager::IPv4Address::address() const
+bool NetworkManager::IPv4Address::isValid() const
 {
-    return d->address;
+    return !ip().isNull();
 }
 
-quint32 NetworkManager::IPv4Address::netMask() const
+void NetworkManager::IPv4Address::setGateway(const QHostAddress &gateway)
 {
-    return d->netMask;
+    d->gateway = gateway;
 }
 
-quint32 NetworkManager::IPv4Address::gateway() const
+QHostAddress NetworkManager::IPv4Address::gateway() const
 {
     return d->gateway;
 }
@@ -109,22 +90,14 @@ NetworkManager::IPv4Address &NetworkManager::IPv4Address::operator=(const Networ
     if (this == &other)
         return *this;
 
+    QNetworkAddressEntry::operator =(other);
     *d = *other.d;
+
     return *this;
 }
 
-bool NetworkManager::IPv4Address::isValid() const
-{
-    return d->address != 0;
-}
-
-NetworkManager::IPv4Route::IPv4Route(quint32 route, quint32 prefix, quint32 nextHop, quint32 metric)
-: d(new Private(route, prefix, nextHop, metric))
-{
-}
-
 NetworkManager::IPv4Route::IPv4Route()
-: d(new Private())
+: d(new Private)
 {
 }
 
@@ -133,24 +106,25 @@ NetworkManager::IPv4Route::~IPv4Route()
     delete d;
 }
 
-NetworkManager::IPv4Route::IPv4Route(const NetworkManager::IPv4Route &other)
-: d(new Private(*other.d))
+NetworkManager::IPv4Route::IPv4Route(const NetworkManager::IPv4Route &other) :
+    d(new Private)
 {
+    *this = other;
 }
 
-quint32 NetworkManager::IPv4Route::route() const
+void NetworkManager::IPv4Route::setNextHop(const QHostAddress &nextHop) const
 {
-    return d->route;
+    d->nextHop = nextHop;
 }
 
-quint32 NetworkManager::IPv4Route::prefix() const
-{
-    return d->prefix;
-}
-
-quint32 NetworkManager::IPv4Route::nextHop() const
+QHostAddress NetworkManager::IPv4Route::nextHop() const
 {
     return d->nextHop;
+}
+
+void NetworkManager::IPv4Route::setMetric(quint32 metric)
+{
+    d->metric = metric;
 }
 
 quint32 NetworkManager::IPv4Route::metric() const
@@ -163,18 +137,19 @@ NetworkManager::IPv4Route &NetworkManager::IPv4Route::operator=(const NetworkMan
     if (this == &other)
         return *this;
 
+    QNetworkAddressEntry::operator =(other);
     *d = *other.d;
+
     return *this;
 }
 
 bool NetworkManager::IPv4Route::isValid() const
 {
-    return d->route != 0;
+    return !ip().isNull();
 }
 
-
 NetworkManager::IPv4Config::IPv4Config(const QList<NetworkManager::IPv4Address> &addresses,
-        const QList<quint32> &nameservers,
+        const QList<QHostAddress> &nameservers,
         const QStringList &domains,
         const QList<NetworkManager::IPv4Route> &routes)
 : d(new Private(addresses, nameservers, domains, routes))
@@ -186,9 +161,10 @@ NetworkManager::IPv4Config::IPv4Config()
 {
 }
 
-NetworkManager::IPv4Config::IPv4Config(const IPv4Config& other)
+NetworkManager::IPv4Config::IPv4Config(const IPv4Config& other) :
+    d(new Private)
 {
-    d = new Private(*other.d);
+    *this = other;
 }
 
 NetworkManager::IPv4Config::~IPv4Config()
@@ -201,7 +177,7 @@ QList<NetworkManager::IPv4Address> NetworkManager::IPv4Config::addresses() const
     return d->addresses;
 }
 
-QList<quint32> NetworkManager::IPv4Config::nameservers() const
+QList<QHostAddress> NetworkManager::IPv4Config::nameservers() const
 {
     return d->nameservers;
 }

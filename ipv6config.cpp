@@ -1,5 +1,6 @@
 /*
 Copyright 2011 Ilia Kats <ilia-kats@gmx.net>, based on work by Will Stephenson <wstephenson@kde.org>
+Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -26,7 +27,7 @@ class IPv6Config::Private
 {
 public:
     Private(const QList<IPv6Address> &theAddresses,
-        const QList<Q_IPV6ADDR> &theNameservers,
+        const QList<QHostAddress> &theNameservers,
         const QStringList &theDomains, const QList<IPv6Route> &theRoutes)
         : addresses(theAddresses), nameservers(theNameservers),
         domains(theDomains), routes(theRoutes)
@@ -34,7 +35,7 @@ public:
     Private()
     {}
     QList<IPv6Address> addresses;
-    QList<Q_IPV6ADDR> nameservers;
+    QList<QHostAddress> nameservers;
     QStringList domains;
     QList<IPv6Route> routes;
 };
@@ -43,40 +44,19 @@ public:
 class IPv6Address::Private
 {
 public:
-    Private(Q_IPV6ADDR theAddress, quint32 theNetMask, Q_IPV6ADDR theGateway)
-        : address(theAddress), netMask(theNetMask), gateway(theGateway)
-    {}
-    Private()
-        : address(), netMask(0), gateway()
-    {}
-    Q_IPV6ADDR address;
-    quint32 netMask;
-    Q_IPV6ADDR gateway;
+    QHostAddress gateway;
 };
 
 class IPv6Route::Private
 {
 public:
-    Private(Q_IPV6ADDR theRoute, quint32 thePrefix, Q_IPV6ADDR theNextHop, quint32 theMetric)
-        : route(theRoute), prefix(thePrefix), nextHop(theNextHop), metric(theMetric)
-    {}
-    Private()
-        : route(), prefix(0), nextHop(), metric(0)
-    {}
-    Q_IPV6ADDR route;
-    quint32 prefix;
-    Q_IPV6ADDR nextHop;
+    QHostAddress nextHop;
     quint32 metric;
 };
 }
 
-NetworkManager::IPv6Address::IPv6Address(Q_IPV6ADDR address, quint32 netMask, Q_IPV6ADDR gateway)
-: d(new Private(address, netMask, gateway))
-{
-}
-
-NetworkManager::IPv6Address::IPv6Address()
-: d(new Private())
+NetworkManager::IPv6Address::IPv6Address() :
+    d(new Private)
 {
 }
 
@@ -85,40 +65,33 @@ NetworkManager::IPv6Address::~IPv6Address()
     delete d;
 }
 
-NetworkManager::IPv6Address::IPv6Address(const IPv6Address &other)
-: d(new Private(*other.d))
+NetworkManager::IPv6Address::IPv6Address(const IPv6Address &other) :
+    d(new Private)
 {
+    *this = other;
 }
 
-Q_IPV6ADDR NetworkManager::IPv6Address::address() const
+void NetworkManager::IPv6Address::setGateway(const QHostAddress &gateway)
 {
-    return d->address;
+    d->gateway = gateway;
 }
 
-quint32 NetworkManager::IPv6Address::netMask() const
-{
-    return d->netMask;
-}
-
-Q_IPV6ADDR NetworkManager::IPv6Address::gateway() const
+QHostAddress NetworkManager::IPv6Address::gateway() const
 {
     return d->gateway;
 }
 
 NetworkManager::IPv6Address &NetworkManager::IPv6Address::operator=(const NetworkManager::IPv6Address &other)
 {
+    QNetworkAddressEntry::operator =(other);
     *d = *other.d;
+
     return *this;
 }
 
 bool NetworkManager::IPv6Address::isValid() const
 {
-    return !QHostAddress(d->address).isNull();
-}
-
-NetworkManager::IPv6Route::IPv6Route(Q_IPV6ADDR route, quint32 prefix, Q_IPV6ADDR nextHop, quint32 metric)
-: d(new Private(route, prefix, nextHop, metric))
-{
+    return !ip().isNull();
 }
 
 NetworkManager::IPv6Route::IPv6Route()
@@ -131,24 +104,20 @@ NetworkManager::IPv6Route::~IPv6Route()
     delete d;
 }
 
-NetworkManager::IPv6Route::IPv6Route(const IPv6Route &other)
-: d(new Private(*other.d))
+NetworkManager::IPv6Route::IPv6Route(const IPv6Route &other) :
+    d(new Private)
 {
+    *this = other;
 }
 
-Q_IPV6ADDR NetworkManager::IPv6Route::route() const
-{
-    return d->route;
-}
-
-quint32 NetworkManager::IPv6Route::prefix() const
-{
-    return d->prefix;
-}
-
-Q_IPV6ADDR NetworkManager::IPv6Route::nextHop() const
+QHostAddress NetworkManager::IPv6Route::nextHop() const
 {
     return d->nextHop;
+}
+
+void NetworkManager::IPv6Route::setMetric(quint32 metric)
+{
+    d->metric = metric;
 }
 
 quint32 NetworkManager::IPv6Route::metric() const
@@ -158,32 +127,39 @@ quint32 NetworkManager::IPv6Route::metric() const
 
 NetworkManager::IPv6Route &NetworkManager::IPv6Route::operator=(const NetworkManager::IPv6Route &other)
 {
+    QNetworkAddressEntry::operator =(other);
     *d = *other.d;
+
     return *this;
 }
 
 bool NetworkManager::IPv6Route::isValid() const
 {
-    return !QHostAddress(d->route).isNull();
+    return !ip().isNull();
 }
 
+void NetworkManager::IPv6Route::setNextHop(const QHostAddress &nextHop)
+{
+    d->nextHop = nextHop;
+}
 
 NetworkManager::IPv6Config::IPv6Config(const QList<IPv6Address> &addresses,
-        const QList<Q_IPV6ADDR> &nameservers,
+        const QList<QHostAddress> &nameservers,
         const QStringList &domains,
         const QList<IPv6Route> &routes)
 : d(new Private(addresses, nameservers, domains, routes))
 {
 }
 
-NetworkManager::IPv6Config::IPv6Config()
-: d(new Private())
+NetworkManager::IPv6Config::IPv6Config() :
+    d(new Private)
 {
 }
 
-NetworkManager::IPv6Config::IPv6Config(const NetworkManager::IPv6Config& other)
+NetworkManager::IPv6Config::IPv6Config(const NetworkManager::IPv6Config& other) :
+    d(new Private)
 {
-    d = new Private(*other.d);
+    *this = other;
 }
 
 NetworkManager::IPv6Config::~IPv6Config()
@@ -196,7 +172,7 @@ QList<NetworkManager::IPv6Address> NetworkManager::IPv6Config::addresses() const
     return d->addresses;
 }
 
-QList<Q_IPV6ADDR> NetworkManager::IPv6Config::nameservers() const
+QList<QHostAddress> NetworkManager::IPv6Config::nameservers() const
 {
     return d->nameservers;
 }

@@ -1,5 +1,6 @@
 /*
 Copyright 2008,2010 Will Stephenson <wstephenson@kde.org>
+Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -285,8 +286,11 @@ NetworkManager::IPv4Config NetworkManager::Device::ipV4Config() const
             QList<NetworkManager::IPv4Address> addressObjects;
             foreach (const UIntList &addressList, addresses) {
                 if ( addressList.count() == 3 ) {
-                    NetworkManager::IPv4Address addr(ntohl(addressList[0]), ntohl(addressList[1]), ntohl(addressList[2]));
-                    addressObjects.append(addr);
+                    NetworkManager::IPv4Address address;
+                    address.setIp(QHostAddress(ntohl(addressList[0])));
+                    address.setPrefixLength(addressList[1]);
+                    address.setGateway(QHostAddress(ntohl(addressList[2])));
+                    addressObjects << address;
                 }
             }
             //convert routes into objects
@@ -294,13 +298,21 @@ NetworkManager::IPv4Config NetworkManager::Device::ipV4Config() const
             QList<NetworkManager::IPv4Route> routeObjects;
             foreach (const UIntList &routeList, routes) {
                 if ( routeList.count() == 4 ) {
-                    NetworkManager::IPv4Route addr(ntohl(routeList[0]), ntohl(routeList[1]), ntohl(routeList[2]), ntohl(routeList[3]));
-                    routeObjects.append(addr);
+                    NetworkManager::IPv4Route route;
+                    route.setIp(QHostAddress(ntohl(routeList[0])));
+                    route.setPrefixLength(routeList[1]);
+                    route.setNextHop(QHostAddress(ntohl(routeList[2])));
+                    route.setMetric(ntohl(routeList[3]));
+                    routeObjects << route;
                 }
             }
             // nameservers' IP addresses are always in network byte order
+            QList<QHostAddress> nameservers;
+            foreach (uint nameserver, iface.nameservers()) {
+                nameservers << QHostAddress(nameserver);
+            }
             return NetworkManager::IPv4Config(addressObjects,
-                iface.nameservers(), iface.domains(),
+                nameservers, iface.domains(),
                 routeObjects);
         } else {
             return NetworkManager::IPv4Config();
@@ -329,8 +341,11 @@ NetworkManager::IPv6Config NetworkManager::Device::ipV6Config() const
                 for (int i = 0; i < 16; i++) {
                     gateway[i] = address.gateway[i];
                 }
-                NetworkManager::IPv6Address addressObject(addr, address.netMask, gateway);
-                addressObjects.append(addressObject);
+                NetworkManager::IPv6Address addressEntry;
+                addressEntry.setIp(QHostAddress(addr));
+                addressEntry.setPrefixLength(address.netMask);
+                addressEntry.setGateway(QHostAddress(gateway));
+                addressObjects << addressEntry;
             }
 
             IpV6DBusRouteList routes = iface.routes();
@@ -344,18 +359,22 @@ NetworkManager::IPv6Config NetworkManager::Device::ipV6Config() const
                 for (int i = 0; i < 16; i++) {
                     nexthop[i] = route.nexthop[i];
                 }
-                NetworkManager::IPv6Route routeObject(dest, route.prefix, nexthop, route.metric);
-                routeObjects.append(routeObject);
+                NetworkManager::IPv6Route routeEntry;
+                routeEntry.setIp(QHostAddress(dest));
+                routeEntry.setPrefixLength(route.prefix);
+                routeEntry.setNextHop(QHostAddress(nexthop));
+                routeEntry.setMetric(route.metric);
+                routeObjects << routeEntry;
             }
 
             IpV6DBusNameservers nameservers = iface.nameservers();
-            QList<Q_IPV6ADDR> nameserverList;
+            QList<QHostAddress> nameserverList;
             foreach (const QByteArray &ns, nameservers) {
                 Q_IPV6ADDR addr;
                 for (int i = 0; i < 16; i++) {
                     addr[i] = (quint8)ns[i];
                 }
-                nameserverList.append(addr);
+                nameserverList << QHostAddress(addr);
             }
             return NetworkManager::IPv6Config(addressObjects, nameserverList, iface.domains(), routeObjects);
         } else {
