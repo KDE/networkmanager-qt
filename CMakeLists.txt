@@ -69,7 +69,7 @@ set(QtNetworkManager_HEADERS
     wirelessdevice.h
     wirelessnetwork.h
     wirelessnetworkinterfaceenvironment.h
-    dbus/generic-types.h
+    generic-types.h
     QtNetworkManager-export.h
 )
 
@@ -130,7 +130,7 @@ set(QtNetworkManager_PART_SRCS
     wirelessdevice.cpp
     wirelessnetwork.cpp
     wirelessnetworkinterfaceenvironment.cpp
-    dbus/generic-types.cpp
+    generic-types.cpp
 )
 
 set(DBUS_INTERFACE_SRCS
