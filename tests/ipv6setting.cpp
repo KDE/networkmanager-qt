@@ -21,7 +21,7 @@
 #include "ipv6setting.h"
 
 #include "generic-types.h"
-#include "ipv6config.h"
+// #include "ipv6config.h"
 #include "../settings/ipv6.h"
 
 #include <arpa/inet.h>
