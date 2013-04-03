@@ -33,10 +33,10 @@ public:
     {}
     Private()
     {}
-    QList<IpAddress> addresses;
+    IpAddresses addresses;
     QList<QHostAddress> nameservers;
     QStringList domains;
-    QList<IpRoute> routes;
+    IpRoutes routes;
 };
 
 
@@ -49,6 +49,8 @@ public:
 class NetworkManager::IpRoute::Private
 {
 public:
+    Private() :
+        metric(0) {}
     QHostAddress nextHop;
     quint32 metric;
 };
@@ -148,10 +150,10 @@ bool NetworkManager::IpRoute::isValid() const
     return !ip().isNull();
 }
 
-NetworkManager::IpConfig::IpConfig(const QList<NetworkManager::IpAddress> &addresses,
+NetworkManager::IpConfig::IpConfig(const IpAddresses &addresses,
         const QList<QHostAddress> &nameservers,
         const QStringList &domains,
-        const QList<NetworkManager::IpRoute> &routes)
+        const IpRoutes &routes)
 : d(new Private(addresses, nameservers, domains, routes))
 {
 }
@@ -172,7 +174,7 @@ NetworkManager::IpConfig::~IpConfig()
     delete d;
 }
 
-QList<NetworkManager::IpAddress> NetworkManager::IpConfig::addresses() const
+NetworkManager::IpAddresses NetworkManager::IpConfig::addresses() const
 {
     return d->addresses;
 }

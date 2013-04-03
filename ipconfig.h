@@ -44,6 +44,7 @@ private:
     class Private;
     Private * d;
 };
+typedef QList<IpAddress> IpAddresses;
 
 class NMQT_EXPORT IpRoute : public QNetworkAddressEntry
 {
@@ -61,24 +62,25 @@ private:
     class Private;
     Private * d;
 };
+typedef QList<IpRoute> IpRoutes;
 
 class NMQT_EXPORT IpConfig
 {
 public:
-    IpConfig(const QList<IpAddress> &addresses,
+    IpConfig(const IpAddresses &addresses,
         const QList<QHostAddress> &nameservers,
         const QStringList &domains,
-        const QList<IpRoute> &routes);
+        const IpRoutes &routes);
     IpConfig();
     ~IpConfig();
     IpConfig(const IpConfig&);
     /**
      * List of IP addresses related to this configuration.
      */
-    QList<IpAddress> addresses() const;
+    IpAddresses addresses() const;
     QList<QHostAddress> nameservers() const;
     QStringList domains() const;
-    QList<IpRoute> routes() const;
+    IpRoutes routes() const;
     IpConfig &operator=(const IpConfig&);
     bool isValid() const;
 private:
