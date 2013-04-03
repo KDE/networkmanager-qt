@@ -53,7 +53,6 @@ public:
     IpRoute(const IpRoute&);
     IpRoute &operator=(const IpRoute&);
     bool isValid() const;
-    QNetworkAddressEntry route() const;
     void setNextHop(const QHostAddress &nextHop) const;
     QHostAddress nextHop() const;
     void setMetric(quint32 metric);
