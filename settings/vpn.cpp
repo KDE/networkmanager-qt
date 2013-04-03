@@ -62,7 +62,7 @@ void NetworkManager::Settings::VpnSetting::setServiceType(const QString& type)
 {
     Q_D(VpnSetting);
 
-    d->name = type;
+    d->serviceType = type;
 }
 
 QString NetworkManager::Settings::VpnSetting::serviceType() const
