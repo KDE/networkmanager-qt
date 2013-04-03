@@ -26,8 +26,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "QtNetworkManager-export.h"
 #include "generic-types.h"
-#include "ipv4config.h"
-#include "ipv6config.h"
+#include "ipconfig.h"
 #include "dhcp4config.h"
 #include "dhcp6config.h"
 
@@ -190,12 +189,12 @@ public:
      * Get the current IPv4 configuration of this device.
      * Only valid when device is Activated.
      */
-    IPv4Config ipV4Config() const;
+    IpConfig ipV4Config() const;
     /**
      * Get the current IPv6 configuration of this device.
      * Only valid when device is Activated.
      */
-    IPv6Config ipV6Config() const;
+    IpConfig ipV6Config() const;
 
     /**
      * Get the DHCP options returned by the DHCP server

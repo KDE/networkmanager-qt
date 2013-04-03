@@ -21,7 +21,7 @@
 #ifndef NMQT_SETTINGS_IPV6_H
 #define NMQT_SETTINGS_IPV6_H
 
-#include "../ipv6config.h"
+#include "../ipconfig.h"
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
 
@@ -56,11 +56,11 @@ public:
     void setDnsSearch(const QStringList & domains);
     QStringList dnsSearch() const;
 
-    void setAddresses(const QList<NetworkManager::IPv6Address> ipv6addresses);
-    QList<NetworkManager::IPv6Address> addresses() const;
+    void setAddresses(const QList<NetworkManager::IpAddress> ipv6addresses);
+    QList<NetworkManager::IpAddress> addresses() const;
 
-    void setRoutes(const QList<NetworkManager::IPv6Route> ipv6routes);
-    QList<NetworkManager::IPv6Route> routes() const;
+    void setRoutes(const QList<NetworkManager::IpRoute> ipv6routes);
+    QList<NetworkManager::IpRoute> routes() const;
 
     void setIgnoreAutoRoutes(bool ignore);
     bool ignoreAutoRoutes() const;

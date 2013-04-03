@@ -19,8 +19,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_IPV4CONFIG_H
-#define NMQT_IPV4CONFIG_H
+#ifndef NMQT_IPCONFIG_H
+#define NMQT_IPCONFIG_H
 
 #include "QtNetworkManager-export.h"
 
@@ -30,28 +30,28 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 namespace NetworkManager
 {
 
-class NMQT_EXPORT IPv4Address : public QNetworkAddressEntry
+class NMQT_EXPORT IpAddress : public QNetworkAddressEntry
 {
 public:
-    IPv4Address();
-    ~IPv4Address();
-    IPv4Address(const IPv4Address&);
+    IpAddress();
+    ~IpAddress();
+    IpAddress(const IpAddress&);
     bool isValid() const;
     void setGateway(const QHostAddress &gateway);
     QHostAddress gateway() const;
-    IPv4Address &operator=(const IPv4Address&);
+    IpAddress &operator=(const IpAddress&);
 private:
     class Private;
     Private * d;
 };
 
-class NMQT_EXPORT IPv4Route : public QNetworkAddressEntry
+class NMQT_EXPORT IpRoute : public QNetworkAddressEntry
 {
 public:
-    IPv4Route();
-    ~IPv4Route();
-    IPv4Route(const IPv4Route&);
-    IPv4Route &operator=(const IPv4Route&);
+    IpRoute();
+    ~IpRoute();
+    IpRoute(const IpRoute&);
+    IpRoute &operator=(const IpRoute&);
     bool isValid() const;
     QNetworkAddressEntry route() const;
     void setNextHop(const QHostAddress &nextHop) const;
@@ -63,24 +63,24 @@ private:
     Private * d;
 };
 
-class NMQT_EXPORT IPv4Config
+class NMQT_EXPORT IpConfig
 {
 public:
-    IPv4Config(const QList<IPv4Address> &addresses,
+    IpConfig(const QList<IpAddress> &addresses,
         const QList<QHostAddress> &nameservers,
         const QStringList &domains,
-        const QList<IPv4Route> &routes);
-    IPv4Config();
-    ~IPv4Config();
-    IPv4Config(const IPv4Config&);
+        const QList<IpRoute> &routes);
+    IpConfig();
+    ~IpConfig();
+    IpConfig(const IpConfig&);
     /**
      * List of IP addresses related to this configuration.
      */
-    QList<IPv4Address> addresses() const;
+    QList<IpAddress> addresses() const;
     QList<QHostAddress> nameservers() const;
     QStringList domains() const;
-    QList<IPv4Route> routes() const;
-    IPv4Config &operator=(const IPv4Config&);
+    QList<IpRoute> routes() const;
+    IpConfig &operator=(const IpConfig&);
     bool isValid() const;
 private:
     class Private;
@@ -89,4 +89,4 @@ private:
 
 } // namespace NetworkManager
 
-#endif // NMQT__IPV4CONFIG_H
+#endif // NMQT__IpConfig_H
