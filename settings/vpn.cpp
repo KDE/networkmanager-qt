@@ -129,7 +129,7 @@ void NetworkManager::Settings::VpnSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_VPN_SECRETS))) {
-        setSecrets(qdbus_cast<QStringMap>(setting.value(QLatin1String(NM_SETTING_VPN_SECRETS)).value<QStringMap>()));
+        setSecrets(qdbus_cast<QStringMap>(setting.value(QLatin1String(NM_SETTING_VPN_SECRETS))));
     }
 }
 
