@@ -96,27 +96,29 @@ void NetworkManager::NetworkManagerPrivate::init()
     m_isWimaxHardwareEnabled = iface.wimaxHardwareEnabled();
     m_isNetworkingEnabled = iface.networkingEnabled();
 
-    QDBusReply< QList <QDBusObjectPath> > deviceList = iface.GetDevices();
-    if (deviceList.isValid())
-    {
-        nmDebug() << "Device list";
-        QList <QDBusObjectPath> devices = deviceList.value();
-        foreach (const QDBusObjectPath &op, devices) {
-            networkInterfaceMap.insert(op.path(), 0);
-            nmDebug() << "  " << op.path();
+    if (iface.isValid()) {
+        QDBusReply< QList <QDBusObjectPath> > deviceList = iface.GetDevices();
+        if (deviceList.isValid())
+        {
+            nmDebug() << "Device list";
+            QList <QDBusObjectPath> devices = deviceList.value();
+            foreach (const QDBusObjectPath &op, devices) {
+                networkInterfaceMap.insert(op.path(), 0);
+                nmDebug() << "  " << op.path();
+            }
         }
-    }
-    else
-        nmDebug() << "Error getting device list: " << deviceList.error().name() << ": " << deviceList.error().message();
+        else
+            nmDebug() << "Error getting device list: " << deviceList.error().name() << ": " << deviceList.error().message();
 
-    nmDebug() << "Active connections:";
-    QList <QDBusObjectPath> activeConnections = iface.activeConnections();
-    foreach (const QDBusObjectPath &ac, activeConnections)
-    {
-        m_activeConnections.insert(ac.path(), 0);
-        nmDebug() << "    " << ac.path();
+        nmDebug() << "Active connections:";
+        QList <QDBusObjectPath> activeConnections = iface.activeConnections();
+        foreach (const QDBusObjectPath &ac, activeConnections)
+        {
+            m_activeConnections.insert(ac.path(), 0);
+            nmDebug() << "    " << ac.path();
+        }
+        emit activeConnectionsChanged();
     }
-    emit activeConnectionsChanged();
 }
 
 NetworkManager::NetworkManagerPrivate::~NetworkManagerPrivate()
