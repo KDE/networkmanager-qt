@@ -25,6 +25,7 @@
 #include "setting.h"
 
 #include <QtCore/QStringList>
+#include <QSharedPointer>
 
 namespace NetworkManager
 {
@@ -36,6 +37,7 @@ class NMQT_EXPORT WirelessSetting : public Setting
 {
     Q_DECLARE_PRIVATE(WirelessSetting)
 public:
+    typedef QSharedPointer<WirelessSetting> Ptr;
     enum NetworkMode {Infrastructure, Adhoc, Ap};
     enum FrequencyBand {Automatic, A, Bg};
 

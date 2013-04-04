@@ -34,7 +34,8 @@ class NMQT_EXPORT WirelessNetwork : public QObject
     Q_OBJECT
     Q_DECLARE_PRIVATE(WirelessNetwork)
     friend class WirelessNetworkInterfaceEnvironment;
-    public:
+public:
+    typedef QSharedPointer<WirelessNetwork> Ptr;
     ~WirelessNetwork();
     /**
      * ESSID of the network

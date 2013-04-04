@@ -34,7 +34,7 @@ class WirelessNetworkInterfaceEnvironmentPrivate
 {
 public:
     virtual ~WirelessNetworkInterfaceEnvironmentPrivate() {}
-    QHash<QString, WirelessNetwork*> networks;
+    QHash<QString, WirelessNetwork::Ptr> networks;
     WirelessDevice::Ptr iface;
 };
 
@@ -72,14 +72,14 @@ QStringList NetworkManager::WirelessNetworkInterfaceEnvironment::networks() cons
     return d->networks.keys();
 }
 
-NetworkManager::WirelessNetwork * NetworkManager::WirelessNetworkInterfaceEnvironment::findNetwork(const QString & ssid) const
+NetworkManager::WirelessNetwork::Ptr NetworkManager::WirelessNetworkInterfaceEnvironment::findNetwork(const QString & ssid) const
 {
     Q_D(const WirelessNetworkInterfaceEnvironment);
-    NetworkManager::WirelessNetwork * net = 0;
+    NetworkManager::WirelessNetwork::Ptr wifiNetwork;
     if (d->networks.contains(ssid)) {
-        net = d->networks.value(ssid);
+        wifiNetwork = d->networks.value(ssid);
     }
-    return net;
+    return wifiNetwork;
 }
 
 void NetworkManager::WirelessNetworkInterfaceEnvironment::accessPointAppeared(const QString &uni)
@@ -98,9 +98,9 @@ void NetworkManager::WirelessNetworkInterfaceEnvironment::accessPointAppearedInt
     if (ssid.isEmpty()) {
         //nmDebug() << "ignoring hidden AP with BSSID:" << ap->hardwareAddress();
     } else if (!d->networks.contains(ssid)) {
-        NetworkManager::WirelessNetwork * net = new NetworkManager::WirelessNetwork(ap, d->iface);
-        d->networks.insert(ssid, net);
-        connect(net, SIGNAL(disappeared(QString)), SLOT(removeNetwork(QString)));
+        NetworkManager::WirelessNetwork::Ptr wifiNetwork(new NetworkManager::WirelessNetwork(ap, d->iface));
+        d->networks.insert(ssid, wifiNetwork);
+        connect(wifiNetwork.data(), SIGNAL(disappeared(QString)), SLOT(removeNetwork(QString)));
         emit networkAppeared(ssid);
     }
 
@@ -122,15 +122,12 @@ void NetworkManager::WirelessNetworkInterfaceEnvironment::removeNetwork(const QS
 {
     Q_D(WirelessNetworkInterfaceEnvironment);
     //nmDebug() << ssid;
-    QHash<QString, NetworkManager::WirelessNetwork*>::iterator it = d->networks.find(ssid);
-    if ( it == d->networks.end() )
-        return;
-    NetworkManager::WirelessNetwork * net = it.value();
-    if ( net ) {
-        emit networkDisappeared(ssid);
-        delete net;
+    if (d->networks.contains(ssid)) {
+        NetworkManager::WirelessNetwork::Ptr wifiNetwork = d->networks.take(ssid);
+        if (wifiNetwork) {
+            emit networkDisappeared(ssid);
+        }
     }
-    d->networks.erase(it);
     //dump();
 }
 
@@ -138,14 +135,10 @@ void NetworkManager::WirelessNetworkInterfaceEnvironment::wirelessEnabledChanged
 {
     Q_D(WirelessNetworkInterfaceEnvironment);
     if (!enabled) {
-        QMutableHashIterator<QString, WirelessNetwork*> i (d->networks);
-        while (i.hasNext()) {
-            i.next();
-            QString deletedSsid = i.key();
-            //delete i.value();
-            i.remove();
-            emit networkDisappeared(deletedSsid);
+        foreach (const QString &ssid, d->networks.keys()) {
+            emit networkDisappeared(ssid);
         }
+        d->networks.clear();
     }
 }
 

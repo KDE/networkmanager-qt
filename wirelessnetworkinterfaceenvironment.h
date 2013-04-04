@@ -47,7 +47,11 @@ public:
     WirelessNetworkInterfaceEnvironment(const WirelessDevice::Ptr &iface);
     virtual ~WirelessNetworkInterfaceEnvironment();
     virtual QStringList networks() const;
-    virtual WirelessNetwork * findNetwork(const QString&) const;
+    /**
+     * Find a network with the given ssid, a Null object is
+     * returned if it can not be found
+     */
+    virtual WirelessNetwork::Ptr findNetwork(const QString &ssid) const;
     void dump();
     WirelessDevice::Ptr interface() const;
 
