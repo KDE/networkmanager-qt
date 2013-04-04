@@ -21,7 +21,7 @@
 #ifndef NMQT_SETTINGS_IPV4P_H
 #define NMQT_SETTINGS_IPV4_P_H
 
-#include "../ipv4config.h"
+#include "../ipconfig.h"
 
 #include <QtCore/QStringList>
 #include <QtNetwork/QHostAddress>
@@ -39,8 +39,8 @@ public:
     NetworkManager::Settings::Ipv4Setting::ConfigMethod method;
     QList<QHostAddress> dns;
     QStringList dnsSearch;
-    QList<NetworkManager::IPv4Address> addresses;
-    QList<NetworkManager::IPv4Route> routes;
+    QList<NetworkManager::IpAddress> addresses;
+    QList<NetworkManager::IpRoute> routes;
     bool ignoreAutoRoutes;
     bool ignoreAutoDns;
     QString dhcpClientId;

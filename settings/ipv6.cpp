@@ -1,5 +1,6 @@
 /*
     Copyright 2012-2013  Jan Grulich <jgrulich@redhat.com>
+    Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -22,7 +23,7 @@
 #include "ipv6_p.h"
 
 #include "generic-types.h"
-#include "../ipv4config.h"
+#include "../ipconfig.h"
 
 #include <arpa/inet.h>
 #include <nm-setting-ip6-config.h>
@@ -113,28 +114,28 @@ QStringList NetworkManager::Settings::Ipv6Setting::dnsSearch() const
     return d->dnsSearch;
 }
 
-void NetworkManager::Settings::Ipv6Setting::setAddresses(const QList< NetworkManager::IPv6Address > ipv6addresses)
+void NetworkManager::Settings::Ipv6Setting::setAddresses(const QList<IpAddress> ipv6addresses)
 {
     Q_D(Ipv6Setting);
 
     d->addresses = ipv6addresses;
 }
 
-QList< NetworkManager::IPv6Address > NetworkManager::Settings::Ipv6Setting::addresses() const
+QList< NetworkManager::IpAddress > NetworkManager::Settings::Ipv6Setting::addresses() const
 {
     Q_D(const Ipv6Setting);
 
     return d->addresses;
 }
 
-void NetworkManager::Settings::Ipv6Setting::setRoutes(const QList< NetworkManager::IPv6Route > ipv6routes)
+void NetworkManager::Settings::Ipv6Setting::setRoutes(const QList< NetworkManager::IpRoute > ipv6routes)
 {
     Q_D(Ipv6Setting);
 
     d->routes = ipv6routes;
 }
 
-QList< NetworkManager::IPv6Route > NetworkManager::Settings::Ipv6Setting::routes() const
+QList<NetworkManager::IpRoute> NetworkManager::Settings::Ipv6Setting::routes() const
 {
     Q_D(const Ipv6Setting);
 
@@ -250,16 +251,15 @@ void NetworkManager::Settings::Ipv6Setting::fromMap(const QVariantMap& setting)
 
     if (setting.contains(QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES))) {
         IpV6DBusAddressList addressArg = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES)).value<IpV6DBusAddressList>();
-        QList<NetworkManager::IPv6Address> addresses;
+        QList<NetworkManager::IpAddress> addresses;
 
         foreach(const IpV6DBusAddress & address, addressArg) {
-            QHostAddress tmpAddress;
-            tmpAddress.setAddress(QString(address.address));
-            QHostAddress tmpGateway;
-            tmpGateway.setAddress(QString(address.gateway));
-            NetworkManager::IPv6Address addr(tmpAddress.toIPv6Address(), address.netMask, tmpGateway.toIPv6Address());
+            NetworkManager::IpAddress addressEntry;
+            addressEntry.setIp(QHostAddress(QString(address.address)));
+            addressEntry.setPrefixLength(address.netMask);
+            addressEntry.setGateway(QHostAddress(QString(address.gateway)));
 
-            addresses << addr;
+            addresses << addressEntry;
         }
 
         setAddresses(addresses);
@@ -267,15 +267,14 @@ void NetworkManager::Settings::Ipv6Setting::fromMap(const QVariantMap& setting)
 
     if (setting.contains(QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES))) {
         IpV6DBusRouteList routeArg = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES)).value<IpV6DBusRouteList>();
-        QList<NetworkManager::IPv6Route> routes;
+        QList<NetworkManager::IpRoute> routes;
 
         foreach(const IpV6DBusRoute & dbusRoute, routeArg) {
-            QHostAddress tmpDestination;
-            tmpDestination.setAddress(QString(dbusRoute.destination));
-            QHostAddress tmpNexthop;
-            tmpNexthop.setAddress(QString(dbusRoute.nexthop));
-            NetworkManager::IPv6Route route(tmpDestination.toIPv6Address(), dbusRoute.prefix, tmpNexthop.toIPv6Address(), dbusRoute.metric);
-
+            NetworkManager::IpRoute route;
+            route.setIp(QHostAddress(QString(dbusRoute.destination)));
+            route.setPrefixLength(dbusRoute.prefix);
+            route.setNextHop(QHostAddress(QString(dbusRoute.nexthop)));
+            route.setMetric(dbusRoute.metric);
             routes << route;
         }
 
@@ -335,11 +334,11 @@ QVariantMap NetworkManager::Settings::Ipv6Setting::toMap() const
     if (!addresses().isEmpty()) {
         IpV6DBusAddressList dbusAddresses;
 
-        foreach(const NetworkManager::IPv6Address & addr, addresses()) {
+        foreach(const NetworkManager::IpAddress & addr, addresses()) {
             IpV6DBusAddress dbusAddress;
-            dbusAddress.address = QHostAddress(addr.address()).toString().toAscii();
-            dbusAddress.netMask = addr.netMask();
-            dbusAddress.gateway = QHostAddress(addr.gateway()).toString().toAscii();
+            dbusAddress.address = addr.ip().toString().toAscii();
+            dbusAddress.netMask = addr.prefixLength();
+            dbusAddress.gateway = addr.gateway().toString().toAscii();
 
             dbusAddresses << dbusAddress;
         }
@@ -350,11 +349,11 @@ QVariantMap NetworkManager::Settings::Ipv6Setting::toMap() const
     if (!routes().isEmpty()) {
         IpV6DBusRouteList dbusRoutes;
 
-        foreach(const NetworkManager::IPv6Route & route, routes()) {
+        foreach (const NetworkManager::IpRoute &route, routes()) {
             IpV6DBusRoute dbusRoute;
-            dbusRoute.destination = QHostAddress(route.route()).toString().toAscii();
-            dbusRoute.prefix = route.prefix();
-            dbusRoute.nexthop = QHostAddress(route.nextHop()).toString().toAscii();
+            dbusRoute.destination = route.ip().toString().toAscii();
+            dbusRoute.prefix = route.prefixLength();
+            dbusRoute.nexthop = route.nextHop().toString().toAscii();
             dbusRoute.metric = route.metric();
 
             dbusRoutes << dbusRoute;
@@ -397,12 +396,12 @@ void NetworkManager::Settings::Ipv6Setting::printSetting()
     }
     qDebug() << NM_SETTING_IP6_CONFIG_DNS_SEARCH << ": " << dnsSearch();
     qDebug() << NM_SETTING_IP6_CONFIG_ADDRESSES << ": ";
-    foreach(const NetworkManager::IPv6Address & address, addresses()) {
-        qDebug() << QHostAddress(address.address()).toString() << ": " << QHostAddress(address.gateway()).toString() << ": " << address.netMask()  << ", ";
+    foreach(const NetworkManager::IpAddress & address, addresses()) {
+        qDebug() << address.ip().toString() << ": " << address.gateway().toString() << ": " << address.netmask()  << ", ";
     }
     qDebug() << NM_SETTING_IP6_CONFIG_ROUTES << ": ";
-    foreach(const NetworkManager::IPv6Route & route, routes()) {
-        qDebug() << QHostAddress(route.route()).toString() << ": " << route.metric() << ": " << QHostAddress(route.nextHop()).toString() << ": " << route.metric() << ", ";
+    foreach(const NetworkManager::IpRoute & route, routes()) {
+        qDebug() << route.ip().toString() << ": " << route.metric() << ": " << route.nextHop().toString() << ": " << route.metric() << ", ";
     }
     qDebug() << NM_SETTING_IP6_CONFIG_IGNORE_AUTO_ROUTES << ": " << ignoreAutoRoutes();
     qDebug() << NM_SETTING_IP6_CONFIG_IGNORE_AUTO_DNS << ": " << ignoreAutoDns();

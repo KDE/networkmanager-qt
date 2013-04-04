@@ -21,7 +21,7 @@
 #ifndef NMQT_SETTINGS_IPV4_H
 #define NMQT_SETTINGS_IPV4_H
 
-#include "../ipv4config.h"
+#include "../ipconfig.h"
 #include "../QtNetworkManager-export.h"
 #include "setting.h"
 
@@ -55,11 +55,11 @@ public:
     void setDnsSearch(const QStringList & domains);
     QStringList dnsSearch() const;
 
-    void setAddresses(const QList<NetworkManager::IPv4Address> & ipv4addresses);
-    QList<NetworkManager::IPv4Address> addresses() const;
+    void setAddresses(const QList<NetworkManager::IpAddress> & ipv4addresses);
+    QList<NetworkManager::IpAddress> addresses() const;
 
-    void setRoutes(const QList<NetworkManager::IPv4Route> & ipv4routes);
-    QList<NetworkManager::IPv4Route> routes() const;
+    void setRoutes(const QList<NetworkManager::IpRoute> & ipv4routes);
+    QList<NetworkManager::IpRoute> routes() const;
 
     void setIgnoreAutoRoutes(bool ignore);
     bool ignoreAutoRoutes() const;

@@ -41,8 +41,8 @@ public:
     int designSpeed;
     Device::State connectionState;
     bool managed;
-    IPv4Config ipV4Config;
-    IPv6Config ipV6Config;
+    IpConfig ipV4Config;
+    IpConfig ipV6Config;
     QString driver;
     int ipV4Address;
     QString interfaceName;
