@@ -1,17 +1,17 @@
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
-FIND_PACKAGE (KDE4 REQUIRED)
-
-include(KDE4Defaults)
+include_directories (${CMAKE_CURRENT_BINARY_DIR}
+                     ${CMAKE_CURRENT_SOURCE_DIR}
+)
 
 MACRO(LIBNM_TESTS)
        FOREACH(_testname ${ARGN})
-               kde4_add_unit_test(${_testname} TESTNAME libnm-${_testname} ${_testname}.cpp)
-               target_link_libraries(${_testname}
-                                     QtNetworkManager
-                                     QtCore
-                                     QtNetwork
-                                     ${QT_QTTEST_LIBRARY})
+            SET(test_${_testname}_SRCS ${_testname}.cpp)
+            qt4_automoc(${test_${_testname}_SRCS})
+            add_executable(test_${_testname} ${test_${_testname}_SRCS} ${test_${_testname}_HDRS} ${test_additional})
+            target_link_libraries(test_${_testname} ${QT_QTCORE_LIBRARY}
+                ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY} QtNetworkManager)
+            ADD_TEST(test_${_testname} test_${_testname})
        ENDFOREACH(_testname)
 ENDMACRO(LIBNM_TESTS)
 

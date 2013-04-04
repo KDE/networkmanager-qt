@@ -39,6 +39,8 @@ if (BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif(BUILD_EXAMPLES)
 
+enable_testing(true)
+
 add_subdirectory(tests)
 
 set(QtNetworkManager_HEADERS
