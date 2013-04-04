@@ -83,7 +83,7 @@ private Q_SLOTS:
     void accessPointDisappeared(const QString &);
     void updateStrength();
 private:
-    WirelessNetwork(AccessPoint *, WirelessDevice *network, QObject * parent);
+    WirelessNetwork(AccessPoint *, const WirelessDevice::Ptr &network, QObject * parent);
     void addAccessPointInternal(AccessPoint *ap);
     WirelessNetworkPrivate * d_ptr;
 };

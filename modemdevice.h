@@ -41,6 +41,7 @@ class NMQT_EXPORT ModemDevice : public Device
 Q_OBJECT
 Q_DECLARE_PRIVATE(ModemDevice)
 public:
+    typedef QSharedPointer<ModemDevice> Ptr;
     enum Capability { NoCapability = 0x0, Pots = 0x1, CdmaEvdo = 0x2, GsmUmts = 0x4, Lte = 0x8 };
     Q_DECLARE_FLAGS(Capabilities, Capability)
     ModemDevice(const QString & path, QObject * parent = 0);

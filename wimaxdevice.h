@@ -43,6 +43,8 @@ Q_OBJECT
 Q_DECLARE_PRIVATE(WimaxDevice)
 
 public:
+    typedef QSharedPointer<WimaxDevice> Ptr;
+
     /**
      * Creates a new WimaxDevice object.
      *

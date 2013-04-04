@@ -22,6 +22,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #define NMQT_ACTIVECONNECTION_H
 
 #include "QtNetworkManager-export.h"
+#include "device.h"
 
 #include <QObject>
 #include <QDBusObjectPath>
@@ -32,7 +33,6 @@ namespace Settings
 {
     class Connection;
 }
-class Device;
 class ActiveConnectionPrivate;
 
 /**
@@ -75,7 +75,7 @@ public:
     /**
      * Returns the master device if the connection is a slave.
      */
-    NetworkManager::Device* master() const;
+    NetworkManager::Device::Ptr master() const;
     /**
      * The path of the specific object associated with the connection.
      */
@@ -99,7 +99,7 @@ public:
     /**
      * list of devices which are part of this connection.
      */
-    QList<Device *> devices() const;
+    Device::List devices() const;
 
 protected Q_SLOTS:
     void propertiesChanged(const QVariantMap &);
@@ -123,7 +123,7 @@ Q_SIGNALS:
     /**
      * The master device changed.
      */
-    void masterChanged(NetworkManager::Device*);
+    void masterChanged(const NetworkManager::Device::Ptr &device);
     /**
      * The specific object changed
      */

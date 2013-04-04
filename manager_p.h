@@ -67,15 +67,15 @@ public:
     QMap<QString, ActiveConnection*> m_activeConnections;
     ActiveConnection * findRegisteredActiveConnection(const QString &);
     // manage device children
-    Device * findRegisteredNetworkInterface(const QString &uni);
-    Device * createNetworkInterface(const QString &uni);
-    QMap<QString, Device *> networkInterfaceMap;
+    Device::Ptr findRegisteredNetworkInterface(const QString &uni);
+    Device::Ptr createNetworkInterface(const QString &uni);
+    QMap<QString, Device::Ptr> networkInterfaceMap;
     // for frontend to call
     QString version() const;
     NetworkManager::Status status() const;
-    DeviceList networkInterfaces();
-    Device * findNetworkInterface(const QString &uni);
-    Device * findDeviceByIpIface(const QString &iface);
+    Device::List networkInterfaces();
+    Device::Ptr findNetworkInterface(const QString &uni);
+    Device::Ptr findDeviceByIpIface(const QString &iface);
     bool isNetworkingEnabled() const;
     bool isWirelessEnabled() const;
     bool isWirelessHardwareEnabled() const;

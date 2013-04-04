@@ -64,7 +64,7 @@ uint NetworkManager::OlpcMeshDevice::activeChannel() const
     return d->activeChannel;
 }
 
-NetworkManager::Device* NetworkManager::OlpcMeshDevice::companionDevice() const
+NetworkManager::Device::Ptr NetworkManager::OlpcMeshDevice::companionDevice() const
 {
     Q_D(const OlpcMeshDevice);
     return NetworkManager::findNetworkInterface(d->companion);

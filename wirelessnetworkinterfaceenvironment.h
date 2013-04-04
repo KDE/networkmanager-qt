@@ -41,15 +41,15 @@ Q_OBJECT
 Q_DECLARE_PRIVATE(WirelessNetworkInterfaceEnvironment)
 public:
     /**
-     * Construct this using a WirelessDevice * iface which is the QObject
+     * Construct this using a WirelessDevice::Ptr iface which is the QObject
      * parent
      */
-    WirelessNetworkInterfaceEnvironment(WirelessDevice * iface);
+    WirelessNetworkInterfaceEnvironment(const WirelessDevice::Ptr &iface);
     virtual ~WirelessNetworkInterfaceEnvironment();
     virtual QStringList networks() const;
     virtual WirelessNetwork * findNetwork(const QString&) const;
     void dump();
-    WirelessDevice * interface() const;
+    WirelessDevice::Ptr interface() const;
 
 private Q_SLOTS:
     void accessPointAppeared(const QString&);

@@ -36,6 +36,7 @@ Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
 Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
 
 public:
+    typedef QSharedPointer<InfinibandDevice> Ptr;
     InfinibandDevice(const QString& path, QObject* parent = 0);
     virtual ~InfinibandDevice();
 

@@ -23,6 +23,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QObject>
 #include <QtCore/QtGlobal>
+#include <QSharedPointer>
 
 #include "QtNetworkManager-export.h"
 #include "generic-types.h"
@@ -66,6 +67,8 @@ class NMQT_EXPORT Device : public QObject
     Q_FLAGS(Capabilities)
 
 public:
+    typedef QSharedPointer<Device> Ptr;
+    typedef QList<Ptr> List;
     /**
      * Device connection states describe the possible states of a
      * network connection from the user's point of view.  For
@@ -283,8 +286,6 @@ private:
 protected:
     DevicePrivate * d_ptr;
 };
-
-typedef QList<Device*> DeviceList;
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Capabilities)
 Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Types)

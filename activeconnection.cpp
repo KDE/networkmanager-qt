@@ -104,7 +104,7 @@ bool NetworkManager::ActiveConnection::default6() const
     return d->default6;
 }
 
-NetworkManager::Device* NetworkManager::ActiveConnection::master() const
+NetworkManager::Device::Ptr NetworkManager::ActiveConnection::master() const
 {
     Q_D(const ActiveConnection);
     return NetworkManager::findNetworkInterface(d->master);
@@ -140,10 +140,10 @@ QStringList NetworkManager::ActiveConnection::deviceUnis() const
     return d->devices;
 }
 
-QList<NetworkManager::Device *> NetworkManager::ActiveConnection::devices() const
+NetworkManager::Device::List NetworkManager::ActiveConnection::devices() const
 {
     Q_D(const ActiveConnection);
-    QList<Device *> list;
+    NetworkManager::Device::List list;
     foreach (const QString &path, d->devices) {
         list.append(NetworkManager::findNetworkInterface(path));
     }

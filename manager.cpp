@@ -103,7 +103,7 @@ void NetworkManager::NetworkManagerPrivate::init()
             nmDebug() << "Device list";
             QList <QDBusObjectPath> devices = deviceList.value();
             foreach (const QDBusObjectPath &op, devices) {
-                networkInterfaceMap.insert(op.path(), 0);
+                networkInterfaceMap.insert(op.path(), Device::Ptr());
                 nmDebug() << "  " << op.path();
             }
         }
@@ -168,18 +168,13 @@ int NetworkManager::NetworkManagerPrivate::compareVersion(const int x, const int
     return 0;
 }
 
-NetworkManager::Device * NetworkManager::NetworkManagerPrivate::findRegisteredNetworkInterface(const QString &uni)
+NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::findRegisteredNetworkInterface(const QString &uni)
 {
-    NetworkManager::Device * networkInterface = 0;
-    if (networkInterfaceMap.contains(uni) && networkInterfaceMap.value(uni) != 0) {
+    NetworkManager::Device::Ptr networkInterface;
+    if (networkInterfaceMap.contains(uni) && networkInterfaceMap.value(uni)) {
         networkInterface = networkInterfaceMap.value(uni);
-    } else {
-        networkInterface = createNetworkInterface(uni);
-        if (networkInterface) {
-            networkInterfaceMap.insert(uni, networkInterface);
-        } else {
-            return 0;
-        }
+    } else if (networkInterface = createNetworkInterface(uni)) {
+        networkInterfaceMap.insert(uni, networkInterface);
     }
     return networkInterface;
 }
@@ -196,51 +191,51 @@ NetworkManager::ActiveConnection * NetworkManager::NetworkManagerPrivate::findRe
     return ac;
 }
 
-NetworkManager::Device *NetworkManager::NetworkManagerPrivate::createNetworkInterface(const QString &uni)
+NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetworkInterface(const QString &uni)
 {
     //nmDebug();
     OrgFreedesktopNetworkManagerDeviceInterface devIface(NetworkManagerPrivate::DBUS_SERVICE, uni, QDBusConnection::systemBus());
     uint deviceType = devIface.deviceType();
-    NetworkManager::Device * createdInterface = 0;
+    NetworkManager::Device::Ptr createdInterface;
     switch ( deviceType ) {
-        case NM_DEVICE_TYPE_ETHERNET:
-            createdInterface = new NetworkManager::WiredDevice(uni, this);
-            break;
-        case NM_DEVICE_TYPE_WIFI:
-            createdInterface = new NetworkManager::WirelessDevice(uni, this);
-            break;
-        case NM_DEVICE_TYPE_MODEM:
-            createdInterface = new NetworkManager::ModemDevice(uni, this);
-            break;
-        case NM_DEVICE_TYPE_BT:
-            createdInterface = new NetworkManager::BluetoothDevice(uni, this);
-            break;
-        case NM_DEVICE_TYPE_WIMAX:
-            createdInterface = new NetworkManager::WimaxDevice(uni, this);
-            break;
-        case NM_DEVICE_TYPE_OLPC_MESH:
-            createdInterface = new NetworkManager::OlpcMeshDevice(uni, this);
-            break;
-        case NM_DEVICE_TYPE_INFINIBAND:
-            createdInterface = new NetworkManager::AdslDevice(uni, this);
-            break;
-        case NM_DEVICE_TYPE_BOND:
-            createdInterface = new NetworkManager::BondDevice(uni, this);
-            break;
-        case NM_DEVICE_TYPE_VLAN:
-            createdInterface = new NetworkManager::VlanDevice(uni, this);
-            break;
-        case NM_DEVICE_TYPE_ADSL:
-            createdInterface = new NetworkManager::AdslDevice(uni, this);
-            break;
-        case NM_DEVICE_TYPE_BRIDGE:
-            createdInterface = new NetworkManager::BridgeDevice(uni, this);
-            break;
-        default:
-            if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
-                nmDebug() << "libQtNetworkManager: Can't create object of type " << deviceType << "for" << uni;
-            }
-            break;
+    case NM_DEVICE_TYPE_ETHERNET:
+        createdInterface = Device::Ptr(new NetworkManager::WiredDevice(uni, this));
+        break;
+    case NM_DEVICE_TYPE_WIFI:
+        createdInterface = Device::Ptr(new NetworkManager::WirelessDevice(uni, this));
+        break;
+    case NM_DEVICE_TYPE_MODEM:
+        createdInterface = Device::Ptr(new NetworkManager::ModemDevice(uni, this));
+        break;
+    case NM_DEVICE_TYPE_BT:
+        createdInterface = Device::Ptr(new NetworkManager::BluetoothDevice(uni, this));
+        break;
+    case NM_DEVICE_TYPE_WIMAX:
+        createdInterface = Device::Ptr(new NetworkManager::WimaxDevice(uni, this));
+        break;
+    case NM_DEVICE_TYPE_OLPC_MESH:
+        createdInterface = Device::Ptr(new NetworkManager::OlpcMeshDevice(uni, this));
+        break;
+    case NM_DEVICE_TYPE_INFINIBAND:
+        createdInterface = Device::Ptr(new NetworkManager::AdslDevice(uni, this));
+        break;
+    case NM_DEVICE_TYPE_BOND:
+        createdInterface = Device::Ptr(new NetworkManager::BondDevice(uni, this));
+        break;
+    case NM_DEVICE_TYPE_VLAN:
+        createdInterface = Device::Ptr(new NetworkManager::VlanDevice(uni, this));
+        break;
+    case NM_DEVICE_TYPE_ADSL:
+        createdInterface = Device::Ptr(new NetworkManager::AdslDevice(uni, this));
+        break;
+    case NM_DEVICE_TYPE_BRIDGE:
+        createdInterface = Device::Ptr(new NetworkManager::BridgeDevice(uni, this));
+        break;
+    default:
+        if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
+            nmDebug() << "libQtNetworkManager: Can't create object of type " << deviceType << "for" << uni;
+        }
+        break;
     }
 
     return createdInterface;
@@ -251,14 +246,14 @@ NetworkManager::Status NetworkManager::NetworkManagerPrivate::status() const
     return convertNMState(nmState);
 }
 
-NetworkManager::DeviceList NetworkManager::NetworkManagerPrivate::networkInterfaces()
+NetworkManager::Device::List NetworkManager::NetworkManagerPrivate::networkInterfaces()
 {
-    DeviceList list;
+    Device::List list;
 
-    QMap<QString, Device *>::const_iterator i;
+    QMap<QString, Device::Ptr>::const_iterator i;
     for (i = networkInterfaceMap.constBegin(); i != networkInterfaceMap.constEnd(); ++i) {
-        Device * networkInterface = findRegisteredNetworkInterface(i.key());
-        if (networkInterface) {
+        Device::Ptr networkInterface = findRegisteredNetworkInterface(i.key());
+        if (!networkInterface.isNull()) {
             list.append(networkInterface);
         } else {
             qWarning() << "warning: null network Interface for" << i.key();
@@ -268,17 +263,17 @@ NetworkManager::DeviceList NetworkManager::NetworkManagerPrivate::networkInterfa
     return list;
 }
 
-NetworkManager::Device* NetworkManager::NetworkManagerPrivate::findDeviceByIpIface (const QString& iface)
+NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::findDeviceByIpIface (const QString& iface)
 {
-    QMap<QString, Device *>::const_iterator i;
+    QMap<QString, Device::Ptr>::const_iterator i;
     for (i = networkInterfaceMap.constBegin(); i != networkInterfaceMap.constEnd(); ++i) {
-        Device * networkInterface = findRegisteredNetworkInterface(i.key());
+        Device::Ptr networkInterface = findRegisteredNetworkInterface(i.key());
         if (networkInterface && networkInterface->interfaceName() == iface) {
             return networkInterface;
         }
     }
 
-    return 0;
+    return Device::Ptr();
 }
 
 bool NetworkManager::NetworkManagerPrivate::isNetworkingEnabled() const
@@ -464,11 +459,11 @@ QStringMap NetworkManager::NetworkManagerPrivate::permissions()
     return iface.GetPermissions();
 }
 
-void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath & objpath)
+void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath &objpath)
 {
     nmDebug();
     if (!networkInterfaceMap.contains(objpath.path())) {
-        networkInterfaceMap.insert(objpath.path(), 0);
+        networkInterfaceMap.insert(objpath.path(), Device::Ptr());
     }
     emit deviceAdded(objpath.path());
 }
@@ -476,7 +471,7 @@ void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath 
 void NetworkManager::NetworkManagerPrivate::onDeviceRemoved(const QDBusObjectPath & objpath)
 {
     nmDebug();
-    NetworkManager::Device * device = networkInterfaceMap.take(objpath.path());
+    NetworkManager::Device::Ptr device = networkInterfaceMap.take(objpath.path());
     device->deleteLater();
     emit deviceRemoved(objpath.path());
 }
@@ -610,7 +605,7 @@ void NetworkManager::NetworkManagerPrivate::daemonRegistered()
 void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
 {
     stateChanged(NM_STATE_UNKNOWN);
-    QMap<QString, Device *>::const_iterator i;
+    QMap<QString, Device::Ptr>::const_iterator i;
     for (i = networkInterfaceMap.constBegin(); i != networkInterfaceMap.constEnd(); ++i) {
         deviceRemoved(i.key());
         if (i.value()) {
@@ -679,7 +674,7 @@ NetworkManager::ActiveConnection* NetworkManager::findActiveConnection(const QSt
     return globalNetworkManager->findRegisteredActiveConnection(uni);
 }
 
-NetworkManager::DeviceList NetworkManager::networkInterfaces()
+NetworkManager::Device::List NetworkManager::networkInterfaces()
 {
     return globalNetworkManager->networkInterfaces();
 }
@@ -699,12 +694,12 @@ bool NetworkManager::isWirelessHardwareEnabled()
     return globalNetworkManager->isWirelessHardwareEnabled();
 }
 
-NetworkManager::Device * NetworkManager::findNetworkInterface(const QString & uni)
+NetworkManager::Device::Ptr NetworkManager::findNetworkInterface(const QString &uni)
 {
     return globalNetworkManager->findRegisteredNetworkInterface(uni);
 }
 
-NetworkManager::Device* NetworkManager::findDeviceByIpFace (const QString& iface)
+NetworkManager::Device::Ptr NetworkManager::findDeviceByIpFace (const QString &iface)
 {
     return globalNetworkManager->findDeviceByIpIface(iface);
 }

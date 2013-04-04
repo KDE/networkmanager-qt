@@ -44,6 +44,8 @@ Q_ENUMS(OperationMode DeviceInterface)
 Q_DECLARE_PRIVATE(WirelessDevice)
 
 public:
+    typedef QSharedPointer<WirelessDevice> Ptr;
+
     /**
      * The device's current operating mode
      * Unknown: not associated with a network

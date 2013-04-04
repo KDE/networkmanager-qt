@@ -37,6 +37,8 @@ Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
 Q_PROPERTY(uint vlanId READ vlanId NOTIFY vlanIdChanged)
 
 public:
+    typedef QSharedPointer<VlanDevice> Ptr;
+
     VlanDevice(const QString& path, QObject* parent = 0);
     virtual ~VlanDevice();
 

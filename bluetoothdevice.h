@@ -41,6 +41,7 @@ Q_PROPERTY(QString name READ name)
 Q_FLAGS(Capabilities)
 
 public:
+    typedef QSharedPointer<ModemDevice> Ptr;
     /**
      * Capabilities of the Bluetooth device
      * Dun: DUN - Dial Up Networking profile

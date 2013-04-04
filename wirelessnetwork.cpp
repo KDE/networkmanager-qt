@@ -21,15 +21,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "wirelessnetwork.h"
 #include "wirelessnetwork_p.h"
 
-NetworkManager::WirelessNetwork::WirelessNetwork(NetworkManager::AccessPoint *ap, WirelessDevice *wni, QObject * parent)
+NetworkManager::WirelessNetwork::WirelessNetwork(NetworkManager::AccessPoint *ap, const WirelessDevice::Ptr &wni, QObject * parent)
     : QObject(parent), d_ptr(new WirelessNetworkPrivate)
 {
     Q_D(WirelessNetwork);
     d->ssid = ap->ssid();
     d->strength = -1;
     d->wirelessNetworkInterface = wni;
-    connect(d->wirelessNetworkInterface, SIGNAL(accessPointAppeared(QString)), this, SLOT(accessPointAppeared(QString)));
-    connect(d->wirelessNetworkInterface, SIGNAL(accessPointDisappeared(QString)), this, SLOT(accessPointDisappeared(QString)));
+    connect(wni.data(), SIGNAL(accessPointAppeared(QString)), this, SLOT(accessPointAppeared(QString)));
+    connect(wni.data(), SIGNAL(accessPointDisappeared(QString)), this, SLOT(accessPointDisappeared(QString)));
     addAccessPointInternal(ap);
 }
 

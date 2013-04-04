@@ -66,7 +66,7 @@ public:
     /**
      * The current companion device.
      */
-    Device* companionDevice() const;
+    Ptr companionDevice() const;
 
 protected Q_SLOTS:
     void propertiesChanged(const QVariantMap &);
@@ -78,7 +78,7 @@ Q_SIGNALS:
     /**
      * The companion changed.
      */
-    void companionChanged(Device *);
+    void companionChanged(const Device::Ptr &device);
     /**
      * The device changed its hardware address
      */

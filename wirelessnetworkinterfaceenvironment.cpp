@@ -35,12 +35,12 @@ class WirelessNetworkInterfaceEnvironmentPrivate
 public:
     virtual ~WirelessNetworkInterfaceEnvironmentPrivate() {}
     QHash<QString, WirelessNetwork*> networks;
-    WirelessDevice * iface;
+    WirelessDevice::Ptr iface;
 };
 
 }
-NetworkManager::WirelessNetworkInterfaceEnvironment::WirelessNetworkInterfaceEnvironment(WirelessDevice * iface)
-: QObject(iface), d_ptr(new WirelessNetworkInterfaceEnvironmentPrivate)
+NetworkManager::WirelessNetworkInterfaceEnvironment::WirelessNetworkInterfaceEnvironment(const WirelessDevice::Ptr &iface)
+: QObject(iface.data()), d_ptr(new WirelessNetworkInterfaceEnvironmentPrivate)
 {
     Q_D(WirelessNetworkInterfaceEnvironment);
     d->iface = iface;
@@ -48,7 +48,7 @@ NetworkManager::WirelessNetworkInterfaceEnvironment::WirelessNetworkInterfaceEnv
         accessPointAppearedInternal(apUni);
     }
     // for managing our list of wireless networks
-    connect(iface, SIGNAL(accessPointAppeared(QString)),
+    connect(iface.data(), SIGNAL(accessPointAppeared(QString)),
             SLOT(accessPointAppeared(QString)));
     connect(NetworkManager::notifier(), SIGNAL(wirelessEnabledChanged(bool)),
             SLOT(wirelessEnabledChanged(bool)));
@@ -60,7 +60,7 @@ NetworkManager::WirelessNetworkInterfaceEnvironment::~WirelessNetworkInterfaceEn
     delete d_ptr;
 }
 
-NetworkManager::WirelessDevice * NetworkManager::WirelessNetworkInterfaceEnvironment::interface() const
+NetworkManager::WirelessDevice::Ptr NetworkManager::WirelessNetworkInterfaceEnvironment::interface() const
 {
     Q_D(const WirelessNetworkInterfaceEnvironment);
     return d->iface;

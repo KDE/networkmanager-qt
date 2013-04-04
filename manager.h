@@ -144,7 +144,7 @@ namespace NetworkManager {
      *
      * @return the list of network interfaces available in this system
      */
-    NMQT_EXPORT DeviceList networkInterfaces();
+    NMQT_EXPORT Device::List networkInterfaces();
     /**
      * Find a new NetworkInterface object given its UNI.  This pointer is owned by the Solid
      * infrastructure.
@@ -152,12 +152,12 @@ namespace NetworkManager {
      * @param uni the identifier of the network interface to find
      * @return a valid NetworkInterface object if there's a device having the given UNI, an invalid one otherwise
      */
-    NMQT_EXPORT Device * findNetworkInterface(const QString &uni);
+    NMQT_EXPORT Device::Ptr findNetworkInterface(const QString &uni);
     /**
      * Return the network device referenced by its IP
        interface name. This is not system independent so programs that will use this method will not be portable.
      */
-    NMQT_EXPORT Device * findDeviceByIpFace(const QString &iface);
+    NMQT_EXPORT Device::Ptr findDeviceByIpFace(const QString &iface);
     /**
      * Retrieves the status of networking (as a whole) in the system.
      * This is distinct from whether the system's networking is online or offline.
