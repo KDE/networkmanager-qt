@@ -173,8 +173,11 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::findRegistere
     NetworkManager::Device::Ptr networkInterface;
     if (networkInterfaceMap.contains(uni) && networkInterfaceMap.value(uni)) {
         networkInterface = networkInterfaceMap.value(uni);
-    } else if (networkInterface = createNetworkInterface(uni)) {
-        networkInterfaceMap.insert(uni, networkInterface);
+    } else {
+        networkInterface = createNetworkInterface(uni);
+        if (networkInterface) {
+            networkInterfaceMap.insert(uni, networkInterface);
+        }
     }
     return networkInterface;
 }
@@ -471,8 +474,7 @@ void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath 
 void NetworkManager::NetworkManagerPrivate::onDeviceRemoved(const QDBusObjectPath & objpath)
 {
     nmDebug();
-    NetworkManager::Device::Ptr device = networkInterfaceMap.take(objpath.path());
-    device->deleteLater();
+    networkInterfaceMap.remove(objpath.path());
     emit deviceRemoved(objpath.path());
 }
 
@@ -605,12 +607,10 @@ void NetworkManager::NetworkManagerPrivate::daemonRegistered()
 void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
 {
     stateChanged(NM_STATE_UNKNOWN);
-    QMap<QString, Device::Ptr>::const_iterator i;
-    for (i = networkInterfaceMap.constBegin(); i != networkInterfaceMap.constEnd(); ++i) {
-        deviceRemoved(i.key());
-        if (i.value()) {
-            i.value()->deleteLater();
-        }
+    QMap<QString, Device::Ptr>::const_iterator i = networkInterfaceMap.constBegin();
+    while (i != networkInterfaceMap.constEnd()) {
+        emit deviceRemoved(i.key());
+        ++i;
     }
     networkInterfaceMap.clear();
     qDeleteAll(m_activeConnections);

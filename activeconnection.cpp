@@ -145,7 +145,10 @@ NetworkManager::Device::List NetworkManager::ActiveConnection::devices() const
     Q_D(const ActiveConnection);
     NetworkManager::Device::List list;
     foreach (const QString &path, d->devices) {
-        list.append(NetworkManager::findNetworkInterface(path));
+        Device::Ptr device = NetworkManager::findNetworkInterface(path);
+        if (device) {
+            list << device;
+        }
     }
     return list;
 }

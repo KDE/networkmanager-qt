@@ -40,7 +40,7 @@ namespace NetworkManager
         QString path;
         bool default4;
         bool default6;
-        QList<QString> devices;
+        QStringList devices;
         QString specificObject;
         ActiveConnection::State state;
         bool vpn;
