@@ -19,12 +19,10 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_IPCONFIG_H
-#define NMQT_IPCONFIG_H
+#ifndef NMQT_IPADDRESS_H
+#define NMQT_IPADDRESS_H
 
 #include "QtNetworkManager-export.h"
-#include "ipaddress.h"
-#include "iproute.h"
 
 #include <QtCore/QStringList>
 #include <QNetworkAddressEntry>
@@ -32,67 +30,50 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 namespace NetworkManager
 {
 
-class NMQT_EXPORT IpConfig
+class NMQT_EXPORT IpAddress : public QNetworkAddressEntry
 {
 public:
     /**
-     * Constructs a ip config object with a list of address, nameservers, domains and routers.
+     * Constructs an empty IpAddress object.
      */
-    IpConfig(const IpAddresses &addresses,
-        const QList<QHostAddress> &nameservers,
-        const QStringList &domains,
-        const IpRoutes &routes);
+    IpAddress();
 
     /**
-     * Constructs an empty IpConfig object.
+     * Constructs a IpAddress object that is a copy of the object other.
      */
-    IpConfig();
+    IpAddress(const IpAddress &other);
 
     /**
-     * Destroys this IpConfig object.
+     * Destroys this IpRoute object.
      */
-    ~IpConfig();
+    ~IpAddress();
 
     /**
-     * Constructs a IpConfig object that is a copy of the object other.
-     */
-    IpConfig(const IpConfig &other);
-
-    /**
-     * Returns a list of IP addresses related to this configuration.
-     */
-    NetworkManager::IpAddresses addresses() const;
-
-    /**
-     * Returns a list of nameservers related to this configuration.
-     */
-    QList<QHostAddress> nameservers() const;
-
-    /**
-     * Returns a list of domains related to this configuration.
-     */
-    QStringList domains() const;
-
-    /**
-     * Returns a list of routes related to this configuration.
-     */
-    IpRoutes routes() const;
-
-    /**
-     * Makes a copy of the IpConfig object other.
-     */
-    IpConfig &operator=(const IpConfig &other);
-
-    /**
-     * Returns false if the list of IP Addresses is empty
+     * Return if the IP address is defined.
      */
     bool isValid() const;
+
+    /**
+     * Defines the default gateway of this object.
+     */
+    void setGateway(const QHostAddress &gateway);
+
+    /**
+     * Returns the default gateway of this object.
+     */
+    QHostAddress gateway() const;
+
+    /**
+     * Makes a copy of the IpAddress object other.
+     */
+    IpAddress &operator=(const IpAddress &other);
 
 private:
     class Private;
     Private * d;
 };
+typedef QList<IpAddress> IpAddresses;
 
 } // namespace NetworkManager
 
-#endif // NMQT_IPCONFIG_H
+#endif // NMQT_IPADDRESS_H

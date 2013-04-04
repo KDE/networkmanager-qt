@@ -19,12 +19,11 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_IPCONFIG_H
-#define NMQT_IPCONFIG_H
+#ifndef NMQT_IPROUTE_H
+#define NMQT_IPROUTE_H
 
 #include "QtNetworkManager-export.h"
 #include "ipaddress.h"
-#include "iproute.h"
 
 #include <QtCore/QStringList>
 #include <QNetworkAddressEntry>
@@ -32,67 +31,61 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 namespace NetworkManager
 {
 
-class NMQT_EXPORT IpConfig
+class NMQT_EXPORT IpRoute : public QNetworkAddressEntry
 {
 public:
     /**
-     * Constructs a ip config object with a list of address, nameservers, domains and routers.
+     * Constructs an empty IpRoute object.
      */
-    IpConfig(const IpAddresses &addresses,
-        const QList<QHostAddress> &nameservers,
-        const QStringList &domains,
-        const IpRoutes &routes);
+    IpRoute();
 
     /**
-     * Constructs an empty IpConfig object.
+     * Constructs a IpRoute object that is a copy of the object other.
      */
-    IpConfig();
+    IpRoute(const IpRoute &other);
 
     /**
-     * Destroys this IpConfig object.
+     * Destroys this IpRoute object.
      */
-    ~IpConfig();
+    ~IpRoute();
 
     /**
-     * Constructs a IpConfig object that is a copy of the object other.
-     */
-    IpConfig(const IpConfig &other);
-
-    /**
-     * Returns a list of IP addresses related to this configuration.
-     */
-    NetworkManager::IpAddresses addresses() const;
-
-    /**
-     * Returns a list of nameservers related to this configuration.
-     */
-    QList<QHostAddress> nameservers() const;
-
-    /**
-     * Returns a list of domains related to this configuration.
-     */
-    QStringList domains() const;
-
-    /**
-     * Returns a list of routes related to this configuration.
-     */
-    IpRoutes routes() const;
-
-    /**
-     * Makes a copy of the IpConfig object other.
-     */
-    IpConfig &operator=(const IpConfig &other);
-
-    /**
-     * Returns false if the list of IP Addresses is empty
+     * Returns true if the route IP is defined.
      */
     bool isValid() const;
+
+    /**
+     * Defines the next hop of the given route.
+     */
+    void setNextHop(const QHostAddress &nextHop) const;
+
+    /**
+     * Returns the next hop of the given route.
+     */
+    QHostAddress nextHop() const;
+
+    /**
+     * Defines the metric of the given route,
+     * lower values have higher priority.
+     */
+    void setMetric(quint32 metric);
+
+    /**
+     * Returns the route metric number of the given route.
+     */
+    quint32 metric() const;
+
+    /**
+     * Makes a copy of the IpRoute object other.
+     */
+    IpRoute &operator=(const IpRoute &other);
 
 private:
     class Private;
     Private * d;
 };
+typedef QList<IpRoute> IpRoutes;
 
 } // namespace NetworkManager
 
-#endif // NMQT_IPCONFIG_H
+#endif // NMQT_IPROUTE_H

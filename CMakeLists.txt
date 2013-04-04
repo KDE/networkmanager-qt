@@ -53,6 +53,8 @@ set(QtNetworkManager_HEADERS
     dhcp4config.h
     dhcp6config.h
     infinibanddevice.h
+    ipaddress.h
+    iproute.h
     ipconfig.h
     manager.h
     modemdevice.h
@@ -112,6 +114,8 @@ set(QtNetworkManager_PART_SRCS
     dhcp4config.cpp
     dhcp6config.cpp
     infinibanddevice.cpp
+    ipaddress.cpp
+    iproute.cpp
     ipconfig.cpp
     #nmpropertyhelper.cpp
     manager.cpp

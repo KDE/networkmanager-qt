@@ -22,6 +22,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "ipconfig.h"
 
 namespace NetworkManager {
+
 class NetworkManager::IpConfig::Private
 {
 public:
@@ -39,115 +40,6 @@ public:
     IpRoutes routes;
 };
 
-
-class IpAddress::Private
-{
-public:
-    QHostAddress gateway;
-};
-
-class NetworkManager::IpRoute::Private
-{
-public:
-    Private() :
-        metric(0) {}
-    QHostAddress nextHop;
-    quint32 metric;
-};
-}
-
-NetworkManager::IpAddress::IpAddress()
-: d(new Private)
-{
-}
-
-NetworkManager::IpAddress::~IpAddress()
-{
-    delete d;
-}
-
-NetworkManager::IpAddress::IpAddress(const NetworkManager::IpAddress &other) :
-    d(new Private)
-{
-    *this = other;
-}
-
-bool NetworkManager::IpAddress::isValid() const
-{
-    return !ip().isNull();
-}
-
-void NetworkManager::IpAddress::setGateway(const QHostAddress &gateway)
-{
-    d->gateway = gateway;
-}
-
-QHostAddress NetworkManager::IpAddress::gateway() const
-{
-    return d->gateway;
-}
-
-NetworkManager::IpAddress &NetworkManager::IpAddress::operator=(const NetworkManager::IpAddress &other)
-{
-    if (this == &other)
-        return *this;
-
-    QNetworkAddressEntry::operator =(other);
-    *d = *other.d;
-
-    return *this;
-}
-
-NetworkManager::IpRoute::IpRoute()
-: d(new Private)
-{
-}
-
-NetworkManager::IpRoute::~IpRoute()
-{
-    delete d;
-}
-
-NetworkManager::IpRoute::IpRoute(const NetworkManager::IpRoute &other) :
-    d(new Private)
-{
-    *this = other;
-}
-
-void NetworkManager::IpRoute::setNextHop(const QHostAddress &nextHop) const
-{
-    d->nextHop = nextHop;
-}
-
-QHostAddress NetworkManager::IpRoute::nextHop() const
-{
-    return d->nextHop;
-}
-
-void NetworkManager::IpRoute::setMetric(quint32 metric)
-{
-    d->metric = metric;
-}
-
-quint32 NetworkManager::IpRoute::metric() const
-{
-    return d->metric;
-}
-
-NetworkManager::IpRoute &NetworkManager::IpRoute::operator=(const NetworkManager::IpRoute &other)
-{
-    if (this == &other)
-        return *this;
-
-    QNetworkAddressEntry::operator =(other);
-    *d = *other.d;
-
-    return *this;
-}
-
-bool NetworkManager::IpRoute::isValid() const
-{
-    return !ip().isNull();
 }
 
 NetworkManager::IpConfig::IpConfig(const IpAddresses &addresses,
