@@ -28,9 +28,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtDBus/QtDBus>
 
 #include "device.h"
+#include "activeconnection.h"
 //#include "notifier.h"
-
-class ActiveConnection;
 
 /**
  * This class allows querying the underlying system to discover the available
@@ -227,7 +226,7 @@ namespace NetworkManager {
      *
      * @return a list of valid ActiveConnection objects
      */
-    NMQT_EXPORT QList<ActiveConnection*> activeConnections();
+    NMQT_EXPORT ActiveConnection::List activeConnections();
     /**
      * Access the list of any active connections paths
      *
@@ -244,7 +243,7 @@ namespace NetworkManager {
      * @param uni the id of the ActiveConnection
      * @return a valid ActiveConnection object
      */
-    NMQT_EXPORT ActiveConnection* findActiveConnection(const QString &uni);
+    NMQT_EXPORT ActiveConnection::Ptr findActiveConnection(const QString &uni);
     /**
      * Retrieves the interface types supported by this network manager.
      *

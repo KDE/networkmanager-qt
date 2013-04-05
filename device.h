@@ -30,15 +30,19 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "ipconfig.h"
 #include "dhcp4config.h"
 #include "dhcp6config.h"
+#include "activeconnection.h"
 
 namespace NetworkManager {
 class DevicePrivate;
-class ActiveConnection;
 class DeviceStateReason;
 
 namespace Settings {
 class Connection;
 }
+
+//class ActiveConnection {
+//    typedef QSharedPointer<ActiveConnection> Ptr;
+//};
 
 class NMQT_EXPORT Device : public QObject
 {
@@ -152,7 +156,7 @@ public:
      *
      * @returns A valid ActiveConnection object or 0 if no active connection was found
      */
-    ActiveConnection* activeConnection();
+    NetworkManager::ActiveConnection::Ptr activeConnection() const;
     /**
      * Returns available connections for this device
      *

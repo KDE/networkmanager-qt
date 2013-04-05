@@ -21,11 +21,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NMQT_ACTIVECONNECTION_H
 #define NMQT_ACTIVECONNECTION_H
 
-#include "QtNetworkManager-export.h"
-#include "device.h"
-
 #include <QObject>
 #include <QDBusObjectPath>
+
+#include "QtNetworkManager-export.h"
+#include "device.h"
 
 namespace NetworkManager
 {
@@ -44,6 +44,8 @@ Q_OBJECT
 Q_DECLARE_PRIVATE(ActiveConnection)
 
 public:
+    typedef QSharedPointer<ActiveConnection> Ptr;
+    typedef QList<Ptr> List;
     enum State {Unknown = 0, Activating, Activated, Deactivating, Deactivated};
     /**
      * Creates a new ActiveConnection object.

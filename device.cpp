@@ -205,7 +205,7 @@ QString NetworkManager::Device::firmwareVersion() const
     return d->firmwareVersion;
 }
 
-NetworkManager::ActiveConnection *NetworkManager::Device::activeConnection()
+NetworkManager::ActiveConnection::Ptr NetworkManager::Device::activeConnection() const
 {
     Q_D(const Device);
     return NetworkManager::findActiveConnection(d->deviceIface.activeConnection().path());

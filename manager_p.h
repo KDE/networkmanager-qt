@@ -64,8 +64,8 @@ public:
     int compareVersion(const int x, const int y, const int z) const;
 
     bool m_isNetworkingEnabled;
-    QMap<QString, ActiveConnection*> m_activeConnections;
-    ActiveConnection * findRegisteredActiveConnection(const QString &);
+    QMap<QString, ActiveConnection::Ptr> m_activeConnections;
+    ActiveConnection::Ptr findRegisteredActiveConnection(const QString &);
     // manage device children
     Device::Ptr findRegisteredNetworkInterface(const QString &uni);
     Device::Ptr createNetworkInterface(const QString &uni);
@@ -86,7 +86,7 @@ public:
     QDBusPendingReply<QDBusObjectPath> activateConnection(const QString & connectionUni, const QString & interfaceUni, const QString & connectionParameter);
     QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> addAndActivateConnection(const QVariantMapMap & connection, const QString & interfaceUni, const QString & connectionParameter);
     void deactivateConnection(const QString & activeConnection);
-    QList<ActiveConnection*> activeConnections();
+    ActiveConnection::List activeConnections();
     QStringList activeConnectionsPaths() const;
     QDBusPendingReply<QString, QString> getLogging();
     Device::Types supportedInterfaceTypes() const;

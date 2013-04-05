@@ -114,7 +114,7 @@ void NetworkManager::NetworkManagerPrivate::init()
         QList <QDBusObjectPath> activeConnections = iface.activeConnections();
         foreach (const QDBusObjectPath &ac, activeConnections)
         {
-            m_activeConnections.insert(ac.path(), 0);
+            m_activeConnections.insert(ac.path(), NetworkManager::ActiveConnection::Ptr());
             nmDebug() << "    " << ac.path();
         }
         emit activeConnectionsChanged();
@@ -182,16 +182,16 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::findRegistere
     return networkInterface;
 }
 
-NetworkManager::ActiveConnection * NetworkManager::NetworkManagerPrivate::findRegisteredActiveConnection(const QString &uni)
+NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::findRegisteredActiveConnection(const QString &uni)
 {
-    NetworkManager::ActiveConnection * ac = 0;
+    NetworkManager::ActiveConnection::Ptr activeConnection;
     if (m_activeConnections.contains(uni) && m_activeConnections.value(uni) != 0) {
-        ac = m_activeConnections.value(uni);
+        activeConnection = m_activeConnections.value(uni);
     } else {
-        ac = new NetworkManager::VpnConnection(uni, this);
-        m_activeConnections.insert(uni, ac);
+        activeConnection = NetworkManager::ActiveConnection::Ptr(new NetworkManager::VpnConnection(uni, this));
+        m_activeConnections.insert(uni, activeConnection);
     }
-    return ac;
+    return activeConnection;
 }
 
 NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetworkInterface(const QString &uni)
@@ -509,16 +509,13 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
         foreach (const QDBusObjectPath &ac, activePaths)
         {
             if (!m_activeConnections.contains(ac.path()))
-                m_activeConnections.insert(ac.path(), 0);
+                m_activeConnections.insert(ac.path(), NetworkManager::ActiveConnection::Ptr());
             else
                 knownConnections.removeOne(ac.path());
             nmDebug() << "  " << ac.path();
         }
-        foreach (const QString &path, knownConnections)
-        {
-            NetworkManager::ActiveConnection *ac = m_activeConnections.take(path);
-            if (ac)
-                delete ac;
+        foreach (const QString &path, knownConnections) {
+            m_activeConnections.remove(path);
         }
         emit activeConnectionsChanged();
     }
@@ -619,12 +616,14 @@ void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
     emit serviceDisappeared();
 }
 
-QList<NetworkManager::ActiveConnection*> NetworkManager::NetworkManagerPrivate::activeConnections()
+NetworkManager::ActiveConnection::List NetworkManager::NetworkManagerPrivate::activeConnections()
 {
-    QList<NetworkManager::ActiveConnection*> list;
-    QMap<QString, ActiveConnection*>::const_iterator i;
-    for (i = m_activeConnections.constBegin(); i != m_activeConnections.constEnd(); ++i) {
-        list.append(findRegisteredActiveConnection(i.key()));
+    NetworkManager::ActiveConnection::List list;
+    foreach (const QString &uni, m_activeConnections.keys()) {
+        NetworkManager::ActiveConnection::Ptr activeConnection = findRegisteredActiveConnection(uni);
+        if (activeConnection) {
+            list << activeConnection;
+        }
     }
     return list;
 }
@@ -659,7 +658,7 @@ NetworkManager::Status NetworkManager::status()
     return globalNetworkManager->status();
 }
 
-QList<NetworkManager::ActiveConnection*> NetworkManager::activeConnections()
+NetworkManager::ActiveConnection::List NetworkManager::activeConnections()
 {
     return globalNetworkManager->activeConnections();
 }
@@ -669,7 +668,7 @@ QStringList NetworkManager::activeConnectionsPaths()
     return globalNetworkManager->activeConnectionsPaths();
 }
 
-NetworkManager::ActiveConnection* NetworkManager::findActiveConnection(const QString &uni)
+NetworkManager::ActiveConnection::Ptr NetworkManager::findActiveConnection(const QString &uni)
 {
     return globalNetworkManager->findRegisteredActiveConnection(uni);
 }

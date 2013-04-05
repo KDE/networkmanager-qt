@@ -142,9 +142,9 @@ void NetworkManager::Settings::Connection::onSecretsArrived(QDBusPendingCallWatc
 bool NetworkManager::Settings::Connection::active() const
 {
     Q_D(const Connection);
-    QList<ActiveConnection*> activeConnections = NetworkManager::activeConnections();
-    foreach (ActiveConnection *conn, activeConnections) {
-        if (conn->connection() == this) {
+    ActiveConnection::List activeConnections = NetworkManager::activeConnections();
+    foreach (const ActiveConnection::Ptr &activeConnection, activeConnections) {
+        if (activeConnection->connection() == this) {
             return true;
         }
     }
