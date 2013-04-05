@@ -21,16 +21,28 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "wirelessnetwork.h"
 #include "wirelessnetwork_p.h"
 
-NetworkManager::WirelessNetwork::WirelessNetwork(const NetworkManager::AccessPoint::Ptr &ap, const WirelessDevice::Ptr &wni)
+#include "wirelessdevice.h"
+#include "manager.h"
+
+NetworkManager::WirelessNetwork::WirelessNetwork(const QString &ap, const QString &wni)
     : d_ptr(new WirelessNetworkPrivate)
 {
     Q_D(WirelessNetwork);
-    d->ssid = ap->ssid();
-    d->strength = -1;
-    d->wirelessNetworkInterface = wni;
-    connect(wni.data(), SIGNAL(accessPointAppeared(QString)), this, SLOT(accessPointAppeared(QString)));
-    connect(wni.data(), SIGNAL(accessPointDisappeared(QString)), this, SLOT(accessPointDisappeared(QString)));
-    addAccessPointInternal(ap);
+
+    d->wirelessNetworkInterface = NetworkManager::findNetworkInterface(wni).objectCast<NetworkManager::WirelessDevice>();
+    if (d->wirelessNetworkInterface) {
+        d->strength = -1;
+        connect(d->wirelessNetworkInterface.data(), SIGNAL(accessPointAppeared(QString)),
+                this, SLOT(accessPointAppeared(QString)));
+        connect(d->wirelessNetworkInterface.data(), SIGNAL(accessPointDisappeared(QString)),
+                this, SLOT(accessPointDisappeared(QString)));
+
+        NetworkManager::AccessPoint::Ptr accessPoint = d->wirelessNetworkInterface->findAccessPoint(ap);
+        if (accessPoint) {
+            d->ssid = accessPoint->ssid();
+            addAccessPointInternal(ap);
+        }
+    }
 }
 
 NetworkManager::WirelessNetwork::~WirelessNetwork()
@@ -55,19 +67,23 @@ void NetworkManager::WirelessNetwork::accessPointAppeared(const QString &uni)
     Q_D(const WirelessNetwork);
     if (!d->aps.contains(uni)) {
         NetworkManager::AccessPoint::Ptr ap = d->wirelessNetworkInterface->findAccessPoint(uni);
-        if (ap->ssid() == d->ssid) {
-            addAccessPointInternal(ap);
+        if (ap && ap->ssid() == d->ssid) {
+            addAccessPointInternal(ap->uni());
         }
     }
 }
 
-void NetworkManager::WirelessNetwork::addAccessPointInternal(const NetworkManager::AccessPoint::Ptr &ap)
+void NetworkManager::WirelessNetwork::addAccessPointInternal(const QString &uni)
 {
     Q_D(WirelessNetwork);
-    connect(ap.data(), SIGNAL(signalStrengthChanged(int)),
-            SLOT(updateStrength()));
-    d->aps.insert(ap->uni(), ap);
-    updateStrength();
+
+    NetworkManager::AccessPoint::Ptr ap = d->wirelessNetworkInterface->findAccessPoint(uni);
+    if (ap) {
+        connect(ap.data(), SIGNAL(signalStrengthChanged(int)),
+                SLOT(updateStrength()));
+        d->aps.insert(ap->uni(), ap);
+        updateStrength();
+    }
 }
 
 void NetworkManager::WirelessNetwork::accessPointDisappeared(const QString &uni)
@@ -111,10 +127,17 @@ QString NetworkManager::WirelessNetwork::referenceAccessPoint() const
     return strongest->uni();
 }
 
-NetworkManager::AccessPoint::List NetworkManager::WirelessNetwork::accessPoints() const
+QStringList NetworkManager::WirelessNetwork::accessPoints() const
 {
     Q_D(const WirelessNetwork);
-    return d->aps.values();
+    QStringList ret;
+    foreach (const NetworkManager::AccessPoint::Ptr &accessPoint, d->aps.values()) {
+        if (accessPoint) {
+            ret << accessPoint->uni();
+        }
+    }
+
+    return ret;
 }
 
 // vim: sw=4 sts=4 et tw=100

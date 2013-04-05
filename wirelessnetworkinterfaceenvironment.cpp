@@ -98,7 +98,7 @@ void NetworkManager::WirelessNetworkInterfaceEnvironment::accessPointAppearedInt
     if (ssid.isEmpty()) {
         //nmDebug() << "ignoring hidden AP with BSSID:" << ap->hardwareAddress();
     } else if (!d->networks.contains(ssid)) {
-        NetworkManager::WirelessNetwork::Ptr wifiNetwork(new NetworkManager::WirelessNetwork(ap, d->iface));
+        NetworkManager::WirelessNetwork::Ptr wifiNetwork(new NetworkManager::WirelessNetwork(uni, d->iface->uni()));
         d->networks.insert(ssid, wifiNetwork);
         connect(wifiNetwork.data(), SIGNAL(disappeared(QString)), SLOT(removeNetwork(QString)));
         emit networkAppeared(ssid);
