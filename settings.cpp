@@ -48,7 +48,7 @@ void NetworkManager::Settings::SettingsPrivate::init()
     if (!reply.isError()) {
         foreach (const QDBusObjectPath &path, reply.value()) {
             QString id = path.path();
-            connections.insert(id, 0);
+            connections.insert(id, Connection::Ptr());
         }
     }
     m_canModify = iface.canModify();
@@ -58,26 +58,28 @@ void NetworkManager::Settings::SettingsPrivate::init()
     connect(&iface, SIGNAL(NewConnection(QDBusObjectPath)), this, SLOT(onConnectionAdded(QDBusObjectPath)));
 }
 
-QList<NetworkManager::Settings::Connection*> NetworkManager::Settings::SettingsPrivate::listConnections()
+NetworkManager::Settings::Connection::List NetworkManager::Settings::SettingsPrivate::listConnections()
 {
-    QList<NetworkManager::Settings::Connection*> list;
-    QMap<QString, Connection*>::const_iterator i;
-    for (i = connections.constBegin(); i != connections.constEnd(); ++i) {
+    NetworkManager::Settings::Connection::List list;
+    QMap<QString, Connection::Ptr>::const_iterator i = connections.constBegin();
+    while (i != connections.constEnd()) {
         list.append(findRegisteredConnection(i.key()));
+        ++i;
     }
     return list;
 }
 
-NetworkManager::Settings::Connection * NetworkManager::Settings::SettingsPrivate::findConnectionByUuid(const QString & uuid)
+NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::SettingsPrivate::findConnectionByUuid(const QString & uuid)
 {
-    QMap<QString, Connection*>::const_iterator i;
-    for (i = connections.constBegin(); i != connections.constEnd(); ++i) {
-        NetworkManager::Settings::Connection * connection = findRegisteredConnection(i.key());
-        if (connection->uuid() == uuid)
+    QMap<QString, Connection::Ptr>::const_iterator i = connections.constBegin();
+    while (i != connections.constEnd()) {
+        NetworkManager::Settings::Connection::Ptr connection = findRegisteredConnection(i.key());
+        if (connection->uuid() == uuid) {
             return connection;
+        }
     }
 
-    return 0;
+    return NetworkManager::Settings::Connection::Ptr();
 }
 
 QString NetworkManager::Settings::SettingsPrivate::hostname() const
@@ -149,28 +151,27 @@ void NetworkManager::Settings::SettingsPrivate::onConnectionAdded(const QDBusObj
     QString id = path.path();
     if (connections.contains(id))
         return;
-    connections.insert(id, 0);
+    connections.insert(id, Connection::Ptr());
     emit connectionAdded(id);
 }
 
-NetworkManager::Settings::Connection* NetworkManager::Settings::SettingsPrivate::findRegisteredConnection(const QString &path)
+NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::SettingsPrivate::findRegisteredConnection(const QString &path)
 {
-    NetworkManager::Settings::Connection *rc = 0;
+    Connection::Ptr ret;
     if (connections.contains(path) && connections.value(path) != 0) {
-        rc = connections.value(path);
+        ret = connections.value(path);
     } else {
-        rc = new NetworkManager::Settings::Connection(path, this);
-        connections.insert(path, rc);
-        connect(rc, SIGNAL(removed(QString)), this, SLOT(onConnectionRemoved(QString)));
+        ret = Connection::Ptr(new Connection(path, this));
+        connections.insert(path, ret);
+        connect(ret.data(), SIGNAL(removed(QString)), this, SLOT(onConnectionRemoved(QString)));
     }
-    return rc;
+    return ret;
 }
 
 void NetworkManager::Settings::SettingsPrivate::onConnectionRemoved(const QString &path)
 {
-    NetworkManager::Settings::Connection *rc = connections.take(path);
     emit connectionRemoved(path);
-    rc->deleteLater();
+    connections.remove(path);
 }
 
 void NetworkManager::Settings::SettingsPrivate::daemonUnregistered()
@@ -183,17 +184,17 @@ void NetworkManager::Settings::SettingsPrivate::daemonUnregistered()
     connections.clear();
 }
 
-QList<NetworkManager::Settings::Connection*> NetworkManager::Settings::listConnections()
+NetworkManager::Settings::Connection::List NetworkManager::Settings::listConnections()
 {
     return globalSettings->listConnections();
 }
 
-NetworkManager::Settings::Connection * NetworkManager::Settings::findConnectionByUuid (const QString & uuid)
+NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::findConnectionByUuid(const QString & uuid)
 {
     return globalSettings->findConnectionByUuid(uuid);
 }
 
-NetworkManager::Settings::Connection* NetworkManager::Settings::findConnection(const QString &path)
+NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::findConnection(const QString &path)
 {
     return globalSettings->findRegisteredConnection(path);
 }

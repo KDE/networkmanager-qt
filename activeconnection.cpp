@@ -80,7 +80,7 @@ NetworkManager::ActiveConnection::~ActiveConnection()
     delete d_ptr;
 }
 
-NetworkManager::Settings::Connection* NetworkManager::ActiveConnection::connection() const
+NetworkManager::Settings::Connection::Ptr NetworkManager::ActiveConnection::connection() const
 {
     Q_D(const ActiveConnection);
     return d->connection;

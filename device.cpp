@@ -211,17 +211,17 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::Device::activeConnection()
     return NetworkManager::findActiveConnection(d->deviceIface.activeConnection().path());
 }
 
-QList< NetworkManager::Settings::Connection* > NetworkManager::Device::availableConnections()
+NetworkManager::Settings::Connection::List NetworkManager::Device::availableConnections()
 {
     Q_D(const Device);
 
-    QList<NetworkManager::Settings::Connection*> list;
+    NetworkManager::Settings::Connection::List list;
     QList<QDBusObjectPath> availableConnections = d->deviceIface.availableConnections();
 
-    foreach (const QDBusObjectPath & path, availableConnections) {
-        NetworkManager::Settings::Connection * con = NetworkManager::Settings::findConnection(path.path());
-        if (con) {
-            list << con;
+    foreach (const QDBusObjectPath &path, availableConnections) {
+        NetworkManager::Settings::Connection::Ptr connection = NetworkManager::Settings::findConnection(path.path());
+        if (connection) {
+            list << connection;
         }
     }
 

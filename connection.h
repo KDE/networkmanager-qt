@@ -24,8 +24,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "QtNetworkManager-export.h"
 
 #include <QObject>
-#include "device.h"
-#include "manager.h"
+#include <QSharedPointer>
 #include "generic-types.h"
 
 class QDBusPendingCallWatcher;
@@ -40,6 +39,8 @@ namespace Settings
     Q_OBJECT
     Q_DECLARE_PRIVATE(Connection)
     public:
+        typedef QSharedPointer<Connection> Ptr;
+        typedef QList<Ptr> List;
         explicit Connection(const QString &path, QObject * parent = 0);
         ~Connection();
         QString uuid() const;

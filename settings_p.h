@@ -39,15 +39,15 @@ namespace Settings
     Q_OBJECT
     public:
         SettingsPrivate();
-        QList<NetworkManager::Settings::Connection*> listConnections();
-        NetworkManager::Settings::Connection* findConnectionByUuid(const QString &uuid);
+        Connection::List listConnections();
+        NetworkManager::Settings::Connection::Ptr findConnectionByUuid(const QString &uuid);
         QString hostname() const;
         bool canModify() const;
         QString addConnection(const QVariantMapMap &);
         void saveHostname(const QString &);
-        Connection *findRegisteredConnection(const QString &);
+        Connection::Ptr findRegisteredConnection(const QString &);
 
-        QMap<QString, Connection*> connections;
+        QMap<QString, Connection::Ptr> connections;
         bool m_canModify;
         QString m_hostname;
         OrgFreedesktopNetworkManagerSettingsInterface iface;

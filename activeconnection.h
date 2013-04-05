@@ -26,13 +26,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include <QSharedPointer>
 
 #include "QtNetworkManager-export.h"
+#include "connection.h"
 
 namespace NetworkManager
 {
-namespace Settings
-{
-    class Connection;
-}
+//namespace Settings
+//{
+//    class Connection;
+//}
 class ActiveConnectionPrivate;
 
 /**
@@ -65,7 +66,7 @@ public:
     /**
      * returns a valid NetworkManager::Settings::Connection object
      */
-    Settings::Connection* connection() const;
+    Settings::Connection::Ptr connection() const;
     /**
      * Whether this connection has the default IPv4 route
      */
@@ -109,7 +110,7 @@ Q_SIGNALS:
     /**
      * This signal is emitted when the connection path has changed
      */
-    void connectionChanged(Settings::Connection*);
+    void connectionChanged(const NetworkManager::Settings::Connection::Ptr &connection);
     /**
      * The state of the default IPv4 route changed
      */

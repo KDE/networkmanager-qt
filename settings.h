@@ -26,6 +26,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include <QObject>
 #include "generic-types.h"
 #include "manager.h"
+#include "connection.h"
 
 #include <QString>
 #include <QUuid>
@@ -45,10 +46,10 @@ namespace Settings
         void connectionRemoved(const QString &);
         void connectionAddComplete(const QString &, bool, const QString &);
     };
-    NMQT_EXPORT QList<NetworkManager::Settings::Connection*> listConnections();
-    NMQT_EXPORT NetworkManager::Settings::Connection* findConnection(const QString &);
+    NMQT_EXPORT NetworkManager::Settings::Connection::List listConnections();
+    NMQT_EXPORT NetworkManager::Settings::Connection::Ptr findConnection(const QString &);
     NMQT_EXPORT QString addConnection(const QVariantMapMap &);
-    NMQT_EXPORT NetworkManager::Settings::Connection * findConnectionByUuid(const QString&);
+    NMQT_EXPORT NetworkManager::Settings::Connection::Ptr findConnectionByUuid(const QString&);
     NMQT_EXPORT void saveHostname(const QString &);
     NMQT_EXPORT bool canModify();
     NMQT_EXPORT QString hostname();

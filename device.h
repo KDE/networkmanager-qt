@@ -162,7 +162,7 @@ public:
      *
      * @returns List of availables connection
      */
-    QList<NetworkManager::Settings::Connection*> availableConnections();
+    Settings::Connection::List availableConnections();
     /**
      * The system name for the network interface
      */

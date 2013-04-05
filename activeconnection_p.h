@@ -36,7 +36,7 @@ namespace NetworkManager
         ActiveConnectionPrivate(const QString &);
         virtual ~ActiveConnectionPrivate();
         static NetworkManager::ActiveConnection::State convertActiveConnectionState(uint);
-        NetworkManager::Settings::Connection * connection;
+        NetworkManager::Settings::Connection::Ptr connection;
         QString path;
         bool default4;
         bool default6;
