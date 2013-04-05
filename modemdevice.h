@@ -66,8 +66,10 @@ public:
 
     ModemManager::ModemGsmCardInterface::Ptr getModemCardIface();
     void setModemCardIface(const ModemManager::ModemGsmCardInterface::Ptr &iface);
+    void clearModemCardIface();
     ModemManager::ModemInterface::Ptr getModemNetworkIface();
     void setModemNetworkIface(const ModemManager::ModemGsmNetworkInterface::Ptr &iface);
+    void clearModemNetworkIface();
 Q_SIGNALS:
     /**
      * This signal is emitted when the capabilities of the device change

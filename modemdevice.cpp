@@ -168,9 +168,19 @@ void NetworkManager::ModemDevice::setModemCardIface(const ModemManager::ModemGsm
     modemGsmCardIface = iface;
 }
 
+void NetworkManager::ModemDevice::clearModemCardIface()
+{
+    modemGsmCardIface.clear();
+}
+
 void NetworkManager::ModemDevice::setModemNetworkIface(const ModemManager::ModemGsmNetworkInterface::Ptr &iface)
 {
     modemGsmNetworkIface = iface;
+}
+
+void NetworkManager::ModemDevice::clearModemNetworkIface()
+{
+    modemGsmNetworkIface.clear();
 }
 
 // vim: sw=4 sts=4 et tw=100
