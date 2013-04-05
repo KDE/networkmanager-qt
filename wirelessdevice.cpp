@@ -193,15 +193,28 @@ void NetworkManager::WirelessDevice::wirelessPropertiesChanged(const QVariantMap
     }
 }
 
-void NetworkManager::WirelessDevice::accessPointAdded(const QDBusObjectPath &apPath)
+void NetworkManager::WirelessDevice::accessPointAdded(const QDBusObjectPath &accessPoint)
 {
     //kDebug(1441) << apPath.path();
     Q_D(WirelessDevice);
-    if (!d->apMap.contains(apPath.path())) {
-        d->apMap.insert(apPath.path(), NetworkManager::AccessPoint::Ptr());
-        emit accessPointAppeared(apPath.path());
+
+    bool newAccessPoint = !d->apMap.contains(accessPoint.path());
+
+    NetworkManager::AccessPoint::Ptr accessPointPtr = findAccessPoint(accessPoint.path());
+    if (accessPointPtr.isNull()) {
+        return;
     }
-    d->accessPointAppearedInternal(apPath.path());
+
+    QString ssid = accessPointPtr->ssid();
+    if (!ssid.isEmpty() && !d->networks.contains(ssid)) {
+        NetworkManager::WirelessNetwork::Ptr wifiNetwork(new NetworkManager::WirelessNetwork(accessPointPtr, this));
+        d->networks.insert(ssid, wifiNetwork);
+        emit networkAppeared(ssid);
+    }
+
+    if (newAccessPoint) {
+        emit accessPointAppeared(accessPoint.path());
+    }
 }
 
 void NetworkManager::WirelessDevice::accessPointRemoved(const QDBusObjectPath &accessPoint)
@@ -246,22 +259,6 @@ NetworkManager::WirelessDevice::OperationMode NetworkManager::WirelessDevice::co
 NetworkManager::WirelessDevice::Capabilities NetworkManager::WirelessDevice::convertCapabilities(uint caps)
 {
     return (NetworkManager::WirelessDevice::Capabilities)caps;
-}
-
-void NetworkManager::WirelessDevicePrivate::accessPointAppearedInternal(const QString &accessPointUNI)
-{
-    Q_Q(WirelessDevice);
-
-    NetworkManager::AccessPoint::Ptr accessPoint = q->findAccessPoint(accessPointUNI);
-    QString ssid = accessPoint->ssid();
-    //nmDebug() << ssid << d->networks.contains(ssid);
-    if (ssid.isEmpty()) {
-        //nmDebug() << "ignoring hidden AP with BSSID:" << ap->hardwareAddress();
-    } else if (!networks.contains(ssid)) {
-        NetworkManager::WirelessNetwork::Ptr wifiNetwork(new NetworkManager::WirelessNetwork(accessPoint, q));
-        networks.insert(ssid, wifiNetwork);
-        q->networkAppeared(ssid);
-    }
 }
 
 #include "wirelessdevice.moc"

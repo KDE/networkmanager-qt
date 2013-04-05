@@ -1,6 +1,7 @@
 /*
 Copyright 2008,2010 Will Stephenson <wstephenson@kde.org>
 Copyright 2011-2012 Lamarque Souza <lamarque@kde.org>
+Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -197,10 +198,15 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::fin
 NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetworkInterface(const QString &uni)
 {
     //nmDebug();
-    OrgFreedesktopNetworkManagerDeviceInterface devIface(NetworkManagerPrivate::DBUS_SERVICE, uni, QDBusConnection::systemBus());
-    uint deviceType = devIface.deviceType();
     NetworkManager::Device::Ptr createdInterface;
-    switch ( deviceType ) {
+    OrgFreedesktopNetworkManagerDeviceInterface devIface(NetworkManagerPrivate::DBUS_SERVICE, uni, QDBusConnection::systemBus());
+    if (devIface.isValid()) {
+        qWarning() << Q_FUNC_INFO << "Failed to create device interface:" << devIface.lastError().message();
+        return createdInterface;
+    }
+
+    uint deviceType = devIface.deviceType();
+    switch (deviceType) {
     case NM_DEVICE_TYPE_ETHERNET:
         createdInterface = Device::Ptr(new NetworkManager::WiredDevice(uni, this));
         break;

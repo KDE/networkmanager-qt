@@ -35,7 +35,7 @@ class NMQT_EXPORT WirelessNetwork : public QObject
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(WirelessNetwork)
-    friend class WirelessDevicePrivate;
+    friend class WirelessDevice;
 public:
     typedef QSharedPointer<WirelessNetwork> Ptr;
     typedef QList<Ptr> List;

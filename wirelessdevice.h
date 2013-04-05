@@ -156,7 +156,7 @@ public:
 
 protected Q_SLOTS:
     void wirelessPropertiesChanged(const QVariantMap &properties);
-    void accessPointAdded(const QDBusObjectPath &);
+    void accessPointAdded(const QDBusObjectPath &accessPoint);
     void accessPointRemoved(const QDBusObjectPath &accessPoint);
 Q_SIGNALS:
     /**

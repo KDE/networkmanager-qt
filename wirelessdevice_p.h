@@ -28,11 +28,7 @@ namespace NetworkManager {
 
 class WirelessDevicePrivate : public DevicePrivate
 {
-    Q_DECLARE_PUBLIC(WirelessDevice)
 public:
-    void accessPointAppearedInternal(const QString&accessPointUNI);
-
-    WirelessDevice *q_ptr;
     WirelessDevicePrivate(const QString &path, QObject * owner);
     OrgFreedesktopNetworkManagerDeviceWirelessInterface wirelessIface;
     QString permanentHardwareAddress;
