@@ -24,6 +24,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "QtNetworkManager-export.h"
 #include "device.h"
 #include "accesspoint.h"
+#include "wirelessnetwork.h"
 
 #include <QDBusObjectPath>
 #include <QDBusPendingReply>
@@ -142,10 +143,21 @@ public:
      */
     AccessPoint::Ptr findAccessPoint(const QString & uni) const;
 
+    /**
+     * Return the current list of networks
+     */
+    WirelessNetwork::List networks() const;
+
+    /**
+     * Find a network with the given ssid, a Null object is
+     * returned if it can not be found
+     */
+    WirelessNetwork::Ptr findNetwork(const QString &ssid) const;
+
 protected Q_SLOTS:
     void wirelessPropertiesChanged(const QVariantMap &);
     void accessPointAdded(const QDBusObjectPath &);
-    void accessPointRemoved(const QDBusObjectPath &);
+    void accessPointRemoved(const QDBusObjectPath &accessPoint);
 Q_SIGNALS:
     /**
      * This signal is emitted when the bitrate of this network has changed.
@@ -180,11 +192,19 @@ Q_SIGNALS:
     /**
      * A new wireless access point appeared
      */
-    void accessPointAppeared(const QString &);
+    void accessPointAppeared(const QString &uni);
     /**
      * A wireless access point disappeared
      */
-    void accessPointDisappeared(const QString &);
+    void accessPointDisappeared(const QString &uni);
+    /**
+     * A wireless network appeared
+     */
+    void networkAppeared(const QString &ssid);
+    /**
+     * A wireless network disappeared
+     */
+    void networkDisappeared(const QString &ssid);
 };
 
 } // namespace NetworkManager

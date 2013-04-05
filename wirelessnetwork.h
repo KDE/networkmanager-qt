@@ -22,20 +22,23 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #define NMQT_WIRELESSNETWORK_H
 
 #include "QtNetworkManager-export.h"
+#include "accesspoint.h"
 
 #include <QtCore/QObject>
 #include <QSharedPointer>
 
 namespace NetworkManager {
 
+class WirelessDevice;
 class WirelessNetworkPrivate;
 class NMQT_EXPORT WirelessNetwork : public QObject
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(WirelessNetwork)
-    friend class WirelessNetworkInterfaceEnvironment;
+    friend class WirelessDevicePrivate;
 public:
     typedef QSharedPointer<WirelessNetwork> Ptr;
+    typedef QList<Ptr> List;
     ~WirelessNetwork();
     /**
      * ESSID of the network
@@ -54,13 +57,13 @@ public:
      * Use @ref WirelessDevice::accessPointDisappeared() or
      * WirelessNetwork::referenceAccessPointChanged() to detect this.
      */
-    QString referenceAccessPoint() const;
+    AccessPoint::Ptr referenceAccessPoint() const;
 
     /**
      * List of access points
      * Subject to change, do not store!
      */
-    QStringList accessPoints() const;
+    AccessPoint::List accessPoints() const;
 
 Q_SIGNALS:
     /**
@@ -84,8 +87,8 @@ private Q_SLOTS:
     void accessPointDisappeared(const QString &);
     void updateStrength();
 private:
-    WirelessNetwork(const QString &accessPoint, const QString &network);
-    void addAccessPointInternal(const QString &uni);
+    explicit WirelessNetwork(const AccessPoint::Ptr &accessPoint, WirelessDevice *device);
+    void addAccessPointInternal(const AccessPoint::Ptr &accessPoint);
     WirelessNetworkPrivate * d_ptr;
 };
 

@@ -28,11 +28,16 @@ namespace NetworkManager {
 
 class WirelessDevicePrivate : public DevicePrivate
 {
+    Q_DECLARE_PUBLIC(WirelessDevice)
 public:
+    void accessPointAppearedInternal(const QString&accessPointUNI);
+
+    WirelessDevice *q_ptr;
     WirelessDevicePrivate(const QString &path, QObject * owner);
     OrgFreedesktopNetworkManagerDeviceWirelessInterface wirelessIface;
     QString permanentHardwareAddress;
     QString hardwareAddress;
+    QHash<QString, WirelessNetwork::Ptr> networks;
     mutable QMap<QString, AccessPoint::Ptr> apMap;
     // index of the active AP or -1 if none
     QString activeAccessPoint;

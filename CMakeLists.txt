@@ -71,7 +71,6 @@ set(QtNetworkManager_HEADERS
     wireddevice.h
     wirelessdevice.h
     wirelessnetwork.h
-    wirelessnetworkinterfaceenvironment.h
     generic-types.h
     QtNetworkManager-export.h
 )
@@ -133,7 +132,6 @@ set(QtNetworkManager_PART_SRCS
     wireddevice.cpp
     wirelessdevice.cpp
     wirelessnetwork.cpp
-    wirelessnetworkinterfaceenvironment.cpp
     generic-types.cpp
 )
 

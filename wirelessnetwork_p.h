@@ -30,7 +30,7 @@ class WirelessNetworkPrivate
 public:
     QString ssid;
     int strength;
-    WirelessDevice::Ptr wirelessNetworkInterface;
+    WirelessDevice *wirelessNetworkInterface;
     QHash<QString, AccessPoint::Ptr> aps;
 };
 

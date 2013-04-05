@@ -144,6 +144,22 @@ NetworkManager::AccessPoint::Ptr NetworkManager::WirelessDevice::findAccessPoint
     return accessPoint;
 }
 
+NetworkManager::WirelessNetwork::List NetworkManager::WirelessDevice::networks() const
+{
+    Q_D(const WirelessDevice);
+    return d->networks.values();
+}
+
+NetworkManager::WirelessNetwork::Ptr NetworkManager::WirelessDevice::findNetwork(const QString &ssid) const
+{
+    Q_D(const WirelessDevice);
+    NetworkManager::WirelessNetwork::Ptr ret;
+    if (d->networks.contains(ssid)) {
+        ret = d->networks.value(ssid);
+    }
+    return ret;
+}
+
 void NetworkManager::WirelessDevice::wirelessPropertiesChanged(const QVariantMap & changedProperties)
 {
     Q_D(WirelessDevice);
@@ -184,17 +200,22 @@ void NetworkManager::WirelessDevice::accessPointAdded(const QDBusObjectPath &apP
         d->apMap.insert(apPath.path(), NetworkManager::AccessPoint::Ptr());
         emit accessPointAppeared(apPath.path());
     }
+    d->accessPointAppearedInternal(apPath.path());
 }
 
-void NetworkManager::WirelessDevice::accessPointRemoved(const QDBusObjectPath &apPath)
+void NetworkManager::WirelessDevice::accessPointRemoved(const QDBusObjectPath &accessPoint)
 {
     //kDebug(1441) << apPath.path();
     Q_D(WirelessDevice);
-    if (!d->apMap.contains(apPath.path())) {
-        nmDebug() << "Access point list lookup failed for " << apPath.path();
+    if (!d->apMap.contains(accessPoint.path())) {
+        nmDebug() << "Access point list lookup failed for " << accessPoint.path();
     }
-    d->apMap.remove(apPath.path());
-    emit accessPointDisappeared(apPath.path());
+    emit accessPointDisappeared(accessPoint.path());
+    d->apMap.remove(accessPoint.path());
+    if (d->networks.contains(accessPoint.path())) {
+        emit networkDisappeared(accessPoint.path());
+        d->networks.remove(accessPoint.path());
+    }
 }
 
 NetworkManager::WirelessDevice::OperationMode NetworkManager::WirelessDevice::convertOperationMode(uint theirMode)
@@ -224,6 +245,22 @@ NetworkManager::WirelessDevice::OperationMode NetworkManager::WirelessDevice::co
 NetworkManager::WirelessDevice::Capabilities NetworkManager::WirelessDevice::convertCapabilities(uint caps)
 {
     return (NetworkManager::WirelessDevice::Capabilities)caps;
+}
+
+void NetworkManager::WirelessDevicePrivate::accessPointAppearedInternal(const QString &accessPointUNI)
+{
+    Q_Q(WirelessDevice);
+
+    NetworkManager::AccessPoint::Ptr accessPoint = q->findAccessPoint(accessPointUNI);
+    QString ssid = accessPoint->ssid();
+    //nmDebug() << ssid << d->networks.contains(ssid);
+    if (ssid.isEmpty()) {
+        //nmDebug() << "ignoring hidden AP with BSSID:" << ap->hardwareAddress();
+    } else if (!networks.contains(ssid)) {
+        NetworkManager::WirelessNetwork::Ptr wifiNetwork(new NetworkManager::WirelessNetwork(accessPoint, q));
+        networks.insert(ssid, wifiNetwork);
+        q->networkAppeared(ssid);
+    }
 }
 
 #include "wirelessdevice.moc"
