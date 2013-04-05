@@ -1,5 +1,6 @@
 /*
 Copyright 2008,2011 Will Stephenson <wstephenson@kde.org>
+Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -33,8 +34,6 @@ namespace NetworkManager
 {
 
 class WirelessDevicePrivate;
-class AccessPoint;
-typedef QStringList AccessPointList;
 
 /**
  * A wireless network interface
@@ -88,7 +87,7 @@ public:
     /**
      * List of wireless networks currently visible to the hardware
      */
-    AccessPointList accessPoints() const;
+    QStringList accessPoints() const;
     /**
      * @param options Options of scan
      * No documentation for options yet, see http://projects.gnome.org/NetworkManager/developers/api/09/spec.html#org.freedesktop.NetworkManager.Device.Wireless
