@@ -1,5 +1,6 @@
 /*
 Copyright 2008 Will Stephenson <wstephenson@kde.org>
+Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -144,72 +145,39 @@ int NetworkManager::AccessPoint::signalStrength() const
 void NetworkManager::AccessPoint::propertiesChanged(const QVariantMap &properties)
 {
     Q_D(AccessPoint);
-    QStringList propKeys = properties.keys();
-    //nmDebug() << propKeys;
-    QLatin1String flagsKey("Flags"),
-                  wpaFlagsKey("WpaFlags"),
-                  rsnFlagsKey("RsnFlags"),
-                  ssidKey("Ssid"),
-                  freqKey("Frequency"),
-                  hwAddrKey("HwAddress"),
-                  modeKey("Mode"),
-                  maxBitRateKey("MaxBitrate"),
-                  strengthKey("Strength");
-    QVariantMap::const_iterator it = properties.find(flagsKey);
-    if (it != properties.end()) {
-        d->capabilities = convertCapabilities(it->toUInt());
-        emit capabilitiesChanged(d->capabilities);
-        propKeys.removeOne(flagsKey);
-    }
-    it = properties.find(wpaFlagsKey);
-    if (it != properties.end()) {
-        d->wpaFlags = convertWpaFlags(it->toUInt());
-        emit wpaFlagsChanged(d->wpaFlags);
-        propKeys.removeOne(wpaFlagsKey);
-    }
-    it = properties.find(rsnFlagsKey);
-    if (it != properties.end()) {
-        d->rsnFlags = convertWpaFlags(it->toUInt());
-        emit rsnFlagsChanged(d->rsnFlags);
-        propKeys.removeOne(rsnFlagsKey);
-    }
-    it = properties.find(ssidKey);
-    if (it != properties.end()) {
-        d->ssid = it->toByteArray();
-        emit ssidChanged(d->ssid);
-        propKeys.removeOne(ssidKey);
-    }
-    it = properties.find(freqKey);
-    if (it != properties.end()) {
-        d->frequency = it->toUInt();
-        emit frequencyChanged(d->frequency);
-        propKeys.removeOne(freqKey);
-    }
-    it = properties.find(hwAddrKey);
-    if (it != properties.end()) {
-        d->hardwareAddress = it->toString();
-        propKeys.removeOne(hwAddrKey);
-    }
-    it = properties.find(modeKey);
-    if (it != properties.end()) {
-        d->mode = WirelessDevice::convertOperationMode(it->toUInt());
-        propKeys.removeOne(modeKey);
-    }
-    it = properties.find(maxBitRateKey);
-    if (it != properties.end()) {
-        d->maxBitRate = it->toUInt();
-        emit bitRateChanged(d->maxBitRate);
-        propKeys.removeOne(maxBitRateKey);
-    }
-    it = properties.find(strengthKey);
-    if (it != properties.end()) {
-        d->signalStrength = it->toInt();
-        //nmDebug() << "UNI: " << d->uni << "MAC: " << d->hardwareAddress << "SignalStrength: " << d->signalStrength;
-        emit signalStrengthChanged(d->signalStrength);
-        propKeys.removeOne(strengthKey);
-    }
-    if (propKeys.count()) {
-        nmDebug() << "Unhandled properties: " << propKeys;
+
+    QVariantMap::const_iterator it = properties.constBegin();
+    while (it != properties.constEnd()) {
+        QString property = it.key();
+        if (property == QLatin1String("Flags")) {
+            d->capabilities = convertCapabilities(it->toUInt());
+            emit capabilitiesChanged(d->capabilities);
+        } else if (property == QLatin1String("WpaFlags")) {
+            d->wpaFlags = convertWpaFlags(it->toUInt());
+            emit wpaFlagsChanged(d->wpaFlags);
+        } else if (property == QLatin1String("RsnFlags")) {
+            d->rsnFlags = convertWpaFlags(it->toUInt());
+            emit rsnFlagsChanged(d->rsnFlags);
+        } else if (property == QLatin1String("Ssid")) {
+            d->ssid = it->toByteArray();
+            emit ssidChanged(d->ssid);
+        } else if (property == QLatin1String("Frequency")) {
+            d->frequency = it->toUInt();
+            emit frequencyChanged(d->frequency);
+        } else if (property == QLatin1String("HwAddress")) {
+            d->hardwareAddress = it->toString();
+        } else if (property == QLatin1String("Mode")) {
+            d->mode = WirelessDevice::convertOperationMode(it->toUInt());
+        } else if (property == QLatin1String("MaxBitrate")) {
+            d->maxBitRate = it->toUInt();
+            emit bitRateChanged(d->maxBitRate);
+        } else if (property == QLatin1String("Strength")) {
+            d->signalStrength = it->toInt();
+            emit signalStrengthChanged(d->signalStrength);
+        } else {
+            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+        }
+        ++it;
     }
 }
 

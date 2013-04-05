@@ -101,7 +101,7 @@ void NetworkManager::WiredDevice::wiredPropertiesChanged(const QVariantMap &chan
             d->bitrate = it->toUInt() * 1000;
             emit bitRateChanged(d->bitrate);
         } else {
-            qWarning() << "Unhandled property" << property;
+            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
         }
         ++it;
     }

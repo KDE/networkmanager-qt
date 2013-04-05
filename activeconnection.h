@@ -102,7 +102,7 @@ public:
     QList<Device *> devices() const;
 
 protected Q_SLOTS:
-    void propertiesChanged(const QVariantMap &);
+    void propertiesChanged(const QVariantMap &properties);
 
 protected:
     ActiveConnectionPrivate *d_ptr;

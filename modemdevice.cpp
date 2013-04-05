@@ -1,5 +1,6 @@
 /*
 Copyright 2008,2011 Will Stephenson <wstephenson@kde.org>
+Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -83,14 +84,20 @@ NetworkManager::ModemDevice::Capabilities NetworkManager::ModemDevice::modemCapa
     return d->modemCapabilities;
 }
 
-void NetworkManager::ModemDevice::modemPropertiesChanged(const QVariantMap & changedProperties)
+void NetworkManager::ModemDevice::modemPropertiesChanged(const QVariantMap &properties)
 {
     Q_D(ModemDevice);
-    QLatin1String currentCapsKey("CurrentCapabilities");
-    QVariantMap::const_iterator it = changedProperties.find(currentCapsKey);
-    if (it != changedProperties.end()) {
-        d->currentCapabilities = convertModemCapabilities((*it).toUInt());
-        emit currentCapabilitiesChanged(d->currentCapabilities);
+
+    QVariantMap::const_iterator it = properties.constBegin();
+    while (it != properties.constEnd()) {
+        QString property = it.key();
+        if (property == QLatin1String("CurrentCapabilities")) {
+            d->currentCapabilities = convertModemCapabilities((*it).toUInt());
+            emit currentCapabilitiesChanged(d->currentCapabilities);
+        } else {
+            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+        }
+        ++it;
     }
 }
 

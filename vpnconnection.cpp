@@ -74,28 +74,24 @@ NetworkManager::VpnConnection::State NetworkManager::VpnConnection::state() cons
     return d->state;
 }
 
-void NetworkManager::VpnConnection::propertiesChanged(const QVariantMap & changedProperties)
+void NetworkManager::VpnConnection::propertiesChanged(const QVariantMap &properties)
 {
     Q_D(VpnConnection);
-    //nmDebug() << changedProperties.keys();
-    QStringList propKeys = changedProperties.keys();
-    QLatin1String bannerKey("Banner"),
-                  stateKey("State");
-    QVariantMap::const_iterator it = changedProperties.find(bannerKey);
-    if (it != changedProperties.end()) {
-        d->banner = it->toString();
-        emit bannerChanged(d->banner);
-        propKeys.removeOne(bannerKey);
+
+    QVariantMap::const_iterator it = properties.constBegin();
+    while (it != properties.constEnd()) {
+        QString property = it.key();
+        if (property == QLatin1String("Banner")) {
+            d->banner = it->toString();
+            emit bannerChanged(d->banner);
+        } else if (property == QLatin1String("State")) {
+            d->state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(it->toUInt());
+            emit stateChanged(d->state);
+        } else {
+            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+        }
+        ++it;
     }
-    it = changedProperties.find(stateKey);
-    if (it != changedProperties.end()) {
-        d->state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(it->toUInt());
-        emit stateChanged(d->state);
-        propKeys.removeOne(stateKey);
-    }
-    //if (propKeys.count()) {
-    //    nmDebug() << "Unhandled properties: " << propKeys;
-    //}
 }
 
 void NetworkManager::VpnConnection::vpnStateChanged(uint state, uint reason)

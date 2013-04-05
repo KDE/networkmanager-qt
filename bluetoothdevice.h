@@ -81,7 +81,7 @@ public:
     virtual Type type() const;
 
 public Q_SLOTS:
-    void btPropertiesChanged(const QVariantMap & changedProperties);
+    void btPropertiesChanged(const QVariantMap & properties);
 Q_SIGNALS:
     void nameChanged(const QString &name);
 };

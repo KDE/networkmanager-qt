@@ -140,7 +140,7 @@ public:
     AccessPoint *findAccessPoint(const QString & uni) const;
 
 protected Q_SLOTS:
-    void wirelessPropertiesChanged(const QVariantMap &);
+    void wirelessPropertiesChanged(const QVariantMap &properties);
     void accessPointAdded(const QDBusObjectPath &);
     void accessPointRemoved(const QDBusObjectPath &);
 Q_SIGNALS:

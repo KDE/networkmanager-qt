@@ -99,7 +99,7 @@ public:
     WimaxNsp *findNsp(const QString & uni) const;
 
 protected Q_SLOTS:
-    void wimaxPropertiesChanged(const QVariantMap &);
+    void wimaxPropertiesChanged(const QVariantMap &properties);
     void nspAdded(const QDBusObjectPath &);
     void nspRemoved(const QDBusObjectPath &);
 Q_SIGNALS:

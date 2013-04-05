@@ -74,7 +74,7 @@ public:
     operator VpnConnection*();
 
 protected Q_SLOTS:
-    void propertiesChanged(const QVariantMap &);
+    void propertiesChanged(const QVariantMap &properties);
     void vpnStateChanged(uint state, uint reason);
 Q_SIGNALS:
     /**

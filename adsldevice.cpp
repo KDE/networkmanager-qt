@@ -1,5 +1,6 @@
 /*
     Copyright 2012-2013  Jan Grulich <jgrulich@redhat.com>
+    Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -79,11 +80,17 @@ void NetworkManager::AdslDevice::onPropertiesChanged(const QVariantMap& properti
 {
     Q_D(AdslDevice);
 
-    if (properties.contains(QLatin1String("Carrier"))) {
-        d->carrier = properties.value(QLatin1String("Carrier")).toBool();
-        emit carrierChanged(d->carrier);
+    QVariantMap::const_iterator it = properties.constBegin();
+    while (it != properties.constEnd()) {
+        QString property = it.key();
+        if (property == QLatin1String("Carrier")) {
+            d->carrier = it->toBool();
+            emit carrierChanged(d->carrier);
+        } else {
+            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+        }
+        ++it;
     }
-
 }
 
 #include "adsldevice.moc"
