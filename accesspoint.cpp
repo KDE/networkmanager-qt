@@ -170,7 +170,7 @@ NetworkManager::AccessPoint::OperationMode NetworkManager::AccessPoint::convertO
 
 void NetworkManager::AccessPoint::propertiesChanged(const QVariantMap &properties)
 {
-    Q_D(AccessPoint)
+    Q_D(AccessPoint);
 
     QVariantMap::const_iterator it = properties.constBegin();
     while (it != properties.constEnd()) {
@@ -193,7 +193,7 @@ void NetworkManager::AccessPoint::propertiesChanged(const QVariantMap &propertie
         } else if (property == QLatin1String("HwAddress")) {
             d->hardwareAddress = it->toString();
         } else if (property == QLatin1String("Mode")) {
-            d->mode = WirelessDevice::convertOperationMode(it->toUInt());
+            d->mode = convertOperationMode(it->toUInt());
         } else if (property == QLatin1String("MaxBitrate")) {
             d->maxBitRate = it->toUInt();
             emit bitRateChanged(d->maxBitRate);

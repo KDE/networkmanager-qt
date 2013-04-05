@@ -141,16 +141,6 @@ QStringList NetworkManager::ActiveConnection::devices() const
     return d->devices;
 }
 
-QList<NetworkManager::Device *> NetworkManager::ActiveConnection::devices() const
-{
-    Q_D(const ActiveConnection);
-    QList<Device *> list;
-    foreach (const QString &path, d->devices) {
-        list.append(NetworkManager::findNetworkInterface(path));
-    }
-    return list;
-}
-
 void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap &properties)
 {
     Q_D(ActiveConnection);
