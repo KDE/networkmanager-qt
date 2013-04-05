@@ -38,6 +38,7 @@ Q_PROPERTY(QList<QDBusObjectPath> slaves READ slaves NOTIFY slavesChanged)
 
 public:
     typedef QSharedPointer<BridgeDevice> Ptr;
+    typedef QList<Ptr> List;
     BridgeDevice(const QString& path, QObject* parent = 0);
     virtual ~BridgeDevice();
 

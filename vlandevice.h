@@ -38,6 +38,7 @@ Q_PROPERTY(uint vlanId READ vlanId NOTIFY vlanIdChanged)
 
 public:
     typedef QSharedPointer<VlanDevice> Ptr;
+    typedef QList<Ptr> List;
 
     VlanDevice(const QString& path, QObject* parent = 0);
     virtual ~VlanDevice();

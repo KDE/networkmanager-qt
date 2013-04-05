@@ -41,6 +41,7 @@ Q_PROPERTY(int bitRate READ bitRate NOTIFY bitRateChanged)
 
 public:
     typedef QSharedPointer<WiredDevice> Ptr;
+    typedef QList<Ptr> List;
     WiredDevice(const QString & path, QObject * parent = 0);
     virtual ~WiredDevice();
     /**

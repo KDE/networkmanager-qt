@@ -41,6 +41,8 @@ Q_OBJECT
 Q_DECLARE_PRIVATE(OlpcMeshDevice)
 
 public:
+    typedef QSharedPointer<OlpcMeshDevice> Ptr;
+    typedef QList<Ptr> List;
     /**
      * Creates a new OlpcMeshDevice object.
      *
@@ -66,7 +68,7 @@ public:
     /**
      * The current companion device.
      */
-    Ptr companionDevice() const;
+    Device::Ptr companionDevice() const;
 
 protected Q_SLOTS:
     void propertiesChanged(const QVariantMap &);

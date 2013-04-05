@@ -1,5 +1,6 @@
 /*
 Copyright 2011 Ilia Kats <ilia-kats@gmx.net>
+Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -23,7 +24,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "QtNetworkManager-export.h"
 
-#include "wimaxdevice.h"
+#include <QSharedPointer>
+#include <QVariantMap>
 
 namespace NetworkManager {
 
@@ -34,6 +36,8 @@ class NMQT_EXPORT WimaxNsp : public QObject
 Q_OBJECT
 Q_DECLARE_PRIVATE(WimaxNsp)
 public:
+    typedef QSharedPointer<WimaxNsp> Ptr;
+    typedef QList<Ptr> List;
     /**
      * network types a NSP can have
      */

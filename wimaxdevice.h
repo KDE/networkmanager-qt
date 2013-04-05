@@ -1,5 +1,6 @@
 /*
 Copyright 2011 Ilia Kats <ilia-kats@gmx.net>
+Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -24,6 +25,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "QtNetworkManager-export.h"
 
 #include "device.h"
+#include "wimaxnsp.h"
 
 #include <QDBusObjectPath>
 
@@ -44,6 +46,7 @@ Q_DECLARE_PRIVATE(WimaxDevice)
 
 public:
     typedef QSharedPointer<WimaxDevice> Ptr;
+    typedef QList<Ptr> List;
 
     /**
      * Creates a new WimaxDevice object.
@@ -66,7 +69,7 @@ public:
     /**
      * Identifier of the NSP this interface is currently associated with
      */
-    WimaxNsp * activeNsp() const;
+    WimaxNsp::Ptr activeNsp() const;
     /**
      * The ID of the serving base station as received from the network.
      */
@@ -98,7 +101,7 @@ public:
      * @param uni the identifier of the AP to find from this network interface
      * @returns a valid WimaxNsp object if a network having the given UNI for this device is known to the system, 0 otherwise
      */
-    WimaxNsp *findNsp(const QString & uni) const;
+    NetworkManager::WimaxNsp::Ptr findNsp(const QString &uni) const;
 
 protected Q_SLOTS:
     void wimaxPropertiesChanged(const QVariantMap &);

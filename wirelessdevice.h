@@ -47,6 +47,7 @@ Q_DECLARE_PRIVATE(WirelessDevice)
 
 public:
     typedef QSharedPointer<WirelessDevice> Ptr;
+    typedef QList<Ptr> List;
 
     /**
      * The device's current operating mode

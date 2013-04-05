@@ -42,6 +42,7 @@ Q_FLAGS(Capabilities)
 
 public:
     typedef QSharedPointer<BluetoothDevice> Ptr;
+    typedef QList<Ptr> List;
     /**
      * Capabilities of the Bluetooth device
      * Dun: DUN - Dial Up Networking profile

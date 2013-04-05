@@ -32,7 +32,7 @@ public:
     WimaxDevicePrivate(const QString &path, QObject * owner);
     OrgFreedesktopNetworkManagerDeviceWiMaxInterface wimaxIface;
     QString hardwareAddress;
-    mutable QMap<QString, WimaxNsp *> nspMap;
+    mutable QMap<QString, WimaxNsp::Ptr> nspMap;
     QString activeNsp;
     uint centerFrequency;
     int cinr;

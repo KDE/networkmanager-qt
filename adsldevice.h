@@ -36,6 +36,7 @@ Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
 
 public:
     typedef QSharedPointer<AdslDevice> Ptr;
+    typedef QList<Ptr> List;
     AdslDevice(const QString& path, QObject* parent = 0);
     virtual ~AdslDevice();
 

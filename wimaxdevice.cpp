@@ -1,5 +1,6 @@
 /*
 Copyright 2011 Ilia Kats <ilia-kats@gmx.net>
+Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -59,7 +60,7 @@ NetworkManager::WimaxDevice::WimaxDevice(const QString & path, QObject * parent)
         QList <QDBusObjectPath> nsps = nspPathList.value();
         foreach (const QDBusObjectPath &op, nsps)
         {
-            d->nspMap.insert(op.path(), 0);
+            d->nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
             //nmDebug() << "  " << op.path();
         }
     }
@@ -84,7 +85,7 @@ QStringList NetworkManager::WimaxDevice::nsps() const
     return d->nspMap.keys();
 }
 
-NetworkManager::WimaxNsp * NetworkManager::WimaxDevice::activeNsp() const
+NetworkManager::WimaxNsp::Ptr NetworkManager::WimaxDevice::activeNsp() const
 {
     Q_D(const WimaxDevice);
     return findNsp(d->activeNsp);
@@ -126,15 +127,15 @@ int NetworkManager::WimaxDevice::txPower() const
     return d->txPower;
 }
 
-NetworkManager::WimaxNsp * NetworkManager::WimaxDevice::findNsp(const QString & uni) const
+NetworkManager::WimaxNsp::Ptr NetworkManager::WimaxDevice::findNsp(const QString & uni) const
 {
     Q_D(const WimaxDevice);
-    NetworkManager::WimaxNsp * nsp = 0;
-    QMap<QString,NetworkManager::WimaxNsp *>::ConstIterator mapIt = d->nspMap.constFind(uni);
-    if (mapIt != d->nspMap.constEnd() && mapIt.value() != 0) {
+    NetworkManager::WimaxNsp::Ptr nsp;
+    QMap<QString, NetworkManager::WimaxNsp::Ptr>::ConstIterator mapIt = d->nspMap.constFind(uni);
+    if (mapIt != d->nspMap.constEnd() && !mapIt.value().isNull()) {
         nsp = mapIt.value();
     } else {
-        nsp = new NetworkManager::WimaxNsp(uni, 0);
+        nsp = NetworkManager::WimaxNsp::Ptr(new NetworkManager::WimaxNsp(uni));
         d->nspMap.insert(uni, nsp);
     }
 
@@ -205,7 +206,7 @@ void NetworkManager::WimaxDevice::nspAdded(const QDBusObjectPath &nspPath)
     //nmDebug() << nspPath.path();
     Q_D(WimaxDevice);
     if (!d->nspMap.contains(nspPath.path())) {
-        d->nspMap.insert(nspPath.path(), 0);
+        d->nspMap.insert(nspPath.path(), NetworkManager::WimaxNsp::Ptr());
         emit nspAppeared(nspPath.path());
     }
 }
@@ -217,9 +218,8 @@ void NetworkManager::WimaxDevice::nspRemoved(const QDBusObjectPath &nspPath)
     if (!d->nspMap.contains(nspPath.path())) {
         nmDebug() << "Access point list lookup failed for " << nspPath.path();
     }
-    NetworkManager::WimaxNsp * nsp = d->nspMap.take(nspPath.path());
-    delete nsp;
     emit nspDisappeared(nspPath.path());
+    d->nspMap.remove(nspPath.path());
 }
 
 #include "wimaxdevice.moc"
