@@ -200,8 +200,8 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
     //nmDebug();
     NetworkManager::Device::Ptr createdInterface;
     OrgFreedesktopNetworkManagerDeviceInterface devIface(NetworkManagerPrivate::DBUS_SERVICE, uni, QDBusConnection::systemBus());
-    if (devIface.isValid()) {
-        qWarning() << Q_FUNC_INFO << "Failed to create device interface:" << devIface.lastError().message();
+    if (!devIface.isValid()) {
+        qWarning() << Q_FUNC_INFO << "Failed to create device interface:" << uni << devIface.lastError().message();
         return createdInterface;
     }
 
