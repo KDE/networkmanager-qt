@@ -74,7 +74,7 @@ Q_SIGNALS:
      */
     void currentCapabilitiesChanged(Capabilities);
 protected Q_SLOTS:
-    void modemPropertiesChanged(const QVariantMap& props);
+    void modemPropertiesChanged(const QVariantMap& properties);
     void modemRemoved(const QString & modemUdi);
 protected:
     ModemManager::ModemGsmCardInterface *modemGsmCardIface;

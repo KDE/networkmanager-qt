@@ -142,63 +142,39 @@ NetworkManager::WimaxNsp::Ptr NetworkManager::WimaxDevice::findNsp(const QString
     return nsp;
 }
 
-void NetworkManager::WimaxDevice::wimaxPropertiesChanged(const QVariantMap & changedProperties)
+void NetworkManager::WimaxDevice::wimaxPropertiesChanged(const QVariantMap &properties)
 {
-    //nmDebug() << changedProperties.keys();
-    QStringList propKeys = changedProperties.keys();
     Q_D(WimaxDevice);
-    QLatin1String activeNspKey("ActiveNsp"),
-                  hwAddrKey("HwAddress"),
-                  bsidKey("Bsid"),
-                  centerFrequencyKey("CenterFrequency"),
-                  cinrKey("Cinr"),
-                  rssiKey("Rssi"),
-                  txPowerKey("TxPower");
-    QVariantMap::const_iterator it = changedProperties.find(activeNspKey);
-    if (it != changedProperties.end()) {
-        d->activeNsp = qdbus_cast<QDBusObjectPath>(*it).path();
-        emit activeNspChanged(d->activeNsp);
-        propKeys.removeOne(activeNspKey);
+
+    QVariantMap::const_iterator it = properties.constBegin();
+    while (it != properties.constEnd()) {
+        QString property = it.key();
+        if (property == QLatin1String("ActiveNsp")) {
+            d->activeNsp = qdbus_cast<QDBusObjectPath>(*it).path();
+            emit activeNspChanged(d->activeNsp);
+        } else if (property == QLatin1String("HwAddress")) {
+            d->hardwareAddress = it->toString();
+            emit hardwareAddressChanged(d->hardwareAddress);
+        } else if (property == QLatin1String("Bsid")) {
+            d->bsid = it->toString();
+            emit bsidChanged(d->bsid);
+        } else if (property == QLatin1String("CenterFrequency")) {
+            d->centerFrequency = it->toUInt();
+            emit centerFrequencyChanged(d->centerFrequency);
+        } else if (property == QLatin1String("Cinr")) {
+            d->cinr = it->toInt();
+            emit cinrChanged(d->cinr);
+        } else if (property == QLatin1String("Rssi")) {
+            d->rssi = it->toInt();
+            emit rssiChanged(d->rssi);
+        } else if (property == QLatin1String("TxPower")) {
+            d->txPower = it->toInt();
+            emit txPowerChanged(d->txPower);
+        } else {
+            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+        }
+        ++it;
     }
-    it = changedProperties.find(hwAddrKey);
-    if (it != changedProperties.end()) {
-        d->hardwareAddress = it->toString();
-        emit hardwareAddressChanged(d->hardwareAddress);
-        propKeys.removeOne(hwAddrKey);
-    }
-    it = changedProperties.find(bsidKey);
-    if (it != changedProperties.end()) {
-        d->bsid = it->toString();
-        emit bsidChanged(d->bsid);
-        propKeys.removeOne(bsidKey);
-    }
-    it = changedProperties.find(centerFrequencyKey);
-    if (it != changedProperties.end()) {
-        d->centerFrequency = it->toUInt();
-        emit centerFrequencyChanged(d->centerFrequency);
-        propKeys.removeOne(centerFrequencyKey);
-    }
-    it = changedProperties.find(cinrKey);
-    if (it != changedProperties.end()) {
-        d->cinr = it->toInt();
-        emit cinrChanged(d->cinr);
-        propKeys.removeOne(cinrKey);
-    }
-    it = changedProperties.find(rssiKey);
-    if (it != changedProperties.end()) {
-        d->rssi = it->toInt();
-        emit rssiChanged(d->rssi);
-        propKeys.removeOne(rssiKey);
-    }
-    it = changedProperties.find(txPowerKey);
-    if (it != changedProperties.end()) {
-        d->txPower = it->toInt();
-        emit txPowerChanged(d->txPower);
-        propKeys.removeOne(txPowerKey);
-    }
-    //if (propKeys.count()) {
-    //    nmDebug() << "Unhandled properties: " << propKeys;
-    //}
 }
 
 void NetworkManager::WimaxDevice::nspAdded(const QDBusObjectPath &nspPath)

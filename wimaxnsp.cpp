@@ -88,31 +88,23 @@ uint NetworkManager::WimaxNsp::signalQuality() const
 void NetworkManager::WimaxNsp::propertiesChanged(const QVariantMap &properties)
 {
     Q_D(WimaxNsp);
-    QStringList propKeys = properties.keys();
-    //nmDebug() << propKeys;
-    QLatin1String nameKey("Name"),
-                  networkTypeKey("NetworkType"),
-                  signalQualityKey("SignalQuality");
-    QVariantMap::const_iterator it = properties.find(networkTypeKey);
-    if (it != properties.end()) {
-        d->networkType = convertNetworkType(it->toUInt());
-        emit networkTypeChanged(d->networkType);
-        propKeys.removeOne(networkTypeKey);
-    }
-    it = properties.find(nameKey);
-    if (it != properties.end()) {
-        d->name = it->toString();
-        emit nameChanged(d->name);
-        propKeys.removeOne(nameKey);
-    }
-    it = properties.find(signalQualityKey);
-    if (it != properties.end()) {
-        d->signalQuality = it->toUInt();
-        emit signalQualityChanged(d->signalQuality);
-        propKeys.removeOne(signalQualityKey);
-    }
-    if (propKeys.count()) {
-        nmDebug() << "Unhandled properties: " << propKeys;
+
+    QVariantMap::const_iterator it = properties.constBegin();
+    while (it != properties.constEnd()) {
+        QString property = it.key();
+        if (property == QLatin1String("Name")) {
+            d->name = it->toString();
+            emit nameChanged(d->name);
+        } else if (property == QLatin1String("NetworkType")) {
+            d->networkType = convertNetworkType(it->toUInt());
+            emit networkTypeChanged(d->networkType);
+        } else if (property == QLatin1String("SignalQuality")) {
+            d->signalQuality = it->toUInt();
+            emit signalQualityChanged(d->signalQuality);
+        } else {
+            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+        }
+        ++it;
     }
 }
 

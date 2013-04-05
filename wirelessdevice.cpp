@@ -161,12 +161,12 @@ NetworkManager::WirelessNetwork::Ptr NetworkManager::WirelessDevice::findNetwork
     return ret;
 }
 
-void NetworkManager::WirelessDevice::wirelessPropertiesChanged(const QVariantMap & changedProperties)
+void NetworkManager::WirelessDevice::wirelessPropertiesChanged(const QVariantMap &properties)
 {
     Q_D(WirelessDevice);
 
-    QVariantMap::const_iterator it = changedProperties.constBegin();
-    while (it != changedProperties.constEnd()) {
+    QVariantMap::const_iterator it = properties.constBegin();
+    while (it != properties.constEnd()) {
         QString property = it.key();
         if (property == QLatin1String("ActiveAccessPoint")) {
             d->activeAccessPoint = qdbus_cast<QDBusObjectPath>(*it).path();
@@ -187,7 +187,7 @@ void NetworkManager::WirelessDevice::wirelessPropertiesChanged(const QVariantMap
             d->wirelessCapabilities = convertCapabilities(it->toUInt());
             emit wirelessCapabilitiesChanged(d->wirelessCapabilities);
         } else {
-            qWarning() << "Unhandled property" << property;
+            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
         }
         ++it;
     }

@@ -1,5 +1,6 @@
 /*
 Copyright 2011 Ilia Kats <ilia-kats@gmx.net>
+Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -70,35 +71,27 @@ NetworkManager::Device::Ptr NetworkManager::OlpcMeshDevice::companionDevice() co
     return NetworkManager::findNetworkInterface(d->companion);
 }
 
-void NetworkManager::OlpcMeshDevice::propertiesChanged(const QVariantMap & changedProperties)
+void NetworkManager::OlpcMeshDevice::propertiesChanged(const QVariantMap &properties)
 {
-    //nmDebug() << changedProperties.keys();
-    QStringList propKeys = changedProperties.keys();
     Q_D(OlpcMeshDevice);
-    QLatin1String activeChannelKey("ActiveChannel"),
-                  hwAddrKey("HwAddress"),
-                  companionKey("Companion");
-    QVariantMap::const_iterator it = changedProperties.find(activeChannelKey);
-    if (it != changedProperties.end()) {
-        d->activeChannel = it->toUInt();
-        emit activeChannelChanged(d->activeChannel);
-        propKeys.removeOne(activeChannelKey);
+
+    QVariantMap::const_iterator it = properties.constBegin();
+    while (it != properties.constEnd()) {
+        QString property = it.key();
+        if (property == QLatin1String("ActiveChannel")) {
+            d->activeChannel = it->toUInt();
+            emit activeChannelChanged(d->activeChannel);
+        } else if (property == QLatin1String("HwAddress")) {
+            d->hardwareAddress = it->toString();
+            emit hardwareAddressChanged(d->hardwareAddress);
+        } else if (property == QLatin1String("Companion")) {
+            d->companion = qdbus_cast<QDBusObjectPath>(*it).path();
+            emit companionChanged(NetworkManager::findNetworkInterface(d->companion));
+        } else {
+            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+        }
+        ++it;
     }
-    it = changedProperties.find(hwAddrKey);
-    if (it != changedProperties.end()) {
-        d->hardwareAddress = it->toString();
-        emit hardwareAddressChanged(d->hardwareAddress);
-        propKeys.removeOne(hwAddrKey);
-    }
-    it = changedProperties.find(companionKey);
-    if (it != changedProperties.end()) {
-        d->companion = qdbus_cast<QDBusObjectPath>(*it).path();
-        emit companionChanged(NetworkManager::findNetworkInterface(d->companion));
-        propKeys.removeOne(companionKey);
-    }
-    //if (propKeys.count()) {
-    //    nmDebug() << "Unhandled properties: " << propKeys;
-    //}
 }
 
 #include "olpcmeshdevice.moc"

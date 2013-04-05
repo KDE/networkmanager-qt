@@ -1,5 +1,6 @@
 /*
 Copyright 2011 Ilia Kats <ilia-kats@gmx.net>
+Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -140,12 +141,22 @@ QStringList NetworkManager::ActiveConnection::devices() const
     return d->devices;
 }
 
-void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap & changedProperties)
+QList<NetworkManager::Device *> NetworkManager::ActiveConnection::devices() const
+{
+    Q_D(const ActiveConnection);
+    QList<Device *> list;
+    foreach (const QString &path, d->devices) {
+        list.append(NetworkManager::findNetworkInterface(path));
+    }
+    return list;
+}
+
+void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap &properties)
 {
     Q_D(ActiveConnection);
 
-    QVariantMap::const_iterator it = changedProperties.constBegin();
-    while (it != changedProperties.constEnd()) {
+    QVariantMap::const_iterator it = properties.constBegin();
+    while (it != properties.constEnd()) {
         QString property = it.key();
         if (property == QLatin1String("Connection")) {
             d->connection = NetworkManager::Settings::findConnection(qdbus_cast<QDBusObjectPath>(*it).path());
@@ -178,7 +189,7 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap & cha
             }
             emit devicesChanged();
         } else {
-            qWarning() << "Unhandled property" << property;
+            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
         }
         ++it;
     }

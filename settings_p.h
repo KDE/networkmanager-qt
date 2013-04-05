@@ -54,7 +54,7 @@ namespace Settings
     protected Q_SLOTS:
         void onConnectionAdded(const QDBusObjectPath &);
         void onConnectionRemoved(const QString &);
-        void propertiesChanged(const QVariantMap &);
+        void propertiesChanged(const QVariantMap &properties);
         void onConnectionAddArrived(QDBusPendingCallWatcher *);
         void daemonUnregistered();
         void init();

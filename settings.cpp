@@ -124,26 +124,22 @@ void NetworkManager::Settings::SettingsPrivate::saveHostname(const QString &host
     iface.SaveHostname(hostname);
 }
 
-void NetworkManager::Settings::SettingsPrivate::propertiesChanged(const QVariantMap &changedProperties)
+void NetworkManager::Settings::SettingsPrivate::propertiesChanged(const QVariantMap &properties)
 {
-    QStringList propKeys = changedProperties.keys();
-    QLatin1String canModifyKey("CanModify"),
-            hostnameKey("Hostname");
-    QVariantMap::const_iterator it = changedProperties.find(canModifyKey);
-    if (it != changedProperties.end()) {
-        m_canModify = it->toBool();
-        emit canModifyChanged(m_canModify);
-        propKeys.removeOne(canModifyKey);
+    QVariantMap::const_iterator it = properties.constBegin();
+    while (it != properties.constEnd()) {
+        QString property = it.key();
+        if (property == QLatin1String("CanModify")) {
+            m_canModify = it->toBool();
+            emit canModifyChanged(m_canModify);
+        } else if (property == QLatin1String("Hostname")) {
+            m_hostname = it->toString();
+            emit hostnameChanged(m_hostname);
+        } else {
+            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+        }
+        ++it;
     }
-    it = changedProperties.find(hostnameKey);
-    if (it != changedProperties.end()) {
-        m_hostname = it->toString();
-        emit hostnameChanged(m_hostname);
-        propKeys.removeOne(hostnameKey);
-    }
-    //if (propKeys.count()) {
-    //    nmDebug() << "Unhandled properties: " << propKeys;
-    //}
 }
 
 void NetworkManager::Settings::SettingsPrivate::onConnectionAdded(const QDBusObjectPath &path)

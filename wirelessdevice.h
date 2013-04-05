@@ -155,7 +155,7 @@ public:
     WirelessNetwork::Ptr findNetwork(const QString &ssid) const;
 
 protected Q_SLOTS:
-    void wirelessPropertiesChanged(const QVariantMap &);
+    void wirelessPropertiesChanged(const QVariantMap &properties);
     void accessPointAdded(const QDBusObjectPath &);
     void accessPointRemoved(const QDBusObjectPath &accessPoint);
 Q_SIGNALS:

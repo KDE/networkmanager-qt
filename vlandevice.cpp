@@ -97,19 +97,22 @@ void NetworkManager::VlanDevice::onPropertiesChanged(const QVariantMap& properti
 {
     Q_D(VlanDevice);
 
-    if (properties.contains(QLatin1String("Carrier"))) {
-        d->carrier = properties.value(QLatin1String("Carrier")).toBool();
-        emit carrierChanged(d->carrier);
-    }
-
-    if (properties.contains(QLatin1String("HwAddress"))) {
-        d->hwAddress = properties.value(QLatin1String("HwAddress")).toString();
-        emit hwAddressChanged(d->hwAddress);
-    }
-
-    if (properties.contains(QLatin1String("VlanId"))) {
-        d->vlanId = properties.value(QLatin1String("VlanId")).toUInt();
-        emit vlanIdChanged(d->vlanId);
+    QVariantMap::const_iterator it = properties.constBegin();
+    while (it != properties.constEnd()) {
+        QString property = it.key();
+        if (property == QLatin1String("Carrier")) {
+            d->carrier = it->toBool();
+            emit carrierChanged(d->carrier);
+        } else if (property == QLatin1String("HwAddress")) {
+            d->hwAddress = it->toString();
+            emit hwAddressChanged(d->hwAddress);
+        } else if (property == QLatin1String("VlanId")) {
+            d->vlanId = it->toUInt();
+            emit vlanIdChanged(d->vlanId);
+        } else {
+            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+        }
+        ++it;
     }
 }
 
