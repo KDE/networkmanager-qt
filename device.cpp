@@ -383,38 +383,34 @@ NetworkManager::IpConfig NetworkManager::Device::ipV6Config() const
     }
 }
 
-NetworkManager::Dhcp4Config * NetworkManager::Device::dhcp4Config()
+NetworkManager::Dhcp4Config::Ptr NetworkManager::Device::dhcp4Config()
 {
     Q_D(Device);
     QDBusObjectPath objPath = d->deviceIface.dhcp4Config();
     if (d->connectionState != NetworkManager::Device::Activated ||
         objPath.path().isEmpty()) {
-        delete d->dhcp4Config;
-        d->dhcp4Config = 0;
-        return 0;
+        d->dhcp4Config.clear();
+        return d->dhcp4Config;
     }
 
     if (!d->dhcp4Config || d->dhcp4Config->path() != objPath.path()) {
-        delete d->dhcp4Config;
-        d->dhcp4Config = new Dhcp4Config(objPath.path(), this);
+        d->dhcp4Config = NetworkManager::Dhcp4Config::Ptr(new Dhcp4Config(objPath.path(), this));
     }
     return d->dhcp4Config;
 }
 
-NetworkManager::Dhcp6Config * NetworkManager::Device::dhcp6Config()
+NetworkManager::Dhcp6Config::Ptr NetworkManager::Device::dhcp6Config()
 {
     Q_D(Device);
     QDBusObjectPath objPath = d->deviceIface.dhcp6Config();
     if (d->connectionState != NetworkManager::Device::Activated ||
         objPath.path().isEmpty()) {
-        delete d->dhcp6Config;
-        d->dhcp6Config = 0;
-        return 0;
+        d->dhcp6Config.clear();
+        return d->dhcp6Config;
     }
 
     if (!d->dhcp6Config || d->dhcp6Config->path() != objPath.path()) {
-        delete d->dhcp6Config;
-        d->dhcp6Config = new Dhcp6Config(objPath.path(), this);
+        d->dhcp6Config = NetworkManager::Dhcp6Config::Ptr(new Dhcp6Config(objPath.path(), this));
     }
     return d->dhcp6Config;
 }

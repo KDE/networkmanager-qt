@@ -1,5 +1,6 @@
 /*
 Copyright 2008,2011 Will Stephenson <wstephenson@kde.org>
+Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -205,11 +206,17 @@ public:
 
     /**
      * Get the DHCP options returned by the DHCP server
-     * or 0 if the device is not Activated or does not
+     * or a null pointer if the device is not Activated or does not
      * use DHCP configuration.
      */
-    Dhcp4Config * dhcp4Config();
-    Dhcp6Config * dhcp6Config();
+    Dhcp4Config::Ptr dhcp4Config();
+
+    /**
+     * Get the DHCP options returned by the DHCP server
+     * or a null pointer if the device is not Activated or does not
+     * use DHCP configuration.
+     */
+    Dhcp6Config::Ptr dhcp6Config();
 
     /**
      * Retrieves the activation status of this network interface.

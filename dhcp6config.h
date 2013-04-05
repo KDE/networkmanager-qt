@@ -26,6 +26,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "QtNetworkManager-export.h"
 
 #include <QtCore/QStringList>
+#include <QSharedPointer>
 
 namespace NetworkManager
 {
@@ -36,6 +37,7 @@ class NMQT_EXPORT Dhcp6Config: public QObject
     Q_OBJECT
     Q_DECLARE_PRIVATE(Dhcp6Config)
 public:
+    typedef QSharedPointer<Dhcp6Config> Ptr;
     explicit Dhcp6Config(const QString & path, QObject * owner);
     ~Dhcp6Config();
 

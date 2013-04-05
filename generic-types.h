@@ -34,7 +34,6 @@ Q_DECLARE_METATYPE(QVariantMapMap)
 typedef QMap<QString,QString> QStringMap;
 typedef QMapIterator<QString, QString> QStringMapIterator;
 Q_DECLARE_METATYPE(QStringMap)
-typedef enum {Unknown = 0, Adhoc, Infra, Ap} WirelessDeviceMode;
 
 QDBusArgument &operator<<(QDBusArgument &argument, const QStringMap & mydict);
 const QDBusArgument &operator>>(const QDBusArgument &argument, QStringMap & mydict);
