@@ -81,7 +81,7 @@ bool NetworkManager::WiredDevice::carrier() const
     return d->carrier;
 }
 
-void NetworkManager::WiredDevice::wiredPropertiesChanged(const QVariantMap &properties)
+void NetworkManager::WiredDevice::wiredPropertiesChanged(const QVariantMap &changedProperties)
 {
     Q_D(WiredDevice);
 
