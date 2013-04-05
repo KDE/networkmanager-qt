@@ -23,9 +23,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QObject>
 #include <QDBusObjectPath>
+#include <QSharedPointer>
 
 #include "QtNetworkManager-export.h"
-#include "device.h"
 
 namespace NetworkManager
 {
@@ -75,9 +75,9 @@ public:
      */
     bool default6() const;
     /**
-     * Returns the master device if the connection is a slave.
+     * Returns the uni of master device if the connection is a slave.
      */
-    NetworkManager::Device::Ptr master() const;
+    QString master() const;
     /**
      * The path of the specific object associated with the connection.
      */
@@ -95,13 +95,9 @@ public:
      */
     QString uuid() const;
     /**
-     * list of device UNIs which are part of this connection.
+     * list of devices UNIs which are part of this connection.
      */
-    QStringList deviceUnis() const;
-    /**
-     * list of devices which are part of this connection.
-     */
-    Device::List devices() const;
+    QStringList devices() const;
 
 protected Q_SLOTS:
     void propertiesChanged(const QVariantMap &);
@@ -125,7 +121,7 @@ Q_SIGNALS:
     /**
      * The master device changed.
      */
-    void masterChanged(const NetworkManager::Device::Ptr &device);
+    void masterChanged(const QString &uni);
     /**
      * The specific object changed
      */

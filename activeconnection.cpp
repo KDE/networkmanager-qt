@@ -104,10 +104,10 @@ bool NetworkManager::ActiveConnection::default6() const
     return d->default6;
 }
 
-NetworkManager::Device::Ptr NetworkManager::ActiveConnection::master() const
+QString NetworkManager::ActiveConnection::master() const
 {
     Q_D(const ActiveConnection);
-    return NetworkManager::findNetworkInterface(d->master);
+    return d->master;
 }
 
 QString NetworkManager::ActiveConnection::specificObject() const
@@ -134,23 +134,10 @@ QString NetworkManager::ActiveConnection::uuid() const
     return d->uuid;
 }
 
-QStringList NetworkManager::ActiveConnection::deviceUnis() const
+QStringList NetworkManager::ActiveConnection::devices() const
 {
     Q_D(const ActiveConnection);
     return d->devices;
-}
-
-NetworkManager::Device::List NetworkManager::ActiveConnection::devices() const
-{
-    Q_D(const ActiveConnection);
-    NetworkManager::Device::List list;
-    foreach (const QString &path, d->devices) {
-        Device::Ptr device = NetworkManager::findNetworkInterface(path);
-        if (device) {
-            list << device;
-        }
-    }
-    return list;
 }
 
 void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap & changedProperties)
@@ -171,7 +158,7 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap & cha
             emit default6Changed(d->default6);
         } else if (property == QLatin1String("Master")) {
             d->master = qdbus_cast<QDBusObjectPath>(*it).path();
-            emit masterChanged(NetworkManager::findNetworkInterface(d->master));
+            emit masterChanged(d->master);
         } else if (property == QLatin1String("SpecificObject")) {
             d->specificObject = qdbus_cast<QDBusObjectPath>(*it).path();
             emit specificObjectChanged(d->specificObject);

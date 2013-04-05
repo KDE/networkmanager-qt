@@ -610,7 +610,6 @@ void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
         ++i;
     }
     networkInterfaceMap.clear();
-    qDeleteAll(m_activeConnections);
     m_activeConnections.clear();
     emit activeConnectionsChanged();
     emit serviceDisappeared();
