@@ -64,10 +64,10 @@ public:
      */
     Capabilities currentCapabilities() const;
 
-    ModemManager::ModemGsmCardInterface * getModemCardIface();
-    void setModemCardIface(ModemManager::ModemGsmCardInterface * iface);
-    ModemManager::ModemGsmNetworkInterface * getModemNetworkIface();
-    void setModemNetworkIface(ModemManager::ModemGsmNetworkInterface * iface);
+    ModemManager::ModemGsmCardInterface::Ptr getModemCardIface();
+    void setModemCardIface(const ModemManager::ModemGsmCardInterface::Ptr &iface);
+    ModemManager::ModemInterface::Ptr getModemNetworkIface();
+    void setModemNetworkIface(const ModemManager::ModemGsmNetworkInterface::Ptr &iface);
 Q_SIGNALS:
     /**
      * This signal is emitted when the capabilities of the device change
@@ -77,8 +77,8 @@ protected Q_SLOTS:
     void modemPropertiesChanged(const QVariantMap& properties);
     void modemRemoved(const QString & modemUdi);
 protected:
-    ModemManager::ModemGsmCardInterface *modemGsmCardIface;
-    ModemManager::ModemGsmNetworkInterface *modemGsmNetworkIface;
+    ModemManager::ModemGsmCardInterface::Ptr modemGsmCardIface;
+    ModemManager::ModemGsmNetworkInterface::Ptr modemGsmNetworkIface;
     QString getUdiForModemManager();
 private:
     void initModemProperties();
