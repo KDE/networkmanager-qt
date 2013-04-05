@@ -21,8 +21,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NMQT_ACCESSPOINT_H
 #define NMQT_ACCESSPOINT_H
 
-#include "wirelessdevice.h"
 #include "QtNetworkManager-export.h"
+
+#include <QObject>
+#include <QSharedPointer>
+#include <QVariantMap>
 
 namespace NetworkManager {
 
@@ -30,10 +33,20 @@ class AccessPointPrivate;
 
 class NMQT_EXPORT AccessPoint : public QObject
 {
-Q_OBJECT
-Q_DECLARE_PRIVATE(AccessPoint)
-Q_FLAGS(Capabilities WpaFlags)
+    Q_OBJECT
+    Q_DECLARE_PRIVATE(AccessPoint)
+    Q_FLAGS(Capabilities WpaFlags)
 public:
+    typedef QSharedPointer<AccessPoint> Ptr;
+    typedef QList<Ptr> List;
+    /**
+     * The access point's current operating mode
+     * Unknown: not associated with a network
+     * Adhoc: part of an adhoc network
+     * Infra: a station in an infrastructure wireless network
+     * APMode: access point in an infrastructure network
+     */
+    enum OperationMode { Unknown = 0, Adhoc, Infra, ApMode };
     /**
      * General capabilities of an access point
      */
@@ -58,8 +71,14 @@ public:
     uint frequency() const;
     QString hardwareAddress() const;
     uint maxBitRate() const;
-    WirelessDevice::OperationMode mode() const;
+    OperationMode mode() const;
     int signalStrength() const;
+
+    /**
+     * Helper method to convert wire representation of operation mode to enum
+     */
+    static OperationMode convertOperationMode(uint mode);
+
 protected Q_SLOTS:
     void propertiesChanged(const QVariantMap &properties);
     Q_SIGNALS:

@@ -24,7 +24,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "QtNetworkManager-export.h"
 
 #include <QtCore/QObject>
-#include "accesspoint.h"
+#include "wirelessdevice.h"
 
 namespace NetworkManager {
 
@@ -60,7 +60,7 @@ public:
      * List of access points
      * Subject to change, do not store!
      */
-    AccessPointList accessPoints() const;
+    AccessPoint::List accessPoints() const;
 
 Q_SIGNALS:
     /**
@@ -84,8 +84,8 @@ private Q_SLOTS:
     void accessPointDisappeared(const QString &);
     void updateStrength();
 private:
-    WirelessNetwork(AccessPoint *, const WirelessDevice::Ptr &network);
-    void addAccessPointInternal(AccessPoint *ap);
+    WirelessNetwork(const AccessPoint::Ptr &accessPoint, const WirelessDevice::Ptr &network);
+    void addAccessPointInternal(const AccessPoint::Ptr &ap);
     WirelessNetworkPrivate * d_ptr;
 };
 

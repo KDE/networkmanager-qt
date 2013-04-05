@@ -23,6 +23,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "QtNetworkManager-export.h"
 #include "device.h"
+#include "accesspoint.h"
 
 #include <QDBusObjectPath>
 #include <QDBusPendingReply>
@@ -139,7 +140,7 @@ public:
      * @param uni the identifier of the AP to find from this network interface
      * @returns a valid AccessPoint object if a network having the given UNI for this device is known to the system, 0 otherwise
      */
-    AccessPoint *findAccessPoint(const QString & uni) const;
+    AccessPoint::Ptr findAccessPoint(const QString & uni) const;
 
 protected Q_SLOTS:
     void wirelessPropertiesChanged(const QVariantMap &);

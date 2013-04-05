@@ -21,7 +21,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "wirelessnetwork.h"
 #include "wirelessnetwork_p.h"
 
-NetworkManager::WirelessNetwork::WirelessNetwork(NetworkManager::AccessPoint *ap, const WirelessDevice::Ptr &wni)
+NetworkManager::WirelessNetwork::WirelessNetwork(const NetworkManager::AccessPoint::Ptr &ap, const WirelessDevice::Ptr &wni)
     : d_ptr(new WirelessNetworkPrivate)
 {
     Q_D(WirelessNetwork);
@@ -54,17 +54,17 @@ void NetworkManager::WirelessNetwork::accessPointAppeared(const QString &uni)
 {
     Q_D(const WirelessNetwork);
     if (!d->aps.contains(uni)) {
-        NetworkManager::AccessPoint * ap = d->wirelessNetworkInterface->findAccessPoint(uni);
+        NetworkManager::AccessPoint::Ptr ap = d->wirelessNetworkInterface->findAccessPoint(uni);
         if (ap->ssid() == d->ssid) {
             addAccessPointInternal(ap);
         }
     }
 }
 
-void NetworkManager::WirelessNetwork::addAccessPointInternal(NetworkManager::AccessPoint * ap)
+void NetworkManager::WirelessNetwork::addAccessPointInternal(const NetworkManager::AccessPoint::Ptr &ap)
 {
     Q_D(WirelessNetwork);
-    connect(ap, SIGNAL(signalStrengthChanged(int)),
+    connect(ap.data(), SIGNAL(signalStrengthChanged(int)),
             SLOT(updateStrength()));
     d->aps.insert(ap->uni(), ap);
     updateStrength();
@@ -85,7 +85,7 @@ void NetworkManager::WirelessNetwork::updateStrength()
 {
     Q_D(WirelessNetwork);
     int maximumStrength = -1;
-    foreach (NetworkManager::AccessPoint* iface, d->aps) {
+    foreach (const NetworkManager::AccessPoint::Ptr &iface, d->aps) {
         maximumStrength = qMax(maximumStrength, iface->signalStrength());
     }
     if (maximumStrength != d->strength) {
@@ -100,8 +100,8 @@ QString NetworkManager::WirelessNetwork::referenceAccessPoint() const
 {
     Q_D(const WirelessNetwork);
     int maximumStrength = -1;
-    NetworkManager::AccessPoint* strongest = 0;
-    foreach (NetworkManager::AccessPoint* iface, d->aps) {
+    NetworkManager::AccessPoint::Ptr strongest;
+    foreach (const NetworkManager::AccessPoint::Ptr &iface, d->aps) {
         int oldMax = maximumStrength;
         maximumStrength = qMax(maximumStrength, iface->signalStrength());
         if ( oldMax <= maximumStrength ) {
@@ -111,14 +111,10 @@ QString NetworkManager::WirelessNetwork::referenceAccessPoint() const
     return strongest->uni();
 }
 
-NetworkManager::AccessPointList NetworkManager::WirelessNetwork::accessPoints() const
+NetworkManager::AccessPoint::List NetworkManager::WirelessNetwork::accessPoints() const
 {
     Q_D(const WirelessNetwork);
-    NetworkManager::AccessPointList aps;
-    foreach (NetworkManager::AccessPoint* iface, d->aps) {
-        aps.append(iface->uni());
-    }
-    return aps;
+    return d->aps.values();
 }
 
 // vim: sw=4 sts=4 et tw=100

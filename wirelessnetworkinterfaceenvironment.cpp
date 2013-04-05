@@ -92,7 +92,7 @@ void NetworkManager::WirelessNetworkInterfaceEnvironment::accessPointAppeared(co
 void NetworkManager::WirelessNetworkInterfaceEnvironment::accessPointAppearedInternal(const QString &uni)
 {
     Q_D(WirelessNetworkInterfaceEnvironment);
-    NetworkManager::AccessPoint * ap = d->iface->findAccessPoint(uni);
+    NetworkManager::AccessPoint::Ptr ap = d->iface->findAccessPoint(uni);
     QString ssid = ap->ssid();
     //nmDebug() << ssid << d->networks.contains(ssid);
     if (ssid.isEmpty()) {

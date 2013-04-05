@@ -33,7 +33,7 @@ public:
     OrgFreedesktopNetworkManagerDeviceWirelessInterface wirelessIface;
     QString permanentHardwareAddress;
     QString hardwareAddress;
-    mutable QMap<QString, AccessPoint *> apMap;
+    mutable QMap<QString, AccessPoint::Ptr> apMap;
     // index of the active AP or -1 if none
     QString activeAccessPoint;
     WirelessDevice::OperationMode mode;

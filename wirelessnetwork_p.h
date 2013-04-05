@@ -29,7 +29,7 @@ public:
     QString ssid;
     int strength;
     WirelessDevice::Ptr wirelessNetworkInterface;
-    QHash<QString, AccessPoint *> aps;
+    QHash<QString, AccessPoint::Ptr> aps;
 };
 
 }

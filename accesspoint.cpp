@@ -23,6 +23,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "manager_p.h"
 #include "wirelessdevice.h"
 
+#include <libnm-glib/nm-device-wifi.h>
+
 #include "nmdebug.h"
 
 namespace NetworkManager {
@@ -30,7 +32,7 @@ namespace NetworkManager {
 class AccessPointPrivate
 {
 public:
-    AccessPointPrivate( const QString & path ) : iface( NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()), capabilities(0), wpaFlags(0), rsnFlags(0), frequency(0), maxBitRate(0), mode((WirelessDevice::OperationMode)0), signalStrength(0)
+    AccessPointPrivate( const QString & path ) : iface( NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()), capabilities(0), wpaFlags(0), rsnFlags(0), frequency(0), maxBitRate(0), mode((AccessPoint::OperationMode)0), signalStrength(0)
     {
     }
     OrgFreedesktopNetworkManagerAccessPointInterface iface;
@@ -43,7 +45,7 @@ public:
     uint frequency;
     QString hardwareAddress;
     uint maxBitRate;
-    WirelessDevice::OperationMode mode;
+    AccessPoint::OperationMode mode;
     int signalStrength;
 };
 }
@@ -63,7 +65,7 @@ NetworkManager::AccessPoint::AccessPoint( const QString& path, QObject * parent 
         d->hardwareAddress = d->iface.hwAddress();
         d->maxBitRate = d->iface.maxBitrate();
         // make this a static on WirelessNetworkInterface
-        d->mode = WirelessDevice::convertOperationMode(d->iface.mode());
+        d->mode = convertOperationMode(d->iface.mode());
         connect( &d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
                 this, SLOT(propertiesChanged(QVariantMap)));
     }
@@ -129,7 +131,7 @@ uint NetworkManager::AccessPoint::maxBitRate() const
     return d->maxBitRate;
 }
 
-NetworkManager::WirelessDevice::OperationMode NetworkManager::AccessPoint::mode() const
+NetworkManager::AccessPoint::OperationMode NetworkManager::AccessPoint::mode() const
 {
     Q_D(const AccessPoint);
     return d->mode;
@@ -139,6 +141,30 @@ int NetworkManager::AccessPoint::signalStrength() const
 {
     Q_D(const AccessPoint);
     return d->signalStrength;
+}
+
+NetworkManager::AccessPoint::OperationMode NetworkManager::AccessPoint::convertOperationMode(uint mode)
+{
+    NetworkManager::AccessPoint::OperationMode ourMode = NetworkManager::AccessPoint::Unknown;
+    switch (mode) {
+        case NM_802_11_MODE_UNKNOWN:
+            ourMode = NetworkManager::AccessPoint::Unknown;
+            break;
+        case NM_802_11_MODE_ADHOC:
+            ourMode = NetworkManager::AccessPoint::Adhoc;
+            break;
+        case NM_802_11_MODE_INFRA:
+            ourMode = NetworkManager::AccessPoint::Infra;
+            break;
+#if NM_CHECK_VERSION(0, 9, 7)
+        case NM_802_11_MODE_AP:
+            ourMode = NetworkManager::AccessPoint::ApMode;
+            break;
+#endif
+        default:
+            nmDebug() << "Unhandled mode" << mode;
+    }
+    return ourMode;
 }
 
 void NetworkManager::AccessPoint::propertiesChanged(const QVariantMap &properties)
@@ -192,7 +218,7 @@ void NetworkManager::AccessPoint::propertiesChanged(const QVariantMap &propertie
     }
     it = properties.find(modeKey);
     if (it != properties.end()) {
-        d->mode = WirelessDevice::convertOperationMode(it->toUInt());
+        d->mode = convertOperationMode(it->toUInt());
         propKeys.removeOne(modeKey);
     }
     it = properties.find(maxBitRateKey);
