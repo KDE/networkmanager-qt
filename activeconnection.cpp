@@ -156,78 +156,45 @@ NetworkManager::Device::List NetworkManager::ActiveConnection::devices() const
 void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap & changedProperties)
 {
     Q_D(ActiveConnection);
-    //nmDebug() << changedProperties.keys();
-    QStringList propKeys = changedProperties.keys();
-    QLatin1String connectionKey("Connection"),
-            default4Key("Default"),
-            default6Key("Default6"),
-            master("Master"),
-            specificObjectKey("SpecificObject"),
-            stateKey("State"),
-            vpnKey("Vpn"),
-            uuid("Uuid"),
-            devicesKey("Devices");
-    QVariantMap::const_iterator it = changedProperties.find(connectionKey);
-    if (it != changedProperties.end()) {
-        d->connection = NetworkManager::Settings::findConnection(qdbus_cast<QDBusObjectPath>(*it).path());
-        emit connectionChanged(d->connection);
-        propKeys.removeOne(connectionKey);
-    }
-    it = changedProperties.find(default4Key);
-    if (it != changedProperties.end()) {
-        d->default4 = it->toBool();
-        emit default4Changed(d->default4);
-        propKeys.removeOne(default4Key);
-    }
-    it = changedProperties.find(default6Key);
-    if (it != changedProperties.end()) {
-        d->default6 = it->toBool();
-        emit default6Changed(d->default6);
-        propKeys.removeOne(default6Key);
-    }
-    it = changedProperties.find(master);
-    if (it != changedProperties.end()) {
-        d->master = qdbus_cast<QDBusObjectPath>(*it).path();
-        emit masterChanged(NetworkManager::findNetworkInterface(d->master));
-        propKeys.removeOne(master);
-    }
-    it = changedProperties.find(specificObjectKey);
-    if (it != changedProperties.end()) {
-        d->specificObject = qdbus_cast<QDBusObjectPath>(*it).path();
-        emit specificObjectChanged(d->specificObject);
-        propKeys.removeOne(specificObjectKey);
-    }
-    it = changedProperties.find(stateKey);
-    if (it != changedProperties.end()) {
-        d->state = NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(it->toUInt());
-        emit stateChanged(d->state);
-        propKeys.removeOne(stateKey);
-    }
-    it = changedProperties.find(vpnKey);
-    if (it != changedProperties.end()) {
-        d->vpn = it->toBool();
-        emit vpnChanged(d->vpn);
-        propKeys.removeOne(vpnKey);
-    }
-    it = changedProperties.find(uuid);
-    if (it != changedProperties.end()) {
-        d->uuid = it->toString();
-        emit uuidChanged(d->uuid);
-        propKeys.removeOne(uuid);
-    }
-    it = changedProperties.find(devicesKey);
-    if (it != changedProperties.end()) {
-        QList<QString> list;
-        foreach (const QDBusObjectPath &path, it->value<QList<QDBusObjectPath> >()) {
-            list.append(path.path());
+
+    QVariantMap::const_iterator it = changedProperties.constBegin();
+    while (it != changedProperties.constEnd()) {
+        QString property = it.key();
+        if (property == QLatin1String("Connection")) {
+            d->connection = NetworkManager::Settings::findConnection(qdbus_cast<QDBusObjectPath>(*it).path());
+            emit connectionChanged(d->connection);
+        } else if (property == QLatin1String("Default")) {
+            d->default4 = it->toBool();
+            emit default4Changed(d->default4);
+        } else if (property == QLatin1String("Default6")) {
+            d->default6 = it->toBool();
+            emit default6Changed(d->default6);
+        } else if (property == QLatin1String("Master")) {
+            d->master = qdbus_cast<QDBusObjectPath>(*it).path();
+            emit masterChanged(NetworkManager::findNetworkInterface(d->master));
+        } else if (property == QLatin1String("SpecificObject")) {
+            d->specificObject = qdbus_cast<QDBusObjectPath>(*it).path();
+            emit specificObjectChanged(d->specificObject);
+        } else if (property == QLatin1String("State")) {
+            d->state = NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(it->toUInt());
+            emit stateChanged(d->state);
+        } else if (property == QLatin1String("Vpn")) {
+            d->vpn = it->toBool();
+            emit vpnChanged(d->vpn);
+        } else if (property == QLatin1String("Uuid")) {
+            d->uuid = it->toString();
+            emit uuidChanged(d->uuid);
+        } else if (property == QLatin1String("Devices")) {
+            d->devices.clear();
+            foreach (const QDBusObjectPath &path, it->value<QList<QDBusObjectPath> >()) {
+                d->devices.append(path.path());
+            }
+            emit devicesChanged();
+        } else {
+            qWarning() << "Unhandled property" << property;
         }
-        d->devices = list;
-        emit devicesChanged();
-        propKeys.removeOne(devicesKey);
+        ++it;
     }
-    //if (propKeys.count()) {
-    //    nmDebug() << "Unhandled properties: " << propKeys;
-    //}
 }
 
 #include "activeconnection.moc"

@@ -84,41 +84,26 @@ bool NetworkManager::WiredDevice::carrier() const
 void NetworkManager::WiredDevice::wiredPropertiesChanged(const QVariantMap &properties)
 {
     Q_D(WiredDevice);
-    QStringList propKeys = properties.keys();
-    nmDebug() << properties.keys();
-    QLatin1String carrierKey("Carrier"),
-                  hwAddressKey("HwAddress"),
-                  permHwAddressKey("PermHwAddress"),
-                  speedKey("Speed");
-    QVariantMap::const_iterator it = properties.find(carrierKey);
-    if ( it != properties.end()) {
-        d->carrier = it->toBool();
-        emit carrierChanged(d->carrier);
-        propKeys.removeOne(carrierKey);
-    }
-    it = properties.find(speedKey);
-    if ( it != properties.end()) {
-        d->bitrate = it->toUInt() * 1000;
-        emit bitRateChanged(d->bitrate);
-        propKeys.removeOne(speedKey);
-    }
-    it = properties.find(hwAddressKey);
-    if ( it != properties.end()) {
-        d->hardwareAddress = it->toString();
-        emit hardwareAddressChanged(d->hardwareAddress);
-        propKeys.removeOne(hwAddressKey);
-    }
-    it = properties.find(permHwAddressKey);
-    if ( it != properties.end()) {
-        d->permanentHardwareAddress = it->toString();
-        emit permanentHardwareAddressChanged(d->permanentHardwareAddress);
-        propKeys.removeOne(permHwAddressKey);
-    }
-    if (propKeys.count()) {
-        nmDebug() << "Unhandled properties: ";
-        foreach (const QString &key, propKeys) {
-            nmDebug() << key << properties.value(key);
+
+    QVariantMap::const_iterator it = changedProperties.constBegin();
+    while (it != changedProperties.constEnd()) {
+        QString property = it.key();
+        if (property == QLatin1String("Carrier")) {
+            d->carrier = it->toBool();
+            emit carrierChanged(d->carrier);
+        } else if (property == QLatin1String("HwAddress")) {
+            d->hardwareAddress = it->toString();
+            emit hardwareAddressChanged(d->hardwareAddress);
+        } else if (property == QLatin1String("PermHwAddress")) {
+            d->permanentHardwareAddress = it->toString();
+            emit permanentHardwareAddressChanged(d->permanentHardwareAddress);
+        } else if (property == QLatin1String("Speed")) {
+            d->bitrate = it->toUInt() * 1000;
+            emit bitRateChanged(d->bitrate);
+        } else {
+            qWarning() << "Unhandled property" << property;
         }
+        ++it;
     }
 }
 

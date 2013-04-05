@@ -505,7 +505,7 @@ QVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const
 
     foreach(Setting * setting, settings()) {
         QVariantMap map = setting->toMap();
-        if (!map.isEmpty() && !setting->isNull()) {
+        if (!setting->isNull()) {
             result.insert(setting->name(), map);
         }
     }
