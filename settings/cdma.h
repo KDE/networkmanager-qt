@@ -36,8 +36,10 @@ class NMQT_EXPORT CdmaSetting : public Setting
 {
     Q_DECLARE_PRIVATE(CdmaSetting)
 public:
+    typedef QSharedPointer<CdmaSetting> Ptr;
+    typedef QList<Ptr> List;
     CdmaSetting();
-    CdmaSetting(CdmaSetting *);
+    CdmaSetting(const Ptr &other);
     ~CdmaSetting();
 
     QString name() const;

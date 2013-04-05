@@ -35,13 +35,13 @@ NetworkManager::Settings::OlpcMeshSetting::OlpcMeshSetting():
     d_ptr(new OlpcMeshSettingPrivate())
 { }
 
-NetworkManager::Settings::OlpcMeshSetting::OlpcMeshSetting(OlpcMeshSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::OlpcMeshSetting::OlpcMeshSetting(const Ptr &other):
+    Setting(other),
     d_ptr(new OlpcMeshSettingPrivate())
 {
-    setSsid(setting->ssid());
-    setChannel(setting->channel());
-    setDhcpAnycastAddress(setting->dhcpAnycastAddress());
+    setSsid(other->ssid());
+    setChannel(other->channel());
+    setDhcpAnycastAddress(other->dhcpAnycastAddress());
 }
 
 NetworkManager::Settings::OlpcMeshSetting::~OlpcMeshSetting()

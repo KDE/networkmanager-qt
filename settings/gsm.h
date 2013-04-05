@@ -36,10 +36,12 @@ class NMQT_EXPORT GsmSetting : public Setting
 {
     Q_DECLARE_PRIVATE(GsmSetting)
 public:
+    typedef QSharedPointer<GsmSetting> Ptr;
+    typedef QList<Ptr> List;
     enum NetworkType { Any = -1, Only3G, GprsEdgeOnly, Prefer3G, Prefer2G, Prefer4GLte, Only4GLte };
 
     GsmSetting();
-    GsmSetting(GsmSetting *);
+    GsmSetting(const Ptr &other);
     ~GsmSetting();
 
     QString name() const;

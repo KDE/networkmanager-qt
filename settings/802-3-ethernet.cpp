@@ -41,21 +41,21 @@ NetworkManager::Settings::WiredSetting::WiredSetting():
     d_ptr(new WiredSettingPrivate())
 { }
 
-NetworkManager::Settings::WiredSetting::WiredSetting(NetworkManager::Settings::WiredSetting *setting):
-    Setting(setting),
+NetworkManager::Settings::WiredSetting::WiredSetting(const WiredSetting::Ptr &other):
+    Setting(other),
     d_ptr(new WiredSettingPrivate())
 {
-    setPort(setting->port());
-    setSpeed(setting->speed());
-    setDuplexType(setting->duplexType());
-    setAutoNegotiate(setting->autoNegotiate());
-    setMacAddress(setting->macAddress());
-    setClonedMacAddress(setting->clonedMacAddress());
-    setMacAddressBlacklist(setting->macAddressBlacklist());
-    setMtu(setting->mtu());
-    setS390Subchannels(setting->s390Subchannels());
-    setS390NetType(setting->s390NetType());
-    setS390Options(setting->s390Options());
+    setPort(other->port());
+    setSpeed(other->speed());
+    setDuplexType(other->duplexType());
+    setAutoNegotiate(other->autoNegotiate());
+    setMacAddress(other->macAddress());
+    setClonedMacAddress(other->clonedMacAddress());
+    setMacAddressBlacklist(other->macAddressBlacklist());
+    setMtu(other->mtu());
+    setS390Subchannels(other->s390Subchannels());
+    setS390NetType(other->s390NetType());
+    setS390Options(other->s390Options());
 }
 
 NetworkManager::Settings::WiredSetting::~WiredSetting()

@@ -36,11 +36,13 @@ class NMQT_EXPORT VlanSetting : public Setting
 {
     Q_DECLARE_PRIVATE(VlanSetting)
 public:
+    typedef QSharedPointer<VlanSetting> Ptr;
+    typedef QList<Ptr> List;
     enum Flag {None = 0, ReorderHeaders = 0x1, Gvrp = 0x2, LooseBinding = 0x4};
     Q_DECLARE_FLAGS(Flags, Flag);
 
     VlanSetting();
-    VlanSetting(VlanSetting *);
+    VlanSetting(const Ptr &other);
     ~VlanSetting();
 
     QString name() const;

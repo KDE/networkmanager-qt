@@ -34,12 +34,12 @@ NetworkManager::Settings::BondSetting::BondSetting():
     d_ptr(new BondSettingPrivate())
 { }
 
-NetworkManager::Settings::BondSetting::BondSetting(BondSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::BondSetting::BondSetting(const Ptr &other):
+    Setting(other),
     d_ptr(new BondSettingPrivate())
 {
-    setInterfaceName(setting->interfaceName());
-    setOptions(setting->options());
+    setInterfaceName(other->interfaceName());
+    setOptions(other->options());
 }
 
 NetworkManager::Settings::BondSetting::~BondSetting()

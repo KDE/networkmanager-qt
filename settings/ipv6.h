@@ -38,11 +38,13 @@ class NMQT_EXPORT Ipv6Setting : public Setting
 {
     Q_DECLARE_PRIVATE(Ipv6Setting)
 public:
+    typedef QSharedPointer<Ipv6Setting> Ptr;
+    typedef QList<Ptr> List;
     enum ConfigMethod {Automatic, Dhcp, LinkLocal, Manual, Ignored};
     enum IPv6Privacy {Unknown = -1, Disabled, PreferPublic, PreferTemporary};
 
     Ipv6Setting();
-    Ipv6Setting(Ipv6Setting * setting);
+    Ipv6Setting(const Ptr &other);
     ~Ipv6Setting();
 
     QString name() const;

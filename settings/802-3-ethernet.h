@@ -36,12 +36,14 @@ class NMQT_EXPORT WiredSetting : public Setting
 {
     Q_DECLARE_PRIVATE(WiredSetting)
 public:
+    typedef QSharedPointer<WiredSetting> Ptr;
+    typedef QList<Ptr> List;
     enum PortType {UnknownPort = 0, Tp, Aui, Bnc, Mii};
     enum DuplexType {UnknownDuplexType = 0, Half, Full};
     enum S390Nettype {Undefined = 0, Qeth, Lcs, Ctc};
 
     WiredSetting();
-    WiredSetting(WiredSetting * setting);
+    WiredSetting(const Ptr &other);
     ~WiredSetting();
 
     QString name() const;

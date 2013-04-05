@@ -36,8 +36,10 @@ class NMQT_EXPORT OlpcMeshSetting : public Setting
 {
     Q_DECLARE_PRIVATE(OlpcMeshSetting)
 public:
+    typedef QSharedPointer<OlpcMeshSetting> Ptr;
+    typedef QList<Ptr> List;
     OlpcMeshSetting();
-    OlpcMeshSetting(OlpcMeshSetting *);
+    OlpcMeshSetting(const Ptr &other);
     ~OlpcMeshSetting();
 
     QString name() const;

@@ -37,8 +37,10 @@ class NMQT_EXPORT VpnSetting : public Setting
 {
     Q_DECLARE_PRIVATE(VpnSetting)
 public:
+    typedef QSharedPointer<VpnSetting> Ptr;
+    typedef QList<Ptr> List;
     VpnSetting();
-    VpnSetting(VpnSetting *);
+    VpnSetting(const Ptr &other);
     ~VpnSetting();
 
     QString name() const;

@@ -36,10 +36,12 @@ class NMQT_EXPORT SerialSetting : public Setting
 {
     Q_DECLARE_PRIVATE(SerialSetting)
 public:
+    typedef QSharedPointer<SerialSetting> Ptr;
+    typedef QList<Ptr> List;
     enum Parity {NoParity, EvenParity, OddParity};
 
     SerialSetting();
-    SerialSetting(SerialSetting *);
+    SerialSetting(const Ptr &other);
     ~SerialSetting();
 
     QString name() const;

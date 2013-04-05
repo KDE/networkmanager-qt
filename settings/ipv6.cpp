@@ -45,19 +45,19 @@ NetworkManager::Settings::Ipv6Setting::Ipv6Setting():
     d_ptr(new Ipv6SettingPrivate())
 { }
 
-NetworkManager::Settings::Ipv6Setting::Ipv6Setting(NetworkManager::Settings::Ipv6Setting* setting):
-    Setting(setting),
+NetworkManager::Settings::Ipv6Setting::Ipv6Setting(const Ptr &other):
+    Setting(other),
     d_ptr(new Ipv6SettingPrivate())
 {
-    setMethod(setting->method());
-    setDns(setting->dns());
-    setDnsSearch(setting->dnsSearch());
-    setAddresses(setting->addresses());
-    setRoutes(setting->routes());
-    setIgnoreAutoRoutes(setting->ignoreAutoRoutes());
-    setIgnoreAutoDns(setting->ignoreAutoDns());
-    setNeverDefault(setting->neverDefault());
-    setMayFail(setting->mayFail());
+    setMethod(other->method());
+    setDns(other->dns());
+    setDnsSearch(other->dnsSearch());
+    setAddresses(other->addresses());
+    setRoutes(other->routes());
+    setIgnoreAutoRoutes(other->ignoreAutoRoutes());
+    setIgnoreAutoDns(other->ignoreAutoDns());
+    setNeverDefault(other->neverDefault());
+    setMayFail(other->mayFail());
 }
 
 NetworkManager::Settings::Ipv6Setting::~Ipv6Setting()

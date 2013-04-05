@@ -36,8 +36,10 @@ class NMQT_EXPORT PppSetting : public Setting
 {
     Q_DECLARE_PRIVATE(PppSetting)
 public:
+    typedef QSharedPointer<PppSetting> Ptr;
+    typedef QList<Ptr> List;
     PppSetting();
-    PppSetting(PppSetting *);
+    PppSetting(const Ptr &other);
     ~PppSetting();
 
     QString name() const;

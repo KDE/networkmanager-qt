@@ -173,7 +173,7 @@ NetworkManager::Settings::Setting::Setting(SettingType type):
     setType(type);
 }
 
-NetworkManager::Settings::Setting::Setting(NetworkManager::Settings::Setting* setting):
+NetworkManager::Settings::Setting::Setting(const NetworkManager::Settings::Setting::Ptr &setting):
     d_ptr(new SettingPrivate())
 {
     setInitialized(!setting->isNull());

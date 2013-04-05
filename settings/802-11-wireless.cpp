@@ -41,9 +41,9 @@ NetworkManager::Settings::WirelessSetting::WirelessSetting():
     d_ptr(new WirelessSettingPrivate())
 { }
 
-NetworkManager::Settings::WirelessSetting::WirelessSetting(NetworkManager::Settings::WirelessSetting* setting):
+NetworkManager::Settings::WirelessSetting::WirelessSetting(const Ptr &setting):
     Setting(setting),
-    d_ptr(new WirelessSettingPrivate())
+    d_ptr(new WirelessSettingPrivate)
 {
     setSsid(setting->ssid());
     setMode(setting->mode());

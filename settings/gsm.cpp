@@ -39,21 +39,21 @@ NetworkManager::Settings::GsmSetting::GsmSetting():
     d_ptr(new GsmSettingPrivate())
 { }
 
-NetworkManager::Settings::GsmSetting::GsmSetting(GsmSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::GsmSetting::GsmSetting(const Ptr &other):
+    Setting(other),
     d_ptr(new GsmSettingPrivate())
 {
-    setNumber(setting->number());
-    setUsername(setting->username());
-    setPassword(setting->password());
-    setPasswordFlags(setting->passwordFlags());
-    setApn(setting->apn());
-    setNetworkId(setting->networkId());
-    setNetworkType(setting->networkType());
-    setPin(setting->pin());
-    setPinFlags(setting->pinFlags());
-    setAllowedBand(setting->allowedBand());
-    setHomeOnly(setting->homeOnly());
+    setNumber(other->number());
+    setUsername(other->username());
+    setPassword(other->password());
+    setPasswordFlags(other->passwordFlags());
+    setApn(other->apn());
+    setNetworkId(other->networkId());
+    setNetworkType(other->networkType());
+    setPin(other->pin());
+    setPinFlags(other->pinFlags());
+    setAllowedBand(other->allowedBand());
+    setHomeOnly(other->homeOnly());
 }
 
 NetworkManager::Settings::GsmSetting::~GsmSetting()

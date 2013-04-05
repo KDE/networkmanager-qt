@@ -52,28 +52,28 @@ NetworkManager::Settings::PppSetting::PppSetting():
     d_ptr(new PppSettingPrivate())
 { }
 
-NetworkManager::Settings::PppSetting::PppSetting(PppSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::PppSetting::PppSetting(const Ptr &other):
+    Setting(other),
     d_ptr(new PppSettingPrivate())
 {
-    setNoAuth(setting->noAuth());
-    setRefuseEap(setting->refuseEap());
-    setRefusePap(setting->refusePap());
-    setRefuseChap(setting->refuseChap());
-    setRefuseMschap(setting->refuseMschap());
-    setRefuseMschapv2(setting->refuseMschapv2());
-    setNoBsdComp(setting->noBsdComp());
-    setNoDeflate(setting->noDeflate());
-    setNoVjComp(setting->noVjComp());
-    setRequireMppe(setting->requireMppe());
-    setRequireMppe128(setting->requireMppe128());
-    setMppeStateful(setting->mppeStateful());
-    setCRtsCts(setting->cRtsCts());
-    setBaud(setting->baud());
-    setMru(setting->mru());
-    setMtu(setting->mtu());
-    setLcpEchoFailure(setting->lcpEchoFailure());
-    setLcpEchoInterval(setting->lcpEchoInterval());
+    setNoAuth(other->noAuth());
+    setRefuseEap(other->refuseEap());
+    setRefusePap(other->refusePap());
+    setRefuseChap(other->refuseChap());
+    setRefuseMschap(other->refuseMschap());
+    setRefuseMschapv2(other->refuseMschapv2());
+    setNoBsdComp(other->noBsdComp());
+    setNoDeflate(other->noDeflate());
+    setNoVjComp(other->noVjComp());
+    setRequireMppe(other->requireMppe());
+    setRequireMppe128(other->requireMppe128());
+    setMppeStateful(other->mppeStateful());
+    setCRtsCts(other->cRtsCts());
+    setBaud(other->baud());
+    setMru(other->mru());
+    setMtu(other->mtu());
+    setLcpEchoFailure(other->lcpEchoFailure());
+    setLcpEchoInterval(other->lcpEchoInterval());
 }
 
 NetworkManager::Settings::PppSetting::~PppSetting()

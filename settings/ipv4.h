@@ -38,10 +38,12 @@ class NMQT_EXPORT Ipv4Setting : public Setting
 {
     Q_DECLARE_PRIVATE(Ipv4Setting)
 public:
+    typedef QSharedPointer<Ipv4Setting> Ptr;
+    typedef QList<Ptr> List;
     enum ConfigMethod {Automatic, LinkLocal, Manual, Shared, Disabled};
 
     Ipv4Setting();
-    Ipv4Setting(Ipv4Setting * setting);
+    Ipv4Setting(const Ptr &other);
     ~Ipv4Setting();
 
     QString name() const;

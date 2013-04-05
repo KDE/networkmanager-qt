@@ -36,8 +36,10 @@ class NMQT_EXPORT PppoeSetting : public Setting
 {
     Q_DECLARE_PRIVATE(PppoeSetting)
 public:
+    typedef QSharedPointer<PppoeSetting> Ptr;
+    typedef QList<Ptr> List;
     PppoeSetting();
-    PppoeSetting(PppoeSetting *);
+    PppoeSetting(const Ptr &other);
     ~PppoeSetting();
 
     QString name() const;

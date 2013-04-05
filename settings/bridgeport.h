@@ -37,8 +37,10 @@ class NMQT_EXPORT BridgePortSetting : public Setting
 {
     Q_DECLARE_PRIVATE(BridgePortSetting)
 public:
+    typedef QSharedPointer<BridgePortSetting> Ptr;
+    typedef QList<Ptr> List;
     BridgePortSetting();
-    BridgePortSetting(BridgePortSetting *);
+    BridgePortSetting(const Ptr &other);
     ~BridgePortSetting();
 
     QString name() const;

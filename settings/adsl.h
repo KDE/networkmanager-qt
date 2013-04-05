@@ -37,11 +37,13 @@ class NMQT_EXPORT AdslSetting : public Setting
 {
     Q_DECLARE_PRIVATE(AdslSetting)
 public:
+    typedef QSharedPointer<AdslSetting> Ptr;
+    typedef QList<Ptr> List;
     enum Protocol {UnknownProtocol = 0, Pppoa, Pppoe, Ipoatm};
     enum Encapsulation {UnknownEncapsulation = 0, Vcmux, Llc};
 
     AdslSetting();
-    AdslSetting(AdslSetting *);
+    AdslSetting(const Ptr &other);
     ~AdslSetting();
 
     QString name() const;

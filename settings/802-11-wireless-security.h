@@ -37,6 +37,8 @@ class NMQT_EXPORT WirelessSecuritySetting : public Setting
 {
     Q_DECLARE_PRIVATE(WirelessSecuritySetting)
 public:
+    typedef QSharedPointer<WirelessSecuritySetting> Ptr;
+    typedef QList<Ptr> List;
     enum KeyMgmt {Unknown = -1, Wep, Ieee8021x, WpaNone, WpaPsk, WpaEap};
     enum AuthAlg {None, Open, Shared, Leap};
     enum WpaProtocolVersion {Wpa, Rsn};
@@ -44,7 +46,7 @@ public:
     enum WepKeyType {NotSpecified, Hex, Passphrase};
 
     WirelessSecuritySetting();
-    WirelessSecuritySetting(WirelessSecuritySetting * setting);
+    WirelessSecuritySetting(const Ptr &other);
     virtual ~WirelessSecuritySetting();
 
     QString name() const;

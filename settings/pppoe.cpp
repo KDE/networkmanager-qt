@@ -35,14 +35,14 @@ NetworkManager::Settings::PppoeSetting::PppoeSetting():
     d_ptr(new PppoeSettingPrivate())
 { }
 
-NetworkManager::Settings::PppoeSetting::PppoeSetting(PppoeSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::PppoeSetting::PppoeSetting(const Ptr &other):
+    Setting(other),
     d_ptr(new PppoeSettingPrivate())
 {
-    setService(setting->service());
-    setUsername(setting->username());
-    setPassword(setting->password());
-    setPasswordFlags(setting->passwordFlags());
+    setService(other->service());
+    setUsername(other->username());
+    setPassword(other->password());
+    setPasswordFlags(other->passwordFlags());
 }
 
 NetworkManager::Settings::PppoeSetting::~PppoeSetting()

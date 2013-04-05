@@ -42,26 +42,26 @@ NetworkManager::Settings::WirelessSecuritySetting::WirelessSecuritySetting():
     d_ptr(new WirelessSecuritySettingPrivate())
 { }
 
-NetworkManager::Settings::WirelessSecuritySetting::WirelessSecuritySetting(NetworkManager::Settings::WirelessSecuritySetting* setting):
+NetworkManager::Settings::WirelessSecuritySetting::WirelessSecuritySetting(const Ptr &other):
     Setting(Setting::WirelessSecurity),
     d_ptr(new WirelessSecuritySettingPrivate())
 {
-    setKeyMgmt(setting->keyMgmt());
-    setWepTxKeyindex(setting->wepTxKeyindex());
-    setAuthAlg(setting->authAlg());
-    setProto(setting->proto());
-    setPairwise(setting->pairwise());
-    setGroup(setting->group());
-    setWepKey0(setting->wepKey0());
-    setWepKey1(setting->wepKey1());
-    setWepKey2(setting->wepKey2());
-    setWepKey3(setting->wepKey3());
-    setWepKeyFlags(setting->wepKeyFlags());
-    setWepKeyType(setting->wepKeyType());
-    setPsk(setting->psk());
-    setPskFlags(setting->pskFlags());
-    setLeapPassword(setting->leapPassword());
-    setLeapPasswordFlags(setting->leapPasswordFlags());
+    setKeyMgmt(other->keyMgmt());
+    setWepTxKeyindex(other->wepTxKeyindex());
+    setAuthAlg(other->authAlg());
+    setProto(other->proto());
+    setPairwise(other->pairwise());
+    setGroup(other->group());
+    setWepKey0(other->wepKey0());
+    setWepKey1(other->wepKey1());
+    setWepKey2(other->wepKey2());
+    setWepKey3(other->wepKey3());
+    setWepKeyFlags(other->wepKeyFlags());
+    setWepKeyType(other->wepKeyType());
+    setPsk(other->psk());
+    setPskFlags(other->pskFlags());
+    setLeapPassword(other->leapPassword());
+    setLeapPasswordFlags(other->leapPasswordFlags());
 }
 
 NetworkManager::Settings::WirelessSecuritySetting::~WirelessSecuritySetting()

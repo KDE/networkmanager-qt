@@ -37,13 +37,13 @@ NetworkManager::Settings::BridgePortSetting::BridgePortSetting():
     d_ptr(new BridgePortSettingPrivate())
 { }
 
-NetworkManager::Settings::BridgePortSetting::BridgePortSetting(BridgePortSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::BridgePortSetting::BridgePortSetting(const NetworkManager::Settings::BridgePortSetting::Ptr &other) :
+    Setting(other),
     d_ptr(new BridgePortSettingPrivate())
 {
-    setPriority(setting->priority());
-    setPathCost(setting->pathCost());
-    setHairpinMode(setting->hairpinMode());
+    setPriority(other->priority());
+    setPathCost(other->pathCost());
+    setHairpinMode(other->hairpinMode());
 }
 
 NetworkManager::Settings::BridgePortSetting::~BridgePortSetting()

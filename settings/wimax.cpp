@@ -1,5 +1,6 @@
 /*
     Copyright 2012-2013  Jan Grulich <jgrulich@redhat.com>
+    Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -34,12 +35,12 @@ NetworkManager::Settings::WimaxSetting::WimaxSetting():
     d_ptr(new WimaxSettingPrivate())
 { }
 
-NetworkManager::Settings::WimaxSetting::WimaxSetting(WimaxSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::WimaxSetting::WimaxSetting(const Ptr &other):
+    Setting(other),
     d_ptr(new WimaxSettingPrivate())
 {
-    setNetworkName(setting->networkName());
-    setMacAddress(setting->macAddress());
+    setNetworkName(other->networkName());
+    setMacAddress(other->macAddress());
 }
 
 NetworkManager::Settings::WimaxSetting::~WimaxSetting()

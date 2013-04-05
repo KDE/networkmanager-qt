@@ -35,14 +35,14 @@ NetworkManager::Settings::CdmaSetting::CdmaSetting():
     d_ptr(new CdmaSettingPrivate())
 { }
 
-NetworkManager::Settings::CdmaSetting::CdmaSetting(CdmaSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::CdmaSetting::CdmaSetting(const Ptr &other):
+    Setting(other),
     d_ptr(new CdmaSettingPrivate())
 {
-    setUsername(setting->username());
-    setNumber(setting->number());
-    setPassword(setting->password());
-    setPasswordFlags(setting->passwordFlags());
+    setUsername(other->username());
+    setNumber(other->number());
+    setPassword(other->password());
+    setPasswordFlags(other->passwordFlags());
 }
 
 NetworkManager::Settings::CdmaSetting::~CdmaSetting()

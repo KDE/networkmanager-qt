@@ -39,18 +39,18 @@ NetworkManager::Settings::AdslSetting::AdslSetting():
     d_ptr(new AdslSettingPrivate())
 { }
 
-NetworkManager::Settings::AdslSetting::AdslSetting(AdslSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::AdslSetting::AdslSetting(const AdslSetting::Ptr &other):
+    Setting(other),
     d_ptr(new AdslSettingPrivate())
 {
-    setUsername(setting->username());
-    setPassword(setting->password());
-    setProtocol(setting->protocol());
-    setPasswordFlags(setting->passwordFlags());
-    setProtocol(setting->protocol());
-    setEncapsulation(setting->encapsulation());
-    setVpi(setting->vpi());
-    setVci(setting->vci());
+    setUsername(other->username());
+    setPassword(other->password());
+    setProtocol(other->protocol());
+    setPasswordFlags(other->passwordFlags());
+    setProtocol(other->protocol());
+    setEncapsulation(other->encapsulation());
+    setVpi(other->vpi());
+    setVci(other->vci());
 }
 
 NetworkManager::Settings::AdslSetting::~AdslSetting()

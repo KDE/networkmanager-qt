@@ -1,5 +1,6 @@
 /*
     Copyright 2012-2013  Jan Grulich <jgrulich@redhat.com>
+    Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -42,6 +43,8 @@ class NMQT_EXPORT ConnectionSettings
 {
     Q_DECLARE_PRIVATE(ConnectionSettings)
 public:
+    typedef QSharedPointer<ConnectionSettings> Ptr;
+    typedef QList<Ptr> List;
     enum ConnectionType {Unknown = 0, Adsl, Bluetooth, Bond, Bridge, Cdma, Gsm, Infiniband, OLPCMesh, Pppoe, Vlan, Vpn, Wimax, Wired, Wireless};
 
     static ConnectionType typeFromString(const QString & typeString);
@@ -50,7 +53,7 @@ public:
 
     ConnectionSettings();
     ConnectionSettings(ConnectionType type, NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
-    ConnectionSettings(ConnectionSettings *);
+    ConnectionSettings(const ConnectionSettings::Ptr &other);
     virtual ~ConnectionSettings();
 
     QString name() const;
@@ -93,9 +96,9 @@ public:
     void setSecondaries(const QStringList & secondaries);
     QStringList secondaries() const;
 
-    Setting * setting(Setting::SettingType type) const;
+    Setting::Ptr setting(Setting::SettingType type) const;
 
-    QList<Setting*> settings() const;
+    Setting::List settings() const;
 
     void printSetting();
 
@@ -103,10 +106,10 @@ protected:
     ConnectionSettingsPrivate *d_ptr;
 
 private:
-    void addSetting(Setting * setting);
+    void addSetting(const Setting::Ptr &setting);
     void clearSettings();
     void initSettings(NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
-    void initSettings(ConnectionSettings * connectionSettings);
+    void initSettings(const Ptr &connectionSettings);
 };
 }
 }

@@ -45,39 +45,39 @@ NetworkManager::Settings::Security8021xSetting::Security8021xSetting():
     d_ptr(new Security8021xSettingPrivate())
 { }
 
-NetworkManager::Settings::Security8021xSetting::Security8021xSetting(Security8021xSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::Security8021xSetting::Security8021xSetting(const Ptr &other):
+    Setting(other),
     d_ptr(new Security8021xSettingPrivate())
 {
-    setEapMethods(setting->eapMethods());
-    setIdentity(setting->identity());
-    setAnonymousIdentity(setting->anonymousIdentity());
-    setPacFile(setting->pacFile());
-    setCaCertificate(setting->caCertificate());
-    setCaPath(setting->caPath());
-    setSubjectMatch(setting->subjectMatch());
-    setAltSubjectMatches(setting->altSubjectMatches());
-    setClientCertificate(setting->clientCertificate());
-    setPhase1PeapVersion(setting->phase1PeapVersion());
-    setPhase1PeapLabel(setting->phase1PeapLabel());
-    setPhase1FastProvisioning(setting->phase1FastProvisioning());
-    setPhase2AuthMethod(setting->phase2AuthMethod());
-    setPhase2AuthEapMethod(setting->phase2AuthEapMethod());
-    setPhase2CaCertificate(setting->phase2CaCertificate());
-    setPhase2CaPath(setting->phase2CaPath());
-    setPhase2SubjectMatch(setting->phase2SubjectMatch());
-    setPhase2AltSubjectMatches(setting->phase2AltSubjectMatches());
-    setPassword(setting->password());
-    setPasswordFlags(setting->passwordFlags());
-    setPasswordRaw(setting->passwordRaw());
-    setPasswordRawFlags(setting->passwordRawFlags());
-    setPrivateKey(setting->privateKey());
-    setPrivateKeyPassword(setting->privateKeyPassword());
-    setPrivateKeyPasswordFlags(setting->privateKeyPasswordFlags());
-    setPhase2PrivateKey(setting->phase2PrivateKey());
-    setPhase2PrivateKeyPassword(setting->phase2PrivateKeyPassword());
-    setPhase2PrivateKeyPasswordFlags(setting->phase2PrivateKeyPasswordFlags());
-    setSystemCaCertificates(setting->systemCaCertificates());
+    setEapMethods(other->eapMethods());
+    setIdentity(other->identity());
+    setAnonymousIdentity(other->anonymousIdentity());
+    setPacFile(other->pacFile());
+    setCaCertificate(other->caCertificate());
+    setCaPath(other->caPath());
+    setSubjectMatch(other->subjectMatch());
+    setAltSubjectMatches(other->altSubjectMatches());
+    setClientCertificate(other->clientCertificate());
+    setPhase1PeapVersion(other->phase1PeapVersion());
+    setPhase1PeapLabel(other->phase1PeapLabel());
+    setPhase1FastProvisioning(other->phase1FastProvisioning());
+    setPhase2AuthMethod(other->phase2AuthMethod());
+    setPhase2AuthEapMethod(other->phase2AuthEapMethod());
+    setPhase2CaCertificate(other->phase2CaCertificate());
+    setPhase2CaPath(other->phase2CaPath());
+    setPhase2SubjectMatch(other->phase2SubjectMatch());
+    setPhase2AltSubjectMatches(other->phase2AltSubjectMatches());
+    setPassword(other->password());
+    setPasswordFlags(other->passwordFlags());
+    setPasswordRaw(other->passwordRaw());
+    setPasswordRawFlags(other->passwordRawFlags());
+    setPrivateKey(other->privateKey());
+    setPrivateKeyPassword(other->privateKeyPassword());
+    setPrivateKeyPasswordFlags(other->privateKeyPasswordFlags());
+    setPhase2PrivateKey(other->phase2PrivateKey());
+    setPhase2PrivateKeyPassword(other->phase2PrivateKeyPassword());
+    setPhase2PrivateKeyPasswordFlags(other->phase2PrivateKeyPasswordFlags());
+    setSystemCaCertificates(other->systemCaCertificates());
 }
 
 NetworkManager::Settings::Security8021xSetting::~Security8021xSetting()

@@ -44,22 +44,22 @@ NetworkManager::Settings::Ipv4Setting::Ipv4Setting():
     d_ptr(new Ipv4SettingPrivate())
 { }
 
-NetworkManager::Settings::Ipv4Setting::Ipv4Setting(NetworkManager::Settings::Ipv4Setting* setting):
-    Setting(setting),
+NetworkManager::Settings::Ipv4Setting::Ipv4Setting(const Ptr &other):
+    Setting(other),
     d_ptr(new Ipv4SettingPrivate())
 {
-    setMethod(setting->method());
-    setDns(setting->dns());
-    setDnsSearch(setting->dnsSearch());
-    setAddresses(setting->addresses());
-    setRoutes(setting->routes());
-    setIgnoreAutoRoutes(setting->ignoreAutoRoutes());
-    setIgnoreAutoDns(setting->ignoreAutoDns());
-    setDhcpClientId(setting->dhcpClientId());
-    setDhcpSendHostname(setting->dhcpSendHostname());
-    setDhcpHostname(setting->dhcpHostname());
-    setNeverDefault(setting->neverDefault());
-    setMayFail(setting->mayFail());
+    setMethod(other->method());
+    setDns(other->dns());
+    setDnsSearch(other->dnsSearch());
+    setAddresses(other->addresses());
+    setRoutes(other->routes());
+    setIgnoreAutoRoutes(other->ignoreAutoRoutes());
+    setIgnoreAutoDns(other->ignoreAutoDns());
+    setDhcpClientId(other->dhcpClientId());
+    setDhcpSendHostname(other->dhcpSendHostname());
+    setDhcpHostname(other->dhcpHostname());
+    setNeverDefault(other->neverDefault());
+    setMayFail(other->mayFail());
 }
 
 NetworkManager::Settings::Ipv4Setting::~Ipv4Setting()

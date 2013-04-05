@@ -37,8 +37,10 @@ class NMQT_EXPORT BondSetting : public Setting
 {
     Q_DECLARE_PRIVATE(BondSetting)
 public:
+    typedef QSharedPointer<BondSetting> Ptr;
+    typedef QList<Ptr> List;
     BondSetting();
-    BondSetting(BondSetting *);
+    BondSetting(const Ptr &other);
     ~BondSetting();
 
     QString name() const;

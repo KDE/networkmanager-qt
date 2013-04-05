@@ -36,13 +36,13 @@ NetworkManager::Settings::InfinibandSetting::InfinibandSetting():
     d_ptr(new InfinibandSettingPrivate())
 { }
 
-NetworkManager::Settings::InfinibandSetting::InfinibandSetting(InfinibandSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::InfinibandSetting::InfinibandSetting(const NetworkManager::Settings::InfinibandSetting::Ptr &other) :
+    Setting(other),
     d_ptr(new InfinibandSettingPrivate())
 {
-    setMacAddress(setting->macAddress());
-    setMtu(setting->mtu());
-    setTransportMode(setting->transportMode());
+    setMacAddress(other->macAddress());
+    setMtu(other->mtu());
+    setTransportMode(other->transportMode());
 }
 
 NetworkManager::Settings::InfinibandSetting::~InfinibandSetting()

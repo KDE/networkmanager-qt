@@ -39,15 +39,15 @@ NetworkManager::Settings::SerialSetting::SerialSetting():
     d_ptr(new SerialSettingPrivate())
 { }
 
-NetworkManager::Settings::SerialSetting::SerialSetting(SerialSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::SerialSetting::SerialSetting(const Ptr &other):
+    Setting(other),
     d_ptr(new SerialSettingPrivate())
 {
-    setBaud(setting->baud());
-    setBits(setting->bits());
-    setParity(setting->parity());
-    setStopbits(setting->stopbits());
-    setSendDelay(setting->sendDelay());
+    setBaud(other->baud());
+    setBits(other->bits());
+    setParity(other->parity());
+    setStopbits(other->stopbits());
+    setSendDelay(other->sendDelay());
 }
 
 NetworkManager::Settings::SerialSetting::~SerialSetting()

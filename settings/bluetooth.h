@@ -36,10 +36,12 @@ class NMQT_EXPORT BluetoothSetting : public Setting
 {
     Q_DECLARE_PRIVATE(BluetoothSetting)
 public:
+    typedef QSharedPointer<BluetoothSetting> Ptr;
+    typedef QList<Ptr> List;
     enum ProfileType {Unknown = 0, Dun, Panu};
 
     BluetoothSetting();
-    BluetoothSetting(BluetoothSetting * setting);
+    BluetoothSetting(const Ptr &other);
     ~BluetoothSetting();
 
     QString name() const;

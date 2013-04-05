@@ -40,17 +40,17 @@ NetworkManager::Settings::BridgeSetting::BridgeSetting():
     d_ptr(new BridgeSettingPrivate())
 { }
 
-NetworkManager::Settings::BridgeSetting::BridgeSetting(BridgeSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::BridgeSetting::BridgeSetting(const Ptr &other):
+    Setting(other),
     d_ptr(new BridgeSettingPrivate())
 {
-    setInterfaceName(setting->interfaceName());
-    setStp(setting->stp());
-    setPriority(setting->priority());
-    setForwardDelay(setting->forwardDelay());
-    setHelloTime(setting->helloTime());
-    setMaxAge(setting->maxAge());
-    setAgeintTime(setting->ageintTime());
+    setInterfaceName(other->interfaceName());
+    setStp(other->stp());
+    setPriority(other->priority());
+    setForwardDelay(other->forwardDelay());
+    setHelloTime(other->helloTime());
+    setMaxAge(other->maxAge());
+    setAgeintTime(other->ageintTime());
 }
 
 NetworkManager::Settings::BridgeSetting::~BridgeSetting()

@@ -26,6 +26,7 @@
 #include <QtCore/QVariantMap>
 #include <QtCore/QStringList>
 #include <QtCore/QFlags>
+#include <QSharedPointer>
 
 namespace NetworkManager
 {
@@ -37,6 +38,8 @@ class NMQT_EXPORT Setting
 {
     Q_DECLARE_PRIVATE(Setting)
 public:
+    typedef QSharedPointer<Setting> Ptr;
+    typedef QList<Ptr> List;
     enum SettingType {Adsl, Cdma, Gsm, Infiniband, Ipv4, Ipv6, Ppp, Pppoe, Security8021x, Serial,
                       Vpn, Wired, Wireless, WirelessSecurity, Bluetooth, OlpcMesh, Vlan, Wimax, Bond, Bridge, BridgePort
                      };
@@ -47,7 +50,7 @@ public:
     static SettingType typeFromString(const QString & type);
 
     explicit Setting(SettingType type);
-    Setting(Setting * setting);
+    Setting(const Ptr &setting);
     virtual ~Setting();
 
     virtual void fromMap(const QVariantMap & map) = 0;

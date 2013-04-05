@@ -38,11 +38,12 @@ class NMQT_EXPORT WirelessSetting : public Setting
     Q_DECLARE_PRIVATE(WirelessSetting)
 public:
     typedef QSharedPointer<WirelessSetting> Ptr;
+    typedef QList<Ptr> List;
     enum NetworkMode {Infrastructure, Adhoc, Ap};
     enum FrequencyBand {Automatic, A, Bg};
 
     WirelessSetting();
-    WirelessSetting(WirelessSetting * setting);
+    WirelessSetting(const Ptr &setting);
     virtual ~WirelessSetting();
 
     QString name() const;

@@ -34,14 +34,14 @@ NetworkManager::Settings::VpnSetting::VpnSetting():
     d_ptr(new VpnSettingPrivate())
 { }
 
-NetworkManager::Settings::VpnSetting::VpnSetting(VpnSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::VpnSetting::VpnSetting(const Ptr &other):
+    Setting(other),
     d_ptr(new VpnSettingPrivate())
 {
-    setServiceType(setting->serviceType());
-    setUsername(setting->username());
-    setData(setting->data());
-    setSecrets(setting->secrets());
+    setServiceType(other->serviceType());
+    setUsername(other->username());
+    setData(other->data());
+    setSecrets(other->secrets());
 }
 
 NetworkManager::Settings::VpnSetting::~VpnSetting()

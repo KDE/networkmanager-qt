@@ -36,10 +36,12 @@ class NMQT_EXPORT InfinibandSetting : public Setting
 {
     Q_DECLARE_PRIVATE(InfinibandSetting)
 public:
+    typedef QSharedPointer<InfinibandSetting> Ptr;
+    typedef QList<Ptr> List;
     enum TransportMode {Unknown = 0, Datagram, Connected};
 
     InfinibandSetting();
-    InfinibandSetting(InfinibandSetting *);
+    InfinibandSetting(const Ptr &other);
     ~InfinibandSetting();
 
     QString name() const;

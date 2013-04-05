@@ -36,16 +36,16 @@ NetworkManager::Settings::VlanSetting::VlanSetting():
     d_ptr(new VlanSettingPrivate())
 { }
 
-NetworkManager::Settings::VlanSetting::VlanSetting(VlanSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::VlanSetting::VlanSetting(const Ptr &other):
+    Setting(other),
     d_ptr(new VlanSettingPrivate())
 {
-    setInterfaceName(setting->interfaceName());
-    setParent(setting->parent());
-    setId(setting->id());
-    setFlags(setting->flags());
-    setIngressPriorityMap(setting->ingressPriorityMap());
-    setEgressPriorityMap(setting->egressPriorityMap());
+    setInterfaceName(other->interfaceName());
+    setParent(other->parent());
+    setId(other->id());
+    setFlags(other->flags());
+    setIngressPriorityMap(other->ingressPriorityMap());
+    setEgressPriorityMap(other->egressPriorityMap());
 }
 
 NetworkManager::Settings::VlanSetting::~VlanSetting()

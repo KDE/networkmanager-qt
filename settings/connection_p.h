@@ -49,7 +49,7 @@ public:
     QString master;
     QString slaveType;
     QStringList secondaries;
-    QList<Setting *> settings;
+    Setting::List settings;
 };
 }
 }

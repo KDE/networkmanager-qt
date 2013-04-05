@@ -34,6 +34,8 @@ class NMQT_EXPORT Security8021xSetting : public Setting
 {
     Q_DECLARE_PRIVATE(Security8021xSetting)
 public:
+    typedef QSharedPointer<Security8021xSetting> Ptr;
+    typedef QList<Ptr> List;
     enum EapMethod {EapMethodUnknown = 0, EapMethodLeap, EapMethodMd5, EapMethodTls, EapMethodPeap, EapMethodTtls, EapMethodSim, EapMethodFast};
     enum PeapVersion {PeapVersionUnknown = -1, PeapVersionZero, PeapVersionOne};
     enum PeapLabel {PeapLabelUnknown = 0, PeapLabelForce};
@@ -46,7 +48,7 @@ public:
                        };
 
     Security8021xSetting();
-    Security8021xSetting(Security8021xSetting* setting);
+    Security8021xSetting(const Ptr &other);
     ~Security8021xSetting();
 
     QString name() const;

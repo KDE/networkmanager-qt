@@ -35,12 +35,12 @@ NetworkManager::Settings::BluetoothSetting::BluetoothSetting():
     d_ptr(new BluetoothSettingPrivate())
 { }
 
-NetworkManager::Settings::BluetoothSetting::BluetoothSetting(BluetoothSetting * setting):
-    Setting(setting),
+NetworkManager::Settings::BluetoothSetting::BluetoothSetting(const Ptr &other):
+    Setting(other),
     d_ptr(new BluetoothSettingPrivate())
 {
-    setBluetoothAddress(setting->bluetoothAddress());
-    setType(setting->type());
+    setBluetoothAddress(other->bluetoothAddress());
+    setType(other->type());
 }
 
 NetworkManager::Settings::BluetoothSetting::~BluetoothSetting()

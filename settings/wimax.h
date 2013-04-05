@@ -1,5 +1,6 @@
 /*
     Copyright 2012-2013  Jan Grulich <jgrulich@redhat.com>
+    Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -37,8 +38,10 @@ class NMQT_EXPORT WimaxSetting : public Setting
 {
     Q_DECLARE_PRIVATE(WimaxSetting)
 public:
+    typedef QSharedPointer<WimaxSetting> Ptr;
+    typedef QList<Ptr> List;
     WimaxSetting();
-    WimaxSetting(WimaxSetting *);
+    WimaxSetting(const Ptr &other);
     ~WimaxSetting();
 
     QString name() const;
