@@ -88,7 +88,7 @@ public:
      * @param options Options of scan
      * No documentation for options yet, see http://projects.gnome.org/NetworkManager/developers/api/09/spec.html#org.freedesktop.NetworkManager.Device.Wireless
      */
-    QDBusPendingReply<> requestScan(QVariantMap & options);
+    QDBusPendingReply<> requestScan(const QVariantMap & options);
     /**
      * Identifier (path) of the network this interface is currently associated with
      */
