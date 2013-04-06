@@ -72,7 +72,7 @@ NetworkManager::Settings::Connection::List NetworkManager::Settings::SettingsPri
 NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::SettingsPrivate::findConnectionByUuid(const QString & uuid)
 {
     QMap<QString, Connection::Ptr>::const_iterator i = connections.constBegin();
-    while (i != connections.constEnd()) {
+    for (i = connections.constBegin(); i != connections.constEnd(); ++i) {
         NetworkManager::Settings::Connection::Ptr connection = findRegisteredConnection(i.key());
         if (connection->uuid() == uuid) {
             return connection;
