@@ -277,7 +277,7 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::findDeviceByI
     QMap<QString, Device::Ptr>::const_iterator i;
     for (i = networkInterfaceMap.constBegin(); i != networkInterfaceMap.constEnd(); ++i) {
         Device::Ptr networkInterface = findRegisteredNetworkInterface(i.key());
-        if (networkInterface && networkInterface->interfaceName() == iface) {
+        if (networkInterface && networkInterface->udi() == iface) {
             return networkInterface;
         }
     }
