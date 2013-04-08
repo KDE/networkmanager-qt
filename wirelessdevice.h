@@ -158,6 +158,7 @@ protected Q_SLOTS:
     void wirelessPropertiesChanged(const QVariantMap &properties);
     void accessPointAdded(const QDBusObjectPath &accessPoint);
     void accessPointRemoved(const QDBusObjectPath &accessPoint);
+    void removeNetwork(const QString & network);
 Q_SIGNALS:
     /**
      * This signal is emitted when the bitrate of this network has changed.

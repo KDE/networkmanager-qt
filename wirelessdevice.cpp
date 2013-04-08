@@ -63,8 +63,9 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString & path, QObject * p
         QList <QDBusObjectPath> aps = apPathList.value();
         foreach (const QDBusObjectPath &op, aps)
         {
-            d->apMap.insert(op.path(), NetworkManager::AccessPoint::Ptr());
-            //nmDebug() << "  " << op.path();
+            accessPointAdded(op);
+//             d->apMap.insert(op.path(), NetworkManager::AccessPoint::Ptr());
+//             nmDebug() << "  " << op.path();
         }
     }
     else {
@@ -74,12 +75,11 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString & path, QObject * p
 
 NetworkManager::WirelessDevice::~WirelessDevice()
 {
-
 }
 
 NetworkManager::Device::Type NetworkManager::WirelessDevice::type() const
 {
-        return NetworkManager::Device::Wifi;
+    return NetworkManager::Device::Wifi;
 }
 
 QStringList NetworkManager::WirelessDevice::accessPoints() const
@@ -200,6 +200,11 @@ void NetworkManager::WirelessDevice::accessPointAdded(const QDBusObjectPath &acc
 
     bool newAccessPoint = !d->apMap.contains(accessPoint.path());
 
+    if (newAccessPoint) {
+        d->apMap.insert(accessPoint.path(), NetworkManager::AccessPoint::Ptr());
+        emit accessPointAppeared(accessPoint.path());
+    }
+
     NetworkManager::AccessPoint::Ptr accessPointPtr = findAccessPoint(accessPoint.path());
     if (accessPointPtr.isNull()) {
         return;
@@ -209,12 +214,10 @@ void NetworkManager::WirelessDevice::accessPointAdded(const QDBusObjectPath &acc
     if (!ssid.isEmpty() && !d->networks.contains(ssid)) {
         NetworkManager::WirelessNetwork::Ptr wifiNetwork(new NetworkManager::WirelessNetwork(accessPointPtr, this));
         d->networks.insert(ssid, wifiNetwork);
+        connect(wifiNetwork.data(), SIGNAL(disappeared(QString)), SLOT(removeNetwork(QString)));
         emit networkAppeared(ssid);
     }
 
-    if (newAccessPoint) {
-        emit accessPointAppeared(accessPoint.path());
-    }
 }
 
 void NetworkManager::WirelessDevice::accessPointRemoved(const QDBusObjectPath &accessPoint)
@@ -226,9 +229,16 @@ void NetworkManager::WirelessDevice::accessPointRemoved(const QDBusObjectPath &a
     }
     emit accessPointDisappeared(accessPoint.path());
     d->apMap.remove(accessPoint.path());
-    if (d->networks.contains(accessPoint.path())) {
-        emit networkDisappeared(accessPoint.path());
-        d->networks.remove(accessPoint.path());
+
+}
+
+void NetworkManager::WirelessDevice::removeNetwork(const QString& network)
+{
+    Q_D(WirelessDevice);
+
+    if (d->networks.contains(network)) {
+        emit networkDisappeared(network);
+        d->networks.remove(network);
     }
 }
 
