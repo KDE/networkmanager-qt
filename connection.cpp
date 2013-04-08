@@ -194,10 +194,11 @@ void NetworkManager::Settings::Connection::onConnectionUpdated()
 void NetworkManager::Settings::Connection::onConnectionRemoved()
 {
     Q_D(Connection);
-    emit removed(d->path);
+    QString path = d->path;
     d->uuid.clear();
     d->connection = QVariantMapMap();
     d->path.clear();
+    emit removed(path);
 }
 // vim: sw=4 sts=4 et tw=100
 

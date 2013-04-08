@@ -167,8 +167,8 @@ NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::SettingsPriv
 
 void NetworkManager::Settings::SettingsPrivate::onConnectionRemoved(const QString &path)
 {
-    emit connectionRemoved(path);
     connections.remove(path);
+    emit connectionRemoved(path);
 }
 
 void NetworkManager::Settings::SettingsPrivate::daemonUnregistered()
