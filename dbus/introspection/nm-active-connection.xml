@@ -28,9 +28,6 @@
     <property name="State" type="u" access="read" tp:type="NM_ACTIVE_CONNECTION_STATE">
       <tp:docstring>The state of this active connection.</tp:docstring>
     </property>
-    <property name="Default4" type="b" access="read">
-      <tp:docstring>Whether this active connection is the default IPv4 connection, i.e. whether it currently owns the default IPv4 route.</tp:docstring>
-    </property>
     <property name="Default6" type="b" access="read">
       <tp:docstring>Whether this active connection is the default IPv6 connection, i.e. whether it currently owns the default IPv6 route.</tp:docstring>
     </property>
@@ -43,7 +40,7 @@
 
     <signal name="PropertiesChanged">
         <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
-            <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
             <tp:docstring>
                 A dictionary mapping property names to variant boxed values
             </tp:docstring>

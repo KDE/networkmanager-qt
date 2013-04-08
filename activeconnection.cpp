@@ -37,7 +37,8 @@ NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &
 {
     connection = NetworkManager::Settings::findConnection(iface.connection().path());
     path = dbusPath;
-    default4 = iface.default4();
+
+    default4 = qvariant_cast< bool >(iface.property("Default"));
     default6 = iface.default6();
     specificObject = iface.specificObject().path();
     state = NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(iface.state());

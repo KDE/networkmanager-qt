@@ -11,7 +11,7 @@
       </tp:docstring>
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_vpn_plugin_connect"/>
       <arg name="connection" type="a{sa{sv}}" direction="in" tp:type="String_String_Variant_Map_Map">
-        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMapMap"/>
+        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMapMap"/>
         <tp:docstring>
           Describes the connection to be established.
         </tp:docstring>
@@ -31,7 +31,7 @@
       </tp:docstring>
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_vpn_plugin_need_secrets"/>
       <arg name="settings" type="a{sa{sv}}" direction="in" tp:type="String_String_Variant_Map_Map">
-        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMapMap"/>
+        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMapMap"/>
         <tp:docstring>
           Describes the connection that may need secrets.
         </tp:docstring>
@@ -63,7 +63,7 @@
       </tp:docstring>
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_vpn_plugin_set_config"/>
       <arg name="config" type="a{sv}" direction="in" tp:type="String_Variant_Map">
-        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
         <tp:docstring>
           Generic configuration details for the connection.
         </tp:docstring>
@@ -76,7 +76,7 @@
       </tp:docstring>
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_vpn_plugin_set_ip4_config"/>
       <arg name="config" type="a{sv}" direction="in" tp:type="String_Variant_Map">
-        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
         <tp:docstring>
           Ip4Config details for the connection. You must call
 	  SetConfig() before calling this.
@@ -90,7 +90,7 @@
       </tp:docstring>
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_vpn_plugin_set_ip6_config"/>
       <arg name="config" type="a{sv}" direction="in" tp:type="String_Variant_Map">
-        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
         <tp:docstring>
           Ip6Config details for the connection. You must call
 	  SetConfig() before calling this.
@@ -132,7 +132,7 @@
         The plugin obtained generic configuration information.
       </tp:docstring>
       <arg name="config" type="a{sv}" tp:type="String_Variant_Map">
-        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
         <tp:docstring>
           The configuration information.
         </tp:docstring>
@@ -144,7 +144,7 @@
         The plugin obtained an IPv4 configuration.
       </tp:docstring>
       <arg name="ip4config" type="a{sv}" tp:type="String_Variant_Map">
-        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
         <tp:docstring>
           The IPv4 configuration.
         </tp:docstring>
@@ -156,7 +156,7 @@
         The plugin obtained an IPv6 configuration.
       </tp:docstring>
       <arg name="ip6config" type="a{sv}" tp:type="String_Variant_Map">
-        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
         <tp:docstring>
           The IPv6 configuration.
         </tp:docstring>
