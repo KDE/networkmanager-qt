@@ -22,7 +22,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #define NMQT_OLPCMESHDEVICE_P_H
 
 #include "device_p.h"
-#include "dbus/nm-device-olpc-meshinterface.h"
+#include "nm_device_olpc_meshinterface.h"
 
 namespace NetworkManager {
 

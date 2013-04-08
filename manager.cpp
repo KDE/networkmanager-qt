@@ -27,7 +27,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <NetworkManager.h>
 
-#include "dbus/nm-deviceinterface.h"
+#include "nm_deviceinterface.h"
 //#include "networkmanagerdefinitions.h"
 #include "wireddevice.h"
 #include "wirelessdevice.h"

@@ -24,7 +24,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDBusServiceWatcher>
 #include <QMap>
 
-#include "dbus/nm-managerinterface.h"
+#include "nm_managerinterface.h"
+
 #include "device.h"
 #include "activeconnection.h"
 

@@ -21,8 +21,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NMQT_SECRETAGENT_P_H
 #define NMQT_SECRETAGENT_P_H
 
-#include "nm-agent-managerinterface.h"
-#include "nm-secret-agentadaptor.h"
+#include "nm_agent_managerinterface.h"
+#include "nm_secret_agentadaptor.h"
 
 #include <QObject>
 

@@ -24,7 +24,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include <QObject>
 #include <QDBusObjectPath>
 
-#include "dbus/nm-settingsinterface.h"
+#include "nm_settingsinterface.h"
 #include "settings.h"
 
 class QDBusPendingCallWatcher;

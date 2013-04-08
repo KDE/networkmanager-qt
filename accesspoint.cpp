@@ -20,7 +20,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "accesspoint.h"
-#include "dbus/nm-access-pointinterface.h"
+#include "nm_access_pointinterface.h"
 #include "manager_p.h"
 #include "wirelessdevice.h"
 

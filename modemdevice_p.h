@@ -21,7 +21,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #define NMQT_MODEMDEVICE_P_H
 
 #include "device_p.h"
-#include "dbus/nm-device-modeminterface.h"
+#include "nm_device_modeminterface.h"
 
 namespace NetworkManager
 {

@@ -23,7 +23,7 @@
 #include "manager.h"
 #include "manager_p.h"
 
-#include "nm-device-bondinterface.h"
+#include "nm_device_bondinterface.h"
 
 namespace NetworkManager
 {

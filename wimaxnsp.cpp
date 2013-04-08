@@ -20,7 +20,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "wimaxnsp.h"
-#include "dbus/nm-wimax-nspinterface.h"
+#include "nm_wimax_nspinterface.h"
 #include "manager_p.h"
 #include "wimaxdevice.h"
 

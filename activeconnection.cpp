@@ -29,7 +29,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDBusObjectPath>
 
 #include "manager_p.h"
-#include "nm-active-connectioninterface.h"
+#include "nm_active_connectioninterface.h"
 
 
 NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString & dbusPath)

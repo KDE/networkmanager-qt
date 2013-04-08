@@ -22,7 +22,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #define NMQT_ACTIVECONNECTION_P_H
 
 #include "activeconnection.h"
-#include "nm-active-connectioninterface.h"
+#include "nm_active_connectioninterface.h"
 
 namespace NetworkManager
 {

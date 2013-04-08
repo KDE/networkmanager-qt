@@ -135,37 +135,6 @@ set(QtNetworkManager_PART_SRCS
     generic-types.cpp
 )
 
-set(DBUS_INTERFACE_SRCS
-   dbus/nm-access-pointinterface.cpp
-   dbus/nm-active-connectioninterface.cpp
-   dbus/nm-agent-managerinterface.cpp
-   dbus/nm-device-adslinterface.cpp
-   dbus/nm-device-bondinterface.cpp
-   dbus/nm-device-bridgeinterface.cpp
-   dbus/nm-device-btinterface.cpp
-   dbus/nm-device-ethernetinterface.cpp
-   dbus/nm-device-infinibandinterface.cpp
-   dbus/nm-device-modeminterface.cpp
-   dbus/nm-device-olpc-meshinterface.cpp
-   dbus/nm-device-vlaninterface.cpp
-   dbus/nm-device-wifiinterface.cpp
-   dbus/nm-device-wimaxinterface.cpp
-   dbus/nm-deviceinterface.cpp
-   dbus/nm-dhcp4-configinterface.cpp
-   dbus/nm-dhcp6-configinterface.cpp
-   dbus/nm-ip4-configinterface.cpp
-   dbus/nm-ip6-configinterface.cpp
-   dbus/nm-managerinterface.cpp
-   dbus/nm-ppp-managerinterface.cpp
-   #dbus/nm-secret-agentinterface.cpp
-   dbus/nm-secret-agentadaptor.cpp
-   dbus/nm-settings-connectioninterface.cpp
-   dbus/nm-settingsinterface.cpp
-   dbus/nm-vpn-connectioninterface.cpp
-   dbus/nm-vpn-plugininterface.cpp
-   dbus/nm-wimax-nspinterface.cpp
-   )
-
 set(CONNECTIONS_SETTINGS_SRCS
     settings/802-3-ethernet.cpp
     settings/802-11-olpc-mesh.cpp
@@ -220,11 +189,58 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/wimax.h
     )
 
+set(DBUS_INTERFACES_XML
+   dbus/introspection/nm-access-point.xml
+   dbus/introspection/nm-active-connection.xml
+   dbus/introspection/nm-agent-manager.xml
+   dbus/introspection/nm-device-adsl.xml
+   dbus/introspection/nm-device-bond.xml
+   dbus/introspection/nm-device-bridge.xml
+   dbus/introspection/nm-device-bt.xml
+   dbus/introspection/nm-device-ethernet.xml
+   dbus/introspection/nm-device-infiniband.xml
+   dbus/introspection/nm-device-modem.xml
+   dbus/introspection/nm-device-olpc-mesh.xml
+   dbus/introspection/nm-device-vlan.xml
+   dbus/introspection/nm-device-wifi.xml
+   dbus/introspection/nm-device-wimax.xml
+   dbus/introspection/nm-device.xml
+   dbus/introspection/nm-dhcp4-config.xml
+   dbus/introspection/nm-dhcp6-config.xml
+   dbus/introspection/nm-ip4-config.xml
+   dbus/introspection/nm-ip6-config.xml
+   dbus/introspection/nm-manager.xml
+   dbus/introspection/nm-ppp-manager.xml
+   dbus/introspection/nm-settings-connection.xml
+   dbus/introspection/nm-settings.xml
+   dbus/introspection/nm-vpn-connection.xml
+   dbus/introspection/nm-vpn-plugin.xml
+   dbus/introspection/nm-wimax-nsp.xml
+)
+
+set_source_files_properties(${DBUS_INTERFACES_XML} PROPERTIES INCLUDE generic-types.h)
+set_source_files_properties(${DBUS_INTERFACES_XML} PROPERTIES NO_NAMESPACE TRUE)
+
+FOREACH (_current_FILE ${DBUS_INTERFACES_XML})
+    GET_FILENAME_COMPONENT(_infile ${_current_FILE} ABSOLUTE)
+    # get the part before the ".xml" suffix
+    STRING(REGEX REPLACE "(.*[/\\.])?([^\\.]+)\\.xml" "\\2" _basename ${_current_FILE})
+    STRING(REPLACE "-" "_" _basename ${_basename})
+    STRING(TOLOWER ${_basename} _basename)
+    QT4_ADD_DBUS_INTERFACE(QtNetworkManager_PART_SRCS ${_infile} ${_basename}interface)
+ENDFOREACH (_current_FILE ${DBUS_INTERFACES_XML})
+
+qt4_add_dbus_adaptor(QtNetworkManager_PART_SRCS
+    dbus/introspection/nm-secret-agent.xml
+    secretagent.h
+    NetworkManager::SecretAgent
+    nm_secret_agentadaptor
+)
+
 qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_PRIVATE_HEADERS})
 qt4_automoc(${QtNetworkManager_PART_SRCS})
-qt4_automoc(${DBUS_INTERFACE_SRCS})
 
-add_library(QtNetworkManager SHARED ${QtNetworkManager_PART_SRCS} ${DBUS_INTERFACE_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${QtNetworkManager_MOC} )
+add_library(QtNetworkManager SHARED ${QtNetworkManager_PART_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${QtNetworkManager_MOC} )
 
 # TODO: dlopen libQtModemManager to make it a runtime dependency instead of compile
 # time dependency.

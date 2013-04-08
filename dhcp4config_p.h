@@ -21,7 +21,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NMQT_DHCP4CONFIG_P_H
 #define NMQT_DHCP4CONFIG_P_H
 
-#include "dbus/nm-dhcp4-configinterface.h"
+#include "nm_dhcp4_configinterface.h"
 
 namespace NetworkManager
 {

@@ -22,7 +22,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #define NMQT_WIREDDEVICE_P_H
 
 #include "device_p.h"
-#include "dbus/nm-device-ethernetinterface.h"
+#include "nm_device_ethernetinterface.h"
 
 namespace NetworkManager
 {

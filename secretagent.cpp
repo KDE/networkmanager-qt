@@ -30,8 +30,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDBusArgument>
 #include <QDBusConnection>
 
-#include "nm-secret-agentadaptor.h"
-#include "nm-agent-managerinterface.h"
+#include "nm_agent_managerinterface.h"
 
 NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id, NetworkManager::SecretAgent *parent)
 : q_ptr(parent), agent(parent), agentManager(NetworkManagerPrivate::DBUS_SERVICE, QLatin1String(NM_DBUS_PATH_AGENT_MANAGER), QDBusConnection::systemBus(), parent),

@@ -27,7 +27,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDBusObjectPath>
 
 #include "manager_p.h"
-#include "nm-vpn-connectioninterface.h"
+#include "nm_vpn_connectioninterface.h"
 
 class NetworkManager::VpnConnectionPrivate : public NetworkManager::ActiveConnectionPrivate
 {
