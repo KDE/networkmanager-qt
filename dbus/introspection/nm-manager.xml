@@ -88,7 +88,7 @@
         Cannot be used for VPN connections at this time.
       </tp:docstring>
       <arg name="connection" type="a{sa{sv}}" direction="in">
-        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMapMap"/>
+        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMapMap"/>
         <tp:docstring>
           Connection settings and properties; if incomplete missing settings will
           be automatically completed using the given device and specific object.
@@ -184,7 +184,7 @@
         WiFi, WWAN, and WiMAX state, etc.
       </tp:docstring>
       <arg name="permissions" type="a{ss}" direction="out">
-        <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QStringMap"/>
+        <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QStringMap"/>
         <tp:docstring>
           Dictionary of available permissions and results.  Each permission
           is represented by a name (ie "org.freedesktop.NetworkManager.Foobar")
@@ -332,7 +332,7 @@
         NetworkManager's properties changed.
       </tp:docstring>
       <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
-        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
         <tp:docstring>
           The changed properties.
         </tp:docstring>

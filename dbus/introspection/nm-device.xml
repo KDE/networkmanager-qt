@@ -62,7 +62,7 @@
       </tp:docstring>
     </property>
     <property name="StateReason" type="(uu)" access="read" tp:type="NM_DEVICE_STATE_REASON_STRUCT">
-      <annotation name="org.qtproject.QtDBus.QtTypeName"  value="DeviceDBusStateReason"/>
+      <annotation name="com.trolltech.QtDBus.QtTypeName"  value="DeviceDBusStateReason"/>
       <tp:docstring>
         The current state and reason for changing to that state.
       </tp:docstring>

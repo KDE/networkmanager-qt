@@ -6,13 +6,13 @@
             Options and configuration returned by the IPv4 DHCP server.
         </tp:docstring>
         <property name="Options" type="a{sv}" access="read">
-            <annotation name="org.qtproject.QtDBus.QtTypeName" value="QVariantMap"/>
+            <annotation name="com.trolltech.QtDBus.QtTypeName" value="QVariantMap"/>
             <tp:docstring>Configuration options returned by a DHCP server, if any.</tp:docstring>
         </property>
 
         <signal name="PropertiesChanged">
             <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
-                <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+                <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
                 <tp:docstring>
                     A dictionary mapping property names to variant boxed values
                 </tp:docstring>
