@@ -23,7 +23,7 @@
 #include "manager.h"
 #include "manager_p.h"
 
-#include "nm_device_vlaninterface.h"
+#include "nm-device-vlaninterface.h"
 
 namespace NetworkManager
 {

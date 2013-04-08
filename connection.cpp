@@ -40,7 +40,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "manager_p.h"
 #include "device.h"
 #include "activeconnection.h"
-#include "nm_settings_connectioninterface.h"
+#include "nm-settings-connectioninterface.h"
 #include "generic-types.h"
 
 class NetworkManager::Settings::ConnectionPrivate

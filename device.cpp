@@ -29,8 +29,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <arpa/inet.h>
 
-#include "nm_ip4_configinterface.h"
-#include "nm_ip6_configinterface.h"
+#include "dbus/nm-ip4-configinterface.h"
+#include "dbus/nm-ip6-configinterface.h"
 
 namespace NetworkManager
 {

@@ -1,0 +1,62 @@
+--- nm-device-olpc-meshinterface.h~	2011-09-30 17:11:53.000000000 +0200
++++ nm-device-olpc-meshinterface.h	2011-09-30 17:11:53.000000000 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+
+-#ifndef NM-DEVICE-OLPC-MESHINTERFACE_H_1317395392
+-#define NM-DEVICE-OLPC-MESHINTERFACE_H_1317395392
++#ifndef NM_DEVICE_OLPC_MESHINTERFACE_H
++#define NM_DEVICE_OLPC_MESHINTERFACE_H
+
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+--- nm-wimax-nspinterface.h~	2011-09-30 17:12:15.000000000 +0200
++++ nm-wimax-nspinterface.h	2011-09-30 17:12:15.000000000 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+
+-#ifndef NM-WIMAX-NSPINTERFACE_H_1317395392
+-#define NM-WIMAX-NSPINTERFACE_H_1317395392
++#ifndef NM_WIMAX_NSPINTERFACE_H
++#define NM_WIMAX_NSPINTERFACE_H
+
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>--- nm-active-connectioninterface.h~	2011-09-30 17:09:31.000000000 +0200
++++ nm-active-connectioninterface.h	2011-09-30 17:15:07.000000000 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-ACTIVE-CONNECTIONINTERFACE_H_1317395305
+-#define NM-ACTIVE-CONNECTIONINTERFACE_H_1317395305
++#ifndef NM_ACTIVE_CONNECTIONINTERFACE_H
++#define NM_ACTIVE_CONNECTIONINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+@@ -39,8 +39,8 @@
+     inline QDBusObjectPath connection() const
+     { return qvariant_cast< QDBusObjectPath >(property("Connection")); }
+ 
+-    Q_PROPERTY(bool Default READ default)
+-    inline bool default() const
++    Q_PROPERTY(bool Default READ default4)
++    inline bool default4() const
+     { return qvariant_cast< bool >(property("Default")); }
+ 
+     Q_PROPERTY(bool Default6 READ default6)
+--- nm-settingsinterface.h~	2011-10-01 11:46:52.000000000 +0200
++++ nm-settingsinterface.h	2011-10-01 11:46:52.000000000 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-SETTINGSINTERFACE_H_1317461489
+-#define NM-SETTINGSINTERFACE_H_1317461489
++#ifndef NM_SETTINGSINTERFACE_H
++#define NM_SETTINGSINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>

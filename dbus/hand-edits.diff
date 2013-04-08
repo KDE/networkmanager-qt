@@ -1,0 +1,138 @@
+--- /space/kde/builds/trunk/KDE/kdebase/workspace/solid/networkmanager-0.7/dbus/nm-access-pointinterface.h	2009-06-16 18:34:32.000000000 +0200
++++ nm-access-pointinterface.h	2009-06-16 18:25:06.000000000 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-ACCESS-POINTINTERFACE_H
+-#define NM-ACCESS-POINTINTERFACE_H
++#ifndef NM_ACCESS_POINTINTERFACE_H
++#define NM_ACCESS_POINTINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+--- /space/kde/builds/trunk/KDE/kdebase/workspace/solid/networkmanager-0.7/dbus/nm-device-cdmainterface.h	2009-06-16 18:34:33.000000000 +0200
++++ nm-device-cdmainterface.h	2009-06-16 18:25:30.000000000 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-DEVICE-CDMAINTERFACE_H
+-#define NM-DEVICE-CDMAINTERFACE_H
++#ifndef NM_DEVICE_CDMAINTERFACE_H_1234457952
++#define NM_DEVICE_CDMAINTERFACE_H_1234457952
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+--- /space/kde/builds/trunk/KDE/kdebase/workspace/solid/networkmanager-0.7/dbus/nm-device-ethernetinterface.h	2009-06-16 18:34:32.000000000 +0200
++++ nm-device-ethernetinterface.h	2009-06-16 18:25:45.000000000 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-DEVICE-ETHERNETINTERFACE_H
+-#define NM-DEVICE-ETHERNETINTERFACE_H
++#ifndef NM_DEVICE_ETHERNETINTERFACE_H
++#define NM_DEVICE_ETHERNETINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+--- /space/kde/builds/trunk/KDE/kdebase/workspace/solid/networkmanager-0.7/dbus/nm-device-gsminterface.h	2009-06-16 18:34:33.000000000 +0200
++++ nm-device-gsminterface.h	2009-06-16 18:26:01.000000000 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-DEVICE-GSMINTERFACE_H
+-#define NM-DEVICE-GSMINTERFACE_H
++#ifndef NM_DEVICE_GSMINTERFACE_H_1234457952
++#define NM_DEVICE_GSMINTERFACE_H_1234457952
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+--- /space/kde/builds/trunk/KDE/kdebase/workspace/solid/networkmanager-0.7/dbus/nm-deviceinterface.h	2009-06-16 18:34:32.000000000 +0200
++++ nm-deviceinterface.h	2009-06-16 18:26:36.000000000 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-DEVICEINTERFACE_H
+-#define NM-DEVICEINTERFACE_H
++#ifndef NM_DEVICEINTERFACE_H
++#define NM_DEVICEINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+--- /space/kde/builds/trunk/KDE/kdebase/workspace/solid/networkmanager-0.7/dbus/nm-device-serialinterface.h	2009-06-16 18:34:30.000000000 +0200
++++ nm-device-serialinterface.h	2009-06-16 18:26:13.000000000 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-DEVICE-SERIALINTERFACE_H
+-#define NM-DEVICE-SERIALINTERFACE_H
++#ifndef NM_DEVICE_SERIALINTERFACE_H_1234457952
++#define NM_DEVICE_SERIALINTERFACE_H_1234457952
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+--- /space/kde/builds/trunk/KDE/kdebase/workspace/solid/networkmanager-0.7/dbus/nm-device-wifiinterface.h	2009-06-16 18:34:32.000000000 +0200
++++ nm-device-wifiinterface.h	2009-06-16 18:26:27.000000000 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-DEVICE-WIFIINTERFACE_H
+-#define NM-DEVICE-WIFIINTERFACE_H
++#ifndef NM_DEVICE_WIFIINTERFACE_H
++#define NM_DEVICE_WIFIINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+--- /space/kde/builds/trunk/KDE/kdebase/workspace/solid/networkmanager-0.7/dbus/nm-dhcp4-configinterface.h	2009-06-16 18:34:33.000000000 +0200
++++ nm-dhcp4-configinterface.h	2009-06-16 18:26:52.000000000 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-DHCP4-CONFIGINTERFACE_H
+-#define NM-DHCP4-CONFIGINTERFACE_H
++#ifndef NM_DHCP4_CONFIGINTERFACE_H
++#define NM_DHCP4_CONFIGINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+--- /space/kde/builds/trunk/KDE/kdebase/workspace/solid/networkmanager-0.7/dbus/nm-ip4-configinterface.h	2009-06-16 18:34:33.000000000 +0200
++++ nm-ip4-configinterface.h	2009-06-16 18:29:41.000000000 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-IP4-CONFIGINTERFACE_H
+-#define NM-IP4-CONFIGINTERFACE_H
++#ifndef NM_IP4_CONFIGINTERFACE_H
++#define NM_IP4_CONFIGINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>
+@@ -20,6 +20,7 @@
+ #include <QtCore/QVariant>
+ #include <QtDBus/QtDBus>
+ 
++#include "generic-types.h"
+ /*
+  * Proxy class for interface org.freedesktop.NetworkManager.IP4Config
+  */
+--- /space/kde/builds/trunk/KDE/kdebase/workspace/solid/networkmanager-0.7/dbus/nm-manager-clientinterface.h	2009-06-16 18:34:30.000000000 +0200
++++ nm-manager-clientinterface.h	2009-06-16 18:27:34.000000000 +0200
+@@ -8,8 +8,8 @@
+  * Do not edit! All changes made to it will be lost.
+  */
+ 
+-#ifndef NM-MANAGER-CLIENTINTERFACE_H
+-#define NM-MANAGER-CLIENTINTERFACE_H
++#ifndef NM_MANAGER_CLIENTINTERFACE_H
++#define NM_MANAGER_CLIENTINTERFACE_H
+ 
+ #include <QtCore/QObject>
+ #include <QtCore/QByteArray>

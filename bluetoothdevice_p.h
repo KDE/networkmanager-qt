@@ -21,7 +21,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #define NMQT_BLUETOOTH_DEVICE_P_H
 
 #include "modemdevice_p.h"
-#include "nm_device_btinterface.h"
+#include "dbus/nm-device-btinterface.h"
 
 namespace NetworkManager {
 class BluetoothDevicePrivate : public ModemDevicePrivate

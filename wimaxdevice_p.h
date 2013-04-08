@@ -22,7 +22,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #define NMQT_WIMAXDEVICE_P_H
 
 #include "device_p.h"
-#include "nm_device_wimaxinterface.h"
+#include "dbus/nm-device-wimaxinterface.h"
 
 namespace NetworkManager {
 

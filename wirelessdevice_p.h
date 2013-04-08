@@ -22,7 +22,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #define NMQT_WIRELESSDEVICE_P_H
 
 #include "device_p.h"
-#include "nm_device_wifiinterface.h"
+#include "dbus/nm-device-wifiinterface.h"
 
 namespace NetworkManager {
 
