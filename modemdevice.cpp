@@ -46,7 +46,7 @@ void NetworkManager::ModemDevice::initModemProperties()
     d->currentCapabilities = convertModemCapabilities(d->modemIface.currentCapabilities());
     d->m_modemUdi = getUdiForModemManager();
     connect(&d->modemIface, SIGNAL(PropertiesChanged(QVariantMap)),
-                this, SLOT(modemPropertiesChanged(QVariantMap)));
+                this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate & dd, QObject * parent) : Device(dd, parent),
@@ -82,23 +82,6 @@ NetworkManager::ModemDevice::Capabilities NetworkManager::ModemDevice::modemCapa
 {
     Q_D(const ModemDevice);
     return d->modemCapabilities;
-}
-
-void NetworkManager::ModemDevice::modemPropertiesChanged(const QVariantMap &properties)
-{
-    Q_D(ModemDevice);
-
-    QVariantMap::const_iterator it = properties.constBegin();
-    while (it != properties.constEnd()) {
-        QString property = it.key();
-        if (property == QLatin1String("CurrentCapabilities")) {
-            d->currentCapabilities = convertModemCapabilities((*it).toUInt());
-            emit currentCapabilitiesChanged(d->currentCapabilities);
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
-        }
-        ++it;
-    }
 }
 
 QString NetworkManager::ModemDevice::getUdiForModemManager()
@@ -158,6 +141,18 @@ void NetworkManager::ModemDevice::modemRemoved(const QString & modemUdi)
     if (modemUdi == d->m_modemUdi) {
         modemGsmNetworkIface = 0;
         modemGsmCardIface = 0;
+    }
+}
+
+void NetworkManager::ModemDevice::propertyChanged(const QString &property, const QVariant &value)
+{
+    Q_D(ModemDevice);
+
+    if (property == QLatin1String("CurrentCapabilities")) {
+        d->currentCapabilities = convertModemCapabilities(value.toUInt());
+        emit currentCapabilitiesChanged(d->currentCapabilities);
+    } else {
+        Device::propertyChanged(property, value);
     }
 }
 

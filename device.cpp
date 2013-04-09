@@ -98,6 +98,7 @@ NetworkManager::DevicePrivate::DevicePrivate( const QString & path, QObject * ow
     Q_UNUSED(owner);
     driver = deviceIface.driver();
     interfaceName = deviceIface.interface();
+    ipInterface = deviceIface.ipInterface();
     ipV4Address = deviceIface.ip4Address();
     managed = deviceIface.managed();
     udi = deviceIface.udi();
@@ -158,6 +159,75 @@ void NetworkManager::Device::init()
     connect(&d->deviceIface, SIGNAL(StateChanged(uint,uint,uint)), this, SLOT(deviceStateChanged(uint,uint,uint)));
 }
 
+void NetworkManager::Device::propertyChanged(const QString &property, const QVariant &value)
+{
+    Q_D(Device);
+
+    if (property == QLatin1String("ActiveConnection")) {
+//        d->autoconnect = value->toBool();
+//        emit carrierChanged(d->carrier);
+    } else if (property == QLatin1String("Autoconnect")) {
+        d->autoconnect = value.toBool();
+        emit autoconnectChanged();
+    } else if (property == QLatin1String("AvailableConnections")) {
+//        d-> = it->toString();
+//        emit permanentHardwareAddressChanged(d->permanentHardwareAddress);
+    } else if (property == QLatin1String("Capabilities")) {
+        d->capabilities = NetworkManager::DevicePrivate::convertCapabilities(value.toUInt());
+        emit capabilitiesChanged();
+    } else if (property == QLatin1String("DeviceType")) {
+//        d->dev = it->toUInt() * 1000;
+//        emit bitRateChanged(d->bitrate);
+    } else if (property == QLatin1String("Dhcp4Config")) {
+//        d->dhcp4Config = it->toUInt() * 1000;
+//        emit bitRateChanged(d->bitrate);
+    } else if (property == QLatin1String("Dhcp6Config")) {
+//        d->bitrate = it->toUInt() * 1000;
+//        emit bitRateChanged(d->bitrate);
+    } else if (property == QLatin1String("Driver")) {
+        d->driver = value.toString();
+        emit driverChanged();
+    } else if (property == QLatin1String("DriverVersion")) {
+        d->driverVersion = value.toString();
+        emit driverVersionChanged();
+    } else if (property == QLatin1String("FirmwareMissing")) {
+        d->firmwareMissing = value.toBool();
+        emit firmwareMissingChanged();
+    } else if (property == QLatin1String("FirmwareVersion")) {
+        d->firmwareVersion = value.toString();
+        emit firmwareVersionChanged();
+    } else if (property == QLatin1String("Interface")) {
+        d->interfaceName = value.toString();
+        emit interfaceNameChanged();
+    } else if (property == QLatin1String("Ip4Address")) {
+        d->ipV4Address = value.toInt();
+        emit ipV4AddressChanged();
+    } else if (property == QLatin1String("Ip4Config")) {
+//        d->ipV4Config = it->toUInt() * 1000;
+//        emit bitRateChanged(d->bitrate);
+    } else if (property == QLatin1String("Ip6Config")) {
+//        d->bitrate = it->toUInt() * 1000;
+//        emit bitRateChanged(d->bitrate);
+    } else if (property == QLatin1String("IpInterface")) {
+        d->ipInterface = value.toString();
+        emit ipInterfaceChanged();
+    } else if (property == QLatin1String("Managed")) {
+        d->managed = value.toBool();
+        emit managedChanged();
+    } else if (property == QLatin1String("State")) {
+        d->connectionState = NetworkManager::DevicePrivate::convertState(value.toUInt());
+        emit connectionStateChanged();
+    } else if (property == QLatin1String("StateReason")) {
+        d->reason = NetworkManager::DevicePrivate::convertReason(value.toUInt());
+        emit stateReasonChanged();
+    } else if (property == QLatin1String("Udi")) {
+        d->udi = value.toString();
+        emit udiChanged();
+    } else {
+        qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+    }
+}
+
 NetworkManager::Device::~Device()
 {
     delete d_ptr;
@@ -184,7 +254,7 @@ void NetworkManager::Device::setInterfaceName(const QVariant & name)
 QString NetworkManager::Device::ipInterfaceName() const
 {
     Q_D(const Device);
-    return d->deviceIface.ipInterface();
+    return d->ipInterface;
 }
 
 QString NetworkManager::Device::driver() const
@@ -486,9 +556,18 @@ void NetworkManager::Device::deviceStateChanged(uint new_state, uint old_state, 
     emit stateChanged(d->connectionState, NetworkManager::DevicePrivate::convertState(old_state), NetworkManager::DevicePrivate::convertReason(reason));
 }
 
+void NetworkManager::Device::propertiesChanged(const QVariantMap &properties)
+{
+    QVariantMap::const_iterator it = properties.constBegin();
+    while (it != properties.constEnd()) {
+        propertyChanged(it.key(), it.value());
+        ++it;
+    }
+}
+
 NetworkManager::Device::Type NetworkManager::Device::type() const
 {
-        return NetworkManager::Device::UnknownType;
+    return NetworkManager::Device::UnknownType;
 }
 
 #include "device.moc"

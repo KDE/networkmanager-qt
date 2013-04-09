@@ -35,16 +35,21 @@ Q_DECLARE_PRIVATE(AdslDevice)
 Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
 
 public:
-    AdslDevice(const QString& path, QObject* parent = 0);
+    explicit AdslDevice(const QString& path, QObject* parent = 0);
     virtual ~AdslDevice();
 
     virtual Type type() const;
     bool carrier() const;
-public Q_SLOTS:
-    void onPropertiesChanged(const QVariantMap & properties);
 
 Q_SIGNALS:
     void carrierChanged(bool plugged);
+
+protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value);
 };
 
 }

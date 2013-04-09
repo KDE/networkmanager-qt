@@ -47,7 +47,7 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString & path, QObject * p
     d->wirelessCapabilities = convertCapabilities(d->wirelessIface.wirelessCapabilities());
 
     connect( &d->wirelessIface, SIGNAL(PropertiesChanged(QVariantMap)),
-                this, SLOT(wirelessPropertiesChanged(QVariantMap)));
+                this, SLOT(propertiesChanged(QVariantMap)));
     connect( &d->wirelessIface, SIGNAL(AccessPointAdded(QDBusObjectPath)),
                 this, SLOT(accessPointAdded(QDBusObjectPath)));
     connect( &d->wirelessIface, SIGNAL(AccessPointRemoved(QDBusObjectPath)),
@@ -144,38 +144,6 @@ NetworkManager::AccessPoint * NetworkManager::WirelessDevice::findAccessPoint(co
     return ap;
 }
 
-void NetworkManager::WirelessDevice::wirelessPropertiesChanged(const QVariantMap &properties)
-{
-    Q_D(WirelessDevice);
-
-    QVariantMap::const_iterator it = properties.constBegin();
-    while (it != properties.constEnd()) {
-        QString property = it.key();
-        if (property == QLatin1String("ActiveAccessPoint")) {
-            d->activeAccessPoint = qdbus_cast<QDBusObjectPath>(*it).path();
-            emit activeAccessPointChanged(d->activeAccessPoint);
-        } else if (property == QLatin1String("HwAddress")) {
-            d->hardwareAddress = it->toString();
-            emit hardwareAddressChanged(d->hardwareAddress);
-        } else if (property == QLatin1String("PermHwAddress")) {
-            d->permanentHardwareAddress = it->toString();
-            emit permanentHardwareAddressChanged(d->permanentHardwareAddress);
-        } else if (property == QLatin1String("Bitrate")) {
-            d->bitRate = it->toUInt();
-            emit bitRateChanged(d->bitRate);
-        } else if (property == QLatin1String("Mode")) {
-            d->mode = convertOperationMode(it->toUInt());
-            emit modeChanged(d->mode);
-        } else if (property == QLatin1String("WirelessCapabilities")) {
-            d->wirelessCapabilities = convertCapabilities(it->toUInt());
-            emit wirelessCapabilitiesChanged(d->wirelessCapabilities);
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
-        }
-        ++it;
-    }
-}
-
 void NetworkManager::WirelessDevice::accessPointAdded(const QDBusObjectPath &apPath)
 {
     //kDebug(1441) << apPath.path();
@@ -197,6 +165,33 @@ void NetworkManager::WirelessDevice::accessPointRemoved(const QDBusObjectPath &a
     emit accessPointDisappeared(apPath.path());
     if (ap)
         ap->deleteLater();
+}
+
+void NetworkManager::WirelessDevice::propertyChanged(const QString &property, const QVariant &value)
+{
+    Q_D(WirelessDevice);
+
+    if (property == QLatin1String("ActiveAccessPoint")) {
+        d->activeAccessPoint = qdbus_cast<QDBusObjectPath>(value).path();
+        emit activeAccessPointChanged(d->activeAccessPoint);
+    } else if (property == QLatin1String("HwAddress")) {
+        d->hardwareAddress = value.toString();
+        emit hardwareAddressChanged(d->hardwareAddress);
+    } else if (property == QLatin1String("PermHwAddress")) {
+        d->permanentHardwareAddress = value.toString();
+        emit permanentHardwareAddressChanged(d->permanentHardwareAddress);
+    } else if (property == QLatin1String("Bitrate")) {
+        d->bitRate = value.toUInt();
+        emit bitRateChanged(d->bitRate);
+    } else if (property == QLatin1String("Mode")) {
+        d->mode = convertOperationMode(value.toUInt());
+        emit modeChanged(d->mode);
+    } else if (property == QLatin1String("WirelessCapabilities")) {
+        d->wirelessCapabilities = convertCapabilities(value.toUInt());
+        emit wirelessCapabilitiesChanged(d->wirelessCapabilities);
+    } else {
+        Device::propertyChanged(property, value);
+    }
 }
 
 NetworkManager::WirelessDevice::OperationMode NetworkManager::WirelessDevice::convertOperationMode(uint theirMode)

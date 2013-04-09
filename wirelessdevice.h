@@ -71,7 +71,7 @@ public:
      *
      * @param path the DBus path of the devise
      */
-    WirelessDevice(const QString & path, QObject * parent = 0);
+    explicit WirelessDevice(const QString & path, QObject * parent = 0);
     /**
      * Destroys a WirelessNetworkInterface object.
      */
@@ -140,9 +140,9 @@ public:
     AccessPoint *findAccessPoint(const QString & uni) const;
 
 protected Q_SLOTS:
-    void wirelessPropertiesChanged(const QVariantMap &properties);
     void accessPointAdded(const QDBusObjectPath &);
     void accessPointRemoved(const QDBusObjectPath &);
+
 Q_SIGNALS:
     /**
      * This signal is emitted when the bitrate of this network has changed.
@@ -182,6 +182,13 @@ Q_SIGNALS:
      * A wireless access point disappeared
      */
     void accessPointDisappeared(const QString &);
+
+protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value);
 };
 
 } // namespace NetworkManager

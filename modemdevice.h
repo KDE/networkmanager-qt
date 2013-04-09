@@ -43,8 +43,8 @@ Q_DECLARE_PRIVATE(ModemDevice)
 public:
     enum Capability { NoCapability = 0x0, Pots = 0x1, CdmaEvdo = 0x2, GsmUmts = 0x4, Lte = 0x8 };
     Q_DECLARE_FLAGS(Capabilities, Capability)
-    ModemDevice(const QString & path, QObject * parent = 0);
-    ModemDevice( ModemDevicePrivate &dd, QObject * parent = 0);
+    explicit ModemDevice(const QString & path, QObject * parent = 0);
+    explicit ModemDevice( ModemDevicePrivate &dd, QObject * parent = 0);
     virtual ~ModemDevice();
     /**
      * Return the type
@@ -71,13 +71,21 @@ Q_SIGNALS:
      * This signal is emitted when the capabilities of the device change
      */
     void currentCapabilitiesChanged(Capabilities);
+
 protected Q_SLOTS:
-    void modemPropertiesChanged(const QVariantMap& properties);
     void modemRemoved(const QString & modemUdi);
+
 protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value);
+    QString getUdiForModemManager();
+
     ModemManager::ModemGsmCardInterface *modemGsmCardIface;
     ModemManager::ModemGsmNetworkInterface *modemGsmNetworkIface;
-    QString getUdiForModemManager();
+
 private:
     void initModemProperties();
     Capabilities convertModemCapabilities(uint theirCaps);

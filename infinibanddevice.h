@@ -36,19 +36,23 @@ Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
 Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
 
 public:
-    InfinibandDevice(const QString& path, QObject* parent = 0);
+    explicit InfinibandDevice(const QString& path, QObject* parent = 0);
     virtual ~InfinibandDevice();
 
     virtual Type type() const;
     bool carrier() const;
     QString hwAddress() const;
 
-public Q_SLOTS:
-    void onPropertiesChanged(const QVariantMap & properties);
-
 Q_SIGNALS:
     void carrierChanged(bool plugged);
     void hwAddressChanged(const QString & address);
+
+protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value);
 };
 
 }

@@ -46,29 +46,32 @@ public:
     NetworkType networkType() const;
     QString name() const;
     uint signalQuality() const;
+
 protected Q_SLOTS:
     void propertiesChanged(const QVariantMap &properties);
-    Q_SIGNALS:
-        /**
-         * This signal is emitted when the network type of this NSP has changed.
-         *
-         * @param type the new type
-         */
-        void networkTypeChanged(NetworkType type);
 
-        /**
-         * This signal is emitted when the name of this NSP has changed
-         *
-         * @param name the new name for this NSP
-         */
-        void nameChanged(const QString &name);
+Q_SIGNALS:
+    /**
+     * This signal is emitted when the network type of this NSP has changed.
+     *
+     * @param type the new type
+     */
+    void networkTypeChanged(NetworkType type);
 
-        /**
-         * This signal is emitted when the signal quality of this NSP has changed.
-         *
-         * @param quality the new quality
-         */
-        void signalQualityChanged(uint quality);
+    /**
+     * This signal is emitted when the name of this NSP has changed
+     *
+     * @param name the new name for this NSP
+     */
+    void nameChanged(const QString &name);
+
+    /**
+     * This signal is emitted when the signal quality of this NSP has changed.
+     *
+     * @param quality the new quality
+     */
+    void signalQualityChanged(uint quality);
+
 private:
     static WimaxNsp::NetworkType convertNetworkType(uint);
 private:

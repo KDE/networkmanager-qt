@@ -38,7 +38,7 @@ NetworkManager::BluetoothDevice::BluetoothDevice(const QString & path, QObject *
 {
     Q_D(BluetoothDevice);
     connect(&d->btIface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(btPropertiesChanged(QVariantMap)));
+            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::BluetoothDevice::~BluetoothDevice()
@@ -50,24 +50,19 @@ NetworkManager::Device::Type NetworkManager::BluetoothDevice::type() const
     return NetworkManager::Device::Bluetooth;
 }
 
-void NetworkManager::BluetoothDevice::btPropertiesChanged(const QVariantMap &properties)
+void NetworkManager::BluetoothDevice::propertyChanged(const QString &property, const QVariant &value)
 {
     Q_D(BluetoothDevice);
 
-    QVariantMap::const_iterator it = properties.constBegin();
-    while (it != properties.constEnd()) {
-        QString property = it.key();
-        if (property == QLatin1String("Name")) {
-            d->name = it->toString();
-            emit nameChanged(d->name);
-        } else if (property == QLatin1String("HwAddress")) {
-            d->hardwareAddress = it->toString();
-        } else if (property == QLatin1String("BtCapabilities")) {
-            d->btCapabilities = static_cast<NetworkManager::BluetoothDevice::Capabilities>(it->toUInt());
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
-        }
-        ++it;
+    if (property == QLatin1String("Name")) {
+        d->name = value.toString();
+        emit nameChanged(d->name);
+    } else if (property == QLatin1String("HwAddress")) {
+        d->hardwareAddress = value.toString();
+    } else if (property == QLatin1String("BtCapabilities")) {
+        d->btCapabilities = static_cast<NetworkManager::BluetoothDevice::Capabilities>(value.toUInt());
+    } else {
+        Device::propertyChanged(property, value);
     }
 }
 

@@ -59,7 +59,7 @@ NetworkManager::InfinibandDevice::InfinibandDevice(const QString& path, QObject*
     d->hwAddress = d->iface.hwAddress();
 
     connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(onPropertiesChanged(QVariantMap)));
+            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::InfinibandDevicePrivate::~InfinibandDevicePrivate()
@@ -85,23 +85,18 @@ QString NetworkManager::InfinibandDevice::hwAddress() const
     return d->hwAddress;
 }
 
-void NetworkManager::InfinibandDevice::onPropertiesChanged(const QVariantMap& properties)
+void NetworkManager::InfinibandDevice::propertyChanged(const QString &property, const QVariant &value)
 {
     Q_D(InfinibandDevice);
 
-    QVariantMap::const_iterator it = properties.constBegin();
-    while (it != properties.constEnd()) {
-        QString property = it.key();
-        if (property == QLatin1String("Carrier")) {
-            d->carrier = it->toBool();
-            emit carrierChanged(d->carrier);
-        } else if (property == QLatin1String("HwAddress")) {
-            d->hwAddress = it->toString();
-            emit hwAddressChanged(d->hwAddress);
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
-        }
-        ++it;
+    if (property == QLatin1String("Carrier")) {
+        d->carrier = value.toBool();
+        emit carrierChanged(d->carrier);
+    } else if (property == QLatin1String("HwAddress")) {
+        d->hwAddress = value.toString();
+        emit hwAddressChanged(d->hwAddress);
+    } else {
+        Device::propertyChanged(property, value);
     }
 }
 

@@ -1,5 +1,6 @@
 /*
 Copyright 2008,2011 Will Stephenson <wstephenson@kde.org>
+Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -262,10 +263,6 @@ public:
 
 Q_SIGNALS:
     /**
-     * This signal is emitted when the IP settings of this network have changed.
-     */
-    void ipDetailsChanged();
-    /**
      * This signal is emitted when the device's link status changed.
      *
      * @param newstate the new state of the connection
@@ -276,11 +273,86 @@ Q_SIGNALS:
      * @see Device::StateChangeReason
      */
     void stateChanged(NetworkManager::Device::State newstate, NetworkManager::Device::State oldstate, NetworkManager::Device::StateChangeReason reason);
+
+    /**
+     * Emitted when the autoconnect of this network has changed.
+     */
+    void autoconnectChanged();
+
+    /**
+     * Emitted when the capabilities of this network has changed.
+     */
+    void capabilitiesChanged();
+
+    /**
+     * Emitted when the driver of this network has changed.
+     */
+    void driverChanged();
+
+    /**
+     * Emitted when the driver version of this network has changed.
+     */
+    void driverVersionChanged();
+
+    /**
+     * Emitted when the firmware missing state of this network has changed.
+     */
+    void firmwareMissingChanged();
+
+    /**
+     * Emitted when the firmware version of this network has changed.
+     */
+    void firmwareVersionChanged();
+
+    /**
+     * Emitted when the interface name of this network has changed.
+     */
+    void interfaceNameChanged();
+
+    /**
+     * Emitted when the IPv4 address of this network has changed.
+     */
+    void ipV4AddressChanged();
+
+    /**
+     * Emitted when the ip interface name of this network has changed.
+     */
+    void ipInterfaceChanged();
+
+    /**
+     * Emitted when the managed state of this network has changed.
+     */
+    void managedChanged();
+
+    /**
+     * Emitted when the connection state of this network has changed.
+     */
+    void connectionStateChanged();
+
+    /**
+     * Emitted when the state reason of this network has changed.
+     */
+    void stateReasonChanged();
+
+    /**
+     * Emitted when the udi of this network has changed.
+     */
+    void udiChanged();
+
 protected Q_SLOTS:
     void deviceStateChanged(uint,uint,uint);
+    void propertiesChanged(const QVariantMap &properties);
+
 private:
     void init();
+
 protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value);
+
     DevicePrivate * d_ptr;
 };
 

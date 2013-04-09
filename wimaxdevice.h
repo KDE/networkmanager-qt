@@ -48,7 +48,7 @@ public:
      *
      * @param path the DBus path of the device
      */
-    WimaxDevice(const QString & path, QObject * parent = 0);
+    explicit WimaxDevice(const QString & path, QObject * parent = 0);
     /**
      * Destroys a WimaxDevice object.
      */
@@ -99,9 +99,9 @@ public:
     WimaxNsp *findNsp(const QString & uni) const;
 
 protected Q_SLOTS:
-    void wimaxPropertiesChanged(const QVariantMap &properties);
     void nspAdded(const QDBusObjectPath &);
     void nspRemoved(const QDBusObjectPath &);
+
 Q_SIGNALS:
     /**
      * This signal is emitted when the bitrate of this network has changed.
@@ -145,6 +145,13 @@ Q_SIGNALS:
      * A wireless access point disappeared
      */
     void nspDisappeared(const QString &);
+
+protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value);
 };
 
 } // namespace NetworkManager
