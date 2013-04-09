@@ -96,6 +96,7 @@ void NetworkManager::DeviceStateReason::setReason(const Device::StateChangeReaso
 NetworkManager::DevicePrivate::DevicePrivate( const QString & path, QObject * owner ) : deviceIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()), uni(path), designSpeed(0), dhcp4Config(0), dhcp6Config(0)
 {
     Q_UNUSED(owner);
+    activeConnection = deviceIface.activeConnection().path();
     driver = deviceIface.driver();
     interfaceName = deviceIface.interface();
     ipInterface = deviceIface.ipInterface();
@@ -164,8 +165,8 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
     Q_D(Device);
 
     if (property == QLatin1String("ActiveConnection")) {
-//        d->autoconnect = value->toBool();
-//        emit carrierChanged(d->carrier);
+        d->activeConnection = value.value<QDBusObjectPath>().path();
+        emit activeConnectionChanged();
     } else if (property == QLatin1String("Autoconnect")) {
         d->autoconnect = value.toBool();
         emit autoconnectChanged();
@@ -278,7 +279,7 @@ QString NetworkManager::Device::firmwareVersion() const
 NetworkManager::ActiveConnection::Ptr NetworkManager::Device::activeConnection() const
 {
     Q_D(const Device);
-    return NetworkManager::findActiveConnection(d->deviceIface.activeConnection().path());
+    return NetworkManager::findActiveConnection(d->activeConnection);
 }
 
 NetworkManager::Settings::Connection::List NetworkManager::Device::availableConnections()
@@ -464,7 +465,7 @@ NetworkManager::Dhcp4Config::Ptr NetworkManager::Device::dhcp4Config()
     }
 
     if (!d->dhcp4Config || d->dhcp4Config->path() != objPath.path()) {
-        d->dhcp4Config = NetworkManager::Dhcp4Config::Ptr(new Dhcp4Config(objPath.path(), this));
+        d->dhcp4Config = NetworkManager::Dhcp4Config::Ptr(new Dhcp4Config(objPath.path()));
     }
     return d->dhcp4Config;
 }
@@ -480,7 +481,7 @@ NetworkManager::Dhcp6Config::Ptr NetworkManager::Device::dhcp6Config()
     }
 
     if (!d->dhcp6Config || d->dhcp6Config->path() != objPath.path()) {
-        d->dhcp6Config = NetworkManager::Dhcp6Config::Ptr(new Dhcp6Config(objPath.path(), this));
+        d->dhcp6Config = NetworkManager::Dhcp6Config::Ptr(new Dhcp6Config(objPath.path()));
     }
     return d->dhcp6Config;
 }

@@ -38,7 +38,9 @@ class NMQT_EXPORT Dhcp6Config: public QObject
     Q_DECLARE_PRIVATE(Dhcp6Config)
 public:
     typedef QSharedPointer<Dhcp6Config> Ptr;
-    explicit Dhcp6Config(const QString & path, QObject * owner);
+    typedef QList<Ptr> List;
+
+    explicit Dhcp6Config(const QString &path, QObject *owner = 0);
     ~Dhcp6Config();
 
     QString path() const;

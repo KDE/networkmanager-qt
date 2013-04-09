@@ -38,6 +38,7 @@ public:
     Device::Capabilities capabilities;
     QString uni;
     QString udi;
+    QString activeConnection;
     int designSpeed;
     Device::State connectionState;
     bool managed;

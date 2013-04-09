@@ -38,7 +38,9 @@ class NMQT_EXPORT Dhcp4Config: public QObject
     Q_DECLARE_PRIVATE(Dhcp4Config)
 public:
     typedef QSharedPointer<Dhcp4Config> Ptr;
-    explicit Dhcp4Config(const QString & path, QObject * owner);
+    typedef QList<Ptr> List;
+
+    explicit Dhcp4Config(const QString &path, QObject *owner = 0);
     ~Dhcp4Config();
 
     QString path() const;

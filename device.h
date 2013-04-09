@@ -34,17 +34,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "activeconnection.h"
 
 namespace NetworkManager {
+
 class DevicePrivate;
 class DeviceStateReason;
-
-namespace Settings {
-class Connection;
-}
-
-//class ActiveConnection {
-//    typedef QSharedPointer<ActiveConnection> Ptr;
-//};
-
 class NMQT_EXPORT Device : public QObject
 {
     Q_OBJECT
@@ -286,6 +278,11 @@ Q_SIGNALS:
      * @see Device::StateChangeReason
      */
     void stateChanged(NetworkManager::Device::State newstate, NetworkManager::Device::State oldstate, NetworkManager::Device::StateChangeReason reason);
+
+    /**
+     * Emitted when the autoconnect of this network has changed.
+     */
+    void activeConnectionChanged();
 
     /**
      * Emitted when the autoconnect of this network has changed.

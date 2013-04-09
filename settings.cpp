@@ -158,7 +158,7 @@ NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::SettingsPriv
     if (connections.contains(path) && connections.value(path) != 0) {
         ret = connections.value(path);
     } else {
-        ret = Connection::Ptr(new Connection(path, this));
+        ret = Connection::Ptr(new Connection(path));
         connections.insert(path, ret);
         connect(ret.data(), SIGNAL(removed(QString)), this, SLOT(onConnectionRemoved(QString)));
     }

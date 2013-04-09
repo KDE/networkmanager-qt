@@ -56,14 +56,10 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate() : watcher(DBUS_SE
 {
     connect(&watcher, SIGNAL(serviceRegistered(QString)), SLOT(daemonRegistered()));
     connect(&watcher, SIGNAL(serviceUnregistered(QString)), SLOT(daemonUnregistered()));
-    connect( &iface, SIGNAL(DeviceAdded(QDBusObjectPath)),
-             this, SLOT(onDeviceAdded(QDBusObjectPath)));
-    connect( &iface, SIGNAL(DeviceRemoved(QDBusObjectPath)),
-             this, SLOT(onDeviceRemoved(QDBusObjectPath)));
-    connect( &iface, SIGNAL(PropertiesChanged(QVariantMap)),
-             this, SLOT(propertiesChanged(QVariantMap)));
-    connect( &iface, SIGNAL(StateChanged(uint)),
-             this, SLOT(stateChanged(uint)));
+    connect(&iface, SIGNAL(DeviceAdded(QDBusObjectPath)), SLOT(onDeviceAdded(QDBusObjectPath)));
+    connect(&iface, SIGNAL(DeviceRemoved(QDBusObjectPath)), SLOT(onDeviceRemoved(QDBusObjectPath)));
+    connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), SLOT(propertiesChanged(QVariantMap)));
+    connect(&iface, SIGNAL(StateChanged(uint)), SLOT(stateChanged(uint)));
     init();
 }
 
@@ -189,7 +185,7 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::fin
     if (m_activeConnections.contains(uni) && m_activeConnections.value(uni) != 0) {
         activeConnection = m_activeConnections.value(uni);
     } else {
-        activeConnection = NetworkManager::ActiveConnection::Ptr(new NetworkManager::VpnConnection(uni, this));
+        activeConnection = NetworkManager::ActiveConnection::Ptr(new NetworkManager::VpnConnection(uni));
         m_activeConnections.insert(uni, activeConnection);
     }
     return activeConnection;
@@ -208,37 +204,37 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
     uint deviceType = devIface.deviceType();
     switch (deviceType) {
     case NM_DEVICE_TYPE_ETHERNET:
-        createdInterface = Device::Ptr(new NetworkManager::WiredDevice(uni, this));
+        createdInterface = Device::Ptr(new NetworkManager::WiredDevice(uni));
         break;
     case NM_DEVICE_TYPE_WIFI:
-        createdInterface = Device::Ptr(new NetworkManager::WirelessDevice(uni, this));
+        createdInterface = Device::Ptr(new NetworkManager::WirelessDevice(uni));
         break;
     case NM_DEVICE_TYPE_MODEM:
-        createdInterface = Device::Ptr(new NetworkManager::ModemDevice(uni, this));
+        createdInterface = Device::Ptr(new NetworkManager::ModemDevice(uni));
         break;
     case NM_DEVICE_TYPE_BT:
-        createdInterface = Device::Ptr(new NetworkManager::BluetoothDevice(uni, this));
+        createdInterface = Device::Ptr(new NetworkManager::BluetoothDevice(uni));
         break;
     case NM_DEVICE_TYPE_WIMAX:
-        createdInterface = Device::Ptr(new NetworkManager::WimaxDevice(uni, this));
+        createdInterface = Device::Ptr(new NetworkManager::WimaxDevice(uni));
         break;
     case NM_DEVICE_TYPE_OLPC_MESH:
-        createdInterface = Device::Ptr(new NetworkManager::OlpcMeshDevice(uni, this));
+        createdInterface = Device::Ptr(new NetworkManager::OlpcMeshDevice(uni));
         break;
     case NM_DEVICE_TYPE_INFINIBAND:
-        createdInterface = Device::Ptr(new NetworkManager::AdslDevice(uni, this));
+        createdInterface = Device::Ptr(new NetworkManager::AdslDevice(uni));
         break;
     case NM_DEVICE_TYPE_BOND:
-        createdInterface = Device::Ptr(new NetworkManager::BondDevice(uni, this));
+        createdInterface = Device::Ptr(new NetworkManager::BondDevice(uni));
         break;
     case NM_DEVICE_TYPE_VLAN:
-        createdInterface = Device::Ptr(new NetworkManager::VlanDevice(uni, this));
+        createdInterface = Device::Ptr(new NetworkManager::VlanDevice(uni));
         break;
     case NM_DEVICE_TYPE_ADSL:
-        createdInterface = Device::Ptr(new NetworkManager::AdslDevice(uni, this));
+        createdInterface = Device::Ptr(new NetworkManager::AdslDevice(uni));
         break;
     case NM_DEVICE_TYPE_BRIDGE:
-        createdInterface = Device::Ptr(new NetworkManager::BridgeDevice(uni, this));
+        createdInterface = Device::Ptr(new NetworkManager::BridgeDevice(uni));
         break;
     default:
         if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
