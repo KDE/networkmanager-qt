@@ -195,6 +195,12 @@ NetworkManager::Settings::ConnectionSettings::ConnectionSettings(const NetworkMa
     initSettings(other);
 }
 
+NetworkManager::Settings::ConnectionSettings::ConnectionSettings(const QVariantMapMap &map) :
+    d_ptr(new ConnectionSettingsPrivate())
+{
+    fromMap(map);
+}
+
 NetworkManager::Settings::ConnectionSettings::~ConnectionSettings()
 {
     clearSettings();

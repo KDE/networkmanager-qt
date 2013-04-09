@@ -22,10 +22,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #define NMQT_SETTINGS_CONNECTION_H
 
 #include "QtNetworkManager-export.h"
+#include "generic-types.h"
+#include "settings/connection.h"
 
 #include <QObject>
 #include <QSharedPointer>
-#include "generic-types.h"
 
 class QDBusPendingCallWatcher;
 
@@ -41,12 +42,37 @@ namespace Settings
     public:
         typedef QSharedPointer<Connection> Ptr;
         typedef QList<Ptr> List;
+
+        /**
+         * Constructs a connection object for the given path
+         */
         explicit Connection(const QString &path, QObject * parent = 0);
         ~Connection();
+
+        /**
+         * Returns if this connection is valid
+         */
+        bool isValid() const;
+
+        /**
+         * Returns the unique identifier of this connection
+         */
         QString uuid() const;
+
+        /**
+         * Returns the path (DBus) of this connection
+         */
         QString path() const;
-        QString id() const;
-        QVariantMapMap settings() const;
+
+        /**
+         * Returns the name of this connection
+         */
+        QString name() const;
+
+        /**
+         * Returns the settings of this connection
+         */
+        ConnectionSettings::Ptr settings();
 
         /**
          * Retrieves this connections's secrets (passwords and / or encryption keys).
@@ -75,8 +101,17 @@ namespace Settings
          * @param message error message if any, empty string if success is true.
          */
         void gotSecrets(const QString &id, bool success, const QVariantMapMap &set, const QString &message);
-        void updated(const QVariantMapMap &);
-        void removed(const QString &);
+
+        /**
+         * Emitted when the connection settings changes
+         */
+        void updated();
+
+        /**
+         * Emitted when the connection was removed
+         * @param id connections's path.
+         */
+        void removed(const QString &path);
     };
 }
 }

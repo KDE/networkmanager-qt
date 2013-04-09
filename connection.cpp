@@ -50,9 +50,11 @@ public:
     : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
     {
     }
+    void updateSettings(const QVariantMapMap &newSettings = QVariantMapMap());
     QString uuid;
     QString id;
-    QVariantMapMap connection;
+    QVariantMapMap settings;
+    Settings::ConnectionSettings::Ptr connection;
     QString path;
     OrgFreedesktopNetworkManagerSettingsConnectionInterface iface;
 };
@@ -65,23 +67,14 @@ NetworkManager::Settings::Connection::Connection(const QString & path, QObject *
 
     QDBusReply<QVariantMapMap> reply = d->iface.GetSettings();
     if (reply.isValid()) {
-        d->connection = reply.value();
+        d->updateSettings(reply.value());
     } else {
-        d->connection = QVariantMapMap();
+        d->updateSettings();
     }
     d->path = path;
 
     //nmDebug() << m_connection;
 
-    if ( d->connection.contains(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME))) {
-        QVariantMap connectionSetting = d->connection.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
-        if (connectionSetting.contains(QLatin1String(NM_SETTING_CONNECTION_UUID))) {
-            d->uuid = connectionSetting.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString();
-        }
-        if (connectionSetting.contains(QLatin1String(NM_SETTING_CONNECTION_ID))) {
-            d->id = connectionSetting.value(QLatin1String(NM_SETTING_CONNECTION_ID)).toString();
-        }
-    }
     connect(&d->iface, SIGNAL(Updated()), this, SLOT(onConnectionUpdated()));
     connect(&d->iface, SIGNAL(Removed()), this, SLOT(onConnectionRemoved()));
 }
@@ -91,21 +84,31 @@ NetworkManager::Settings::Connection::~Connection()
     delete d_ptr;
 }
 
+bool NetworkManager::Settings::Connection::isValid() const
+{
+    Q_D(const Connection);
+    return d->iface.isValid();
+}
+
 QString NetworkManager::Settings::Connection::uuid() const
 {
     Q_D(const Connection);
     return d->uuid;
 }
 
-QString NetworkManager::Settings::Connection::id() const
+QString NetworkManager::Settings::Connection::name() const
 {
     Q_D(const Connection);
     return d->id;
 }
 
-QVariantMapMap NetworkManager::Settings::Connection::settings() const
+NetworkManager::Settings::ConnectionSettings::Ptr NetworkManager::Settings::Connection::settings()
 {
-    Q_D(const Connection);
+    Q_D(Connection);
+
+    if (d->connection.isNull()) {
+        d->connection = ConnectionSettings::Ptr(new ConnectionSettings(d->settings));
+    }
     return d->connection;
 }
 
@@ -174,32 +177,39 @@ void NetworkManager::Settings::Connection::onConnectionUpdated()
     Q_D(Connection);
     QDBusReply<QVariantMapMap> reply = d->iface.GetSettings();
     if (reply.isValid()) {
-        d->connection = reply.value();
-
-        if ( d->connection.contains(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME))) {
-            QVariantMap connectionSetting = d->connection.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
-            if (connectionSetting.contains(QLatin1String(NM_SETTING_CONNECTION_UUID))) {
-                d->uuid = connectionSetting.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString();
-            }
-            if (connectionSetting.contains(QLatin1String(NM_SETTING_CONNECTION_ID))) {
-                d->id = connectionSetting.value(QLatin1String(NM_SETTING_CONNECTION_ID)).toString();
-            }
-        }
+        d->updateSettings(reply.value());
     } else {
-        d->connection = QVariantMapMap();
+        d->updateSettings();
     }
-    emit updated(d->connection);
+    emit updated();
 }
 
 void NetworkManager::Settings::Connection::onConnectionRemoved()
 {
     Q_D(Connection);
     QString path = d->path;
-    d->uuid.clear();
-    d->connection = QVariantMapMap();
-    d->path.clear();
+    d->updateSettings();
     emit removed(path);
 }
+
+void NetworkManager::Settings::ConnectionPrivate::updateSettings(const QVariantMapMap &newSettings)
+{
+    settings = newSettings;
+    if (settings.contains(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME))) {
+        QVariantMap connectionSetting = settings.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
+        if (connectionSetting.contains(QLatin1String(NM_SETTING_CONNECTION_UUID))) {
+            uuid = connectionSetting.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString();
+        }
+        if (connectionSetting.contains(QLatin1String(NM_SETTING_CONNECTION_ID))) {
+            id = connectionSetting.value(QLatin1String(NM_SETTING_CONNECTION_ID)).toString();
+        }
+    } else if (newSettings.isEmpty()) {
+        uuid.clear();
+        id.clear();
+    }
+    connection.clear();
+}
+
 // vim: sw=4 sts=4 et tw=100
 
 #include "connection.moc"

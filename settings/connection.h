@@ -24,7 +24,7 @@
 #define NMQT_SETTINGS_CONNECTION_SETTINGS_H
 
 #include "../QtNetworkManager-export.h"
-#include "../device.h"
+#include "../generic-types.h"
 #include "setting.h"
 
 #include <NetworkManager.h>
@@ -54,6 +54,7 @@ public:
     ConnectionSettings();
     ConnectionSettings(ConnectionType type, NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
     ConnectionSettings(const ConnectionSettings::Ptr &other);
+    ConnectionSettings(const QVariantMapMap &map);
     virtual ~ConnectionSettings();
 
     QString name() const;
