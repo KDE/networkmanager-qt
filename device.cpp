@@ -309,7 +309,7 @@ NetworkManager::IpConfig NetworkManager::Device::ipV4Config() const
             // nameservers' IP addresses are always in network byte order
             QList<QHostAddress> nameservers;
             foreach (uint nameserver, iface.nameservers()) {
-                nameservers << QHostAddress(nameserver);
+                nameservers << QHostAddress(ntohl(nameserver));
             }
             return NetworkManager::IpConfig(addressObjects,
                 nameservers, iface.domains(),
