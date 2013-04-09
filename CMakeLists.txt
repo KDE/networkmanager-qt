@@ -9,7 +9,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_MODULE_PATH})
 set(LIB_SUFFIX "" CACHE STRING "Define suffix of library directory name (32/64)" )
 
 find_package(Qt4 REQUIRED)
-find_package(NetworkManager REQUIRED)
+find_package(NetworkManager 0.9.8.0 REQUIRED)
 
 pkg_check_modules(LIBMODEMMANAGERQT REQUIRED QtModemManager)
 if (NOT LIBMODEMMANAGERQT_FOUND)

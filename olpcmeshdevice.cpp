@@ -71,26 +71,21 @@ NetworkManager::Device::Ptr NetworkManager::OlpcMeshDevice::companionDevice() co
     return NetworkManager::findNetworkInterface(d->companion);
 }
 
-void NetworkManager::OlpcMeshDevice::propertiesChanged(const QVariantMap &properties)
+void NetworkManager::OlpcMeshDevice::propertyChanged(const QString &property, const QVariant &value)
 {
     Q_D(OlpcMeshDevice);
 
-    QVariantMap::const_iterator it = properties.constBegin();
-    while (it != properties.constEnd()) {
-        QString property = it.key();
-        if (property == QLatin1String("ActiveChannel")) {
-            d->activeChannel = it->toUInt();
-            emit activeChannelChanged(d->activeChannel);
-        } else if (property == QLatin1String("HwAddress")) {
-            d->hardwareAddress = it->toString();
-            emit hardwareAddressChanged(d->hardwareAddress);
-        } else if (property == QLatin1String("Companion")) {
-            d->companion = qdbus_cast<QDBusObjectPath>(*it).path();
-            emit companionChanged(NetworkManager::findNetworkInterface(d->companion));
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
-        }
-        ++it;
+    if (property == QLatin1String("ActiveChannel")) {
+        d->activeChannel = value.toUInt();
+        emit activeChannelChanged(d->activeChannel);
+    } else if (property == QLatin1String("HwAddress")) {
+        d->hardwareAddress = value.toString();
+        emit hardwareAddressChanged(d->hardwareAddress);
+    } else if (property == QLatin1String("Companion")) {
+        d->companion = qdbus_cast<QDBusObjectPath>(value).path();
+        emit companionChanged(NetworkManager::findNetworkInterface(d->companion));
+    } else {
+        Device::propertyChanged(property, value);
     }
 }
 

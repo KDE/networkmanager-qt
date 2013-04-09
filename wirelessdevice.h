@@ -75,7 +75,7 @@ public:
      *
      * @param path the DBus path of the devise
      */
-    WirelessDevice(const QString & path, QObject * parent = 0);
+    explicit WirelessDevice(const QString & path, QObject * parent = 0);
     /**
      * Destroys a WirelessNetworkInterface object.
      */
@@ -92,7 +92,7 @@ public:
      * @param options Options of scan
      * No documentation for options yet, see http://projects.gnome.org/NetworkManager/developers/api/09/spec.html#org.freedesktop.NetworkManager.Device.Wireless
      */
-    QDBusPendingReply<> requestScan(QVariantMap & options);
+    QDBusPendingReply<> requestScan(const QVariantMap & options);
     /**
      * Identifier (path) of the network this interface is currently associated with
      */
@@ -155,10 +155,10 @@ public:
     WirelessNetwork::Ptr findNetwork(const QString &ssid) const;
 
 protected Q_SLOTS:
-    void wirelessPropertiesChanged(const QVariantMap &properties);
-    void accessPointAdded(const QDBusObjectPath &accessPoint);
-    void accessPointRemoved(const QDBusObjectPath &accessPoint);
-    void removeNetwork(const QString & network);
+    void accessPointAdded(const QDBusObjectPath &);
+    void accessPointRemoved(const QDBusObjectPath &);
+    void removeNetwork(const QString &network);
+
 Q_SIGNALS:
     /**
      * This signal is emitted when the bitrate of this network has changed.
@@ -206,6 +206,13 @@ Q_SIGNALS:
      * A wireless network disappeared
      */
     void networkDisappeared(const QString &ssid);
+
+protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value);
 };
 
 } // namespace NetworkManager

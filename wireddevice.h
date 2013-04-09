@@ -42,7 +42,7 @@ Q_PROPERTY(int bitRate READ bitRate NOTIFY bitRateChanged)
 public:
     typedef QSharedPointer<WiredDevice> Ptr;
     typedef QList<Ptr> List;
-    WiredDevice(const QString & path, QObject * parent = 0);
+    explicit WiredDevice(const QString & path, QObject * parent = 0);
     virtual ~WiredDevice();
     /**
      * Return the type
@@ -52,13 +52,19 @@ public:
     QString permanentHardwareAddress() const;
     int bitRate() const;
     bool carrier() const;
-protected Q_SLOTS:
-    void wiredPropertiesChanged(const QVariantMap &);
+
 Q_SIGNALS:
     void bitRateChanged(int bitRate);
     void carrierChanged(bool plugged);
     void hardwareAddressChanged(const QString &hwAddress);
     void permanentHardwareAddressChanged(const QString &permHwAddress);
+
+protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value);
 };
 
 }

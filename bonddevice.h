@@ -39,7 +39,7 @@ Q_PROPERTY(QList<QDBusObjectPath> slaves READ slaves NOTIFY slavesChanged)
 public:
     typedef QSharedPointer<BondDevice> Ptr;
     typedef QList<Ptr> List;
-    BondDevice(const QString& path, QObject* parent = 0);
+    explicit BondDevice(const QString& path, QObject* parent = 0);
     virtual ~BondDevice();
 
     virtual Type type() const;
@@ -47,13 +47,17 @@ public:
     QString hwAddress() const;
     QList<QDBusObjectPath> slaves() const;
 
-public Q_SLOTS:
-    void onPropertiesChanged(const QVariantMap & properties);
-
 Q_SIGNALS:
     void carrierChanged(bool plugged);
     void hwAddressChanged(const QString & address);
     void slavesChanged(const QList<QDBusObjectPath> & slaves);
+
+protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value);
 };
 
 }

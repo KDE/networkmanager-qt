@@ -102,7 +102,7 @@ protected Q_SLOTS:
     void onDeviceAdded(const QDBusObjectPath &state);
     void onDeviceRemoved(const QDBusObjectPath &state);
     void stateChanged(uint state);
-    void propertiesChanged(const QVariantMap &properties);
+    void propertiesChanged(const QVariantMap &changedProperties);
     void daemonRegistered();
     void daemonUnregistered();
 private:

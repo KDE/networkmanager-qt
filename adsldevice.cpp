@@ -57,7 +57,7 @@ NetworkManager::AdslDevice::AdslDevice(const QString& path, QObject* parent):
     d->carrier = d->iface.carrier();
 
     connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(onPropertiesChanged(QVariantMap)));
+            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::AdslDevicePrivate::~AdslDevicePrivate()
@@ -76,20 +76,15 @@ bool NetworkManager::AdslDevice::carrier() const
     return d->carrier;
 }
 
-void NetworkManager::AdslDevice::onPropertiesChanged(const QVariantMap& properties)
+void NetworkManager::AdslDevice::propertyChanged(const QString &property, const QVariant &value)
 {
     Q_D(AdslDevice);
 
-    QVariantMap::const_iterator it = properties.constBegin();
-    while (it != properties.constEnd()) {
-        QString property = it.key();
-        if (property == QLatin1String("Carrier")) {
-            d->carrier = it->toBool();
-            emit carrierChanged(d->carrier);
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
-        }
-        ++it;
+    if (property == QLatin1String("Carrier")) {
+        d->carrier = value.toBool();
+        emit carrierChanged(d->carrier);
+    } else {
+        Device::propertyChanged(property, value);
     }
 }
 

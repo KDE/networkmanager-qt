@@ -48,7 +48,7 @@ public:
      *
      * @param path the DBus path of the device
      */
-    OlpcMeshDevice(const QString & path, QObject * parent = 0);
+    explicit OlpcMeshDevice(const QString & path, QObject * parent = 0);
     /**
      * Destroys a OlpcMeshDevice object.
      */
@@ -70,8 +70,6 @@ public:
      */
     Device::Ptr companionDevice() const;
 
-protected Q_SLOTS:
-    void propertiesChanged(const QVariantMap &);
 Q_SIGNALS:
     /**
      * The active channel changed.
@@ -85,6 +83,13 @@ Q_SIGNALS:
      * The device changed its hardware address
      */
     void hardwareAddressChanged(const QString &);
+
+protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value);
 };
 
 } // namespace NetworkManager

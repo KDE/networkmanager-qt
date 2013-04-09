@@ -46,6 +46,7 @@ public:
     QString driver;
     int ipV4Address;
     QString interfaceName;
+    QString ipInterface;
     bool firmwareMissing;
     Dhcp4Config::Ptr dhcp4Config;
     Dhcp6Config::Ptr dhcp6Config;

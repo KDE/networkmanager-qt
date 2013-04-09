@@ -60,7 +60,7 @@ NetworkManager::BridgeDevice::BridgeDevice(const QString& path, QObject* parent)
     d->slaves = d->iface.slaves();
 
     connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(onPropertiesChanged(QVariantMap)));
+            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::BridgeDevicePrivate::~BridgeDevicePrivate()
@@ -93,26 +93,21 @@ QList< QDBusObjectPath > NetworkManager::BridgeDevice::slaves() const
     return d->slaves;
 }
 
-void NetworkManager::BridgeDevice::onPropertiesChanged(const QVariantMap& properties)
+void NetworkManager::BridgeDevice::propertyChanged(const QString &property, const QVariant &value)
 {
     Q_D(BridgeDevice);
 
-    QVariantMap::const_iterator it = properties.constBegin();
-    while (it != properties.constEnd()) {
-        QString property = it.key();
-        if (property == QLatin1String("Carrier")) {
-            d->carrier = it->toBool();
-            emit carrierChanged(d->carrier);
-        } else if (property == QLatin1String("HwAddress")) {
-            d->hwAddress = it->toString();
-            emit hwAddressChanged(d->hwAddress);
-        } else if (property == QLatin1String("Slaves")) {
-            d->slaves = it->value<QList<QDBusObjectPath> >();
-            emit slavesChanged(d->slaves);
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
-        }
-        ++it;
+    if (property == QLatin1String("Carrier")) {
+        d->carrier = value.toBool();
+        emit carrierChanged(d->carrier);
+    } else if (property == QLatin1String("HwAddress")) {
+        d->hwAddress = value.toString();
+        emit hwAddressChanged(d->hwAddress);
+    } else if (property == QLatin1String("Slaves")) {
+        d->slaves = value.value<QList<QDBusObjectPath> >();
+        emit slavesChanged(d->slaves);
+    } else {
+        qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
     }
 }
 

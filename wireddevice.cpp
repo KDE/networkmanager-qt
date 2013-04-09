@@ -44,8 +44,8 @@ NetworkManager::WiredDevice::WiredDevice(const QString & path, QObject * parent)
     d->bitrate = d->wiredIface.speed() * 1000;
     d->carrier = d->wiredIface.carrier();
     //d->propHelper.registerProperty();
-    connect( &d->wiredIface, SIGNAL(PropertiesChanged(QVariantMap)),
-                this, SLOT(wiredPropertiesChanged(QVariantMap)));
+    connect(&d->wiredIface, SIGNAL(PropertiesChanged(QVariantMap)),
+            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::WiredDevice::~WiredDevice()
@@ -81,29 +81,24 @@ bool NetworkManager::WiredDevice::carrier() const
     return d->carrier;
 }
 
-void NetworkManager::WiredDevice::wiredPropertiesChanged(const QVariantMap &changedProperties)
+void NetworkManager::WiredDevice::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(WiredDevice);
+    Q_D(NetworkManager::WiredDevice);
 
-    QVariantMap::const_iterator it = changedProperties.constBegin();
-    while (it != changedProperties.constEnd()) {
-        QString property = it.key();
-        if (property == QLatin1String("Carrier")) {
-            d->carrier = it->toBool();
-            emit carrierChanged(d->carrier);
-        } else if (property == QLatin1String("HwAddress")) {
-            d->hardwareAddress = it->toString();
-            emit hardwareAddressChanged(d->hardwareAddress);
-        } else if (property == QLatin1String("PermHwAddress")) {
-            d->permanentHardwareAddress = it->toString();
-            emit permanentHardwareAddressChanged(d->permanentHardwareAddress);
-        } else if (property == QLatin1String("Speed")) {
-            d->bitrate = it->toUInt() * 1000;
-            emit bitRateChanged(d->bitrate);
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
-        }
-        ++it;
+    if (property == QLatin1String("Carrier")) {
+        d->carrier = value.toBool();
+        emit carrierChanged(d->carrier);
+    } else if (property == QLatin1String("HwAddress")) {
+        d->hardwareAddress = value.toString();
+        emit hardwareAddressChanged(d->hardwareAddress);
+    } else if (property == QLatin1String("PermHwAddress")) {
+        d->permanentHardwareAddress = value.toString();
+        emit permanentHardwareAddressChanged(d->permanentHardwareAddress);
+    } else if (property == QLatin1String("Speed")) {
+        d->bitrate = value.toUInt() * 1000;
+        emit bitRateChanged(d->bitrate);
+    } else {
+        Device::propertyChanged(property, value);
     }
 }
 

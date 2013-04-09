@@ -54,7 +54,7 @@ public:
     /**
      * Creates a new BtNetworkInterface object.
      */
-    BluetoothDevice(const QString & path, QObject * parent = 0);
+    explicit BluetoothDevice(const QString & path, QObject * parent = 0);
     /**
      * Destroys a BtNetworkInterface object.
      */
@@ -82,10 +82,15 @@ public:
      */
     virtual Type type() const;
 
-public Q_SLOTS:
-    void btPropertiesChanged(const QVariantMap & properties);
 Q_SIGNALS:
     void nameChanged(const QString &name);
+
+protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value);
 };
 }
 #endif

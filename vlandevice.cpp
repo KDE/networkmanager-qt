@@ -60,7 +60,7 @@ NetworkManager::VlanDevice::VlanDevice(const QString& path, QObject* parent):
     d->vlanId = d->iface.vlanId();
 
     connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(onPropertiesChanged(QVariantMap)));
+            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::VlanDevicePrivate::~VlanDevicePrivate()
@@ -93,26 +93,21 @@ uint NetworkManager::VlanDevice::vlanId() const
     return d->vlanId;
 }
 
-void NetworkManager::VlanDevice::onPropertiesChanged(const QVariantMap& properties)
+void NetworkManager::VlanDevice::propertyChanged(const QString &property, const QVariant &value)
 {
     Q_D(VlanDevice);
 
-    QVariantMap::const_iterator it = properties.constBegin();
-    while (it != properties.constEnd()) {
-        QString property = it.key();
-        if (property == QLatin1String("Carrier")) {
-            d->carrier = it->toBool();
-            emit carrierChanged(d->carrier);
-        } else if (property == QLatin1String("HwAddress")) {
-            d->hwAddress = it->toString();
-            emit hwAddressChanged(d->hwAddress);
-        } else if (property == QLatin1String("VlanId")) {
-            d->vlanId = it->toUInt();
-            emit vlanIdChanged(d->vlanId);
-        } else {
-            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
-        }
-        ++it;
+    if (property == QLatin1String("Carrier")) {
+        d->carrier = value.toBool();
+        emit carrierChanged(d->carrier);
+    } else if (property == QLatin1String("HwAddress")) {
+        d->hwAddress = value.toString();
+        emit hwAddressChanged(d->hwAddress);
+    } else if (property == QLatin1String("VlanId")) {
+        d->vlanId = value.toUInt();
+        emit vlanIdChanged(d->vlanId);
+    } else {
+        qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
     }
 }
 
