@@ -1,6 +1,7 @@
 /*
 Copyright 2008,2010 Will Stephenson <wstephenson@kde.org>
 Copyright 2011-2012 Lamarque Souza <lamarque@kde.org>
+Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -490,82 +491,65 @@ void NetworkManager::NetworkManagerPrivate::stateChanged(uint state)
     }
 }
 
-void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap &properties)
+void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap &changedProperties)
 {
-    nmDebug() << properties.keys();
-    QLatin1String activeConnKey("ActiveConnections"),
-                  netEnabledKey("NetworkingEnabled"),
-                  wifiHwKey("WirelessHardwareEnabled"),
-                  wifiEnabledKey("WirelessEnabled"),
-                  wwanHwKey("WwanHardwareEnabled"),
-                  wwanEnabledKey("WwanEnabled"),
-                  wimaxHwKey("WimaxHardwareEnabled"),
-                  wimaxEnabledKey("WimaxEnabled");
-    QVariantMap::const_iterator it = properties.find(activeConnKey);
-    if ( it != properties.end()) {
-        QList<QDBusObjectPath> activePaths = qdbus_cast< QList<QDBusObjectPath> >(*it);
-        m_activeConnections.clear();
-        if ( activePaths.count() ) {
-            nmDebug() << activeConnKey;
+    QVariantMap::const_iterator it = changedProperties.constBegin();
+    while (it != changedProperties.constEnd()) {
+        QString property = it.key();
+        if (property == QLatin1String("ActiveConnections")) {
+            QList<QDBusObjectPath> activePaths = qdbus_cast< QList<QDBusObjectPath> >(*it);
+            m_activeConnections.clear();
+            if (!activePaths.isEmpty()) {
+                nmDebug() << property;
+            }
+            QStringList knownConnections = m_activeConnections.keys();
+            foreach (const QDBusObjectPath &ac, activePaths) {
+                if (!m_activeConnections.contains(ac.path())) {
+                    m_activeConnections.insert(ac.path(), 0);
+                } else {
+                    knownConnections.removeOne(ac.path());
+                }
+                nmDebug() << "  " << ac.path();
+            }
+            foreach (const QString &path, knownConnections) {
+                NetworkManager::ActiveConnection *ac = m_activeConnections.take(path);
+                if (ac) {
+                    delete ac;
+                }
+            }
+            emit activeConnectionsChanged();
+        } else if (property == QLatin1String("NetworkingEnabled")) {
+            m_isNetworkingEnabled = it->toBool();
+            nmDebug() << property << m_isNetworkingEnabled;
+            emit networkingEnabledChanged(m_isNetworkingEnabled);
+        } else if (property == QLatin1String("WirelessHardwareEnabled")) {
+            m_isWirelessHardwareEnabled = it->toBool();
+            nmDebug() << property << m_isWirelessHardwareEnabled;
+            emit wirelessHardwareEnabledChanged(m_isWirelessHardwareEnabled);
+        } else if (property == QLatin1String("WirelessEnabled")) {
+            m_isWirelessEnabled = it->toBool();
+            nmDebug() << property << m_isWirelessEnabled;
+            emit wirelessEnabledChanged(m_isWirelessEnabled);
+        } else if (property == QLatin1String("WwanHardwareEnabled")) {
+            m_isWwanHardwareEnabled = it->toBool();
+            nmDebug() << property << m_isWwanHardwareEnabled;
+            emit wwanHardwareEnabledChanged(m_isWwanHardwareEnabled);
+        } else if (property == QLatin1String("WwanEnabled")) {
+            m_isWwanEnabled = it->toBool();
+            nmDebug() << property << m_isWwanEnabled;
+            emit wwanEnabledChanged(m_isWwanEnabled);
+        } else if (property == QLatin1String("WimaxHardwareEnabled")) {
+            m_isWimaxHardwareEnabled = it->toBool();
+            nmDebug() << property << m_isWimaxHardwareEnabled;
+            emit wimaxHardwareEnabledChanged(m_isWimaxHardwareEnabled);
+        } else if (property == QLatin1String("WimaxEnabled")) {
+            m_isWimaxEnabled = it->toBool();
+            nmDebug() << property << m_isWimaxEnabled;
+            emit wimaxEnabledChanged(m_isWimaxEnabled);
+        } else {
+            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
         }
-        QList<QString> knownConnections = m_activeConnections.keys();
-        foreach (const QDBusObjectPath &ac, activePaths)
-        {
-            if (!m_activeConnections.contains(ac.path()))
-                m_activeConnections.insert(ac.path(), 0);
-            else
-                knownConnections.removeOne(ac.path());
-            nmDebug() << "  " << ac.path();
-        }
-        foreach (const QString &path, knownConnections)
-        {
-            NetworkManager::ActiveConnection *ac = m_activeConnections.take(path);
-            if (ac)
-                delete ac;
-        }
-        emit activeConnectionsChanged();
-    }
-    it = properties.find(wifiHwKey);
-    if ( it != properties.end()) {
-        m_isWirelessHardwareEnabled = it->toBool();
-        nmDebug() << wifiHwKey << m_isWirelessHardwareEnabled;
-        emit wirelessHardwareEnabledChanged(m_isWirelessHardwareEnabled);
-    }
-    it = properties.find(wifiEnabledKey);
-    if ( it != properties.end()) {
-        m_isWirelessEnabled = it->toBool();
-        nmDebug() << wifiEnabledKey << m_isWirelessEnabled;
-        emit wirelessEnabledChanged(m_isWirelessEnabled);
-    }
-    it = properties.find(wwanHwKey);
-    if ( it != properties.end()) {
-        m_isWwanHardwareEnabled = it->toBool();
-        nmDebug() << wwanHwKey << m_isWwanHardwareEnabled;
-        emit wwanHardwareEnabledChanged(m_isWwanHardwareEnabled);
-    }
-    it = properties.find(wwanEnabledKey);
-    if ( it != properties.end()) {
-        m_isWwanEnabled = it->toBool();
-        nmDebug() << wwanEnabledKey << m_isWwanEnabled;
-        emit wwanEnabledChanged(m_isWwanEnabled);
-    }
-    it = properties.find(wimaxHwKey);
-    if ( it != properties.end()) {
-        m_isWimaxHardwareEnabled = it->toBool();
-        nmDebug() << wimaxHwKey << m_isWimaxHardwareEnabled;
-        emit wimaxHardwareEnabledChanged(m_isWimaxHardwareEnabled);
-    }
-    it = properties.find(wimaxEnabledKey);
-    if ( it != properties.end()) {
-        m_isWimaxEnabled = it->toBool();
-        nmDebug() << wimaxEnabledKey << m_isWimaxEnabled;
-        emit wimaxEnabledChanged(m_isWimaxEnabled);
-    }
-    it = properties.find(netEnabledKey);
-    if ( it != properties.end()) {
-        m_isNetworkingEnabled = it->toBool();
-        nmDebug() << netEnabledKey << m_isNetworkingEnabled;
-        emit networkingEnabledChanged(m_isNetworkingEnabled);
+        ++it;
     }
 }
 
