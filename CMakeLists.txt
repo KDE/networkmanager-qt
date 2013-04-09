@@ -78,29 +78,7 @@ set(QtNetworkManager_HEADERS
 set(QtNetworkManager_PRIVATE_HEADERS
     manager_p.h
     settings_p.h
-    settings/802-3-ethernet_p.h
-    settings/802-11-olpc-mesh_p.h
-    settings/802-11-wireless_p.h
-    settings/802-11-wireless-security_p.h
-    settings/802-1x_p.h
-    settings/adsl_p.h
-    settings/bluetooth_p.h
-    settings/bond_p.h
-    settings/bridge_p.h
-    settings/bridgeport_p.h
-    settings/cdma_p.h
-    settings/connection_p.h
-    settings/gsm_p.h
-    settings/ipv4_p.h
-    settings/ipv6_p.h
-    settings/infiniband_p.h
-    settings/ppp_p.h
-    settings/pppoe_p.h
-    settings/serial_p.h
     #settings/template_p.h
-    settings/vlan_p.h
-    settings/vpn_p.h
-    settings/wimax_p.h
 )
 
 set(QtNetworkManager_PART_SRCS
