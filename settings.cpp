@@ -74,7 +74,7 @@ NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::SettingsPriv
     QMap<QString, Connection::Ptr>::const_iterator i = connections.constBegin();
     while (i != connections.constEnd()) {
         NetworkManager::Settings::Connection::Ptr connection = findRegisteredConnection(i.key());
-        if (connection->uuid() == uuid) {
+        if (connection && connection->uuid() == uuid) {
             return connection;
         }
         ++i;
