@@ -33,8 +33,6 @@ namespace NetworkManager
 {
 
 class WimaxDevicePrivate;
-class WimaxNsp;
-typedef QStringList NspList;
 
 /**
  * A wireless network interface
@@ -65,7 +63,7 @@ public:
     /**
      * List of network service providers currently visible to the hardware
      */
-    NspList nsps() const;
+    QStringList nsps() const;
     /**
      * Identifier of the NSP this interface is currently associated with
      */

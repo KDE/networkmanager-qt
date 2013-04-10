@@ -238,7 +238,7 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
         break;
     default:
         if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
-            nmDebug() << "libQtNetworkManager: Can't create object of type " << deviceType << "for" << uni;
+            nmDebug() << "libQtNetworkManager: Can't create object of type " << deviceType << "for" << uni << devIface.isValid();
         }
         break;
     }

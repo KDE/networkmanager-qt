@@ -61,11 +61,8 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString & path, QObject * p
     {
         //nmDebug() << "Got device list";
         QList <QDBusObjectPath> aps = apPathList.value();
-        foreach (const QDBusObjectPath &op, aps)
-        {
+        foreach (const QDBusObjectPath &op, aps) {
             accessPointAdded(op);
-//             d->apMap.insert(op.path(), NetworkManager::AccessPoint::Ptr());
-//             nmDebug() << "  " << op.path();
         }
     }
     else {
@@ -138,7 +135,7 @@ NetworkManager::AccessPoint::Ptr NetworkManager::WirelessDevice::findAccessPoint
     if (mapIt != d->apMap.constEnd() && mapIt.value() != 0) {
         accessPoint = mapIt.value();
     } else if (mapIt != d->apMap.constEnd()) {
-        accessPoint = NetworkManager::AccessPoint::Ptr(new NetworkManager::AccessPoint(uni, 0));
+        accessPoint = NetworkManager::AccessPoint::Ptr(new NetworkManager::AccessPoint(uni));
         d->apMap.insert(uni, accessPoint);
     }
 
