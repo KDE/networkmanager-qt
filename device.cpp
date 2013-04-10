@@ -175,7 +175,8 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
         emit autoconnectChanged();
     } else if (property == QLatin1String("AvailableConnections")) {
         d->availableConnections.clear();
-        foreach (const QDBusObjectPath &availableConnection, value.value<QList<QDBusObjectPath> >()) {
+        QList<QDBusObjectPath> availableConnections = qdbus_cast< QList<QDBusObjectPath> >(value);
+        foreach (const QDBusObjectPath &availableConnection, availableConnections) {
             d->availableConnections << availableConnection.path();
         }
         emit availableConnectionChanged();

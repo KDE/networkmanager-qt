@@ -256,6 +256,10 @@ public:
      * The current state and reason for changing to that state.
      */
     DeviceStateReason stateReason() const;
+    /**
+     * Retrieves the Unique Device Identifier (UDI) of the NetworkInterface.
+     * This identifier is unique for each device in the system.
+     */
     QString udi() const;
 
     void setAutoconnect(const QVariant&);
@@ -350,7 +354,7 @@ Q_SIGNALS:
     void stateReasonChanged();
 
     /**
-     * Emitted when the udi of this network has changed.
+     * Emitted when the Unique Device Identifier of this device has changed.
      */
     void udiChanged();
 
