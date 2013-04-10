@@ -59,6 +59,13 @@ public:
      * Destroys a ActiveConnection object.
      */
     virtual ~ActiveConnection();
+
+
+    /**
+     * Returns true is this object holds a valid connection
+     */
+    bool isValid() const;
+
     /**
      * Return path of the connection object
      */

@@ -178,7 +178,6 @@ void NetworkManager::Settings::SettingsPrivate::daemonUnregistered()
     foreach (const QString &path, connections.keys()) {
         onConnectionRemoved(path);
     }
-    connections.clear();
 }
 
 NetworkManager::Settings::Connection::List NetworkManager::Settings::listConnections()

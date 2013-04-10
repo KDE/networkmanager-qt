@@ -188,7 +188,11 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::fin
             activeConnection = m_activeConnections.value(uni);
         } else {
             activeConnection = NetworkManager::ActiveConnection::Ptr(new NetworkManager::VpnConnection(uni));
-            m_activeConnections[uni] = activeConnection;
+            if (activeConnection->isValid()) {
+                m_activeConnections[uni] = activeConnection;
+            } else {
+                activeConnection.clear();
+            }
         }
     }
     return activeConnection;
