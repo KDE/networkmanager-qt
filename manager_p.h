@@ -54,6 +54,7 @@ public:
     bool m_isWwanHardwareEnabled;
     bool m_isWimaxEnabled;
     bool m_isWimaxHardwareEnabled;
+    QString m_version;
 
     // to store NetworkManager's version.
     int m_x;
@@ -101,11 +102,11 @@ protected Q_SLOTS:
     void init();
     void onDeviceAdded(const QDBusObjectPath &state);
     void onDeviceRemoved(const QDBusObjectPath &state);
-    void stateChanged(uint state);
     void propertiesChanged(const QVariantMap &changedProperties);
     void daemonRegistered();
     void daemonUnregistered();
 private:
+    void stateChanged(uint state);
     static NetworkManager::Status convertNMState(uint state);
 
 };

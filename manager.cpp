@@ -59,7 +59,7 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate() : watcher(DBUS_SE
     connect(&iface, SIGNAL(DeviceAdded(QDBusObjectPath)), SLOT(onDeviceAdded(QDBusObjectPath)));
     connect(&iface, SIGNAL(DeviceRemoved(QDBusObjectPath)), SLOT(onDeviceRemoved(QDBusObjectPath)));
     connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), SLOT(propertiesChanged(QVariantMap)));
-    connect(&iface, SIGNAL(StateChanged(uint)), SLOT(stateChanged(uint)));
+
     init();
 }
 
@@ -84,7 +84,8 @@ void NetworkManager::NetworkManagerPrivate::init()
     qDBusRegisterMetaType<DeviceDBusStateReason>();
     qDBusRegisterMetaType<QStringMap>();
     nmState = iface.state();
-    parseVersion(iface.version());
+    m_version = iface.version();
+    parseVersion(m_version);
     m_isWirelessHardwareEnabled = iface.wirelessHardwareEnabled();
     m_isWirelessEnabled = iface.wirelessEnabled();
     m_isWwanEnabled = iface.wwanEnabled();
@@ -125,7 +126,7 @@ NetworkManager::NetworkManagerPrivate::~NetworkManagerPrivate()
 
 QString NetworkManager::NetworkManagerPrivate::version() const
 {
-    return iface.version();
+    return m_version;
 }
 
 int NetworkManager::NetworkManagerPrivate::compareVersion(const QString & version)
@@ -482,10 +483,9 @@ void NetworkManager::NetworkManagerPrivate::onDeviceRemoved(const QDBusObjectPat
 
 void NetworkManager::NetworkManagerPrivate::stateChanged(uint state)
 {
-    if ( nmState != state ) {
-        // set new state
+    if (nmState != state) {
         nmState = state;
-        emit Notifier::statusChanged( convertNMState( state ) );
+        emit Notifier::statusChanged(convertNMState(nmState));
     }
 }
 
@@ -541,6 +541,11 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
             m_isWimaxEnabled = it->toBool();
             nmDebug() << property << m_isWimaxEnabled;
             emit wimaxEnabledChanged(m_isWimaxEnabled);
+        } else if (property == QLatin1String("Version")) {
+            m_version = it->toString();
+            parseVersion(m_version);
+        } else if (property == QLatin1String("State")) {
+            stateChanged(it->toUInt());
         } else {
             qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
         }
