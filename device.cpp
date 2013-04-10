@@ -108,6 +108,9 @@ NetworkManager::DevicePrivate::DevicePrivate( const QString & path, QObject * ow
     firmwareVersion = deviceIface.firmwareVersion();
     autoconnect = deviceIface.autoconnect();
     reason = NetworkManager::DevicePrivate::convertReason(deviceIface.stateReason().reason);
+    foreach (const QDBusObjectPath &availableConnection, deviceIface.availableConnections()) {
+        availableConnections << availableConnection.path();
+    }
 }
 
 NetworkManager::DevicePrivate::~DevicePrivate()
@@ -171,8 +174,11 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
         d->autoconnect = value.toBool();
         emit autoconnectChanged();
     } else if (property == QLatin1String("AvailableConnections")) {
-//        d-> = it->toString();
-//        emit permanentHardwareAddressChanged(d->permanentHardwareAddress);
+        d->availableConnections.clear();
+        foreach (const QDBusObjectPath &availableConnection, value.value<QList<QDBusObjectPath> >()) {
+            d->availableConnections << availableConnection.path();
+        }
+        emit availableConnectionChanged();
     } else if (property == QLatin1String("Capabilities")) {
         d->capabilities = NetworkManager::DevicePrivate::convertCapabilities(value.toUInt());
         emit capabilitiesChanged();
@@ -287,10 +293,8 @@ NetworkManager::Settings::Connection::List NetworkManager::Device::availableConn
     Q_D(const Device);
 
     NetworkManager::Settings::Connection::List list;
-    QList<QDBusObjectPath> availableConnections = d->deviceIface.availableConnections();
-
-    foreach (const QDBusObjectPath &path, availableConnections) {
-        NetworkManager::Settings::Connection::Ptr connection = NetworkManager::Settings::findConnection(path.path());
+    foreach (const QString &availableConnection, d->availableConnections) {
+        NetworkManager::Settings::Connection::Ptr connection = NetworkManager::Settings::findConnection(availableConnection);
         if (connection) {
             list << connection;
         }

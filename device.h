@@ -290,6 +290,11 @@ Q_SIGNALS:
     void autoconnectChanged();
 
     /**
+     * Emitted when the list of avaiable connections of this network has changed.
+     */
+    void availableConnectionChanged();
+
+    /**
      * Emitted when the capabilities of this network has changed.
      */
     void capabilitiesChanged();

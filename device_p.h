@@ -53,6 +53,7 @@ public:
     Dhcp6Config::Ptr dhcp6Config;
     QString driverVersion;
     QString firmwareVersion;
+    QStringList availableConnections;
     bool autoconnect;
     Device::StateChangeReason reason;
 
