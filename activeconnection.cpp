@@ -36,6 +36,7 @@ NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &
     : iface(NetworkManagerPrivate::DBUS_SERVICE, dbusPath, QDBusConnection::systemBus())
 {
     connection = NetworkManager::Settings::findConnection(iface.connection().path());
+    qWarning() << Q_FUNC_INFO << connection.isNull() << iface.connection().path();
     path = dbusPath;
     default4 = iface.default4();
     default6 = iface.default6();

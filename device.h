@@ -147,7 +147,7 @@ public:
     /**
      * The current active connection for this interface.
      *
-     * @returns A valid ActiveConnection object or 0 if no active connection was found
+     * @returns A valid ActiveConnection object or NULL if no active connection was found
      */
     NetworkManager::ActiveConnection::Ptr activeConnection() const;
     /**

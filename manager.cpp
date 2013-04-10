@@ -169,12 +169,12 @@ int NetworkManager::NetworkManagerPrivate::compareVersion(const int x, const int
 NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::findRegisteredNetworkInterface(const QString &uni)
 {
     NetworkManager::Device::Ptr networkInterface;
-    if (networkInterfaceMap.contains(uni) && networkInterfaceMap.value(uni)) {
-        networkInterface = networkInterfaceMap.value(uni);
-    } else {
-        networkInterface = createNetworkInterface(uni);
-        if (networkInterface) {
-            networkInterfaceMap.insert(uni, networkInterface);
+    if (networkInterfaceMap.contains(uni)) {
+        if (networkInterfaceMap.value(uni)) {
+            networkInterface = networkInterfaceMap.value(uni);
+        } else {
+            networkInterface = createNetworkInterface(uni);
+            networkInterfaceMap[uni] = networkInterface;
         }
     }
     return networkInterface;
@@ -183,11 +183,13 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::findRegistere
 NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::findRegisteredActiveConnection(const QString &uni)
 {
     NetworkManager::ActiveConnection::Ptr activeConnection;
-    if (m_activeConnections.contains(uni) && m_activeConnections.value(uni) != 0) {
-        activeConnection = m_activeConnections.value(uni);
-    } else {
-        activeConnection = NetworkManager::ActiveConnection::Ptr(new NetworkManager::VpnConnection(uni));
-        m_activeConnections.insert(uni, activeConnection);
+    if (m_activeConnections.contains(uni)) {
+        if (m_activeConnections.value(uni)) {
+            activeConnection = m_activeConnections.value(uni);
+        } else {
+            activeConnection = NetworkManager::ActiveConnection::Ptr(new NetworkManager::VpnConnection(uni));
+            m_activeConnections[uni] = activeConnection;
+        }
     }
     return activeConnection;
 }

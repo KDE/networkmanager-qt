@@ -42,17 +42,48 @@ namespace Settings
     Q_SIGNALS:
         void canModifyChanged(bool);
         void hostnameChanged(const QString &);
-        void connectionAdded(const QString &);
-        void connectionRemoved(const QString &);
+        void connectionAdded(const QString &path);
+        void connectionRemoved(const QString &path);
         void connectionAddComplete(const QString &, bool, const QString &);
     };
+    /**
+     * Retrieves the list of connections.
+     */
     NMQT_EXPORT NetworkManager::Settings::Connection::List listConnections();
-    NMQT_EXPORT NetworkManager::Settings::Connection::Ptr findConnection(const QString &);
-    NMQT_EXPORT QString addConnection(const QVariantMapMap &);
-    NMQT_EXPORT NetworkManager::Settings::Connection::Ptr findConnectionByUuid(const QString&);
-    NMQT_EXPORT void saveHostname(const QString &);
+
+    /**
+     * Retrieves the connection for the given path, returns null if not found
+     */
+    NMQT_EXPORT NetworkManager::Settings::Connection::Ptr findConnection(const QString &path);
+
+    /**
+     * Adds the connection with the given settings, returns the id for tracking
+     */
+    NMQT_EXPORT QString addConnection(const QVariantMapMap &settings);
+
+    /**
+     * Retrieves the connection for the given uuid, returns null if not found
+     */
+    NMQT_EXPORT NetworkManager::Settings::Connection::Ptr findConnectionByUuid(const QString &uuid);
+
+    /**
+     * Configure the following hostname
+     */
+    NMQT_EXPORT void saveHostname(const QString &hostname);
+
+    /**
+     * Returns if the user can modify the settings
+     */
     NMQT_EXPORT bool canModify();
+
+    /**
+     * Returns hostname of the machine
+     */
     NMQT_EXPORT QString hostname();
+
+    /**
+     * Notifier object for connecting signals
+     */
     NMQT_EXPORT Notifier* notifier();
 }
 }

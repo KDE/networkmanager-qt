@@ -33,6 +33,8 @@ NM_GLOBAL_STATIC(NetworkManager::Settings::SettingsPrivate, globalSettings)
 NetworkManager::Settings::SettingsPrivate::SettingsPrivate()
     : iface(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, QDBusConnection::systemBus())
 {
+    connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), this, SLOT(propertiesChanged(QVariantMap)));
+    connect(&iface, SIGNAL(NewConnection(QDBusObjectPath)), this, SLOT(onConnectionAdded(QDBusObjectPath)));
     connect(NetworkManager::notifier(), SIGNAL(serviceDisappeared()), this, SLOT(daemonUnregistered()));
     connect(NetworkManager::notifier(), SIGNAL(serviceAppeared()), this, SLOT(init()));
 
@@ -45,17 +47,13 @@ void NetworkManager::Settings::SettingsPrivate::init()
 {
     QDBusPendingReply<QList<QDBusObjectPath> > reply = iface.ListConnections();
     reply.waitForFinished();
-    if (!reply.isError()) {
-        foreach (const QDBusObjectPath &path, reply.value()) {
-            QString id = path.path();
-            connections.insert(id, Connection::Ptr());
+    if (reply.isValid()) {
+        foreach (const QDBusObjectPath &connection, reply.value()) {
+            connections.insert(connection.path(), Connection::Ptr());
         }
     }
     m_canModify = iface.canModify();
     m_hostname = iface.hostname();
-
-    connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), this, SLOT(propertiesChanged(QVariantMap)));
-    connect(&iface, SIGNAL(NewConnection(QDBusObjectPath)), this, SLOT(onConnectionAdded(QDBusObjectPath)));
 }
 
 NetworkManager::Settings::Connection::List NetworkManager::Settings::SettingsPrivate::listConnections()
@@ -155,12 +153,14 @@ void NetworkManager::Settings::SettingsPrivate::onConnectionAdded(const QDBusObj
 NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::SettingsPrivate::findRegisteredConnection(const QString &path)
 {
     Connection::Ptr ret;
-    if (connections.contains(path) && connections.value(path) != 0) {
-        ret = connections.value(path);
-    } else {
-        ret = Connection::Ptr(new Connection(path));
-        connections.insert(path, ret);
-        connect(ret.data(), SIGNAL(removed(QString)), this, SLOT(onConnectionRemoved(QString)));
+    if (connections.contains(path)) {
+        if (connections.value(path)) {
+            ret = connections.value(path);
+        } else {
+            ret = Connection::Ptr(new Connection(path));
+            connections[path] = ret;
+            connect(ret.data(), SIGNAL(removed(QString)), this, SLOT(onConnectionRemoved(QString)));
+        }
     }
     return ret;
 }
