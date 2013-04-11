@@ -49,12 +49,7 @@ void NetworkManager::Settings::SettingsPrivate::init()
     reply.waitForFinished();
     if (reply.isValid()) {
         foreach (const QDBusObjectPath &connection, reply.value()) {
-            QString path = connection.path();
-            if (!connections.contains(path)) {
-                connections.insert(path, Connection::Ptr());
-                // TODO check out why NewConnection is not emitted on startup
-                emit connectionAdded(path);
-            }
+            connections.insert(connection.path(), Connection::Ptr());
         }
     }
     m_canModify = iface.canModify();
