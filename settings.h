@@ -42,7 +42,25 @@ namespace Settings
     Q_SIGNALS:
         void canModifyChanged(bool);
         void hostnameChanged(const QString &);
+        /**
+         * Emitted when a new connection is added
+         *
+         * \note This signal is not emitted when the Network Manager
+         * daemon starts, if you are interested in keeping an
+         * updated listing of connections you must also watch for
+         * NetworkManager::serviceAppeared and
+         * NetworkManager::serviceDisappeared signals
+         */
         void connectionAdded(const QString &path);
+        /**
+         * Emitted when a new connection is removed
+         *
+         * \note This signal is not emitted when the Network Manager
+         * daemon starts, if you are interested in keeping an
+         * updated listing of connections you must also watch for
+         * NetworkManager::serviceAppeared and
+         * NetworkManager::serviceDisappeared signals
+         */
         void connectionRemoved(const QString &path);
         void connectionAddComplete(const QString &, bool, const QString &);
     };

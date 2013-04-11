@@ -173,11 +173,7 @@ void NetworkManager::Settings::SettingsPrivate::onConnectionRemoved(const QStrin
 
 void NetworkManager::Settings::SettingsPrivate::daemonUnregistered()
 {
-    // Do not use STL style iterators as we are going to take the
-    // reference we are using thus crashing the application
-    foreach (const QString &path, connections.keys()) {
-        onConnectionRemoved(path);
-    }
+    connections.clear();
 }
 
 NetworkManager::Settings::Connection::List NetworkManager::Settings::listConnections()
