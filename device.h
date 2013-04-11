@@ -122,7 +122,7 @@ public:
     /**
      * Creates a new NetworkInterface object.
      *
-     * @param backendObject the network object provided by the backend
+     * @param path UDI of the device
      */
     explicit Device( const QString & path, QObject * parent = 0);
     Device( DevicePrivate &dd, QObject * parent );
@@ -134,7 +134,7 @@ public:
      * Retrieves the interface type.  This is a virtual function that will return the
      * proper type of all sub-classes.
      *
-     * @returns the NetworkInterface::Type that corresponds to this device.
+     * @returns the NetworkManager::Device::Type that corresponds to this device.
      */
     virtual Type type() const;
     /**

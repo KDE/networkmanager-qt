@@ -64,7 +64,7 @@ public:
      * Retrieves the capabilities supported by this device.
      *
      * @return the capabilities of the device
-     * @see Solid::Control::BtNetworkInterface::Capabilities
+     * @see NetworkManager::BluetoothDevice::Capability
      */
     Capabilities bluetoothCapabilities() const;
     /**
