@@ -195,7 +195,7 @@ NetworkManager::Settings::ConnectionSettings::ConnectionSettings(const NetworkMa
     initSettings(other);
 }
 
-NetworkManager::Settings::ConnectionSettings::ConnectionSettings(const QVariantMapMap &map) :
+NetworkManager::Settings::ConnectionSettings::ConnectionSettings(const NMVariantMapMap &map) :
     d_ptr(new ConnectionSettingsPrivate())
 {
     fromMap(map);
@@ -396,7 +396,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(const NetworkMan
     }
 }
 
-void NetworkManager::Settings::ConnectionSettings::fromMap(const QVariantMapMap& map)
+void NetworkManager::Settings::ConnectionSettings::fromMap(const NMVariantMapMap& map)
 {
     QVariantMap connectionSettings = map.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
 
@@ -453,9 +453,9 @@ void NetworkManager::Settings::ConnectionSettings::fromMap(const QVariantMapMap&
     }
 }
 
-QVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const
+NMVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const
 {
-    QVariantMapMap result;
+    NMVariantMapMap result;
     QVariantMap connectionSetting;
 
     if (!id().isEmpty()) {

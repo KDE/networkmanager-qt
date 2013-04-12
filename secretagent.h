@@ -42,9 +42,9 @@ namespace NetworkManager
         explicit SecretAgent(const QString &, QObject * parent = 0);
         virtual ~SecretAgent();
     public Q_SLOTS:
-        virtual QVariantMapMap GetSecrets(const QVariantMapMap&, const QDBusObjectPath&, const QString&, const QStringList&, uint) = 0;
-        virtual void SaveSecrets(const QVariantMapMap&, const QDBusObjectPath&) = 0;
-        virtual void DeleteSecrets(const QVariantMapMap &, const QDBusObjectPath &) = 0;
+        virtual NMVariantMapMap GetSecrets(const NMVariantMapMap&, const QDBusObjectPath&, const QString&, const QStringList&, uint) = 0;
+        virtual void SaveSecrets(const NMVariantMapMap&, const QDBusObjectPath&) = 0;
+        virtual void DeleteSecrets(const NMVariantMapMap &, const QDBusObjectPath &) = 0;
         virtual void CancelGetSecrets(const QDBusObjectPath &, const QString &) = 0;
     private:
         SecretAgentPrivate *d_ptr;

@@ -83,7 +83,7 @@ namespace Settings
          */
         void secrets(const QString &setting);
         bool active() const;
-        void update(const QVariantMapMap &);
+        void update(const NMVariantMapMap &);
         void remove();
     private:
         ConnectionPrivate *d_ptr;
@@ -100,7 +100,7 @@ namespace Settings
          * @param set secrets retrieved.
          * @param message error message if any, empty string if success is true.
          */
-        void gotSecrets(const QString &id, bool success, const QVariantMapMap &set, const QString &message);
+        void gotSecrets(const QString &id, bool success, const NMVariantMapMap &set, const QString &message);
 
         /**
          * Emitted when the connection settings changes

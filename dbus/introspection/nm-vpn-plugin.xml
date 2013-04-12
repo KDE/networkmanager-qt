@@ -11,7 +11,7 @@
       </tp:docstring>
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_vpn_plugin_connect"/>
       <arg name="connection" type="a{sa{sv}}" direction="in" tp:type="String_String_Variant_Map_Map">
-        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMapMap"/>
+        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="NMVariantMapMap"/>
         <tp:docstring>
           Describes the connection to be established.
         </tp:docstring>
@@ -31,7 +31,7 @@
       </tp:docstring>
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_vpn_plugin_need_secrets"/>
       <arg name="settings" type="a{sa{sv}}" direction="in" tp:type="String_String_Variant_Map_Map">
-        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMapMap"/>
+        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="NMVariantMapMap"/>
         <tp:docstring>
           Describes the connection that may need secrets.
         </tp:docstring>

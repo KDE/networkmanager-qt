@@ -49,7 +49,7 @@ class SecretAgentAdaptor: public QDBusAbstractAdaptor
 "      <annotation value=\"impl_secret_agent_get_secrets\" name=\"org.freedesktop.DBus.GLib.CSymbol\"/>\n"
 "      <annotation value=\"\" name=\"org.freedesktop.DBus.GLib.Async\"/>\n"
 "      <arg direction=\"in\" tp:type=\"String_String_Variant_Map_Map\" type=\"a{sa{sv}}\" name=\"connection\">\n"
-"        <annotation value=\"QVariantMapMap\" name=\"com.trolltech.QtDBus.QtTypeName.In0\"/>\n"
+"        <annotation value=\"NMVariantMapMap\" name=\"com.trolltech.QtDBus.QtTypeName.In0\"/>\n"
 "        <tp:docstring>\n"
 "                    Nested settings maps containing the connection for which\n"
 "                    secrets are being requested.  This may contain system-owned\n"
@@ -90,7 +90,7 @@ class SecretAgentAdaptor: public QDBusAbstractAdaptor
 "                </tp:docstring>\n"
 "      </arg>\n"
 "      <arg direction=\"out\" tp:type=\"String_String_Variant_Map_Map\" type=\"a{sa{sv}}\" name=\"secrets\">\n"
-"        <annotation value=\"QVariantMapMap\" name=\"com.trolltech.QtDBus.QtTypeName.Out0\"/>\n"
+"        <annotation value=\"NMVariantMapMap\" name=\"com.trolltech.QtDBus.QtTypeName.Out0\"/>\n"
 "        <tp:docstring>\n"
 "                    Nested settings maps containing secrets.  Each setting MUST\n"
 "                    contain at least the 'name' field, containing the name of\n"
@@ -159,7 +159,7 @@ class SecretAgentAdaptor: public QDBusAbstractAdaptor
 "      <annotation value=\"impl_secret_agent_save_secrets\" name=\"org.freedesktop.DBus.GLib.CSymbol\"/>\n"
 "      <annotation value=\"\" name=\"org.freedesktop.DBus.GLib.Async\"/>\n"
 "      <arg direction=\"in\" tp:type=\"String_String_Variant_Map_Map\" type=\"a{sa{sv}}\" name=\"connection\">\n"
-"        <annotation value=\"QVariantMapMap\" name=\"com.trolltech.QtDBus.QtTypeName.In0\"/>\n"
+"        <annotation value=\"NMVariantMapMap\" name=\"com.trolltech.QtDBus.QtTypeName.In0\"/>\n"
 "        <tp:docstring>\n"
 "                    Nested settings maps containing the entire connection\n"
 "                    (including secrets), for which the agent should save the\n"
@@ -183,7 +183,7 @@ class SecretAgentAdaptor: public QDBusAbstractAdaptor
 "      <annotation value=\"impl_secret_agent_delete_secrets\" name=\"org.freedesktop.DBus.GLib.CSymbol\"/>\n"
 "      <annotation value=\"\" name=\"org.freedesktop.DBus.GLib.Async\"/>\n"
 "      <arg direction=\"in\" tp:type=\"String_String_Variant_Map_Map\" type=\"a{sa{sv}}\" name=\"connection\">\n"
-"        <annotation value=\"QVariantMapMap\" name=\"com.trolltech.QtDBus.QtTypeName.In0\"/>\n"
+"        <annotation value=\"NMVariantMapMap\" name=\"com.trolltech.QtDBus.QtTypeName.In0\"/>\n"
 "        <tp:docstring>\n"
 "                    Nested settings maps containing the connection properties\n"
 "                    (sans secrets), for which the agent should delete the\n"
@@ -209,9 +209,9 @@ public:
 public: // PROPERTIES
 public Q_SLOTS: // METHODS
     void CancelGetSecrets(const QDBusObjectPath &connection_path, const QString &setting_name);
-    void DeleteSecrets(const QVariantMapMap &connection, const QDBusObjectPath &connection_path);
-    QVariantMapMap GetSecrets(const QVariantMapMap &connection, const QDBusObjectPath &connection_path, const QString &setting_name, const QStringList &hints, uint flags);
-    void SaveSecrets(const QVariantMapMap &connection, const QDBusObjectPath &connection_path);
+    void DeleteSecrets(const NMVariantMapMap &connection, const QDBusObjectPath &connection_path);
+    NMVariantMapMap GetSecrets(const NMVariantMapMap &connection, const QDBusObjectPath &connection_path, const QString &setting_name, const QStringList &hints, uint flags);
+    void SaveSecrets(const NMVariantMapMap &connection, const QDBusObjectPath &connection_path);
 Q_SIGNALS: // SIGNALS
 };
 

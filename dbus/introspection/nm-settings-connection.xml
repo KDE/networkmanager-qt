@@ -17,7 +17,7 @@
           <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_settings_connection_update"/>
           <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
           <arg name="properties" type="a{sa{sv}}" direction="in">
-            <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMapMap"/>
+            <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="NMVariantMapMap"/>
             <tp:docstring>
               New connection settings, properties, and (optionally) secrets.
             </tp:docstring>
@@ -42,7 +42,7 @@
             <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_settings_connection_get_settings"/>
             <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
             <arg name="settings" type="a{sa{sv}}" direction="out" tp:type="String_String_Variant_Map_Map">
-                <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QVariantMapMap"/>
+                <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="NMVariantMapMap"/>
                 <tp:docstring>
                     The nested settings maps describing this object.
                 </tp:docstring>
@@ -66,7 +66,7 @@
             </arg>
 
             <arg name="secrets" type="a{sa{sv}}" direction="out" tp:type="String_String_Variant_Map_Map">
-                <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QVariantMapMap"/>
+                <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="NMVariantMapMap"/>
                 <tp:docstring>
                     Nested settings maps containing secrets.
                 </tp:docstring>

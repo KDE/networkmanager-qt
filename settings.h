@@ -77,7 +77,7 @@ namespace Settings
     /**
      * Adds the connection with the given settings, returns the id for tracking
      */
-    NMQT_EXPORT QString addConnection(const QVariantMapMap &settings);
+    NMQT_EXPORT QString addConnection(const NMVariantMapMap &settings);
 
     /**
      * Retrieves the connection for the given uuid, returns null if not found

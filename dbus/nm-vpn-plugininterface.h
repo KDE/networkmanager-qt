@@ -41,7 +41,7 @@ public:
     { return qvariant_cast< uint >(property("State")); }
 
 public Q_SLOTS: // METHODS
-    inline QDBusPendingReply<> Connect(const QVariantMapMap &connection)
+    inline QDBusPendingReply<> Connect(const NMVariantMapMap &connection)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(connection);
@@ -54,7 +54,7 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QLatin1String("Disconnect"), argumentList);
     }
 
-    inline QDBusPendingReply<QString> NeedSecrets(const QVariantMapMap &settings)
+    inline QDBusPendingReply<QString> NeedSecrets(const NMVariantMapMap &settings)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(settings);

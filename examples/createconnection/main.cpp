@@ -39,7 +39,7 @@ using namespace NetworkManager;
 
 int main()
 {
-    qDBusRegisterMetaType< QVariantMapMap >();
+    qDBusRegisterMetaType<NMVariantMapMap>();
     QTextStream qout(stdout, QIODevice::WriteOnly);
     QTextStream qin(stdin, QIODevice::ReadOnly);
 

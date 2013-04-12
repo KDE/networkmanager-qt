@@ -54,14 +54,14 @@ public:
     ConnectionSettings();
     ConnectionSettings(ConnectionType type, NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
     ConnectionSettings(const ConnectionSettings::Ptr &other);
-    ConnectionSettings(const QVariantMapMap &map);
+    ConnectionSettings(const NMVariantMapMap &map);
     virtual ~ConnectionSettings();
 
     QString name() const;
 
-    void fromMap(const QVariantMapMap & map);
+    void fromMap(const NMVariantMapMap & map);
 
-    QVariantMapMap toMap() const;
+    NMVariantMapMap toMap() const;
 
     void setId(const QString & id);
     QString id() const;

@@ -88,7 +88,7 @@
         Cannot be used for VPN connections at this time.
       </tp:docstring>
       <arg name="connection" type="a{sa{sv}}" direction="in">
-        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMapMap"/>
+        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="NMVariantMapMap"/>
         <tp:docstring>
           Connection settings and properties; if incomplete missing settings will
           be automatically completed using the given device and specific object.

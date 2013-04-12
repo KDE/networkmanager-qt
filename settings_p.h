@@ -43,7 +43,7 @@ namespace Settings
         NetworkManager::Settings::Connection::Ptr findConnectionByUuid(const QString &uuid);
         QString hostname() const;
         bool canModify() const;
-        QString addConnection(const QVariantMapMap &);
+        QString addConnection(const NMVariantMapMap &);
         void saveHostname(const QString &);
         Connection::Ptr findRegisteredConnection(const QString &);
 

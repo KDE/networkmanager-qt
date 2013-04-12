@@ -45,9 +45,9 @@ public:
     virtual ~VpnPlugin();
 
 protected Q_SLOTS:
-    void connect(const QVariantMapMap & connection);
+    void connect(const NMVariantMapMap & connection);
     void disconnect();
-    QString needSecrets(const QVariantMapMap & connection);
+    QString needSecrets(const NMVariantMapMap & connection);
     void setConfig(const QVariantMap & config);
     void setFailure(const QString & reason);
     void setIp4Config(const QVariantMap & config);

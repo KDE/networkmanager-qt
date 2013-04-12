@@ -50,10 +50,10 @@ public:
     : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
     {
     }
-    void updateSettings(const QVariantMapMap &newSettings = QVariantMapMap());
+    void updateSettings(const NMVariantMapMap &newSettings = NMVariantMapMap());
     QString uuid;
     QString id;
-    QVariantMapMap settings;
+    NMVariantMapMap settings;
     Settings::ConnectionSettings::Ptr connection;
     QString path;
     OrgFreedesktopNetworkManagerSettingsConnectionInterface iface;
@@ -63,9 +63,8 @@ NetworkManager::Settings::Connection::Connection(const QString & path, QObject *
 : QObject(parent), d_ptr(new ConnectionPrivate(path))
 {
     Q_D(Connection);
-    qDBusRegisterMetaType<QVariantMapMap>();
 
-    QDBusReply<QVariantMapMap> reply = d->iface.GetSettings();
+    QDBusReply<NMVariantMapMap> reply = d->iface.GetSettings();
     if (reply.isValid()) {
         d->updateSettings(reply.value());
     } else {
@@ -116,7 +115,7 @@ void NetworkManager::Settings::Connection::secrets(const QString &setting)
 {
     Q_D(Connection);
     QString id = uuid();
-    QDBusPendingReply<QVariantMapMap> reply = d->iface.GetSecrets(setting);
+    QDBusPendingReply<NMVariantMapMap> reply = d->iface.GetSecrets(setting);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
     watcher->setProperty("libQtNetworkManager_id", id);
     connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this,  SLOT(onSecretsArrived(QDBusPendingCallWatcher*)));
@@ -127,10 +126,10 @@ void NetworkManager::Settings::Connection::onSecretsArrived(QDBusPendingCallWatc
     Q_D(Connection);
     if (!watcher)
         return;
-    QDBusPendingReply<QVariantMapMap> reply = *watcher;
+    QDBusPendingReply<NMVariantMapMap> reply = *watcher;
     QString id = watcher->property("libQtNetworkManager_id").value<QString>();
     bool success = true;
-    QVariantMapMap set;
+    NMVariantMapMap set;
     QString message;
     if (!reply.isValid()) {
         success = false;
@@ -154,7 +153,7 @@ bool NetworkManager::Settings::Connection::active() const
     return false;
 }
 
-void NetworkManager::Settings::Connection::update(const QVariantMapMap &settings)
+void NetworkManager::Settings::Connection::update(const NMVariantMapMap &settings)
 {
     Q_D(Connection);
     d->iface.Update(settings);
@@ -175,7 +174,7 @@ QString NetworkManager::Settings::Connection::path() const
 void NetworkManager::Settings::Connection::onConnectionUpdated()
 {
     Q_D(Connection);
-    QDBusReply<QVariantMapMap> reply = d->iface.GetSettings();
+    QDBusReply<NMVariantMapMap> reply = d->iface.GetSettings();
     if (reply.isValid()) {
         d->updateSettings(reply.value());
     } else {
@@ -192,7 +191,7 @@ void NetworkManager::Settings::Connection::onConnectionRemoved()
     emit removed(path);
 }
 
-void NetworkManager::Settings::ConnectionPrivate::updateSettings(const QVariantMapMap &newSettings)
+void NetworkManager::Settings::ConnectionPrivate::updateSettings(const NMVariantMapMap &newSettings)
 {
     settings = newSettings;
     if (settings.contains(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME))) {

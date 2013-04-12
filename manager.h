@@ -215,7 +215,7 @@ namespace NetworkManager {
      * @param interfaceUni unique identifier of the network interface to be activated
      * @param connectionParameter can be used to specify extra parameters not specific to the NetworkInterface or the connection, eg which AP to use when several present with same ESSID in range (because ESSID does not guarantee that the AP is part of the network you want to join!)
      */
-    NMQT_EXPORT QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> addAndActivateConnection(const QVariantMapMap & connection, const QString & interfaceUni, const QString & connectionParameter);
+    NMQT_EXPORT QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> addAndActivateConnection(const NMVariantMapMap & connection, const QString & interfaceUni, const QString & connectionParameter);
     /**
      * Deactivate this network interface, if active
      * @param activeConnection identifer of the connection to deactivate

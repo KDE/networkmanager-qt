@@ -90,7 +90,7 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QLatin1String("ActivateConnection"), argumentList);
     }
 
-    inline QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> AddAndActivateConnection(const QVariantMapMap &connection, const QDBusObjectPath &device, const QDBusObjectPath &specific_object)
+    inline QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> AddAndActivateConnection(const NMVariantMapMap &connection, const QDBusObjectPath &device, const QDBusObjectPath &specific_object)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(connection) << QVariant::fromValue(device) << QVariant::fromValue(specific_object);

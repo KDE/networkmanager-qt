@@ -63,7 +63,7 @@ NetworkManager::VpnPlugin::~VpnPlugin()
     delete d_ptr;
 }
 
-void NetworkManager::VpnPlugin::connect(const QVariantMapMap& connection)
+void NetworkManager::VpnPlugin::connect(const NMVariantMapMap& connection)
 {
     Q_D(VpnPlugin);
 
@@ -77,7 +77,7 @@ void NetworkManager::VpnPlugin::disconnect()
     QDBusPendingReply<> reply = d->iface.Disconnect();
 }
 
-QString NetworkManager::VpnPlugin::needSecrets(const QVariantMapMap& connection)
+QString NetworkManager::VpnPlugin::needSecrets(const NMVariantMapMap& connection)
 {
     Q_D(VpnPlugin);
 

@@ -91,7 +91,7 @@ bool NetworkManager::Settings::SettingsPrivate::canModify() const
     return m_canModify;
 }
 
-QString NetworkManager::Settings::SettingsPrivate::addConnection(const QVariantMapMap &connection)
+QString NetworkManager::Settings::SettingsPrivate::addConnection(const NMVariantMapMap &connection)
 {
     QDBusPendingReply<QDBusObjectPath> reply = iface.AddConnection(connection);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, 0);
@@ -191,7 +191,7 @@ NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::findConnecti
     return globalSettings->findRegisteredConnection(path);
 }
 
-QString NetworkManager::Settings::addConnection(const QVariantMapMap &connection)
+QString NetworkManager::Settings::addConnection(const NMVariantMapMap &connection)
 {
     return globalSettings->addConnection(connection);
 }

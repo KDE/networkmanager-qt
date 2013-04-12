@@ -42,7 +42,7 @@
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_settings_add_connection"/>
       <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
       <arg name="connection" type="a{sa{sv}}" direction="in">
-        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMapMap"/>
+        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="NMVariantMapMap"/>
         <tp:docstring>
           Connection settings and properties.
         </tp:docstring>

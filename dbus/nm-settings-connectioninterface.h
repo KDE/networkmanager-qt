@@ -43,20 +43,20 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QLatin1String("Delete"), argumentList);
     }
 
-    inline QDBusPendingReply<QVariantMapMap> GetSecrets(const QString &setting_name)
+    inline QDBusPendingReply<NMVariantMapMap> GetSecrets(const QString &setting_name)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(setting_name);
         return asyncCallWithArgumentList(QLatin1String("GetSecrets"), argumentList);
     }
 
-    inline QDBusPendingReply<QVariantMapMap> GetSettings()
+    inline QDBusPendingReply<NMVariantMapMap> GetSettings()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QLatin1String("GetSettings"), argumentList);
     }
 
-    inline QDBusPendingReply<> Update(const QVariantMapMap &properties)
+    inline QDBusPendingReply<> Update(const NMVariantMapMap &properties)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(properties);

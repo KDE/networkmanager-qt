@@ -39,19 +39,19 @@ void SecretAgentAdaptor::CancelGetSecrets(const QDBusObjectPath &connection_path
     parent()->CancelGetSecrets(connection_path, setting_name);
 }
 
-void SecretAgentAdaptor::DeleteSecrets(const QVariantMapMap &connection, const QDBusObjectPath &connection_path)
+void SecretAgentAdaptor::DeleteSecrets(const NMVariantMapMap &connection, const QDBusObjectPath &connection_path)
 {
     // handle method call org.freedesktop.NetworkManager.SecretAgent.DeleteSecrets
     parent()->DeleteSecrets(connection, connection_path);
 }
 
-QVariantMapMap SecretAgentAdaptor::GetSecrets(const QVariantMapMap &connection, const QDBusObjectPath &connection_path, const QString &setting_name, const QStringList &hints, uint flags)
+NMVariantMapMap SecretAgentAdaptor::GetSecrets(const NMVariantMapMap &connection, const QDBusObjectPath &connection_path, const QString &setting_name, const QStringList &hints, uint flags)
 {
     // handle method call org.freedesktop.NetworkManager.SecretAgent.GetSecrets
     return parent()->GetSecrets(connection, connection_path, setting_name, hints, flags);
 }
 
-void SecretAgentAdaptor::SaveSecrets(const QVariantMapMap &connection, const QDBusObjectPath &connection_path)
+void SecretAgentAdaptor::SaveSecrets(const NMVariantMapMap &connection, const QDBusObjectPath &connection_path)
 {
     // handle method call org.freedesktop.NetworkManager.SecretAgent.SaveSecrets
     parent()->SaveSecrets(connection, connection_path);

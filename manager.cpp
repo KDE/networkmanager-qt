@@ -340,7 +340,7 @@ QDBusPendingReply<QDBusObjectPath> NetworkManager::NetworkManagerPrivate::activa
     return iface.ActivateConnection(connPath, QDBusObjectPath(extra_interface_parameter), QDBusObjectPath(extra_connection_parameter));
 }
 
-QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::NetworkManagerPrivate::addAndActivateConnection(const QVariantMapMap& connection, const QString & interfaceUni, const QString & connectionParameter)
+QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::NetworkManagerPrivate::addAndActivateConnection(const NMVariantMapMap& connection, const QString & interfaceUni, const QString & connectionParameter)
 {
     QString extra_connection_parameter = connectionParameter;
     if (extra_connection_parameter.isEmpty()) {
@@ -698,7 +698,7 @@ NetworkManager::Device::Ptr NetworkManager::findDeviceByIpFace (const QString &i
     return globalNetworkManager->findDeviceByIpIface(iface);
 }
 
-QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::addAndActivateConnection(const QVariantMapMap & connection, const QString & interfaceUni, const QString & connectionParameter)
+QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::addAndActivateConnection(const NMVariantMapMap & connection, const QString & interfaceUni, const QString & connectionParameter)
 {
     return globalNetworkManager->addAndActivateConnection(connection, interfaceUni, connectionParameter);
 }

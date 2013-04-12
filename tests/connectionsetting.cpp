@@ -66,7 +66,7 @@ void ConnectionSetting::testSetting()
     QFETCH(QString, master);
     QFETCH(QString, slaveType);
 
-    QVariantMapMap mapmap;
+    NMVariantMapMap mapmap;
     QVariantMap map;
 
     map.insert(QLatin1String(NM_SETTING_CONNECTION_ID), id);
@@ -85,7 +85,7 @@ void ConnectionSetting::testSetting()
     NetworkManager::Settings::ConnectionSettings setting;
     setting.fromMap(mapmap);
 
-    QVariantMapMap mapmap1 = setting.toMap();
+    NMVariantMapMap mapmap1 = setting.toMap();
     QVariantMap map1 = mapmap1.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
 
     foreach (const QString & key, map.keys()) {

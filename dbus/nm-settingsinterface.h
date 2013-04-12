@@ -45,7 +45,7 @@ public:
     { return qvariant_cast< QString >(property("Hostname")); }
 
 public Q_SLOTS: // METHODS
-    inline QDBusPendingReply<QDBusObjectPath> AddConnection(const QVariantMapMap &connection)
+    inline QDBusPendingReply<QDBusObjectPath> AddConnection(const NMVariantMapMap &connection)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(connection);
