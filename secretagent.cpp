@@ -42,6 +42,8 @@ watcher(NetworkManagerPrivate::DBUS_SERVICE, QDBusConnection::systemBus(), QDBus
     qDBusRegisterMetaType<QVariantMapMap>();
 
     watcher.connect(&watcher, SIGNAL(serviceRegistered(QString)), q, SLOT(registerAgent()));
+    agentManager.connection().registerObject(QLatin1String(NM_DBUS_PATH_SECRET_AGENT), &agent, QDBusConnection::ExportAllSlots);
+
     registerAgent();
 }
 
@@ -52,7 +54,6 @@ NetworkManager::SecretAgentPrivate::~SecretAgentPrivate()
 
 void NetworkManager::SecretAgentPrivate::registerAgent()
 {
-    agentManager.connection().registerObject(QLatin1String(NM_DBUS_PATH_SECRET_AGENT), &agent, QDBusConnection::ExportAllSlots);
     agentManager.Register(agentId);
 }
 
