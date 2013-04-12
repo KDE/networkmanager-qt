@@ -64,6 +64,7 @@ NetworkManager::Settings::Connection::Connection(const QString & path, QObject *
 {
     Q_D(Connection);
 
+    qDBusRegisterMetaType<NMVariantMapMap>();
     QDBusReply<NMVariantMapMap> reply = d->iface.GetSettings();
     if (reply.isValid()) {
         d->updateSettings(reply.value());
