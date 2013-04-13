@@ -157,6 +157,7 @@ void NetworkManager::Device::init()
     qDBusRegisterMetaType<IpV6DBusNameservers>();
     qDBusRegisterMetaType<IpV6DBusRoute>();
     qDBusRegisterMetaType<IpV6DBusRouteList>();
+    qDBusRegisterMetaType<DeviceDBusStateReason>();
     d->capabilities = NetworkManager::DevicePrivate::convertCapabilities(d->deviceIface.capabilities());
     d->connectionState = NetworkManager::DevicePrivate::convertState(d->deviceIface.state());
 
@@ -225,8 +226,8 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
     } else if (property == QLatin1String("State")) {
         d->connectionState = NetworkManager::DevicePrivate::convertState(value.toUInt());
         emit connectionStateChanged();
-    } else if (property == QLatin1String("StateReason")) {
-        d->reason = NetworkManager::DevicePrivate::convertReason(value.toUInt());
+    } else if (property == QLatin1String("StateReason")) { // just extracting the reason
+        d->reason = NetworkManager::DevicePrivate::convertReason(qdbus_cast<DeviceDBusStateReason>(value).reason);
         emit stateReasonChanged();
     } else if (property == QLatin1String("Udi")) {
         d->udi = value.toString();
@@ -511,10 +512,10 @@ void NetworkManager::Device::disconnectInterface()
     d->deviceIface.Disconnect();
 }
 
-void NetworkManager::Device::setManaged(const QVariant & driver)
+void NetworkManager::Device::setManaged(const QVariant & managed)
 {
     Q_D(Device);
-    d->driver = driver.toBool();
+    d->managed = managed.toBool();
 }
 
 NetworkManager::Device::State NetworkManager::Device::state() const
