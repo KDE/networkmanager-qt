@@ -229,7 +229,7 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
         createdInterface = Device::Ptr(new NetworkManager::OlpcMeshDevice(uni));
         break;
     case NM_DEVICE_TYPE_INFINIBAND:
-        createdInterface = Device::Ptr(new NetworkManager::AdslDevice(uni));
+        createdInterface = Device::Ptr(new NetworkManager::InfinibandDevice(uni));
         break;
     case NM_DEVICE_TYPE_BOND:
         createdInterface = Device::Ptr(new NetworkManager::BondDevice(uni));
@@ -358,7 +358,7 @@ void NetworkManager::NetworkManagerPrivate::deactivateConnection( const QString 
 
 void NetworkManager::NetworkManagerPrivate::setNetworkingEnabled(bool enabled)
 {
-    QDBusPendingReply<> reply = iface.Enable(enabled);
+    iface.Enable(enabled);
 }
 
 void NetworkManager::NetworkManagerPrivate::setWirelessEnabled(bool enabled)
