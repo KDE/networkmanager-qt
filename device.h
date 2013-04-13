@@ -40,7 +40,7 @@ class DeviceStateReason;
 class NMQT_EXPORT Device : public QObject
 {
     Q_OBJECT
-    Q_ENUMS(ConnectionState Capability Type)
+    Q_ENUMS(State Capability Type)
     Q_FLAGS(Capabilities)
     Q_FLAGS(Types)
     Q_DECLARE_PRIVATE(Device)
@@ -60,7 +60,7 @@ class NMQT_EXPORT Device : public QObject
     Q_PROPERTY(DeviceStateReason stateReason READ stateReason)
 
     //Q_PROPERTY(Solid::Control::IPv4Config ipV4Config READ ipV4Config WRITE setIpV4Config)
-    Q_PROPERTY(State State READ state)
+    Q_PROPERTY(State state READ state)
     Q_FLAGS(Capabilities)
 
 public:
@@ -73,34 +73,33 @@ public:
      * this is a high level view
      */
     enum State{ UnknownState = 0, Unmanaged = 10, Unavailable = 20, Disconnected = 30 , Preparing = 40,
-                          ConfiguringHardware = 50 , NeedAuth = 60, ConfiguringIp = 70, CheckingIp = 80, WaitingForSecondaries = 90, Activated = 100, Deactivating = 110, Failed = 120};
+                ConfiguringHardware = 50 , NeedAuth = 60, ConfiguringIp = 70, CheckingIp = 80, WaitingForSecondaries = 90, Activated = 100, Deactivating = 110, Failed = 120};
 
     /**
      * Enums describing the reason for a connection state change
      */
     enum StateChangeReason{ UnknownReason=0, NoReason=1 , NowManagedReason=2, NowUnmanagedReason=3,
-                                    ConfigFailedReason=4, ConfigUnavailableReason=5,
-                                    ConfigExpiredReason=6, NoSecretsReason=7, AuthSupplicantDisconnectReason=8,
-                                    AuthSupplicantConfigFailedReason=9, AuthSupplicantFailedReason=10,
-                                    AuthSupplicantTimeoutReason=11, PppStartFailedReason=12, PppDisconnectReason=13,
-                                    PppFailedReason=14, DhcpStartFailedReason=15, DhcpErrorReason=16, DhcpFailedReason=17,
-                                    SharedStartFailedReason=18, SharedFailedReason=19,
-                                    AutoIpStartFailedReason=20, AutoIpErrorReason=21, AutoIpFailedReason=22,
-                                    ModemBusyReason=23, ModemNoDialToneReason=24, ModemNoCarrierReason=25, ModemDialTimeoutReason=26,
-                                    ModemDialFailedReason=27, ModemInitFailedReason=28,
-                                    GsmApnSelectFailedReason=29, GsmNotSearchingReason=30, GsmRegistrationDeniedReason=31,
-                                    GsmRegistrationTimeoutReason=32, GsmRegistrationFailedReason=33,
-                                    GsmPinCheckFailedReason=34, FirmwareMissingReason=35, DeviceRemovedReason=36,
-                                    SleepingReason=37, ConnectionRemovedReason=38, UserRequestedReason=39, CarrierReason=40,
-                                    ConnectionAssumedReason=41, SupplicantAvailableReason=42, ModemNotFoundReason=43, BluetoothFailedReason=44,
-                                    GsmSimNotInserted=45, GsmSimPinRequired=46, GsmSimPukRequired=47,GsmSimWrong=48 , InfiniBandMode=49,
-				    DependencyFailed=50, Br2684Failed=51, ModemManagerUnavailable=52, SsidNotFound=53, SecondaryConnectionFailed=54,
-				    Reserved = 65536 };
+                            ConfigFailedReason=4, ConfigUnavailableReason=5,
+                            ConfigExpiredReason=6, NoSecretsReason=7, AuthSupplicantDisconnectReason=8,
+                            AuthSupplicantConfigFailedReason=9, AuthSupplicantFailedReason=10,
+                            AuthSupplicantTimeoutReason=11, PppStartFailedReason=12, PppDisconnectReason=13,
+                            PppFailedReason=14, DhcpStartFailedReason=15, DhcpErrorReason=16, DhcpFailedReason=17,
+                            SharedStartFailedReason=18, SharedFailedReason=19,
+                            AutoIpStartFailedReason=20, AutoIpErrorReason=21, AutoIpFailedReason=22,
+                            ModemBusyReason=23, ModemNoDialToneReason=24, ModemNoCarrierReason=25, ModemDialTimeoutReason=26,
+                            ModemDialFailedReason=27, ModemInitFailedReason=28,
+                            GsmApnSelectFailedReason=29, GsmNotSearchingReason=30, GsmRegistrationDeniedReason=31,
+                            GsmRegistrationTimeoutReason=32, GsmRegistrationFailedReason=33,
+                            GsmPinCheckFailedReason=34, FirmwareMissingReason=35, DeviceRemovedReason=36,
+                            SleepingReason=37, ConnectionRemovedReason=38, UserRequestedReason=39, CarrierReason=40,
+                            ConnectionAssumedReason=41, SupplicantAvailableReason=42, ModemNotFoundReason=43, BluetoothFailedReason=44,
+                            GsmSimNotInserted=45, GsmSimPinRequired=46, GsmSimPukRequired=47,GsmSimWrong=48 , InfiniBandMode=49,
+                            DependencyFailed=50, Br2684Failed=51, ModemManagerUnavailable=52, SsidNotFound=53, SecondaryConnectionFailed=54,
+                            Reserved = 65536 };
     /**
      * Possible Device capabilities
      * - IsManageable: denotes that the device can be controlled by this API
      * - SupportsCarrierDetect: the device informs us when it is plugged in to the medium
-     * - SupportsWirelessScan: the device can scan for wireless networks
      */
     enum Capability { IsManageable = 0x1, SupportsCarrierDetect = 0x2 };
 
@@ -114,7 +113,7 @@ public:
      * - Wimax: WiMax WWAN technology
      */
     enum Type { UnknownType = 0x0, Ethernet = 0x1, Wifi = 0x2, Unused1 = 0x3, Unused2 = 0x4, Bluetooth = 0x5, OlpcMesh = 0x6, Wimax = 0x7, Modem = 0x8,
-		InfiniBand = 0x9, Bond = 0x10, Vlan = 0x11, Adsl = 0x12, Bridge = 0x13};
+                InfiniBand = 0x9, Bond = 0x10, Vlan = 0x11, Adsl = 0x12, Bridge = 0x13};
 
     Q_DECLARE_FLAGS(Capabilities, Capability)
     Q_DECLARE_FLAGS(Types, Type)
