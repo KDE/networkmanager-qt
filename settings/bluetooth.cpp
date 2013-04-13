@@ -27,7 +27,7 @@
 
 NetworkManager::Settings::BluetoothSettingPrivate::BluetoothSettingPrivate():
     name(QString("bluetooth")),
-    type(BluetoothSetting::Unknown)
+    profileType(BluetoothSetting::Unknown)
 { }
 
 NetworkManager::Settings::BluetoothSetting::BluetoothSetting():
@@ -40,7 +40,7 @@ NetworkManager::Settings::BluetoothSetting::BluetoothSetting(const Ptr &other):
     d_ptr(new BluetoothSettingPrivate())
 {
     setBluetoothAddress(other->bluetoothAddress());
-    setType(other->type());
+    setProfileType(other->profileType());
 }
 
 NetworkManager::Settings::BluetoothSetting::~BluetoothSetting()
@@ -73,14 +73,14 @@ void NetworkManager::Settings::BluetoothSetting::setProfileType(NetworkManager::
 {
     Q_D(BluetoothSetting);
 
-    d->type = type;
+    d->profileType = type;
 }
 
 NetworkManager::Settings::BluetoothSetting::ProfileType NetworkManager::Settings::BluetoothSetting::profileType() const
 {
     Q_D(const BluetoothSetting);
 
-    return d->type;
+    return d->profileType;
 }
 
 void NetworkManager::Settings::BluetoothSetting::fromMap(const QVariantMap& setting)
@@ -108,7 +108,7 @@ QVariantMap NetworkManager::Settings::BluetoothSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_BLUETOOTH_BDADDR), bluetoothAddress());
     }
 
-    switch (type()) {
+    switch (profileType()) {
     case Dun:
         setting.insert(QLatin1String(NM_SETTING_BLUETOOTH_TYPE), QLatin1String(NM_SETTING_BLUETOOTH_TYPE_DUN));
         break;
@@ -125,5 +125,5 @@ void NetworkManager::Settings::BluetoothSetting::printSetting()
     NetworkManager::Settings::Setting::printSetting();
 
     qDebug() << NM_SETTING_BLUETOOTH_BDADDR << ": " << bluetoothAddress();
-    qDebug() << NM_SETTING_BLUETOOTH_TYPE << ": " << type();
+    qDebug() << NM_SETTING_BLUETOOTH_TYPE << ": " << profileType();
 }
