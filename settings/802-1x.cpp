@@ -600,7 +600,7 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::secretsToMap() const
     }
 
     if (!privateKeyPassword().isEmpty()) {
-        secrets.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD), privateKeyPassword());
+        secrets.insert(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD), privateKeyPassword());
     }
 
     if (!phase2PrivateKeyPassword().isEmpty()) {
