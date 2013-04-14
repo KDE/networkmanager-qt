@@ -610,6 +610,8 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::secretsToMap() const
     if (!pin().isEmpty()) {
         secrets.insert(QLatin1String(NM_SETTING_802_1X_PIN), pin());
     }
+
+    return secrets;
 }
 
 void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& setting)
