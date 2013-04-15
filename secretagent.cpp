@@ -35,7 +35,13 @@ NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id, Networ
 watcher(NetworkManagerPrivate::DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForRegistration, parent), agentId(id)
 {
     Q_Q(SecretAgent);
+
+    qRegisterMetaType<NMVariantMapMap>("NMVariantMapMap");
+    qDBusRegisterMetaType<NMVariantMapMap>();
+
     watcher.connect(&watcher, SIGNAL(serviceRegistered(QString)), q, SLOT(registerAgent()));
+    agentManager.connection().registerObject(QLatin1String(NM_DBUS_PATH_SECRET_AGENT), &agent, QDBusConnection::ExportAllSlots);
+
     registerAgent();
 }
 
@@ -46,7 +52,6 @@ NetworkManager::SecretAgentPrivate::~SecretAgentPrivate()
 
 void NetworkManager::SecretAgentPrivate::registerAgent()
 {
-    agentManager.connection().registerObject(QLatin1String(NM_DBUS_PATH_SECRET_AGENT), &agent, QDBusConnection::ExportAllSlots);
     agentManager.Register(agentId);
 }
 
@@ -68,25 +73,25 @@ void NetworkManager::SecretAgent::sendError(NetworkManager::SecretAgent::Error e
     QString errorString;
     switch (error) {
     case NotAuthorized:
-        errorString = QLatin1String("NotAuthorized");
+        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String("NotAuthorized");
         break;
     case InvalidConnection:
-        errorString = QLatin1String("InvalidConnection");
+        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String("InvalidConnection");
         break;
     case UserCanceled:
-        errorString = QLatin1String("UserCanceled");
+        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String("UserCanceled");
         break;
     case AgentCanceled:
-        errorString = QLatin1String("AgentCanceled");
+        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String("AgentCanceled");
         break;
     case InternalError:
-        errorString = QLatin1String("InternalError");
+        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String("InternalError");
         break;
     case NoSecrets:
-        errorString = QLatin1String("NoSecrets");
+        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String("NoSecrets");
         break;
     default:
-        errorString = QLatin1String("Unknown");
+        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String("Unknown");
         break;
     }
 
@@ -97,7 +102,7 @@ void NetworkManager::SecretAgent::sendError(NetworkManager::SecretAgent::Error e
         reply = callMessage.createErrorReply(errorString, explanation);
     }
 
-    if (d->agentManager.connection().send(reply)) {
+    if (!d->agentManager.connection().send(reply)) {
         qDebug() << Q_FUNC_INFO << "Failed to put error message on DBus queue" << errorString << explanation;
     }
 }
