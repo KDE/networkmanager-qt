@@ -24,9 +24,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <NetworkManager.h>
 
-#include <QHash>
-#include <QUuid>
-
 #include <QDBusArgument>
 #include <QDBusConnection>
 
@@ -38,12 +35,7 @@ NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id, Networ
 watcher(NetworkManagerPrivate::DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForRegistration, parent), agentId(id)
 {
     Q_Q(SecretAgent);
-    qRegisterMetaType<NMVariantMapMap>("NMVariantMapMap");
-    qDBusRegisterMetaType<NMVariantMapMap>();
-
     watcher.connect(&watcher, SIGNAL(serviceRegistered(QString)), q, SLOT(registerAgent()));
-    agentManager.connection().registerObject(QLatin1String(NM_DBUS_PATH_SECRET_AGENT), &agent, QDBusConnection::ExportAllSlots);
-
     registerAgent();
 }
 
@@ -54,6 +46,7 @@ NetworkManager::SecretAgentPrivate::~SecretAgentPrivate()
 
 void NetworkManager::SecretAgentPrivate::registerAgent()
 {
+    agentManager.connection().registerObject(QLatin1String(NM_DBUS_PATH_SECRET_AGENT), &agent, QDBusConnection::ExportAllSlots);
     agentManager.Register(agentId);
 }
 
@@ -66,6 +59,47 @@ NetworkManager::SecretAgent::~SecretAgent()
 {
     Q_D(SecretAgent);
     delete d;
+}
+
+void NetworkManager::SecretAgent::sendError(NetworkManager::SecretAgent::Error error, const QString &explanation, const QDBusMessage &callMessage)
+{
+    Q_D(SecretAgent);
+
+    QString errorString;
+    switch (error) {
+    case NotAuthorized:
+        errorString = QLatin1String("NotAuthorized");
+        break;
+    case InvalidConnection:
+        errorString = QLatin1String("InvalidConnection");
+        break;
+    case UserCanceled:
+        errorString = QLatin1String("UserCanceled");
+        break;
+    case AgentCanceled:
+        errorString = QLatin1String("AgentCanceled");
+        break;
+    case InternalError:
+        errorString = QLatin1String("InternalError");
+        break;
+    case NoSecrets:
+        errorString = QLatin1String("NoSecrets");
+        break;
+    default:
+        errorString = QLatin1String("Unknown");
+        break;
+    }
+
+    QDBusMessage reply;
+    if (callMessage.type() == QDBusMessage::InvalidMessage) {
+        reply = message().createErrorReply(errorString, explanation);
+    } else {
+        reply = callMessage.createErrorReply(errorString, explanation);
+    }
+
+    if (d->agentManager.connection().send(reply)) {
+        qDebug() << Q_FUNC_INFO << "Failed to put error message on DBus queue" << errorString << explanation;
+    }
 }
 
 #include "secretagent.moc"

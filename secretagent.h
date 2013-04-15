@@ -24,6 +24,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include <QObject>
 #include <QDBusContext>
 #include <QDBusObjectPath>
+#include <QDBusMessage>
 
 #include "QtNetworkManager-export.h"
 #include "generic-types.h"
@@ -37,15 +38,65 @@ namespace NetworkManager
     Q_OBJECT
     Q_DECLARE_PRIVATE(SecretAgent)
     public:
-        enum GetSecretsFlag { None = 0, AllowInteraction = 0x01, RequestNew = 0x02, UserRequested = 0x04 };
+        enum Error {
+            NotAuthorized,
+            InvalidConnection,
+            UserCanceled,
+            AgentCanceled,
+            InternalError,
+            NoSecrets
+        };
+
+        enum GetSecretsFlag {
+            None = 0,
+            AllowInteraction = 0x01,
+            RequestNew = 0x02,
+            UserRequested = 0x04
+        };
         Q_DECLARE_FLAGS(GetSecretsFlags, GetSecretsFlag)
-        explicit SecretAgent(const QString &, QObject * parent = 0);
+
+        /**
+         * Registers a SecretAgent with the \p id on NetworkManager
+         */
+        explicit SecretAgent(const QString &id, QObject * parent = 0);
         virtual ~SecretAgent();
+
+        /**
+         * Send to NetworkManager the \p error the subclass has
+         * found, the \p explanation is usefull for debugging purposes,
+         * and the \p callMessage is ONLY needed if \sa setDelayedReply()
+         * was set to true when the method was called.
+         */
+        void sendError(Error error, const QString &explanation, const QDBusMessage &callMessage = QDBusMessage());
+
     public Q_SLOTS:
-        virtual NMVariantMapMap GetSecrets(const NMVariantMapMap&, const QDBusObjectPath&, const QString&, const QStringList&, uint) = 0;
-        virtual void SaveSecrets(const NMVariantMapMap&, const QDBusObjectPath&) = 0;
-        virtual void DeleteSecrets(const NMVariantMapMap &, const QDBusObjectPath &) = 0;
-        virtual void CancelGetSecrets(const QDBusObjectPath &, const QString &) = 0;
+        /**
+         * Called when the subclass should retrieve and return secrets.
+         * If the request is canceled, called function should call
+         * \sa sendError(), in this case the return value is ignored.
+         */
+        virtual NMVariantMapMap GetSecrets(const NMVariantMapMap &connection, const QDBusObjectPath &connection_path, const QString &setting_name, const QStringList &hints, uint flags) = 0;
+
+        /**
+         * Called when the subclass should cancel an outstanding request to
+         * get secrets for a given connection.
+         * Cancelling the request MUST \sa sendError() with the original
+         * DBus message using \sa AgentCanceled param as the error type.
+         */
+        virtual void CancelGetSecrets(const QDBusObjectPath &connection_path, const QString &setting_name) = 0;
+
+        /**
+         * Called when the subclass should save the secrets contained in the
+         * connection to backing storage.
+         */
+        virtual void SaveSecrets(const NMVariantMapMap &connection, const QDBusObjectPath &connection_path) = 0;
+
+        /**
+         * Called when the subclass should delete the secrets contained in the
+         * connection from backing storage.
+         */
+        virtual void DeleteSecrets(const NMVariantMapMap &connection, const QDBusObjectPath &connection_path) = 0;
+
     private:
         SecretAgentPrivate *d_ptr;
         Q_PRIVATE_SLOT(d_ptr, void registerAgent())
