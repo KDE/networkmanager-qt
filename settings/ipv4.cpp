@@ -407,7 +407,7 @@ QVariantMap NetworkManager::Settings::Ipv4Setting::toMap() const
         foreach(const NetworkManager::IpAddress & addr, addresses()) {
             QList<uint> dbusAddress;
             dbusAddress << htonl(addr.ip().toIPv4Address())
-                        << addr.netmask().toIPv4Address()
+                        << addr.prefixLength()
                         << htonl(addr.gateway().toIPv4Address());
             dbusAddresses << dbusAddress;
         }
@@ -420,7 +420,7 @@ QVariantMap NetworkManager::Settings::Ipv4Setting::toMap() const
         foreach(const NetworkManager::IpRoute & route, routes()) {
             QList<uint> dbusRoute;
             dbusRoute << htonl(route.ip().toIPv4Address())
-                      << route.netmask().toIPv4Address()
+                      << route.prefixLength()
                       << htonl(route.nextHop().toIPv4Address())
                       << route.metric();
             dbusRoutes << dbusRoute;
