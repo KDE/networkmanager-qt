@@ -321,7 +321,7 @@ QVariantMap NetworkManager::Settings::Ipv6Setting::toMap() const
     if (!dns().isEmpty()) {
         QList<QByteArray> dbusDns;
         foreach(const QHostAddress & dns, dns()) {
-            dbusDns << dns.toString().toAscii();
+            dbusDns << dns.toString().toUtf8();
         }
 
         setting.insert(QLatin1String(NM_SETTING_IP6_CONFIG_DNS), QVariant::fromValue(dbusDns));
@@ -336,9 +336,9 @@ QVariantMap NetworkManager::Settings::Ipv6Setting::toMap() const
 
         foreach(const NetworkManager::IpAddress & addr, addresses()) {
             IpV6DBusAddress dbusAddress;
-            dbusAddress.address = addr.ip().toString().toAscii();
+            dbusAddress.address = addr.ip().toString().toUtf8();
             dbusAddress.netMask = addr.prefixLength();
-            dbusAddress.gateway = addr.gateway().toString().toAscii();
+            dbusAddress.gateway = addr.gateway().toString().toUtf8();
 
             dbusAddresses << dbusAddress;
         }
@@ -351,9 +351,9 @@ QVariantMap NetworkManager::Settings::Ipv6Setting::toMap() const
 
         foreach (const NetworkManager::IpRoute &route, routes()) {
             IpV6DBusRoute dbusRoute;
-            dbusRoute.destination = route.ip().toString().toAscii();
+            dbusRoute.destination = route.ip().toString().toUtf8();
             dbusRoute.prefix = route.prefixLength();
-            dbusRoute.nexthop = route.nextHop().toString().toAscii();
+            dbusRoute.nexthop = route.nextHop().toString().toUtf8();
             dbusRoute.metric = route.metric();
 
             dbusRoutes << dbusRoute;
