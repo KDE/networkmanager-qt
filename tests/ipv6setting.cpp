@@ -52,7 +52,7 @@ void IPv6Setting::testSetting_data()
     IpV6DBusAddressList addresses;
     IpV6DBusAddress address;
     address.address = QByteArray("2001:0db8:0000:0000:0000::1428:57ab");
-    address.netMask = 64;
+    address.prefix = 64;
     address.gateway = QByteArray("2001:0db8:0:f101::1");
     addresses << address;
 
@@ -136,7 +136,7 @@ void IPv6Setting::testSetting()
         QHostAddress gateway2(QString(addresses2.at(i).gateway));
 
         QCOMPARE(addr1, addr2);
-        QCOMPARE(addresses1.at(i).netMask, addresses2.at(i).netMask);
+        QCOMPARE(addresses1.at(i).prefix, addresses2.at(i).prefix);
         QCOMPARE(gateway1, gateway2);
     }
 

@@ -40,7 +40,7 @@ public:
     IpRoute();
 
     /**
-     * Constructs a IpRoute object that is a copy of the object other.
+     * Constructs an IpRoute object that is a copy of the object @p other.
      */
     IpRoute(const IpRoute &other);
 
@@ -76,7 +76,7 @@ public:
     quint32 metric() const;
 
     /**
-     * Makes a copy of the IpRoute object other.
+     * Makes a copy of the IpRoute object @p other.
      */
     IpRoute &operator=(const IpRoute &other);
 

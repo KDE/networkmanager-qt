@@ -420,7 +420,7 @@ NetworkManager::IpConfig NetworkManager::Device::ipV6Config() const
                 }
                 NetworkManager::IpAddress addressEntry;
                 addressEntry.setIp(QHostAddress(addr));
-                addressEntry.setPrefixLength(address.netMask);
+                addressEntry.setPrefixLength(address.prefix);
                 addressEntry.setGateway(QHostAddress(gateway));
                 addressObjects << addressEntry;
             }

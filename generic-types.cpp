@@ -23,7 +23,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 QDBusArgument &operator<<(QDBusArgument &argument, const IpV6DBusAddress &address)
 {
     argument.beginStructure();
-    argument << address.address << address.netMask << address.gateway;
+    argument << address.address << address.prefix << address.gateway;
     argument.endStructure();
     return argument;
 }
@@ -31,7 +31,7 @@ QDBusArgument &operator<<(QDBusArgument &argument, const IpV6DBusAddress &addres
 const QDBusArgument &operator>>(const QDBusArgument &argument, IpV6DBusAddress &address)
 {
     argument.beginStructure();
-    argument >> address.address >> address.netMask >> address.gateway;
+    argument >> address.address >> address.prefix >> address.gateway;
     argument.endStructure();
     return argument;
 }

@@ -226,7 +226,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NMBluetoothCapab
     case Bluetooth:
         addSetting(Setting::Ptr(new BluetoothSetting()));
         addSetting(Setting::Ptr(new Ipv4Setting()));
-        addSetting(Setting::Ptr(new Ipv6Setting()));
+        //addSetting(Setting::Ptr(new Ipv6Setting()));
         if (bt_cap == NM_BT_CAPABILITY_DUN) {
             addSetting(Setting::Ptr(new GsmSetting()));
             addSetting(Setting::Ptr(new PppSetting()));
@@ -241,13 +241,13 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NMBluetoothCapab
     case Cdma:
         addSetting(Setting::Ptr(new CdmaSetting()));
         addSetting(Setting::Ptr(new Ipv4Setting()));
-        addSetting(Setting::Ptr(new Ipv6Setting()));
+        //addSetting(Setting::Ptr(new Ipv6Setting()));
         addSetting(Setting::Ptr(new PppSetting()));
         break;
     case Gsm:
         addSetting(Setting::Ptr(new GsmSetting()));
         addSetting(Setting::Ptr(new Ipv4Setting()));
-        addSetting(Setting::Ptr(new Ipv6Setting()));
+        //addSetting(Setting::Ptr(new Ipv6Setting()));
         addSetting(Setting::Ptr(new PppSetting()));
         break;
     case Infiniband:
@@ -274,7 +274,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NMBluetoothCapab
         break;
     case Vpn:
         addSetting(Setting::Ptr(new Ipv4Setting()));
-        addSetting(Setting::Ptr(new Ipv6Setting()));
+        //addSetting(Setting::Ptr(new Ipv6Setting()));
         addSetting(Setting::Ptr(new VpnSetting()));
         break;
     case Wimax:
@@ -320,7 +320,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(const NetworkMan
     case Bluetooth:
         addSetting(connectionSettings->setting(Setting::Bluetooth));
         addSetting(connectionSettings->setting(Setting::Ipv4));
-        addSetting(connectionSettings->setting(Setting::Ipv6));
+        //addSetting(connectionSettings->setting(Setting::Ipv6));
         if (setting(Setting::Gsm) && setting(Setting::Ppp) && setting(Setting::Serial)) {
             addSetting(connectionSettings->setting(Setting::Gsm));
             addSetting(connectionSettings->setting(Setting::Ppp));

@@ -60,9 +60,7 @@ public:
     static NetworkManager::Device::Capabilities convertCapabilities(uint);
     static NetworkManager::Device::State convertState(uint);
     static NetworkManager::Device::StateChangeReason convertReason(uint);
-    //NMPropertyHelper propHelper;
 };
 
 } // namespace NetworkManager
 #endif
-

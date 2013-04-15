@@ -41,7 +41,7 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, QStringMap & mydi
 typedef struct
 {
     QByteArray address;
-    uint netMask;
+    uint prefix;
     QByteArray gateway;
 } IpV6DBusAddress;
 

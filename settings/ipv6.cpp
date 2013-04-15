@@ -256,7 +256,7 @@ void NetworkManager::Settings::Ipv6Setting::fromMap(const QVariantMap& setting)
         foreach(const IpV6DBusAddress & address, addressArg) {
             NetworkManager::IpAddress addressEntry;
             addressEntry.setIp(QHostAddress(QString(address.address)));
-            addressEntry.setPrefixLength(address.netMask);
+            addressEntry.setPrefixLength(address.prefix);
             addressEntry.setGateway(QHostAddress(QString(address.gateway)));
 
             addresses << addressEntry;
@@ -337,7 +337,7 @@ QVariantMap NetworkManager::Settings::Ipv6Setting::toMap() const
         foreach(const NetworkManager::IpAddress & addr, addresses()) {
             IpV6DBusAddress dbusAddress;
             dbusAddress.address = addr.ip().toString().toUtf8();
-            dbusAddress.netMask = addr.prefixLength();
+            dbusAddress.prefix = addr.prefixLength();
             dbusAddress.gateway = addr.gateway().toString().toUtf8();
 
             dbusAddresses << dbusAddress;
