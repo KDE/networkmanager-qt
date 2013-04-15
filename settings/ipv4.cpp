@@ -476,7 +476,7 @@ void NetworkManager::Settings::Ipv4Setting::printSetting()
     }
     qDebug() << NM_SETTING_IP4_CONFIG_ROUTES << ": ";
     foreach(const NetworkManager::IpRoute & route, routes()) {
-        qDebug() << route.ip() << ",";
+        qDebug() << route.ip() << ": " << route.netmask() << ": " << route.nextHop() << ": " << route.metric() << ", ";
     }
     qDebug() << NM_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES << ": " << ignoreAutoRoutes();
     qDebug() << NM_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS << ": " << ignoreAutoDns();
