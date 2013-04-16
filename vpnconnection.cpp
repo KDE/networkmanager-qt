@@ -84,7 +84,7 @@ void NetworkManager::VpnConnection::propertiesChanged(const QVariantMap &propert
         if (property == QLatin1String("Banner")) {
             d->banner = it->toString();
             emit bannerChanged(d->banner);
-        } else if (property == QLatin1String("State")) {
+        } else if (property == QLatin1String("VpnState")) {
             d->state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(it->toUInt());
             emit stateChanged(d->state);
         } else {
