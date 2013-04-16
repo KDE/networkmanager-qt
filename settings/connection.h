@@ -98,6 +98,7 @@ public:
     QStringList secondaries() const;
 
     Setting::Ptr setting(Setting::SettingType type) const;
+    Setting::Ptr setting(const QString &type) const;
 
     Setting::List settings() const;
 

@@ -689,7 +689,7 @@ QStringList NetworkManager::Settings::ConnectionSettings::secondaries() const
     return d->secondaries;
 }
 
-NetworkManager::Settings::Setting::Ptr NetworkManager::Settings::ConnectionSettings::setting(NetworkManager::Settings::Setting::SettingType type) const
+NetworkManager::Settings::Setting::Ptr NetworkManager::Settings::ConnectionSettings::setting(Setting::SettingType type) const
 {
     foreach(const Setting::Ptr &setting, settings()) {
         if (setting->type() == type) {
@@ -698,6 +698,11 @@ NetworkManager::Settings::Setting::Ptr NetworkManager::Settings::ConnectionSetti
     }
 
     return Setting::Ptr();
+}
+
+NetworkManager::Settings::Setting::Ptr NetworkManager::Settings::ConnectionSettings::setting(const QString &type) const
+{
+    return setting(Setting::typeFromString(type));
 }
 
 NetworkManager::Settings::Setting::List NetworkManager::Settings::ConnectionSettings::settings() const
