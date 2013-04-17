@@ -157,11 +157,9 @@ NetworkManager::AccessPoint::OperationMode NetworkManager::AccessPoint::convertO
         case NM_802_11_MODE_INFRA:
             ourMode = NetworkManager::AccessPoint::Infra;
             break;
-#if NM_CHECK_VERSION(0, 9, 7)
         case NM_802_11_MODE_AP:
             ourMode = NetworkManager::AccessPoint::ApMode;
             break;
-#endif
         default:
             nmDebug() << "Unhandled mode" << mode;
     }
