@@ -30,7 +30,7 @@ namespace NetworkManager
 class WiredDevicePrivate : public DevicePrivate
 {
 public:
-    WiredDevicePrivate(const QString &path, QObject * owner);
+    WiredDevicePrivate(const QString &path);
     virtual ~WiredDevicePrivate();
     OrgFreedesktopNetworkManagerDeviceWiredInterface wiredIface;
     QString hardwareAddress;

@@ -26,13 +26,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "manager_p.h"
 
-NetworkManager::ModemDevicePrivate::ModemDevicePrivate(const QString & path, QObject * owner)
-    : DevicePrivate(path, owner), modemIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+NetworkManager::ModemDevicePrivate::ModemDevicePrivate(const QString & path)
+    : DevicePrivate(path), modemIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
 }
 
 NetworkManager::ModemDevice::ModemDevice(const QString & path, QObject * parent)
-    : Device(*new ModemDevicePrivate(path, this), parent),
+    : Device(*new ModemDevicePrivate(path), parent),
       modemGsmCardIface(0), modemGsmNetworkIface(0)
 {
     initModemProperties();

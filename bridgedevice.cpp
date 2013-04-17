@@ -30,7 +30,7 @@ namespace NetworkManager
 class BridgeDevicePrivate : public DevicePrivate
 {
 public:
-    BridgeDevicePrivate(const QString & path, QObject * owner);
+    BridgeDevicePrivate(const QString & path);
     virtual ~BridgeDevicePrivate();
 
     OrgFreedesktopNetworkManagerDeviceBridgeInterface iface;
@@ -40,8 +40,8 @@ public:
 };
 }
 
-NetworkManager::BridgeDevicePrivate::BridgeDevicePrivate(const QString& path, QObject* owner):
-    DevicePrivate(path, owner), iface(NetworkManagerPrivate::DBUS_SERVICE, path,QDBusConnection::systemBus()),
+NetworkManager::BridgeDevicePrivate::BridgeDevicePrivate(const QString& path):
+    DevicePrivate(path), iface(NetworkManagerPrivate::DBUS_SERVICE, path,QDBusConnection::systemBus()),
     carrier(false), slaves(QList<QDBusObjectPath>())
 {
 }
@@ -51,7 +51,7 @@ NetworkManager::BridgeDevice::~BridgeDevice()
 }
 
 NetworkManager::BridgeDevice::BridgeDevice(const QString& path, QObject* parent):
-    Device(*new BridgeDevicePrivate(path, this), parent)
+    Device(*new BridgeDevicePrivate(path), parent)
 {
     Q_D(BridgeDevice);
 

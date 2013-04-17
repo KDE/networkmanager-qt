@@ -93,9 +93,8 @@ void NetworkManager::DeviceStateReason::setReason(const Device::StateChangeReaso
     d->reason = reason;
 }
 
-NetworkManager::DevicePrivate::DevicePrivate( const QString & path, QObject * owner ) : deviceIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()), uni(path), designSpeed(0), dhcp4Config(0), dhcp6Config(0)
+NetworkManager::DevicePrivate::DevicePrivate( const QString & path) : deviceIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()), uni(path), designSpeed(0), dhcp4Config(0), dhcp6Config(0)
 {
-    Q_UNUSED(owner);
     activeConnection = deviceIface.activeConnection().path();
     driver = deviceIface.driver();
     interfaceName = deviceIface.interface();
@@ -137,7 +136,7 @@ NetworkManager::Device::StateChangeReason NetworkManager::DevicePrivate::convert
     return ourReason;
 }
 
-NetworkManager::Device::Device(const QString & path, QObject * parent) : QObject(parent), d_ptr(new DevicePrivate(path, this))
+NetworkManager::Device::Device(const QString & path, QObject * parent) : QObject(parent), d_ptr(new DevicePrivate(path))
 {
     init();
 }
@@ -239,7 +238,8 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
 
 NetworkManager::Device::~Device()
 {
-    delete d_ptr;
+    Q_D(Device);
+    delete d;
 }
 
 QString NetworkManager::Device::uni() const

@@ -26,14 +26,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "nmdebug.h"
 
-NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString & path, QObject * owner)
-    : DevicePrivate(path, owner), wimaxIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString & path)
+    : DevicePrivate(path), wimaxIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
 
 }
 
 NetworkManager::WimaxDevice::WimaxDevice(const QString & path, QObject * parent)
-    : Device(*new WimaxDevicePrivate(path, this), parent)
+    : Device(*new WimaxDevicePrivate(path), parent)
 {
     Q_D(WimaxDevice);
     d->hardwareAddress = d->wimaxIface.hwAddress();

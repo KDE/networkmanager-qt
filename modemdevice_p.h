@@ -29,7 +29,7 @@ namespace NetworkManager
 class ModemDevicePrivate : public DevicePrivate
 {
 public:
-    ModemDevicePrivate(const QString &path, QObject *owner);
+    ModemDevicePrivate(const QString &path);
     OrgFreedesktopNetworkManagerDeviceModemInterface modemIface;
     NetworkManager::ModemDevice::Capabilities modemCapabilities;
     NetworkManager::ModemDevice::Capabilities currentCapabilities;

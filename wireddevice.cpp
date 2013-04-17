@@ -25,8 +25,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "nmdebug.h"
 
-NetworkManager::WiredDevicePrivate::WiredDevicePrivate(const QString & path, QObject * owner)
-    : DevicePrivate(path, owner), wiredIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()),
+NetworkManager::WiredDevicePrivate::WiredDevicePrivate(const QString & path)
+    : DevicePrivate(path), wiredIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()),
     bitrate(0), carrier(false)
 {
 }
@@ -36,7 +36,7 @@ NetworkManager::WiredDevicePrivate::~WiredDevicePrivate()
 }
 
 NetworkManager::WiredDevice::WiredDevice(const QString & path, QObject * parent)
-    : Device(*new NetworkManager::WiredDevicePrivate(path, this), parent)
+    : Device(*new NetworkManager::WiredDevicePrivate(path), parent)
 {
     Q_D(WiredDevice);
     d->hardwareAddress = d->wiredIface.hwAddress();
