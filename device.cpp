@@ -160,6 +160,7 @@ void NetworkManager::Device::init()
     qDBusRegisterMetaType<DeviceDBusStateReason>();
     d->capabilities = NetworkManager::DevicePrivate::convertCapabilities(d->deviceIface.capabilities());
     d->connectionState = NetworkManager::DevicePrivate::convertState(d->deviceIface.state());
+    d->deviceType = static_cast<Device::Type>(d->deviceIface.deviceType());
 
     connect(&d->deviceIface, SIGNAL(StateChanged(uint,uint,uint)), this, SLOT(deviceStateChanged(uint,uint,uint)));
 }
@@ -185,8 +186,7 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
         d->capabilities = NetworkManager::DevicePrivate::convertCapabilities(value.toUInt());
         emit capabilitiesChanged();
     } else if (property == QLatin1String("DeviceType")) {
-//        d->dev = it->toUInt() * 1000;
-//        emit bitRateChanged(d->bitrate);
+        d->deviceType = static_cast<Device::Type>(value.toUInt());
     } else if (property == QLatin1String("Dhcp4Config")) {
 //        d->dhcp4Config = it->toUInt() * 1000;
 //        emit bitRateChanged(d->bitrate);
@@ -497,7 +497,13 @@ bool NetworkManager::Device::isActive() const
     Q_D(const Device);
     return !(d->connectionState == NetworkManager::Device::Unavailable
             || d->connectionState == NetworkManager::Device::Disconnected
-            || d->connectionState == NetworkManager::Device::Failed );
+             || d->connectionState == NetworkManager::Device::Failed );
+}
+
+bool NetworkManager::Device::isValid() const
+{
+    Q_D(const Device);
+    return d->deviceIface.isValid();
 }
 
 bool NetworkManager::Device::managed() const
@@ -570,7 +576,8 @@ void NetworkManager::Device::propertiesChanged(const QVariantMap &properties)
 
 NetworkManager::Device::Type NetworkManager::Device::type() const
 {
-    return NetworkManager::Device::UnknownType;
+    Q_D(const Device);
+    return d->deviceType;
 }
 
 #include "device.moc"

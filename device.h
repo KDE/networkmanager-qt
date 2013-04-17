@@ -215,6 +215,14 @@ public:
      * @return true if this network interface is active, false otherwise
      */
     bool isActive() const;
+
+    /**
+     * Retrieves the device is valid.
+     *
+     * @return true if this device interface is valid, false otherwise
+     */
+    bool isValid() const;
+
     /**
      * Retrieves the current state of the device.
      * This is a high level view of the device. It is user oriented, so

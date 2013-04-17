@@ -40,6 +40,7 @@ public:
     QString udi;
     QString activeConnection;
     int designSpeed;
+    Device::Type deviceType;
     Device::State connectionState;
     bool managed;
     IpConfig ipV4Config;

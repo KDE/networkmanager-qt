@@ -27,8 +27,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <NetworkManager.h>
 
-#include "dbus/nm-deviceinterface.h"
-//#include "networkmanagerdefinitions.h"
 #include "wireddevice.h"
 #include "wirelessdevice.h"
 #include "modemdevice.h"
@@ -202,50 +200,49 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
 {
     //nmDebug();
     NetworkManager::Device::Ptr createdInterface;
-    OrgFreedesktopNetworkManagerDeviceInterface devIface(NetworkManagerPrivate::DBUS_SERVICE, uni, QDBusConnection::systemBus());
-    if (!devIface.isValid()) {
-        qWarning() << Q_FUNC_INFO << "Failed to create device interface:" << uni << devIface.lastError().message();
+    NetworkManager::Device device(uni);
+    if (!device.isValid()) {
+        qWarning() << Q_FUNC_INFO << "Failed to create device interface:" << uni;
         return createdInterface;
     }
 
-    uint deviceType = devIface.deviceType();
-    switch (deviceType) {
-    case NM_DEVICE_TYPE_ETHERNET:
+    switch (device.type()) {
+    case Device::Ethernet:
         createdInterface = Device::Ptr(new NetworkManager::WiredDevice(uni));
         break;
-    case NM_DEVICE_TYPE_WIFI:
+    case Device::Wifi:
         createdInterface = Device::Ptr(new NetworkManager::WirelessDevice(uni));
         break;
-    case NM_DEVICE_TYPE_MODEM:
+    case Device::Modem:
         createdInterface = Device::Ptr(new NetworkManager::ModemDevice(uni));
         break;
-    case NM_DEVICE_TYPE_BT:
+    case Device::Bluetooth:
         createdInterface = Device::Ptr(new NetworkManager::BluetoothDevice(uni));
         break;
-    case NM_DEVICE_TYPE_WIMAX:
+    case Device::Wimax:
         createdInterface = Device::Ptr(new NetworkManager::WimaxDevice(uni));
         break;
-    case NM_DEVICE_TYPE_OLPC_MESH:
+    case Device::OlpcMesh:
         createdInterface = Device::Ptr(new NetworkManager::OlpcMeshDevice(uni));
         break;
-    case NM_DEVICE_TYPE_INFINIBAND:
+    case Device::InfiniBand:
         createdInterface = Device::Ptr(new NetworkManager::InfinibandDevice(uni));
         break;
-    case NM_DEVICE_TYPE_BOND:
+    case Device::Bond:
         createdInterface = Device::Ptr(new NetworkManager::BondDevice(uni));
         break;
-    case NM_DEVICE_TYPE_VLAN:
+    case Device::Vlan:
         createdInterface = Device::Ptr(new NetworkManager::VlanDevice(uni));
         break;
-    case NM_DEVICE_TYPE_ADSL:
+    case Device::Adsl:
         createdInterface = Device::Ptr(new NetworkManager::AdslDevice(uni));
         break;
-    case NM_DEVICE_TYPE_BRIDGE:
+    case Device::Bridge:
         createdInterface = Device::Ptr(new NetworkManager::BridgeDevice(uni));
         break;
     default:
         if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
-            nmDebug() << "libQtNetworkManager: Can't create object of type " << deviceType << "for" << uni << devIface.isValid();
+            nmDebug() << "libQtNetworkManager: Can't create object of type " << device.type() << "for" << uni << device.isValid();
         }
         break;
     }
@@ -358,7 +355,7 @@ void NetworkManager::NetworkManagerPrivate::deactivateConnection( const QString 
 
 void NetworkManager::NetworkManagerPrivate::setNetworkingEnabled(bool enabled)
 {
-    iface.Enable(enabled);
+    QDBusPendingReply<> reply = iface.Enable(enabled);
 }
 
 void NetworkManager::NetworkManagerPrivate::setWirelessEnabled(bool enabled)
