@@ -67,7 +67,7 @@ namespace NetworkManager
          * and the \p callMessage is ONLY needed if \sa setDelayedReply()
          * was set to true when the method was called.
          */
-        void sendError(Error error, const QString &explanation, const QDBusMessage &callMessage = QDBusMessage());
+        void sendError(Error error, const QString &explanation, const QDBusMessage &callMessage = QDBusMessage()) const;
 
     public Q_SLOTS:
         /**

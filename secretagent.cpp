@@ -66,32 +66,32 @@ NetworkManager::SecretAgent::~SecretAgent()
     delete d;
 }
 
-void NetworkManager::SecretAgent::sendError(NetworkManager::SecretAgent::Error error, const QString &explanation, const QDBusMessage &callMessage)
+void NetworkManager::SecretAgent::sendError(NetworkManager::SecretAgent::Error error, const QString &explanation, const QDBusMessage &callMessage) const
 {
-    Q_D(SecretAgent);
+    Q_D(const SecretAgent);
 
     QString errorString;
     switch (error) {
     case NotAuthorized:
-        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String("NotAuthorized");
+        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String(".NotAuthorized");
         break;
     case InvalidConnection:
-        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String("InvalidConnection");
+        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String(".InvalidConnection");
         break;
     case UserCanceled:
-        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String("UserCanceled");
+        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String(".UserCanceled");
         break;
     case AgentCanceled:
-        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String("AgentCanceled");
+        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String(".AgentCanceled");
         break;
     case InternalError:
-        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String("InternalError");
+        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String(".InternalError");
         break;
     case NoSecrets:
-        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String("NoSecrets");
+        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String(".NoSecrets");
         break;
     default:
-        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String("Unknown");
+        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String(".Unknown");
         break;
     }
 
