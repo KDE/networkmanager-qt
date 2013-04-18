@@ -130,7 +130,7 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QLatin1String("GetLogging"), argumentList);
     }
 
-    inline QDBusPendingReply<QStringMap> GetPermissions()
+    inline QDBusPendingReply<NMStringMap> GetPermissions()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QLatin1String("GetPermissions"), argumentList);

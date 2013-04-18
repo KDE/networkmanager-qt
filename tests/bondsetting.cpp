@@ -27,9 +27,9 @@
 void BondSetting::testSetting_data()
 {
     QTest::addColumn<QString>("interfaceName");
-    QTest::addColumn<QStringMap>("options");
+    QTest::addColumn<NMStringMap>("options");
 
-    QStringMap options;
+    NMStringMap options;
     options.insert("mode", "802.3ad");
 
     QTest::newRow("setting1")
@@ -40,12 +40,12 @@ void BondSetting::testSetting_data()
 void BondSetting::testSetting()
 {
     QFETCH(QString, interfaceName);
-    QFETCH(QStringMap, options);
+    QFETCH(NMStringMap, options);
 
     QVariantMap map;
 
     map.insert(QLatin1String(NM_SETTING_BOND_INTERFACE_NAME), interfaceName);
-    map.insert(QLatin1String(NM_SETTING_BOND_OPTIONS), QVariant::fromValue<QStringMap>(options));
+    map.insert(QLatin1String(NM_SETTING_BOND_OPTIONS), QVariant::fromValue<NMStringMap>(options));
 
     NetworkManager::Settings::BondSetting setting;
     setting.fromMap(map);
@@ -54,8 +54,8 @@ void BondSetting::testSetting()
 
     QCOMPARE(map.value(QLatin1String(NM_SETTING_BOND_INTERFACE_NAME)), map1.value(QLatin1String(NM_SETTING_BOND_INTERFACE_NAME)));
 
-    QStringMap stringMap1 = map.value(QLatin1String(NM_SETTING_BOND_OPTIONS)).value<QStringMap>();
-    QStringMap stringMap2 = map1.value(QLatin1String(NM_SETTING_BOND_OPTIONS)).value<QStringMap>();
+    NMStringMap stringMap1 = map.value(QLatin1String(NM_SETTING_BOND_OPTIONS)).value<NMStringMap>();
+    NMStringMap stringMap2 = map1.value(QLatin1String(NM_SETTING_BOND_OPTIONS)).value<NMStringMap>();
 
     foreach (const QString & key, map.keys()) {
         QCOMPARE(stringMap1.value(key), stringMap2.value(key));

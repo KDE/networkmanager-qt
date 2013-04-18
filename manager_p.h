@@ -97,7 +97,7 @@ public:
     void setWimaxEnabled(bool enabled);
     void sleep(bool sleep);
     void setLogging(NetworkManager::LogLevel, NetworkManager::LogDomains);
-    QStringMap permissions();
+    NMStringMap permissions();
 protected Q_SLOTS:
     void init();
     void onDeviceAdded(const QDBusObjectPath &state);

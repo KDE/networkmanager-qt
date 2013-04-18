@@ -294,9 +294,9 @@ void NetworkManager::Settings::WiredSetting::fromMap(const QVariantMap& setting)
         QMap<QString, QString> tmp;
         if (setting.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).canConvert<QDBusArgument>()) {
             QDBusArgument arg = setting.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).value<QDBusArgument>();
-            tmp = qdbus_cast<QStringMap>(arg);
+            tmp = qdbus_cast<NMStringMap>(arg);
         } else {
-            tmp = setting.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).value<QStringMap>();
+            tmp = setting.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).value<NMStringMap>();
         }
         setS390Options(tmp);
     }

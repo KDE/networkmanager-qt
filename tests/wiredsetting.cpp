@@ -37,7 +37,7 @@ void WiredSetting::testSetting_data()
     QTest::addColumn<quint32>("mtu");
     QTest::addColumn<QStringList>("s390Subchannels");
     QTest::addColumn<QString>("s390NetType");
-    QTest::addColumn<QStringMap>("s390Options");
+    QTest::addColumn<NMStringMap>("s390Options");
 
     QStringList macAddressBlacklist;
     macAddressBlacklist << "00:08:C7:1B:8C:02";
@@ -76,7 +76,7 @@ void WiredSetting::testSetting()
     QFETCH(quint32, mtu);
     QFETCH(QStringList, s390Subchannels);
     QFETCH(QString, s390NetType);
-    QFETCH(QStringMap, s390Options);
+    QFETCH(NMStringMap, s390Options);
 
     QVariantMap map;
 
@@ -103,8 +103,8 @@ void WiredSetting::testSetting()
         }
     }
 
-    QCOMPARE(map.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).value<QStringMap>(),
-             map1.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).value<QStringMap>());
+    QCOMPARE(map.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).value<NMStringMap>(),
+             map1.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).value<NMStringMap>());
 }
 
 QTEST_MAIN(WiredSetting)

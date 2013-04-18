@@ -52,7 +52,7 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, IpV6DBusRoute &ro
     return argument;
 }
 
-QDBusArgument &operator<<(QDBusArgument &argument, const QStringMap & mydict)
+QDBusArgument &operator<<(QDBusArgument &argument, const NMStringMap & mydict)
 {
     argument.beginMap( QVariant::String, QVariant::String );
 
@@ -67,7 +67,7 @@ QDBusArgument &operator<<(QDBusArgument &argument, const QStringMap & mydict)
     return argument;
 }
 
-const QDBusArgument &operator>>(const QDBusArgument &argument, QStringMap & mydict)
+const QDBusArgument &operator>>(const QDBusArgument &argument, NMStringMap & mydict)
 {
     argument.beginMap();
     mydict.clear();

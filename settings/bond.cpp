@@ -75,14 +75,14 @@ void NetworkManager::Settings::BondSetting::addOption(const QString& option, con
     d->options.insert(option, value);
 }
 
-void NetworkManager::Settings::BondSetting::setOptions(const QStringMap& options)
+void NetworkManager::Settings::BondSetting::setOptions(const NMStringMap& options)
 {
     Q_D(BondSetting);
 
     d->options = options;
 }
 
-QStringMap NetworkManager::Settings::BondSetting::options() const
+NMStringMap NetworkManager::Settings::BondSetting::options() const
 {
     Q_D(const BondSetting);
 
@@ -96,7 +96,7 @@ void NetworkManager::Settings::BondSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_BOND_OPTIONS))) {
-        setOptions(setting.value(QLatin1String(NM_SETTING_BOND_OPTIONS)).value<QStringMap>());
+        setOptions(setting.value(QLatin1String(NM_SETTING_BOND_OPTIONS)).value<NMStringMap>());
     }
 }
 
@@ -109,7 +109,7 @@ QVariantMap NetworkManager::Settings::BondSetting::toMap() const
     }
 
     if (!options().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_BOND_OPTIONS), QVariant::fromValue<QStringMap>(options()));
+        setting.insert(QLatin1String(NM_SETTING_BOND_OPTIONS), QVariant::fromValue<NMStringMap>(options()));
     }
 
     return setting;

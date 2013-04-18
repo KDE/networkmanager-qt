@@ -51,11 +51,11 @@ public:
     void setUsername(const QString & username);
     QString username() const;
 
-    void setData(const QStringMap & data);
-    QStringMap data() const;
+    void setData(const NMStringMap & data);
+    NMStringMap data() const;
 
-    void setSecrets(const QStringMap & secrets);
-    QStringMap secrets() const;
+    void setSecrets(const NMStringMap & secrets);
+    NMStringMap secrets() const;
 
     void secretsFromMap(const QVariantMap & secrets);
     QVariantMap secretsToMap() const;

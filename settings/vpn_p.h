@@ -37,8 +37,8 @@ public:
     QString name;
     QString serviceType;
     QString username;
-    QStringMap data;
-    QStringMap secrets;
+    NMStringMap data;
+    NMStringMap secrets;
 };
 }
 }

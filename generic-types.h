@@ -31,12 +31,12 @@ typedef QList<uint> UIntList;
 Q_DECLARE_METATYPE(UIntList)
 typedef QMap<QString,QVariantMap> NMVariantMapMap;
 Q_DECLARE_METATYPE(NMVariantMapMap)
-typedef QMap<QString,QString> QStringMap;
-typedef QMapIterator<QString, QString> QStringMapIterator;
-Q_DECLARE_METATYPE(QStringMap)
+typedef QMap<QString,QString> NMStringMap;
+typedef QMapIterator<QString, QString> NMStringMapIterator;
+Q_DECLARE_METATYPE(NMStringMap)
 
-QDBusArgument &operator<<(QDBusArgument &argument, const QStringMap & mydict);
-const QDBusArgument &operator>>(const QDBusArgument &argument, QStringMap & mydict);
+QDBusArgument &operator<<(QDBusArgument &argument, const NMStringMap & mydict);
+const QDBusArgument &operator>>(const QDBusArgument &argument, NMStringMap & mydict);
 
 typedef struct
 {

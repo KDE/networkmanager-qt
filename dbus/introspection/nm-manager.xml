@@ -184,7 +184,7 @@
         WiFi, WWAN, and WiMAX state, etc.
       </tp:docstring>
       <arg name="permissions" type="a{ss}" direction="out">
-        <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QStringMap"/>
+        <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="NMStringMap"/>
         <tp:docstring>
           Dictionary of available permissions and results.  Each permission
           is represented by a name (ie "org.freedesktop.NetworkManager.Foobar")

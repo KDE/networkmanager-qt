@@ -34,7 +34,7 @@ public:
 
     QString name;
     QString interfaceName;
-    QStringMap options;
+    NMStringMap options;
 };
 }
 }

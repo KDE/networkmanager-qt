@@ -49,8 +49,8 @@ public:
     QString interfaceName() const;
 
     void addOption(const QString & option, const QString & value);
-    void setOptions(const QStringMap & options);
-    QStringMap options() const;
+    void setOptions(const NMStringMap & options);
+    NMStringMap options() const;
 
     void fromMap(const QVariantMap & setting);
 

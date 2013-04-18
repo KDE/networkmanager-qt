@@ -80,7 +80,7 @@ void NetworkManager::NetworkManagerPrivate::init()
 {
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
     qDBusRegisterMetaType<DeviceDBusStateReason>();
-    qDBusRegisterMetaType<QStringMap>();
+    qDBusRegisterMetaType<NMStringMap>();
     nmState = iface.state();
     m_version = iface.version();
     parseVersion(m_version);
@@ -463,7 +463,7 @@ void NetworkManager::NetworkManagerPrivate::setLogging(NetworkManager::LogLevel 
     iface.SetLogging(logLevel, logDomains.join(QLatin1String(",")));
 }
 
-QStringMap NetworkManager::NetworkManagerPrivate::permissions()
+NMStringMap NetworkManager::NetworkManagerPrivate::permissions()
 {
     return iface.GetPermissions();
 }
@@ -765,7 +765,7 @@ void NetworkManager::setLogging(NetworkManager::LogLevel level, NetworkManager::
     globalNetworkManager->setLogging(level, domains);
 }
 
-QStringMap NetworkManager::permissions()
+NMStringMap NetworkManager::permissions()
 {
     return globalNetworkManager->permissions();
 }

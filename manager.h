@@ -257,7 +257,7 @@ namespace NetworkManager {
     NMQT_EXPORT void setWimaxEnabled(bool enabled);
     NMQT_EXPORT void sleep(bool sleep);
     NMQT_EXPORT void setLogging(LogLevel, LogDomains);
-    NMQT_EXPORT QStringMap permissions();
+    NMQT_EXPORT NMStringMap permissions();
     NMQT_EXPORT Notifier * notifier();
 
 }
