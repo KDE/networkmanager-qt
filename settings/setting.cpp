@@ -187,6 +187,7 @@ NetworkManager::Settings::Setting::~Setting()
 
 QStringList NetworkManager::Settings::Setting::needSecrets(bool requestNew) const
 {
+    Q_UNUSED(requestNew);
     return QStringList();
 }
 
