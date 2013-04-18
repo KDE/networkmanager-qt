@@ -208,7 +208,7 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
         d->interfaceName = value.toString();
         emit interfaceNameChanged();
     } else if (property == QLatin1String("Ip4Address")) {
-        d->ipV4Address = value.toInt();
+        d->ipV4Address = value.toUInt();
         emit ipV4AddressChanged();
     } else if (property == QLatin1String("Ip4Config")) {
 //        d->ipV4Config = it->toUInt() * 1000;
@@ -559,9 +559,7 @@ void NetworkManager::Device::deviceStateChanged(uint new_state, uint old_state, 
     Q_D(Device);
     d->connectionState = NetworkManager::DevicePrivate::convertState(new_state);
     d->reason = NetworkManager::DevicePrivate::convertReason(reason);
-    if (new_state == Activated) {
-        d->ipV4Address = d->deviceIface.ip4Address();
-    }
+
     emit stateChanged(d->connectionState, NetworkManager::DevicePrivate::convertState(old_state), NetworkManager::DevicePrivate::convertReason(reason));
 }
 
