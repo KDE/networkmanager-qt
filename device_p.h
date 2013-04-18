@@ -46,7 +46,7 @@ public:
     IpConfig ipV4Config;
     IpConfig ipV6Config;
     QString driver;
-    int ipV4Address;
+    QHostAddress ipV4Address;
     QString interfaceName;
     QString ipInterface;
     bool firmwareMissing;

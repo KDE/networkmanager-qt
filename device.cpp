@@ -99,7 +99,7 @@ NetworkManager::DevicePrivate::DevicePrivate( const QString & path) : deviceIfac
     driver = deviceIface.driver();
     interfaceName = deviceIface.interface();
     ipInterface = deviceIface.ipInterface();
-    ipV4Address = deviceIface.ip4Address();
+    ipV4Address = QHostAddress(ntohl(deviceIface.ip4Address()));
     managed = deviceIface.managed();
     udi = deviceIface.udi();
     firmwareMissing = deviceIface.firmwareMissing();
@@ -208,7 +208,7 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
         d->interfaceName = value.toString();
         emit interfaceNameChanged();
     } else if (property == QLatin1String("Ip4Address")) {
-        d->ipV4Address = value.toUInt();
+        d->ipV4Address = QHostAddress(ntohl(value.toUInt()));
         emit ipV4AddressChanged();
     } else if (property == QLatin1String("Ip4Config")) {
 //        d->ipV4Config = it->toUInt() * 1000;
@@ -336,7 +336,7 @@ QString NetworkManager::Device::udi() const
     return d->udi;
 }
 
-int NetworkManager::Device::ipV4Address() const
+QHostAddress NetworkManager::Device::ipV4Address() const
 {
     Q_D(const Device);
     return d->ipV4Address;

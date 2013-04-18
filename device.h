@@ -52,7 +52,7 @@ class NMQT_EXPORT Device : public QObject
     Q_PROPERTY(QString driverVersion READ driverVersion)
     Q_PROPERTY(QString firmwareVersion READ firmwareVersion)
     Q_PROPERTY(QVariant genericCapabilities READ capabilitiesV WRITE setCapabilitiesV)
-    Q_PROPERTY(int ipV4Address READ ipV4Address)
+    Q_PROPERTY(QHostAddress ipV4Address READ ipV4Address)
     Q_PROPERTY(bool managed READ managed WRITE setManaged)
     Q_PROPERTY(QString udi READ udi)
     Q_PROPERTY(bool firmwareMissing READ firmwareMissing)
@@ -183,7 +183,11 @@ public:
      * activating further connections without user intervention.
      */
     void disconnectInterface();
-    int ipV4Address() const;
+    /**
+     * returns the current IPv4 address without the prefix
+     * \sa ipV4Config()
+     */
+    QHostAddress ipV4Address() const;
     /**
      * Get the current IPv4 configuration of this device.
      * Only valid when device is Activated.
