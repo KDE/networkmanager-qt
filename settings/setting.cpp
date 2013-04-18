@@ -191,14 +191,38 @@ QStringList NetworkManager::Settings::Setting::needSecrets(bool requestNew) cons
     return QStringList();
 }
 
-void NetworkManager::Settings::Setting::secretsFromMap(const QVariantMap& map)
+void NetworkManager::Settings::Setting::secretsFromMap(const QVariantMap &map)
 {
     Q_UNUSED(map);
+}
+
+void NetworkManager::Settings::Setting::secretsFromStringMap(const NMStringMap &map)
+{
+    QVariantMap secretsMap;
+    NMStringMap::ConstIterator i = map.constBegin();
+    while (i != map.constEnd()) {
+        secretsMap.insert(i.key(), i.value());
+        ++i;
+    }
+    secretsFromMap(secretsMap);
 }
 
 QVariantMap NetworkManager::Settings::Setting::secretsToMap() const
 {
     return QVariantMap();
+}
+
+NMStringMap NetworkManager::Settings::Setting::secretsToStringMap() const
+{
+    NMStringMap ret;
+    QVariantMap secretsMap = secretsToMap();
+    QVariantMap::ConstIterator i = secretsMap.constBegin();
+    while (i != secretsMap.constEnd()) {
+        ret.insert(i.key(), i.value().toString());
+        ++i;
+    }
+
+    return ret;
 }
 
 void NetworkManager::Settings::Setting::setInitialized(bool initialized)

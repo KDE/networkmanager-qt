@@ -22,6 +22,7 @@
 #define NMQT_SETTINGS_SETTING_H
 
 #include "../QtNetworkManager-export.h"
+#include "../generic-types.h"
 
 #include <QtCore/QVariantMap>
 #include <QtCore/QStringList>
@@ -59,7 +60,21 @@ public:
 
     virtual void secretsFromMap(const QVariantMap & map);
 
+    /**
+     * @brief secretsFromStringMap is a convenience function
+     * to set the secrets from a map of strings.
+     * @param map to extract secrets from
+     */
+    void secretsFromStringMap(const NMStringMap &map);
+
     virtual QVariantMap secretsToMap() const;
+
+    /**
+     * @brief secretsToStringMap is a convenience function
+     * to get the secrets to map of strings.
+     * @return string map with current secrets
+     */
+    NMStringMap secretsToStringMap() const;
 
     virtual QStringList needSecrets(bool requestNew = false) const;
 
