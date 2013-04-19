@@ -5,9 +5,9 @@ find_package(Qt4 REQUIRED)
 
 include(FindPkgConfig)
 
-pkg_check_modules(QTNETWORKMANAGER REQUIRED QtNetworkManager)
+pkg_check_modules(QTNETWORKMANAGER REQUIRED NetworkManagerQt)
 if (NOT QTNETWORKMANAGER_FOUND)
-    message(FATAL_ERROR "ERROR: QtNetworkManager not found. http://projects.kde.org/search?q=networkmanager&scope=all&all_words=1&projects=1&submit=Submit")
+    message(FATAL_ERROR "ERROR: NetworkManagerQt not found. http://projects.kde.org/search?q=networkmanager&scope=all&all_words=1&projects=1&submit=Submit")
 endif (NOT QTNETWORKMANAGER_FOUND)
 
 pkg_check_modules(QTNETWORK REQUIRED QtNetwork)
@@ -21,4 +21,4 @@ set(createConnectionExample_SRCS
 )
 
 add_executable(createConnectionExample ${createConnectionExample_SRCS})
-target_link_libraries(createConnectionExample QtNetworkManager ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
+target_link_libraries(createConnectionExample NetworkManagerQt ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})

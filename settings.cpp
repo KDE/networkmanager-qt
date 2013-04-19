@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Ilia Kats <ilia-kats@gmx.net>
+Copyright 2011-2013 Lamarque Souza <lamarque@kde.org>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -97,7 +97,7 @@ QString NetworkManager::Settings::SettingsPrivate::addConnection(const NMVariant
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, 0);
     QVariantMap connectionSettings = connection.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
     QString id = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString();
-    watcher->setProperty("libQtNetworkManager_id", id);
+    watcher->setProperty("libNetworkManagerQt_id", id);
     connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this, SLOT(onConnectionAddArrived(QDBusPendingCallWatcher*)));
     return id;
 }
@@ -105,7 +105,7 @@ QString NetworkManager::Settings::SettingsPrivate::addConnection(const NMVariant
 void NetworkManager::Settings::SettingsPrivate::onConnectionAddArrived(QDBusPendingCallWatcher *watcher)
 {
     QDBusPendingReply<QDBusObjectPath> reply = *watcher;
-    QString id = watcher->property("libQtNetworkManager_id").value<QString>();
+    QString id = watcher->property("libNetworkManagerQt_id").value<QString>();
     QString message;
     bool success = true;
     if (!reply.isValid()) {

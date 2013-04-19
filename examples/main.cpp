@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Lamarque V. Souza <lamarque@kde.org>
+Copyright 2011-2013 Lamarque V. Souza <lamarque@kde.org>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -22,10 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QtCore/QTextStream>
 
-#include <QtNetworkManager/manager.h>
-#include <QtNetworkManager/device.h>
-#include <QtNetworkManager/activeconnection.h>
-#include <QtNetworkManager/connection.h>
+#include <NetworkManagerQt/manager.h>
+#include <NetworkManagerQt/device.h>
+#include <NetworkManagerQt/activeconnection.h>
+#include <NetworkManagerQt/connection.h>
 
 QString typeAsString(const int type)
 {

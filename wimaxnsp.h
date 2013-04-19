@@ -1,5 +1,6 @@
 /*
 Copyright 2011 Ilia Kats <ilia-kats@gmx.net>
+Copyright 2011-2013 Lamarque V. Souza <lamarque@kde.org>
 Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
@@ -22,7 +23,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NMQT_WIMAXNSP_H
 #define NMQT_WIMAXNSP_H
 
-#include "QtNetworkManager-export.h"
+#include "NetworkManagerQt-export.h"
 
 #include <QSharedPointer>
 #include <QVariantMap>

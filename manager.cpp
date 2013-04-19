@@ -1,6 +1,6 @@
 /*
 Copyright 2008,2010 Will Stephenson <wstephenson@kde.org>
-Copyright 2011-2012 Lamarque Souza <lamarque@kde.org>
+Copyright 2011-2013 Lamarque Souza <lamarque@kde.org>
 Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
@@ -242,7 +242,7 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
         break;
     default:
         if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
-            nmDebug() << "libQtNetworkManager: Can't create object of type " << device.type() << "for" << uni << device.isValid();
+            nmDebug() << "libNetworkManagerQt: Can't create object of type " << device.type() << "for" << uni << device.isValid();
         }
         break;
     }

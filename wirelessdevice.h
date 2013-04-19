@@ -1,5 +1,6 @@
 /*
 Copyright 2008,2011 Will Stephenson <wstephenson@kde.org>
+Copyright 2011-2013 Lamarque V. Souza <lamarque@kde.org>
 Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
 This library is free software; you can redistribute it and/or
@@ -22,7 +23,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NMQT_WIRELESSDEVICE_H
 #define NMQT_WIRELESSDEVICE_H
 
-#include "QtNetworkManager-export.h"
+#include "NetworkManagerQt-export.h"
 #include "device.h"
 #include "accesspoint.h"
 #include "wirelessnetwork.h"

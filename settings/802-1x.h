@@ -21,7 +21,7 @@
 #ifndef NMQT_SETTINGS_802_1X_H
 #define NMQT_SETTINGS_802_1X_H
 
-#include "../QtNetworkManager-export.h"
+#include "../NetworkManagerQt-export.h"
 #include "setting.h"
 
 namespace NetworkManager

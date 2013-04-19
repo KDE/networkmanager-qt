@@ -22,7 +22,7 @@
 #define NMQT_SETTINGS_IPV6_H
 
 #include "../ipconfig.h"
-#include "../QtNetworkManager-export.h"
+#include "../NetworkManagerQt-export.h"
 #include "setting.h"
 
 #include <QtCore/QStringList>

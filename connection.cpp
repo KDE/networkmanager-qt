@@ -1,6 +1,7 @@
 /*
 Copyright 2008,2009 Will Stephenson <wstephenson@kde.org>
 Copyright 2011 Ilia Kats <ilia-kats@gmx.net>
+Copyright 2011-2013 Lamarque V. Souza <lamarque@kde.org>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -118,7 +119,7 @@ void NetworkManager::Settings::Connection::secrets(const QString &setting)
     QString id = uuid();
     QDBusPendingReply<NMVariantMapMap> reply = d->iface.GetSecrets(setting);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
-    watcher->setProperty("libQtNetworkManager_id", id);
+    watcher->setProperty("libNetworkManagerQt_id", id);
     connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this,  SLOT(onSecretsArrived(QDBusPendingCallWatcher*)));
 }
 
@@ -128,7 +129,7 @@ void NetworkManager::Settings::Connection::onSecretsArrived(QDBusPendingCallWatc
     if (!watcher)
         return;
     QDBusPendingReply<NMVariantMapMap> reply = *watcher;
-    QString id = watcher->property("libQtNetworkManager_id").value<QString>();
+    QString id = watcher->property("libNetworkManagerQt_id").value<QString>();
     bool success = true;
     NMVariantMapMap set;
     QString message;

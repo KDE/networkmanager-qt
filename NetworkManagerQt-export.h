@@ -1,5 +1,5 @@
 /*
- * This file is part of the libQtNetworkManager project
+ * This file is part of the libNetworkManagerQt project
  * Copyright (C) 2009 Dario Freddi <drf@kde.org>
  * Copyright (C) 2007 David Faure <faure@kde.org>
  *
@@ -22,7 +22,7 @@
 #ifndef NMQT_EXPORT_H
 #define NMQT_EXPORT_H
 
-/** \file QtNetworkManager-export.h
+/** \file NetworkManagerQt-export.h
     \brief Contains Macros for exporting symbols
 
     This file contains macros needed for exporting/importing symbols

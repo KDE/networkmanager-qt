@@ -1,5 +1,6 @@
 /*
 Copyright 2011 Ilia Kats <ilia-kats@gmx.net>
+Copyright 2011-2013 Lamarque V. Souza <lamarque@kde.org>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -25,7 +26,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDBusObjectPath>
 #include <QSharedPointer>
 
-#include "QtNetworkManager-export.h"
+#include "NetworkManagerQt-export.h"
 #include "connection.h"
 
 namespace NetworkManager

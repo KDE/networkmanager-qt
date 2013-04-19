@@ -21,7 +21,7 @@
 #ifndef NMQT_SETTINGS_GSM_H
 #define NMQT_SETTINGS_GSM_H
 
-#include "../QtNetworkManager-export.h"
+#include "../NetworkManagerQt-export.h"
 #include "setting.h"
 
 #include <QtCore/QString>

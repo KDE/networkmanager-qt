@@ -22,7 +22,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NMQT_IPCONFIG_H
 #define NMQT_IPCONFIG_H
 
-#include "QtNetworkManager-export.h"
+#include "NetworkManagerQt-export.h"
 #include "ipaddress.h"
 #include "iproute.h"
 

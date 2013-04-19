@@ -21,7 +21,7 @@
 #ifndef NMQT_SETTINGS_802_11_OLPC_MESH_H
 #define NMQT_SETTINGS_802_11_OLPC_MESH_H
 
-#include "../QtNetworkManager-export.h"
+#include "../NetworkManagerQt-export.h"
 #include "setting.h"
 
 #include <QtCore/QString>

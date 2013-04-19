@@ -10,7 +10,7 @@ MACRO(LIBNM_TESTS)
             qt4_automoc(${test_${_testname}_SRCS})
             add_executable(test_${_testname} ${test_${_testname}_SRCS} ${test_${_testname}_HDRS} ${test_additional})
             target_link_libraries(test_${_testname} ${QT_QTCORE_LIBRARY}
-                ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY} QtNetworkManager)
+                ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY} NetworkManagerQt)
             ADD_TEST(test_${_testname} test_${_testname})
        ENDFOREACH(_testname)
 ENDMACRO(LIBNM_TESTS)

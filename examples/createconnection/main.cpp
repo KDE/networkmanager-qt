@@ -20,16 +20,16 @@
 
 #include <arpa/inet.h>
 
-#include <QtNetworkManager/manager.h>
-#include <QtNetworkManager/device.h>
-#include <QtNetworkManager/wirelessdevice.h>
-#include <QtNetworkManager/accesspoint.h>
-#include <QtNetworkManager/generic-types.h>
-#include <QtNetworkManager/connection.h>
-#include <QtNetworkManager/settings/connection.h>
-#include <QtNetworkManager/settings/802-11-wireless.h>
-#include <QtNetworkManager/settings/802-11-wireless-security.h>
-#include <QtNetworkManager/settings/ipv4.h>
+#include <NetworkManagerQt/manager.h>
+#include <NetworkManagerQt/device.h>
+#include <NetworkManagerQt/wirelessdevice.h>
+#include <NetworkManagerQt/accesspoint.h>
+#include <NetworkManagerQt/generic-types.h>
+#include <NetworkManagerQt/connection.h>
+#include <NetworkManagerQt/settings/connection.h>
+#include <NetworkManagerQt/settings/802-11-wireless.h>
+#include <NetworkManagerQt/settings/802-11-wireless-security.h>
+#include <NetworkManagerQt/settings/ipv4.h>
 
 #include <QtDBus/QDBusMetaType>
 #include <QtCore/QTextStream>

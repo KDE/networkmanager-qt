@@ -21,7 +21,7 @@
 #ifndef NMQT_SETTINGS_VPN_H
 #define NMQT_SETTINGS_VPN_H
 
-#include "../QtNetworkManager-export.h"
+#include "../NetworkManagerQt-export.h"
 #include "../generic-types.h"
 #include "setting.h"
 

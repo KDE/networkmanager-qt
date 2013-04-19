@@ -22,7 +22,7 @@
 #define NMQT_ADSL_DEVICE_H
 
 #include "device.h"
-#include "QtNetworkManager-export.h"
+#include "NetworkManagerQt-export.h"
 
 namespace NetworkManager {
 

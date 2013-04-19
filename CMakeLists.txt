@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(libQtNetworkManager)
+project(libNetworkManagerQt)
 
 set(VERSION 0.9.0)
 set(CMAKE_BUILD_TYPE Debug)
@@ -11,9 +11,9 @@ set(LIB_SUFFIX "" CACHE STRING "Define suffix of library directory name (32/64)"
 find_package(Qt4 REQUIRED)
 find_package(NetworkManager 0.9.8.0 REQUIRED)
 
-pkg_check_modules(LIBMODEMMANAGERQT REQUIRED QtModemManager)
+pkg_check_modules(LIBMODEMMANAGERQT REQUIRED ModemManagerQt)
 if (NOT LIBMODEMMANAGERQT_FOUND)
-    message(FATAL_ERROR "ERROR: libQtModemManager not found")
+    message(FATAL_ERROR "ERROR: libModemManagerQt not found")
 endif (NOT LIBMODEMMANAGERQT_FOUND)
 
 add_definitions(${QT_DEFINITIONS})
@@ -43,7 +43,7 @@ enable_testing(true)
 
 add_subdirectory(tests)
 
-set(QtNetworkManager_HEADERS
+set(NetworkManagerQt_HEADERS
     accesspoint.h
     activeconnection.h
     adsldevice.h
@@ -72,16 +72,16 @@ set(QtNetworkManager_HEADERS
     wirelessdevice.h
     wirelessnetwork.h
     generic-types.h
-    QtNetworkManager-export.h
+    NetworkManagerQt-export.h
 )
 
-set(QtNetworkManager_PRIVATE_HEADERS
+set(NetworkManagerQt_PRIVATE_HEADERS
     manager_p.h
     settings_p.h
     #settings/template_p.h
 )
 
-set(QtNetworkManager_PART_SRCS
+set(NetworkManagerQt_PART_SRCS
     accesspoint.cpp
     activeconnection.cpp
     adsldevice.cpp
@@ -198,31 +198,33 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/wimax.h
     )
 
-qt4_wrap_cpp(QtNetworkManager_MOC ${QtNetworkManager_PRIVATE_HEADERS})
-qt4_automoc(${QtNetworkManager_PART_SRCS})
+qt4_wrap_cpp(NetworkManagerQt_MOC ${NetworkManagerQt_PRIVATE_HEADERS})
+qt4_automoc(${NetworkManagerQt_PART_SRCS})
 qt4_automoc(${DBUS_INTERFACE_SRCS})
 
-add_library(QtNetworkManager SHARED ${QtNetworkManager_PART_SRCS} ${DBUS_INTERFACE_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${QtNetworkManager_MOC} )
+add_library(NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${DBUS_INTERFACE_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${NetworkManagerQt_MOC} )
 
-# TODO: dlopen libQtModemManager to make it a runtime dependency instead of compile
+# TODO: dlopen libModemManagerQt to make it a runtime dependency instead of compile
 # time dependency.
-target_link_libraries(QtNetworkManager QtModemManager ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
-install(TARGETS QtNetworkManager DESTINATION lib${LIB_SUFFIX})
+target_link_libraries(NetworkManagerQt ModemManagerQt ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
+install(TARGETS NetworkManagerQt DESTINATION lib${LIB_SUFFIX})
 
 install( FILES
-   ${QtNetworkManager_HEADERS}
+   ${NetworkManagerQt_HEADERS}
    DESTINATION
-   include/QtNetworkManager COMPONENT Devel)
+   include/NetworkManagerQt COMPONENT Devel)
 
 install( FILES
    ${CONNECTIONS_SETTINGS_HEADERS}
    DESTINATION
-   include/QtNetworkManager/settings COMPONENT Devel)
+   include/NetworkManagerQt/settings COMPONENT Devel)
 
-set_property(TARGET QtNetworkManager PROPERTY COMPILE_DEFINITIONS MAKE_NMQT_LIB)
-set_property(TARGET QtNetworkManager PROPERTY VERSION ${VERSION})
-set_property(TARGET QtNetworkManager PROPERTY SOVERSION 0)
+set_property(TARGET NetworkManagerQt PROPERTY COMPILE_DEFINITIONS MAKE_NMQT_LIB)
+set_property(TARGET NetworkManagerQt PROPERTY VERSION ${VERSION})
+set_property(TARGET NetworkManagerQt PROPERTY SOVERSION 0)
 
+configure_file(${CMAKE_SOURCE_DIR}/NetworkManagerQt.pc.cmake ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc @ONLY)
+install(FILES ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig/")
 message(STATUS "Writing pkg-config file...")
-configure_file(${CMAKE_SOURCE_DIR}/QtNetworkManager.pc.cmake ${CMAKE_BINARY_DIR}/QtNetworkManager.pc @ONLY)
-install(FILES ${CMAKE_BINARY_DIR}/QtNetworkManager.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig/")
+configure_file(${CMAKE_SOURCE_DIR}/NetworkManagerQt.pc.cmake ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc @ONLY)
+install(FILES ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig/")
