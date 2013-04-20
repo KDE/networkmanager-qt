@@ -65,7 +65,8 @@ NetworkManager::VpnConnection::~VpnConnection()
 QString NetworkManager::VpnConnection::banner() const
 {
     Q_D(const VpnConnection);
-    return d->banner;
+    //return d->banner; // FIXME NM doesn't emit the Banner property change
+    return d->iface.banner();
 }
 
 NetworkManager::VpnConnection::State NetworkManager::VpnConnection::state() const
