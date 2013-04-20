@@ -26,27 +26,27 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace NetworkManager
 {
-    namespace Settings
-    {
-        class Connection;
-    }
-    class ActiveConnectionPrivate
-    {
-    public:
-        ActiveConnectionPrivate(const QString &);
-        virtual ~ActiveConnectionPrivate();
-        static NetworkManager::ActiveConnection::State convertActiveConnectionState(uint);
-        NetworkManager::Settings::Connection::Ptr connection;
-        QString path;
-        bool default4;
-        bool default6;
-        QStringList devices;
-        QString specificObject;
-        ActiveConnection::State state;
-        bool vpn;
-	QString uuid;
-	QString master;
-        OrgFreedesktopNetworkManagerConnectionActiveInterface iface;
-    };
+namespace Settings
+{
+class Connection;
+}
+class ActiveConnectionPrivate
+{
+public:
+    ActiveConnectionPrivate(const QString &);
+    virtual ~ActiveConnectionPrivate();
+    static NetworkManager::ActiveConnection::State convertActiveConnectionState(uint);
+    NetworkManager::Settings::Connection::Ptr connection;
+    QString path;
+    bool default4;
+    bool default6;
+    QStringList devices;
+    QString specificObject;
+    ActiveConnection::State state;
+    bool vpn;
+    QString uuid;
+    QString master;
+    OrgFreedesktopNetworkManagerConnectionActiveInterface iface;
+};
 }
 #endif

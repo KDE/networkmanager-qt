@@ -47,6 +47,8 @@ Q_OBJECT
 Q_DECLARE_PRIVATE(VpnConnection)
 
 public:
+    typedef QSharedPointer<VpnConnection> Ptr;
+    typedef QList<Ptr> List;
     enum State {Unknown = 0, Prepare, NeedAuth, Connecting, GettingIpConfig, Activated, Failed, Disconnected};
     /**
      * Creates a new VpnConnection object.
