@@ -53,11 +53,11 @@ public:
 
     Q_DECLARE_FLAGS(Capabilities, Capability)
     /**
-     * Creates a new BtNetworkInterface object.
+     * Creates a new BluetoothDevice object.
      */
     explicit BluetoothDevice(const QString & path, QObject * parent = 0);
     /**
-     * Destroys a BtNetworkInterface object.
+     * Destroys a BluetoothDevice object.
      */
     virtual ~BluetoothDevice();
 
