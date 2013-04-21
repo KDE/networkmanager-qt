@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::PppSettingPrivate::PppSettingPrivate():
-    name(QString("ppp")),
+    name(NM_SETTING_PPP_SETTING_NAME),
     noauth(true),
     refuseEap(false),
     refusePap(false),

@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::VpnSettingPrivate::VpnSettingPrivate():
-    name(QString("vpn"))
+    name(NM_SETTING_VPN_SETTING_NAME)
 { }
 
 NetworkManager::Settings::VpnSetting::VpnSetting():

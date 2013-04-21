@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::CdmaSettingPrivate::CdmaSettingPrivate():
-    name(QString("cdma")),
+    name(NM_SETTING_CDMA_SETTING_NAME),
     passwordFlags(Setting::None)
 { }
 

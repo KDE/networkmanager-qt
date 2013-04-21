@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::Security8021xSettingPrivate::Security8021xSettingPrivate():
-    name(QString("802-1x")),
+    name(NM_SETTING_802_1X_SETTING_NAME),
     phase1PeapVer(Security8021xSetting::PeapVersionUnknown),
     phase1PeapLabel(Security8021xSetting::PeapLabelUnknown),
     phase1FastProvisioning(Security8021xSetting::FastProvisioningUnknown),

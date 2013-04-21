@@ -27,7 +27,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::WirelessSecuritySettingPrivate::WirelessSecuritySettingPrivate():
-    name(QString("802-11-wireless-security")),
+    name(NM_SETTING_WIRELESS_SECURITY_SETTING_NAME),
     keyMgmt(NetworkManager::Settings::WirelessSecuritySetting::Unknown),
     wepTxKeyidx(0),
     authAlg(NetworkManager::Settings::WirelessSecuritySetting::None),

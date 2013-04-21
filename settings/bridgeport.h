@@ -45,11 +45,11 @@ public:
 
     QString name() const;
 
-    void setPriority(quint16 priority);
-    quint16 priority() const;
+    void setPriority(quint32 priority);
+    quint32 priority() const;
 
-    void setPathCost(quint16 cost);
-    quint16 pathCost() const;
+    void setPathCost(quint32 cost);
+    quint32 pathCost() const;
 
     void setHairpinMode(bool enable);
     bool hairpinMode() const;

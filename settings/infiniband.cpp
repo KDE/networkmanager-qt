@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::InfinibandSettingPrivate::InfinibandSettingPrivate():
-    name(QString("infiniband")),
+    name(NM_SETTING_INFINIBAND_SETTING_NAME),
     mtu(0),
     transportMode(InfinibandSetting::Unknown)
 { }

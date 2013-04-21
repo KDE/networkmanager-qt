@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::BridgeSettingPrivate::BridgeSettingPrivate():
-    name(QString("bridge")),
+    name(NM_SETTING_BRIDGE_SETTING_NAME),
     stp(true),
     priority(128),
     forwardDelay(15),
@@ -93,56 +93,56 @@ bool NetworkManager::Settings::BridgeSetting::stp() const
     return d->stp;
 }
 
-void NetworkManager::Settings::BridgeSetting::setPriority(quint16 priority)
+void NetworkManager::Settings::BridgeSetting::setPriority(quint32 priority)
 {
     Q_D(BridgeSetting);
 
     d->priority = priority;
 }
 
-quint16 NetworkManager::Settings::BridgeSetting::priority() const
+quint32 NetworkManager::Settings::BridgeSetting::priority() const
 {
     Q_D(const BridgeSetting);
 
     return d->priority;
 }
 
-void NetworkManager::Settings::BridgeSetting::setForwardDelay(quint16 delay)
+void NetworkManager::Settings::BridgeSetting::setForwardDelay(quint32 delay)
 {
     Q_D(BridgeSetting);
 
     d->forwardDelay = delay;
 }
 
-quint16 NetworkManager::Settings::BridgeSetting::forwardDelay() const
+quint32 NetworkManager::Settings::BridgeSetting::forwardDelay() const
 {
     Q_D(const BridgeSetting);
 
     return d->forwardDelay;
 }
 
-void NetworkManager::Settings::BridgeSetting::setHelloTime(quint16 time)
+void NetworkManager::Settings::BridgeSetting::setHelloTime(quint32 time)
 {
     Q_D(BridgeSetting);
 
     d->helloTime = time;
 }
 
-quint16 NetworkManager::Settings::BridgeSetting::helloTime() const
+quint32 NetworkManager::Settings::BridgeSetting::helloTime() const
 {
     Q_D(const BridgeSetting);
 
     return d->helloTime;
 }
 
-void NetworkManager::Settings::BridgeSetting::setMaxAge(quint16 age)
+void NetworkManager::Settings::BridgeSetting::setMaxAge(quint32 age)
 {
     Q_D(BridgeSetting);
 
     d->maxAge = age;
 }
 
-quint16 NetworkManager::Settings::BridgeSetting::maxAge() const
+quint32 NetworkManager::Settings::BridgeSetting::maxAge() const
 {
     Q_D(const BridgeSetting);
 

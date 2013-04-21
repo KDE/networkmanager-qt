@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::PppoeSettingPrivate::PppoeSettingPrivate():
-    name(QString("pppoe")),
+    name(NM_SETTING_PPPOE_SETTING_NAME),
     passwordFlags(Setting::None)
 { }
 

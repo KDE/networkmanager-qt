@@ -31,7 +31,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::Ipv6SettingPrivate::Ipv6SettingPrivate():
-    name(QString("ipv6")),
+    name(NM_SETTING_IP6_CONFIG_SETTING_NAME),
     method(NetworkManager::Settings::Ipv6Setting::Automatic),
     ignoreAutoRoutes(false),
     ignoreAutoDns(false),

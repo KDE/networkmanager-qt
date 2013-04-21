@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::OlpcMeshSettingPrivate::OlpcMeshSettingPrivate():
-    name(QString("802-11-olpc-mesh")),
+    name(NM_SETTING_OLPC_MESH_SETTING_NAME),
     channel(0)
 { }
 

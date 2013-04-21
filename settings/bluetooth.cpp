@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::BluetoothSettingPrivate::BluetoothSettingPrivate():
-    name(QString("bluetooth")),
+    name(NM_SETTING_BLUETOOTH_SETTING_NAME),
     profileType(BluetoothSetting::Unknown)
 { }
 

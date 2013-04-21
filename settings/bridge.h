@@ -51,17 +51,17 @@ public:
     void setStp(bool enabled);
     bool stp() const;
 
-    void setPriority(quint16 priority);
-    quint16 priority() const;
+    void setPriority(quint32 priority);
+    quint32 priority() const;
 
-    void setForwardDelay(quint16 delay);
-    quint16 forwardDelay() const;
+    void setForwardDelay(quint32 delay);
+    quint32 forwardDelay() const;
 
-    void setHelloTime(quint16 time);
-    quint16 helloTime() const;
+    void setHelloTime(quint32 time);
+    quint32 helloTime() const;
 
-    void setMaxAge(quint16 age);
-    quint16 maxAge() const;
+    void setMaxAge(quint32 age);
+    quint32 maxAge() const;
 
     void setAgeintTime(quint32 time);
     quint32 ageintTime() const;

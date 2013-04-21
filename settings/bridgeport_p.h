@@ -33,8 +33,8 @@ public:
     BridgePortSettingPrivate();
 
     QString name;
-    quint16 priority;
-    quint16 pathCost;
+    quint32 priority;
+    quint32 pathCost;
     bool hairpinMode;
 };
 }

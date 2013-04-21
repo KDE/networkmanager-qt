@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::BridgePortSettingPrivate::BridgePortSettingPrivate():
-    name(QString("bridge-port")),
+    name(NM_SETTING_BRIDGE_PORT_SETTING_NAME),
     priority(32),
     pathCost(100),
     hairpinMode(false)
@@ -58,28 +58,28 @@ QString NetworkManager::Settings::BridgePortSetting::name() const
     return d->name;
 }
 
-void NetworkManager::Settings::BridgePortSetting::setPriority(quint16 priority)
+void NetworkManager::Settings::BridgePortSetting::setPriority(quint32 priority)
 {
     Q_D(BridgePortSetting);
 
     d->priority = priority;
 }
 
-quint16 NetworkManager::Settings::BridgePortSetting::priority() const
+quint32 NetworkManager::Settings::BridgePortSetting::priority() const
 {
     Q_D(const BridgePortSetting);
 
     return d->priority;
 }
 
-void NetworkManager::Settings::BridgePortSetting::setPathCost(quint16 cost)
+void NetworkManager::Settings::BridgePortSetting::setPathCost(quint32 cost)
 {
     Q_D(BridgePortSetting);
 
     d->pathCost = cost;
 }
 
-quint16 NetworkManager::Settings::BridgePortSetting::pathCost() const
+quint32 NetworkManager::Settings::BridgePortSetting::pathCost() const
 {
     Q_D(const BridgePortSetting);
 

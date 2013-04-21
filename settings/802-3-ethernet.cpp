@@ -27,7 +27,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::WiredSettingPrivate::WiredSettingPrivate():
-    name("802-3-ethernet"),
+    name(NM_SETTING_WIRED_SETTING_NAME),
     port(NetworkManager::Settings::WiredSetting::UnknownPort),
     speed(0),
     duplex(NetworkManager::Settings::WiredSetting::UnknownDuplexType),

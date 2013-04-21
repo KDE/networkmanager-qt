@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::AdslSettingPrivate::AdslSettingPrivate():
-    name(QString("adsl")),
+    name(NM_SETTING_ADSL_SETTING_NAME),
     passwordFlags(Setting::None),
     protocol(AdslSetting::UnknownProtocol),
     encapsulation(AdslSetting::UnknownEncapsulation),

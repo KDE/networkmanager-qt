@@ -65,7 +65,7 @@
 #include <QtCore/QUuid>
 
 NetworkManager::Settings::ConnectionSettingsPrivate::ConnectionSettingsPrivate():
-    name(QString("connection")),
+    name(NM_SETTING_CONNECTION_SETTING_NAME),
     uuid(QUuid().toString()),
     type(ConnectionSettings::Wired),
     autoconnect(true),

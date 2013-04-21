@@ -35,10 +35,10 @@ public:
     QString name;
     QString interfaceName;
     bool stp;
-    quint16 priority;
-    quint16 forwardDelay;
-    quint16 helloTime;
-    quint16 maxAge;
+    quint32 priority;
+    quint32 forwardDelay;
+    quint32 helloTime;
+    quint32 maxAge;
     quint32 ageintTime;
 };
 }

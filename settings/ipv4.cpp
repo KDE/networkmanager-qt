@@ -30,7 +30,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::Ipv4SettingPrivate::Ipv4SettingPrivate():
-    name(QString("ipv4")),
+    name(NM_SETTING_IP4_CONFIG_SETTING_NAME),
     method(NetworkManager::Settings::Ipv4Setting::Automatic),
     ignoreAutoRoutes(false),
     ignoreAutoDns(false),

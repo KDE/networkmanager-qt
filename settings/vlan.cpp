@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::VlanSettingPrivate::VlanSettingPrivate():
-    name(QString("vlan")),
+    name(NM_SETTING_VLAN_SETTING_NAME),
     id(0),
     flags(VlanSetting::None)
 { }

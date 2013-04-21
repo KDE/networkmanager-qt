@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::SerialSettingPrivate::SerialSettingPrivate():
-    name(QString("serial")),
+    name(NM_SETTING_SERIAL_SETTING_NAME),
     baud(57600),
     bits(8),
     parity(SerialSetting::NoParity),

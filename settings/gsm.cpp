@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::GsmSettingPrivate::GsmSettingPrivate():
-    name(QString("gsm")),
+    name(NM_SETTING_GSM_SETTING_NAME),
     passwordFlags(NetworkManager::Settings::GsmSetting::None),
     networkType(NetworkManager::Settings::GsmSetting::Any),
     pinFlags(NetworkManager::Settings::GsmSetting::None),

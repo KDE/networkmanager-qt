@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::Settings::WirelessSettingPrivate::WirelessSettingPrivate():
-    name(QString("802-11-wireless")),
+    name(NM_SETTING_WIRELESS_SETTING_NAME),
     mode(NetworkManager::Settings::WirelessSetting::Infrastructure),
     band(WirelessSetting::Automatic),
     channel(0),
