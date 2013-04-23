@@ -311,6 +311,16 @@ Q_SIGNALS:
     void availableConnectionChanged();
 
     /**
+     * Emitted when a new connection is available
+     */
+    void availableConnectionAppeared(const QString & connection);
+
+    /**
+     * Emitted when the connection is no longer available
+     */
+    void availableConnectionDisappeared(const QString & connection);
+
+    /**
      * Emitted when the capabilities of this network has changed.
      */
     void capabilitiesChanged();
