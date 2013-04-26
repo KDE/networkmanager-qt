@@ -282,6 +282,28 @@ public:
     void setCapabilitiesV(const QVariant&);
     void setManaged(const QVariant&);
 
+    /**
+      * Retrieves a specialized interface to interact with the device corresponding
+      * to a given device interface.
+      *
+      * @returns a pointer to the device interface if it exists, 0 otherwise
+      */
+    template <class DevIface> DevIface *as()
+    {
+        return qobject_cast<DevIface *>(this);
+    }
+
+    /**
+      * Retrieves a specialized interface to interact with the device corresponding
+      * to a given device interface.
+      *
+      * @returns a pointer to the device interface if it exists, 0 otherwise
+      */
+    template <class DevIface> const DevIface *as() const
+    {
+        return qobject_cast<const DevIface *>(this);
+    }
+
 Q_SIGNALS:
     /**
      * This signal is emitted when the device's link status changed.
