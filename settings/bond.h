@@ -27,6 +27,14 @@
 
 #include <QtCore/QString>
 
+/* Valid options for the 'options' property */
+#define NM_SETTING_BOND_OPTION_MODE          "mode"
+#define NM_SETTING_BOND_OPTION_MIIMON        "miimon"
+#define NM_SETTING_BOND_OPTION_DOWNDELAY     "downdelay"
+#define NM_SETTING_BOND_OPTION_UPDELAY       "updelay"
+#define NM_SETTING_BOND_OPTION_ARP_INTERVAL  "arp_interval"
+#define NM_SETTING_BOND_OPTION_ARP_IP_TARGET "arp_ip_target"
+
 namespace NetworkManager
 {
 namespace Settings
