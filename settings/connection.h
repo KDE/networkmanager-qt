@@ -88,6 +88,8 @@ public:
     void setZone(const QString & zone);
     QString zone() const;
 
+    bool isSlave() const;
+
     void setMaster(const QString & master);
     QString master() const;
 

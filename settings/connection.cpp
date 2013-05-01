@@ -647,6 +647,13 @@ QString NetworkManager::Settings::ConnectionSettings::zone() const
     return d->zone;
 }
 
+bool NetworkManager::Settings::ConnectionSettings::isSlave() const
+{
+    Q_D(const ConnectionSettings);
+
+    return !d->master.isEmpty() && !d->slaveType.isEmpty();
+}
+
 void NetworkManager::Settings::ConnectionSettings::setMaster(const QString & master)
 {
     Q_D(ConnectionSettings);
