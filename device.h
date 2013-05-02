@@ -348,6 +348,16 @@ Q_SIGNALS:
     void capabilitiesChanged();
 
     /**
+     * Emitted when the DHCP configuration for IPv4 of this network has changed.
+     */
+    void dhcp4ConfigChanged();
+
+    /**
+     * Emitted when the DHCP configuration for IPv6 of this network has changed.
+     */
+    void dhcp6ConfigChanged();
+
+    /**
      * Emitted when the driver of this network has changed.
      */
     void driverChanged();
