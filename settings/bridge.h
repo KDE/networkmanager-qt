@@ -22,7 +22,7 @@
 #define NMQT_SETTINGS_BRIDGE_H
 
 #include "../NetworkManagerQt-export.h"
-#include "generic-types.h"
+#include "../generic-types.h"
 #include "setting.h"
 
 #include <QtCore/QString>
@@ -63,8 +63,8 @@ public:
     void setMaxAge(quint32 age);
     quint32 maxAge() const;
 
-    void setAgeintTime(quint32 time);
-    quint32 ageintTime() const;
+    void setAgingTime(quint32 time);
+    quint32 agingTime() const;
 
     void fromMap(const QVariantMap & setting);
 

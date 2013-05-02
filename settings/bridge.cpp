@@ -32,7 +32,7 @@ NetworkManager::Settings::BridgeSettingPrivate::BridgeSettingPrivate():
     forwardDelay(15),
     helloTime(2),
     maxAge(20),
-    ageintTime(300)
+    agingTime(300)
 { }
 
 NetworkManager::Settings::BridgeSetting::BridgeSetting():
@@ -50,7 +50,7 @@ NetworkManager::Settings::BridgeSetting::BridgeSetting(const Ptr &other):
     setForwardDelay(other->forwardDelay());
     setHelloTime(other->helloTime());
     setMaxAge(other->maxAge());
-    setAgeintTime(other->ageintTime());
+    setAgingTime(other->agingTime());
 }
 
 NetworkManager::Settings::BridgeSetting::~BridgeSetting()
@@ -149,18 +149,18 @@ quint32 NetworkManager::Settings::BridgeSetting::maxAge() const
     return d->maxAge;
 }
 
-void NetworkManager::Settings::BridgeSetting::setAgeintTime(quint32 time)
+void NetworkManager::Settings::BridgeSetting::setAgingTime(quint32 time)
 {
     Q_D(BridgeSetting);
 
-    d->ageintTime = time;
+    d->agingTime = time;
 }
 
-quint32 NetworkManager::Settings::BridgeSetting::ageintTime() const
+quint32 NetworkManager::Settings::BridgeSetting::agingTime() const
 {
     Q_D(const BridgeSetting);
 
-    return d->ageintTime;
+    return d->agingTime;
 }
 
 void NetworkManager::Settings::BridgeSetting::fromMap(const QVariantMap& setting)
@@ -190,7 +190,7 @@ void NetworkManager::Settings::BridgeSetting::fromMap(const QVariantMap& setting
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_BRIDGE_AGEING_TIME))) {
-        setAgeintTime(setting.value(QLatin1String(NM_SETTING_BRIDGE_AGEING_TIME)).toUInt());
+        setAgingTime(setting.value(QLatin1String(NM_SETTING_BRIDGE_AGEING_TIME)).toUInt());
     }
 }
 
@@ -222,8 +222,8 @@ QVariantMap NetworkManager::Settings::BridgeSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_BRIDGE_MAX_AGE), maxAge());
     }
 
-    if (ageintTime() != 300) {
-        setting.insert(QLatin1String(NM_SETTING_BRIDGE_AGEING_TIME), ageintTime());
+    if (agingTime() != 300) {
+        setting.insert(QLatin1String(NM_SETTING_BRIDGE_AGEING_TIME), agingTime());
     }
 
     return setting;
@@ -239,5 +239,5 @@ void NetworkManager::Settings::BridgeSetting::printSetting()
     qDebug() << NM_SETTING_BRIDGE_FORWARD_DELAY << ": " << forwardDelay();
     qDebug() << NM_SETTING_BRIDGE_HELLO_TIME << ": " << helloTime();
     qDebug() << NM_SETTING_BRIDGE_MAX_AGE << ": " << maxAge();
-    qDebug() << NM_SETTING_BRIDGE_AGEING_TIME << ": " << ageintTime();
+    qDebug() << NM_SETTING_BRIDGE_AGEING_TIME << ": " << agingTime();
 }

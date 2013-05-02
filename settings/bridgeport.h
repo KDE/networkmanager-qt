@@ -22,7 +22,7 @@
 #define NMQT_SETTINGS_BRIDGEPORT_H
 
 #include "../NetworkManagerQt-export.h"
-#include "generic-types.h"
+#include "../generic-types.h"
 #include "setting.h"
 
 #include <QtCore/QString>

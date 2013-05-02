@@ -39,7 +39,7 @@ public:
     quint32 forwardDelay;
     quint32 helloTime;
     quint32 maxAge;
-    quint32 ageintTime;
+    quint32 agingTime;
 };
 }
 }
