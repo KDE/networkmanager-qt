@@ -21,6 +21,7 @@
 #include "setting.h"
 
 #include <nm-setting-bond.h>
+#include <nm-setting-bridge.h>
 #include <nm-setting-cdma.h>
 #include <nm-setting-connection.h>
 #include <nm-setting-wired.h>
@@ -117,6 +118,9 @@ QString NetworkManager::Settings::Setting::typeAsString(NetworkManager::Settings
     case Bond:
         typeString = QLatin1String(NM_SETTING_BOND_SETTING_NAME);
         break;
+    case Bridge:
+        typeString = QLatin1String(NM_SETTING_BRIDGE_SETTING_NAME);
+        break;
     default:
         break;
     }
@@ -162,6 +166,8 @@ NetworkManager::Settings::Setting::SettingType NetworkManager::Settings::Setting
         type = Wimax;
     } else if (typeString == QLatin1String(NM_SETTING_BOND_SETTING_NAME)) {
         type = Bond;
+    } else if (typeString == QLatin1String(NM_SETTING_BRIDGE_SETTING_NAME)) {
+        type = Bridge;
     }
 
     return type;
