@@ -60,8 +60,8 @@ NetworkManager::AccessPoint::AccessPoint( const QString& path, QObject * parent 
         d->wpaFlags = convertWpaFlags( d->iface.wpaFlags() );
         d->rsnFlags = convertWpaFlags( d->iface.rsnFlags() );
         d->signalStrength = d->iface.strength();
-        d->ssid = QString::fromUtf8(d->iface.ssid());
         d->rawSsid = d->iface.ssid();
+        d->ssid = QString::fromUtf8(d->rawSsid);
         d->frequency = d->iface.frequency();
         d->hardwareAddress = d->iface.hwAddress();
         d->maxBitRate = d->iface.maxBitrate();
@@ -183,7 +183,8 @@ void NetworkManager::AccessPoint::propertiesChanged(const QVariantMap &propertie
             d->rsnFlags = convertWpaFlags(it->toUInt());
             emit rsnFlagsChanged(d->rsnFlags);
         } else if (property == QLatin1String("Ssid")) {
-            d->ssid = it->toByteArray();
+            d->rawSsid = it->toByteArray();
+            d->ssid = QString::fromUtf8(d->rawSsid);
             emit ssidChanged(d->ssid);
         } else if (property == QLatin1String("Frequency")) {
             d->frequency = it->toUInt();
