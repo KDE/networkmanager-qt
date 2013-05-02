@@ -96,7 +96,7 @@ void NetworkManager::Settings::BondSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_BOND_OPTIONS))) {
-        setOptions(setting.value(QLatin1String(NM_SETTING_BOND_OPTIONS)).value<NMStringMap>());
+        setOptions(qdbus_cast<NMStringMap>(setting.value(QLatin1String(NM_SETTING_BOND_OPTIONS))));
     }
 }
 
