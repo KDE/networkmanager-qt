@@ -67,9 +67,11 @@ set(NetworkManagerQt_HEADERS
     vpnconnection.h
     vpnplugin.h
     wimaxdevice.h
+    WimaxDevice
     wimaxnsp.h
     wireddevice.h
     wirelessdevice.h
+    WirelessDevice
     wirelessnetwork.h
     generic-types.h
     NetworkManagerQt-export.h
