@@ -22,7 +22,6 @@
 #define NMQT_SETTINGS_VPN_H
 
 #include "../NetworkManagerQt-export.h"
-#include "../generic-types.h"
 #include "setting.h"
 
 #include <QtCore/QString>

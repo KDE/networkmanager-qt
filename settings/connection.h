@@ -24,7 +24,6 @@
 #define NMQT_SETTINGS_CONNECTION_SETTINGS_H
 
 #include "../NetworkManagerQt-export.h"
-#include "../generic-types.h"
 #include "setting.h"
 
 #include <NetworkManager.h>
