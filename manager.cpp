@@ -181,8 +181,8 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::findRegistere
 NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::findRegisteredActiveConnection(const QString &uni)
 {
     NetworkManager::ActiveConnection::Ptr activeConnection;
-    if (m_activeConnections.contains(uni)) {
-        if (m_activeConnections.value(uni)) {
+    if (!uni.isEmpty()) {
+        if (m_activeConnections.contains(uni) && m_activeConnections.value(uni)) {
             activeConnection = m_activeConnections.value(uni);
         } else {
             activeConnection = NetworkManager::ActiveConnection::Ptr(new NetworkManager::VpnConnection(uni));
@@ -499,21 +499,21 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
         QString property = it.key();
         if (property == QLatin1String("ActiveConnections")) {
             QList<QDBusObjectPath> activePaths = qdbus_cast< QList<QDBusObjectPath> >(*it);
-            m_activeConnections.clear();
-            if (!activePaths.isEmpty()) {
-                nmDebug() << property;
-            }
-            QStringList knownConnections = m_activeConnections.keys();
-            foreach (const QDBusObjectPath &ac, activePaths) {
-                if (!m_activeConnections.contains(ac.path())) {
-                    m_activeConnections.insert(ac.path(), NetworkManager::ActiveConnection::Ptr());
-                } else {
-                    knownConnections.removeOne(ac.path());
+            if (activePaths.isEmpty()) {
+                m_activeConnections.clear();
+            } else {
+                QStringList knownConnections = m_activeConnections.keys();
+                foreach (const QDBusObjectPath &ac, activePaths) {
+                    if (!m_activeConnections.contains(ac.path())) {
+                        m_activeConnections.insert(ac.path(), NetworkManager::ActiveConnection::Ptr());
+                    } else {
+                        knownConnections.removeOne(ac.path());
+                    }
+                    nmDebug() << "  " << ac.path();
                 }
-                nmDebug() << "  " << ac.path();
-            }
-            foreach (const QString &path, knownConnections) {
-                m_activeConnections.remove(path);
+                foreach (const QString &path, knownConnections) {
+                    m_activeConnections.remove(path);
+                }
             }
             emit activeConnectionsChanged();
         } else if (property == QLatin1String("NetworkingEnabled")) {
