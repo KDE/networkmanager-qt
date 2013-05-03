@@ -42,10 +42,27 @@ class ConnectionSettingsPrivate;
 class NMQT_EXPORT ConnectionSettings
 {
     Q_DECLARE_PRIVATE(ConnectionSettings)
+    Q_ENUMS(ConnectionType)
 public:
     typedef QSharedPointer<ConnectionSettings> Ptr;
     typedef QList<Ptr> List;
-    enum ConnectionType {Unknown = 0, Adsl, Bluetooth, Bond, Bridge, Cdma, Gsm, Infiniband, OLPCMesh, Pppoe, Vlan, Vpn, Wimax, Wired, Wireless};
+    enum ConnectionType {
+        Unknown = 0,
+        Adsl,
+        Bluetooth,
+        Bond,
+        Bridge,
+        Cdma,
+        Gsm,
+        Infiniband,
+        OLPCMesh,
+        Pppoe,
+        Vlan,
+        Vpn,
+        Wimax,
+        Wired,
+        Wireless
+    };
 
     static ConnectionType typeFromString(const QString & typeString);
     static QString typeAsString(const ConnectionType type);

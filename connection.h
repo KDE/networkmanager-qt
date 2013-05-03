@@ -83,9 +83,22 @@ namespace Settings
          * @param setting the setting identifier.
          */
         void secrets(const QString &setting);
+
+        /**
+         * Informs if the current connection is in use
+         * @return true if in use
+         */
         bool active() const;
         void update(const NMVariantMapMap &);
+
+        /**
+         * Removes the connection from NetworkManager database,
+         * this operation does not ask for confirmation but
+         * a policykit rule might prevent it from being removed
+         * without the proper password.
+         */
         void remove();
+
     private:
         ConnectionPrivate *d_ptr;
     private Q_SLOTS:
