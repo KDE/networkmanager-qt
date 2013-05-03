@@ -67,11 +67,9 @@ set(NetworkManagerQt_HEADERS
     vpnconnection.h
     vpnplugin.h
     wimaxdevice.h
-    WimaxDevice
     wimaxnsp.h
     wireddevice.h
     wirelessdevice.h
-    WirelessDevice
     wirelessnetwork.h
     generic-types.h
     NetworkManagerQt-export.h
@@ -230,3 +228,5 @@ install(FILES ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc DESTINATION "${CMAKE_INSTA
 message(STATUS "Writing pkg-config file...")
 configure_file(${CMAKE_SOURCE_DIR}/NetworkManagerQt.pc.cmake ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig/")
+
+add_subdirectory(include)
