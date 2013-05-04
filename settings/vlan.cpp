@@ -32,7 +32,7 @@ NetworkManager::Settings::VlanSettingPrivate::VlanSettingPrivate():
 { }
 
 NetworkManager::Settings::VlanSetting::VlanSetting():
-    Setting(Setting::Bond),
+    Setting(Setting::Vlan),
     d_ptr(new VlanSettingPrivate())
 { }
 
