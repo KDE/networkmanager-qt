@@ -1,6 +1,32 @@
 set(NetworkManagerQt_CAMEL_HEADERS
+    AccessPoint
+    ActiveConnection
+    AdslDevice
+    BluetoothDevice
+    BondDevice
+    BridgeDevice
+    Connection
+    Device
+    Dhcp4Config
+    Dhcp6Config
+    GenericTypes
+    InfinibandDevice
+    IpAddress
+    IpConfig
+    IpRoute
+    Manager
+    ModemDevice
+    OlpcMeshDevice
+    SecretAgent
+    Settings
+    VlanDevice
+    VpnConnection
+    VpnPlugin
     WimaxDevice
+    WimaxNsp
+    WiredDevice
     WirelessDevice
+    WirelessNetwork
 )
 
 install(FILES
