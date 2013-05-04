@@ -687,26 +687,27 @@ QVariantMap NetworkManager::Settings::WirelessSecuritySetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::WirelessSecuritySetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_KEY_MGMT << ": " << keyMgmt();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_WEP_TX_KEYIDX << ": " << wepTxKeyindex();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_AUTH_ALG << ": " << authAlg();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_PROTO << ": " << proto();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_PAIRWISE << ": " << pairwise();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_GROUP << ": " << group();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_LEAP_USERNAME << ": " << leapUsername();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY0 << ": " << wepKey0();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY1 << ": " << wepKey1();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY2 << ": " << wepKey2();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY3 << ": " << wepKey3();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY_FLAGS << ": " << wepKeyFlags();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY_TYPE << ": " << wepKeyType();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_PSK << ": " << psk();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_PSK_FLAGS << ": " << pskFlags();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD << ": " << leapPassword();
-    qDebug() << NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS << ": " << leapPasswordFlags();
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_KEY_MGMT << ": " << setting.keyMgmt() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_WEP_TX_KEYIDX << ": " << setting.wepTxKeyindex() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_AUTH_ALG << ": " << setting.authAlg() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_PROTO << ": " << setting.proto() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_PAIRWISE << ": " << setting.pairwise() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_GROUP << ": " << setting.group() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_LEAP_USERNAME << ": " << setting.leapUsername() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY0 << ": " << setting.wepKey0() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY1 << ": " << setting.wepKey1() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY2 << ": " << setting.wepKey2() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY3 << ": " << setting.wepKey3() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY_FLAGS << ": " << setting.wepKeyFlags() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_WEP_KEY_TYPE << ": " << setting.wepKeyType() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_PSK << ": " << setting.psk() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_PSK_FLAGS << ": " << setting.pskFlags() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD << ": " << setting.leapPassword() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS << ": " << setting.leapPasswordFlags() << '\n';
+
+    return dbg.maybeSpace();
 }
-

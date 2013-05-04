@@ -69,12 +69,13 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     VlanSettingPrivate * d_ptr;
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(VlanSetting::Flags)
+
+QDebug operator<<(QDebug dbg, const VlanSetting &setting);
+
 }
 }
 

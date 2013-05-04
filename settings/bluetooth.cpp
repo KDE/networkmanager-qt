@@ -120,10 +120,12 @@ QVariantMap NetworkManager::Settings::BluetoothSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::BluetoothSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::BluetoothSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_BLUETOOTH_BDADDR << ": " << bluetoothAddress();
-    qDebug() << NM_SETTING_BLUETOOTH_TYPE << ": " << profileType();
+    dbg.nospace() << NM_SETTING_BLUETOOTH_BDADDR << ": " << setting.bluetoothAddress() << '\n';
+    dbg.nospace() << NM_SETTING_BLUETOOTH_TYPE << ": " << setting.profileType() << '\n';
+
+    return dbg.maybeSpace();
 }

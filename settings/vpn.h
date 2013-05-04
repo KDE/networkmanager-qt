@@ -63,11 +63,12 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     VpnSettingPrivate * d_ptr;
 };
+
+QDebug operator<<(QDebug dbg, const VpnSetting &setting);
+
 }
 }
 

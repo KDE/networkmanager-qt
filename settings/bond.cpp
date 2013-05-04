@@ -115,10 +115,12 @@ QVariantMap NetworkManager::Settings::BondSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::BondSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::BondSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_BOND_INTERFACE_NAME << ": " << interfaceName();
-    qDebug() << NM_SETTING_BOND_OPTIONS << ": " << options();
+    dbg.nospace() << NM_SETTING_BOND_INTERFACE_NAME << ": " << setting.interfaceName() << '\n';
+    dbg.nospace() << NM_SETTING_BOND_OPTIONS << ": " << setting.options() << '\n';
+
+    return dbg.maybeSpace();
 }

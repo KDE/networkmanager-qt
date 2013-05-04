@@ -494,26 +494,28 @@ QVariantMap NetworkManager::Settings::PppSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::PppSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::PppSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_PPP_NOAUTH << ": " << noAuth();
-    qDebug() << NM_SETTING_PPP_REFUSE_EAP << ": " << refuseEap();
-    qDebug() << NM_SETTING_PPP_REFUSE_PAP << ": " << refusePap();
-    qDebug() << NM_SETTING_PPP_REFUSE_CHAP << ": " << refuseChap();
-    qDebug() << NM_SETTING_PPP_REFUSE_MSCHAP << ": " << refuseMschap();
-    qDebug() << NM_SETTING_PPP_REFUSE_MSCHAPV2 << ": " << refuseMschapv2();
-    qDebug() << NM_SETTING_PPP_NOBSDCOMP << ": " << noBsdComp();
-    qDebug() << NM_SETTING_PPP_NODEFLATE << ": " << noDeflate();
-    qDebug() << NM_SETTING_PPP_NO_VJ_COMP << ": " << noVjComp();
-    qDebug() << NM_SETTING_PPP_REQUIRE_MPPE << ": " << requireMppe();
-    qDebug() << NM_SETTING_PPP_REQUIRE_MPPE_128 << ": " << requireMppe128();
-    qDebug() << NM_SETTING_PPP_MPPE_STATEFUL << ": " << mppeStateful();
-    qDebug() << NM_SETTING_PPP_CRTSCTS << ": " << cRtsCts();
-    qDebug() << NM_SETTING_PPP_BAUD << ": " << baud();
-    qDebug() << NM_SETTING_PPP_MRU << ": " << mru();
-    qDebug() << NM_SETTING_PPP_MTU << ": " << mtu();
-    qDebug() << NM_SETTING_PPP_LCP_ECHO_FAILURE << ": " << lcpEchoFailure();
-    qDebug() << NM_SETTING_PPP_LCP_ECHO_INTERVAL << ": " << lcpEchoInterval();
+    dbg.nospace() << NM_SETTING_PPP_NOAUTH << ": " << setting.noAuth() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_REFUSE_EAP << ": " << setting.refuseEap() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_REFUSE_PAP << ": " << setting.refusePap() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_REFUSE_CHAP << ": " << setting.refuseChap() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_REFUSE_MSCHAP << ": " << setting.refuseMschap() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_REFUSE_MSCHAPV2 << ": " << setting.refuseMschapv2() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_NOBSDCOMP << ": " << setting.noBsdComp() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_NODEFLATE << ": " << setting.noDeflate() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_NO_VJ_COMP << ": " << setting.noVjComp() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_REQUIRE_MPPE << ": " << setting.requireMppe() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_REQUIRE_MPPE_128 << ": " << setting.requireMppe128() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_MPPE_STATEFUL << ": " << setting.mppeStateful() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_CRTSCTS << ": " << setting.cRtsCts() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_BAUD << ": " << setting.baud() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_MRU << ": " << setting.mru() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_MTU << ": " << setting.mtu() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_LCP_ECHO_FAILURE << ": " << setting.lcpEchoFailure() << '\n';
+    dbg.nospace() << NM_SETTING_PPP_LCP_ECHO_INTERVAL << ": " << setting.lcpEchoInterval() << '\n';
+
+    return dbg.maybeSpace();
 }

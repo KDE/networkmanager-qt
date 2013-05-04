@@ -54,6 +54,14 @@ public:
     Setting::SettingType type;
     bool initialized;
 };
+
+QDebug operator <<(QDebug dbg, const Setting &setting)
+{
+    dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
+    dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
+    return dbg.maybeSpace();
+}
+
 }
 }
 
@@ -191,10 +199,22 @@ NetworkManager::Settings::Setting::~Setting()
     delete d_ptr;
 }
 
+void NetworkManager::Settings::Setting::fromMap(const QVariantMap &map)
+{
+}
+
+QVariantMap NetworkManager::Settings::Setting::toMap() const
+{
+}
+
 QStringList NetworkManager::Settings::Setting::needSecrets(bool requestNew) const
 {
     Q_UNUSED(requestNew);
     return QStringList();
+}
+
+QString NetworkManager::Settings::Setting::name() const
+{
 }
 
 void NetworkManager::Settings::Setting::secretsFromMap(const QVariantMap &map)
@@ -257,10 +277,4 @@ NetworkManager::Settings::Setting::SettingType NetworkManager::Settings::Setting
     Q_D(const Setting);
 
     return d->type;
-}
-
-void NetworkManager::Settings::Setting::printSetting()
-{
-    qDebug() << "type: " << typeAsString(type());
-    qDebug() << "initialized: " << !isNull();
 }

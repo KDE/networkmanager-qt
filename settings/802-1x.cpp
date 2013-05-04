@@ -1047,40 +1047,42 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::Security8021xSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::Security8021xSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_802_1X_EAP << ": " << eapMethods();
-    qDebug() << NM_SETTING_802_1X_IDENTITY << ": " << identity();
-    qDebug() << NM_SETTING_802_1X_ANONYMOUS_IDENTITY << ": " << anonymousIdentity();
-    qDebug() << NM_SETTING_802_1X_PAC_FILE << ": " << pacFile();
-    qDebug() << NM_SETTING_802_1X_CA_CERT << ": " << caCertificate();
-    qDebug() << NM_SETTING_802_1X_CA_PATH << ": " << caPath();
-    qDebug() << NM_SETTING_802_1X_SUBJECT_MATCH << ": " << subjectMatch();
-    qDebug() << NM_SETTING_802_1X_ALTSUBJECT_MATCHES << ": " << altSubjectMatches();
-    qDebug() << NM_SETTING_802_1X_CLIENT_CERT << ": " << clientCertificate();
-    qDebug() << NM_SETTING_802_1X_PHASE1_PEAPVER << ": " << phase1PeapVersion();
-    qDebug() << NM_SETTING_802_1X_PHASE1_PEAPLABEL << ": " << phase1PeapLabel();
-    qDebug() << NM_SETTING_802_1X_PHASE1_FAST_PROVISIONING << ": " << phase1FastProvisioning();
-    qDebug() << NM_SETTING_802_1X_PHASE2_AUTH << ": " << phase2AuthMethod();
-    qDebug() << NM_SETTING_802_1X_PHASE2_AUTHEAP << ": " << phase2AuthEapMethod();
-    qDebug() << NM_SETTING_802_1X_PHASE2_CA_CERT << ": " << phase2CaCertificate();
-    qDebug() << NM_SETTING_802_1X_PHASE2_CA_PATH << ": " << phase2CaPath();
-    qDebug() << NM_SETTING_802_1X_PHASE2_SUBJECT_MATCH << ": " << phase2SubjectMatch();
-    qDebug() << NM_SETTING_802_1X_PHASE2_ALTSUBJECT_MATCHES << ": " << phase2AltSubjectMatches();
-    qDebug() << NM_SETTING_802_1X_PHASE2_CLIENT_CERT << ": " << phase2ClientCertificate();
-    qDebug() << NM_SETTING_802_1X_PASSWORD << ": " << password();
-    qDebug() << NM_SETTING_802_1X_PASSWORD_FLAGS << ": " << passwordFlags();
-    qDebug() << NM_SETTING_802_1X_PASSWORD_RAW << ": " << passwordRaw();
-    qDebug() << NM_SETTING_802_1X_PASSWORD_RAW_FLAGS << ": " << passwordRawFlags();
-    qDebug() << NM_SETTING_802_1X_PRIVATE_KEY << ": " << privateKey();
-    qDebug() << NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD << ": " << privateKeyPassword();
-    qDebug() << NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD_FLAGS << ": " << privateKeyPasswordFlags();
-    qDebug() << NM_SETTING_802_1X_PHASE2_PRIVATE_KEY << ": " << phase2PrivateKey();
-    qDebug() << NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD << ": " << phase2PrivateKeyPassword();
-    qDebug() << NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD_FLAGS << ": " << phase2PrivateKeyPasswordFlags();
-    qDebug() << NM_SETTING_802_1X_PIN << ": " << pin();
-    qDebug() << NM_SETTING_802_1X_PIN_FLAGS << ": " << pinFlags();
-    qDebug() << NM_SETTING_802_1X_SYSTEM_CA_CERTS << ": " << systemCaCertificates();
+    dbg.nospace() << NM_SETTING_802_1X_EAP << ": " << setting.eapMethods() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_IDENTITY << ": " << setting.identity() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_ANONYMOUS_IDENTITY << ": " << setting.anonymousIdentity() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PAC_FILE << ": " << setting.pacFile() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_CA_CERT << ": " << setting.caCertificate() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_CA_PATH << ": " << setting.caPath() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_SUBJECT_MATCH << ": " << setting.subjectMatch() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_ALTSUBJECT_MATCHES << ": " << setting.altSubjectMatches() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_CLIENT_CERT << ": " << setting.clientCertificate() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PHASE1_PEAPVER << ": " << setting.phase1PeapVersion() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PHASE1_PEAPLABEL << ": " << setting.phase1PeapLabel() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PHASE1_FAST_PROVISIONING << ": " << setting.phase1FastProvisioning() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PHASE2_AUTH << ": " << setting.phase2AuthMethod() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PHASE2_AUTHEAP << ": " << setting.phase2AuthEapMethod() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PHASE2_CA_CERT << ": " << setting.phase2CaCertificate() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PHASE2_CA_PATH << ": " << setting.phase2CaPath() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PHASE2_SUBJECT_MATCH << ": " << setting.phase2SubjectMatch() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PHASE2_ALTSUBJECT_MATCHES << ": " << setting.phase2AltSubjectMatches() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PHASE2_CLIENT_CERT << ": " << setting.phase2ClientCertificate() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PASSWORD << ": " << setting.password() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PASSWORD_FLAGS << ": " << setting.passwordFlags() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PASSWORD_RAW << ": " << setting.passwordRaw() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PASSWORD_RAW_FLAGS << ": " << setting.passwordRawFlags() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PRIVATE_KEY << ": " << setting.privateKey() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD << ": " << setting.privateKeyPassword() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD_FLAGS << ": " << setting.privateKeyPasswordFlags() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PHASE2_PRIVATE_KEY << ": " << setting.phase2PrivateKey() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD << ": " << setting.phase2PrivateKeyPassword() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD_FLAGS << ": " << setting.phase2PrivateKeyPasswordFlags() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PIN << ": " << setting.pin() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_PIN_FLAGS << ": " << setting.pinFlags() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_SYSTEM_CA_CERTS << ": " << setting.systemCaCertificates() << '\n';
+
+    return dbg.maybeSpace();
 }

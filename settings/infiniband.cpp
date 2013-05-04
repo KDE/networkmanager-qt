@@ -143,11 +143,13 @@ QVariantMap NetworkManager::Settings::InfinibandSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::InfinibandSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::InfinibandSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_INFINIBAND_MAC_ADDRESS << ": " << macAddress();
-    qDebug() << NM_SETTING_INFINIBAND_MTU << ": " << mtu();
-    qDebug() << NM_SETTING_INFINIBAND_TRANSPORT_MODE << ": " << transportMode();
+    dbg.nospace() << NM_SETTING_INFINIBAND_MAC_ADDRESS << ": " << setting.macAddress() << '\n';
+    dbg.nospace() << NM_SETTING_INFINIBAND_MTU << ": " << setting.mtu() << '\n';
+    dbg.nospace() << NM_SETTING_INFINIBAND_TRANSPORT_MODE << ": " << setting.transportMode() << '\n';
+
+    return dbg.maybeSpace();
 }

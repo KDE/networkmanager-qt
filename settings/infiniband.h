@@ -59,11 +59,12 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     InfinibandSettingPrivate * d_ptr;
 };
+
+QDebug operator<<(QDebug dbg, const InfinibandSetting &setting);
+
 }
 }
 

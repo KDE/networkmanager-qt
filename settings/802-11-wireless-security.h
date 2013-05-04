@@ -112,12 +112,12 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     WirelessSecuritySettingPrivate * d_ptr;
-
 };
+
+QDebug operator<<(QDebug dbg, const WirelessSecuritySetting &setting);
+
 }
 }
 

@@ -65,11 +65,11 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     SerialSettingPrivate * d_ptr;
 };
+
+QDebug operator<<(QDebug dbg, const SerialSetting &setting);
 
 }
 }

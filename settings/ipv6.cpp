@@ -28,8 +28,6 @@
 #include <arpa/inet.h>
 #include <nm-setting-ip6-config.h>
 
-#include <QtCore/QDebug>
-
 NetworkManager::Settings::Ipv6SettingPrivate::Ipv6SettingPrivate():
     name(NM_SETTING_IP6_CONFIG_SETTING_NAME),
     method(NetworkManager::Settings::Ipv6Setting::Automatic),
@@ -385,27 +383,29 @@ QVariantMap NetworkManager::Settings::Ipv6Setting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::Ipv6Setting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::Ipv6Setting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_IP6_CONFIG_METHOD << ": " << method();
-    qDebug() << NM_SETTING_IP6_CONFIG_DNS << ": ";
-    foreach(const QHostAddress & address, dns()) {
-        qDebug() << address.toString() << ", ";
+    dbg.nospace() << NM_SETTING_IP6_CONFIG_METHOD << ": " << setting.method() << '\n';
+    dbg.nospace() << NM_SETTING_IP6_CONFIG_DNS << '\n';
+    foreach(const QHostAddress & address, setting.dns()) {
+        dbg.nospace() << address.toString() << '\n';
     }
-    qDebug() << NM_SETTING_IP6_CONFIG_DNS_SEARCH << ": " << dnsSearch();
-    qDebug() << NM_SETTING_IP6_CONFIG_ADDRESSES << ": ";
-    foreach(const NetworkManager::IpAddress & address, addresses()) {
-        qDebug() << address.ip().toString() << ": " << address.gateway().toString() << ": " << address.netmask()  << ", ";
+    dbg.nospace() << NM_SETTING_IP6_CONFIG_DNS_SEARCH << ": " << setting.dnsSearch() << '\n';
+    dbg.nospace() << NM_SETTING_IP6_CONFIG_ADDRESSES << '\n';
+    foreach(const NetworkManager::IpAddress & address, setting.addresses()) {
+        dbg.nospace() << address.ip().toString() << ": " << address.gateway().toString() << ": " << address.netmask() << '\n';
     }
-    qDebug() << NM_SETTING_IP6_CONFIG_ROUTES << ": ";
-    foreach(const NetworkManager::IpRoute & route, routes()) {
-        qDebug() << route.ip().toString() << ": " << route.metric() << ": " << route.nextHop().toString() << ": " << route.metric() << ", ";
+    dbg.nospace() << NM_SETTING_IP6_CONFIG_ROUTES << '\n';
+    foreach(const NetworkManager::IpRoute & route, setting.routes()) {
+        dbg.nospace() << route.ip().toString() << ": " << route.metric() << ": " << route.nextHop().toString() << ": " << route.metric() << '\n';
     }
-    qDebug() << NM_SETTING_IP6_CONFIG_IGNORE_AUTO_ROUTES << ": " << ignoreAutoRoutes();
-    qDebug() << NM_SETTING_IP6_CONFIG_IGNORE_AUTO_DNS << ": " << ignoreAutoDns();
-    qDebug() << NM_SETTING_IP6_CONFIG_NEVER_DEFAULT << ": " << neverDefault();
-    qDebug() << NM_SETTING_IP6_CONFIG_MAY_FAIL << ": " << mayFail();
-    qDebug() << NM_SETTING_IP6_CONFIG_IP6_PRIVACY << ": " << privacy();
+    dbg.nospace() << NM_SETTING_IP6_CONFIG_IGNORE_AUTO_ROUTES << ": " << setting.ignoreAutoRoutes() << '\n';
+    dbg.nospace() << NM_SETTING_IP6_CONFIG_IGNORE_AUTO_DNS << ": " << setting.ignoreAutoDns() << '\n';
+    dbg.nospace() << NM_SETTING_IP6_CONFIG_NEVER_DEFAULT << ": " << setting.neverDefault() << '\n';
+    dbg.nospace() << NM_SETTING_IP6_CONFIG_MAY_FAIL << ": " << setting.mayFail() << '\n';
+    dbg.nospace() << NM_SETTING_IP6_CONFIG_IP6_PRIVACY << ": " << setting.privacy() << '\n';
+
+    return dbg.maybeSpace();
 }

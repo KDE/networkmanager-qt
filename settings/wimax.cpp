@@ -109,10 +109,12 @@ QVariantMap NetworkManager::Settings::WimaxSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::WimaxSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::WimaxSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_WIMAX_NETWORK_NAME << ": " << networkName();
-    qDebug() << NM_SETTING_WIMAX_MAC_ADDRESS << ": " << macAddress();
+    dbg.nospace() << NM_SETTING_WIMAX_NETWORK_NAME << ": " << setting.networkName() << '\n';
+    dbg.nospace() << NM_SETTING_WIMAX_MAC_ADDRESS << ": " << setting.macAddress() << '\n';
+
+    return dbg.maybeSpace();
 }

@@ -54,9 +54,15 @@ public:
     Setting(const Ptr &setting);
     virtual ~Setting();
 
-    virtual void fromMap(const QVariantMap & map) = 0;
+    /**
+     * @brief Must be reimplemented, default implementationd does nothing
+     */
+    virtual void fromMap(const QVariantMap & map);
 
-    virtual QVariantMap toMap() const = 0;
+    /**
+     * @brief Must be reimplemented, default implementationd does nothing
+     */
+    virtual QVariantMap toMap() const;
 
     virtual void secretsFromMap(const QVariantMap & map);
 
@@ -78,7 +84,10 @@ public:
 
     virtual QStringList needSecrets(bool requestNew = false) const;
 
-    virtual QString name() const = 0;
+    /**
+     * @brief Must be reimplemented, default implementationd does nothing
+     */
+    virtual QString name() const;
 
     void setInitialized(bool initialized);
 
@@ -87,12 +96,15 @@ public:
     void setType(SettingType type);
     SettingType type() const;
 
-    virtual void printSetting();
+    QDebug foo();
 
 protected:
     SettingPrivate * d_ptr;
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(Setting::SecretFlags)
+
+QDebug operator<<(QDebug dbg, const Setting &setting);
+
 }
 }
 

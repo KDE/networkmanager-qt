@@ -56,11 +56,11 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     BluetoothSettingPrivate * d_ptr;
 };
+
+QDebug operator<<(QDebug dbg, const BluetoothSetting &setting);
 
 }
 }

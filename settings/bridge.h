@@ -69,11 +69,12 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     BridgeSettingPrivate * d_ptr;
 };
+
+QDebug operator<<(QDebug dbg, const BridgeSetting &setting);
+
 }
 }
 

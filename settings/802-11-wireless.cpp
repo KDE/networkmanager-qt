@@ -411,23 +411,24 @@ QVariantMap NetworkManager::Settings::WirelessSetting::toMap() const
     return setting;
 }
 
-
-void NetworkManager::Settings::WirelessSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::WirelessSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_WIRELESS_SSID << ": " << ssid();
-    qDebug() << NM_SETTING_WIRELESS_MODE << ": " << mode();
-    qDebug() << NM_SETTING_WIRELESS_BAND << ": " << band();
-    qDebug() << NM_SETTING_WIRELESS_CHANNEL << ": " << channel();
-    qDebug() << NM_SETTING_WIRELESS_BSSID << ": " << bssid();
-    qDebug() << NM_SETTING_WIRELESS_RATE << ": " << rate();
-    qDebug() << NM_SETTING_WIRELESS_TX_POWER << ": " << txPower();
-    qDebug() << NM_SETTING_WIRELESS_MAC_ADDRESS << ": " << macAddress();
-    qDebug() << NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS << ": " << clonedMacAddress();
-    qDebug() << NM_SETTING_WIRELESS_MAC_ADDRESS_BLACKLIST << ": " << macAddressBlacklist();
-    qDebug() << NM_SETTING_WIRELESS_MTU << ": " << mtu();
-    qDebug() << NM_SETTING_WIRELESS_SEEN_BSSIDS << ": " << seenBssids();
-    qDebug() << NM_SETTING_WIRELESS_SEC << ": " << security();
-    qDebug() << NM_SETTING_WIRELESS_HIDDEN << ": " << hidden();
+    dbg.nospace() << NM_SETTING_WIRELESS_SSID << ": " << setting.ssid() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_MODE << ": " << setting.mode() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_BAND << ": " << setting.band() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_CHANNEL << ": " << setting.channel() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_BSSID << ": " << setting.bssid() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_RATE << ": " << setting.rate() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_TX_POWER << ": " << setting.txPower() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_MAC_ADDRESS << ": " << setting.macAddress() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS << ": " << setting.clonedMacAddress() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_MAC_ADDRESS_BLACKLIST << ": " << setting.macAddressBlacklist() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_MTU << ": " << setting.mtu() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SEEN_BSSIDS << ": " << setting.seenBssids() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SEC << ": " << setting.security() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_HIDDEN << ": " << setting.hidden() << '\n';
+
+    return dbg.maybeSpace();
 }

@@ -173,12 +173,14 @@ QVariantMap NetworkManager::Settings::VpnSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::VpnSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::VpnSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_VPN_SERVICE_TYPE << ": " << serviceType();
-    qDebug() << NM_SETTING_VPN_USER_NAME << ": " << username();
-    qDebug() << NM_SETTING_VPN_DATA << ": " << data();
-    qDebug() << NM_SETTING_VPN_SECRETS << ": " << secrets();
+    dbg.nospace() << NM_SETTING_VPN_SERVICE_TYPE << ": " << setting.serviceType() << '\n';
+    dbg.nospace() << NM_SETTING_VPN_USER_NAME << ": " << setting.username() << '\n';
+    dbg.nospace() << NM_SETTING_VPN_DATA << ": " << setting.data() << '\n';
+    dbg.nospace() << NM_SETTING_VPN_SECRETS << ": " << setting.secrets() << '\n';
+
+    return dbg.maybeSpace();
 }

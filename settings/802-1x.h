@@ -159,11 +159,12 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     Security8021xSettingPrivate *d_ptr;
 };
+
+QDebug operator<<(QDebug dbg, const Security8021xSetting &setting);
+
 }
 }
 

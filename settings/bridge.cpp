@@ -229,15 +229,17 @@ QVariantMap NetworkManager::Settings::BridgeSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::BridgeSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::BridgeSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_BRIDGE_INTERFACE_NAME << ": " << interfaceName();
-    qDebug() << NM_SETTING_BRIDGE_STP << ": " << stp();
-    qDebug() << NM_SETTING_BRIDGE_PRIORITY << ": " << priority();
-    qDebug() << NM_SETTING_BRIDGE_FORWARD_DELAY << ": " << forwardDelay();
-    qDebug() << NM_SETTING_BRIDGE_HELLO_TIME << ": " << helloTime();
-    qDebug() << NM_SETTING_BRIDGE_MAX_AGE << ": " << maxAge();
-    qDebug() << NM_SETTING_BRIDGE_AGEING_TIME << ": " << agingTime();
+    dbg.nospace() << NM_SETTING_BRIDGE_INTERFACE_NAME << ": " << setting.interfaceName() << '\n';
+    dbg.nospace() << NM_SETTING_BRIDGE_STP << ": " << setting.stp() << '\n';
+    dbg.nospace() << NM_SETTING_BRIDGE_PRIORITY << ": " << setting.priority() << '\n';
+    dbg.nospace() << NM_SETTING_BRIDGE_FORWARD_DELAY << ": " << setting.forwardDelay() << '\n';
+    dbg.nospace() << NM_SETTING_BRIDGE_HELLO_TIME << ": " << setting.helloTime() << '\n';
+    dbg.nospace() << NM_SETTING_BRIDGE_MAX_AGE << ": " << setting.maxAge() << '\n';
+    dbg.nospace() << NM_SETTING_BRIDGE_AGEING_TIME << ": " << setting.agingTime() << '\n';
+
+    return dbg.maybeSpace();
 }

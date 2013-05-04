@@ -202,14 +202,16 @@ QVariantMap NetworkManager::Settings::VlanSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::VlanSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::VlanSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_VLAN_INTERFACE_NAME << ": " << interfaceName();
-    qDebug() << NM_SETTING_VLAN_PARENT << ": " << parent();
-    qDebug() << NM_SETTING_VLAN_ID << ": " << id();
-    qDebug() << NM_SETTING_VLAN_FLAGS << ": " << flags();
-    qDebug() << NM_SETTING_VLAN_INGRESS_PRIORITY_MAP << ": " << ingressPriorityMap();
-    qDebug() << NM_SETTING_VLAN_EGRESS_PRIORITY_MAP << ": " << egressPriorityMap();
+    dbg.nospace() << NM_SETTING_VLAN_INTERFACE_NAME << ": " << setting.interfaceName() << '\n';
+    dbg.nospace() << NM_SETTING_VLAN_PARENT << ": " << setting.parent() << '\n';
+    dbg.nospace() << NM_SETTING_VLAN_ID << ": " << setting.id() << '\n';
+    dbg.nospace() << NM_SETTING_VLAN_FLAGS << ": " << setting.flags() << '\n';
+    dbg.nospace() << NM_SETTING_VLAN_INGRESS_PRIORITY_MAP << ": " << setting.ingressPriorityMap() << '\n';
+    dbg.nospace() << NM_SETTING_VLAN_EGRESS_PRIORITY_MAP << ": " << setting.egressPriorityMap() << '\n';
+
+    return dbg.maybeSpace();
 }

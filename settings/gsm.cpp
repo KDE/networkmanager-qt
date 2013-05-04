@@ -361,20 +361,21 @@ QVariantMap NetworkManager::Settings::GsmSetting::toMap() const
     return setting;
 }
 
-
-void NetworkManager::Settings::GsmSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::GsmSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_GSM_NUMBER << ": " << number();
-    qDebug() << NM_SETTING_GSM_USERNAME << ": " << username();
-    qDebug() << NM_SETTING_GSM_PASSWORD << ": " << password();
-    qDebug() << NM_SETTING_GSM_PASSWORD_FLAGS << ": " << passwordFlags();
-    qDebug() << NM_SETTING_GSM_APN << ": " << apn();
-    qDebug() << NM_SETTING_GSM_NETWORK_ID << ": " << networkId();
-    qDebug() << NM_SETTING_GSM_NETWORK_TYPE << ": " << networkType();
-    qDebug() << NM_SETTING_GSM_ALLOWED_BANDS << ": " << allowedBand();
-    qDebug() << NM_SETTING_GSM_PIN << ": " << pin();
-    qDebug() << NM_SETTING_GSM_PIN_FLAGS << ": " << pinFlags();
-    qDebug() << NM_SETTING_GSM_HOME_ONLY << ": " << homeOnly();
+    dbg.nospace() << NM_SETTING_GSM_NUMBER << ": " << setting.number() << '\n';
+    dbg.nospace() << NM_SETTING_GSM_USERNAME << ": " << setting.username() << '\n';
+    dbg.nospace() << NM_SETTING_GSM_PASSWORD << ": " << setting.password() << '\n';
+    dbg.nospace() << NM_SETTING_GSM_PASSWORD_FLAGS << ": " << setting.passwordFlags() << '\n';
+    dbg.nospace() << NM_SETTING_GSM_APN << ": " << setting.apn() << '\n';
+    dbg.nospace() << NM_SETTING_GSM_NETWORK_ID << ": " << setting.networkId() << '\n';
+    dbg.nospace() << NM_SETTING_GSM_NETWORK_TYPE << ": " << setting.networkType() << '\n';
+    dbg.nospace() << NM_SETTING_GSM_ALLOWED_BANDS << ": " << setting.allowedBand() << '\n';
+    dbg.nospace() << NM_SETTING_GSM_PIN << ": " << setting.pin() << '\n';
+    dbg.nospace() << NM_SETTING_GSM_PIN_FLAGS << ": " << setting.pinFlags() << '\n';
+    dbg.nospace() << NM_SETTING_GSM_HOME_ONLY << ": " << setting.homeOnly() << '\n';
+
+    return dbg.maybeSpace();
 }

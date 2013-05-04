@@ -66,11 +66,12 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     CdmaSettingPrivate * d_ptr;
 };
+
+QDebug operator<<(QDebug dbg, const CdmaSetting &setting);
+
 }
 }
 

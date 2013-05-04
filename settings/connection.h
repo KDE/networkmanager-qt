@@ -120,8 +120,6 @@ public:
 
     Setting::List settings() const;
 
-    void printSetting();
-
 protected:
     ConnectionSettingsPrivate *d_ptr;
 
@@ -131,6 +129,9 @@ private:
     void initSettings(NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
     void initSettings(const Ptr &connectionSettings);
 };
+
+QDebug operator<<(QDebug dbg, const ConnectionSettings &setting);
+
 }
 }
 

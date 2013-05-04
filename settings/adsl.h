@@ -74,11 +74,12 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     AdslSettingPrivate * d_ptr;
 };
+
+QDebug operator<<(QDebug dbg, const AdslSetting &setting);
+
 }
 }
 

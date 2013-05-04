@@ -88,11 +88,11 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     Ipv4SettingPrivate * d_ptr;
 };
+
+QDebug operator<<(QDebug dbg, const Ipv4Setting &setting);
 
 }
 }

@@ -373,19 +373,21 @@ QVariantMap NetworkManager::Settings::WiredSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::WiredSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::WiredSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_WIRED_PORT << ": " << port();
-    qDebug() << NM_SETTING_WIRED_SPEED << ": " << speed();
-    qDebug() << NM_SETTING_WIRED_DUPLEX << ": " << duplexType();
-    qDebug() << NM_SETTING_WIRED_AUTO_NEGOTIATE << ": " << autoNegotiate();
-    qDebug() << NM_SETTING_WIRED_MAC_ADDRESS << ": " << macAddress();
-    qDebug() << NM_SETTING_WIRED_CLONED_MAC_ADDRESS << ": " << clonedMacAddress();
-    qDebug() << NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST << ": " << macAddressBlacklist();
-    qDebug() << NM_SETTING_WIRED_MTU << ": " << mtu();
-    qDebug() << NM_SETTING_WIRED_S390_SUBCHANNELS << ": " << s390Subchannels();
-    qDebug() << NM_SETTING_WIRED_S390_NETTYPE << ": " << s390NetType();
-    qDebug() << NM_SETTING_WIRED_S390_OPTIONS << ": " << s390Options();
+    dbg.nospace() << NM_SETTING_WIRED_PORT << ": " << setting.port() << '\n';
+    dbg.nospace() << NM_SETTING_WIRED_SPEED << ": " << setting.speed() << '\n';
+    dbg.nospace() << NM_SETTING_WIRED_DUPLEX << ": " << setting.duplexType() << '\n';
+    dbg.nospace() << NM_SETTING_WIRED_AUTO_NEGOTIATE << ": " << setting.autoNegotiate() << '\n';
+    dbg.nospace() << NM_SETTING_WIRED_MAC_ADDRESS << ": " << setting.macAddress() << '\n';
+    dbg.nospace() << NM_SETTING_WIRED_CLONED_MAC_ADDRESS << ": " << setting.clonedMacAddress() << '\n';
+    dbg.nospace() << NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST << ": " << setting.macAddressBlacklist() << '\n';
+    dbg.nospace() << NM_SETTING_WIRED_MTU << ": " << setting.mtu() << '\n';
+    dbg.nospace() << NM_SETTING_WIRED_S390_SUBCHANNELS << ": " << setting.s390Subchannels() << '\n';
+    dbg.nospace() << NM_SETTING_WIRED_S390_NETTYPE << ": " << setting.s390NetType() << '\n';
+    dbg.nospace() << NM_SETTING_WIRED_S390_OPTIONS << ": " << setting.s390Options() << '\n';
+
+    return dbg.maybeSpace();
 }

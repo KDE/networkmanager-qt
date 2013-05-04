@@ -89,11 +89,11 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     GsmSettingPrivate * d_ptr;
 };
+
+QDebug operator<<(QDebug dbg, const GsmSetting &setting);
 
 }
 }

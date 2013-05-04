@@ -187,12 +187,14 @@ QVariantMap NetworkManager::Settings::CdmaSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::CdmaSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::CdmaSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_CDMA_NUMBER << ": " << number();
-    qDebug() << NM_SETTING_CDMA_USERNAME << ": " << username();
-    qDebug() << NM_SETTING_CDMA_PASSWORD << ": " << password();
-    qDebug() << NM_SETTING_CDMA_PASSWORD_FLAGS << ": " << passwordFlags();
+    dbg.nospace() << NM_SETTING_CDMA_NUMBER << ": " << setting.number() << '\n';
+    dbg.nospace() << NM_SETTING_CDMA_USERNAME << ": " << setting.username() << '\n';
+    dbg.nospace() << NM_SETTING_CDMA_PASSWORD << ": " << setting.password() << '\n';
+    dbg.nospace() << NM_SETTING_CDMA_PASSWORD_FLAGS << ": " << setting.passwordFlags() << '\n';
+
+    return dbg.maybeSpace();
 }

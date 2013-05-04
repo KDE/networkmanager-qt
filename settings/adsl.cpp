@@ -271,15 +271,17 @@ QVariantMap NetworkManager::Settings::AdslSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::AdslSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::AdslSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_ADSL_USERNAME << ": " << username();
-    qDebug() << NM_SETTING_ADSL_PASSWORD << ": " << password();
-    qDebug() << NM_SETTING_ADSL_PASSWORD_FLAGS << ": " << passwordFlags();
-    qDebug() << NM_SETTING_ADSL_PROTOCOL << ": " << protocol();
-    qDebug() << NM_SETTING_ADSL_ENCAPSULATION << ": " << encapsulation();
-    qDebug() << NM_SETTING_ADSL_VPI << ": " << vpi();
-    qDebug() << NM_SETTING_ADSL_VCI << ": " << vci();
+    dbg.nospace() << NM_SETTING_ADSL_USERNAME << ": " << setting.username() << '\n';
+    dbg.nospace() << NM_SETTING_ADSL_PASSWORD << ": " << setting.password() << '\n';
+    dbg.nospace() << NM_SETTING_ADSL_PASSWORD_FLAGS << ": " << setting.passwordFlags() << '\n';
+    dbg.nospace() << NM_SETTING_ADSL_PROTOCOL << ": " << setting.protocol() << '\n';
+    dbg.nospace() << NM_SETTING_ADSL_ENCAPSULATION << ": " << setting.encapsulation() << '\n';
+    dbg.nospace() << NM_SETTING_ADSL_VPI << ": " << setting.vpi() << '\n';
+    dbg.nospace() << NM_SETTING_ADSL_VCI << ": " << setting.vci() << '\n';
+
+    return dbg.maybeSpace();
 }

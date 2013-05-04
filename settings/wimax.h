@@ -55,11 +55,12 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     WimaxSettingPrivate * d_ptr;
 };
+
+QDebug operator<<(QDebug dbg, const WimaxSetting &setting);
+
 }
 }
 

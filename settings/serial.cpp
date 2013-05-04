@@ -194,13 +194,15 @@ QVariantMap NetworkManager::Settings::SerialSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::SerialSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::SerialSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_SERIAL_BAUD << ": " << baud();
-    qDebug() << NM_SETTING_SERIAL_BITS << ": " << bits();
-    qDebug() << NM_SETTING_SERIAL_PARITY << ": " << parity();
-    qDebug() << NM_SETTING_SERIAL_STOPBITS << ": " << stopbits();
-    qDebug() << NM_SETTING_SERIAL_SEND_DELAY << ": " << sendDelay();
+    dbg.nospace() << NM_SETTING_SERIAL_BAUD << ": " << setting.baud() << '\n';
+    dbg.nospace() << NM_SETTING_SERIAL_BITS << ": " << setting.bits() << '\n';
+    dbg.nospace() << NM_SETTING_SERIAL_PARITY << ": " << setting.parity() << '\n';
+    dbg.nospace() << NM_SETTING_SERIAL_STOPBITS << ": " << setting.stopbits() << '\n';
+    dbg.nospace() << NM_SETTING_SERIAL_SEND_DELAY << ": " << setting.sendDelay() << '\n';
+
+    return dbg.maybeSpace();
 }

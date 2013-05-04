@@ -83,11 +83,11 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     Ipv6SettingPrivate * d_ptr;
 };
+
+QDebug operator<<(QDebug dbg, const Ipv6Setting &setting);
 
 }
 }

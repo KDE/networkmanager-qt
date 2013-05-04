@@ -132,11 +132,13 @@ QVariantMap NetworkManager::Settings::OlpcMeshSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::OlpcMeshSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::OlpcMeshSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_OLPC_MESH_SSID << ": " << ssid();
-    qDebug() << NM_SETTING_OLPC_MESH_CHANNEL << ": " << channel();
-    qDebug() << NM_SETTING_OLPC_MESH_DHCP_ANYCAST_ADDRESS << ": " << dhcpAnycastAddress();
+    dbg.nospace() << NM_SETTING_OLPC_MESH_SSID << ": " << setting.ssid() << '\n';
+    dbg.nospace() << NM_SETTING_OLPC_MESH_CHANNEL << ": " << setting.channel() << '\n';
+    dbg.nospace() << NM_SETTING_OLPC_MESH_DHCP_ANYCAST_ADDRESS << ": " << setting.dhcpAnycastAddress() << '\n';
+
+    return dbg.maybeSpace();
 }

@@ -460,29 +460,31 @@ QVariantMap NetworkManager::Settings::Ipv4Setting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::Ipv4Setting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::Ipv4Setting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_IP4_CONFIG_METHOD << ": " << method();
-    qDebug() << NM_SETTING_IP4_CONFIG_DNS << ": ";
-    foreach(const QHostAddress & address, dns()) {
-        qDebug() << address.toString() << ", ";
+    dbg.nospace() << NM_SETTING_IP4_CONFIG_METHOD << ": " << setting.method() << '\n';
+    dbg.nospace() << NM_SETTING_IP4_CONFIG_DNS << ":\n";
+    foreach(const QHostAddress & address, setting.dns()) {
+        dbg.nospace() << address.toString() << '\n';
     }
-    qDebug() << NM_SETTING_IP4_CONFIG_DNS_SEARCH << ": " << dnsSearch();
-    qDebug() << NM_SETTING_IP4_CONFIG_ADDRESSES << ": ";
-    foreach(const NetworkManager::IpAddress & address, addresses()) {
-        qDebug() << address.ip() << ": " << address.gateway() << ": " << address.netmask()  << ", ";
+    dbg.nospace() << NM_SETTING_IP4_CONFIG_DNS_SEARCH << ": " << setting.dnsSearch() << '\n';
+    dbg.nospace() << NM_SETTING_IP4_CONFIG_ADDRESSES << '\n';
+    foreach(const NetworkManager::IpAddress & address, setting.addresses()) {
+        dbg.nospace() << address.ip() << ": " << address.gateway() << ": " << address.netmask() << '\n';
     }
-    qDebug() << NM_SETTING_IP4_CONFIG_ROUTES << ": ";
-    foreach(const NetworkManager::IpRoute & route, routes()) {
-        qDebug() << route.ip() << ": " << route.netmask() << ": " << route.nextHop() << ": " << route.metric() << ", ";
+    dbg.nospace() << NM_SETTING_IP4_CONFIG_ROUTES << '\n';
+    foreach(const NetworkManager::IpRoute & route, setting.routes()) {
+        dbg.nospace() << route.ip() << ": " << route.netmask() << ": " << route.nextHop() << ": " << route.metric() << '\n';
     }
-    qDebug() << NM_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES << ": " << ignoreAutoRoutes();
-    qDebug() << NM_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS << ": " << ignoreAutoDns();
-    qDebug() << NM_SETTING_IP4_CONFIG_DHCP_CLIENT_ID << ": " << dhcpClientId();
-    qDebug() << NM_SETTING_IP4_CONFIG_DHCP_SEND_HOSTNAME << ": " << dhcpSendHostname();
-    qDebug() << NM_SETTING_IP4_CONFIG_DHCP_HOSTNAME << ": " << dhcpHostname();
-    qDebug() << NM_SETTING_IP4_CONFIG_NEVER_DEFAULT << ": " << neverDefault();
-    qDebug() << NM_SETTING_IP4_CONFIG_MAY_FAIL << ": " << mayFail();
+    dbg.nospace() << NM_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES << ": " << setting.ignoreAutoRoutes() << '\n';
+    dbg.nospace() << NM_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS << ": " << setting.ignoreAutoDns() << '\n';
+    dbg.nospace() << NM_SETTING_IP4_CONFIG_DHCP_CLIENT_ID << ": " << setting.dhcpClientId() << '\n';
+    dbg.nospace() << NM_SETTING_IP4_CONFIG_DHCP_SEND_HOSTNAME << ": " << setting.dhcpSendHostname() << '\n';
+    dbg.nospace() << NM_SETTING_IP4_CONFIG_DHCP_HOSTNAME << ": " << setting.dhcpHostname() << '\n';
+    dbg.nospace() << NM_SETTING_IP4_CONFIG_NEVER_DEFAULT << ": " << setting.neverDefault() << '\n';
+    dbg.nospace() << NM_SETTING_IP4_CONFIG_MAY_FAIL << ": " << setting.mayFail() << '\n';
+
+    return dbg.maybeSpace();
 }

@@ -63,11 +63,12 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     BondSettingPrivate * d_ptr;
 };
+
+QDebug operator<<(QDebug dbg, const BondSetting &setting);
+
 }
 }
 

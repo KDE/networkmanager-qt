@@ -57,11 +57,11 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     OlpcMeshSettingPrivate * d_ptr;
 };
+
+QDebug operator<<(QDebug dbg, const OlpcMeshSetting &setting);
 
 }
 }

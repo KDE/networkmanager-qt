@@ -85,11 +85,12 @@ public:
 
     QVariantMap toMap() const;
 
-    void printSetting();
-
 protected:
     WiredSettingPrivate *d_ptr;
 };
+
+QDebug operator<<(QDebug dbg, const WiredSetting &setting);
+
 }
 }
 

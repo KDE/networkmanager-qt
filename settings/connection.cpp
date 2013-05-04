@@ -719,32 +719,6 @@ NetworkManager::Settings::Setting::List NetworkManager::Settings::ConnectionSett
     return d->settings;
 }
 
-//FOR DEBUG
-void NetworkManager::Settings::ConnectionSettings::printSetting()
-{
-    qDebug() << "CONNECTION SETTINGS";
-    qDebug() << "===================";
-
-    qDebug() << NM_SETTING_CONNECTION_ID << ": " << id();
-    qDebug() << NM_SETTING_CONNECTION_UUID << ": " << uuid();
-    qDebug() << NM_SETTING_CONNECTION_TYPE << ": " << typeAsString(connectionType());
-    qDebug() << NM_SETTING_CONNECTION_PERMISSIONS << ": " << permissions();
-    qDebug() << NM_SETTING_CONNECTION_AUTOCONNECT << ": " << autoconnect();
-    qDebug() << NM_SETTING_CONNECTION_TIMESTAMP << ": " << timestamp().toTime_t();
-    qDebug() << NM_SETTING_CONNECTION_READ_ONLY << ": " << readOnly();
-    qDebug() << NM_SETTING_CONNECTION_ZONE << ": " << zone();
-    qDebug() << NM_SETTING_CONNECTION_MASTER << ": " << master();
-    qDebug() << NM_SETTING_CONNECTION_SLAVE_TYPE << ": " << slaveType();
-    qDebug() << NM_SETTING_CONNECTION_SECONDARIES << ": " << secondaries();
-    qDebug() << "===================";
-    foreach(const Setting::Ptr &setting, settings()) {
-        qDebug() << setting->typeAsString(setting->type()).toUpper() << " SETTINGS";
-        qDebug() << "---------------------------";
-        setting->printSetting();
-        qDebug() << "\n";
-    }
-}
-
 void NetworkManager::Settings::ConnectionSettings::addSetting(const NetworkManager::Settings::Setting::Ptr &setting)
 {
     Q_D(ConnectionSettings);
@@ -757,4 +731,30 @@ void NetworkManager::Settings::ConnectionSettings::clearSettings()
     Q_D(ConnectionSettings);
 
     d->settings.clear();
+}
+
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::ConnectionSettings &setting)
+{
+    dbg.nospace() << "CONNECTION SETTINGS\n";
+    dbg.nospace() << "===================\n";
+
+    dbg.nospace() << NM_SETTING_CONNECTION_ID << ": " << setting.id() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_UUID << ": " << setting.uuid() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_TYPE << ": " << setting.typeAsString(setting.connectionType()) << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_PERMISSIONS << ": " << setting.permissions() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_AUTOCONNECT << ": " << setting.autoconnect() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_TIMESTAMP << ": " << setting.timestamp().toTime_t() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_READ_ONLY << ": " << setting.readOnly() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_ZONE << ": " << setting.zone() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_MASTER << ": " << setting.master() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_SLAVE_TYPE << ": " << setting.slaveType() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_SECONDARIES << ": " << setting.secondaries() << '\n';
+    dbg.nospace() << "===================\n";
+    foreach(const Setting::Ptr &settingPtr, setting.settings()) {
+        dbg.nospace() << settingPtr->typeAsString(settingPtr->type()).toUpper() << " SETTINGS\n";
+        dbg.nospace() << "---------------------------\n";
+        dbg.nospace() << *settingPtr.data();
+        dbg.nospace() << '\n';
+    }
+    return dbg.maybeSpace();
 }

@@ -134,11 +134,13 @@ QVariantMap NetworkManager::Settings::BridgePortSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::BridgePortSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::BridgePortSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_BRIDGE_PORT_PRIORITY << ": " << priority();
-    qDebug() << NM_SETTING_BRIDGE_PORT_PATH_COST << ": " << pathCost();
-    qDebug() << NM_SETTING_BRIDGE_PORT_PATH_COST << ": " << hairpinMode();
+    dbg.nospace() << NM_SETTING_BRIDGE_PORT_PRIORITY << ": " << setting.priority() << '\n';
+    dbg.nospace() << NM_SETTING_BRIDGE_PORT_PATH_COST << ": " << setting.pathCost() << '\n';
+    dbg.nospace() << NM_SETTING_BRIDGE_PORT_PATH_COST << ": " << setting.hairpinMode() << '\n';
+
+    return dbg.maybeSpace();
 }

@@ -184,12 +184,14 @@ QVariantMap NetworkManager::Settings::PppoeSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::PppoeSetting::printSetting()
+QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::PppoeSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
 
-    qDebug() << NM_SETTING_PPPOE_SERVICE << ": " << service();
-    qDebug() << NM_SETTING_PPPOE_USERNAME << ": " << username();
-    qDebug() << NM_SETTING_PPPOE_PASSWORD << ": " << password();
-    qDebug() << NM_SETTING_PPPOE_PASSWORD_FLAGS << ": " << passwordFlags();
+    dbg.nospace() << NM_SETTING_PPPOE_SERVICE << ": " << setting.service() << '\n';
+    dbg.nospace() << NM_SETTING_PPPOE_USERNAME << ": " << setting.username() << '\n';
+    dbg.nospace() << NM_SETTING_PPPOE_PASSWORD << ": " << setting.password() << '\n';
+    dbg.nospace() << NM_SETTING_PPPOE_PASSWORD_FLAGS << ": " << setting.passwordFlags() << '\n';
+
+    return dbg.maybeSpace();
 }
