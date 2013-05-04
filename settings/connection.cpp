@@ -148,7 +148,7 @@ QString NetworkManager::Settings::ConnectionSettings::typeAsString(NetworkManage
         typeString = QLatin1String(NM_SETTING_VPN_SETTING_NAME);
         break;
     case Wimax:
-        typeString = QLatin1String(NM_SETTING_WIRED_SETTING_NAME);
+        typeString = QLatin1String(NM_SETTING_WIMAX_SETTING_NAME);
         break;
     case Wired:
         typeString = QLatin1String(NM_SETTING_WIRED_SETTING_NAME);
