@@ -33,3 +33,5 @@ install(FILES
    ${NetworkManagerQt_CAMEL_HEADERS}
    DESTINATION
    include/NetworkManagerQt COMPONENT Devel)
+
+add_subdirectory(settings)
