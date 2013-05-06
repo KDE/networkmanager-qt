@@ -23,6 +23,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "wirelessdevice.h"
 
+#include <QPointer>
+
 namespace NetworkManager {
 
 class WirelessNetworkPrivate
@@ -30,7 +32,7 @@ class WirelessNetworkPrivate
 public:
     QString ssid;
     int strength;
-    WirelessDevice *wirelessNetworkInterface;
+    QPointer<WirelessDevice> wirelessNetworkInterface;
     QHash<QString, AccessPoint::Ptr> aps;
 };
 

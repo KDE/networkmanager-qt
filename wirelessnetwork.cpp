@@ -25,7 +25,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "manager.h"
 
 NetworkManager::WirelessNetwork::WirelessNetwork(const AccessPoint::Ptr &accessPoint, WirelessDevice *device) :
-    QObject(device),
     d_ptr(new WirelessNetworkPrivate)
 {
     Q_D(WirelessNetwork);
@@ -60,7 +59,7 @@ int NetworkManager::WirelessNetwork::signalStrength() const
 void NetworkManager::WirelessNetwork::accessPointAppeared(const QString &uni)
 {
     Q_D(const WirelessNetwork);
-    if (!d->aps.contains(uni)) {
+    if (!d->aps.contains(uni) && d->wirelessNetworkInterface) {
         NetworkManager::AccessPoint::Ptr accessPoint = d->wirelessNetworkInterface->findAccessPoint(uni);
         if (accessPoint && accessPoint->ssid() == d->ssid) {
             addAccessPointInternal(accessPoint);
