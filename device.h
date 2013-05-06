@@ -205,14 +205,14 @@ public:
      * or a null pointer if the device is not Activated or does not
      * use DHCP configuration.
      */
-    Dhcp4Config::Ptr dhcp4Config();
+    Dhcp4Config::Ptr dhcp4Config() const;
 
     /**
      * Get the DHCP options returned by the DHCP server
      * or a null pointer if the device is not Activated or does not
      * use DHCP configuration.
      */
-    Dhcp6Config::Ptr dhcp6Config();
+    Dhcp6Config::Ptr dhcp6Config() const;
 
     /**
      * Retrieves the activation status of this network interface.

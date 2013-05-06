@@ -50,8 +50,10 @@ public:
     QString interfaceName;
     QString ipInterface;
     bool firmwareMissing;
-    Dhcp4Config::Ptr dhcp4Config;
-    Dhcp6Config::Ptr dhcp6Config;
+    mutable Dhcp4Config::Ptr dhcp4Config;
+    QString dhcp4ConfigPath;
+    mutable Dhcp6Config::Ptr dhcp6Config;
+    QString dhcp6ConfigPath;
     QString driverVersion;
     QString firmwareVersion;
     QStringList availableConnections;

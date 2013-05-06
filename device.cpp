@@ -111,14 +111,14 @@ NetworkManager::DevicePrivate::DevicePrivate( const QString & path) : deviceIfac
         availableConnections << availableConnection.path();
     }
 
-    QDBusObjectPath dhcp4ConfigPath = deviceIface.dhcp4Config();
-    if (!dhcp4ConfigPath.path().isNull()) {
-        dhcp4Config = NetworkManager::Dhcp4Config::Ptr(new Dhcp4Config(dhcp4ConfigPath.path()));
+    QDBusObjectPath dhcp4ConfigObjectPath = deviceIface.dhcp4Config();
+    if (!dhcp4ConfigObjectPath.path().isNull()) {
+        dhcp4ConfigPath = dhcp4ConfigObjectPath.path();
     }
 
-    QDBusObjectPath dhcp6ConfigPath = deviceIface.dhcp6Config();
-    if (!dhcp6ConfigPath.path().isNull()) {
-        dhcp6Config = NetworkManager::Dhcp6Config::Ptr(new Dhcp6Config(dhcp6ConfigPath.path()));
+    QDBusObjectPath dhcp6ConfigObjectPath = deviceIface.dhcp6Config();
+    if (!dhcp6ConfigObjectPath.path().isNull()) {
+        dhcp6ConfigPath = dhcp6ConfigObjectPath.path();
     }
 }
 
@@ -210,16 +210,20 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
         QDBusObjectPath dhcp4ConfigPath = value.value<QDBusObjectPath>();
         if (dhcp4ConfigPath.path().isNull()) {
             d->dhcp4Config.clear();
+            d->dhcp4ConfigPath.clear();
         } else if (!d->dhcp4Config || d->dhcp4Config->path() != dhcp4ConfigPath.path()) {
-            d->dhcp4Config = NetworkManager::Dhcp4Config::Ptr(new Dhcp4Config(dhcp4ConfigPath.path()));
+            d->dhcp4Config.clear();
+            d->dhcp4ConfigPath = dhcp4ConfigPath.path();
         }
         emit dhcp4ConfigChanged();
     } else if (property == QLatin1String("Dhcp6Config")) {
         QDBusObjectPath dhcp6ConfigPath = value.value<QDBusObjectPath>();
         if (dhcp6ConfigPath.path().isNull()) {
             d->dhcp6Config.clear();
+            d->dhcp6ConfigPath.clear();
         } else if (!d->dhcp6Config || d->dhcp6Config->path() != dhcp6ConfigPath.path()) {
-            d->dhcp6Config = NetworkManager::Dhcp6Config::Ptr(new Dhcp6Config(dhcp6ConfigPath.path()));
+            d->dhcp6Config.clear();
+            d->dhcp6ConfigPath = dhcp6ConfigPath.path();
         }
         emit dhcp6ConfigChanged();
     } else if (property == QLatin1String("Driver")) {
@@ -490,15 +494,21 @@ NetworkManager::IpConfig NetworkManager::Device::ipV6Config() const
     }
 }
 
-NetworkManager::Dhcp4Config::Ptr NetworkManager::Device::dhcp4Config()
+NetworkManager::Dhcp4Config::Ptr NetworkManager::Device::dhcp4Config() const
 {
-    Q_D(Device);
+    Q_D(const Device);
+    if (!d->dhcp4Config && !d->dhcp4ConfigPath.isNull()) {
+        d->dhcp4Config = NetworkManager::Dhcp4Config::Ptr(new Dhcp4Config(d->dhcp4ConfigPath));
+    }
     return d->dhcp4Config;
 }
 
-NetworkManager::Dhcp6Config::Ptr NetworkManager::Device::dhcp6Config()
+NetworkManager::Dhcp6Config::Ptr NetworkManager::Device::dhcp6Config() const
 {
-    Q_D(Device);
+    Q_D(const Device);
+    if (!d->dhcp6Config && !d->dhcp6ConfigPath.isNull()) {
+        d->dhcp6Config = NetworkManager::Dhcp6Config::Ptr(new Dhcp6Config(d->dhcp6ConfigPath));
+    }
     return d->dhcp6Config;
 }
 
