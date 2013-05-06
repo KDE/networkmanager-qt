@@ -111,6 +111,7 @@ void NetworkManager::NetworkManagerPrivate::init()
         foreach (const QDBusObjectPath &ac, activeConnections)
         {
             m_activeConnections.insert(ac.path(), NetworkManager::ActiveConnection::Ptr());
+            emit activeConnectionAdded(ac.path());
             nmDebug() << "    " << ac.path();
         }
         emit activeConnectionsChanged();
@@ -182,12 +183,16 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::fin
 {
     NetworkManager::ActiveConnection::Ptr activeConnection;
     if (!uni.isEmpty()) {
-        if (m_activeConnections.contains(uni) && m_activeConnections.value(uni)) {
+        bool contains = m_activeConnections.contains(uni);
+        if (contains && m_activeConnections.value(uni)) {
             activeConnection = m_activeConnections.value(uni);
         } else {
             activeConnection = NetworkManager::ActiveConnection::Ptr(new NetworkManager::VpnConnection(uni));
             if (activeConnection->isValid()) {
                 m_activeConnections[uni] = activeConnection;
+                if (!contains) {
+                    emit activeConnectionAdded(uni);
+                }
             } else {
                 activeConnection.clear();
             }
@@ -500,12 +505,16 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
         if (property == QLatin1String("ActiveConnections")) {
             QList<QDBusObjectPath> activePaths = qdbus_cast< QList<QDBusObjectPath> >(*it);
             if (activePaths.isEmpty()) {
+                foreach (const QString &path, m_activeConnections.keys()) {
+                    emit activeConnectionRemoved(path);
+                }
                 m_activeConnections.clear();
             } else {
                 QStringList knownConnections = m_activeConnections.keys();
                 foreach (const QDBusObjectPath &ac, activePaths) {
                     if (!m_activeConnections.contains(ac.path())) {
                         m_activeConnections.insert(ac.path(), NetworkManager::ActiveConnection::Ptr());
+                        emit activeConnectionAdded(ac.path());
                     } else {
                         knownConnections.removeOne(ac.path());
                     }
@@ -513,6 +522,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
                 }
                 foreach (const QString &path, knownConnections) {
                     m_activeConnections.remove(path);
+                    emit activeConnectionRemoved(path);
                 }
             }
             emit activeConnectionsChanged();
@@ -603,6 +613,10 @@ void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
         ++i;
     }
     networkInterfaceMap.clear();
+
+    foreach (const QString &path, m_activeConnections.keys()) {
+        emit activeConnectionRemoved(path);
+    }
     m_activeConnections.clear();
     emit activeConnectionsChanged();
     emit serviceDisappeared();

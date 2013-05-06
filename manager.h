@@ -106,6 +106,14 @@ namespace NetworkManager {
      */
     void networkingEnabledChanged(bool);
     /**
+     * This signal is emitted when a new connection was made active
+     */
+    void activeConnectionAdded(const QString &path);
+    /**
+     * This signal is emitted when an active connection is no longer active
+     */
+    void activeConnectionRemoved(const QString &path);
+    /**
      * This signal is emitted when the set of active connections changes
      */
      void activeConnectionsChanged();
