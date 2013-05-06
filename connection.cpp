@@ -40,7 +40,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "manager_p.h"
 #include "device.h"
-#include "activeconnection.h"
 #include "nm-settings-connectioninterface.h"
 #include "generic-types.h"
 
@@ -141,18 +140,6 @@ void NetworkManager::Settings::Connection::onSecretsArrived(QDBusPendingCallWatc
     }
     emit gotSecrets(id, success, set, message);
     watcher->deleteLater();
-}
-
-bool NetworkManager::Settings::Connection::active() const
-{
-    Q_D(const Connection);
-    ActiveConnection::List activeConnections = NetworkManager::activeConnections();
-    foreach (const ActiveConnection::Ptr &activeConnection, activeConnections) {
-        if (activeConnection->connection() == this) {
-            return true;
-        }
-    }
-    return false;
 }
 
 void NetworkManager::Settings::Connection::update(const NMVariantMapMap &settings)

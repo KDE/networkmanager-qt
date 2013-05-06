@@ -84,11 +84,6 @@ namespace Settings
          */
         void secrets(const QString &setting);
 
-        /**
-         * Informs if the current connection is in use
-         * @return true if in use
-         */
-        bool active() const;
         void update(const NMVariantMapMap &);
 
         /**
