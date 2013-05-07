@@ -204,14 +204,9 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::fin
 NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetworkInterface(const QString &uni)
 {
     //nmDebug();
-    NetworkManager::Device::Ptr createdInterface;
-    NetworkManager::Device device(uni);
-    if (!device.isValid()) {
-        qWarning() << Q_FUNC_INFO << "Failed to create device interface:" << uni;
-        return createdInterface;
-    }
-
-    switch (device.type()) {
+    Device::Ptr createdInterface;
+    Device::Ptr device(new Device(uni));
+    switch (device->type()) {
     case Device::Ethernet:
         createdInterface = Device::Ptr(new NetworkManager::WiredDevice(uni));
         break;
@@ -246,8 +241,9 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
         createdInterface = Device::Ptr(new NetworkManager::BridgeDevice(uni));
         break;
     default:
+        createdInterface = device;
         if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
-            nmDebug() << "libNetworkManagerQt: Can't create object of type " << device.type() << "for" << uni << device.isValid();
+            nmDebug() << "libNetworkManagerQt: Can't create object of type " << device->type() << "for" << uni;
         }
         break;
     }
