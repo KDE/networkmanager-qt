@@ -161,6 +161,11 @@ NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::SettingsPriv
             connections[path] = ret;
             connect(ret.data(), SIGNAL(removed(QString)), this, SLOT(onConnectionRemoved(QString)));
         }
+    } else if (!path.isEmpty()) {
+        ret = Connection::Ptr(new Connection(path));
+        connections[path] = ret;
+        connect(ret.data(), SIGNAL(removed(QString)), this, SLOT(onConnectionRemoved(QString)));
+        emit connectionAdded(path);
     }
     return ret;
 }
