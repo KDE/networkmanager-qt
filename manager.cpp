@@ -182,15 +182,19 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::findRegistere
 NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::findRegisteredActiveConnection(const QString &uni)
 {
     NetworkManager::ActiveConnection::Ptr activeConnection;
-    if (!uni.isEmpty()) {
+    if (!uni.isEmpty() && uni != QLatin1String("/")) {
         bool contains = m_activeConnections.contains(uni);
         if (contains && m_activeConnections.value(uni)) {
             activeConnection = m_activeConnections.value(uni);
         } else {
-            activeConnection = NetworkManager::ActiveConnection::Ptr(new NetworkManager::VpnConnection(uni));
-            m_activeConnections[uni] = activeConnection;
-            if (!contains) {
-                emit activeConnectionAdded(uni);
+            activeConnection = NetworkManager::ActiveConnection::Ptr(new NetworkManager::VpnConnection(uni), &QObject::deleteLater);
+            if (activeConnection->connection()) {
+                m_activeConnections[uni] = activeConnection;
+                if (!contains) {
+                    emit activeConnectionAdded(uni);
+                }
+            } else {
+                activeConnection.clear();
             }
         }
     }

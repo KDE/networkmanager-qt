@@ -153,19 +153,18 @@ void NetworkManager::Settings::SettingsPrivate::onConnectionAdded(const QDBusObj
 NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::SettingsPrivate::findRegisteredConnection(const QString &path)
 {
     Connection::Ptr ret;
-    if (connections.contains(path)) {
-        if (connections.value(path)) {
+    if (!path.isEmpty()) {
+        bool contains = connections.contains(path);
+        if (contains && connections.value(path)) {
             ret = connections.value(path);
         } else {
-            ret = Connection::Ptr(new Connection(path));
+            ret = Connection::Ptr(new Connection(path), &QObject::deleteLater);
             connections[path] = ret;
             connect(ret.data(), SIGNAL(removed(QString)), this, SLOT(onConnectionRemoved(QString)));
+            if (!contains) {
+                emit connectionAdded(path);
+            }
         }
-    } else if (!path.isEmpty()) {
-        ret = Connection::Ptr(new Connection(path));
-        connections[path] = ret;
-        connect(ret.data(), SIGNAL(removed(QString)), this, SLOT(onConnectionRemoved(QString)));
-        emit connectionAdded(path);
     }
     return ret;
 }
