@@ -516,7 +516,8 @@ bool NetworkManager::Device::isActive() const
 {
     Q_D(const Device);
     return !(d->connectionState == NetworkManager::Device::Unavailable
-            || d->connectionState == NetworkManager::Device::Disconnected
+             || d->connectionState == NetworkManager::Device::Unmanaged
+             || d->connectionState == NetworkManager::Device::Disconnected
              || d->connectionState == NetworkManager::Device::Failed );
 }
 
