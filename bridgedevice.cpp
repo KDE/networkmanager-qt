@@ -42,11 +42,11 @@ public:
 
 NetworkManager::BridgeDevicePrivate::BridgeDevicePrivate(const QString& path):
     DevicePrivate(path), iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()),
-    carrier(false), slaves(QList<QDBusObjectPath>())
+    carrier(false)
 {
 }
 
-NetworkManager::BridgeDevice::~BridgeDevice()
+NetworkManager::BridgeDevicePrivate::~BridgeDevicePrivate()
 {
 }
 
@@ -63,7 +63,7 @@ NetworkManager::BridgeDevice::BridgeDevice(const QString& path, QObject* parent)
             this, SLOT(propertiesChanged(QVariantMap)));
 }
 
-NetworkManager::BridgeDevicePrivate::~BridgeDevicePrivate()
+NetworkManager::BridgeDevice::~BridgeDevice()
 {
 }
 
