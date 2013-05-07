@@ -43,8 +43,10 @@ public:
     Device::Type deviceType;
     Device::State connectionState;
     bool managed;
-    IpConfig ipV4Config;
-    IpConfig ipV6Config;
+    mutable IpConfig ipV4Config;
+    QString ipV4ConfigPath;
+    mutable IpConfig ipV6Config;
+    QString ipV6ConfigPath;
     QString driver;
     QHostAddress ipV4Address;
     QString interfaceName;

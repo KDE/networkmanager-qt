@@ -388,6 +388,16 @@ Q_SIGNALS:
     void ipV4AddressChanged();
 
     /**
+     * Emitted when the IPv4 configuration of this network has changed.
+     */
+    void ipV4ConfigChanged();
+
+    /**
+     * Emitted when the IPv6 configuration of this network has changed.
+     */
+    void ipV6ConfigChanged();
+
+    /**
      * Emitted when the ip interface name of this network has changed.
      */
     void ipInterfaceChanged();

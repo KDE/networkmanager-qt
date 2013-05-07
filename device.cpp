@@ -29,9 +29,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <arpa/inet.h>
 
-#include "dbus/nm-ip4-configinterface.h"
-#include "dbus/nm-ip6-configinterface.h"
-
 namespace NetworkManager
 {
 class DeviceStateReason::Private
@@ -93,7 +90,7 @@ void NetworkManager::DeviceStateReason::setReason(const Device::StateChangeReaso
     d->reason = reason;
 }
 
-NetworkManager::DevicePrivate::DevicePrivate( const QString & path) : deviceIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()), uni(path), designSpeed(0), dhcp4Config(0), dhcp6Config(0)
+NetworkManager::DevicePrivate::DevicePrivate(const QString &path) : deviceIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()), uni(path), designSpeed(0), dhcp4Config(0), dhcp6Config(0)
 {
     activeConnection = deviceIface.activeConnection().path();
     driver = deviceIface.driver();
@@ -109,6 +106,16 @@ NetworkManager::DevicePrivate::DevicePrivate( const QString & path) : deviceIfac
     reason = NetworkManager::DevicePrivate::convertReason(deviceIface.stateReason().reason);
     foreach (const QDBusObjectPath &availableConnection, deviceIface.availableConnections()) {
         availableConnections << availableConnection.path();
+    }
+
+    QDBusObjectPath ip4ConfigObjectPath = deviceIface.ip4Config();
+    if (!ip4ConfigObjectPath.path().isNull() || ip4ConfigObjectPath.path() != QLatin1String("/")) {
+        ipV4ConfigPath = ip4ConfigObjectPath.path();
+    }
+
+    QDBusObjectPath ip6ConfigObjectPath = deviceIface.ip6Config();
+    if (!ip6ConfigObjectPath.path().isNull() || ip6ConfigObjectPath.path() != QLatin1String("/")) {
+        ipV6ConfigPath = ip6ConfigObjectPath.path();
     }
 
     QDBusObjectPath dhcp4ConfigObjectPath = deviceIface.dhcp4Config();
@@ -245,11 +252,23 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
         d->ipV4Address = QHostAddress(ntohl(value.toUInt()));
         emit ipV4AddressChanged();
     } else if (property == QLatin1String("Ip4Config")) {
-//        d->ipV4Config = it->toUInt() * 1000;
-//        emit bitRateChanged(d->bitrate);
+        QDBusObjectPath ip4ConfigObjectPath = value.value<QDBusObjectPath>();
+        if (ip4ConfigObjectPath.path().isNull() || ip4ConfigObjectPath.path() == QLatin1String("/")) {
+            d->ipV4ConfigPath.clear();
+        } else {
+            d->ipV4ConfigPath = ip4ConfigObjectPath.path();
+        }
+        d->ipV4Config = IpConfig();
+        emit ipV4ConfigChanged();
     } else if (property == QLatin1String("Ip6Config")) {
-//        d->bitrate = it->toUInt() * 1000;
-//        emit bitRateChanged(d->bitrate);
+        QDBusObjectPath ip6ConfigObjectPath = value.value<QDBusObjectPath>();
+        if (ip6ConfigObjectPath.path().isNull() || ip6ConfigObjectPath.path() == QLatin1String("/")) {
+            d->ipV6ConfigPath.clear();
+        } else {
+            d->ipV6ConfigPath = ip6ConfigObjectPath.path();
+        }
+        d->ipV6Config = IpConfig();
+        emit ipV6ConfigChanged();
     } else if (property == QLatin1String("IpInterface")) {
         d->ipInterface = value.toString();
         emit ipInterfaceChanged();
@@ -385,113 +404,19 @@ NetworkManager::DeviceStateReason NetworkManager::Device::stateReason() const
 NetworkManager::IpConfig NetworkManager::Device::ipV4Config() const
 {
     Q_D(const Device);
-    if (d->connectionState != NetworkManager::Device::Activated) {
-        return NetworkManager::IpConfig();
-    } else {
-        // ask the daemon for the details
-        QDBusObjectPath ipV4ConfigPath = d->deviceIface.ip4Config();
-        OrgFreedesktopNetworkManagerIP4ConfigInterface iface(NetworkManagerPrivate::DBUS_SERVICE, ipV4ConfigPath.path(), QDBusConnection::systemBus());
-        if (iface.isValid()) {
-            //convert ipaddresses into object
-            UIntListList addresses = iface.addresses();
-            QList<NetworkManager::IpAddress> addressObjects;
-            foreach (const UIntList &addressList, addresses) {
-                if ( addressList.count() == 3 ) {
-                    NetworkManager::IpAddress address;
-                    address.setIp(QHostAddress(ntohl(addressList[0])));
-                    address.setPrefixLength(addressList[1]);
-                    address.setGateway(QHostAddress(ntohl(addressList[2])));
-                    addressObjects << address;
-                }
-            }
-            //convert routes into objects
-            UIntListList routes = iface.routes();
-            QList<NetworkManager::IpRoute> routeObjects;
-            foreach (const UIntList &routeList, routes) {
-                if ( routeList.count() == 4 ) {
-                    NetworkManager::IpRoute route;
-                    route.setIp(QHostAddress(ntohl(routeList[0])));
-                    route.setPrefixLength(routeList[1]);
-                    route.setNextHop(QHostAddress(ntohl(routeList[2])));
-                    route.setMetric(ntohl(routeList[3]));
-                    routeObjects << route;
-                }
-            }
-            // nameservers' IP addresses are always in network byte order
-            QList<QHostAddress> nameservers;
-            foreach (uint nameserver, iface.nameservers()) {
-                nameservers << QHostAddress(ntohl(nameserver));
-            }
-            return NetworkManager::IpConfig(addressObjects,
-                nameservers, iface.domains(),
-                routeObjects);
-        } else {
-            return NetworkManager::IpConfig();
-        }
+    if (!d->ipV4Config.isValid() && !d->ipV4ConfigPath.isNull()) {
+        d->ipV4Config.setIPv4Path(d->ipV4ConfigPath);
     }
+    return d->ipV4Config;
 }
 
 NetworkManager::IpConfig NetworkManager::Device::ipV6Config() const
 {
     Q_D(const Device);
-    if (d->connectionState != NetworkManager::Device::Activated) {
-        return NetworkManager::IpConfig();
-    } else {
-        // ask the daemon for the details
-        QDBusObjectPath ipV6ConfigPath = d->deviceIface.ip6Config();
-        OrgFreedesktopNetworkManagerIP6ConfigInterface iface(NetworkManagerPrivate::DBUS_SERVICE, ipV6ConfigPath.path(), QDBusConnection::systemBus());
-        if (iface.isValid()) {
-            IpV6DBusAddressList addresses = iface.addresses();
-            QList<NetworkManager::IpAddress> addressObjects;
-            foreach (const IpV6DBusAddress &address, addresses) {
-                Q_IPV6ADDR addr;
-                Q_IPV6ADDR gateway;
-                for (int i = 0; i < 16; i++) {
-                    addr[i] = address.address[i];
-                }
-                for (int i = 0; i < 16; i++) {
-                    gateway[i] = address.gateway[i];
-                }
-                NetworkManager::IpAddress addressEntry;
-                addressEntry.setIp(QHostAddress(addr));
-                addressEntry.setPrefixLength(address.prefix);
-                addressEntry.setGateway(QHostAddress(gateway));
-                addressObjects << addressEntry;
-            }
-
-            IpV6DBusRouteList routes = iface.routes();
-            QList<NetworkManager::IpRoute> routeObjects;
-            foreach (const IpV6DBusRoute &route, routes) {
-                Q_IPV6ADDR dest;
-                Q_IPV6ADDR nexthop;
-                for (int i = 0; i < 16; i++) {
-                    dest[i] = route.destination[i];
-                }
-                for (int i = 0; i < 16; i++) {
-                    nexthop[i] = route.nexthop[i];
-                }
-                NetworkManager::IpRoute routeEntry;
-                routeEntry.setIp(QHostAddress(dest));
-                routeEntry.setPrefixLength(route.prefix);
-                routeEntry.setNextHop(QHostAddress(nexthop));
-                routeEntry.setMetric(route.metric);
-                routeObjects << routeEntry;
-            }
-
-            IpV6DBusNameservers nameservers = iface.nameservers();
-            QList<QHostAddress> nameserverList;
-            foreach (const QByteArray &ns, nameservers) {
-                Q_IPV6ADDR addr;
-                for (int i = 0; i < 16; i++) {
-                    addr[i] = (quint8)ns[i];
-                }
-                nameserverList << QHostAddress(addr);
-            }
-            return NetworkManager::IpConfig(addressObjects, nameserverList, iface.domains(), routeObjects);
-        } else {
-            return NetworkManager::IpConfig();
-        }
+    if (!d->ipV6Config.isValid() && !d->ipV6ConfigPath.isNull()) {
+        d->ipV6Config.setIPv6Path(d->ipV6ConfigPath);
     }
+    return d->ipV6Config;
 }
 
 NetworkManager::Dhcp4Config::Ptr NetworkManager::Device::dhcp4Config() const

@@ -21,6 +21,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ipconfig.h"
 
+#include "manager.h"
+#include "manager_p.h"
+
+#include <arpa/inet.h>
+
+#include "dbus/nm-ip4-configinterface.h"
+#include "dbus/nm-ip6-configinterface.h"
+
 namespace NetworkManager {
 
 class NetworkManager::IpConfig::Private
@@ -59,6 +67,106 @@ NetworkManager::IpConfig::IpConfig(const IpConfig& other) :
     d(new Private)
 {
     *this = other;
+}
+
+void NetworkManager::IpConfig::setIPv4Path(const QString &path)
+{
+    OrgFreedesktopNetworkManagerIP4ConfigInterface iface(NetworkManagerPrivate::DBUS_SERVICE,
+                                                         path,
+                                                         QDBusConnection::systemBus());
+    //convert ipaddresses into object
+    UIntListList addresses = iface.addresses();
+    QList<NetworkManager::IpAddress> addressObjects;
+    foreach (const UIntList &addressList, addresses) {
+        if ( addressList.count() == 3 ) {
+            NetworkManager::IpAddress address;
+            address.setIp(QHostAddress(ntohl(addressList[0])));
+            address.setPrefixLength(addressList[1]);
+            address.setGateway(QHostAddress(ntohl(addressList[2])));
+            addressObjects << address;
+        }
+    }
+    //convert routes into objects
+    UIntListList routes = iface.routes();
+    QList<NetworkManager::IpRoute> routeObjects;
+    foreach (const UIntList &routeList, routes) {
+        if ( routeList.count() == 4 ) {
+            NetworkManager::IpRoute route;
+            route.setIp(QHostAddress(ntohl(routeList[0])));
+            route.setPrefixLength(routeList[1]);
+            route.setNextHop(QHostAddress(ntohl(routeList[2])));
+            route.setMetric(ntohl(routeList[3]));
+            routeObjects << route;
+        }
+    }
+    // nameservers' IP addresses are always in network byte order
+    QList<QHostAddress> nameservers;
+    foreach (uint nameserver, iface.nameservers()) {
+        nameservers << QHostAddress(ntohl(nameserver));
+    }
+
+    d->addresses = addressObjects;
+    d->nameservers = nameservers;
+    d->domains = iface.domains();
+    d->routes = routeObjects;
+}
+
+void NetworkManager::IpConfig::setIPv6Path(const QString &path)
+{
+    // ask the daemon for the details
+    OrgFreedesktopNetworkManagerIP6ConfigInterface iface(NetworkManagerPrivate::DBUS_SERVICE,
+                                                         path,
+                                                         QDBusConnection::systemBus());
+    IpV6DBusAddressList addresses = iface.addresses();
+    QList<NetworkManager::IpAddress> addressObjects;
+    foreach (const IpV6DBusAddress &address, addresses) {
+        Q_IPV6ADDR addr;
+        Q_IPV6ADDR gateway;
+        for (int i = 0; i < 16; i++) {
+            addr[i] = address.address[i];
+        }
+        for (int i = 0; i < 16; i++) {
+            gateway[i] = address.gateway[i];
+        }
+        NetworkManager::IpAddress addressEntry;
+        addressEntry.setIp(QHostAddress(addr));
+        addressEntry.setPrefixLength(address.prefix);
+        addressEntry.setGateway(QHostAddress(gateway));
+        addressObjects << addressEntry;
+    }
+
+    IpV6DBusRouteList routes = iface.routes();
+    QList<NetworkManager::IpRoute> routeObjects;
+    foreach (const IpV6DBusRoute &route, routes) {
+        Q_IPV6ADDR dest;
+        Q_IPV6ADDR nexthop;
+        for (int i = 0; i < 16; i++) {
+            dest[i] = route.destination[i];
+        }
+        for (int i = 0; i < 16; i++) {
+            nexthop[i] = route.nexthop[i];
+        }
+        NetworkManager::IpRoute routeEntry;
+        routeEntry.setIp(QHostAddress(dest));
+        routeEntry.setPrefixLength(route.prefix);
+        routeEntry.setNextHop(QHostAddress(nexthop));
+        routeEntry.setMetric(route.metric);
+        routeObjects << routeEntry;
+    }
+
+    QList<QHostAddress> nameservers;
+    foreach (const QByteArray &nameserver, iface.nameservers()) {
+        Q_IPV6ADDR address;
+        for (int i = 0; i < 16; i++) {
+            address[i] = static_cast<quint8>(nameserver[i]);
+        }
+        nameservers << QHostAddress(address);
+    }
+
+    d->addresses = addressObjects;
+    d->nameservers = nameservers;
+    d->domains = iface.domains();
+    d->routes = routeObjects;
 }
 
 NetworkManager::IpConfig::~IpConfig()

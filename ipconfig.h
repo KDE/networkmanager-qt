@@ -59,6 +59,16 @@ public:
     IpConfig(const IpConfig &other);
 
     /**
+     * Configure this class using the information on the following path
+     */
+    void setIPv4Path(const QString &path);
+
+    /**
+     * Configure this class using the information on the following path
+     */
+    void setIPv6Path(const QString &path);
+
+    /**
      * Returns a list of IP addresses related to this configuration.
      */
     NetworkManager::IpAddresses addresses() const;
