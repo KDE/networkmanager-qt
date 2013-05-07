@@ -94,7 +94,7 @@ public:
                             GsmPinCheckFailedReason=34, FirmwareMissingReason=35, DeviceRemovedReason=36,
                             SleepingReason=37, ConnectionRemovedReason=38, UserRequestedReason=39, CarrierReason=40,
                             ConnectionAssumedReason=41, SupplicantAvailableReason=42, ModemNotFoundReason=43, BluetoothFailedReason=44,
-                            GsmSimNotInserted=45, GsmSimPinRequired=46, GsmSimPukRequired=47,GsmSimWrong=48 , InfiniBandMode=49,
+                            GsmSimNotInserted=45, GsmSimPinRequired=46, GsmSimPukRequired=47, GsmSimWrong=48 , InfiniBandMode=49,
                             DependencyFailed=50, Br2684Failed=51, ModemManagerUnavailable=52, SsidNotFound=53, SecondaryConnectionFailed=54,
                             Reserved = 65536 };
     /**
@@ -122,7 +122,7 @@ public:
     /**
      * Creates a new NetworkInterface object.
      *
-     * @param path UDI of the device
+     * @param path UNI of the device
      */
     explicit Device( const QString & path, QObject * parent = 0);
     Device( DevicePrivate &dd, QObject * parent );
