@@ -107,7 +107,7 @@ void NetworkManager::BridgeDevice::propertyChanged(const QString &property, cons
         d->slaves = value.value<QList<QDBusObjectPath> >();
         emit slavesChanged(d->slaves);
     } else {
-        qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+        Device::propertyChanged(property, value);
     }
 }
 

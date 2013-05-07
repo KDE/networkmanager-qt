@@ -107,7 +107,7 @@ void NetworkManager::VlanDevice::propertyChanged(const QString &property, const 
         d->vlanId = value.toUInt();
         emit vlanIdChanged(d->vlanId);
     } else {
-        qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+        Device::propertyChanged(property, value);
     }
 }
 
