@@ -34,7 +34,7 @@ public:
     QString permanentHardwareAddress;
     QString hardwareAddress;
     QHash<QString, WirelessNetwork::Ptr> networks;
-    mutable QMap<QString, AccessPoint::Ptr> apMap;
+    QMap<QString, AccessPoint::Ptr> apMap;
     // index of the active AP or -1 if none
     QString activeAccessPoint;
     WirelessDevice::OperationMode mode;

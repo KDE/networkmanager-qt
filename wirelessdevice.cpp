@@ -131,12 +131,10 @@ NetworkManager::AccessPoint::Ptr NetworkManager::WirelessDevice::findAccessPoint
 {
     Q_D(const WirelessDevice);
     NetworkManager::AccessPoint::Ptr accessPoint;
+
     QMap<QString,NetworkManager::AccessPoint::Ptr>::ConstIterator mapIt = d->apMap.constFind(uni);
-    if (mapIt != d->apMap.constEnd() && mapIt.value() != 0) {
+    if (mapIt != d->apMap.constEnd()) {
         accessPoint = mapIt.value();
-    } else if (mapIt != d->apMap.constEnd()) {
-        accessPoint = NetworkManager::AccessPoint::Ptr(new NetworkManager::AccessPoint(uni));
-        d->apMap.insert(uni, accessPoint);
     }
 
     return accessPoint;
@@ -163,26 +161,19 @@ void NetworkManager::WirelessDevice::accessPointAdded(const QDBusObjectPath &acc
     //kDebug(1441) << apPath.path();
     Q_D(WirelessDevice);
 
-    bool newAccessPoint = !d->apMap.contains(accessPoint.path());
-
-    if (newAccessPoint) {
-        d->apMap.insert(accessPoint.path(), NetworkManager::AccessPoint::Ptr());
+    if (!d->apMap.contains(accessPoint.path())) {
+        NetworkManager::AccessPoint::Ptr accessPointPtr(new NetworkManager::AccessPoint(accessPoint.path()));
+        d->apMap.insert(accessPoint.path(), accessPointPtr);
         emit accessPointAppeared(accessPoint.path());
-    }
 
-    NetworkManager::AccessPoint::Ptr accessPointPtr = findAccessPoint(accessPoint.path());
-    if (accessPointPtr.isNull()) {
-        return;
+        QString ssid = accessPointPtr->ssid();
+        if (!ssid.isEmpty() && !d->networks.contains(ssid)) {
+            NetworkManager::WirelessNetwork::Ptr wifiNetwork(new NetworkManager::WirelessNetwork(accessPointPtr, this));
+            d->networks.insert(ssid, wifiNetwork);
+            connect(wifiNetwork.data(), SIGNAL(disappeared(QString)), SLOT(removeNetwork(QString)));
+            emit networkAppeared(ssid);
+        }
     }
-
-    QString ssid = accessPointPtr->ssid();
-    if (!ssid.isEmpty() && !d->networks.contains(ssid)) {
-        NetworkManager::WirelessNetwork::Ptr wifiNetwork(new NetworkManager::WirelessNetwork(accessPointPtr, this));
-        d->networks.insert(ssid, wifiNetwork);
-        connect(wifiNetwork.data(), SIGNAL(disappeared(QString)), SLOT(removeNetwork(QString)));
-        emit networkAppeared(ssid);
-    }
-
 }
 
 void NetworkManager::WirelessDevice::accessPointRemoved(const QDBusObjectPath &accessPoint)
