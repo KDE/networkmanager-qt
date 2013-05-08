@@ -423,7 +423,7 @@ NetworkManager::Dhcp4Config::Ptr NetworkManager::Device::dhcp4Config() const
 {
     Q_D(const Device);
     if (!d->dhcp4Config && !d->dhcp4ConfigPath.isNull()) {
-        d->dhcp4Config = NetworkManager::Dhcp4Config::Ptr(new Dhcp4Config(d->dhcp4ConfigPath));
+        d->dhcp4Config = NetworkManager::Dhcp4Config::Ptr(new Dhcp4Config(d->dhcp4ConfigPath), &QObject::deleteLater);
     }
     return d->dhcp4Config;
 }
@@ -432,7 +432,7 @@ NetworkManager::Dhcp6Config::Ptr NetworkManager::Device::dhcp6Config() const
 {
     Q_D(const Device);
     if (!d->dhcp6Config && !d->dhcp6ConfigPath.isNull()) {
-        d->dhcp6Config = NetworkManager::Dhcp6Config::Ptr(new Dhcp6Config(d->dhcp6ConfigPath));
+        d->dhcp6Config = NetworkManager::Dhcp6Config::Ptr(new Dhcp6Config(d->dhcp6ConfigPath), &QObject::deleteLater);
     }
     return d->dhcp6Config;
 }

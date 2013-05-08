@@ -135,7 +135,7 @@ NetworkManager::WimaxNsp::Ptr NetworkManager::WimaxDevice::findNsp(const QString
     if (mapIt != d->nspMap.constEnd() && !mapIt.value().isNull()) {
         nsp = mapIt.value();
     } else {
-        nsp = NetworkManager::WimaxNsp::Ptr(new NetworkManager::WimaxNsp(uni));
+        nsp = NetworkManager::WimaxNsp::Ptr(new NetworkManager::WimaxNsp(uni), &QObject::deleteLater);
         d->nspMap.insert(uni, nsp);
     }
 

@@ -208,37 +208,37 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
     Device::Ptr device(new Device(uni));
     switch (device->type()) {
     case Device::Ethernet:
-        createdInterface = Device::Ptr(new NetworkManager::WiredDevice(uni));
+        createdInterface = Device::Ptr(new NetworkManager::WiredDevice(uni), &QObject::deleteLater);
         break;
     case Device::Wifi:
-        createdInterface = Device::Ptr(new NetworkManager::WirelessDevice(uni));
+        createdInterface = Device::Ptr(new NetworkManager::WirelessDevice(uni), &QObject::deleteLater);
         break;
     case Device::Modem:
-        createdInterface = Device::Ptr(new NetworkManager::ModemDevice(uni));
+        createdInterface = Device::Ptr(new NetworkManager::ModemDevice(uni), &QObject::deleteLater);
         break;
     case Device::Bluetooth:
-        createdInterface = Device::Ptr(new NetworkManager::BluetoothDevice(uni));
+        createdInterface = Device::Ptr(new NetworkManager::BluetoothDevice(uni), &QObject::deleteLater);
         break;
     case Device::Wimax:
-        createdInterface = Device::Ptr(new NetworkManager::WimaxDevice(uni));
+        createdInterface = Device::Ptr(new NetworkManager::WimaxDevice(uni), &QObject::deleteLater);
         break;
     case Device::OlpcMesh:
-        createdInterface = Device::Ptr(new NetworkManager::OlpcMeshDevice(uni));
+        createdInterface = Device::Ptr(new NetworkManager::OlpcMeshDevice(uni), &QObject::deleteLater);
         break;
     case Device::InfiniBand:
-        createdInterface = Device::Ptr(new NetworkManager::InfinibandDevice(uni));
+        createdInterface = Device::Ptr(new NetworkManager::InfinibandDevice(uni), &QObject::deleteLater);
         break;
     case Device::Bond:
-        createdInterface = Device::Ptr(new NetworkManager::BondDevice(uni));
+        createdInterface = Device::Ptr(new NetworkManager::BondDevice(uni), &QObject::deleteLater);
         break;
     case Device::Vlan:
-        createdInterface = Device::Ptr(new NetworkManager::VlanDevice(uni));
+        createdInterface = Device::Ptr(new NetworkManager::VlanDevice(uni), &QObject::deleteLater);
         break;
     case Device::Adsl:
-        createdInterface = Device::Ptr(new NetworkManager::AdslDevice(uni));
+        createdInterface = Device::Ptr(new NetworkManager::AdslDevice(uni), &QObject::deleteLater);
         break;
     case Device::Bridge:
-        createdInterface = Device::Ptr(new NetworkManager::BridgeDevice(uni));
+        createdInterface = Device::Ptr(new NetworkManager::BridgeDevice(uni), &QObject::deleteLater);
         break;
     default:
         createdInterface = device;
