@@ -20,7 +20,7 @@
 
 #include "bondsetting.h"
 
-#include "../settings/bond.h"
+#include "../settings/bondsetting.h"
 
 #include <nm-setting-bond.h>
 

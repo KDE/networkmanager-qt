@@ -21,7 +21,7 @@
 #include "ipv4setting.h"
 
 #include "generic-types.h"
-#include "../settings/ipv4.h"
+#include "../settings/ipv4setting.h"
 
 #include <arpa/inet.h>
 #include <nm-setting-ip4-config.h>

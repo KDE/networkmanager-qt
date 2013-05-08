@@ -20,7 +20,7 @@
 
 #include "gsmsetting.h"
 
-#include "../settings/gsm.h"
+#include "../settings/gsmsetting.h"
 
 #include <nm-setting-gsm.h>
 

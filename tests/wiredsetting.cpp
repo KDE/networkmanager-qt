@@ -21,7 +21,7 @@
 #include "wiredsetting.h"
 
 #include "generic-types.h"
-#include "../settings/802-3-ethernet.h"
+#include "../settings/wiredsetting.h"
 
 #include <nm-setting-wired.h>
 

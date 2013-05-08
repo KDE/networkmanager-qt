@@ -145,57 +145,57 @@ set(DBUS_INTERFACE_SRCS
    )
 
 set(CONNECTIONS_SETTINGS_SRCS
-    settings/802-3-ethernet.cpp
-    settings/802-11-olpc-mesh.cpp
-    settings/802-11-wireless.cpp
-    settings/802-11-wireless-security.cpp
-    settings/802-1x.cpp
-    settings/adsl.cpp
-    settings/bluetooth.cpp
-    settings/bond.cpp
-    settings/bridge.cpp
-    settings/bridgeport.cpp
-    settings/cdma.cpp
-    settings/connection.cpp
-    settings/gsm.cpp
-    settings/ipv4.cpp
-    settings/ipv6.cpp
-    settings/infiniband.cpp
-    settings/ppp.cpp
-    settings/pppoe.cpp
+    settings/wiredsetting.cpp
+    settings/olpcmeshsetting.cpp
+    settings/wirelesssetting.cpp
+    settings/wirelesssecuritysetting.cpp
+    settings/security8021xsetting.cpp
+    settings/adslsetting.cpp
+    settings/bluetoothsetting.cpp
+    settings/bondsetting.cpp
+    settings/bridgesetting.cpp
+    settings/bridgeportsetting.cpp
+    settings/cdmasetting.cpp
+    settings/connectionsettings.cpp
+    settings/gsmsetting.cpp
+    settings/ipv4setting.cpp
+    settings/ipv6setting.cpp
+    settings/infinibandsetting.cpp
+    settings/pppsetting.cpp
+    settings/pppoesetting.cpp
     settings/setting.cpp
-    settings/serial.cpp
+    settings/serialsetting.cpp
     #settings/template.cpp
-    settings/vlan.cpp
-    settings/vpn.cpp
-    settings/wimax.cpp
+    settings/vlansetting.cpp
+    settings/vpnsetting.cpp
+    settings/wimaxsetting.cpp
     )
 
 set(CONNECTIONS_SETTINGS_HEADERS
-    settings/802-3-ethernet.h
-    settings/802-11-olpc-mesh.h
-    settings/802-11-wireless.h
-    settings/802-11-wireless-security.h
-    settings/802-1x.h
-    settings/adsl.h
-    settings/bluetooth.h
-    settings/bond.h
-    settings/bridge.h
-    settings/bridgeport.h
-    settings/cdma.h
-    settings/connection.h
-    settings/gsm.h
-    settings/ipv4.h
-    settings/ipv6.h
-    settings/infiniband.h
-    settings/ppp.h
-    settings/pppoe.h
+    settings/wiredsetting.h
+    settings/olpcmeshsetting.h
+    settings/wirelesssetting.h
+    settings/wirelesssecuritysetting.h
+    settings/security8021xsetting.h
+    settings/adslsetting.h
+    settings/bluetoothsetting.h
+    settings/bondsetting.h
+    settings/bridgesetting.h
+    settings/bridgeportsetting.h
+    settings/cdmasetting.h
+    settings/connectionsettings.h
+    settings/gsmsetting.h
+    settings/ipv4setting.h
+    settings/ipv6setting.h
+    settings/infinibandsetting.h
+    settings/pppsetting.h
+    settings/pppoesetting.h
     settings/setting.h
-    settings/serial.h
+    settings/serialsetting.h
     #settings/template.h
-    settings/vlan.h
-    settings/vpn.h
-    settings/wimax.h
+    settings/vlansetting.h
+    settings/vpnsetting.h
+    settings/wimaxsetting.h
     )
 
 qt4_wrap_cpp(NetworkManagerQt_MOC ${NetworkManagerQt_PRIVATE_HEADERS})

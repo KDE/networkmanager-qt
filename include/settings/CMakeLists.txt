@@ -1,27 +1,27 @@
 set(NetworkManagerQt_settings_CAMEL_HEADERS
-    8021x
-    Adsl
-    Bluetooth
-    Bond
-    Bridge
-    BridgePort
-    Cdma
-    Connection
-    Gsm
-    Ethernet
-    Infiniband
-    Ipv4
-    Ipv6
-    OlpcMesh
-    Ppp
-    Pppoe
-    Serial
+    Security8021xSetting
+    AdslSetting
+    BluetoothSetting
+    BondSetting
+    BridgeSetting
+    BridgePortSetting
+    CdmaSetting
+    ConnectionSettings
+    GsmSetting
+    WiredSetting
+    InfinibandSetting
+    Ipv4Setting
+    Ipv6Setting
+    OlpcMeshSetting
+    PppSetting
+    PppoeSetting
+    SerialSetting
     Setting
-    Vlan
-    Vpn
-    Wimax
-    Wireless
-    WirelessSecurity
+    VlanSetting
+    VpnSetting
+    WimaxSetting
+    WirelessSetting
+    WirelessSecuritySetting
 )
 
 install(FILES

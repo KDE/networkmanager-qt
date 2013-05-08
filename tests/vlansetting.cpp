@@ -20,7 +20,7 @@
 
 #include "vlansetting.h"
 
-#include "../settings/vlan.h"
+#include "../settings/vlansetting.h"
 
 #include <nm-setting-vlan.h>
 

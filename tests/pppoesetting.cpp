@@ -20,7 +20,7 @@
 
 #include "pppoesetting.h"
 
-#include "../settings/pppoe.h"
+#include "../settings/pppoesetting.h"
 
 #include <nm-setting-pppoe.h>
 

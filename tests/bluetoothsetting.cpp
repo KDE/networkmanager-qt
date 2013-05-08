@@ -20,7 +20,7 @@
 
 #include "bluetoothsetting.h"
 
-#include "../settings/bluetooth.h"
+#include "../settings/bluetoothsetting.h"
 
 #include <nm-setting-bluetooth.h>
 

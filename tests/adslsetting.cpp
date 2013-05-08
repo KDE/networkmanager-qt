@@ -20,7 +20,7 @@
 
 #include "adslsetting.h"
 
-#include "../settings/adsl.h"
+#include "../settings/adslsetting.h"
 
 #include <nm-setting-adsl.h>
 

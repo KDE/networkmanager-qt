@@ -22,7 +22,7 @@
 
 #include "generic-types.h"
 // #include "ipv6config.h"
-#include "../settings/ipv6.h"
+#include "../settings/ipv6setting.h"
 
 #include <arpa/inet.h>
 #include <nm-setting-ip6-config.h>

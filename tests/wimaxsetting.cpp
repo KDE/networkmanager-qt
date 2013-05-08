@@ -20,7 +20,7 @@
 
 #include "wimaxsetting.h"
 
-#include "../settings/wimax.h"
+#include "../settings/wimaxsetting.h"
 
 #include <nm-setting-wimax.h>
 

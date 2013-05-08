@@ -20,7 +20,7 @@
 
 #include "bridgesetting.h"
 
-#include "../settings/bridge.h"
+#include "../settings/bridgesetting.h"
 
 #include <nm-setting-bridge.h>
 

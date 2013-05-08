@@ -20,7 +20,7 @@
 
 #include "infinibandsetting.h"
 
-#include "../settings/infiniband.h"
+#include "../settings/infinibandsetting.h"
 
 #include <nm-setting-infiniband.h>
 

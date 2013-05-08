@@ -20,7 +20,7 @@
 
 #include "olpcmeshsetting.h"
 
-#include "../settings/802-11-olpc-mesh.h"
+#include "../settings/olpcmeshsetting.h"
 
 #include <nm-setting-olpc-mesh.h>
 

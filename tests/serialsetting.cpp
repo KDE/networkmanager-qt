@@ -20,7 +20,7 @@
 
 #include "serialsetting.h"
 
-#include "../settings/serial.h"
+#include "../settings/serialsetting.h"
 
 #include <nm-setting-serial.h>
 

@@ -20,7 +20,7 @@
 
 #include "8021xsetting.h"
 
-#include "../settings/802-1x.h"
+#include "../settings/security8021xsetting.h"
 
 #include <nm-setting-8021x.h>
 

@@ -20,7 +20,7 @@
 
 #include "cdmasetting.h"
 
-#include "../settings/cdma.h"
+#include "../settings/cdmasetting.h"
 
 #include <nm-setting-cdma.h>
 

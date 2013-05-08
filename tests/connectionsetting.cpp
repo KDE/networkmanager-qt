@@ -20,7 +20,7 @@
 
 #include "connectionsetting.h"
 
-#include "../settings/connection.h"
+#include "../settings/connectionsettings.h"
 
 #include <nm-setting-connection.h>
 

@@ -20,7 +20,7 @@
 
 #include "pppsetting.h"
 
-#include "../settings/ppp.h"
+#include "../settings/pppsetting.h"
 
 #include <nm-setting-ppp.h>
 

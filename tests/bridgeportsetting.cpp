@@ -20,7 +20,7 @@
 
 #include "bridgeportsetting.h"
 
-#include "../settings/bridgeport.h"
+#include "../settings/bridgeportsetting.h"
 
 #include <nm-setting-bridge-port.h>
 

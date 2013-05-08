@@ -20,7 +20,7 @@
 
 #include "wirelesssetting.h"
 
-#include "../settings/802-11-wireless.h"
+#include "../settings/wirelesssetting.h"
 
 #include <nm-setting-wireless.h>
 
