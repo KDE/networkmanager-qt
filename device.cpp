@@ -307,12 +307,6 @@ QString NetworkManager::Device::interfaceName() const
     return d->interfaceName;
 }
 
-void NetworkManager::Device::setInterfaceName(const QVariant & name)
-{
-    Q_D(Device);
-    d->interfaceName = name.toString();
-}
-
 QString NetworkManager::Device::ipInterfaceName() const
 {
     Q_D(const Device);
@@ -370,17 +364,10 @@ bool NetworkManager::Device::autoconnect() const
     return d->autoconnect;
 }
 
-void NetworkManager::Device::setAutoconnect(const QVariant & autoconnect)
+void NetworkManager::Device::setAutoconnect(bool autoconnect)
 {
     Q_D(Device);
-    d->autoconnect = autoconnect.toBool();
-    d->deviceIface.setAutoconnect(d->autoconnect);
-}
-
-void NetworkManager::Device::setDriver(const QVariant & driver)
-{
-    Q_D(Device);
-    d->driver = driver.toString();
+    d->deviceIface.setAutoconnect(autoconnect);
 }
 
 QString NetworkManager::Device::udi() const
@@ -464,12 +451,6 @@ void NetworkManager::Device::disconnectInterface()
     d->deviceIface.Disconnect();
 }
 
-void NetworkManager::Device::setManaged(const QVariant & managed)
-{
-    Q_D(Device);
-    d->managed = managed.toBool();
-}
-
 NetworkManager::Device::State NetworkManager::Device::state() const
 {
     Q_D(const Device);
@@ -492,12 +473,6 @@ QVariant NetworkManager::Device::capabilitiesV() const
 {
     Q_D(const Device);
     return QVariant(d->capabilities);
-}
-
-void NetworkManager::Device::setCapabilitiesV(const QVariant & caps)
-{
-    Q_D(Device);
-    d->capabilities = NetworkManager::DevicePrivate::convertCapabilities(caps.toUInt());
 }
 
 void NetworkManager::Device::deviceStateChanged(uint new_state, uint old_state, uint reason)

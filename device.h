@@ -47,14 +47,14 @@ class NMQT_EXPORT Device : public QObject
     Q_DECLARE_PRIVATE(Device)
 
     Q_PROPERTY(QString uni READ uni)
-    Q_PROPERTY(QString interfaceName READ interfaceName WRITE setInterfaceName)
+    Q_PROPERTY(QString interfaceName READ interfaceName)
     Q_PROPERTY(QString ipInterfaceName READ ipInterfaceName)
-    Q_PROPERTY(QString driver READ driver WRITE setDriver)
+    Q_PROPERTY(QString driver READ driver)
     Q_PROPERTY(QString driverVersion READ driverVersion)
     Q_PROPERTY(QString firmwareVersion READ firmwareVersion)
-    Q_PROPERTY(QVariant genericCapabilities READ capabilitiesV WRITE setCapabilitiesV)
+    Q_PROPERTY(QVariant genericCapabilities READ capabilitiesV)
     Q_PROPERTY(QHostAddress ipV4Address READ ipV4Address)
-    Q_PROPERTY(bool managed READ managed WRITE setManaged)
+    Q_PROPERTY(bool managed READ managed)
     Q_PROPERTY(QString udi READ udi)
     Q_PROPERTY(bool firmwareMissing READ firmwareMissing)
     Q_PROPERTY(bool autoconnect READ autoconnect WRITE setAutoconnect)
@@ -290,13 +290,13 @@ public:
      */
     QString udi() const;
 
-    void setAutoconnect(const QVariant&);
-    void setInterfaceName(const QVariant&);
-    void setDriver(const QVariant&);
-    void setConnectionState(const QVariant&);
-    void setCapabilities(const QVariant&);
-    void setCapabilitiesV(const QVariant&);
-    void setManaged(const QVariant&);
+    /**
+     * If true, indicates the device is allowed to autoconnect.
+     * If false, manual intervention is required before the device
+     * will automatically connect to a known network, such as activating
+     * a connection using the device, or setting this property to true.
+     */
+    void setAutoconnect(bool autoconnect);
 
     /**
       * Retrieves a specialized interface to interact with the device corresponding
