@@ -35,6 +35,7 @@ namespace NetworkManager
 class SettingsPrivate : public NetworkManager::SettingsNotifier
 {
     Q_OBJECT
+    friend class NetworkManagerPrivate;
 public:
     SettingsPrivate();
     Connection::List listConnections();
@@ -54,6 +55,7 @@ protected Q_SLOTS:
     void onConnectionRemoved(const QString &);
     void propertiesChanged(const QVariantMap &properties);
     void onConnectionAddArrived(QDBusPendingCallWatcher *);
+protected:
     void daemonUnregistered();
     void init();
 };

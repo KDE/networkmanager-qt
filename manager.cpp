@@ -40,6 +40,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "bridgedevice.h"
 #include "activeconnection.h"
 #include "vpnconnection.h"
+#include "settings.h"
+#include "settings_p.h"
 
 #include "nmdebug.h"
 
@@ -92,6 +94,17 @@ void NetworkManager::NetworkManagerPrivate::init()
     m_isWimaxHardwareEnabled = iface.wimaxHardwareEnabled();
     m_isNetworkingEnabled = iface.networkingEnabled();
 
+    qobject_cast<SettingsPrivate*>(settingsNotifier())->init();
+
+    nmDebug() << "Active connections:";
+    QList <QDBusObjectPath> activeConnections = iface.activeConnections();
+    foreach (const QDBusObjectPath &ac, activeConnections) {
+        m_activeConnections.insert(ac.path(), NetworkManager::ActiveConnection::Ptr());
+        emit activeConnectionAdded(ac.path());
+        nmDebug() << "    " << ac.path();
+    }
+    emit activeConnectionsChanged();
+
     if (iface.isValid()) {
         QDBusReply< QList <QDBusObjectPath> > deviceList = iface.GetDevices();
         if (deviceList.isValid()) {
@@ -104,15 +117,6 @@ void NetworkManager::NetworkManagerPrivate::init()
         } else {
             nmDebug() << "Error getting device list: " << deviceList.error().name() << ": " << deviceList.error().message();
         }
-
-        nmDebug() << "Active connections:";
-        QList <QDBusObjectPath> activeConnections = iface.activeConnections();
-        foreach (const QDBusObjectPath &ac, activeConnections) {
-            m_activeConnections.insert(ac.path(), NetworkManager::ActiveConnection::Ptr());
-            emit activeConnectionAdded(ac.path());
-            nmDebug() << "    " << ac.path();
-        }
-        emit activeConnectionsChanged();
     }
 }
 
@@ -612,6 +616,9 @@ void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
         emit activeConnectionRemoved(path);
     }
     m_activeConnections.clear();
+
+    qobject_cast<SettingsPrivate*>(settingsNotifier())->daemonUnregistered();
+
     emit activeConnectionsChanged();
     emit serviceDisappeared();
 }

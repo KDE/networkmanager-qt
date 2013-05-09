@@ -28,6 +28,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <nm-setting-connection.h>
 
+#include "nmdebug.h"
+
 NM_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
 
 NetworkManager::SettingsPrivate::SettingsPrivate()
@@ -35,21 +37,20 @@ NetworkManager::SettingsPrivate::SettingsPrivate()
 {
     connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), this, SLOT(propertiesChanged(QVariantMap)));
     connect(&iface, SIGNAL(NewConnection(QDBusObjectPath)), this, SLOT(onConnectionAdded(QDBusObjectPath)));
-    connect(NetworkManager::notifier(), SIGNAL(serviceDisappeared()), this, SLOT(daemonUnregistered()));
-    connect(NetworkManager::notifier(), SIGNAL(serviceAppeared()), this, SLOT(init()));
 
-    if (NetworkManager::status() != NetworkManager::Unknown) {
-        init();
-    }
+    // This class is a friend of NetworkManagerPrivate thus initted there
+    // because we need to be initted before in the chain
 }
 
 void NetworkManager::SettingsPrivate::init()
 {
     QDBusPendingReply<QList<QDBusObjectPath> > reply = iface.ListConnections();
     reply.waitForFinished();
+    nmDebug() << "Connections list";
     if (reply.isValid()) {
         foreach (const QDBusObjectPath &connection, reply.value()) {
             connections.insert(connection.path(), Connection::Ptr());
+            nmDebug() << " " << connection.path();
         }
     }
     m_canModify = iface.canModify();
@@ -61,7 +62,10 @@ NetworkManager::Connection::List NetworkManager::SettingsPrivate::listConnection
     NetworkManager::Connection::List list;
     QMap<QString, Connection::Ptr>::const_iterator i = connections.constBegin();
     while (i != connections.constEnd()) {
-        list.append(findRegisteredConnection(i.key()));
+        NetworkManager::Connection::Ptr connection = findRegisteredConnection(i.key());
+        if (connection) {
+            list << connection;
+        }
         ++i;
     }
     return list;
