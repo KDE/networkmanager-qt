@@ -25,17 +25,17 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::CdmaSettingPrivate::CdmaSettingPrivate():
+NetworkManager::CdmaSettingPrivate::CdmaSettingPrivate():
     name(NM_SETTING_CDMA_SETTING_NAME),
     passwordFlags(Setting::None)
 { }
 
-NetworkManager::Settings::CdmaSetting::CdmaSetting():
+NetworkManager::CdmaSetting::CdmaSetting():
     Setting(Setting::Cdma),
     d_ptr(new CdmaSettingPrivate())
 { }
 
-NetworkManager::Settings::CdmaSetting::CdmaSetting(const Ptr &other):
+NetworkManager::CdmaSetting::CdmaSetting(const Ptr &other):
     Setting(other),
     d_ptr(new CdmaSettingPrivate())
 {
@@ -45,75 +45,75 @@ NetworkManager::Settings::CdmaSetting::CdmaSetting(const Ptr &other):
     setPasswordFlags(other->passwordFlags());
 }
 
-NetworkManager::Settings::CdmaSetting::~CdmaSetting()
+NetworkManager::CdmaSetting::~CdmaSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::CdmaSetting::name() const
+QString NetworkManager::CdmaSetting::name() const
 {
     Q_D(const CdmaSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::CdmaSetting::setNumber(const QString& number)
+void NetworkManager::CdmaSetting::setNumber(const QString& number)
 {
     Q_D(CdmaSetting);
 
     d->number = number;
 }
 
-QString NetworkManager::Settings::CdmaSetting::number() const
+QString NetworkManager::CdmaSetting::number() const
 {
     Q_D(const CdmaSetting);
 
     return d->number;
 }
 
-void NetworkManager::Settings::CdmaSetting::setUsername(const QString& username)
+void NetworkManager::CdmaSetting::setUsername(const QString& username)
 {
     Q_D(CdmaSetting);
 
     d->username = username;
 }
 
-QString NetworkManager::Settings::CdmaSetting::username() const
+QString NetworkManager::CdmaSetting::username() const
 {
     Q_D(const CdmaSetting);
 
     return d->username;
 }
 
-void NetworkManager::Settings::CdmaSetting::setPassword(const QString& password)
+void NetworkManager::CdmaSetting::setPassword(const QString& password)
 {
     Q_D(CdmaSetting);
 
     d->password = password;
 }
 
-QString NetworkManager::Settings::CdmaSetting::password() const
+QString NetworkManager::CdmaSetting::password() const
 {
     Q_D(const CdmaSetting);
 
     return d->password;
 }
 
-void NetworkManager::Settings::CdmaSetting::setPasswordFlags(NetworkManager::Settings::Setting::SecretFlags flags)
+void NetworkManager::CdmaSetting::setPasswordFlags(NetworkManager::Setting::SecretFlags flags)
 {
     Q_D(CdmaSetting);
 
     d->passwordFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::CdmaSetting::passwordFlags() const
+NetworkManager::Setting::SecretFlags NetworkManager::CdmaSetting::passwordFlags() const
 {
     Q_D(const CdmaSetting);
 
     return d->passwordFlags;
 }
 
-QStringList NetworkManager::Settings::CdmaSetting::needSecrets(bool requestNew) const
+QStringList NetworkManager::CdmaSetting::needSecrets(bool requestNew) const
 {
     QStringList secrets;
     if (!username().isEmpty()) {
@@ -125,14 +125,14 @@ QStringList NetworkManager::Settings::CdmaSetting::needSecrets(bool requestNew) 
     return secrets;
 }
 
-void NetworkManager::Settings::CdmaSetting::secretsFromMap(const QVariantMap& secrets)
+void NetworkManager::CdmaSetting::secretsFromMap(const QVariantMap& secrets)
 {
     if (secrets.contains(QLatin1String(NM_SETTING_CDMA_PASSWORD))) {
         setPassword(secrets.value(QLatin1String(NM_SETTING_CDMA_PASSWORD)).toString());
     }
 }
 
-QVariantMap NetworkManager::Settings::CdmaSetting::secretsToMap() const
+QVariantMap NetworkManager::CdmaSetting::secretsToMap() const
 {
     QVariantMap secrets;
 
@@ -143,7 +143,7 @@ QVariantMap NetworkManager::Settings::CdmaSetting::secretsToMap() const
     return secrets;
 }
 
-void NetworkManager::Settings::CdmaSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::CdmaSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_CDMA_NUMBER))) {
         setNumber(setting.value(QLatin1String(NM_SETTING_CDMA_NUMBER)).toString());
@@ -163,7 +163,7 @@ void NetworkManager::Settings::CdmaSetting::fromMap(const QVariantMap& setting)
     }
 }
 
-QVariantMap NetworkManager::Settings::CdmaSetting::toMap() const
+QVariantMap NetworkManager::CdmaSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -187,9 +187,9 @@ QVariantMap NetworkManager::Settings::CdmaSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::CdmaSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::CdmaSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_CDMA_NUMBER << ": " << setting.number() << '\n';
     dbg.nospace() << NM_SETTING_CDMA_USERNAME << ": " << setting.username() << '\n';

@@ -92,7 +92,7 @@ void WiredSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE), s390NetType);
     map.insert(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS), QVariant::fromValue(s390Options));
 
-    NetworkManager::Settings::WiredSetting setting;
+    NetworkManager::WiredSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

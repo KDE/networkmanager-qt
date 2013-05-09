@@ -64,7 +64,7 @@ void BridgeSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_BRIDGE_MAX_AGE), maxAge);
     map.insert(QLatin1String(NM_SETTING_BRIDGE_AGEING_TIME), ageintTime);
 
-    NetworkManager::Settings::BridgeSetting setting;
+    NetworkManager::BridgeSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

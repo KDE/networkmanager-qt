@@ -28,10 +28,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class BluetoothSettingPrivate;
 
+class BluetoothSettingPrivate;
 class NMQT_EXPORT BluetoothSetting : public Setting
 {
     Q_DECLARE_PRIVATE(BluetoothSetting)
@@ -62,7 +60,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const BluetoothSetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_BLUETOOTH_H

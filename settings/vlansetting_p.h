@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class VlanSettingPrivate
 {
 public:
@@ -36,11 +35,11 @@ public:
     QString interfaceName;
     QString parent;
     quint32 id;
-    NetworkManager::Settings::VlanSetting::Flags flags;
+    NetworkManager::VlanSetting::Flags flags;
     QStringList ingressPriorityMap;
     QStringList egressPriorityMap;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_VLAN_P_H

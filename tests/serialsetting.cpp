@@ -58,7 +58,7 @@ void SerialSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_SERIAL_STOPBITS), stopbits);
     map.insert(QLatin1String(NM_SETTING_SERIAL_SEND_DELAY), sendDelay);
 
-    NetworkManager::Settings::SerialSetting setting;
+    NetworkManager::SerialSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

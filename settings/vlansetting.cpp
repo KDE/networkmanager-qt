@@ -25,18 +25,18 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::VlanSettingPrivate::VlanSettingPrivate():
+NetworkManager::VlanSettingPrivate::VlanSettingPrivate():
     name(NM_SETTING_VLAN_SETTING_NAME),
     id(0),
     flags(VlanSetting::None)
 { }
 
-NetworkManager::Settings::VlanSetting::VlanSetting():
+NetworkManager::VlanSetting::VlanSetting():
     Setting(Setting::Vlan),
     d_ptr(new VlanSettingPrivate())
 { }
 
-NetworkManager::Settings::VlanSetting::VlanSetting(const Ptr &other):
+NetworkManager::VlanSetting::VlanSetting(const Ptr &other):
     Setting(other),
     d_ptr(new VlanSettingPrivate())
 {
@@ -48,103 +48,103 @@ NetworkManager::Settings::VlanSetting::VlanSetting(const Ptr &other):
     setEgressPriorityMap(other->egressPriorityMap());
 }
 
-NetworkManager::Settings::VlanSetting::~VlanSetting()
+NetworkManager::VlanSetting::~VlanSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::VlanSetting::name() const
+QString NetworkManager::VlanSetting::name() const
 {
     Q_D(const VlanSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::VlanSetting::setInterfaceName(const QString& name)
+void NetworkManager::VlanSetting::setInterfaceName(const QString& name)
 {
     Q_D(VlanSetting);
 
     d->interfaceName = name;
 }
 
-QString NetworkManager::Settings::VlanSetting::interfaceName() const
+QString NetworkManager::VlanSetting::interfaceName() const
 {
     Q_D(const VlanSetting);
 
     return d->interfaceName;
 }
 
-void NetworkManager::Settings::VlanSetting::setParent(const QString& parent)
+void NetworkManager::VlanSetting::setParent(const QString& parent)
 {
     Q_D(VlanSetting);
 
     d->parent = parent;
 }
 
-QString NetworkManager::Settings::VlanSetting::parent() const
+QString NetworkManager::VlanSetting::parent() const
 {
     Q_D(const VlanSetting);
 
     return d->parent;
 }
 
-void NetworkManager::Settings::VlanSetting::setId(quint32 id)
+void NetworkManager::VlanSetting::setId(quint32 id)
 {
     Q_D(VlanSetting);
 
     d->id = id;
 }
 
-quint32 NetworkManager::Settings::VlanSetting::id() const
+quint32 NetworkManager::VlanSetting::id() const
 {
     Q_D(const VlanSetting);
 
     return d->id;
 }
 
-void NetworkManager::Settings::VlanSetting::setFlags(NetworkManager::Settings::VlanSetting::Flags flags)
+void NetworkManager::VlanSetting::setFlags(NetworkManager::VlanSetting::Flags flags)
 {
     Q_D(VlanSetting);
 
     d->flags = flags;
 }
 
-NetworkManager::Settings::VlanSetting::Flags NetworkManager::Settings::VlanSetting::flags() const
+NetworkManager::VlanSetting::Flags NetworkManager::VlanSetting::flags() const
 {
     Q_D(const VlanSetting);
 
     return d->flags;
 }
 
-void NetworkManager::Settings::VlanSetting::setIngressPriorityMap(const QStringList& map)
+void NetworkManager::VlanSetting::setIngressPriorityMap(const QStringList& map)
 {
     Q_D(VlanSetting);
 
     d->ingressPriorityMap = map;
 }
 
-QStringList NetworkManager::Settings::VlanSetting::ingressPriorityMap() const
+QStringList NetworkManager::VlanSetting::ingressPriorityMap() const
 {
     Q_D(const VlanSetting);
 
     return d->ingressPriorityMap;
 }
 
-void NetworkManager::Settings::VlanSetting::setEgressPriorityMap(const QStringList& map)
+void NetworkManager::VlanSetting::setEgressPriorityMap(const QStringList& map)
 {
     Q_D(VlanSetting);
 
     d->egressPriorityMap = map;
 }
 
-QStringList NetworkManager::Settings::VlanSetting::egressPriorityMap() const
+QStringList NetworkManager::VlanSetting::egressPriorityMap() const
 {
     Q_D(const VlanSetting);
 
     return d->egressPriorityMap;
 }
 
-void NetworkManager::Settings::VlanSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::VlanSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_VLAN_INTERFACE_NAME))) {
         setInterfaceName(setting.value(QLatin1String(NM_SETTING_VLAN_INTERFACE_NAME)).toString());
@@ -171,7 +171,7 @@ void NetworkManager::Settings::VlanSetting::fromMap(const QVariantMap& setting)
     }
 }
 
-QVariantMap NetworkManager::Settings::VlanSetting::toMap() const
+QVariantMap NetworkManager::VlanSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -202,9 +202,9 @@ QVariantMap NetworkManager::Settings::VlanSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::VlanSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::VlanSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_VLAN_INTERFACE_NAME << ": " << setting.interfaceName() << '\n';
     dbg.nospace() << NM_SETTING_VLAN_PARENT << ": " << setting.parent() << '\n';

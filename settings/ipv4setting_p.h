@@ -28,15 +28,14 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class Ipv4SettingPrivate
 {
 public:
     Ipv4SettingPrivate();
 
     QString name;
-    NetworkManager::Settings::Ipv4Setting::ConfigMethod method;
+    NetworkManager::Ipv4Setting::ConfigMethod method;
     QList<QHostAddress> dns;
     QStringList dnsSearch;
     QList<NetworkManager::IpAddress> addresses;
@@ -49,6 +48,6 @@ public:
     bool neverDefault;
     bool mayFail;
 };
-}
+
 }
 #endif // NMQT_SETTINGS_IPV4_P_H

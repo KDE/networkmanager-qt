@@ -72,9 +72,9 @@ public:
      */
     QString path() const;
     /**
-     * returns a valid NetworkManager::Settings::Connection object
+     * returns a valid NetworkManager::Connection object
      */
-    Settings::Connection::Ptr connection() const;
+    Connection::Ptr connection() const;
     /**
      * Whether this connection has the default IPv4 route
      */
@@ -118,7 +118,7 @@ Q_SIGNALS:
     /**
      * This signal is emitted when the connection path has changed
      */
-    void connectionChanged(const NetworkManager::Settings::Connection::Ptr &connection);
+    void connectionChanged(const NetworkManager::Connection::Ptr &connection);
     /**
      * The state of the default IPv4 route changed
      */

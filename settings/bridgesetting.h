@@ -28,10 +28,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class BridgeSettingPrivate;
 
+class BridgeSettingPrivate;
 class NMQT_EXPORT BridgeSetting : public Setting
 {
     Q_DECLARE_PRIVATE(BridgeSetting)
@@ -75,7 +73,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const BridgeSetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_BRIDGE_H

@@ -26,17 +26,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class Connection;
-}
+
 class ActiveConnectionPrivate
 {
 public:
     ActiveConnectionPrivate(const QString &);
     virtual ~ActiveConnectionPrivate();
     static NetworkManager::ActiveConnection::State convertActiveConnectionState(uint);
-    NetworkManager::Settings::Connection::Ptr connection;
+    NetworkManager::Connection::Ptr connection;
     QString path;
     bool default4;
     bool default6;
@@ -48,5 +45,6 @@ public:
     QString master;
     OrgFreedesktopNetworkManagerConnectionActiveInterface iface;
 };
+
 }
 #endif

@@ -26,10 +26,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class Security8021xSettingPrivate;
 
+class Security8021xSettingPrivate;
 class NMQT_EXPORT Security8021xSetting : public Setting
 {
     Q_DECLARE_PRIVATE(Security8021xSetting)
@@ -165,7 +163,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const Security8021xSetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_802_1X_H

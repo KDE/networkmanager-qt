@@ -82,7 +82,7 @@ void ConnectionSetting::testSetting()
 
     mapmap.insert(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME), map);
 
-    NetworkManager::Settings::ConnectionSettings setting;
+    NetworkManager::ConnectionSettings setting;
     setting.fromMap(mapmap);
 
     NMVariantMapMap mapmap1 = setting.toMap();

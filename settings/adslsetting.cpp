@@ -25,7 +25,7 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::AdslSettingPrivate::AdslSettingPrivate():
+NetworkManager::AdslSettingPrivate::AdslSettingPrivate():
     name(NM_SETTING_ADSL_SETTING_NAME),
     passwordFlags(Setting::None),
     protocol(AdslSetting::UnknownProtocol),
@@ -34,12 +34,12 @@ NetworkManager::Settings::AdslSettingPrivate::AdslSettingPrivate():
     vci(0)
 { }
 
-NetworkManager::Settings::AdslSetting::AdslSetting():
+NetworkManager::AdslSetting::AdslSetting():
     Setting(Setting::Adsl),
     d_ptr(new AdslSettingPrivate())
 { }
 
-NetworkManager::Settings::AdslSetting::AdslSetting(const AdslSetting::Ptr &other):
+NetworkManager::AdslSetting::AdslSetting(const AdslSetting::Ptr &other):
     Setting(other),
     d_ptr(new AdslSettingPrivate())
 {
@@ -53,117 +53,117 @@ NetworkManager::Settings::AdslSetting::AdslSetting(const AdslSetting::Ptr &other
     setVci(other->vci());
 }
 
-NetworkManager::Settings::AdslSetting::~AdslSetting()
+NetworkManager::AdslSetting::~AdslSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::AdslSetting::name() const
+QString NetworkManager::AdslSetting::name() const
 {
     Q_D(const AdslSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::AdslSetting::setUsername(const QString& username)
+void NetworkManager::AdslSetting::setUsername(const QString& username)
 {
     Q_D(AdslSetting);
 
     d->username = username;
 }
 
-QString NetworkManager::Settings::AdslSetting::username() const
+QString NetworkManager::AdslSetting::username() const
 {
     Q_D(const AdslSetting);
 
     return d->username;
 }
 
-void NetworkManager::Settings::AdslSetting::setPassword(const QString& password)
+void NetworkManager::AdslSetting::setPassword(const QString& password)
 {
     Q_D(AdslSetting);
 
     d->password = password;
 }
 
-QString NetworkManager::Settings::AdslSetting::password() const
+QString NetworkManager::AdslSetting::password() const
 {
     Q_D(const AdslSetting);
 
     return d->password;
 }
 
-void NetworkManager::Settings::AdslSetting::setPasswordFlags(NetworkManager::Settings::Setting::SecretFlags flags)
+void NetworkManager::AdslSetting::setPasswordFlags(NetworkManager::Setting::SecretFlags flags)
 {
     Q_D(AdslSetting);
 
     d->passwordFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::AdslSetting::passwordFlags() const
+NetworkManager::Setting::SecretFlags NetworkManager::AdslSetting::passwordFlags() const
 {
     Q_D(const AdslSetting);
 
     return d->passwordFlags;
 }
 
-void NetworkManager::Settings::AdslSetting::setProtocol(NetworkManager::Settings::AdslSetting::Protocol protocol)
+void NetworkManager::AdslSetting::setProtocol(NetworkManager::AdslSetting::Protocol protocol)
 {
     Q_D(AdslSetting);
 
     d->protocol = protocol;
 }
 
-NetworkManager::Settings::AdslSetting::Protocol NetworkManager::Settings::AdslSetting::protocol() const
+NetworkManager::AdslSetting::Protocol NetworkManager::AdslSetting::protocol() const
 {
     Q_D(const AdslSetting);
 
     return d->protocol;
 }
 
-void NetworkManager::Settings::AdslSetting::setEncapsulation(NetworkManager::Settings::AdslSetting::Encapsulation encapsulation)
+void NetworkManager::AdslSetting::setEncapsulation(NetworkManager::AdslSetting::Encapsulation encapsulation)
 {
     Q_D(AdslSetting);
 
     d->encapsulation = encapsulation;
 }
 
-NetworkManager::Settings::AdslSetting::Encapsulation NetworkManager::Settings::AdslSetting::encapsulation() const
+NetworkManager::AdslSetting::Encapsulation NetworkManager::AdslSetting::encapsulation() const
 {
     Q_D(const AdslSetting);
 
     return d->encapsulation;
 }
 
-void NetworkManager::Settings::AdslSetting::setVpi(quint32 vpi)
+void NetworkManager::AdslSetting::setVpi(quint32 vpi)
 {
     Q_D(AdslSetting);
 
     d->vpi = vpi;
 }
 
-quint32 NetworkManager::Settings::AdslSetting::vpi() const
+quint32 NetworkManager::AdslSetting::vpi() const
 {
     Q_D(const AdslSetting);
 
     return d->vpi;
 }
 
-void NetworkManager::Settings::AdslSetting::setVci(quint32 vci)
+void NetworkManager::AdslSetting::setVci(quint32 vci)
 {
     Q_D(AdslSetting);
 
     d->vci = vci;
 }
 
-quint32 NetworkManager::Settings::AdslSetting::vci() const
+quint32 NetworkManager::AdslSetting::vci() const
 {
     Q_D(const AdslSetting);
 
     return d->vci;
 }
 
-QStringList NetworkManager::Settings::AdslSetting::needSecrets(bool requestNew) const
+QStringList NetworkManager::AdslSetting::needSecrets(bool requestNew) const
 {
     QStringList secrets;
 
@@ -174,7 +174,7 @@ QStringList NetworkManager::Settings::AdslSetting::needSecrets(bool requestNew) 
     return secrets;
 }
 
-void NetworkManager::Settings::AdslSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::AdslSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_ADSL_USERNAME))) {
         setUsername(setting.value(QLatin1String(NM_SETTING_ADSL_USERNAME)).toString());
@@ -219,7 +219,7 @@ void NetworkManager::Settings::AdslSetting::fromMap(const QVariantMap& setting)
     }
 }
 
-QVariantMap NetworkManager::Settings::AdslSetting::toMap() const
+QVariantMap NetworkManager::AdslSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -271,9 +271,9 @@ QVariantMap NetworkManager::Settings::AdslSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::AdslSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::AdslSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_ADSL_USERNAME << ": " << setting.username() << '\n';
     dbg.nospace() << NM_SETTING_ADSL_PASSWORD << ": " << setting.password() << '\n';

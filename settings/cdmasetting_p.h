@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class CdmaSettingPrivate
 {
 public:
@@ -36,9 +35,9 @@ public:
     QString number;
     QString username;
     QString password;
-    NetworkManager::Settings::Setting::SecretFlags passwordFlags;
+    NetworkManager::Setting::SecretFlags passwordFlags;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_CDMAP_H

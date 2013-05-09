@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class GsmSettingPrivate
 {
 public:
@@ -36,16 +35,16 @@ public:
     QString number;
     QString username;
     QString password;
-    NetworkManager::Settings::Setting::SecretFlags passwordFlags;
+    NetworkManager::Setting::SecretFlags passwordFlags;
     QString apn;
     QString networkId;
-    NetworkManager::Settings::GsmSetting::NetworkType networkType;
+    NetworkManager::GsmSetting::NetworkType networkType;
     QString pin;
-    NetworkManager::Settings::Setting::SecretFlags pinFlags;
+    NetworkManager::Setting::SecretFlags pinFlags;
     quint32 allowedBand;
     bool homeOnly;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_GSM_P_H

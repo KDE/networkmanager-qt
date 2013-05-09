@@ -28,10 +28,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class VlanSettingPrivate;
 
+class VlanSettingPrivate;
 class NMQT_EXPORT VlanSetting : public Setting
 {
     Q_DECLARE_PRIVATE(VlanSetting)
@@ -76,7 +74,6 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(VlanSetting::Flags)
 
 QDebug operator<<(QDebug dbg, const VlanSetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_VLAN_H

@@ -33,95 +33,94 @@ class QDBusPendingCallWatcher;
 
 namespace NetworkManager
 {
-namespace Settings
+
+class ConnectionPrivate;
+class NMQT_EXPORT Connection : public QObject
 {
-    class ConnectionPrivate;
-    class NMQT_EXPORT Connection : public QObject
-    {
     Q_OBJECT
     Q_DECLARE_PRIVATE(Connection)
-    public:
-        typedef QSharedPointer<Connection> Ptr;
-        typedef QList<Ptr> List;
+public:
+    typedef QSharedPointer<Connection> Ptr;
+    typedef QList<Ptr> List;
 
-        /**
-         * Constructs a connection object for the given path
-         */
-        explicit Connection(const QString &path, QObject * parent = 0);
-        ~Connection();
+    /**
+     * Constructs a connection object for the given path
+     */
+    explicit Connection(const QString &path, QObject * parent = 0);
+    ~Connection();
 
-        /**
-         * Returns if this connection is valid
-         */
-        bool isValid() const;
+    /**
+     * Returns if this connection is valid
+     */
+    bool isValid() const;
 
-        /**
-         * Returns the unique identifier of this connection
-         */
-        QString uuid() const;
+    /**
+     * Returns the unique identifier of this connection
+     */
+    QString uuid() const;
 
-        /**
-         * Returns the path (DBus) of this connection
-         */
-        QString path() const;
+    /**
+     * Returns the path (DBus) of this connection
+     */
+    QString path() const;
 
-        /**
-         * Returns the name of this connection
-         */
-        QString name() const;
+    /**
+     * Returns the name of this connection
+     */
+    QString name() const;
 
-        /**
-         * Returns the settings of this connection
-         */
-        ConnectionSettings::Ptr settings();
+    /**
+     * Returns the settings of this connection
+     */
+    ConnectionSettings::Ptr settings();
 
-        /**
-         * Retrieves this connections's secrets (passwords and / or encryption keys).
-         * This is an asynchronous call, connect to the gotSecrets signal to
-         * read the retrieved secrets.
-         *
-         * @param setting the setting identifier.
-         */
-        void secrets(const QString &setting);
+    /**
+     * Retrieves this connections's secrets (passwords and / or encryption keys).
+     * This is an asynchronous call, connect to the gotSecrets signal to
+     * read the retrieved secrets.
+     *
+     * @param setting the setting identifier.
+     */
+    void secrets(const QString &setting);
 
-        void update(const NMVariantMapMap &);
+    void update(const NMVariantMapMap &);
 
-        /**
-         * Removes the connection from NetworkManager database,
-         * this operation does not ask for confirmation but
-         * a policykit rule might prevent it from being removed
-         * without the proper password.
-         */
-        void remove();
+    /**
+     * Removes the connection from NetworkManager database,
+     * this operation does not ask for confirmation but
+     * a policykit rule might prevent it from being removed
+     * without the proper password.
+     */
+    void remove();
 
-    private:
-        ConnectionPrivate *d_ptr;
-    private Q_SLOTS:
-        void onSecretsArrived(QDBusPendingCallWatcher *);
-        void onConnectionUpdated();
-        void onConnectionRemoved();
-    Q_SIGNALS:
-        /**
-         * Reports the secrets retrieved.
-         *
-         * @param id connections's uuid.
-         * @param success true if secrets were correctly retrieved or false for error.
-         * @param set secrets retrieved.
-         * @param message error message if any, empty string if success is true.
-         */
-        void gotSecrets(const QString &id, bool success, const NMVariantMapMap &set, const QString &message);
+private:
+    ConnectionPrivate *d_ptr;
+private Q_SLOTS:
+    void onSecretsArrived(QDBusPendingCallWatcher *);
+    void onConnectionUpdated();
+    void onConnectionRemoved();
+Q_SIGNALS:
+    /**
+     * Reports the secrets retrieved.
+     *
+     * @param id connections's uuid.
+     * @param success true if secrets were correctly retrieved or false for error.
+     * @param set secrets retrieved.
+     * @param message error message if any, empty string if success is true.
+     */
+    void gotSecrets(const QString &id, bool success, const NMVariantMapMap &set, const QString &message);
 
-        /**
-         * Emitted when the connection settings changes
-         */
-        void updated();
+    /**
+     * Emitted when the connection settings changes
+     */
+    void updated();
 
-        /**
-         * Emitted when the connection was removed
-         * @param id connections's path.
-         */
-        void removed(const QString &path);
-    };
-}
+    /**
+     * Emitted when the connection was removed
+     * @param id connections's path.
+     */
+    void removed(const QString &path);
+};
+
 }
 #endif // CONNECTION_H

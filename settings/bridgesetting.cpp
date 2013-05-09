@@ -25,7 +25,7 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::BridgeSettingPrivate::BridgeSettingPrivate():
+NetworkManager::BridgeSettingPrivate::BridgeSettingPrivate():
     name(NM_SETTING_BRIDGE_SETTING_NAME),
     stp(true),
     priority(128),
@@ -35,12 +35,12 @@ NetworkManager::Settings::BridgeSettingPrivate::BridgeSettingPrivate():
     agingTime(300)
 { }
 
-NetworkManager::Settings::BridgeSetting::BridgeSetting():
+NetworkManager::BridgeSetting::BridgeSetting():
     Setting(Setting::Bridge),
     d_ptr(new BridgeSettingPrivate())
 { }
 
-NetworkManager::Settings::BridgeSetting::BridgeSetting(const Ptr &other):
+NetworkManager::BridgeSetting::BridgeSetting(const Ptr &other):
     Setting(other),
     d_ptr(new BridgeSettingPrivate())
 {
@@ -53,117 +53,117 @@ NetworkManager::Settings::BridgeSetting::BridgeSetting(const Ptr &other):
     setAgingTime(other->agingTime());
 }
 
-NetworkManager::Settings::BridgeSetting::~BridgeSetting()
+NetworkManager::BridgeSetting::~BridgeSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::BridgeSetting::name() const
+QString NetworkManager::BridgeSetting::name() const
 {
     Q_D(const BridgeSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::BridgeSetting::setInterfaceName(const QString& name)
+void NetworkManager::BridgeSetting::setInterfaceName(const QString& name)
 {
     Q_D(BridgeSetting);
 
     d->interfaceName = name;
 }
 
-QString NetworkManager::Settings::BridgeSetting::interfaceName() const
+QString NetworkManager::BridgeSetting::interfaceName() const
 {
     Q_D(const BridgeSetting);
 
     return d->interfaceName;
 }
 
-void NetworkManager::Settings::BridgeSetting::setStp(bool enabled)
+void NetworkManager::BridgeSetting::setStp(bool enabled)
 {
     Q_D(BridgeSetting);
 
     d->stp = enabled;
 }
 
-bool NetworkManager::Settings::BridgeSetting::stp() const
+bool NetworkManager::BridgeSetting::stp() const
 {
     Q_D(const BridgeSetting);
 
     return d->stp;
 }
 
-void NetworkManager::Settings::BridgeSetting::setPriority(quint32 priority)
+void NetworkManager::BridgeSetting::setPriority(quint32 priority)
 {
     Q_D(BridgeSetting);
 
     d->priority = priority;
 }
 
-quint32 NetworkManager::Settings::BridgeSetting::priority() const
+quint32 NetworkManager::BridgeSetting::priority() const
 {
     Q_D(const BridgeSetting);
 
     return d->priority;
 }
 
-void NetworkManager::Settings::BridgeSetting::setForwardDelay(quint32 delay)
+void NetworkManager::BridgeSetting::setForwardDelay(quint32 delay)
 {
     Q_D(BridgeSetting);
 
     d->forwardDelay = delay;
 }
 
-quint32 NetworkManager::Settings::BridgeSetting::forwardDelay() const
+quint32 NetworkManager::BridgeSetting::forwardDelay() const
 {
     Q_D(const BridgeSetting);
 
     return d->forwardDelay;
 }
 
-void NetworkManager::Settings::BridgeSetting::setHelloTime(quint32 time)
+void NetworkManager::BridgeSetting::setHelloTime(quint32 time)
 {
     Q_D(BridgeSetting);
 
     d->helloTime = time;
 }
 
-quint32 NetworkManager::Settings::BridgeSetting::helloTime() const
+quint32 NetworkManager::BridgeSetting::helloTime() const
 {
     Q_D(const BridgeSetting);
 
     return d->helloTime;
 }
 
-void NetworkManager::Settings::BridgeSetting::setMaxAge(quint32 age)
+void NetworkManager::BridgeSetting::setMaxAge(quint32 age)
 {
     Q_D(BridgeSetting);
 
     d->maxAge = age;
 }
 
-quint32 NetworkManager::Settings::BridgeSetting::maxAge() const
+quint32 NetworkManager::BridgeSetting::maxAge() const
 {
     Q_D(const BridgeSetting);
 
     return d->maxAge;
 }
 
-void NetworkManager::Settings::BridgeSetting::setAgingTime(quint32 time)
+void NetworkManager::BridgeSetting::setAgingTime(quint32 time)
 {
     Q_D(BridgeSetting);
 
     d->agingTime = time;
 }
 
-quint32 NetworkManager::Settings::BridgeSetting::agingTime() const
+quint32 NetworkManager::BridgeSetting::agingTime() const
 {
     Q_D(const BridgeSetting);
 
     return d->agingTime;
 }
 
-void NetworkManager::Settings::BridgeSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::BridgeSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_BRIDGE_INTERFACE_NAME))) {
         setInterfaceName(setting.value(QLatin1String(NM_SETTING_BRIDGE_INTERFACE_NAME)).toString());
@@ -194,7 +194,7 @@ void NetworkManager::Settings::BridgeSetting::fromMap(const QVariantMap& setting
     }
 }
 
-QVariantMap NetworkManager::Settings::BridgeSetting::toMap() const
+QVariantMap NetworkManager::BridgeSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -229,9 +229,9 @@ QVariantMap NetworkManager::Settings::BridgeSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::BridgeSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::BridgeSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_BRIDGE_INTERFACE_NAME << ": " << setting.interfaceName() << '\n';
     dbg.nospace() << NM_SETTING_BRIDGE_STP << ": " << setting.stp() << '\n';

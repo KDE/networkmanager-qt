@@ -28,22 +28,22 @@
 #include <arpa/inet.h>
 #include <nm-setting-ip6-config.h>
 
-NetworkManager::Settings::Ipv6SettingPrivate::Ipv6SettingPrivate():
+NetworkManager::Ipv6SettingPrivate::Ipv6SettingPrivate():
     name(NM_SETTING_IP6_CONFIG_SETTING_NAME),
-    method(NetworkManager::Settings::Ipv6Setting::Automatic),
+    method(NetworkManager::Ipv6Setting::Automatic),
     ignoreAutoRoutes(false),
     ignoreAutoDns(false),
     neverDefault(false),
     mayFail(true),
-    privacy(NetworkManager::Settings::Ipv6Setting::Unknown)
+    privacy(NetworkManager::Ipv6Setting::Unknown)
 { }
 
-NetworkManager::Settings::Ipv6Setting::Ipv6Setting():
+NetworkManager::Ipv6Setting::Ipv6Setting():
     Setting(Setting::Ipv6),
     d_ptr(new Ipv6SettingPrivate())
 { }
 
-NetworkManager::Settings::Ipv6Setting::Ipv6Setting(const Ptr &other):
+NetworkManager::Ipv6Setting::Ipv6Setting(const Ptr &other):
     Setting(other),
     d_ptr(new Ipv6SettingPrivate())
 {
@@ -58,159 +58,159 @@ NetworkManager::Settings::Ipv6Setting::Ipv6Setting(const Ptr &other):
     setMayFail(other->mayFail());
 }
 
-NetworkManager::Settings::Ipv6Setting::~Ipv6Setting()
+NetworkManager::Ipv6Setting::~Ipv6Setting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::Ipv6Setting::name() const
+QString NetworkManager::Ipv6Setting::name() const
 {
     Q_D(const Ipv6Setting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::Ipv6Setting::setMethod(NetworkManager::Settings::Ipv6Setting::ConfigMethod type)
+void NetworkManager::Ipv6Setting::setMethod(NetworkManager::Ipv6Setting::ConfigMethod type)
 {
     Q_D(Ipv6Setting);
 
     d->method = type;
 }
 
-NetworkManager::Settings::Ipv6Setting::ConfigMethod NetworkManager::Settings::Ipv6Setting::method() const
+NetworkManager::Ipv6Setting::ConfigMethod NetworkManager::Ipv6Setting::method() const
 {
     Q_D(const Ipv6Setting);
 
     return d->method;
 }
 
-void NetworkManager::Settings::Ipv6Setting::setDns(const QList<QHostAddress>& dns)
+void NetworkManager::Ipv6Setting::setDns(const QList<QHostAddress>& dns)
 {
     Q_D(Ipv6Setting);
 
     d->dns = dns;
 }
 
-QList<QHostAddress> NetworkManager::Settings::Ipv6Setting::dns() const
+QList<QHostAddress> NetworkManager::Ipv6Setting::dns() const
 {
     Q_D(const Ipv6Setting);
 
     return d->dns;
 }
 
-void NetworkManager::Settings::Ipv6Setting::setDnsSearch(const QStringList& domains)
+void NetworkManager::Ipv6Setting::setDnsSearch(const QStringList& domains)
 {
     Q_D(Ipv6Setting);
 
     d->dnsSearch = domains;
 }
 
-QStringList NetworkManager::Settings::Ipv6Setting::dnsSearch() const
+QStringList NetworkManager::Ipv6Setting::dnsSearch() const
 {
     Q_D(const Ipv6Setting);
 
     return d->dnsSearch;
 }
 
-void NetworkManager::Settings::Ipv6Setting::setAddresses(const QList<IpAddress> ipv6addresses)
+void NetworkManager::Ipv6Setting::setAddresses(const QList<IpAddress> ipv6addresses)
 {
     Q_D(Ipv6Setting);
 
     d->addresses = ipv6addresses;
 }
 
-QList< NetworkManager::IpAddress > NetworkManager::Settings::Ipv6Setting::addresses() const
+QList< NetworkManager::IpAddress > NetworkManager::Ipv6Setting::addresses() const
 {
     Q_D(const Ipv6Setting);
 
     return d->addresses;
 }
 
-void NetworkManager::Settings::Ipv6Setting::setRoutes(const QList< NetworkManager::IpRoute > ipv6routes)
+void NetworkManager::Ipv6Setting::setRoutes(const QList< NetworkManager::IpRoute > ipv6routes)
 {
     Q_D(Ipv6Setting);
 
     d->routes = ipv6routes;
 }
 
-QList<NetworkManager::IpRoute> NetworkManager::Settings::Ipv6Setting::routes() const
+QList<NetworkManager::IpRoute> NetworkManager::Ipv6Setting::routes() const
 {
     Q_D(const Ipv6Setting);
 
     return d->routes;
 }
 
-void NetworkManager::Settings::Ipv6Setting::setIgnoreAutoRoutes(bool ignore)
+void NetworkManager::Ipv6Setting::setIgnoreAutoRoutes(bool ignore)
 {
     Q_D(Ipv6Setting);
 
     d->ignoreAutoRoutes = ignore;
 }
 
-bool NetworkManager::Settings::Ipv6Setting::ignoreAutoRoutes() const
+bool NetworkManager::Ipv6Setting::ignoreAutoRoutes() const
 {
     Q_D(const Ipv6Setting);
 
     return d->ignoreAutoRoutes;
 }
 
-void NetworkManager::Settings::Ipv6Setting::setIgnoreAutoDns(bool ignore)
+void NetworkManager::Ipv6Setting::setIgnoreAutoDns(bool ignore)
 {
     Q_D(Ipv6Setting);
 
     d->ignoreAutoDns = ignore;
 }
 
-bool NetworkManager::Settings::Ipv6Setting::ignoreAutoDns() const
+bool NetworkManager::Ipv6Setting::ignoreAutoDns() const
 {
     Q_D(const Ipv6Setting);
 
     return d->ignoreAutoDns;
 }
 
-void NetworkManager::Settings::Ipv6Setting::setNeverDefault(bool neverDefault)
+void NetworkManager::Ipv6Setting::setNeverDefault(bool neverDefault)
 {
     Q_D(Ipv6Setting);
 
     d->neverDefault = neverDefault;
 }
 
-bool NetworkManager::Settings::Ipv6Setting::neverDefault() const
+bool NetworkManager::Ipv6Setting::neverDefault() const
 {
     Q_D(const Ipv6Setting);
 
     return d->neverDefault;
 }
 
-void NetworkManager::Settings::Ipv6Setting::setMayFail(bool mayFail)
+void NetworkManager::Ipv6Setting::setMayFail(bool mayFail)
 {
     Q_D(Ipv6Setting);
 
     d->mayFail = mayFail;
 }
 
-bool NetworkManager::Settings::Ipv6Setting::mayFail() const
+bool NetworkManager::Ipv6Setting::mayFail() const
 {
     Q_D(const Ipv6Setting);
 
     return d->mayFail;
 }
 
-void NetworkManager::Settings::Ipv6Setting::setPrivacy(IPv6Privacy privacy)
+void NetworkManager::Ipv6Setting::setPrivacy(IPv6Privacy privacy)
 {
     Q_D(Ipv6Setting);
 
     d->privacy = privacy;
 }
 
-NetworkManager::Settings::Ipv6Setting::IPv6Privacy NetworkManager::Settings::Ipv6Setting::privacy() const
+NetworkManager::Ipv6Setting::IPv6Privacy NetworkManager::Ipv6Setting::privacy() const
 {
     Q_D(const Ipv6Setting);
 
     return d->privacy;
 }
 
-void NetworkManager::Settings::Ipv6Setting::fromMap(const QVariantMap& setting)
+void NetworkManager::Ipv6Setting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_IP6_CONFIG_METHOD))) {
         QString methodType = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_METHOD)).toString();
@@ -300,7 +300,7 @@ void NetworkManager::Settings::Ipv6Setting::fromMap(const QVariantMap& setting)
     }
 }
 
-QVariantMap NetworkManager::Settings::Ipv6Setting::toMap() const
+QVariantMap NetworkManager::Ipv6Setting::toMap() const
 {
     QVariantMap setting;
 
@@ -383,9 +383,9 @@ QVariantMap NetworkManager::Settings::Ipv6Setting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::Ipv6Setting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv6Setting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_IP6_CONFIG_METHOD << ": " << setting.method() << '\n';
     dbg.nospace() << NM_SETTING_IP6_CONFIG_DNS << '\n';

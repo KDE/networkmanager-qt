@@ -45,7 +45,7 @@ void WimaxSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_WIMAX_NETWORK_NAME), networkName);
     map.insert(QLatin1String(NM_SETTING_WIMAX_MAC_ADDRESS), macAddress);
 
-    NetworkManager::Settings::WimaxSetting setting;
+    NetworkManager::WimaxSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

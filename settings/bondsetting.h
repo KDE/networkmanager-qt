@@ -36,10 +36,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class BondSettingPrivate;
 
+class BondSettingPrivate;
 class NMQT_EXPORT BondSetting : public Setting
 {
     Q_DECLARE_PRIVATE(BondSetting)
@@ -69,7 +67,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const BondSetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_BOND_H

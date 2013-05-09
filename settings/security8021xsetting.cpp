@@ -25,27 +25,27 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::Security8021xSettingPrivate::Security8021xSettingPrivate():
+NetworkManager::Security8021xSettingPrivate::Security8021xSettingPrivate():
     name(NM_SETTING_802_1X_SETTING_NAME),
     phase1PeapVer(Security8021xSetting::PeapVersionUnknown),
     phase1PeapLabel(Security8021xSetting::PeapLabelUnknown),
     phase1FastProvisioning(Security8021xSetting::FastProvisioningUnknown),
     phase2AuthMethod(Security8021xSetting::AuthMethodUnknown),
     phase2AuthEapMethod(Security8021xSetting::AuthEapMethodUnknown),
-    passwordFlags(NetworkManager::Settings::Setting::None),
-    passwordRawFlags(NetworkManager::Settings::Setting::None),
-    privateKeyPasswordFlags(NetworkManager::Settings::Setting::None),
-    phase2PrivateKeyPasswordFlags(NetworkManager::Settings::Setting::None),
-    pinFlags(NetworkManager::Settings::Setting::None),
+    passwordFlags(NetworkManager::Setting::None),
+    passwordRawFlags(NetworkManager::Setting::None),
+    privateKeyPasswordFlags(NetworkManager::Setting::None),
+    phase2PrivateKeyPasswordFlags(NetworkManager::Setting::None),
+    pinFlags(NetworkManager::Setting::None),
     systemCaCerts(false)
 { }
 
-NetworkManager::Settings::Security8021xSetting::Security8021xSetting():
+NetworkManager::Security8021xSetting::Security8021xSetting():
     Setting(Setting::Security8021x),
     d_ptr(new Security8021xSettingPrivate())
 { }
 
-NetworkManager::Settings::Security8021xSetting::Security8021xSetting(const Ptr &other):
+NetworkManager::Security8021xSetting::Security8021xSetting(const Ptr &other):
     Setting(other),
     d_ptr(new Security8021xSettingPrivate())
 {
@@ -80,467 +80,467 @@ NetworkManager::Settings::Security8021xSetting::Security8021xSetting(const Ptr &
     setSystemCaCertificates(other->systemCaCertificates());
 }
 
-NetworkManager::Settings::Security8021xSetting::~Security8021xSetting()
+NetworkManager::Security8021xSetting::~Security8021xSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::Security8021xSetting::name() const
+QString NetworkManager::Security8021xSetting::name() const
 {
     Q_D(const Security8021xSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setEapMethods(const QList< NetworkManager::Settings::Security8021xSetting::EapMethod >& methods)
+void NetworkManager::Security8021xSetting::setEapMethods(const QList< NetworkManager::Security8021xSetting::EapMethod >& methods)
 {
     Q_D(Security8021xSetting);
 
     d->eap = methods;
 }
 
-QList< NetworkManager::Settings::Security8021xSetting::EapMethod > NetworkManager::Settings::Security8021xSetting::eapMethods() const
+QList< NetworkManager::Security8021xSetting::EapMethod > NetworkManager::Security8021xSetting::eapMethods() const
 {
     Q_D(const Security8021xSetting);
 
     return d->eap;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setIdentity(const QString& identity)
+void NetworkManager::Security8021xSetting::setIdentity(const QString& identity)
 {
     Q_D(Security8021xSetting);
 
     d->identity = identity;
 }
 
-QString NetworkManager::Settings::Security8021xSetting::identity() const
+QString NetworkManager::Security8021xSetting::identity() const
 {
     Q_D(const Security8021xSetting);
 
     return d->identity;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setAnonymousIdentity(const QString& identity)
+void NetworkManager::Security8021xSetting::setAnonymousIdentity(const QString& identity)
 {
     Q_D(Security8021xSetting);
 
     d->anonymousIdentity = identity;
 }
 
-QString NetworkManager::Settings::Security8021xSetting::anonymousIdentity() const
+QString NetworkManager::Security8021xSetting::anonymousIdentity() const
 {
     Q_D(const Security8021xSetting);
 
     return d->anonymousIdentity;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPacFile(const QString& file)
+void NetworkManager::Security8021xSetting::setPacFile(const QString& file)
 {
     Q_D(Security8021xSetting);
 
     d->pacFile = file;
 }
 
-QString NetworkManager::Settings::Security8021xSetting::pacFile() const
+QString NetworkManager::Security8021xSetting::pacFile() const
 {
     Q_D(const Security8021xSetting);
 
     return d->pacFile;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setCaCertificate(const QByteArray& certificate)
+void NetworkManager::Security8021xSetting::setCaCertificate(const QByteArray& certificate)
 {
     Q_D(Security8021xSetting);
 
     d->caCert = certificate;
 }
 
-QByteArray NetworkManager::Settings::Security8021xSetting::caCertificate() const
+QByteArray NetworkManager::Security8021xSetting::caCertificate() const
 {
     Q_D(const Security8021xSetting);
 
     return d->caCert;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setCaPath(const QString& path)
+void NetworkManager::Security8021xSetting::setCaPath(const QString& path)
 {
     Q_D(Security8021xSetting);
 
     d->caPath = path;
 }
 
-QString NetworkManager::Settings::Security8021xSetting::caPath() const
+QString NetworkManager::Security8021xSetting::caPath() const
 {
     Q_D(const Security8021xSetting);
 
     return d->caPath;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setSubjectMatch(const QString& substring)
+void NetworkManager::Security8021xSetting::setSubjectMatch(const QString& substring)
 {
     Q_D(Security8021xSetting);
 
     d->subjectMatch = substring;
 }
 
-QString NetworkManager::Settings::Security8021xSetting::subjectMatch() const
+QString NetworkManager::Security8021xSetting::subjectMatch() const
 {
     Q_D(const Security8021xSetting);
 
     return d->subjectMatch;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setAltSubjectMatches(const QStringList& strings)
+void NetworkManager::Security8021xSetting::setAltSubjectMatches(const QStringList& strings)
 {
     Q_D(Security8021xSetting);
 
     d->altSubjectMatches = strings;
 }
 
-QStringList NetworkManager::Settings::Security8021xSetting::altSubjectMatches() const
+QStringList NetworkManager::Security8021xSetting::altSubjectMatches() const
 {
     Q_D(const Security8021xSetting);
 
     return d->altSubjectMatches;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setClientCertificate(const QByteArray& certificate)
+void NetworkManager::Security8021xSetting::setClientCertificate(const QByteArray& certificate)
 {
     Q_D(Security8021xSetting);
 
     d->clientCert = certificate;
 }
 
-QByteArray NetworkManager::Settings::Security8021xSetting::clientCertificate() const
+QByteArray NetworkManager::Security8021xSetting::clientCertificate() const
 {
     Q_D(const Security8021xSetting);
 
     return d->clientCert;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase1PeapVersion(NetworkManager::Settings::Security8021xSetting::PeapVersion version)
+void NetworkManager::Security8021xSetting::setPhase1PeapVersion(NetworkManager::Security8021xSetting::PeapVersion version)
 {
     Q_D(Security8021xSetting);
 
     d->phase1PeapVer = version;
 }
 
-NetworkManager::Settings::Security8021xSetting::PeapVersion NetworkManager::Settings::Security8021xSetting::phase1PeapVersion() const
+NetworkManager::Security8021xSetting::PeapVersion NetworkManager::Security8021xSetting::phase1PeapVersion() const
 {
     Q_D(const Security8021xSetting);
 
     return d->phase1PeapVer;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase1PeapLabel(NetworkManager::Settings::Security8021xSetting::PeapLabel label)
+void NetworkManager::Security8021xSetting::setPhase1PeapLabel(NetworkManager::Security8021xSetting::PeapLabel label)
 {
     Q_D(Security8021xSetting);
 
     d->phase1PeapLabel = label;
 }
 
-NetworkManager::Settings::Security8021xSetting::PeapLabel NetworkManager::Settings::Security8021xSetting::phase1PeapLabel() const
+NetworkManager::Security8021xSetting::PeapLabel NetworkManager::Security8021xSetting::phase1PeapLabel() const
 {
     Q_D(const Security8021xSetting);
 
     return d->phase1PeapLabel;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase1FastProvisioning(NetworkManager::Settings::Security8021xSetting::FastProvisioning provisioning)
+void NetworkManager::Security8021xSetting::setPhase1FastProvisioning(NetworkManager::Security8021xSetting::FastProvisioning provisioning)
 {
     Q_D(Security8021xSetting);
 
     d->phase1FastProvisioning = provisioning;
 }
 
-NetworkManager::Settings::Security8021xSetting::FastProvisioning NetworkManager::Settings::Security8021xSetting::phase1FastProvisioning() const
+NetworkManager::Security8021xSetting::FastProvisioning NetworkManager::Security8021xSetting::phase1FastProvisioning() const
 {
     Q_D(const Security8021xSetting);
 
     return d->phase1FastProvisioning;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2AuthMethod(NetworkManager::Settings::Security8021xSetting::AuthMethod method)
+void NetworkManager::Security8021xSetting::setPhase2AuthMethod(NetworkManager::Security8021xSetting::AuthMethod method)
 {
     Q_D(Security8021xSetting);
 
     d->phase2AuthMethod = method;
 }
 
-NetworkManager::Settings::Security8021xSetting::AuthMethod NetworkManager::Settings::Security8021xSetting::phase2AuthMethod() const
+NetworkManager::Security8021xSetting::AuthMethod NetworkManager::Security8021xSetting::phase2AuthMethod() const
 {
     Q_D(const Security8021xSetting);
 
     return d->phase2AuthMethod;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2AuthEapMethod(NetworkManager::Settings::Security8021xSetting::AuthEapMethod method)
+void NetworkManager::Security8021xSetting::setPhase2AuthEapMethod(NetworkManager::Security8021xSetting::AuthEapMethod method)
 {
     Q_D(Security8021xSetting);
 
     d->phase2AuthEapMethod = method;
 }
 
-NetworkManager::Settings::Security8021xSetting::AuthEapMethod NetworkManager::Settings::Security8021xSetting::phase2AuthEapMethod() const
+NetworkManager::Security8021xSetting::AuthEapMethod NetworkManager::Security8021xSetting::phase2AuthEapMethod() const
 {
     Q_D(const Security8021xSetting);
 
     return d->phase2AuthEapMethod;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2CaCertificate(const QByteArray& certificate)
+void NetworkManager::Security8021xSetting::setPhase2CaCertificate(const QByteArray& certificate)
 {
     Q_D(Security8021xSetting);
 
     d->phase2CaCert = certificate;
 }
 
-QByteArray NetworkManager::Settings::Security8021xSetting::phase2CaCertificate() const
+QByteArray NetworkManager::Security8021xSetting::phase2CaCertificate() const
 {
     Q_D(const Security8021xSetting);
 
     return d->phase2CaCert;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2CaPath(const QString& path)
+void NetworkManager::Security8021xSetting::setPhase2CaPath(const QString& path)
 {
     Q_D(Security8021xSetting);
 
     d->phase2CaPath = path;
 }
 
-QString NetworkManager::Settings::Security8021xSetting::phase2CaPath() const
+QString NetworkManager::Security8021xSetting::phase2CaPath() const
 {
     Q_D(const Security8021xSetting);
 
     return d->phase2CaPath;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2SubjectMatch(const QString& substring)
+void NetworkManager::Security8021xSetting::setPhase2SubjectMatch(const QString& substring)
 {
     Q_D(Security8021xSetting);
 
     d->phase2SubjectMatch = substring;
 }
 
-QString NetworkManager::Settings::Security8021xSetting::phase2SubjectMatch() const
+QString NetworkManager::Security8021xSetting::phase2SubjectMatch() const
 {
     Q_D(const Security8021xSetting);
 
     return d->phase2SubjectMatch;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2AltSubjectMatches(const QStringList& strings)
+void NetworkManager::Security8021xSetting::setPhase2AltSubjectMatches(const QStringList& strings)
 {
     Q_D(Security8021xSetting);
 
     d->phase2AltSubjectMatches = strings;
 }
 
-QStringList NetworkManager::Settings::Security8021xSetting::phase2AltSubjectMatches() const
+QStringList NetworkManager::Security8021xSetting::phase2AltSubjectMatches() const
 {
     Q_D(const Security8021xSetting);
 
     return d->phase2AltSubjectMatches;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2ClientCertificate(const QByteArray& certificate)
+void NetworkManager::Security8021xSetting::setPhase2ClientCertificate(const QByteArray& certificate)
 {
     Q_D(Security8021xSetting);
 
     d->phase2ClientCert = certificate;
 }
 
-QByteArray NetworkManager::Settings::Security8021xSetting::phase2ClientCertificate() const
+QByteArray NetworkManager::Security8021xSetting::phase2ClientCertificate() const
 {
     Q_D(const Security8021xSetting);
 
     return d->phase2ClientCert;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPassword(const QString& password)
+void NetworkManager::Security8021xSetting::setPassword(const QString& password)
 {
     Q_D(Security8021xSetting);
 
     d->password = password;
 }
 
-QString NetworkManager::Settings::Security8021xSetting::password() const
+QString NetworkManager::Security8021xSetting::password() const
 {
     Q_D(const Security8021xSetting);
 
     return d->password;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPasswordFlags(NetworkManager::Settings::Setting::SecretFlags flags)
+void NetworkManager::Security8021xSetting::setPasswordFlags(NetworkManager::Setting::SecretFlags flags)
 {
     Q_D(Security8021xSetting);
 
     d->passwordFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::Security8021xSetting::passwordFlags() const
+NetworkManager::Setting::SecretFlags NetworkManager::Security8021xSetting::passwordFlags() const
 {
     Q_D(const Security8021xSetting);
 
     return d->passwordFlags;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPasswordRaw(const QByteArray& password)
+void NetworkManager::Security8021xSetting::setPasswordRaw(const QByteArray& password)
 {
     Q_D(Security8021xSetting);
 
     d->passwordRaw = password;
 }
 
-QByteArray NetworkManager::Settings::Security8021xSetting::passwordRaw() const
+QByteArray NetworkManager::Security8021xSetting::passwordRaw() const
 {
     Q_D(const Security8021xSetting);
 
     return d->passwordRaw;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPasswordRawFlags(NetworkManager::Settings::Setting::SecretFlags flags)
+void NetworkManager::Security8021xSetting::setPasswordRawFlags(NetworkManager::Setting::SecretFlags flags)
 {
     Q_D(Security8021xSetting);
 
     d->passwordRawFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::Security8021xSetting::passwordRawFlags() const
+NetworkManager::Setting::SecretFlags NetworkManager::Security8021xSetting::passwordRawFlags() const
 {
     Q_D(const Security8021xSetting);
 
     return d->passwordRawFlags;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPrivateKey(const QByteArray& key)
+void NetworkManager::Security8021xSetting::setPrivateKey(const QByteArray& key)
 {
     Q_D(Security8021xSetting);
 
     d->privateKey = key;
 }
 
-QByteArray NetworkManager::Settings::Security8021xSetting::privateKey() const
+QByteArray NetworkManager::Security8021xSetting::privateKey() const
 {
     Q_D(const Security8021xSetting);
 
     return d->privateKey;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPrivateKeyPassword(const QString& password)
+void NetworkManager::Security8021xSetting::setPrivateKeyPassword(const QString& password)
 {
     Q_D(Security8021xSetting);
 
     d->privateKeyPassword = password;
 }
 
-QString NetworkManager::Settings::Security8021xSetting::privateKeyPassword() const
+QString NetworkManager::Security8021xSetting::privateKeyPassword() const
 {
     Q_D(const Security8021xSetting);
 
     return d->privateKeyPassword;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPrivateKeyPasswordFlags(NetworkManager::Settings::Setting::SecretFlags flags)
+void NetworkManager::Security8021xSetting::setPrivateKeyPasswordFlags(NetworkManager::Setting::SecretFlags flags)
 {
     Q_D(Security8021xSetting);
 
     d->privateKeyPasswordFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::Security8021xSetting::privateKeyPasswordFlags() const
+NetworkManager::Setting::SecretFlags NetworkManager::Security8021xSetting::privateKeyPasswordFlags() const
 {
     Q_D(const Security8021xSetting);
 
     return d->privateKeyPasswordFlags;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2PrivateKey(const QByteArray& key)
+void NetworkManager::Security8021xSetting::setPhase2PrivateKey(const QByteArray& key)
 {
     Q_D(Security8021xSetting);
 
     d->phase2PrivateKey = key;
 }
 
-QByteArray NetworkManager::Settings::Security8021xSetting::phase2PrivateKey() const
+QByteArray NetworkManager::Security8021xSetting::phase2PrivateKey() const
 {
     Q_D(const Security8021xSetting);
 
     return d->phase2PrivateKey;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2PrivateKeyPassword(const QString& password)
+void NetworkManager::Security8021xSetting::setPhase2PrivateKeyPassword(const QString& password)
 {
     Q_D(Security8021xSetting);
 
     d->phase2PrivateKeyPassword = password;
 }
 
-QString NetworkManager::Settings::Security8021xSetting::phase2PrivateKeyPassword() const
+QString NetworkManager::Security8021xSetting::phase2PrivateKeyPassword() const
 {
     Q_D(const Security8021xSetting);
 
     return d->phase2PrivateKeyPassword;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2PrivateKeyPasswordFlags(NetworkManager::Settings::Setting::SecretFlags flags)
+void NetworkManager::Security8021xSetting::setPhase2PrivateKeyPasswordFlags(NetworkManager::Setting::SecretFlags flags)
 {
     Q_D(Security8021xSetting);
 
     d->phase2PrivateKeyPasswordFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::Security8021xSetting::phase2PrivateKeyPasswordFlags() const
+NetworkManager::Setting::SecretFlags NetworkManager::Security8021xSetting::phase2PrivateKeyPasswordFlags() const
 {
     Q_D(const Security8021xSetting);
 
     return d->phase2PrivateKeyPasswordFlags;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setSystemCaCertificates(bool use)
+void NetworkManager::Security8021xSetting::setSystemCaCertificates(bool use)
 {
     Q_D(Security8021xSetting);
 
     d->systemCaCerts = use;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPin(const QString& pin)
+void NetworkManager::Security8021xSetting::setPin(const QString& pin)
 {
     Q_D(Security8021xSetting);
 
     d->pin = pin;
 }
 
-QString NetworkManager::Settings::Security8021xSetting::pin() const
+QString NetworkManager::Security8021xSetting::pin() const
 {
     Q_D(const Security8021xSetting);
 
     return d->pin;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPinFlags(NetworkManager::Settings::Setting::SecretFlags flags)
+void NetworkManager::Security8021xSetting::setPinFlags(NetworkManager::Setting::SecretFlags flags)
 {
     Q_D(Security8021xSetting);
 
     d->pinFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::Security8021xSetting::pinFlags() const
+NetworkManager::Setting::SecretFlags NetworkManager::Security8021xSetting::pinFlags() const
 {
     Q_D(const Security8021xSetting);
 
     return d->pinFlags;
 }
 
-bool NetworkManager::Settings::Security8021xSetting::systemCaCertificates() const
+bool NetworkManager::Security8021xSetting::systemCaCertificates() const
 {
     Q_D(const Security8021xSetting);
 
     return d->systemCaCerts;
 }
 
-QStringList NetworkManager::Settings::Security8021xSetting::needSecrets(bool requestNew) const
+QStringList NetworkManager::Security8021xSetting::needSecrets(bool requestNew) const
 {
     QStringList secrets;
 
@@ -564,7 +564,7 @@ QStringList NetworkManager::Settings::Security8021xSetting::needSecrets(bool req
     return secrets;
 }
 
-void NetworkManager::Settings::Security8021xSetting::secretsFromMap(const QVariantMap& secrets)
+void NetworkManager::Security8021xSetting::secretsFromMap(const QVariantMap& secrets)
 {
     if (secrets.contains(QLatin1String(NM_SETTING_802_1X_PASSWORD))) {
         setPassword(secrets.value(QLatin1String(NM_SETTING_802_1X_PASSWORD)).toString());
@@ -587,7 +587,7 @@ void NetworkManager::Settings::Security8021xSetting::secretsFromMap(const QVaria
     }
 }
 
-QVariantMap NetworkManager::Settings::Security8021xSetting::secretsToMap() const
+QVariantMap NetworkManager::Security8021xSetting::secretsToMap() const
 {
     QVariantMap secrets;
 
@@ -614,7 +614,7 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::secretsToMap() const
     return secrets;
 }
 
-void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::Security8021xSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_EAP))) {
         QStringList methods = setting.value(QLatin1String(NM_SETTING_802_1X_EAP)).toStringList();
@@ -815,7 +815,7 @@ void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& 
     }
 }
 
-QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
+QVariantMap NetworkManager::Security8021xSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -1047,9 +1047,9 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::Security8021xSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Security8021xSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_802_1X_EAP << ": " << setting.eapMethods() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_IDENTITY << ": " << setting.identity() << '\n';

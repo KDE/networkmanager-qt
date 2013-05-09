@@ -28,10 +28,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class InfinibandSettingPrivate;
 
+class InfinibandSettingPrivate;
 class NMQT_EXPORT InfinibandSetting : public Setting
 {
     Q_DECLARE_PRIVATE(InfinibandSetting)
@@ -65,7 +63,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const InfinibandSetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_INFINIBAND_H

@@ -28,9 +28,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <nm-setting-connection.h>
 
-NM_GLOBAL_STATIC(NetworkManager::Settings::SettingsPrivate, globalSettings)
+NM_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
 
-NetworkManager::Settings::SettingsPrivate::SettingsPrivate()
+NetworkManager::SettingsPrivate::SettingsPrivate()
     : iface(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, QDBusConnection::systemBus())
 {
     connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), this, SLOT(propertiesChanged(QVariantMap)));
@@ -43,7 +43,7 @@ NetworkManager::Settings::SettingsPrivate::SettingsPrivate()
     }
 }
 
-void NetworkManager::Settings::SettingsPrivate::init()
+void NetworkManager::SettingsPrivate::init()
 {
     QDBusPendingReply<QList<QDBusObjectPath> > reply = iface.ListConnections();
     reply.waitForFinished();
@@ -56,9 +56,9 @@ void NetworkManager::Settings::SettingsPrivate::init()
     m_hostname = iface.hostname();
 }
 
-NetworkManager::Settings::Connection::List NetworkManager::Settings::SettingsPrivate::listConnections()
+NetworkManager::Connection::List NetworkManager::SettingsPrivate::listConnections()
 {
-    NetworkManager::Settings::Connection::List list;
+    NetworkManager::Connection::List list;
     QMap<QString, Connection::Ptr>::const_iterator i = connections.constBegin();
     while (i != connections.constEnd()) {
         list.append(findRegisteredConnection(i.key()));
@@ -67,31 +67,31 @@ NetworkManager::Settings::Connection::List NetworkManager::Settings::SettingsPri
     return list;
 }
 
-NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::SettingsPrivate::findConnectionByUuid(const QString & uuid)
+NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findConnectionByUuid(const QString & uuid)
 {
     QMap<QString, Connection::Ptr>::const_iterator i = connections.constBegin();
     while (i != connections.constEnd()) {
-        NetworkManager::Settings::Connection::Ptr connection = findRegisteredConnection(i.key());
+        NetworkManager::Connection::Ptr connection = findRegisteredConnection(i.key());
         if (connection && connection->uuid() == uuid) {
             return connection;
         }
         ++i;
     }
 
-    return NetworkManager::Settings::Connection::Ptr();
+    return NetworkManager::Connection::Ptr();
 }
 
-QString NetworkManager::Settings::SettingsPrivate::hostname() const
+QString NetworkManager::SettingsPrivate::hostname() const
 {
     return m_hostname;
 }
 
-bool NetworkManager::Settings::SettingsPrivate::canModify() const
+bool NetworkManager::SettingsPrivate::canModify() const
 {
     return m_canModify;
 }
 
-QString NetworkManager::Settings::SettingsPrivate::addConnection(const NMVariantMapMap &connection)
+QString NetworkManager::SettingsPrivate::addConnection(const NMVariantMapMap &connection)
 {
     QDBusPendingReply<QDBusObjectPath> reply = iface.AddConnection(connection);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, 0);
@@ -102,7 +102,7 @@ QString NetworkManager::Settings::SettingsPrivate::addConnection(const NMVariant
     return id;
 }
 
-void NetworkManager::Settings::SettingsPrivate::onConnectionAddArrived(QDBusPendingCallWatcher *watcher)
+void NetworkManager::SettingsPrivate::onConnectionAddArrived(QDBusPendingCallWatcher *watcher)
 {
     QDBusPendingReply<QDBusObjectPath> reply = *watcher;
     QString id = watcher->property("libNetworkManagerQt_id").value<QString>();
@@ -118,12 +118,12 @@ void NetworkManager::Settings::SettingsPrivate::onConnectionAddArrived(QDBusPend
     watcher->deleteLater();
 }
 
-void NetworkManager::Settings::SettingsPrivate::saveHostname(const QString &hostname)
+void NetworkManager::SettingsPrivate::saveHostname(const QString &hostname)
 {
     iface.SaveHostname(hostname);
 }
 
-void NetworkManager::Settings::SettingsPrivate::propertiesChanged(const QVariantMap &properties)
+void NetworkManager::SettingsPrivate::propertiesChanged(const QVariantMap &properties)
 {
     QVariantMap::const_iterator it = properties.constBegin();
     while (it != properties.constEnd()) {
@@ -141,7 +141,7 @@ void NetworkManager::Settings::SettingsPrivate::propertiesChanged(const QVariant
     }
 }
 
-void NetworkManager::Settings::SettingsPrivate::onConnectionAdded(const QDBusObjectPath &path)
+void NetworkManager::SettingsPrivate::onConnectionAdded(const QDBusObjectPath &path)
 {
     QString id = path.path();
     if (connections.contains(id))
@@ -150,7 +150,7 @@ void NetworkManager::Settings::SettingsPrivate::onConnectionAdded(const QDBusObj
     emit connectionAdded(id);
 }
 
-NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::SettingsPrivate::findRegisteredConnection(const QString &path)
+NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findRegisteredConnection(const QString &path)
 {
     Connection::Ptr ret;
     if (!path.isEmpty()) {
@@ -169,53 +169,53 @@ NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::SettingsPriv
     return ret;
 }
 
-void NetworkManager::Settings::SettingsPrivate::onConnectionRemoved(const QString &path)
+void NetworkManager::SettingsPrivate::onConnectionRemoved(const QString &path)
 {
     connections.remove(path);
     emit connectionRemoved(path);
 }
 
-void NetworkManager::Settings::SettingsPrivate::daemonUnregistered()
+void NetworkManager::SettingsPrivate::daemonUnregistered()
 {
     connections.clear();
 }
 
-NetworkManager::Settings::Connection::List NetworkManager::Settings::listConnections()
+NetworkManager::Connection::List NetworkManager::listConnections()
 {
     return globalSettings->listConnections();
 }
 
-NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::findConnectionByUuid(const QString & uuid)
+NetworkManager::Connection::Ptr NetworkManager::findConnectionByUuid(const QString & uuid)
 {
     return globalSettings->findConnectionByUuid(uuid);
 }
 
-NetworkManager::Settings::Connection::Ptr NetworkManager::Settings::findConnection(const QString &path)
+NetworkManager::Connection::Ptr NetworkManager::findConnection(const QString &path)
 {
     return globalSettings->findRegisteredConnection(path);
 }
 
-QString NetworkManager::Settings::addConnection(const NMVariantMapMap &connection)
+QString NetworkManager::addConnection(const NMVariantMapMap &connection)
 {
     return globalSettings->addConnection(connection);
 }
 
-void NetworkManager::Settings::saveHostname(const QString &hostname)
+void NetworkManager::saveHostname(const QString &hostname)
 {
     globalSettings->saveHostname(hostname);
 }
 
-bool NetworkManager::Settings::canModify()
+bool NetworkManager::canModify()
 {
     return globalSettings->canModify();
 }
 
-QString NetworkManager::Settings::hostname()
+QString NetworkManager::hostname()
 {
     return globalSettings->hostname();
 }
 
-NetworkManager::Settings::Notifier* NetworkManager::Settings::notifier()
+NetworkManager::SettingsNotifier* NetworkManager::settingsNotifier()
 {
     return globalSettings;
 }

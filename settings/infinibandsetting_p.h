@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class InfinibandSettingPrivate
 {
 public:
@@ -35,9 +34,9 @@ public:
     QString name;
     QByteArray macAddress;
     quint32 mtu;
-    NetworkManager::Settings::InfinibandSetting::TransportMode transportMode;
+    NetworkManager::InfinibandSetting::TransportMode transportMode;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_INFINIBAND_P_H

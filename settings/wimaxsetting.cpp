@@ -26,16 +26,16 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::WimaxSettingPrivate::WimaxSettingPrivate():
+NetworkManager::WimaxSettingPrivate::WimaxSettingPrivate():
     name(NM_SETTING_WIMAX_SETTING_NAME)
 { }
 
-NetworkManager::Settings::WimaxSetting::WimaxSetting():
+NetworkManager::WimaxSetting::WimaxSetting():
     Setting(Setting::Wimax),
     d_ptr(new WimaxSettingPrivate())
 { }
 
-NetworkManager::Settings::WimaxSetting::WimaxSetting(const Ptr &other):
+NetworkManager::WimaxSetting::WimaxSetting(const Ptr &other):
     Setting(other),
     d_ptr(new WimaxSettingPrivate())
 {
@@ -43,47 +43,47 @@ NetworkManager::Settings::WimaxSetting::WimaxSetting(const Ptr &other):
     setMacAddress(other->macAddress());
 }
 
-NetworkManager::Settings::WimaxSetting::~WimaxSetting()
+NetworkManager::WimaxSetting::~WimaxSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::WimaxSetting::name() const
+QString NetworkManager::WimaxSetting::name() const
 {
     Q_D(const WimaxSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::WimaxSetting::setNetworkName(const QString& name)
+void NetworkManager::WimaxSetting::setNetworkName(const QString& name)
 {
     Q_D(WimaxSetting);
 
     d->networkName = name;
 }
 
-QString NetworkManager::Settings::WimaxSetting::networkName() const
+QString NetworkManager::WimaxSetting::networkName() const
 {
     Q_D(const WimaxSetting);
 
     return d->networkName;
 }
 
-void NetworkManager::Settings::WimaxSetting::setMacAddress(const QByteArray& address)
+void NetworkManager::WimaxSetting::setMacAddress(const QByteArray& address)
 {
     Q_D(WimaxSetting);
 
     d->macAddress = address;
 }
 
-QByteArray NetworkManager::Settings::WimaxSetting::macAddress() const
+QByteArray NetworkManager::WimaxSetting::macAddress() const
 {
     Q_D(const WimaxSetting);
 
     return d->macAddress;
 }
 
-void NetworkManager::Settings::WimaxSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::WimaxSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_WIMAX_NETWORK_NAME))) {
         setNetworkName(setting.value(QLatin1String(NM_SETTING_WIMAX_NETWORK_NAME)).toString());
@@ -94,7 +94,7 @@ void NetworkManager::Settings::WimaxSetting::fromMap(const QVariantMap& setting)
     }
 }
 
-QVariantMap NetworkManager::Settings::WimaxSetting::toMap() const
+QVariantMap NetworkManager::WimaxSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -109,9 +109,9 @@ QVariantMap NetworkManager::Settings::WimaxSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::WimaxSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WimaxSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_WIMAX_NETWORK_NAME << ": " << setting.networkName() << '\n';
     dbg.nospace() << NM_SETTING_WIMAX_MAC_ADDRESS << ": " << setting.macAddress() << '\n';

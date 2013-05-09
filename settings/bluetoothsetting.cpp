@@ -25,17 +25,17 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::BluetoothSettingPrivate::BluetoothSettingPrivate():
+NetworkManager::BluetoothSettingPrivate::BluetoothSettingPrivate():
     name(NM_SETTING_BLUETOOTH_SETTING_NAME),
     profileType(BluetoothSetting::Unknown)
 { }
 
-NetworkManager::Settings::BluetoothSetting::BluetoothSetting():
+NetworkManager::BluetoothSetting::BluetoothSetting():
     Setting(Setting::Bluetooth),
     d_ptr(new BluetoothSettingPrivate())
 { }
 
-NetworkManager::Settings::BluetoothSetting::BluetoothSetting(const Ptr &other):
+NetworkManager::BluetoothSetting::BluetoothSetting(const Ptr &other):
     Setting(other),
     d_ptr(new BluetoothSettingPrivate())
 {
@@ -43,47 +43,47 @@ NetworkManager::Settings::BluetoothSetting::BluetoothSetting(const Ptr &other):
     setProfileType(other->profileType());
 }
 
-NetworkManager::Settings::BluetoothSetting::~BluetoothSetting()
+NetworkManager::BluetoothSetting::~BluetoothSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::BluetoothSetting::name() const
+QString NetworkManager::BluetoothSetting::name() const
 {
     Q_D(const BluetoothSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::BluetoothSetting::setBluetoothAddress(const QByteArray& address)
+void NetworkManager::BluetoothSetting::setBluetoothAddress(const QByteArray& address)
 {
     Q_D(BluetoothSetting);
 
     d->bdaddr = address;
 }
 
-QByteArray NetworkManager::Settings::BluetoothSetting::bluetoothAddress() const
+QByteArray NetworkManager::BluetoothSetting::bluetoothAddress() const
 {
     Q_D(const BluetoothSetting);
 
     return d->bdaddr;
 }
 
-void NetworkManager::Settings::BluetoothSetting::setProfileType(NetworkManager::Settings::BluetoothSetting::ProfileType type)
+void NetworkManager::BluetoothSetting::setProfileType(NetworkManager::BluetoothSetting::ProfileType type)
 {
     Q_D(BluetoothSetting);
 
     d->profileType = type;
 }
 
-NetworkManager::Settings::BluetoothSetting::ProfileType NetworkManager::Settings::BluetoothSetting::profileType() const
+NetworkManager::BluetoothSetting::ProfileType NetworkManager::BluetoothSetting::profileType() const
 {
     Q_D(const BluetoothSetting);
 
     return d->profileType;
 }
 
-void NetworkManager::Settings::BluetoothSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::BluetoothSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_BLUETOOTH_BDADDR))) {
         setBluetoothAddress(setting.value(QLatin1String(NM_SETTING_BLUETOOTH_BDADDR)).toByteArray());
@@ -100,7 +100,7 @@ void NetworkManager::Settings::BluetoothSetting::fromMap(const QVariantMap& sett
     }
 }
 
-QVariantMap NetworkManager::Settings::BluetoothSetting::toMap() const
+QVariantMap NetworkManager::BluetoothSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -120,9 +120,9 @@ QVariantMap NetworkManager::Settings::BluetoothSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::BluetoothSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::BluetoothSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_BLUETOOTH_BDADDR << ": " << setting.bluetoothAddress() << '\n';
     dbg.nospace() << NM_SETTING_BLUETOOTH_TYPE << ": " << setting.profileType() << '\n';

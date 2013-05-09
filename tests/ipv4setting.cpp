@@ -109,7 +109,7 @@ void IPv4Setting::testSetting()
     map.insert(QLatin1String(NM_SETTING_IP4_CONFIG_NEVER_DEFAULT), neverDefault);
     map.insert(QLatin1String(NM_SETTING_IP4_CONFIG_MAY_FAIL), mayFail);
 
-    NetworkManager::Settings::Ipv4Setting setting;
+    NetworkManager::Ipv4Setting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

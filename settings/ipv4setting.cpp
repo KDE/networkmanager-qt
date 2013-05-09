@@ -29,9 +29,9 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::Ipv4SettingPrivate::Ipv4SettingPrivate():
+NetworkManager::Ipv4SettingPrivate::Ipv4SettingPrivate():
     name(NM_SETTING_IP4_CONFIG_SETTING_NAME),
-    method(NetworkManager::Settings::Ipv4Setting::Automatic),
+    method(NetworkManager::Ipv4Setting::Automatic),
     ignoreAutoRoutes(false),
     ignoreAutoDns(false),
     dhcpSendHostname(true),
@@ -39,12 +39,12 @@ NetworkManager::Settings::Ipv4SettingPrivate::Ipv4SettingPrivate():
     mayFail(true)
 { }
 
-NetworkManager::Settings::Ipv4Setting::Ipv4Setting():
+NetworkManager::Ipv4Setting::Ipv4Setting():
     Setting(Setting::Ipv4),
     d_ptr(new Ipv4SettingPrivate())
 { }
 
-NetworkManager::Settings::Ipv4Setting::Ipv4Setting(const Ptr &other):
+NetworkManager::Ipv4Setting::Ipv4Setting(const Ptr &other):
     Setting(other),
     d_ptr(new Ipv4SettingPrivate())
 {
@@ -62,187 +62,187 @@ NetworkManager::Settings::Ipv4Setting::Ipv4Setting(const Ptr &other):
     setMayFail(other->mayFail());
 }
 
-NetworkManager::Settings::Ipv4Setting::~Ipv4Setting()
+NetworkManager::Ipv4Setting::~Ipv4Setting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::Ipv4Setting::name() const
+QString NetworkManager::Ipv4Setting::name() const
 {
     Q_D(const Ipv4Setting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::Ipv4Setting::setMethod(NetworkManager::Settings::Ipv4Setting::ConfigMethod type)
+void NetworkManager::Ipv4Setting::setMethod(NetworkManager::Ipv4Setting::ConfigMethod type)
 {
     Q_D(Ipv4Setting);
 
     d->method = type;
 }
 
-NetworkManager::Settings::Ipv4Setting::ConfigMethod NetworkManager::Settings::Ipv4Setting::method() const
+NetworkManager::Ipv4Setting::ConfigMethod NetworkManager::Ipv4Setting::method() const
 {
     Q_D(const Ipv4Setting);
 
     return d->method;
 }
 
-void NetworkManager::Settings::Ipv4Setting::setDns(const QList<QHostAddress>& dns)
+void NetworkManager::Ipv4Setting::setDns(const QList<QHostAddress>& dns)
 {
     Q_D(Ipv4Setting);
 
     d->dns = dns;
 }
 
-QList<QHostAddress> NetworkManager::Settings::Ipv4Setting::dns() const
+QList<QHostAddress> NetworkManager::Ipv4Setting::dns() const
 {
     Q_D(const Ipv4Setting);
 
     return d->dns;
 }
 
-void NetworkManager::Settings::Ipv4Setting::setDnsSearch(const QStringList& domains)
+void NetworkManager::Ipv4Setting::setDnsSearch(const QStringList& domains)
 {
     Q_D(Ipv4Setting);
 
     d->dnsSearch = domains;
 }
 
-QStringList NetworkManager::Settings::Ipv4Setting::dnsSearch() const
+QStringList NetworkManager::Ipv4Setting::dnsSearch() const
 {
     Q_D(const Ipv4Setting);
 
     return d->dnsSearch;
 }
 
-void NetworkManager::Settings::Ipv4Setting::setAddresses(const QList<IpAddress> & ipv4addresses)
+void NetworkManager::Ipv4Setting::setAddresses(const QList<IpAddress> & ipv4addresses)
 {
     Q_D(Ipv4Setting);
 
     d->addresses = ipv4addresses;
 }
 
-QList< NetworkManager::IpAddress > NetworkManager::Settings::Ipv4Setting::addresses() const
+QList< NetworkManager::IpAddress > NetworkManager::Ipv4Setting::addresses() const
 {
     Q_D(const Ipv4Setting);
 
     return d->addresses;
 }
 
-void NetworkManager::Settings::Ipv4Setting::setRoutes(const QList<IpRoute> &ipv4routes)
+void NetworkManager::Ipv4Setting::setRoutes(const QList<IpRoute> &ipv4routes)
 {
     Q_D(Ipv4Setting);
 
     d->routes = ipv4routes;
 }
 
-QList< NetworkManager::IpRoute > NetworkManager::Settings::Ipv4Setting::routes() const
+QList< NetworkManager::IpRoute > NetworkManager::Ipv4Setting::routes() const
 {
     Q_D(const Ipv4Setting);
 
     return d->routes;
 }
 
-void NetworkManager::Settings::Ipv4Setting::setIgnoreAutoRoutes(bool ignore)
+void NetworkManager::Ipv4Setting::setIgnoreAutoRoutes(bool ignore)
 {
     Q_D(Ipv4Setting);
 
     d->ignoreAutoRoutes = ignore;
 }
 
-bool NetworkManager::Settings::Ipv4Setting::ignoreAutoRoutes() const
+bool NetworkManager::Ipv4Setting::ignoreAutoRoutes() const
 {
     Q_D(const Ipv4Setting);
 
     return d->ignoreAutoRoutes;
 }
 
-void NetworkManager::Settings::Ipv4Setting::setIgnoreAutoDns(bool ignore)
+void NetworkManager::Ipv4Setting::setIgnoreAutoDns(bool ignore)
 {
     Q_D(Ipv4Setting);
 
     d->ignoreAutoDns = ignore;
 }
 
-bool NetworkManager::Settings::Ipv4Setting::ignoreAutoDns() const
+bool NetworkManager::Ipv4Setting::ignoreAutoDns() const
 {
     Q_D(const Ipv4Setting);
 
     return d->ignoreAutoDns;
 }
 
-void NetworkManager::Settings::Ipv4Setting::setDhcpClientId(const QString& id)
+void NetworkManager::Ipv4Setting::setDhcpClientId(const QString& id)
 {
     Q_D(Ipv4Setting);
 
     d->dhcpClientId = id;
 }
 
-QString NetworkManager::Settings::Ipv4Setting::dhcpClientId() const
+QString NetworkManager::Ipv4Setting::dhcpClientId() const
 {
     Q_D(const Ipv4Setting);
 
     return d->dhcpClientId;
 }
 
-void NetworkManager::Settings::Ipv4Setting::setDhcpSendHostname(bool send)
+void NetworkManager::Ipv4Setting::setDhcpSendHostname(bool send)
 {
     Q_D(Ipv4Setting);
 
     d->dhcpSendHostname = send;
 }
 
-bool NetworkManager::Settings::Ipv4Setting::dhcpSendHostname() const
+bool NetworkManager::Ipv4Setting::dhcpSendHostname() const
 {
     Q_D(const Ipv4Setting);
 
     return d->dhcpSendHostname;
 }
 
-void NetworkManager::Settings::Ipv4Setting::setDhcpHostname(const QString& hostname)
+void NetworkManager::Ipv4Setting::setDhcpHostname(const QString& hostname)
 {
     Q_D(Ipv4Setting);
 
     d->dhcpHostname = hostname;
 }
 
-QString NetworkManager::Settings::Ipv4Setting::dhcpHostname() const
+QString NetworkManager::Ipv4Setting::dhcpHostname() const
 {
     Q_D(const Ipv4Setting);
 
     return d->dhcpHostname;
 }
 
-void NetworkManager::Settings::Ipv4Setting::setNeverDefault(bool neverDefault)
+void NetworkManager::Ipv4Setting::setNeverDefault(bool neverDefault)
 {
     Q_D(Ipv4Setting);
 
     d->neverDefault = neverDefault;
 }
 
-bool NetworkManager::Settings::Ipv4Setting::neverDefault() const
+bool NetworkManager::Ipv4Setting::neverDefault() const
 {
     Q_D(const Ipv4Setting);
 
     return d->neverDefault;
 }
 
-void NetworkManager::Settings::Ipv4Setting::setMayFail(bool mayFail)
+void NetworkManager::Ipv4Setting::setMayFail(bool mayFail)
 {
     Q_D(Ipv4Setting);
 
     d->mayFail = mayFail;
 }
 
-bool NetworkManager::Settings::Ipv4Setting::mayFail() const
+bool NetworkManager::Ipv4Setting::mayFail() const
 {
     Q_D(const Ipv4Setting);
 
     return d->mayFail;
 }
 
-void NetworkManager::Settings::Ipv4Setting::fromMap(const QVariantMap& setting)
+void NetworkManager::Ipv4Setting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD))) {
         QString methodType = setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD)).toString();
@@ -373,7 +373,7 @@ void NetworkManager::Settings::Ipv4Setting::fromMap(const QVariantMap& setting)
     }
 }
 
-QVariantMap NetworkManager::Settings::Ipv4Setting::toMap() const
+QVariantMap NetworkManager::Ipv4Setting::toMap() const
 {
     QVariantMap setting;
 
@@ -460,9 +460,9 @@ QVariantMap NetworkManager::Settings::Ipv4Setting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::Ipv4Setting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv4Setting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_IP4_CONFIG_METHOD << ": " << setting.method() << '\n';
     dbg.nospace() << NM_SETTING_IP4_CONFIG_DNS << ":\n";

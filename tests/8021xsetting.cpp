@@ -170,7 +170,7 @@ void Security8021xSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_802_1X_PIN_FLAGS), pinFlags);
     map.insert(QLatin1String(NM_SETTING_802_1X_SYSTEM_CA_CERTS), systemCaCerts);
 
-    NetworkManager::Settings::Security8021xSetting setting;
+    NetworkManager::Security8021xSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

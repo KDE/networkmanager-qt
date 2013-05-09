@@ -28,15 +28,14 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class Ipv6SettingPrivate
 {
 public:
     Ipv6SettingPrivate();
 
     QString name;
-    NetworkManager::Settings::Ipv6Setting::ConfigMethod method;
+    NetworkManager::Ipv6Setting::ConfigMethod method;
     QList<QHostAddress> dns;
     QStringList dnsSearch;
     QList<NetworkManager::IpAddress> addresses;
@@ -45,8 +44,8 @@ public:
     bool ignoreAutoDns;
     bool neverDefault;
     bool mayFail;
-    NetworkManager::Settings::Ipv6Setting::IPv6Privacy privacy;
+    NetworkManager::Ipv6Setting::IPv6Privacy privacy;
 };
-}
+
 }
 #endif // NMQT_SETTINGS_IPV6_P_H

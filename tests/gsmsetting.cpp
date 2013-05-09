@@ -80,7 +80,7 @@ void GsmSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS), allowedBand);
     map.insert(QLatin1String(NM_SETTING_GSM_HOME_ONLY), homeOnly);
 
-    NetworkManager::Settings::GsmSetting setting;
+    NetworkManager::GsmSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

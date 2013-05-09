@@ -27,8 +27,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class VpnSettingPrivate
 {
 public:
@@ -40,7 +39,7 @@ public:
     NMStringMap data;
     NMStringMap secrets;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_VPN_P_H

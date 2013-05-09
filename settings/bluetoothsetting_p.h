@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class BluetoothSettingPrivate
 {
 public:
@@ -34,9 +33,9 @@ public:
 
     QString name;
     QByteArray bdaddr;
-    NetworkManager::Settings::BluetoothSetting::ProfileType profileType;
+    NetworkManager::BluetoothSetting::ProfileType profileType;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_BLUETOOTH_P_H

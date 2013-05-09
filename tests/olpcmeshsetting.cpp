@@ -49,7 +49,7 @@ void OlpcMeshSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_OLPC_MESH_CHANNEL), channel);
     map.insert(QLatin1String(NM_SETTING_OLPC_MESH_DHCP_ANYCAST_ADDRESS), dhcpAnycastAddress);
 
-    NetworkManager::Settings::OlpcMeshSetting setting;
+    NetworkManager::OlpcMeshSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

@@ -26,23 +26,23 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::WirelessSecuritySettingPrivate::WirelessSecuritySettingPrivate():
+NetworkManager::WirelessSecuritySettingPrivate::WirelessSecuritySettingPrivate():
     name(NM_SETTING_WIRELESS_SECURITY_SETTING_NAME),
-    keyMgmt(NetworkManager::Settings::WirelessSecuritySetting::Unknown),
+    keyMgmt(NetworkManager::WirelessSecuritySetting::Unknown),
     wepTxKeyidx(0),
-    authAlg(NetworkManager::Settings::WirelessSecuritySetting::None),
-    wepKeyFlags(NetworkManager::Settings::Setting::None),
-    wepKeyType(NetworkManager::Settings::WirelessSecuritySetting::NotSpecified),
-    pskFlags(NetworkManager::Settings::Setting::None),
-    leapPasswordFlags(NetworkManager::Settings::Setting::None)
+    authAlg(NetworkManager::WirelessSecuritySetting::None),
+    wepKeyFlags(NetworkManager::Setting::None),
+    wepKeyType(NetworkManager::WirelessSecuritySetting::NotSpecified),
+    pskFlags(NetworkManager::Setting::None),
+    leapPasswordFlags(NetworkManager::Setting::None)
 { }
 
-NetworkManager::Settings::WirelessSecuritySetting::WirelessSecuritySetting():
+NetworkManager::WirelessSecuritySetting::WirelessSecuritySetting():
     Setting(Setting::WirelessSecurity),
     d_ptr(new WirelessSecuritySettingPrivate())
 { }
 
-NetworkManager::Settings::WirelessSecuritySetting::WirelessSecuritySetting(const Ptr &other):
+NetworkManager::WirelessSecuritySetting::WirelessSecuritySetting(const Ptr &other):
     Setting(Setting::WirelessSecurity),
     d_ptr(new WirelessSecuritySettingPrivate())
 {
@@ -64,257 +64,257 @@ NetworkManager::Settings::WirelessSecuritySetting::WirelessSecuritySetting(const
     setLeapPasswordFlags(other->leapPasswordFlags());
 }
 
-NetworkManager::Settings::WirelessSecuritySetting::~WirelessSecuritySetting()
+NetworkManager::WirelessSecuritySetting::~WirelessSecuritySetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::WirelessSecuritySetting::name() const
+QString NetworkManager::WirelessSecuritySetting::name() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setKeyMgmt(NetworkManager::Settings::WirelessSecuritySetting::KeyMgmt mgmt)
+void NetworkManager::WirelessSecuritySetting::setKeyMgmt(NetworkManager::WirelessSecuritySetting::KeyMgmt mgmt)
 {
     Q_D(WirelessSecuritySetting);
 
     d->keyMgmt = mgmt;
 }
 
-NetworkManager::Settings::WirelessSecuritySetting::KeyMgmt NetworkManager::Settings::WirelessSecuritySetting::keyMgmt() const
+NetworkManager::WirelessSecuritySetting::KeyMgmt NetworkManager::WirelessSecuritySetting::keyMgmt() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->keyMgmt;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setWepTxKeyindex(quint32 index)
+void NetworkManager::WirelessSecuritySetting::setWepTxKeyindex(quint32 index)
 {
     Q_D(WirelessSecuritySetting);
 
     d->wepTxKeyidx = index;
 }
 
-quint32 NetworkManager::Settings::WirelessSecuritySetting::wepTxKeyindex() const
+quint32 NetworkManager::WirelessSecuritySetting::wepTxKeyindex() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->wepTxKeyidx;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setAuthAlg(NetworkManager::Settings::WirelessSecuritySetting::AuthAlg alg)
+void NetworkManager::WirelessSecuritySetting::setAuthAlg(NetworkManager::WirelessSecuritySetting::AuthAlg alg)
 {
     Q_D(WirelessSecuritySetting);
 
     d->authAlg = alg;
 }
 
-NetworkManager::Settings::WirelessSecuritySetting::AuthAlg NetworkManager::Settings::WirelessSecuritySetting::authAlg() const
+NetworkManager::WirelessSecuritySetting::AuthAlg NetworkManager::WirelessSecuritySetting::authAlg() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->authAlg;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setProto(const QList< NetworkManager::Settings::WirelessSecuritySetting::WpaProtocolVersion >& list)
+void NetworkManager::WirelessSecuritySetting::setProto(const QList< NetworkManager::WirelessSecuritySetting::WpaProtocolVersion >& list)
 {
     Q_D(WirelessSecuritySetting);
 
     d->proto = list;
 }
 
-QList< NetworkManager::Settings::WirelessSecuritySetting::WpaProtocolVersion > NetworkManager::Settings::WirelessSecuritySetting::proto() const
+QList< NetworkManager::WirelessSecuritySetting::WpaProtocolVersion > NetworkManager::WirelessSecuritySetting::proto() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->proto;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setPairwise(const QList< NetworkManager::Settings::WirelessSecuritySetting::WpaEncryptionCapabilities >& list)
+void NetworkManager::WirelessSecuritySetting::setPairwise(const QList< NetworkManager::WirelessSecuritySetting::WpaEncryptionCapabilities >& list)
 {
     Q_D(WirelessSecuritySetting);
 
     d->pairwise = list;
 }
 
-QList< NetworkManager::Settings::WirelessSecuritySetting::WpaEncryptionCapabilities > NetworkManager::Settings::WirelessSecuritySetting::pairwise() const
+QList< NetworkManager::WirelessSecuritySetting::WpaEncryptionCapabilities > NetworkManager::WirelessSecuritySetting::pairwise() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->pairwise;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setGroup(const QList< NetworkManager::Settings::WirelessSecuritySetting::WpaEncryptionCapabilities >& list)
+void NetworkManager::WirelessSecuritySetting::setGroup(const QList< NetworkManager::WirelessSecuritySetting::WpaEncryptionCapabilities >& list)
 {
     Q_D(WirelessSecuritySetting);
 
     d->group = list;
 }
 
-QList< NetworkManager::Settings::WirelessSecuritySetting::WpaEncryptionCapabilities > NetworkManager::Settings::WirelessSecuritySetting::group() const
+QList< NetworkManager::WirelessSecuritySetting::WpaEncryptionCapabilities > NetworkManager::WirelessSecuritySetting::group() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->group;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setLeapUsername(const QString& username)
+void NetworkManager::WirelessSecuritySetting::setLeapUsername(const QString& username)
 {
     Q_D(WirelessSecuritySetting);
 
     d->leapUsername = username;
 }
 
-QString NetworkManager::Settings::WirelessSecuritySetting::leapUsername() const
+QString NetworkManager::WirelessSecuritySetting::leapUsername() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->leapUsername;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setWepKey0(const QString key)
+void NetworkManager::WirelessSecuritySetting::setWepKey0(const QString key)
 {
     Q_D(WirelessSecuritySetting);
 
     d->wepKey0 = key;
 }
 
-QString NetworkManager::Settings::WirelessSecuritySetting::wepKey0() const
+QString NetworkManager::WirelessSecuritySetting::wepKey0() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->wepKey0;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setWepKey1(const QString key)
+void NetworkManager::WirelessSecuritySetting::setWepKey1(const QString key)
 {
     Q_D(WirelessSecuritySetting);
 
     d->wepKey1 = key;
 }
 
-QString NetworkManager::Settings::WirelessSecuritySetting::wepKey1() const
+QString NetworkManager::WirelessSecuritySetting::wepKey1() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->wepKey1;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setWepKey2(const QString key)
+void NetworkManager::WirelessSecuritySetting::setWepKey2(const QString key)
 {
     Q_D(WirelessSecuritySetting);
 
     d->wepKey2 = key;
 }
 
-QString NetworkManager::Settings::WirelessSecuritySetting::wepKey2() const
+QString NetworkManager::WirelessSecuritySetting::wepKey2() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->wepKey2;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setWepKey3(const QString key)
+void NetworkManager::WirelessSecuritySetting::setWepKey3(const QString key)
 {
     Q_D(WirelessSecuritySetting);
 
     d->wepKey3 = key;
 }
 
-QString NetworkManager::Settings::WirelessSecuritySetting::wepKey3() const
+QString NetworkManager::WirelessSecuritySetting::wepKey3() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->wepKey3;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setWepKeyFlags(NetworkManager::Settings::Setting::SecretFlags type)
+void NetworkManager::WirelessSecuritySetting::setWepKeyFlags(NetworkManager::Setting::SecretFlags type)
 {
     Q_D(WirelessSecuritySetting);
 
     d->wepKeyFlags = type;
 }
 
-NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::WirelessSecuritySetting::wepKeyFlags() const
+NetworkManager::Setting::SecretFlags NetworkManager::WirelessSecuritySetting::wepKeyFlags() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->wepKeyFlags;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setWepKeyType(NetworkManager::Settings::WirelessSecuritySetting::WepKeyType type)
+void NetworkManager::WirelessSecuritySetting::setWepKeyType(NetworkManager::WirelessSecuritySetting::WepKeyType type)
 {
     Q_D(WirelessSecuritySetting);
 
     d->wepKeyType = type;
 }
 
-NetworkManager::Settings::WirelessSecuritySetting::WepKeyType NetworkManager::Settings::WirelessSecuritySetting::wepKeyType() const
+NetworkManager::WirelessSecuritySetting::WepKeyType NetworkManager::WirelessSecuritySetting::wepKeyType() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->wepKeyType;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setPsk(const QString& key)
+void NetworkManager::WirelessSecuritySetting::setPsk(const QString& key)
 {
     Q_D(WirelessSecuritySetting);
 
     d->psk = key;
 }
 
-QString NetworkManager::Settings::WirelessSecuritySetting::psk() const
+QString NetworkManager::WirelessSecuritySetting::psk() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->psk;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setPskFlags(NetworkManager::Settings::Setting::SecretFlags type)
+void NetworkManager::WirelessSecuritySetting::setPskFlags(NetworkManager::Setting::SecretFlags type)
 {
     Q_D(WirelessSecuritySetting);
 
     d->pskFlags = type;
 }
 
-NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::WirelessSecuritySetting::pskFlags() const
+NetworkManager::Setting::SecretFlags NetworkManager::WirelessSecuritySetting::pskFlags() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->pskFlags;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setLeapPassword(const QString& password)
+void NetworkManager::WirelessSecuritySetting::setLeapPassword(const QString& password)
 {
     Q_D(WirelessSecuritySetting);
 
     d->leapPassword = password;
 }
 
-QString NetworkManager::Settings::WirelessSecuritySetting::leapPassword() const
+QString NetworkManager::WirelessSecuritySetting::leapPassword() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->leapPassword;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::setLeapPasswordFlags(NetworkManager::Settings::Setting::SecretFlags type)
+void NetworkManager::WirelessSecuritySetting::setLeapPasswordFlags(NetworkManager::Setting::SecretFlags type)
 {
     Q_D(WirelessSecuritySetting);
 
     d->leapPasswordFlags = type;
 }
 
-NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::WirelessSecuritySetting::leapPasswordFlags() const
+NetworkManager::Setting::SecretFlags NetworkManager::WirelessSecuritySetting::leapPasswordFlags() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->leapPasswordFlags;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::secretsFromMap(const QVariantMap& secrets)
+void NetworkManager::WirelessSecuritySetting::secretsFromMap(const QVariantMap& secrets)
 {
     if (secrets.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY0))) {
         setWepKey0(secrets.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY0)).toString());
@@ -341,7 +341,7 @@ void NetworkManager::Settings::WirelessSecuritySetting::secretsFromMap(const QVa
     }
 }
 
-QVariantMap NetworkManager::Settings::WirelessSecuritySetting::secretsToMap() const
+QVariantMap NetworkManager::WirelessSecuritySetting::secretsToMap() const
 {
     QVariantMap secrets;
 
@@ -372,7 +372,7 @@ QVariantMap NetworkManager::Settings::WirelessSecuritySetting::secretsToMap() co
     return secrets;
 }
 
-QStringList NetworkManager::Settings::WirelessSecuritySetting::needSecrets(bool requestNew) const
+QStringList NetworkManager::WirelessSecuritySetting::needSecrets(bool requestNew) const
 {
     QStringList secrets;
 
@@ -430,7 +430,7 @@ QStringList NetworkManager::Settings::WirelessSecuritySetting::needSecrets(bool 
     return secrets;
 }
 
-void NetworkManager::Settings::WirelessSecuritySetting::fromMap(const QVariantMap& map)
+void NetworkManager::WirelessSecuritySetting::fromMap(const QVariantMap& map)
 {
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT))) {
         QString key = map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT)).toString();
@@ -560,7 +560,7 @@ void NetworkManager::Settings::WirelessSecuritySetting::fromMap(const QVariantMa
     }
 }
 
-QVariantMap NetworkManager::Settings::WirelessSecuritySetting::toMap() const
+QVariantMap NetworkManager::WirelessSecuritySetting::toMap() const
 {
     QVariantMap setting;
 
@@ -687,9 +687,9 @@ QVariantMap NetworkManager::Settings::WirelessSecuritySetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::WirelessSecuritySetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WirelessSecuritySetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_KEY_MGMT << ": " << setting.keyMgmt() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_WEP_TX_KEYIDX << ": " << setting.wepTxKeyindex() << '\n';

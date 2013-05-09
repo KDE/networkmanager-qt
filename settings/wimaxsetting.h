@@ -29,10 +29,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class WimaxSettingPrivate;
 
+class WimaxSettingPrivate;
 class NMQT_EXPORT WimaxSetting : public Setting
 {
     Q_DECLARE_PRIVATE(WimaxSetting)
@@ -61,7 +59,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const WimaxSetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_WIMAX_H

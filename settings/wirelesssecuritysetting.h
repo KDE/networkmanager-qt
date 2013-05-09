@@ -29,10 +29,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class WirelessSecuritySettingPrivate;
 
+class WirelessSecuritySettingPrivate;
 class NMQT_EXPORT WirelessSecuritySetting : public Setting
 {
     Q_DECLARE_PRIVATE(WirelessSecuritySetting)
@@ -118,7 +116,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const WirelessSecuritySetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_802_11_WIRELESS_SECURITY_H

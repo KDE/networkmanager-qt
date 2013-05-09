@@ -25,18 +25,18 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::InfinibandSettingPrivate::InfinibandSettingPrivate():
+NetworkManager::InfinibandSettingPrivate::InfinibandSettingPrivate():
     name(NM_SETTING_INFINIBAND_SETTING_NAME),
     mtu(0),
     transportMode(InfinibandSetting::Unknown)
 { }
 
-NetworkManager::Settings::InfinibandSetting::InfinibandSetting():
+NetworkManager::InfinibandSetting::InfinibandSetting():
     Setting(Setting::Infiniband),
     d_ptr(new InfinibandSettingPrivate())
 { }
 
-NetworkManager::Settings::InfinibandSetting::InfinibandSetting(const NetworkManager::Settings::InfinibandSetting::Ptr &other) :
+NetworkManager::InfinibandSetting::InfinibandSetting(const NetworkManager::InfinibandSetting::Ptr &other) :
     Setting(other),
     d_ptr(new InfinibandSettingPrivate())
 {
@@ -45,61 +45,61 @@ NetworkManager::Settings::InfinibandSetting::InfinibandSetting(const NetworkMana
     setTransportMode(other->transportMode());
 }
 
-NetworkManager::Settings::InfinibandSetting::~InfinibandSetting()
+NetworkManager::InfinibandSetting::~InfinibandSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::InfinibandSetting::name() const
+QString NetworkManager::InfinibandSetting::name() const
 {
     Q_D(const InfinibandSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::InfinibandSetting::setMacAddress(const QByteArray& address)
+void NetworkManager::InfinibandSetting::setMacAddress(const QByteArray& address)
 {
     Q_D(InfinibandSetting);
 
     d->macAddress = address;
 }
 
-QByteArray NetworkManager::Settings::InfinibandSetting::macAddress() const
+QByteArray NetworkManager::InfinibandSetting::macAddress() const
 {
     Q_D(const InfinibandSetting);
 
     return d->macAddress;
 }
 
-void NetworkManager::Settings::InfinibandSetting::setMtu(quint32 mtu)
+void NetworkManager::InfinibandSetting::setMtu(quint32 mtu)
 {
     Q_D(InfinibandSetting);
 
     d->mtu = mtu;
 }
 
-quint32 NetworkManager::Settings::InfinibandSetting::mtu() const
+quint32 NetworkManager::InfinibandSetting::mtu() const
 {
     Q_D(const InfinibandSetting);
 
     return d->mtu;
 }
 
-void NetworkManager::Settings::InfinibandSetting::setTransportMode(NetworkManager::Settings::InfinibandSetting::TransportMode mode)
+void NetworkManager::InfinibandSetting::setTransportMode(NetworkManager::InfinibandSetting::TransportMode mode)
 {
     Q_D(InfinibandSetting);
 
     d->transportMode = mode;
 }
 
-NetworkManager::Settings::InfinibandSetting::TransportMode NetworkManager::Settings::InfinibandSetting::transportMode() const
+NetworkManager::InfinibandSetting::TransportMode NetworkManager::InfinibandSetting::transportMode() const
 {
     Q_D(const InfinibandSetting);
 
     return d->transportMode;
 }
 
-void NetworkManager::Settings::InfinibandSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::InfinibandSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_INFINIBAND_MAC_ADDRESS))) {
         setMacAddress(setting.value(QLatin1String(NM_SETTING_INFINIBAND_MAC_ADDRESS)).toByteArray());
@@ -120,7 +120,7 @@ void NetworkManager::Settings::InfinibandSetting::fromMap(const QVariantMap& set
     }
 }
 
-QVariantMap NetworkManager::Settings::InfinibandSetting::toMap() const
+QVariantMap NetworkManager::InfinibandSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -143,9 +143,9 @@ QVariantMap NetworkManager::Settings::InfinibandSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::InfinibandSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::InfinibandSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_INFINIBAND_MAC_ADDRESS << ": " << setting.macAddress() << '\n';
     dbg.nospace() << NM_SETTING_INFINIBAND_MTU << ": " << setting.mtu() << '\n';

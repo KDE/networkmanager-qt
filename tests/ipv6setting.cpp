@@ -103,7 +103,7 @@ void IPv6Setting::testSetting()
     map.insert(QLatin1String(NM_SETTING_IP6_CONFIG_MAY_FAIL), mayFail);
     map.insert(QLatin1String(NM_SETTING_IP6_CONFIG_IP6_PRIVACY), privacy);
 
-    NetworkManager::Settings::Ipv6Setting setting;
+    NetworkManager::Ipv6Setting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

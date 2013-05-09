@@ -48,7 +48,7 @@ void InfinibandSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_INFINIBAND_MTU), mtu);
     map.insert(QLatin1String(NM_SETTING_INFINIBAND_TRANSPORT_MODE), transportMode);
 
-    NetworkManager::Settings::InfinibandSetting setting;
+    NetworkManager::InfinibandSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

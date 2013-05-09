@@ -28,10 +28,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class OlpcMeshSettingPrivate;
 
+class OlpcMeshSettingPrivate;
 class NMQT_EXPORT OlpcMeshSetting : public Setting
 {
     Q_DECLARE_PRIVATE(OlpcMeshSetting)
@@ -63,7 +61,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const OlpcMeshSetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_802_11_OLPC_MESH_H

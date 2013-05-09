@@ -54,7 +54,7 @@ void PppoeSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_PPPOE_PASSWORD), password);
     map.insert(QLatin1String(NM_SETTING_PPPOE_PASSWORD_FLAGS), passwordFlags);
 
-    NetworkManager::Settings::PppoeSetting setting;
+    NetworkManager::PppoeSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

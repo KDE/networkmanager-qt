@@ -31,35 +31,33 @@ class QDBusPendingCallWatcher;
 
 namespace NetworkManager
 {
-namespace Settings
-{
-    class Connection;
-    class SettingsPrivate : public NetworkManager::Settings::Notifier
-    {
-    Q_OBJECT
-    public:
-        SettingsPrivate();
-        Connection::List listConnections();
-        NetworkManager::Settings::Connection::Ptr findConnectionByUuid(const QString &uuid);
-        QString hostname() const;
-        bool canModify() const;
-        QString addConnection(const NMVariantMapMap &);
-        void saveHostname(const QString &);
-        Connection::Ptr findRegisteredConnection(const QString &);
 
-        QMap<QString, Connection::Ptr> connections;
-        bool m_canModify;
-        QString m_hostname;
-        OrgFreedesktopNetworkManagerSettingsInterface iface;
-    protected Q_SLOTS:
-        void onConnectionAdded(const QDBusObjectPath &);
-        void onConnectionRemoved(const QString &);
-        void propertiesChanged(const QVariantMap &properties);
-        void onConnectionAddArrived(QDBusPendingCallWatcher *);
-        void daemonUnregistered();
-        void init();
-    };
-}
+class SettingsPrivate : public NetworkManager::SettingsNotifier
+{
+    Q_OBJECT
+public:
+    SettingsPrivate();
+    Connection::List listConnections();
+    NetworkManager::Connection::Ptr findConnectionByUuid(const QString &uuid);
+    QString hostname() const;
+    bool canModify() const;
+    QString addConnection(const NMVariantMapMap &);
+    void saveHostname(const QString &);
+    Connection::Ptr findRegisteredConnection(const QString &);
+
+    QMap<QString, Connection::Ptr> connections;
+    bool m_canModify;
+    QString m_hostname;
+    OrgFreedesktopNetworkManagerSettingsInterface iface;
+protected Q_SLOTS:
+    void onConnectionAdded(const QDBusObjectPath &);
+    void onConnectionRemoved(const QString &);
+    void propertiesChanged(const QVariantMap &properties);
+    void onConnectionAddArrived(QDBusPendingCallWatcher *);
+    void daemonUnregistered();
+    void init();
+};
+
 }
 
 

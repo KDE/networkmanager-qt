@@ -48,7 +48,7 @@ void BridgePortSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_BRIDGE_PORT_PATH_COST), pathCost);
     map.insert(QLatin1String(NM_SETTING_BRIDGE_PORT_PATH_COST), hairpinMode);
 
-    NetworkManager::Settings::BridgePortSetting setting;
+    NetworkManager::BridgePortSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

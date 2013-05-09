@@ -98,7 +98,7 @@ void WirelessSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_WIRELESS_SEC), security);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_HIDDEN), hidden);
 
-    NetworkManager::Settings::WirelessSetting setting;
+    NetworkManager::WirelessSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

@@ -1,1 +1,1 @@
-#include "bluetoothsetting.h"
+#include "settings/bluetoothsetting.h"

@@ -25,7 +25,7 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::PppSettingPrivate::PppSettingPrivate():
+NetworkManager::PppSettingPrivate::PppSettingPrivate():
     name(NM_SETTING_PPP_SETTING_NAME),
     noauth(true),
     refuseEap(false),
@@ -47,12 +47,12 @@ NetworkManager::Settings::PppSettingPrivate::PppSettingPrivate():
     lcpEchoInterval(0)
 { }
 
-NetworkManager::Settings::PppSetting::PppSetting():
+NetworkManager::PppSetting::PppSetting():
     Setting(Setting::Ppp),
     d_ptr(new PppSettingPrivate())
 { }
 
-NetworkManager::Settings::PppSetting::PppSetting(const Ptr &other):
+NetworkManager::PppSetting::PppSetting(const Ptr &other):
     Setting(other),
     d_ptr(new PppSettingPrivate())
 {
@@ -76,271 +76,271 @@ NetworkManager::Settings::PppSetting::PppSetting(const Ptr &other):
     setLcpEchoInterval(other->lcpEchoInterval());
 }
 
-NetworkManager::Settings::PppSetting::~PppSetting()
+NetworkManager::PppSetting::~PppSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::PppSetting::name() const
+QString NetworkManager::PppSetting::name() const
 {
     Q_D(const PppSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::PppSetting::setNoAuth(bool require)
+void NetworkManager::PppSetting::setNoAuth(bool require)
 {
     Q_D(PppSetting);
 
     d->noauth = require;
 }
 
-bool NetworkManager::Settings::PppSetting::noAuth() const
+bool NetworkManager::PppSetting::noAuth() const
 {
     Q_D(const PppSetting);
 
     return d->noauth;
 }
 
-void NetworkManager::Settings::PppSetting::setRefuseEap(bool refuse)
+void NetworkManager::PppSetting::setRefuseEap(bool refuse)
 {
     Q_D(PppSetting);
 
     d->refuseEap = refuse;
 }
 
-bool NetworkManager::Settings::PppSetting::refuseEap() const
+bool NetworkManager::PppSetting::refuseEap() const
 {
     Q_D(const PppSetting);
 
     return d->refuseEap;
 }
 
-void NetworkManager::Settings::PppSetting::setRefusePap(bool refuse)
+void NetworkManager::PppSetting::setRefusePap(bool refuse)
 {
     Q_D(PppSetting);
 
     d->refusePap = refuse;
 }
 
-bool NetworkManager::Settings::PppSetting::refusePap() const
+bool NetworkManager::PppSetting::refusePap() const
 {
     Q_D(const PppSetting);
 
     return d->refusePap;
 }
 
-void NetworkManager::Settings::PppSetting::setRefuseChap(bool refuse)
+void NetworkManager::PppSetting::setRefuseChap(bool refuse)
 {
     Q_D(PppSetting);
 
     d->refuseChap = refuse;
 }
 
-bool NetworkManager::Settings::PppSetting::refuseChap() const
+bool NetworkManager::PppSetting::refuseChap() const
 {
     Q_D(const PppSetting);
 
     return d->refuseChap;
 }
 
-void NetworkManager::Settings::PppSetting::setRefuseMschap(bool refuse)
+void NetworkManager::PppSetting::setRefuseMschap(bool refuse)
 {
     Q_D(PppSetting);
 
     d->refuseMschap = refuse;
 }
 
-bool NetworkManager::Settings::PppSetting::refuseMschap() const
+bool NetworkManager::PppSetting::refuseMschap() const
 {
     Q_D(const PppSetting);
 
     return d->refuseMschap;
 }
 
-void NetworkManager::Settings::PppSetting::setRefuseMschapv2(bool refuse)
+void NetworkManager::PppSetting::setRefuseMschapv2(bool refuse)
 {
     Q_D(PppSetting);
 
     d->refuseMschapv2 = refuse;
 }
 
-bool NetworkManager::Settings::PppSetting::refuseMschapv2() const
+bool NetworkManager::PppSetting::refuseMschapv2() const
 {
     Q_D(const PppSetting);
 
     return d->refuseMschapv2;
 }
 
-void NetworkManager::Settings::PppSetting::setNoBsdComp(bool require)
+void NetworkManager::PppSetting::setNoBsdComp(bool require)
 {
     Q_D(PppSetting);
 
     d->nobsdcomp = require;
 }
 
-bool NetworkManager::Settings::PppSetting::noBsdComp() const
+bool NetworkManager::PppSetting::noBsdComp() const
 {
     Q_D(const PppSetting);
 
     return d->nobsdcomp;
 }
 
-void NetworkManager::Settings::PppSetting::setNoDeflate(bool require)
+void NetworkManager::PppSetting::setNoDeflate(bool require)
 {
     Q_D(PppSetting);
 
     d->nodeflate = require;
 }
 
-bool NetworkManager::Settings::PppSetting::noDeflate() const
+bool NetworkManager::PppSetting::noDeflate() const
 {
     Q_D(const PppSetting);
 
     return d->nodeflate;
 }
 
-void NetworkManager::Settings::PppSetting::setNoVjComp(bool require)
+void NetworkManager::PppSetting::setNoVjComp(bool require)
 {
     Q_D(PppSetting);
 
     d->noVjComp = require;
 }
 
-bool NetworkManager::Settings::PppSetting::noVjComp() const
+bool NetworkManager::PppSetting::noVjComp() const
 {
     Q_D(const PppSetting);
 
     return d->noVjComp;
 }
 
-void NetworkManager::Settings::PppSetting::setRequireMppe(bool require)
+void NetworkManager::PppSetting::setRequireMppe(bool require)
 {
     Q_D(PppSetting);
 
     d->requireMppe = require;
 }
 
-bool NetworkManager::Settings::PppSetting::requireMppe() const
+bool NetworkManager::PppSetting::requireMppe() const
 {
     Q_D(const PppSetting);
 
     return d->requireMppe;
 }
 
-void NetworkManager::Settings::PppSetting::setRequireMppe128(bool require)
+void NetworkManager::PppSetting::setRequireMppe128(bool require)
 {
     Q_D(PppSetting);
 
     d->requireMppe128 = require;
 }
 
-bool NetworkManager::Settings::PppSetting::requireMppe128() const
+bool NetworkManager::PppSetting::requireMppe128() const
 {
     Q_D(const PppSetting);
 
     return d->requireMppe128;
 }
 
-void NetworkManager::Settings::PppSetting::setMppeStateful(bool used)
+void NetworkManager::PppSetting::setMppeStateful(bool used)
 {
     Q_D(PppSetting);
 
     d->mppeStateful = used;
 }
 
-bool NetworkManager::Settings::PppSetting::mppeStateful() const
+bool NetworkManager::PppSetting::mppeStateful() const
 {
     Q_D(const PppSetting);
 
     return d->mppeStateful;
 }
 
-void NetworkManager::Settings::PppSetting::setCRtsCts(bool control)
+void NetworkManager::PppSetting::setCRtsCts(bool control)
 {
     Q_D(PppSetting);
 
     d->crtscts = control;
 }
 
-bool NetworkManager::Settings::PppSetting::cRtsCts() const
+bool NetworkManager::PppSetting::cRtsCts() const
 {
     Q_D(const PppSetting);
 
     return d->crtscts;
 }
 
-void NetworkManager::Settings::PppSetting::setBaud(quint32 baud)
+void NetworkManager::PppSetting::setBaud(quint32 baud)
 {
     Q_D(PppSetting);
 
     d->baud = baud;
 }
 
-quint32 NetworkManager::Settings::PppSetting::baud() const
+quint32 NetworkManager::PppSetting::baud() const
 {
     Q_D(const PppSetting);
 
     return d->baud;
 }
 
-void NetworkManager::Settings::PppSetting::setMru(quint32 mru)
+void NetworkManager::PppSetting::setMru(quint32 mru)
 {
     Q_D(PppSetting);
 
     d->mru = mru;
 }
 
-quint32 NetworkManager::Settings::PppSetting::mru() const
+quint32 NetworkManager::PppSetting::mru() const
 {
     Q_D(const PppSetting);
 
     return d->mru;
 }
 
-void NetworkManager::Settings::PppSetting::setMtu(quint32 mtu)
+void NetworkManager::PppSetting::setMtu(quint32 mtu)
 {
     Q_D(PppSetting);
 
     d->mtu = mtu;
 }
 
-quint32 NetworkManager::Settings::PppSetting::mtu() const
+quint32 NetworkManager::PppSetting::mtu() const
 {
     Q_D(const PppSetting);
 
     return d->mtu;
 }
 
-void NetworkManager::Settings::PppSetting::setLcpEchoFailure(quint32 number)
+void NetworkManager::PppSetting::setLcpEchoFailure(quint32 number)
 {
     Q_D(PppSetting);
 
     d->lcpEchoFailure = number;
 }
 
-quint32 NetworkManager::Settings::PppSetting::lcpEchoFailure() const
+quint32 NetworkManager::PppSetting::lcpEchoFailure() const
 {
     Q_D(const PppSetting);
 
     return d->lcpEchoFailure;
 }
 
-void NetworkManager::Settings::PppSetting::setLcpEchoInterval(quint32 interval)
+void NetworkManager::PppSetting::setLcpEchoInterval(quint32 interval)
 {
     Q_D(PppSetting);
 
     d->lcpEchoInterval = interval;
 }
 
-quint32 NetworkManager::Settings::PppSetting::lcpEchoInterval() const
+quint32 NetworkManager::PppSetting::lcpEchoInterval() const
 {
     Q_D(const PppSetting);
 
     return d->lcpEchoInterval;
 }
 
-void NetworkManager::Settings::PppSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::PppSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_PPP_NOAUTH))) {
         setNoAuth(setting.value(QLatin1String(NM_SETTING_PPP_NOAUTH)).toBool());
@@ -415,7 +415,7 @@ void NetworkManager::Settings::PppSetting::fromMap(const QVariantMap& setting)
     }
 }
 
-QVariantMap NetworkManager::Settings::PppSetting::toMap() const
+QVariantMap NetworkManager::PppSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -494,9 +494,9 @@ QVariantMap NetworkManager::Settings::PppSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::PppSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::PppSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_PPP_NOAUTH << ": " << setting.noAuth() << '\n';
     dbg.nospace() << NM_SETTING_PPP_REFUSE_EAP << ": " << setting.refuseEap() << '\n';

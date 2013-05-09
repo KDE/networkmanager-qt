@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class BridgeSettingPrivate
 {
 public:
@@ -41,7 +40,7 @@ public:
     quint32 maxAge;
     quint32 agingTime;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_BRIDGE_P_H

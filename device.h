@@ -171,7 +171,7 @@ public:
      *
      * @returns List of availables connection
      */
-    Settings::Connection::List availableConnections();
+    Connection::List availableConnections();
     /**
      * The system name for the network interface
      */

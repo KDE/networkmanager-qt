@@ -43,7 +43,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "nm-settings-connectioninterface.h"
 #include "generic-types.h"
 
-class NetworkManager::Settings::ConnectionPrivate
+class NetworkManager::ConnectionPrivate
 {
 public:
     ConnectionPrivate(const QString &path)
@@ -54,12 +54,12 @@ public:
     QString uuid;
     QString id;
     NMVariantMapMap settings;
-    Settings::ConnectionSettings::Ptr connection;
+    ConnectionSettings::Ptr connection;
     QString path;
     OrgFreedesktopNetworkManagerSettingsConnectionInterface iface;
 };
 
-NetworkManager::Settings::Connection::Connection(const QString & path, QObject * parent)
+NetworkManager::Connection::Connection(const QString & path, QObject * parent)
 : QObject(parent), d_ptr(new ConnectionPrivate(path))
 {
     Q_D(Connection);
@@ -79,30 +79,30 @@ NetworkManager::Settings::Connection::Connection(const QString & path, QObject *
     connect(&d->iface, SIGNAL(Removed()), this, SLOT(onConnectionRemoved()));
 }
 
-NetworkManager::Settings::Connection::~Connection()
+NetworkManager::Connection::~Connection()
 {
     delete d_ptr;
 }
 
-bool NetworkManager::Settings::Connection::isValid() const
+bool NetworkManager::Connection::isValid() const
 {
     Q_D(const Connection);
     return d->iface.isValid();
 }
 
-QString NetworkManager::Settings::Connection::uuid() const
+QString NetworkManager::Connection::uuid() const
 {
     Q_D(const Connection);
     return d->uuid;
 }
 
-QString NetworkManager::Settings::Connection::name() const
+QString NetworkManager::Connection::name() const
 {
     Q_D(const Connection);
     return d->id;
 }
 
-NetworkManager::Settings::ConnectionSettings::Ptr NetworkManager::Settings::Connection::settings()
+NetworkManager::ConnectionSettings::Ptr NetworkManager::Connection::settings()
 {
     Q_D(Connection);
 
@@ -112,7 +112,7 @@ NetworkManager::Settings::ConnectionSettings::Ptr NetworkManager::Settings::Conn
     return d->connection;
 }
 
-void NetworkManager::Settings::Connection::secrets(const QString &setting)
+void NetworkManager::Connection::secrets(const QString &setting)
 {
     Q_D(Connection);
     QString id = uuid();
@@ -122,7 +122,7 @@ void NetworkManager::Settings::Connection::secrets(const QString &setting)
     connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this,  SLOT(onSecretsArrived(QDBusPendingCallWatcher*)));
 }
 
-void NetworkManager::Settings::Connection::onSecretsArrived(QDBusPendingCallWatcher *watcher)
+void NetworkManager::Connection::onSecretsArrived(QDBusPendingCallWatcher *watcher)
 {
     Q_D(Connection);
     if (!watcher)
@@ -142,25 +142,25 @@ void NetworkManager::Settings::Connection::onSecretsArrived(QDBusPendingCallWatc
     watcher->deleteLater();
 }
 
-void NetworkManager::Settings::Connection::update(const NMVariantMapMap &settings)
+void NetworkManager::Connection::update(const NMVariantMapMap &settings)
 {
     Q_D(Connection);
     d->iface.Update(settings);
 }
 
-void NetworkManager::Settings::Connection::remove()
+void NetworkManager::Connection::remove()
 {
     Q_D(Connection);
     d->iface.Delete();
 }
 
-QString NetworkManager::Settings::Connection::path() const
+QString NetworkManager::Connection::path() const
 {
     Q_D(const Connection);
     return d->path;
 }
 
-void NetworkManager::Settings::Connection::onConnectionUpdated()
+void NetworkManager::Connection::onConnectionUpdated()
 {
     Q_D(Connection);
     QDBusReply<NMVariantMapMap> reply = d->iface.GetSettings();
@@ -172,7 +172,7 @@ void NetworkManager::Settings::Connection::onConnectionUpdated()
     emit updated();
 }
 
-void NetworkManager::Settings::Connection::onConnectionRemoved()
+void NetworkManager::Connection::onConnectionRemoved()
 {
     Q_D(Connection);
     QString path = d->path;
@@ -180,7 +180,7 @@ void NetworkManager::Settings::Connection::onConnectionRemoved()
     emit removed(path);
 }
 
-void NetworkManager::Settings::ConnectionPrivate::updateSettings(const NMVariantMapMap &newSettings)
+void NetworkManager::ConnectionPrivate::updateSettings(const NMVariantMapMap &newSettings)
 {
     settings = newSettings;
     if (settings.contains(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME))) {

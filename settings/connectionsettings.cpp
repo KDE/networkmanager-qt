@@ -64,7 +64,7 @@
 
 #include <QtCore/QUuid>
 
-NetworkManager::Settings::ConnectionSettingsPrivate::ConnectionSettingsPrivate():
+NetworkManager::ConnectionSettingsPrivate::ConnectionSettingsPrivate():
     name(NM_SETTING_CONNECTION_SETTING_NAME),
     uuid(QUuid().toString()),
     type(ConnectionSettings::Wired),
@@ -72,7 +72,7 @@ NetworkManager::Settings::ConnectionSettingsPrivate::ConnectionSettingsPrivate()
     readOnly(false)
 { }
 
-NetworkManager::Settings::ConnectionSettings::ConnectionType NetworkManager::Settings::ConnectionSettings::typeFromString(const QString & typeString)
+NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSettings::typeFromString(const QString & typeString)
 {
     ConnectionSettings::ConnectionType type = Wired;
 
@@ -109,7 +109,7 @@ NetworkManager::Settings::ConnectionSettings::ConnectionType NetworkManager::Set
     return type;
 }
 
-QString NetworkManager::Settings::ConnectionSettings::typeAsString(NetworkManager::Settings::ConnectionSettings::ConnectionType type)
+QString NetworkManager::ConnectionSettings::typeAsString(NetworkManager::ConnectionSettings::ConnectionType type)
 {
     QString typeString;
 
@@ -163,22 +163,22 @@ QString NetworkManager::Settings::ConnectionSettings::typeAsString(NetworkManage
     return typeString;
 }
 
-QString NetworkManager::Settings::ConnectionSettings::createNewUuid()
+QString NetworkManager::ConnectionSettings::createNewUuid()
 {
     return QUuid::createUuid().toString().mid(1, QUuid::createUuid().toString().length() - 2);
 }
 
-NetworkManager::Settings::ConnectionSettings::ConnectionSettings():
+NetworkManager::ConnectionSettings::ConnectionSettings():
     d_ptr(new ConnectionSettingsPrivate())
 { }
 
-NetworkManager::Settings::ConnectionSettings::ConnectionSettings(NetworkManager::Settings::ConnectionSettings::ConnectionType type, NMBluetoothCapabilities bt_cap):
+NetworkManager::ConnectionSettings::ConnectionSettings(NetworkManager::ConnectionSettings::ConnectionType type, NMBluetoothCapabilities bt_cap):
     d_ptr(new ConnectionSettingsPrivate())
 {
     setConnectionType(type, bt_cap);
 }
 
-NetworkManager::Settings::ConnectionSettings::ConnectionSettings(const NetworkManager::Settings::ConnectionSettings::Ptr &other):
+NetworkManager::ConnectionSettings::ConnectionSettings(const NetworkManager::ConnectionSettings::Ptr &other):
     d_ptr(new ConnectionSettingsPrivate())
 {
     setId(other->id());
@@ -195,20 +195,20 @@ NetworkManager::Settings::ConnectionSettings::ConnectionSettings(const NetworkMa
     initSettings(other);
 }
 
-NetworkManager::Settings::ConnectionSettings::ConnectionSettings(const NMVariantMapMap &map) :
+NetworkManager::ConnectionSettings::ConnectionSettings(const NMVariantMapMap &map) :
     d_ptr(new ConnectionSettingsPrivate())
 {
     fromMap(map);
 }
 
-NetworkManager::Settings::ConnectionSettings::~ConnectionSettings()
+NetworkManager::ConnectionSettings::~ConnectionSettings()
 {
     clearSettings();
 
     delete d_ptr;
 }
 
-void NetworkManager::Settings::ConnectionSettings::initSettings(NMBluetoothCapabilities bt_cap)
+void NetworkManager::ConnectionSettings::initSettings(NMBluetoothCapabilities bt_cap)
 {
     clearSettings();
 
@@ -302,7 +302,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(NMBluetoothCapab
     }
 }
 
-void NetworkManager::Settings::ConnectionSettings::initSettings(const NetworkManager::Settings::ConnectionSettings::Ptr &connectionSettings)
+void NetworkManager::ConnectionSettings::initSettings(const NetworkManager::ConnectionSettings::Ptr &connectionSettings)
 {
     clearSettings();
 
@@ -396,7 +396,7 @@ void NetworkManager::Settings::ConnectionSettings::initSettings(const NetworkMan
     }
 }
 
-void NetworkManager::Settings::ConnectionSettings::fromMap(const NMVariantMapMap& map)
+void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap& map)
 {
     QVariantMap connectionSettings = map.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
 
@@ -453,7 +453,7 @@ void NetworkManager::Settings::ConnectionSettings::fromMap(const NMVariantMapMap
     }
 }
 
-NMVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const
+NMVariantMapMap NetworkManager::ConnectionSettings::toMap() const
 {
     NMVariantMapMap result;
     QVariantMap connectionSetting;
@@ -519,42 +519,42 @@ NMVariantMapMap NetworkManager::Settings::ConnectionSettings::toMap() const
     return result;
 }
 
-QString NetworkManager::Settings::ConnectionSettings::name() const
+QString NetworkManager::ConnectionSettings::name() const
 {
     Q_D(const ConnectionSettings);
 
     return d->name;
 }
 
-void NetworkManager::Settings::ConnectionSettings::setId(const QString& id)
+void NetworkManager::ConnectionSettings::setId(const QString& id)
 {
     Q_D(ConnectionSettings);
 
     d->id = id;
 }
 
-QString NetworkManager::Settings::ConnectionSettings::id() const
+QString NetworkManager::ConnectionSettings::id() const
 {
     Q_D(const ConnectionSettings);
 
     return d->id;
 }
 
-void NetworkManager::Settings::ConnectionSettings::setUuid(const QString& uuid)
+void NetworkManager::ConnectionSettings::setUuid(const QString& uuid)
 {
     Q_D(ConnectionSettings);
 
     d->uuid = uuid;
 }
 
-QString NetworkManager::Settings::ConnectionSettings::uuid() const
+QString NetworkManager::ConnectionSettings::uuid() const
 {
     Q_D(const ConnectionSettings);
 
     return d->uuid;
 }
 
-void NetworkManager::Settings::ConnectionSettings::setConnectionType(NetworkManager::Settings::ConnectionSettings::ConnectionType type, NMBluetoothCapabilities bt_cap)
+void NetworkManager::ConnectionSettings::setConnectionType(NetworkManager::ConnectionSettings::ConnectionType type, NMBluetoothCapabilities bt_cap)
 {
     Q_D(ConnectionSettings);
 
@@ -563,140 +563,140 @@ void NetworkManager::Settings::ConnectionSettings::setConnectionType(NetworkMana
     initSettings(bt_cap);
 }
 
-NetworkManager::Settings::ConnectionSettings::ConnectionType NetworkManager::Settings::ConnectionSettings::connectionType() const
+NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSettings::connectionType() const
 {
     Q_D(const ConnectionSettings);
 
     return d->type;
 }
 
-void NetworkManager::Settings::ConnectionSettings::addToPermissions(const QString& user, const QString& type)
+void NetworkManager::ConnectionSettings::addToPermissions(const QString& user, const QString& type)
 {
     Q_D(ConnectionSettings);
 
     d->permissions.insert(user, type);
 }
 
-void NetworkManager::Settings::ConnectionSettings::setPermissions(const QHash< QString, QString >& perm)
+void NetworkManager::ConnectionSettings::setPermissions(const QHash< QString, QString >& perm)
 {
     Q_D(ConnectionSettings);
 
     d->permissions = perm;
 }
 
-QHash< QString, QString > NetworkManager::Settings::ConnectionSettings::permissions() const
+QHash< QString, QString > NetworkManager::ConnectionSettings::permissions() const
 {
     Q_D(const ConnectionSettings);
 
     return d->permissions;
 }
 
-void NetworkManager::Settings::ConnectionSettings::setAutoconnect(bool autoconnect)
+void NetworkManager::ConnectionSettings::setAutoconnect(bool autoconnect)
 {
     Q_D(ConnectionSettings);
 
     d->autoconnect = autoconnect;
 }
 
-bool NetworkManager::Settings::ConnectionSettings::autoconnect() const
+bool NetworkManager::ConnectionSettings::autoconnect() const
 {
     Q_D(const ConnectionSettings);
 
     return d->autoconnect;
 }
 
-void NetworkManager::Settings::ConnectionSettings::setTimestamp(const QDateTime& timestamp)
+void NetworkManager::ConnectionSettings::setTimestamp(const QDateTime& timestamp)
 {
     Q_D(ConnectionSettings);
 
     d->timestamp = timestamp;
 }
 
-QDateTime NetworkManager::Settings::ConnectionSettings::timestamp() const
+QDateTime NetworkManager::ConnectionSettings::timestamp() const
 {
     Q_D(const ConnectionSettings);
 
     return d->timestamp;
 }
 
-void NetworkManager::Settings::ConnectionSettings::setReadOnly(bool readonly)
+void NetworkManager::ConnectionSettings::setReadOnly(bool readonly)
 {
     Q_D(ConnectionSettings);
 
     d->readOnly = readonly;
 }
 
-bool NetworkManager::Settings::ConnectionSettings::readOnly() const
+bool NetworkManager::ConnectionSettings::readOnly() const
 {
     Q_D(const ConnectionSettings);
 
     return d->readOnly;
 }
 
-void NetworkManager::Settings::ConnectionSettings::setZone(const QString& zone)
+void NetworkManager::ConnectionSettings::setZone(const QString& zone)
 {
     Q_D(ConnectionSettings);
 
     d->zone = zone;
 }
 
-QString NetworkManager::Settings::ConnectionSettings::zone() const
+QString NetworkManager::ConnectionSettings::zone() const
 {
     Q_D(const ConnectionSettings);
 
     return d->zone;
 }
 
-bool NetworkManager::Settings::ConnectionSettings::isSlave() const
+bool NetworkManager::ConnectionSettings::isSlave() const
 {
     Q_D(const ConnectionSettings);
 
     return !d->master.isEmpty() && !d->slaveType.isEmpty();
 }
 
-void NetworkManager::Settings::ConnectionSettings::setMaster(const QString & master)
+void NetworkManager::ConnectionSettings::setMaster(const QString & master)
 {
     Q_D(ConnectionSettings);
 
     d->master = master;
 }
 
-QString NetworkManager::Settings::ConnectionSettings::master() const
+QString NetworkManager::ConnectionSettings::master() const
 {
     Q_D(const ConnectionSettings);
 
     return d->master;
 }
 
-void NetworkManager::Settings::ConnectionSettings::setSlaveType(const QString& type)
+void NetworkManager::ConnectionSettings::setSlaveType(const QString& type)
 {
     Q_D(ConnectionSettings);
 
     d->slaveType = type;
 }
 
-QString NetworkManager::Settings::ConnectionSettings::slaveType() const
+QString NetworkManager::ConnectionSettings::slaveType() const
 {
     Q_D(const ConnectionSettings);
 
     return d->slaveType;
 }
 
-void NetworkManager::Settings::ConnectionSettings::setSecondaries(const QStringList& secondaries)
+void NetworkManager::ConnectionSettings::setSecondaries(const QStringList& secondaries)
 {
     Q_D(ConnectionSettings);
 
     d->secondaries = secondaries;
 }
 
-QStringList NetworkManager::Settings::ConnectionSettings::secondaries() const
+QStringList NetworkManager::ConnectionSettings::secondaries() const
 {
     Q_D(const ConnectionSettings);
 
     return d->secondaries;
 }
 
-NetworkManager::Settings::Setting::Ptr NetworkManager::Settings::ConnectionSettings::setting(Setting::SettingType type) const
+NetworkManager::Setting::Ptr NetworkManager::ConnectionSettings::setting(Setting::SettingType type) const
 {
     foreach(const Setting::Ptr &setting, settings()) {
         if (setting->type() == type) {
@@ -707,33 +707,33 @@ NetworkManager::Settings::Setting::Ptr NetworkManager::Settings::ConnectionSetti
     return Setting::Ptr();
 }
 
-NetworkManager::Settings::Setting::Ptr NetworkManager::Settings::ConnectionSettings::setting(const QString &type) const
+NetworkManager::Setting::Ptr NetworkManager::ConnectionSettings::setting(const QString &type) const
 {
     return setting(Setting::typeFromString(type));
 }
 
-NetworkManager::Settings::Setting::List NetworkManager::Settings::ConnectionSettings::settings() const
+NetworkManager::Setting::List NetworkManager::ConnectionSettings::settings() const
 {
     Q_D(const ConnectionSettings);
 
     return d->settings;
 }
 
-void NetworkManager::Settings::ConnectionSettings::addSetting(const NetworkManager::Settings::Setting::Ptr &setting)
+void NetworkManager::ConnectionSettings::addSetting(const NetworkManager::Setting::Ptr &setting)
 {
     Q_D(ConnectionSettings);
 
     d->settings.push_back(setting);
 }
 
-void NetworkManager::Settings::ConnectionSettings::clearSettings()
+void NetworkManager::ConnectionSettings::clearSettings()
 {
     Q_D(ConnectionSettings);
 
     d->settings.clear();
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::ConnectionSettings &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionSettings &setting)
 {
     dbg.nospace() << "CONNECTION SETTINGS\n";
     dbg.nospace() << "===================\n";

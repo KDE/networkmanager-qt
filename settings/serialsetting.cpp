@@ -25,7 +25,7 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::SerialSettingPrivate::SerialSettingPrivate():
+NetworkManager::SerialSettingPrivate::SerialSettingPrivate():
     name(NM_SETTING_SERIAL_SETTING_NAME),
     baud(57600),
     bits(8),
@@ -34,12 +34,12 @@ NetworkManager::Settings::SerialSettingPrivate::SerialSettingPrivate():
     sendDelay(0)
 { }
 
-NetworkManager::Settings::SerialSetting::SerialSetting():
+NetworkManager::SerialSetting::SerialSetting():
     Setting(Setting::Serial),
     d_ptr(new SerialSettingPrivate())
 { }
 
-NetworkManager::Settings::SerialSetting::SerialSetting(const Ptr &other):
+NetworkManager::SerialSetting::SerialSetting(const Ptr &other):
     Setting(other),
     d_ptr(new SerialSettingPrivate())
 {
@@ -50,89 +50,89 @@ NetworkManager::Settings::SerialSetting::SerialSetting(const Ptr &other):
     setSendDelay(other->sendDelay());
 }
 
-NetworkManager::Settings::SerialSetting::~SerialSetting()
+NetworkManager::SerialSetting::~SerialSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::SerialSetting::name() const
+QString NetworkManager::SerialSetting::name() const
 {
     Q_D(const SerialSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::SerialSetting::setBaud(quint32 speed)
+void NetworkManager::SerialSetting::setBaud(quint32 speed)
 {
     Q_D(SerialSetting);
 
     d->baud = speed;
 }
 
-quint32 NetworkManager::Settings::SerialSetting::baud() const
+quint32 NetworkManager::SerialSetting::baud() const
 {
     Q_D(const SerialSetting);
 
     return d->baud;
 }
 
-void NetworkManager::Settings::SerialSetting::setBits(quint32 byteWidgh)
+void NetworkManager::SerialSetting::setBits(quint32 byteWidgh)
 {
     Q_D(SerialSetting);
 
     d->bits = byteWidgh;
 }
 
-quint32 NetworkManager::Settings::SerialSetting::bits() const
+quint32 NetworkManager::SerialSetting::bits() const
 {
     Q_D(const SerialSetting);
 
     return d->bits;
 }
 
-void NetworkManager::Settings::SerialSetting::setParity(NetworkManager::Settings::SerialSetting::Parity paritysetting)
+void NetworkManager::SerialSetting::setParity(NetworkManager::SerialSetting::Parity paritysetting)
 {
     Q_D(SerialSetting);
 
     d->parity = paritysetting;
 }
 
-NetworkManager::Settings::SerialSetting::Parity NetworkManager::Settings::SerialSetting::parity() const
+NetworkManager::SerialSetting::Parity NetworkManager::SerialSetting::parity() const
 {
     Q_D(const SerialSetting);
 
     return d->parity;
 }
 
-void NetworkManager::Settings::SerialSetting::setStopbits(quint32 number)
+void NetworkManager::SerialSetting::setStopbits(quint32 number)
 {
     Q_D(SerialSetting);
 
     d->stopbits = number;
 }
 
-quint32 NetworkManager::Settings::SerialSetting::stopbits() const
+quint32 NetworkManager::SerialSetting::stopbits() const
 {
     Q_D(const SerialSetting);
 
     return d->stopbits;
 }
 
-void NetworkManager::Settings::SerialSetting::setSendDelay(quint64 delay)
+void NetworkManager::SerialSetting::setSendDelay(quint64 delay)
 {
     Q_D(SerialSetting);
 
     d->sendDelay = delay;
 }
 
-quint64 NetworkManager::Settings::SerialSetting::sendDelay() const
+quint64 NetworkManager::SerialSetting::sendDelay() const
 {
     Q_D(const SerialSetting);
 
     return d->sendDelay;
 }
 
-void NetworkManager::Settings::SerialSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::SerialSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_SERIAL_BAUD))) {
         setBaud(setting.value(QLatin1String(NM_SETTING_SERIAL_BAUD)).toUInt());
@@ -163,7 +163,7 @@ void NetworkManager::Settings::SerialSetting::fromMap(const QVariantMap& setting
     }
 }
 
-QVariantMap NetworkManager::Settings::SerialSetting::toMap() const
+QVariantMap NetworkManager::SerialSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -194,9 +194,9 @@ QVariantMap NetworkManager::Settings::SerialSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::SerialSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::SerialSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_SERIAL_BAUD << ": " << setting.baud() << '\n';
     dbg.nospace() << NM_SETTING_SERIAL_BITS << ": " << setting.bits() << '\n';

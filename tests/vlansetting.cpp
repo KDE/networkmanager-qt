@@ -64,7 +64,7 @@ void VlanSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_VLAN_INGRESS_PRIORITY_MAP), ingressPriorityMap);
     map.insert(QLatin1String(NM_SETTING_VLAN_EGRESS_PRIORITY_MAP), egressPriorityMap);
 
-    NetworkManager::Settings::VlanSetting setting;
+    NetworkManager::VlanSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

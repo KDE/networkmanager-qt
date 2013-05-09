@@ -52,7 +52,7 @@ void CdmaSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_CDMA_PASSWORD), password);
     map.insert(QLatin1String(NM_SETTING_CDMA_PASSWORD_FLAGS), passwordFlags);
 
-    NetworkManager::Settings::CdmaSetting setting;
+    NetworkManager::CdmaSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

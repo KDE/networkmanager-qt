@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class Security8021xSettingPrivate
 {
 public:
@@ -66,7 +65,7 @@ public:
     Setting::SecretFlags pinFlags;
     bool systemCaCerts;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_802_1X_P_H

@@ -26,22 +26,22 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::WiredSettingPrivate::WiredSettingPrivate():
+NetworkManager::WiredSettingPrivate::WiredSettingPrivate():
     name(NM_SETTING_WIRED_SETTING_NAME),
-    port(NetworkManager::Settings::WiredSetting::UnknownPort),
+    port(NetworkManager::WiredSetting::UnknownPort),
     speed(0),
-    duplex(NetworkManager::Settings::WiredSetting::UnknownDuplexType),
+    duplex(NetworkManager::WiredSetting::UnknownDuplexType),
     autoNegotiate(true),
     mtu(0),
-    s390NetType(NetworkManager::Settings::WiredSetting::Undefined)
+    s390NetType(NetworkManager::WiredSetting::Undefined)
 { }
 
-NetworkManager::Settings::WiredSetting::WiredSetting():
+NetworkManager::WiredSetting::WiredSetting():
     Setting(Setting::Wired),
     d_ptr(new WiredSettingPrivate())
 { }
 
-NetworkManager::Settings::WiredSetting::WiredSetting(const WiredSetting::Ptr &other):
+NetworkManager::WiredSetting::WiredSetting(const WiredSetting::Ptr &other):
     Setting(other),
     d_ptr(new WiredSettingPrivate())
 {
@@ -58,173 +58,173 @@ NetworkManager::Settings::WiredSetting::WiredSetting(const WiredSetting::Ptr &ot
     setS390Options(other->s390Options());
 }
 
-NetworkManager::Settings::WiredSetting::~WiredSetting()
+NetworkManager::WiredSetting::~WiredSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::WiredSetting::name() const
+QString NetworkManager::WiredSetting::name() const
 {
     Q_D(const WiredSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::WiredSetting::setPort(NetworkManager::Settings::WiredSetting::PortType port)
+void NetworkManager::WiredSetting::setPort(NetworkManager::WiredSetting::PortType port)
 {
     Q_D(WiredSetting);
 
     d->port = port;
 }
 
-NetworkManager::Settings::WiredSetting::PortType NetworkManager::Settings::WiredSetting::port() const
+NetworkManager::WiredSetting::PortType NetworkManager::WiredSetting::port() const
 {
     Q_D(const WiredSetting);
 
     return d->port;
 }
 
-void NetworkManager::Settings::WiredSetting::setSpeed(quint32 speed)
+void NetworkManager::WiredSetting::setSpeed(quint32 speed)
 {
     Q_D(WiredSetting);
 
     d->speed = speed;
 }
 
-quint32 NetworkManager::Settings::WiredSetting::speed() const
+quint32 NetworkManager::WiredSetting::speed() const
 {
     Q_D(const WiredSetting);
 
     return d->speed;
 }
 
-void NetworkManager::Settings::WiredSetting::setDuplexType(NetworkManager::Settings::WiredSetting::DuplexType type)
+void NetworkManager::WiredSetting::setDuplexType(NetworkManager::WiredSetting::DuplexType type)
 {
     Q_D(WiredSetting);
 
     d->duplex = type;
 }
 
-NetworkManager::Settings::WiredSetting::DuplexType NetworkManager::Settings::WiredSetting::duplexType() const
+NetworkManager::WiredSetting::DuplexType NetworkManager::WiredSetting::duplexType() const
 {
     Q_D(const WiredSetting);
 
     return d->duplex;
 }
 
-void NetworkManager::Settings::WiredSetting::setAutoNegotiate(bool autoNegotiate)
+void NetworkManager::WiredSetting::setAutoNegotiate(bool autoNegotiate)
 {
     Q_D(WiredSetting);
 
     d->autoNegotiate = autoNegotiate;
 }
 
-bool NetworkManager::Settings::WiredSetting::autoNegotiate() const
+bool NetworkManager::WiredSetting::autoNegotiate() const
 {
     Q_D(const WiredSetting);
 
     return d->autoNegotiate;
 }
 
-void NetworkManager::Settings::WiredSetting::setMacAddress(const QByteArray& address)
+void NetworkManager::WiredSetting::setMacAddress(const QByteArray& address)
 {
     Q_D(WiredSetting);
 
     d->macAddress = address;
 }
 
-QByteArray NetworkManager::Settings::WiredSetting::macAddress() const
+QByteArray NetworkManager::WiredSetting::macAddress() const
 {
     Q_D(const WiredSetting);
 
     return d->macAddress;
 }
 
-void NetworkManager::Settings::WiredSetting::setClonedMacAddress(const QByteArray& address)
+void NetworkManager::WiredSetting::setClonedMacAddress(const QByteArray& address)
 {
     Q_D(WiredSetting);
 
     d->clonedMacAddress = address;
 }
 
-QByteArray NetworkManager::Settings::WiredSetting::clonedMacAddress() const
+QByteArray NetworkManager::WiredSetting::clonedMacAddress() const
 {
     Q_D(const WiredSetting);
 
     return d->clonedMacAddress;
 }
 
-void NetworkManager::Settings::WiredSetting::setMacAddressBlacklist(const QStringList& list)
+void NetworkManager::WiredSetting::setMacAddressBlacklist(const QStringList& list)
 {
     Q_D(WiredSetting);
 
     d->macAddressBlacklist = list;
 }
 
-QStringList NetworkManager::Settings::WiredSetting::macAddressBlacklist() const
+QStringList NetworkManager::WiredSetting::macAddressBlacklist() const
 {
     Q_D(const WiredSetting);
 
     return d->macAddressBlacklist;
 }
 
-void NetworkManager::Settings::WiredSetting::setMtu(quint32 mtu)
+void NetworkManager::WiredSetting::setMtu(quint32 mtu)
 {
     Q_D(WiredSetting);
 
     d->mtu = mtu;
 }
 
-quint32 NetworkManager::Settings::WiredSetting::mtu() const
+quint32 NetworkManager::WiredSetting::mtu() const
 {
     Q_D(const WiredSetting);
 
     return d->mtu;
 }
 
-void NetworkManager::Settings::WiredSetting::setS390Subchannels(const QStringList& channels)
+void NetworkManager::WiredSetting::setS390Subchannels(const QStringList& channels)
 {
     Q_D(WiredSetting);
 
     d->s390Subchannels = channels;
 }
 
-QStringList NetworkManager::Settings::WiredSetting::s390Subchannels() const
+QStringList NetworkManager::WiredSetting::s390Subchannels() const
 {
     Q_D(const WiredSetting);
 
     return d->s390Subchannels;
 }
 
-void NetworkManager::Settings::WiredSetting::setS390NetType(NetworkManager::Settings::WiredSetting::S390Nettype type)
+void NetworkManager::WiredSetting::setS390NetType(NetworkManager::WiredSetting::S390Nettype type)
 {
     Q_D(WiredSetting);
 
     d->s390NetType = type;
 }
 
-NetworkManager::Settings::WiredSetting::S390Nettype NetworkManager::Settings::WiredSetting::s390NetType() const
+NetworkManager::WiredSetting::S390Nettype NetworkManager::WiredSetting::s390NetType() const
 {
     Q_D(const WiredSetting);
 
     return d->s390NetType;
 }
 
-void NetworkManager::Settings::WiredSetting::setS390Options(const QMap<QString, QString> &options)
+void NetworkManager::WiredSetting::setS390Options(const QMap<QString, QString> &options)
 {
     Q_D(WiredSetting);
 
     d->s390Options = options;
 }
 
-QMap<QString, QString> NetworkManager::Settings::WiredSetting::s390Options() const
+QMap<QString, QString> NetworkManager::WiredSetting::s390Options() const
 {
     Q_D(const WiredSetting);
 
     return d->s390Options;
 }
 
-void NetworkManager::Settings::WiredSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::WiredSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_PORT))) {
         QString port = setting.value(QLatin1String(NM_SETTING_WIRED_PORT)).toString();
@@ -302,7 +302,7 @@ void NetworkManager::Settings::WiredSetting::fromMap(const QVariantMap& setting)
     }
 }
 
-QVariantMap NetworkManager::Settings::WiredSetting::toMap() const
+QVariantMap NetworkManager::WiredSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -373,9 +373,9 @@ QVariantMap NetworkManager::Settings::WiredSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::WiredSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WiredSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_WIRED_PORT << ": " << setting.port() << '\n';
     dbg.nospace() << NM_SETTING_WIRED_SPEED << ": " << setting.speed() << '\n';

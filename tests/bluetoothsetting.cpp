@@ -45,7 +45,7 @@ void BluetoothSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_BLUETOOTH_BDADDR), address);
     map.insert(QLatin1String(NM_SETTING_BLUETOOTH_TYPE), type);
 
-    NetworkManager::Settings::BluetoothSetting setting;
+    NetworkManager::BluetoothSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

@@ -343,13 +343,13 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::Device::activeConnection()
     return NetworkManager::findActiveConnection(d->activeConnection);
 }
 
-NetworkManager::Settings::Connection::List NetworkManager::Device::availableConnections()
+NetworkManager::Connection::List NetworkManager::Device::availableConnections()
 {
     Q_D(const Device);
 
-    NetworkManager::Settings::Connection::List list;
+    NetworkManager::Connection::List list;
     foreach (const QString &availableConnection, d->availableConnections) {
-        NetworkManager::Settings::Connection::Ptr connection = NetworkManager::Settings::findConnection(availableConnection);
+        NetworkManager::Connection::Ptr connection = NetworkManager::findConnection(availableConnection);
         if (connection) {
             list << connection;
         }

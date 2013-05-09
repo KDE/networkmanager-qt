@@ -25,21 +25,21 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::GsmSettingPrivate::GsmSettingPrivate():
+NetworkManager::GsmSettingPrivate::GsmSettingPrivate():
     name(NM_SETTING_GSM_SETTING_NAME),
-    passwordFlags(NetworkManager::Settings::GsmSetting::None),
-    networkType(NetworkManager::Settings::GsmSetting::Any),
-    pinFlags(NetworkManager::Settings::GsmSetting::None),
+    passwordFlags(NetworkManager::GsmSetting::None),
+    networkType(NetworkManager::GsmSetting::Any),
+    pinFlags(NetworkManager::GsmSetting::None),
     allowedBand(1),
     homeOnly(false)
 { }
 
-NetworkManager::Settings::GsmSetting::GsmSetting():
+NetworkManager::GsmSetting::GsmSetting():
     Setting(Setting::Gsm),
     d_ptr(new GsmSettingPrivate())
 { }
 
-NetworkManager::Settings::GsmSetting::GsmSetting(const Ptr &other):
+NetworkManager::GsmSetting::GsmSetting(const Ptr &other):
     Setting(other),
     d_ptr(new GsmSettingPrivate())
 {
@@ -56,173 +56,173 @@ NetworkManager::Settings::GsmSetting::GsmSetting(const Ptr &other):
     setHomeOnly(other->homeOnly());
 }
 
-NetworkManager::Settings::GsmSetting::~GsmSetting()
+NetworkManager::GsmSetting::~GsmSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::GsmSetting::name() const
+QString NetworkManager::GsmSetting::name() const
 {
     Q_D(const GsmSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::GsmSetting::setNumber(const QString& number)
+void NetworkManager::GsmSetting::setNumber(const QString& number)
 {
     Q_D(GsmSetting);
 
     d->number = number;
 }
 
-QString NetworkManager::Settings::GsmSetting::number() const
+QString NetworkManager::GsmSetting::number() const
 {
     Q_D(const GsmSetting);
 
     return d->number;
 }
 
-void NetworkManager::Settings::GsmSetting::setUsername(const QString& username)
+void NetworkManager::GsmSetting::setUsername(const QString& username)
 {
     Q_D(GsmSetting);
 
     d->username = username;
 }
 
-QString NetworkManager::Settings::GsmSetting::username() const
+QString NetworkManager::GsmSetting::username() const
 {
     Q_D(const GsmSetting);
 
     return d->username;
 }
 
-void NetworkManager::Settings::GsmSetting::setPassword(const QString& password)
+void NetworkManager::GsmSetting::setPassword(const QString& password)
 {
     Q_D(GsmSetting);
 
     d->password = password;
 }
 
-QString NetworkManager::Settings::GsmSetting::password() const
+QString NetworkManager::GsmSetting::password() const
 {
     Q_D(const GsmSetting);
 
     return d->password;
 }
 
-void NetworkManager::Settings::GsmSetting::setPasswordFlags(GsmSetting::SecretFlags flags)
+void NetworkManager::GsmSetting::setPasswordFlags(GsmSetting::SecretFlags flags)
 {
     Q_D(GsmSetting);
 
     d->passwordFlags = flags;
 }
 
-NetworkManager::Settings::GsmSetting::SecretFlags NetworkManager::Settings::GsmSetting::passwordFlags() const
+NetworkManager::GsmSetting::SecretFlags NetworkManager::GsmSetting::passwordFlags() const
 {
     Q_D(const GsmSetting);
 
     return d->passwordFlags;
 }
 
-void NetworkManager::Settings::GsmSetting::setApn(const QString& apn)
+void NetworkManager::GsmSetting::setApn(const QString& apn)
 {
     Q_D(GsmSetting);
 
     d->apn = apn;
 }
 
-QString NetworkManager::Settings::GsmSetting::apn() const
+QString NetworkManager::GsmSetting::apn() const
 {
     Q_D(const GsmSetting);
 
     return d->apn;
 }
 
-void NetworkManager::Settings::GsmSetting::setNetworkId(const QString& id)
+void NetworkManager::GsmSetting::setNetworkId(const QString& id)
 {
     Q_D(GsmSetting);
 
     d->networkId = id;
 }
 
-QString NetworkManager::Settings::GsmSetting::networkId() const
+QString NetworkManager::GsmSetting::networkId() const
 {
     Q_D(const GsmSetting);
 
     return d->networkId;
 }
 
-void NetworkManager::Settings::GsmSetting::setNetworkType(NetworkType type)
+void NetworkManager::GsmSetting::setNetworkType(NetworkType type)
 {
     Q_D(GsmSetting);
 
     d->networkType = type;
 }
 
-NetworkManager::Settings::GsmSetting::NetworkType NetworkManager::Settings::GsmSetting::networkType() const
+NetworkManager::GsmSetting::NetworkType NetworkManager::GsmSetting::networkType() const
 {
     Q_D(const GsmSetting);
 
     return d->networkType;
 }
 
-void NetworkManager::Settings::GsmSetting::setPin(const QString& pin)
+void NetworkManager::GsmSetting::setPin(const QString& pin)
 {
     Q_D(GsmSetting);
 
     d->pin = pin;
 }
 
-QString NetworkManager::Settings::GsmSetting::pin() const
+QString NetworkManager::GsmSetting::pin() const
 {
     Q_D(const GsmSetting);
 
     return d->pin;
 }
 
-void NetworkManager::Settings::GsmSetting::setPinFlags(GsmSetting::SecretFlags flags)
+void NetworkManager::GsmSetting::setPinFlags(GsmSetting::SecretFlags flags)
 {
     Q_D(GsmSetting);
 
     d->pinFlags = flags;
 }
 
-NetworkManager::Settings::GsmSetting::SecretFlags NetworkManager::Settings::GsmSetting::pinFlags() const
+NetworkManager::GsmSetting::SecretFlags NetworkManager::GsmSetting::pinFlags() const
 {
     Q_D(const GsmSetting);
 
     return d->pinFlags;
 }
 
-void NetworkManager::Settings::GsmSetting::setAllowedBand(quint32 band)
+void NetworkManager::GsmSetting::setAllowedBand(quint32 band)
 {
     Q_D(GsmSetting);
 
     d->allowedBand = band;
 }
 
-quint32 NetworkManager::Settings::GsmSetting::allowedBand() const
+quint32 NetworkManager::GsmSetting::allowedBand() const
 {
     Q_D(const GsmSetting);
 
     return d->allowedBand;
 }
 
-void NetworkManager::Settings::GsmSetting::setHomeOnly(bool homeOnly)
+void NetworkManager::GsmSetting::setHomeOnly(bool homeOnly)
 {
     Q_D(GsmSetting);
 
     d->homeOnly = homeOnly;
 }
 
-bool NetworkManager::Settings::GsmSetting::homeOnly() const
+bool NetworkManager::GsmSetting::homeOnly() const
 {
     Q_D(const GsmSetting);
 
     return d->homeOnly;
 }
 
-void NetworkManager::Settings::GsmSetting::secretsFromMap(const QVariantMap& secrets)
+void NetworkManager::GsmSetting::secretsFromMap(const QVariantMap& secrets)
 {
     if (secrets.contains(QLatin1String(NM_SETTING_GSM_PASSWORD))) {
         setPassword(secrets.value(QLatin1String(NM_SETTING_GSM_PASSWORD)).toString());
@@ -233,7 +233,7 @@ void NetworkManager::Settings::GsmSetting::secretsFromMap(const QVariantMap& sec
     }
 }
 
-QVariantMap NetworkManager::Settings::GsmSetting::secretsToMap() const
+QVariantMap NetworkManager::GsmSetting::secretsToMap() const
 {
     QVariantMap secrets;
 
@@ -248,7 +248,7 @@ QVariantMap NetworkManager::Settings::GsmSetting::secretsToMap() const
     return secrets;
 }
 
-QStringList NetworkManager::Settings::GsmSetting::needSecrets(bool requestNew) const
+QStringList NetworkManager::GsmSetting::needSecrets(bool requestNew) const
 {
     QStringList list;
 
@@ -263,7 +263,7 @@ QStringList NetworkManager::Settings::GsmSetting::needSecrets(bool requestNew) c
     return list;
 }
 
-void NetworkManager::Settings::GsmSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::GsmSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_GSM_NUMBER))) {
         setNumber(setting.value(QLatin1String(NM_SETTING_GSM_NUMBER)).toString());
@@ -312,7 +312,7 @@ void NetworkManager::Settings::GsmSetting::fromMap(const QVariantMap& setting)
     }
 }
 
-QVariantMap NetworkManager::Settings::GsmSetting::toMap() const
+QVariantMap NetworkManager::GsmSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -361,9 +361,9 @@ QVariantMap NetworkManager::Settings::GsmSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::GsmSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::GsmSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_GSM_NUMBER << ": " << setting.number() << '\n';
     dbg.nospace() << NM_SETTING_GSM_USERNAME << ": " << setting.username() << '\n';

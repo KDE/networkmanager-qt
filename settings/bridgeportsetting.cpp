@@ -25,19 +25,19 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::BridgePortSettingPrivate::BridgePortSettingPrivate():
+NetworkManager::BridgePortSettingPrivate::BridgePortSettingPrivate():
     name(NM_SETTING_BRIDGE_PORT_SETTING_NAME),
     priority(32),
     pathCost(100),
     hairpinMode(false)
 { }
 
-NetworkManager::Settings::BridgePortSetting::BridgePortSetting():
+NetworkManager::BridgePortSetting::BridgePortSetting():
     Setting(Setting::BridgePort),
     d_ptr(new BridgePortSettingPrivate())
 { }
 
-NetworkManager::Settings::BridgePortSetting::BridgePortSetting(const NetworkManager::Settings::BridgePortSetting::Ptr &other) :
+NetworkManager::BridgePortSetting::BridgePortSetting(const NetworkManager::BridgePortSetting::Ptr &other) :
     Setting(other),
     d_ptr(new BridgePortSettingPrivate())
 {
@@ -46,61 +46,61 @@ NetworkManager::Settings::BridgePortSetting::BridgePortSetting(const NetworkMana
     setHairpinMode(other->hairpinMode());
 }
 
-NetworkManager::Settings::BridgePortSetting::~BridgePortSetting()
+NetworkManager::BridgePortSetting::~BridgePortSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::BridgePortSetting::name() const
+QString NetworkManager::BridgePortSetting::name() const
 {
     Q_D(const BridgePortSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::BridgePortSetting::setPriority(quint32 priority)
+void NetworkManager::BridgePortSetting::setPriority(quint32 priority)
 {
     Q_D(BridgePortSetting);
 
     d->priority = priority;
 }
 
-quint32 NetworkManager::Settings::BridgePortSetting::priority() const
+quint32 NetworkManager::BridgePortSetting::priority() const
 {
     Q_D(const BridgePortSetting);
 
     return d->priority;
 }
 
-void NetworkManager::Settings::BridgePortSetting::setPathCost(quint32 cost)
+void NetworkManager::BridgePortSetting::setPathCost(quint32 cost)
 {
     Q_D(BridgePortSetting);
 
     d->pathCost = cost;
 }
 
-quint32 NetworkManager::Settings::BridgePortSetting::pathCost() const
+quint32 NetworkManager::BridgePortSetting::pathCost() const
 {
     Q_D(const BridgePortSetting);
 
     return d->pathCost;
 }
 
-void NetworkManager::Settings::BridgePortSetting::setHairpinMode(bool enable)
+void NetworkManager::BridgePortSetting::setHairpinMode(bool enable)
 {
     Q_D(BridgePortSetting);
 
     d->hairpinMode = enable;
 }
 
-bool NetworkManager::Settings::BridgePortSetting::hairpinMode() const
+bool NetworkManager::BridgePortSetting::hairpinMode() const
 {
     Q_D(const BridgePortSetting);
 
     return d->hairpinMode;
 }
 
-void NetworkManager::Settings::BridgePortSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::BridgePortSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_BRIDGE_PORT_PRIORITY))) {
         setPriority(setting.value(QLatin1String(NM_SETTING_BRIDGE_PORT_PRIORITY)).toUInt());
@@ -115,7 +115,7 @@ void NetworkManager::Settings::BridgePortSetting::fromMap(const QVariantMap& set
     }
 }
 
-QVariantMap NetworkManager::Settings::BridgePortSetting::toMap() const
+QVariantMap NetworkManager::BridgePortSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -134,9 +134,9 @@ QVariantMap NetworkManager::Settings::BridgePortSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::BridgePortSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::BridgePortSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_BRIDGE_PORT_PRIORITY << ": " << setting.priority() << '\n';
     dbg.nospace() << NM_SETTING_BRIDGE_PORT_PATH_COST << ": " << setting.pathCost() << '\n';

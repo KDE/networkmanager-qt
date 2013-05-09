@@ -30,8 +30,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class ConnectionSettingsPrivate
 {
 public:
@@ -40,7 +39,7 @@ public:
     QString name;
     QString id;
     QString uuid;
-    NetworkManager::Settings::ConnectionSettings::ConnectionType type;
+    NetworkManager::ConnectionSettings::ConnectionType type;
     QHash<QString, QString> permissions;
     bool autoconnect;
     QDateTime timestamp;
@@ -51,7 +50,7 @@ public:
     QStringList secondaries;
     Setting::List settings;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_CONNECTION_SETTINGS_P_H

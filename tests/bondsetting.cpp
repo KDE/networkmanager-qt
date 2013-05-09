@@ -47,7 +47,7 @@ void BondSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_BOND_INTERFACE_NAME), interfaceName);
     map.insert(QLatin1String(NM_SETTING_BOND_OPTIONS), QVariant::fromValue<NMStringMap>(options));
 
-    NetworkManager::Settings::BondSetting setting;
+    NetworkManager::BondSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

@@ -25,9 +25,9 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::WirelessSettingPrivate::WirelessSettingPrivate():
+NetworkManager::WirelessSettingPrivate::WirelessSettingPrivate():
     name(NM_SETTING_WIRELESS_SETTING_NAME),
-    mode(NetworkManager::Settings::WirelessSetting::Infrastructure),
+    mode(NetworkManager::WirelessSetting::Infrastructure),
     band(WirelessSetting::Automatic),
     channel(0),
     rate(0),
@@ -36,12 +36,12 @@ NetworkManager::Settings::WirelessSettingPrivate::WirelessSettingPrivate():
     hidden(false)
 { }
 
-NetworkManager::Settings::WirelessSetting::WirelessSetting():
+NetworkManager::WirelessSetting::WirelessSetting():
     Setting(Setting::Wireless),
     d_ptr(new WirelessSettingPrivate())
 { }
 
-NetworkManager::Settings::WirelessSetting::WirelessSetting(const Ptr &setting):
+NetworkManager::WirelessSetting::WirelessSetting(const Ptr &setting):
     Setting(setting),
     d_ptr(new WirelessSettingPrivate)
 {
@@ -61,215 +61,215 @@ NetworkManager::Settings::WirelessSetting::WirelessSetting(const Ptr &setting):
     setHidden(setting->hidden());
 }
 
-NetworkManager::Settings::WirelessSetting::~WirelessSetting()
+NetworkManager::WirelessSetting::~WirelessSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::WirelessSetting::name() const
+QString NetworkManager::WirelessSetting::name() const
 {
     Q_D(const WirelessSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::WirelessSetting::setSsid(const QByteArray& ssid)
+void NetworkManager::WirelessSetting::setSsid(const QByteArray& ssid)
 {
     Q_D(WirelessSetting);
 
     d->ssid = ssid;
 }
 
-QByteArray NetworkManager::Settings::WirelessSetting::ssid() const
+QByteArray NetworkManager::WirelessSetting::ssid() const
 {
     Q_D(const WirelessSetting);
 
     return d->ssid;
 }
 
-void NetworkManager::Settings::WirelessSetting::setMode(NetworkManager::Settings::WirelessSetting::NetworkMode mode)
+void NetworkManager::WirelessSetting::setMode(NetworkManager::WirelessSetting::NetworkMode mode)
 {
     Q_D(WirelessSetting);
 
     d->mode = mode;
 }
 
-NetworkManager::Settings::WirelessSetting::NetworkMode NetworkManager::Settings::WirelessSetting::mode() const
+NetworkManager::WirelessSetting::NetworkMode NetworkManager::WirelessSetting::mode() const
 {
     Q_D(const WirelessSetting);
 
     return d->mode;
 }
 
-void NetworkManager::Settings::WirelessSetting::setBand(NetworkManager::Settings::WirelessSetting::FrequencyBand band)
+void NetworkManager::WirelessSetting::setBand(NetworkManager::WirelessSetting::FrequencyBand band)
 {
     Q_D(WirelessSetting);
 
     d->band = band;
 }
 
-NetworkManager::Settings::WirelessSetting::FrequencyBand NetworkManager::Settings::WirelessSetting::band() const
+NetworkManager::WirelessSetting::FrequencyBand NetworkManager::WirelessSetting::band() const
 {
     Q_D(const WirelessSetting);
 
     return d->band;
 }
 
-void NetworkManager::Settings::WirelessSetting::setChannel(quint32 channel)
+void NetworkManager::WirelessSetting::setChannel(quint32 channel)
 {
     Q_D(WirelessSetting);
 
     d->channel = channel;
 }
 
-quint32 NetworkManager::Settings::WirelessSetting::channel() const
+quint32 NetworkManager::WirelessSetting::channel() const
 {
     Q_D(const WirelessSetting);
 
     return d->channel;
 }
 
-void NetworkManager::Settings::WirelessSetting::setBssid(const QByteArray& bssid)
+void NetworkManager::WirelessSetting::setBssid(const QByteArray& bssid)
 {
     Q_D(WirelessSetting);
 
     d->bssid = bssid;
 }
 
-QByteArray NetworkManager::Settings::WirelessSetting::bssid() const
+QByteArray NetworkManager::WirelessSetting::bssid() const
 {
     Q_D(const WirelessSetting);
 
     return d->bssid;
 }
 
-void NetworkManager::Settings::WirelessSetting::setRate(quint32 rate)
+void NetworkManager::WirelessSetting::setRate(quint32 rate)
 {
     Q_D(WirelessSetting);
 
     d->rate = rate;
 }
 
-quint32 NetworkManager::Settings::WirelessSetting::rate() const
+quint32 NetworkManager::WirelessSetting::rate() const
 {
     Q_D(const WirelessSetting);
 
     return d->rate;
 }
 
-void NetworkManager::Settings::WirelessSetting::setTxPower(quint32 power)
+void NetworkManager::WirelessSetting::setTxPower(quint32 power)
 {
     Q_D(WirelessSetting);
 
     d->txPower = power;
 }
 
-quint32 NetworkManager::Settings::WirelessSetting::txPower() const
+quint32 NetworkManager::WirelessSetting::txPower() const
 {
     Q_D(const WirelessSetting);
 
     return d->txPower;
 }
 
-void NetworkManager::Settings::WirelessSetting::setMacAddress(const QByteArray& address)
+void NetworkManager::WirelessSetting::setMacAddress(const QByteArray& address)
 {
     Q_D(WirelessSetting);
 
     d->macAddress = address;
 }
 
-QByteArray NetworkManager::Settings::WirelessSetting::macAddress() const
+QByteArray NetworkManager::WirelessSetting::macAddress() const
 {
     Q_D(const WirelessSetting);
 
     return d->macAddress;
 }
 
-void NetworkManager::Settings::WirelessSetting::setClonedMacAddress(const QByteArray& address)
+void NetworkManager::WirelessSetting::setClonedMacAddress(const QByteArray& address)
 {
     Q_D(WirelessSetting);
 
     d->clonedMacAddress = address;
 }
 
-QByteArray NetworkManager::Settings::WirelessSetting::clonedMacAddress() const
+QByteArray NetworkManager::WirelessSetting::clonedMacAddress() const
 {
     Q_D(const WirelessSetting);
 
     return d->clonedMacAddress;
 }
 
-void NetworkManager::Settings::WirelessSetting::setMacAddressBlacklist(const QStringList& list)
+void NetworkManager::WirelessSetting::setMacAddressBlacklist(const QStringList& list)
 {
     Q_D(WirelessSetting);
 
     d->macAddressBlacklist = list;
 }
 
-QStringList NetworkManager::Settings::WirelessSetting::macAddressBlacklist() const
+QStringList NetworkManager::WirelessSetting::macAddressBlacklist() const
 {
     Q_D(const WirelessSetting);
 
     return d->macAddressBlacklist;
 }
 
-void NetworkManager::Settings::WirelessSetting::setMtu(quint32 mtu)
+void NetworkManager::WirelessSetting::setMtu(quint32 mtu)
 {
     Q_D(WirelessSetting);
 
     d->mtu = mtu;
 }
 
-quint32 NetworkManager::Settings::WirelessSetting::mtu() const
+quint32 NetworkManager::WirelessSetting::mtu() const
 {
     Q_D(const WirelessSetting);
 
     return d->mtu;
 }
 
-void NetworkManager::Settings::WirelessSetting::setSeenBssids(const QStringList& list)
+void NetworkManager::WirelessSetting::setSeenBssids(const QStringList& list)
 {
     Q_D(WirelessSetting);
 
     d->seenBssids = list;
 }
 
-QStringList NetworkManager::Settings::WirelessSetting::seenBssids() const
+QStringList NetworkManager::WirelessSetting::seenBssids() const
 {
     Q_D(const WirelessSetting);
 
     return d->seenBssids;
 }
 
-void NetworkManager::Settings::WirelessSetting::setSecurity(const QString& security)
+void NetworkManager::WirelessSetting::setSecurity(const QString& security)
 {
     Q_D(WirelessSetting);
 
     d->security = security;
 }
 
-QString NetworkManager::Settings::WirelessSetting::security() const
+QString NetworkManager::WirelessSetting::security() const
 {
     Q_D(const WirelessSetting);
 
     return d->security;
 }
 
-void NetworkManager::Settings::WirelessSetting::setHidden(bool hidden)
+void NetworkManager::WirelessSetting::setHidden(bool hidden)
 {
     Q_D(WirelessSetting);
 
     d->hidden = hidden;
 }
 
-bool NetworkManager::Settings::WirelessSetting::hidden() const
+bool NetworkManager::WirelessSetting::hidden() const
 {
     Q_D(const WirelessSetting);
 
     return d->hidden;
 }
 
-void NetworkManager::Settings::WirelessSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::WirelessSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_SSID))) {
         setSsid(setting.value(QLatin1String(NM_SETTING_WIRELESS_SSID)).toByteArray());
@@ -340,7 +340,7 @@ void NetworkManager::Settings::WirelessSetting::fromMap(const QVariantMap& setti
     }
 }
 
-QVariantMap NetworkManager::Settings::WirelessSetting::toMap() const
+QVariantMap NetworkManager::WirelessSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -411,9 +411,9 @@ QVariantMap NetworkManager::Settings::WirelessSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::WirelessSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WirelessSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_WIRELESS_SSID << ": " << setting.ssid() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_MODE << ": " << setting.mode() << '\n';

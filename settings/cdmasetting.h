@@ -28,10 +28,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class CdmaSettingPrivate;
 
+class CdmaSettingPrivate;
 class NMQT_EXPORT CdmaSetting : public Setting
 {
     Q_DECLARE_PRIVATE(CdmaSetting)
@@ -72,7 +70,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const CdmaSetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_CDMASETTING_H

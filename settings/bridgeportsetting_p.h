@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class BridgePortSettingPrivate
 {
 public:
@@ -37,7 +36,7 @@ public:
     quint32 pathCost;
     bool hairpinMode;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_BRIDGEPORT_P_H

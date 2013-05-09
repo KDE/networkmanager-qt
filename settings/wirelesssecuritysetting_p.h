@@ -26,33 +26,32 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class WirelessSecuritySettingPrivate
 {
 public:
     WirelessSecuritySettingPrivate();
 
     QString name;
-    NetworkManager::Settings::WirelessSecuritySetting::KeyMgmt keyMgmt;
+    NetworkManager::WirelessSecuritySetting::KeyMgmt keyMgmt;
     quint32 wepTxKeyidx;
-    NetworkManager::Settings::WirelessSecuritySetting::AuthAlg authAlg;
-    QList<NetworkManager::Settings::WirelessSecuritySetting::WpaProtocolVersion> proto;
-    QList<NetworkManager::Settings::WirelessSecuritySetting::WpaEncryptionCapabilities> pairwise;
-    QList<NetworkManager::Settings::WirelessSecuritySetting::WpaEncryptionCapabilities> group;
+    NetworkManager::WirelessSecuritySetting::AuthAlg authAlg;
+    QList<NetworkManager::WirelessSecuritySetting::WpaProtocolVersion> proto;
+    QList<NetworkManager::WirelessSecuritySetting::WpaEncryptionCapabilities> pairwise;
+    QList<NetworkManager::WirelessSecuritySetting::WpaEncryptionCapabilities> group;
     QString leapUsername;
     QString wepKey0;
     QString wepKey1;
     QString wepKey2;
     QString wepKey3;
-    NetworkManager::Settings::Setting::SecretFlags wepKeyFlags;
-    NetworkManager::Settings::WirelessSecuritySetting::WepKeyType wepKeyType;
+    NetworkManager::Setting::SecretFlags wepKeyFlags;
+    NetworkManager::WirelessSecuritySetting::WepKeyType wepKeyType;
     QString psk;
-    NetworkManager::Settings::Setting::SecretFlags pskFlags;
+    NetworkManager::Setting::SecretFlags pskFlags;
     QString leapPassword;
-    NetworkManager::Settings::Setting::SecretFlags leapPasswordFlags;
+    NetworkManager::Setting::SecretFlags leapPasswordFlags;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_802_11_WIRELESS_SECURITY_P_H

@@ -44,8 +44,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class SettingPrivate
 {
 public:
@@ -63,14 +62,13 @@ QDebug operator <<(QDebug dbg, const Setting &setting)
 }
 
 }
-}
 
-NetworkManager::Settings::SettingPrivate::SettingPrivate():
+NetworkManager::SettingPrivate::SettingPrivate():
     type(Setting::Wired),
     initialized(false)
 { }
 
-QString NetworkManager::Settings::Setting::typeAsString(NetworkManager::Settings::Setting::SettingType type)
+QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingType type)
 {
     QString typeString;
 
@@ -136,7 +134,7 @@ QString NetworkManager::Settings::Setting::typeAsString(NetworkManager::Settings
     return typeString;
 }
 
-NetworkManager::Settings::Setting::SettingType NetworkManager::Settings::Setting::typeFromString(const QString& typeString)
+NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(const QString& typeString)
 {
     SettingType type = Wired;
 
@@ -181,48 +179,48 @@ NetworkManager::Settings::Setting::SettingType NetworkManager::Settings::Setting
     return type;
 }
 
-NetworkManager::Settings::Setting::Setting(SettingType type):
+NetworkManager::Setting::Setting(SettingType type):
     d_ptr(new SettingPrivate())
 {
     setType(type);
 }
 
-NetworkManager::Settings::Setting::Setting(const NetworkManager::Settings::Setting::Ptr &setting):
+NetworkManager::Setting::Setting(const NetworkManager::Setting::Ptr &setting):
     d_ptr(new SettingPrivate())
 {
     setInitialized(!setting->isNull());
     setType(setting->type());
 }
 
-NetworkManager::Settings::Setting::~Setting()
+NetworkManager::Setting::~Setting()
 {
     delete d_ptr;
 }
 
-void NetworkManager::Settings::Setting::fromMap(const QVariantMap &map)
+void NetworkManager::Setting::fromMap(const QVariantMap &map)
 {
 }
 
-QVariantMap NetworkManager::Settings::Setting::toMap() const
+QVariantMap NetworkManager::Setting::toMap() const
 {
 }
 
-QStringList NetworkManager::Settings::Setting::needSecrets(bool requestNew) const
+QStringList NetworkManager::Setting::needSecrets(bool requestNew) const
 {
     Q_UNUSED(requestNew);
     return QStringList();
 }
 
-QString NetworkManager::Settings::Setting::name() const
+QString NetworkManager::Setting::name() const
 {
 }
 
-void NetworkManager::Settings::Setting::secretsFromMap(const QVariantMap &map)
+void NetworkManager::Setting::secretsFromMap(const QVariantMap &map)
 {
     Q_UNUSED(map);
 }
 
-void NetworkManager::Settings::Setting::secretsFromStringMap(const NMStringMap &map)
+void NetworkManager::Setting::secretsFromStringMap(const NMStringMap &map)
 {
     QVariantMap secretsMap;
     NMStringMap::ConstIterator i = map.constBegin();
@@ -233,12 +231,12 @@ void NetworkManager::Settings::Setting::secretsFromStringMap(const NMStringMap &
     secretsFromMap(secretsMap);
 }
 
-QVariantMap NetworkManager::Settings::Setting::secretsToMap() const
+QVariantMap NetworkManager::Setting::secretsToMap() const
 {
     return QVariantMap();
 }
 
-NMStringMap NetworkManager::Settings::Setting::secretsToStringMap() const
+NMStringMap NetworkManager::Setting::secretsToStringMap() const
 {
     NMStringMap ret;
     QVariantMap secretsMap = secretsToMap();
@@ -251,28 +249,28 @@ NMStringMap NetworkManager::Settings::Setting::secretsToStringMap() const
     return ret;
 }
 
-void NetworkManager::Settings::Setting::setInitialized(bool initialized)
+void NetworkManager::Setting::setInitialized(bool initialized)
 {
     Q_D(Setting);
 
     d->initialized = initialized;
 }
 
-bool NetworkManager::Settings::Setting::isNull() const
+bool NetworkManager::Setting::isNull() const
 {
     Q_D(const Setting);
 
     return !d->initialized;
 }
 
-void NetworkManager::Settings::Setting::setType(NetworkManager::Settings::Setting::SettingType type)
+void NetworkManager::Setting::setType(NetworkManager::Setting::SettingType type)
 {
     Q_D(Setting);
 
     d->type = type;
 }
 
-NetworkManager::Settings::Setting::SettingType NetworkManager::Settings::Setting::type() const
+NetworkManager::Setting::SettingType NetworkManager::Setting::type() const
 {
     Q_D(const Setting);
 

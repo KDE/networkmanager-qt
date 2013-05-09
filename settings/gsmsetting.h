@@ -28,10 +28,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class GsmSettingPrivate;
 
+class GsmSettingPrivate;
 class NMQT_EXPORT GsmSetting : public Setting
 {
     Q_DECLARE_PRIVATE(GsmSetting)
@@ -95,7 +93,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const GsmSetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_GSM_H

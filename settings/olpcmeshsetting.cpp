@@ -25,17 +25,17 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::OlpcMeshSettingPrivate::OlpcMeshSettingPrivate():
+NetworkManager::OlpcMeshSettingPrivate::OlpcMeshSettingPrivate():
     name(NM_SETTING_OLPC_MESH_SETTING_NAME),
     channel(0)
 { }
 
-NetworkManager::Settings::OlpcMeshSetting::OlpcMeshSetting():
+NetworkManager::OlpcMeshSetting::OlpcMeshSetting():
     Setting(Setting::Bond),
     d_ptr(new OlpcMeshSettingPrivate())
 { }
 
-NetworkManager::Settings::OlpcMeshSetting::OlpcMeshSetting(const Ptr &other):
+NetworkManager::OlpcMeshSetting::OlpcMeshSetting(const Ptr &other):
     Setting(other),
     d_ptr(new OlpcMeshSettingPrivate())
 {
@@ -44,61 +44,61 @@ NetworkManager::Settings::OlpcMeshSetting::OlpcMeshSetting(const Ptr &other):
     setDhcpAnycastAddress(other->dhcpAnycastAddress());
 }
 
-NetworkManager::Settings::OlpcMeshSetting::~OlpcMeshSetting()
+NetworkManager::OlpcMeshSetting::~OlpcMeshSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::OlpcMeshSetting::name() const
+QString NetworkManager::OlpcMeshSetting::name() const
 {
     Q_D(const OlpcMeshSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::OlpcMeshSetting::setSsid(const QByteArray& ssid)
+void NetworkManager::OlpcMeshSetting::setSsid(const QByteArray& ssid)
 {
     Q_D(OlpcMeshSetting);
 
     d->ssid = ssid;
 }
 
-QByteArray NetworkManager::Settings::OlpcMeshSetting::ssid() const
+QByteArray NetworkManager::OlpcMeshSetting::ssid() const
 {
     Q_D(const OlpcMeshSetting);
 
     return d->ssid;
 }
 
-void NetworkManager::Settings::OlpcMeshSetting::setChannel(quint32 channel)
+void NetworkManager::OlpcMeshSetting::setChannel(quint32 channel)
 {
     Q_D(OlpcMeshSetting);
 
     d->channel = channel;
 }
 
-quint32 NetworkManager::Settings::OlpcMeshSetting::channel() const
+quint32 NetworkManager::OlpcMeshSetting::channel() const
 {
     Q_D(const OlpcMeshSetting);
 
     return d->channel;
 }
 
-void NetworkManager::Settings::OlpcMeshSetting::setDhcpAnycastAddress(const QByteArray& address)
+void NetworkManager::OlpcMeshSetting::setDhcpAnycastAddress(const QByteArray& address)
 {
     Q_D(OlpcMeshSetting);
 
     d->dhcpAnycastAddress = address;
 }
 
-QByteArray NetworkManager::Settings::OlpcMeshSetting::dhcpAnycastAddress() const
+QByteArray NetworkManager::OlpcMeshSetting::dhcpAnycastAddress() const
 {
     Q_D(const OlpcMeshSetting);
 
     return d->dhcpAnycastAddress;
 }
 
-void NetworkManager::Settings::OlpcMeshSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::OlpcMeshSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_OLPC_MESH_SSID))) {
         setSsid(setting.value(QLatin1String(NM_SETTING_OLPC_MESH_SSID)).toByteArray());
@@ -113,7 +113,7 @@ void NetworkManager::Settings::OlpcMeshSetting::fromMap(const QVariantMap& setti
     }
 }
 
-QVariantMap NetworkManager::Settings::OlpcMeshSetting::toMap() const
+QVariantMap NetworkManager::OlpcMeshSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -132,9 +132,9 @@ QVariantMap NetworkManager::Settings::OlpcMeshSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::OlpcMeshSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::OlpcMeshSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_OLPC_MESH_SSID << ": " << setting.ssid() << '\n';
     dbg.nospace() << NM_SETTING_OLPC_MESH_CHANNEL << ": " << setting.channel() << '\n';

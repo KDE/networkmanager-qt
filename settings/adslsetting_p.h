@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class AdslSettingPrivate
 {
 public:
@@ -35,13 +34,13 @@ public:
     QString name;
     QString username;
     QString password;
-    NetworkManager::Settings::Setting::SecretFlags passwordFlags;
-    NetworkManager::Settings::AdslSetting::Protocol protocol;
-    NetworkManager::Settings::AdslSetting::Encapsulation encapsulation;
+    NetworkManager::Setting::SecretFlags passwordFlags;
+    NetworkManager::AdslSetting::Protocol protocol;
+    NetworkManager::AdslSetting::Encapsulation encapsulation;
     quint32 vpi;
     quint32 vci;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_ADSLSETTING_P_H

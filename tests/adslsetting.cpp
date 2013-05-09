@@ -64,7 +64,7 @@ void AdslSetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_ADSL_VPI), vpi);
     map.insert(QLatin1String(NM_SETTING_ADSL_VCI), vci);
 
-    NetworkManager::Settings::AdslSetting setting;
+    NetworkManager::AdslSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

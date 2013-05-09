@@ -25,16 +25,16 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::BondSettingPrivate::BondSettingPrivate():
+NetworkManager::BondSettingPrivate::BondSettingPrivate():
     name(NM_SETTING_BOND_SETTING_NAME )
 { }
 
-NetworkManager::Settings::BondSetting::BondSetting():
+NetworkManager::BondSetting::BondSetting():
     Setting(Setting::Bond),
     d_ptr(new BondSettingPrivate())
 { }
 
-NetworkManager::Settings::BondSetting::BondSetting(const Ptr &other):
+NetworkManager::BondSetting::BondSetting(const Ptr &other):
     Setting(other),
     d_ptr(new BondSettingPrivate())
 {
@@ -42,54 +42,54 @@ NetworkManager::Settings::BondSetting::BondSetting(const Ptr &other):
     setOptions(other->options());
 }
 
-NetworkManager::Settings::BondSetting::~BondSetting()
+NetworkManager::BondSetting::~BondSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::BondSetting::name() const
+QString NetworkManager::BondSetting::name() const
 {
     Q_D(const BondSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::BondSetting::setInterfaceName(const QString& name)
+void NetworkManager::BondSetting::setInterfaceName(const QString& name)
 {
     Q_D(BondSetting);
 
     d->interfaceName = name;
 }
 
-QString NetworkManager::Settings::BondSetting::interfaceName() const
+QString NetworkManager::BondSetting::interfaceName() const
 {
     Q_D(const BondSetting);
 
     return d->interfaceName;
 }
 
-void NetworkManager::Settings::BondSetting::addOption(const QString& option, const QString& value)
+void NetworkManager::BondSetting::addOption(const QString& option, const QString& value)
 {
     Q_D(BondSetting);
 
     d->options.insert(option, value);
 }
 
-void NetworkManager::Settings::BondSetting::setOptions(const NMStringMap& options)
+void NetworkManager::BondSetting::setOptions(const NMStringMap& options)
 {
     Q_D(BondSetting);
 
     d->options = options;
 }
 
-NMStringMap NetworkManager::Settings::BondSetting::options() const
+NMStringMap NetworkManager::BondSetting::options() const
 {
     Q_D(const BondSetting);
 
     return d->options;
 }
 
-void NetworkManager::Settings::BondSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::BondSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_BOND_INTERFACE_NAME))) {
         setInterfaceName(setting.value(QLatin1String(NM_SETTING_BOND_INTERFACE_NAME)).toString());
@@ -100,7 +100,7 @@ void NetworkManager::Settings::BondSetting::fromMap(const QVariantMap& setting)
     }
 }
 
-QVariantMap NetworkManager::Settings::BondSetting::toMap() const
+QVariantMap NetworkManager::BondSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -115,9 +115,9 @@ QVariantMap NetworkManager::Settings::BondSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::BondSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::BondSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_BOND_INTERFACE_NAME << ": " << setting.interfaceName() << '\n';
     dbg.nospace() << NM_SETTING_BOND_OPTIONS << ": " << setting.options() << '\n';

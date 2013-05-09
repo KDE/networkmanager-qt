@@ -30,10 +30,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class Ipv4SettingPrivate;
 
+class Ipv4SettingPrivate;
 class NMQT_EXPORT Ipv4Setting : public Setting
 {
     Q_DECLARE_PRIVATE(Ipv4Setting)
@@ -94,7 +92,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const Ipv4Setting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_IPV4_H

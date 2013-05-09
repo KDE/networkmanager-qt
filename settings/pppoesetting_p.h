@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class PppoeSettingPrivate
 {
 public:
@@ -36,9 +35,9 @@ public:
     QString service;
     QString username;
     QString password;
-    NetworkManager::Settings::Setting::SecretFlags passwordFlags;
+    NetworkManager::Setting::SecretFlags passwordFlags;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_PPPOE_P_H

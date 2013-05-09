@@ -26,27 +26,26 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class WiredSettingPrivate
 {
 public:
     WiredSettingPrivate();
 
     QString name;
-    NetworkManager::Settings::WiredSetting::PortType port;
+    NetworkManager::WiredSetting::PortType port;
     quint32 speed;
-    NetworkManager::Settings::WiredSetting::DuplexType duplex;
+    NetworkManager::WiredSetting::DuplexType duplex;
     bool autoNegotiate;
     QByteArray macAddress;
     QByteArray clonedMacAddress;
     QStringList macAddressBlacklist;
     quint32 mtu;
     QStringList s390Subchannels;
-    NetworkManager::Settings::WiredSetting::S390Nettype s390NetType;
+    NetworkManager::WiredSetting::S390Nettype s390NetType;
     QMap<QString, QString> s390Options;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_802_3_ETHERNET_P_H

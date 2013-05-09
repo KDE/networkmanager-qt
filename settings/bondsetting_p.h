@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class BondSettingPrivate
 {
 public:
@@ -36,7 +35,7 @@ public:
     QString interfaceName;
     NMStringMap options;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_BOND_P_H

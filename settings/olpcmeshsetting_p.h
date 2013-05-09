@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class OlpcMeshSettingPrivate
 {
 public:
@@ -37,7 +36,7 @@ public:
     quint32 channel;
     QByteArray dhcpAnycastAddress;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_802_11_OLPC_MESH_P_H

@@ -115,7 +115,7 @@ void WirelessSecuritySetting::testSetting()
     map.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD), leapPassword);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS), leapPasswordFlags);
 
-    NetworkManager::Settings::WirelessSecuritySetting setting;
+    NetworkManager::WirelessSecuritySetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();

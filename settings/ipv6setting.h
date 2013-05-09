@@ -30,10 +30,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class Ipv6SettingPrivate;
 
+class Ipv6SettingPrivate;
 class NMQT_EXPORT Ipv6Setting : public Setting
 {
     Q_DECLARE_PRIVATE(Ipv6Setting)
@@ -89,7 +87,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const Ipv6Setting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_IPV6_H

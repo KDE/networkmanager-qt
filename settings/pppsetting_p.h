@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class PppSettingPrivate
 {
 public:
@@ -52,7 +51,7 @@ public:
     quint32 lcpEchoFailure;
     quint32 lcpEchoInterval;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_PPP_P_H

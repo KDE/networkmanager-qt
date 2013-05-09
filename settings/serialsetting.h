@@ -28,10 +28,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class SerialSettingPrivate;
 
+class SerialSettingPrivate;
 class NMQT_EXPORT SerialSetting : public Setting
 {
     Q_DECLARE_PRIVATE(SerialSetting)
@@ -71,7 +69,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const SerialSetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_SERIAL_H

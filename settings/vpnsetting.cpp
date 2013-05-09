@@ -25,16 +25,16 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::VpnSettingPrivate::VpnSettingPrivate():
+NetworkManager::VpnSettingPrivate::VpnSettingPrivate():
     name(NM_SETTING_VPN_SETTING_NAME)
 { }
 
-NetworkManager::Settings::VpnSetting::VpnSetting():
+NetworkManager::VpnSetting::VpnSetting():
     Setting(Setting::Vpn),
     d_ptr(new VpnSettingPrivate())
 { }
 
-NetworkManager::Settings::VpnSetting::VpnSetting(const Ptr &other):
+NetworkManager::VpnSetting::VpnSetting(const Ptr &other):
     Setting(other),
     d_ptr(new VpnSettingPrivate())
 {
@@ -44,82 +44,82 @@ NetworkManager::Settings::VpnSetting::VpnSetting(const Ptr &other):
     setSecrets(other->secrets());
 }
 
-NetworkManager::Settings::VpnSetting::~VpnSetting()
+NetworkManager::VpnSetting::~VpnSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::VpnSetting::name() const
+QString NetworkManager::VpnSetting::name() const
 {
     Q_D(const VpnSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::VpnSetting::setServiceType(const QString& type)
+void NetworkManager::VpnSetting::setServiceType(const QString& type)
 {
     Q_D(VpnSetting);
 
     d->serviceType = type;
 }
 
-QString NetworkManager::Settings::VpnSetting::serviceType() const
+QString NetworkManager::VpnSetting::serviceType() const
 {
     Q_D(const VpnSetting);
 
     return d->serviceType;
 }
 
-void NetworkManager::Settings::VpnSetting::setUsername(const QString& username)
+void NetworkManager::VpnSetting::setUsername(const QString& username)
 {
     Q_D(VpnSetting);
 
     d->username = username;
 }
 
-QString NetworkManager::Settings::VpnSetting::username() const
+QString NetworkManager::VpnSetting::username() const
 {
     Q_D(const VpnSetting);
 
     return d->username;
 }
 
-void NetworkManager::Settings::VpnSetting::setData(const NMStringMap& data)
+void NetworkManager::VpnSetting::setData(const NMStringMap& data)
 {
     Q_D(VpnSetting);
 
     d->data = data;
 }
 
-NMStringMap NetworkManager::Settings::VpnSetting::data() const
+NMStringMap NetworkManager::VpnSetting::data() const
 {
     Q_D(const VpnSetting);
 
     return d->data;
 }
 
-void NetworkManager::Settings::VpnSetting::setSecrets(const NMStringMap& secrets)
+void NetworkManager::VpnSetting::setSecrets(const NMStringMap& secrets)
 {
     Q_D(VpnSetting);
 
     d->secrets = secrets;
 }
 
-NMStringMap NetworkManager::Settings::VpnSetting::secrets() const
+NMStringMap NetworkManager::VpnSetting::secrets() const
 {
     Q_D(const VpnSetting);
 
     return d->secrets;
 }
 
-void NetworkManager::Settings::VpnSetting::secretsFromMap(const QVariantMap& secrets)
+void NetworkManager::VpnSetting::secretsFromMap(const QVariantMap& secrets)
 {
     if (secrets.contains(QLatin1String(NM_SETTING_VPN_SECRETS))) {
         setSecrets(qdbus_cast<NMStringMap>(secrets.value(QLatin1String(NM_SETTING_VPN_SECRETS))));
     }
 }
 
-QVariantMap NetworkManager::Settings::VpnSetting::secretsToMap() const
+QVariantMap NetworkManager::VpnSetting::secretsToMap() const
 {
     QVariantMap secretsMap;
 
@@ -131,7 +131,7 @@ QVariantMap NetworkManager::Settings::VpnSetting::secretsToMap() const
     return secretsMap;
 }
 
-void NetworkManager::Settings::VpnSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::VpnSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_VPN_SERVICE_TYPE))) {
         setServiceType(setting.value(QLatin1String(NM_SETTING_VPN_SERVICE_TYPE)).toString());
@@ -150,7 +150,7 @@ void NetworkManager::Settings::VpnSetting::fromMap(const QVariantMap& setting)
     }
 }
 
-QVariantMap NetworkManager::Settings::VpnSetting::toMap() const
+QVariantMap NetworkManager::VpnSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -173,9 +173,9 @@ QVariantMap NetworkManager::Settings::VpnSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::VpnSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::VpnSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_VPN_SERVICE_TYPE << ": " << setting.serviceType() << '\n';
     dbg.nospace() << NM_SETTING_VPN_USER_NAME << ": " << setting.username() << '\n';

@@ -28,10 +28,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class WiredSettingPrivate;
 
+class WiredSettingPrivate;
 class NMQT_EXPORT WiredSetting : public Setting
 {
     Q_DECLARE_PRIVATE(WiredSetting)
@@ -91,7 +89,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const WiredSetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_802_3_ETHERNET_H

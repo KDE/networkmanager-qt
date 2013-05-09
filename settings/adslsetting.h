@@ -28,10 +28,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class AdslSettingPrivate;
 
+class AdslSettingPrivate;
 class NMQT_EXPORT AdslSetting : public Setting
 {
     Q_DECLARE_PRIVATE(AdslSetting)
@@ -80,7 +78,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const AdslSetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_ADSL_H

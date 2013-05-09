@@ -28,10 +28,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class PppSettingPrivate;
 
+class PppSettingPrivate;
 class NMQT_EXPORT PppSetting : public Setting
 {
     Q_DECLARE_PRIVATE(PppSetting)
@@ -108,7 +106,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const PppSetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_PPP_H

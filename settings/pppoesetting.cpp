@@ -25,17 +25,17 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::PppoeSettingPrivate::PppoeSettingPrivate():
+NetworkManager::PppoeSettingPrivate::PppoeSettingPrivate():
     name(NM_SETTING_PPPOE_SETTING_NAME),
     passwordFlags(Setting::None)
 { }
 
-NetworkManager::Settings::PppoeSetting::PppoeSetting():
+NetworkManager::PppoeSetting::PppoeSetting():
     Setting(Setting::Pppoe),
     d_ptr(new PppoeSettingPrivate())
 { }
 
-NetworkManager::Settings::PppoeSetting::PppoeSetting(const Ptr &other):
+NetworkManager::PppoeSetting::PppoeSetting(const Ptr &other):
     Setting(other),
     d_ptr(new PppoeSettingPrivate())
 {
@@ -45,75 +45,75 @@ NetworkManager::Settings::PppoeSetting::PppoeSetting(const Ptr &other):
     setPasswordFlags(other->passwordFlags());
 }
 
-NetworkManager::Settings::PppoeSetting::~PppoeSetting()
+NetworkManager::PppoeSetting::~PppoeSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::PppoeSetting::name() const
+QString NetworkManager::PppoeSetting::name() const
 {
     Q_D(const PppoeSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::PppoeSetting::setService(const QString& service)
+void NetworkManager::PppoeSetting::setService(const QString& service)
 {
     Q_D(PppoeSetting);
 
     d->service = service;
 }
 
-QString NetworkManager::Settings::PppoeSetting::service() const
+QString NetworkManager::PppoeSetting::service() const
 {
     Q_D(const PppoeSetting);
 
     return d->service;
 }
 
-void NetworkManager::Settings::PppoeSetting::setUsername(const QString& username)
+void NetworkManager::PppoeSetting::setUsername(const QString& username)
 {
     Q_D(PppoeSetting);
 
     d->username = username;
 }
 
-QString NetworkManager::Settings::PppoeSetting::username() const
+QString NetworkManager::PppoeSetting::username() const
 {
     Q_D(const PppoeSetting);
 
     return d->username;
 }
 
-void NetworkManager::Settings::PppoeSetting::setPassword(const QString& password)
+void NetworkManager::PppoeSetting::setPassword(const QString& password)
 {
     Q_D(PppoeSetting);
 
     d->password = password;
 }
 
-QString NetworkManager::Settings::PppoeSetting::password() const
+QString NetworkManager::PppoeSetting::password() const
 {
     Q_D(const PppoeSetting);
 
     return d->password;
 }
 
-void NetworkManager::Settings::PppoeSetting::setPasswordFlags(NetworkManager::Settings::Setting::SecretFlags flags)
+void NetworkManager::PppoeSetting::setPasswordFlags(NetworkManager::Setting::SecretFlags flags)
 {
     Q_D(PppoeSetting);
 
     d->passwordFlags = flags;
 }
 
-NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::PppoeSetting::passwordFlags() const
+NetworkManager::Setting::SecretFlags NetworkManager::PppoeSetting::passwordFlags() const
 {
     Q_D(const PppoeSetting);
 
     return d->passwordFlags;
 }
 
-QStringList NetworkManager::Settings::PppoeSetting::needSecrets(bool requestNew) const
+QStringList NetworkManager::PppoeSetting::needSecrets(bool requestNew) const
 {
     QStringList secrets;
 
@@ -124,14 +124,14 @@ QStringList NetworkManager::Settings::PppoeSetting::needSecrets(bool requestNew)
     return secrets;
 }
 
-void NetworkManager::Settings::PppoeSetting::secretsFromMap(const QVariantMap& secrets)
+void NetworkManager::PppoeSetting::secretsFromMap(const QVariantMap& secrets)
 {
     if (secrets.contains(QLatin1String(NM_SETTING_PPPOE_PASSWORD))) {
         setPassword(secrets.value(QLatin1String(NM_SETTING_PPPOE_PASSWORD)).toString());
     }
 }
 
-QVariantMap NetworkManager::Settings::PppoeSetting::secretsToMap() const
+QVariantMap NetworkManager::PppoeSetting::secretsToMap() const
 {
     QVariantMap secrets;
 
@@ -142,7 +142,7 @@ QVariantMap NetworkManager::Settings::PppoeSetting::secretsToMap() const
     return secrets;
 }
 
-void NetworkManager::Settings::PppoeSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::PppoeSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_PPPOE_SERVICE))) {
         setService(setting.value(QLatin1String(NM_SETTING_PPPOE_SERVICE)).toString());
@@ -161,7 +161,7 @@ void NetworkManager::Settings::PppoeSetting::fromMap(const QVariantMap& setting)
     }
 }
 
-QVariantMap NetworkManager::Settings::PppoeSetting::toMap() const
+QVariantMap NetworkManager::PppoeSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -184,9 +184,9 @@ QVariantMap NetworkManager::Settings::PppoeSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::Settings::PppoeSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::PppoeSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Settings::Setting>(setting);
+    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
 
     dbg.nospace() << NM_SETTING_PPPOE_SERVICE << ": " << setting.service() << '\n';
     dbg.nospace() << NM_SETTING_PPPOE_USERNAME << ": " << setting.username() << '\n';

@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class WirelessSettingPrivate
 {
 public:
@@ -34,8 +33,8 @@ public:
 
     QString name;
     QByteArray ssid;
-    NetworkManager::Settings::WirelessSetting::NetworkMode mode;
-    NetworkManager::Settings::WirelessSetting::FrequencyBand band;
+    NetworkManager::WirelessSetting::NetworkMode mode;
+    NetworkManager::WirelessSetting::FrequencyBand band;
     quint32 channel;
     QByteArray bssid;
     quint32 rate;
@@ -48,7 +47,7 @@ public:
     QString security;
     bool hidden;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_802_11_WIRELESS_P_H

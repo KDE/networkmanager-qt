@@ -28,10 +28,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class VpnSettingPrivate;
 
+class VpnSettingPrivate;
 class NMQT_EXPORT VpnSetting : public Setting
 {
     Q_DECLARE_PRIVATE(VpnSetting)
@@ -69,7 +67,6 @@ protected:
 
 QDebug operator<<(QDebug dbg, const VpnSetting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_VPN_H

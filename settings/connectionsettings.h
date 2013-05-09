@@ -34,10 +34,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class ConnectionSettingsPrivate;
 
+class ConnectionSettingsPrivate;
 class NMQT_EXPORT ConnectionSettings
 {
     Q_DECLARE_PRIVATE(ConnectionSettings)
@@ -132,7 +130,6 @@ private:
 
 QDebug operator<<(QDebug dbg, const ConnectionSettings &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_CONNECTION_SETTINGS_H

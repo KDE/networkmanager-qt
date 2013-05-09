@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class WimaxSettingPrivate
 {
 public:
@@ -36,7 +35,7 @@ public:
     QString networkName;
     QByteArray macAddress;
 };
-}
+
 }
 
 #endif // NMQT_SETTINGS_WIMAX_P_H

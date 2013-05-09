@@ -31,10 +31,8 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
-class SettingPrivate;
 
+class SettingPrivate;
 class NMQT_EXPORT Setting
 {
     Q_DECLARE_PRIVATE(Setting)
@@ -105,7 +103,6 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(Setting::SecretFlags)
 
 QDebug operator<<(QDebug dbg, const Setting &setting);
 
-}
 }
 
 #endif // NMQT_SETTINGS_SETTING_H

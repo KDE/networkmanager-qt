@@ -35,7 +35,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString & dbusPath)
     : iface(NetworkManagerPrivate::DBUS_SERVICE, dbusPath, QDBusConnection::systemBus())
 {
-    connection = NetworkManager::Settings::findConnection(iface.connection().path());
+    connection = NetworkManager::findConnection(iface.connection().path());
     path = dbusPath;
     default4 = iface.default4();
     default6 = iface.default6();
@@ -87,7 +87,7 @@ bool NetworkManager::ActiveConnection::isValid() const
     return !d->connection.isNull();
 }
 
-NetworkManager::Settings::Connection::Ptr NetworkManager::ActiveConnection::connection() const
+NetworkManager::Connection::Ptr NetworkManager::ActiveConnection::connection() const
 {
     Q_D(const ActiveConnection);
     return d->connection;
@@ -155,7 +155,7 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap &prop
     while (it != properties.constEnd()) {
         QString property = it.key();
         if (property == QLatin1String("Connection")) {
-            d->connection = NetworkManager::Settings::findConnection(qdbus_cast<QDBusObjectPath>(*it).path());
+            d->connection = NetworkManager::findConnection(qdbus_cast<QDBusObjectPath>(*it).path());
             emit connectionChanged(d->connection);
         } else if (property == QLatin1String("Default")) {
             d->default4 = it->toBool();
