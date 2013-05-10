@@ -55,6 +55,7 @@ protected Q_SLOTS:
     void onConnectionRemoved(const QString &);
     void propertiesChanged(const QVariantMap &properties);
     void onConnectionAddArrived(QDBusPendingCallWatcher *);
+    void initNotifier();
 protected:
     void daemonUnregistered();
     void init();

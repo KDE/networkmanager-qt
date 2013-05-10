@@ -38,19 +38,27 @@ NetworkManager::SettingsPrivate::SettingsPrivate()
     connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), this, SLOT(propertiesChanged(QVariantMap)));
     connect(&iface, SIGNAL(NewConnection(QDBusObjectPath)), this, SLOT(onConnectionAdded(QDBusObjectPath)));
 
-    // This class is a friend of NetworkManagerPrivate thus initted there
-    // because we need to be initted before in the chain
+    init();
+    // This class is a friend of NetworkManagerPrivate thus initted there too
+    // because of the init chain we must follow,
+    // But if this class is used first we need to make sure the
+    // NetworkManagerPrivate also get created so we have its signals for
+    // when the daemon dies, we just can not call it directly here or
+    // we will have a constructor infinite loop
+    QTimer::singleShot(0, this, SLOT(initNotifier()));
 }
 
 void NetworkManager::SettingsPrivate::init()
 {
     QDBusPendingReply<QList<QDBusObjectPath> > reply = iface.ListConnections();
     reply.waitForFinished();
-    nmDebug() << "Connections list";
+    nmDebug() << "New Connections list";
     if (reply.isValid()) {
         foreach (const QDBusObjectPath &connection, reply.value()) {
-            connections.insert(connection.path(), Connection::Ptr());
-            nmDebug() << " " << connection.path();
+            if (!connections.contains(connection.path())) {
+                connections.insert(connection.path(), Connection::Ptr());
+                nmDebug() << " " << connection.path();
+            }
         }
     }
     m_canModify = iface.canModify();
@@ -120,6 +128,11 @@ void NetworkManager::SettingsPrivate::onConnectionAddArrived(QDBusPendingCallWat
     }
     emit connectionAddComplete(id, success, reply.error().message());
     watcher->deleteLater();
+}
+
+void NetworkManager::SettingsPrivate::initNotifier()
+{
+    notifier();
 }
 
 void NetworkManager::SettingsPrivate::saveHostname(const QString &hostname)
