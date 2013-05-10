@@ -36,7 +36,7 @@ public:
     QHash<QString, WirelessNetwork::Ptr> networks;
     QMap<QString, AccessPoint::Ptr> apMap;
     // index of the active AP or -1 if none
-    QString activeAccessPoint;
+    AccessPoint::Ptr activeAccessPoint;
     WirelessDevice::OperationMode mode;
     uint bitRate;
     WirelessDevice::Capabilities wirelessCapabilities;

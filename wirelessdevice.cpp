@@ -44,7 +44,6 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString & path, QObject * p
     d->permanentHardwareAddress = d->wirelessIface.permHwAddress();
     d->mode = convertOperationMode(d->wirelessIface.mode());
     d->bitRate = d->wirelessIface.bitrate();
-    d->activeAccessPoint = d->wirelessIface.activeAccessPoint().path();
     d->wirelessCapabilities = convertCapabilities(d->wirelessIface.wirelessCapabilities());
 
     connect( &d->wirelessIface, SIGNAL(PropertiesChanged(QVariantMap)),
@@ -68,6 +67,7 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString & path, QObject * p
     else {
         nmDebug() << "Error getting access point list: " << apPathList.error().name() << ": " << apPathList.error().message();
     }
+    d->activeAccessPoint = findAccessPoint(d->wirelessIface.activeAccessPoint().path());
 }
 
 NetworkManager::WirelessDevice::~WirelessDevice()
@@ -91,7 +91,7 @@ QDBusPendingReply<> NetworkManager::WirelessDevice::requestScan(const QVariantMa
     return d->wirelessIface.RequestScan(options);
 }
 
-QString NetworkManager::WirelessDevice::activeAccessPoint() const
+NetworkManager::AccessPoint::Ptr NetworkManager::WirelessDevice::activeAccessPoint() const
 {
     Q_D(const WirelessDevice);
     return d->activeAccessPoint;
@@ -127,7 +127,7 @@ NetworkManager::WirelessDevice::Capabilities NetworkManager::WirelessDevice::wir
     return d->wirelessCapabilities;
 }
 
-NetworkManager::AccessPoint::Ptr NetworkManager::WirelessDevice::findAccessPoint(const QString & uni) const
+NetworkManager::AccessPoint::Ptr NetworkManager::WirelessDevice::findAccessPoint(const QString &uni)
 {
     Q_D(const WirelessDevice);
     NetworkManager::AccessPoint::Ptr accessPoint;
@@ -135,6 +135,12 @@ NetworkManager::AccessPoint::Ptr NetworkManager::WirelessDevice::findAccessPoint
     QMap<QString,NetworkManager::AccessPoint::Ptr>::ConstIterator mapIt = d->apMap.constFind(uni);
     if (mapIt != d->apMap.constEnd()) {
         accessPoint = mapIt.value();
+    } else if (!uni.isEmpty() && uni != QLatin1String("/")) {
+        accessPointAdded(QDBusObjectPath(uni));
+        mapIt = d->apMap.constFind(uni);
+        if (mapIt != d->apMap.constEnd()) {
+            accessPoint = mapIt.value();
+        }
     }
 
     return accessPoint;
@@ -203,8 +209,9 @@ void NetworkManager::WirelessDevice::propertyChanged(const QString &property, co
     Q_D(WirelessDevice);
 
     if (property == QLatin1String("ActiveAccessPoint")) {
-        d->activeAccessPoint = qdbus_cast<QDBusObjectPath>(value).path();
-        emit activeAccessPointChanged(d->activeAccessPoint);
+        QDBusObjectPath activeAccessPoint = qdbus_cast<QDBusObjectPath>(value);
+        d->activeAccessPoint = findAccessPoint(activeAccessPoint.path());
+        emit activeAccessPointChanged(activeAccessPoint.path());
     } else if (property == QLatin1String("HwAddress")) {
         d->hardwareAddress = value.toString();
         emit hardwareAddressChanged(d->hardwareAddress);

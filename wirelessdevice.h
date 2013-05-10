@@ -98,7 +98,7 @@ public:
     /**
      * Identifier (path) of the network this interface is currently associated with
      */
-    QString activeAccessPoint() const;
+    AccessPoint::Ptr activeAccessPoint() const;
     /**
      * The permanent hardware address of the network interface
      */
@@ -143,7 +143,7 @@ public:
      * @param uni the identifier of the AP to find from this network interface
      * @returns a valid AccessPoint object if a network having the given UNI for this device is known to the system, 0 otherwise
      */
-    AccessPoint::Ptr findAccessPoint(const QString & uni) const;
+    AccessPoint::Ptr findAccessPoint(const QString &uni);
 
     /**
      * Return the current list of networks
