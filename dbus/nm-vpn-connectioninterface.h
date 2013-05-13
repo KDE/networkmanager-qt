@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NM-VPN-CONNECTIONINTERFACE_H
-#define NM-VPN-CONNECTIONINTERFACE_H
+#ifndef NM_VPN_CONNECTIONINTERFACE_H
+#define NM_VPN_CONNECTIONINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

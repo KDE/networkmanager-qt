@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NM-SETTINGSINTERFACE_H
-#define NM-SETTINGSINTERFACE_H
+#ifndef NM_SETTINGSINTERFACE_H
+#define NM_SETTINGSINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

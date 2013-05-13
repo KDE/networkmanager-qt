@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NM-MANAGERINTERFACE_H
-#define NM-MANAGERINTERFACE_H
+#ifndef NM_MANAGERINTERFACE_H
+#define NM_MANAGERINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

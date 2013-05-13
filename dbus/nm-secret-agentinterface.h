@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NM-SECRET-AGENTINTERFACE_H
-#define NM-SECRET-AGENTINTERFACE_H
+#ifndef NM_SECRET_AGENTINTERFACE_H
+#define NM_SECRET_AGENTINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

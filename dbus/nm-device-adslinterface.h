@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NM-DEVICE-ADSLINTERFACE_H
-#define NM-DEVICE-ADSLINTERFACE_H
+#ifndef NM_DEVICE_ADSLINTERFACE_H
+#define NM_DEVICE_ADSLINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NM-IP6-CONFIGINTERFACE_H
-#define NM-IP6-CONFIGINTERFACE_H
+#ifndef NM_IP6_CONFIGINTERFACE_H
+#define NM_IP6_CONFIGINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

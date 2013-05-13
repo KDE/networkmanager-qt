@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NM-DEVICE-BRIDGEINTERFACE_H
-#define NM-DEVICE-BRIDGEINTERFACE_H
+#ifndef NM_DEVICE_BRIDGEINTERFACE_H
+#define NM_DEVICE_BRIDGEINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

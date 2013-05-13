@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NM-DEVICE-MODEMINTERFACE_H
-#define NM-DEVICE-MODEMINTERFACE_H
+#ifndef NM_DEVICE_MODEMINTERFACE_H
+#define NM_DEVICE_MODEMINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

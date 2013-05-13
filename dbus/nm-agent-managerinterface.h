@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NM-AGENT-MANAGERINTERFACE_H
-#define NM-AGENT-MANAGERINTERFACE_H
+#ifndef NM_AGENT_MANAGERINTERFACE_H
+#define NM_AGENT_MANAGERINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

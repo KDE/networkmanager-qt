@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NM-PPP-MANAGERINTERFACE_H
-#define NM-PPP-MANAGERINTERFACE_H
+#ifndef NM_PPP_MANAGERINTERFACE_H
+#define NM_PPP_MANAGERINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

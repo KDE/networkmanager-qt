@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NM-DEVICE-INFINIBANDINTERFACE_H
-#define NM-DEVICE-INFINIBANDINTERFACE_H
+#ifndef NM_DEVICE_INFINIBANDINTERFACE_H
+#define NM_DEVICE_INFINIBANDINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

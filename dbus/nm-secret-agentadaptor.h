@@ -9,8 +9,8 @@
  * before re-generating it.
  */
 
-#ifndef NM-SECRET-AGENTADAPTOR_H
-#define NM-SECRET-AGENTADAPTOR_H
+#ifndef NM_SECRET_AGENTADAPTOR_H
+#define NM_SECRET_AGENTADAPTOR_H
 
 #include <QtCore/QObject>
 #include <QtDBus/QtDBus>

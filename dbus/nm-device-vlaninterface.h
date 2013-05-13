@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NM-DEVICE-VLANINTERFACE_H
-#define NM-DEVICE-VLANINTERFACE_H
+#ifndef NM_DEVICE_VLANINTERFACE_H
+#define NM_DEVICE_VLANINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

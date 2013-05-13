@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NM-DEVICE-BONDINTERFACE_H
-#define NM-DEVICE-BONDINTERFACE_H
+#ifndef NM_DEVICE_BONDINTERFACE_H
+#define NM_DEVICE_BONDINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

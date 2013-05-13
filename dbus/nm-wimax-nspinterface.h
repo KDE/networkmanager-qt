@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NM-WIMAX-NSPINTERFACE_H
-#define NM-WIMAX-NSPINTERFACE_H
+#ifndef NM_WIMAX_NSPINTERFACE_H
+#define NM_WIMAX_NSPINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>
