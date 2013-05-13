@@ -53,7 +53,8 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString & path, QObject * p
                 this, SLOT(accessPointAdded(QDBusObjectPath)));
     connect( &d->wirelessIface, SIGNAL(AccessPointRemoved(QDBusObjectPath)),
                 this, SLOT(accessPointRemoved(QDBusObjectPath)));
-
+    connect( &d->wirelessIface, SIGNAL(CertReceived(QVariantMap)),
+                this, SIGNAL(certReceived(QVariantMap)));
 
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
     QDBusReply< QList <QDBusObjectPath> > apPathList = d->wirelessIface.GetAccessPoints();
@@ -259,6 +260,12 @@ NetworkManager::WirelessDevice::OperationMode NetworkManager::WirelessDevice::co
 NetworkManager::WirelessDevice::Capabilities NetworkManager::WirelessDevice::convertCapabilities(uint caps)
 {
     return (NetworkManager::WirelessDevice::Capabilities)caps;
+}
+
+void NetworkManager::WirelessDevice::probeCert(const QString &ssid)
+{
+    Q_D(WirelessDevice);
+    d->wirelessIface.ProbeCert(ssid.toLocal8Bit());
 }
 
 #include "wirelessdevice.moc"

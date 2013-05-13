@@ -1,5 +1,5 @@
 /*
-Copyright 2008,2011 Will Stephenson <wstephenson@kde.org>
+Copyright 2008,2011,2013 Will Stephenson <wstephenson@kde.org>
 Copyright 2011-2013 Lamarque V. Souza <lamarque@kde.org>
 Copyright 2013 Daniel Nicoletti <dantti12@gmail.com>
 
@@ -156,6 +156,12 @@ public:
      */
     WirelessNetwork::Ptr findNetwork(const QString &ssid) const;
 
+    /**
+     * Request that NetworkManager probes the certificate of a 
+     * WPA-EAP network's RADIUS server
+     */
+    void probeCert(const QString & ssid);
+
 protected Q_SLOTS:
     void accessPointAdded(const QDBusObjectPath &);
     void accessPointRemoved(const QDBusObjectPath &);
@@ -208,6 +214,10 @@ Q_SIGNALS:
      * A wireless network disappeared
      */
     void networkDisappeared(const QString &ssid);
+    /**
+     * A WPA-EAP network's RADIUS server's CA Cert was received
+     */
+    void certReceived(const QVariantMap &cert);
 
 protected:
     /**
