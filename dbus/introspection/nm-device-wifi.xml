@@ -108,11 +108,12 @@
     </signal>
 
     <signal name="CertReceived">
-      <arg name="cert" type="a{sv}" tp:type="String_Variant_Map">
-        <tp:docstring>
-          The certificate of the RADIUS server
-        </tp:docstring>
-      </arg>
+        <arg name="cert" type="a{sv}" tp:type="String_Variant_Map">
+            <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+            <tp:docstring>
+                The certificate of the RADIUS server
+            </tp:docstring>
+        </arg>
         <tp:docstring>
             Emitted when wpa_supplicant replies the certificate of the RADIUS server.
         </tp:docstring>
