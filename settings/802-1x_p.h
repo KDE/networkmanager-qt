@@ -27,6 +27,17 @@ namespace NetworkManager
 {
 namespace Settings
 {
+class CryptographicToken
+{
+public:
+    CryptographicToken();
+    CryptographicToken(const CryptographicToken&);
+    ~CryptographicToken();
+    Security8021xSetting::CertKeyScheme scheme;
+    QByteArray blob;
+    KUrl path;
+};
+
 class Security8021xSettingPrivate
 {
 public:
@@ -37,30 +48,36 @@ public:
     QString identity;
     QString anonymousIdentity;
     QString pacFile;
-    QByteArray caCert;
-    QString caPath;
+
+    CryptographicToken caCert;
+    CryptographicToken clientCert;
+    CryptographicToken phase2CaCert;
+    CryptographicToken phase2ClientCert;
+    CryptographicToken privateKey;
+    CryptographicToken phase2PrivateKey;
+    // used if there is no CA certificate
+    QString serverHash;
+
     QString subjectMatch;
     QStringList altSubjectMatches;
-    QByteArray clientCert;
+
+
     Security8021xSetting::PeapVersion phase1PeapVer;
     Security8021xSetting::PeapLabel phase1PeapLabel;
     Security8021xSetting::FastProvisioning phase1FastProvisioning;
     Security8021xSetting::AuthMethod phase2AuthMethod;
     Security8021xSetting::AuthEapMethod phase2AuthEapMethod;
-    QByteArray phase2CaCert;
-    QString phase2CaPath;
+
     QString phase2SubjectMatch;
     QStringList phase2AltSubjectMatches;
-    QByteArray phase2ClientCert;
+
     QString password;
     Setting::SecretFlags passwordFlags;
     QByteArray passwordRaw;
     Setting::SecretFlags passwordRawFlags;
-    QByteArray privateKey;
+
     QString privateKeyPassword;
     Setting::SecretFlags privateKeyPasswordFlags;
-    QByteArray phase2PrivateKey;
-    QString phase2PrivateKeyPassword;
     Setting::SecretFlags phase2PrivateKeyPasswordFlags;
     QString pin;
     Setting::SecretFlags pinFlags;

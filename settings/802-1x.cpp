@@ -22,8 +22,23 @@
 #include "802-1x_p.h"
 
 #include <nm-setting-8021x.h>
-
+a
 #include <QtCore/QDebug>
+
+
+NetworkManager::Settings::CryptographicToken::CryptographicToken(const CryptographicToken &other) :
+    scheme(other.scheme), blob(other.blob), path(other.path)
+{
+}
+
+NetworkManager::Settings::CryptographicToken::CryptographicToken() :
+    scheme(Security8021xSetting::CertKeySchemeNone)
+{
+}
+
+NetworkManager::Settings::CryptographicToken::~CryptographicToken()
+{
+}
 
 NetworkManager::Settings::Security8021xSettingPrivate::Security8021xSettingPrivate():
     name(NM_SETTING_802_1X_SETTING_NAME),
@@ -49,35 +64,36 @@ NetworkManager::Settings::Security8021xSetting::Security8021xSetting(const Ptr &
     Setting(other),
     d_ptr(new Security8021xSettingPrivate())
 {
+    Q_D(Security8021xSetting)
     setEapMethods(other->eapMethods());
     setIdentity(other->identity());
     setAnonymousIdentity(other->anonymousIdentity());
     setPacFile(other->pacFile());
-    setCaCertificate(other->caCertificate());
-    setCaPath(other->caPath());
     setSubjectMatch(other->subjectMatch());
     setAltSubjectMatches(other->altSubjectMatches());
-    setClientCertificate(other->clientCertificate());
     setPhase1PeapVersion(other->phase1PeapVersion());
     setPhase1PeapLabel(other->phase1PeapLabel());
     setPhase1FastProvisioning(other->phase1FastProvisioning());
     setPhase2AuthMethod(other->phase2AuthMethod());
     setPhase2AuthEapMethod(other->phase2AuthEapMethod());
-    setPhase2CaCertificate(other->phase2CaCertificate());
-    setPhase2CaPath(other->phase2CaPath());
     setPhase2SubjectMatch(other->phase2SubjectMatch());
     setPhase2AltSubjectMatches(other->phase2AltSubjectMatches());
     setPassword(other->password());
     setPasswordFlags(other->passwordFlags());
     setPasswordRaw(other->passwordRaw());
     setPasswordRawFlags(other->passwordRawFlags());
-    setPrivateKey(other->privateKey());
     setPrivateKeyPassword(other->privateKeyPassword());
     setPrivateKeyPasswordFlags(other->privateKeyPasswordFlags());
-    setPhase2PrivateKey(other->phase2PrivateKey());
     setPhase2PrivateKeyPassword(other->phase2PrivateKeyPassword());
     setPhase2PrivateKeyPasswordFlags(other->phase2PrivateKeyPasswordFlags());
     setSystemCaCertificates(other->systemCaCertificates());
+
+    d.caCert = other.caCert;
+    d.clientCert = other.clientCert;
+    d.phase2CaCert = other.phase2CaCert;
+    d.phase2ClientCert = other.phase2ClientCert;
+    d.privateKey = other.privateKey;
+    d.phase2PrivateKey = other.phase2PrivateKey;
 }
 
 NetworkManager::Settings::Security8021xSetting::~Security8021xSetting()

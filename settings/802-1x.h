@@ -47,6 +47,9 @@ public:
                         AuthEapMethodOtp, AuthEapMethodGtc, AuthEapMethodTls
                        };
 
+    enum CertKeyScheme {CertKeySchemeNone = 0, CertKeySchemeBlob, CertKeySchemePath, CertKeySchemeHash
+                       };
+
     Security8021xSetting();
     Security8021xSetting(const Ptr &other);
     ~Security8021xSetting();
@@ -65,11 +68,11 @@ public:
     void setPacFile(const QString & file);
     QString pacFile() const;
 
-    void setCaCertificate(const QByteArray & certificate);
-    QByteArray caCertificate() const;
-
-    void setCaPath(const QString & path);
-    QString caPath() const;
+    void setCaCertificate(const KUrl &caCertPath, CertKeyScheme scheme);
+    CertKeyScheme caCertificateScheme() const;
+    QByteArray caCertificateBlob() const;
+    KUrl caCertificatePath() const;
+    QString caCertificateServerHash() const; // name is subject to change
 
     void setSubjectMatch(const QString & substring);
     QString subjectMatch() const;
@@ -77,8 +80,9 @@ public:
     void setAltSubjectMatches(const QStringList & strings);
     QStringList altSubjectMatches() const;
 
-    void setClientCertificate(const QByteArray & certificate);
-    QByteArray clientCertificate() const;
+    void setClientCertificate(const KUrl &certPath, CertKeyScheme scheme);
+    QByteArray clientCertificateBlob() const;
+    KUrl clientCertificatePath() const;
 
     void setPhase1PeapVersion(PeapVersion version);
     PeapVersion phase1PeapVersion() const;
@@ -95,17 +99,21 @@ public:
     void setPhase2AuthEapMethod(AuthEapMethod method);
     AuthEapMethod phase2AuthEapMethod() const;
 
-    void setPhase2CaCertificate(const QByteArray & certificate);
-    QByteArray phase2CaCertificate() const;
-
-    void setPhase2CaPath(const QString & path);
-    QString phase2CaPath() const;
+    void setPhase2CaCertificate(const KUrl &caCertPath, CertKeyScheme scheme);
+    CertKeyScheme phase2CaCertificateScheme() const;
+    QByteArray phase2CaCertificateBlob() const;
+    KUrl phase2CaCertificatePath() const;
 
     void setPhase2SubjectMatch(const QString & substring);
     QString phase2SubjectMatch() const;
 
     void setPhase2AltSubjectMatches(const QStringList & strings);
     QStringList phase2AltSubjectMatches() const;
+
+    void setPhase2ClientCertificate(const KUrl &clientCertPath, CertKeyScheme scheme);
+    CertKeyScheme phase2ClientCertificateScheme() const;
+    QByteArray phase2ClientCertificateBlob() const;
+    KUrl phase2ClientCertificatePath() const;
 
     void setPhase2ClientCertificate(const QByteArray & certificate);
     QByteArray phase2ClientCertificate() const;
@@ -122,19 +130,19 @@ public:
     void setPasswordRawFlags(Setting::SecretFlags flags);
     Setting::SecretFlags passwordRawFlags() const;
 
-    void setPrivateKey(const QByteArray & key);
-    QByteArray privateKey() const;
-
-    void setPrivateKeyPassword(const QString & password);
+    void setPrivateKey(const KUrl &privateKeyPath, const QString & password, CertKeyScheme scheme);
+    CertKeyScheme privateKeyScheme() const;
+    QByteArray privateKeyBlob() const;
+    KUrl privateKeyPath() const;
     QString privateKeyPassword() const;
 
     void setPrivateKeyPasswordFlags(Setting::SecretFlags flags);
     Setting::SecretFlags privateKeyPasswordFlags() const;
 
-    void setPhase2PrivateKey(const QByteArray & key);
-    QByteArray phase2PrivateKey() const;
-
-    void setPhase2PrivateKeyPassword(const QString & password);
+    void setPhase2PrivateKey(const KUrl &phase2PrivateKeyPath, const QString & password, CertKeyScheme scheme);
+    CertKeyScheme phase2PrivateKeyScheme() const;
+    QByteArray phase2PrivateKeyBlob() const;
+    KUrl phase2PrivateKeyPath() const;
     QString phase2PrivateKeyPassword() const;
 
     void setPhase2PrivateKeyPasswordFlags(Setting::SecretFlags flags);
