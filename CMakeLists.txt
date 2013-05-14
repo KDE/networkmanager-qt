@@ -10,6 +10,11 @@ set(LIB_SUFFIX "" CACHE STRING "Define suffix of library directory name (32/64)"
 
 find_package(Qt4 REQUIRED)
 find_package(NetworkManager 0.9.8.0 REQUIRED)
+find_package(QCA2 REQUIRED)
+#include(KDE4Defaults)
+#macro_optional_find_package(QCA2)
+#macro_log_feature(QCA2_FOUND "QCA" "Qt Cryptographic Architecture (QCA)" "http://delta.affinix.com/qca/" FALSE "2.0.0" "Support for encrypted OpenDocument Text documents in Okular.")
+
 
 pkg_check_modules(LIBMODEMMANAGERQT REQUIRED ModemManagerQt)
 if (NOT LIBMODEMMANAGERQT_FOUND)
@@ -21,6 +26,9 @@ add_definitions(${QT_DEFINITIONS})
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES}
                     ${LIBMODEMMANAGERQT_INCLUDE_DIRS} ${CMAKE_INCLUDE_PATH})
 link_directories(${LIBMODEMMANAGERQT_LIBRARY_DIRS} ${CMAKE_LIBRARY_PATH})
+
+include_directories( ${QCA2_INCLUDE_DIR} )
+add_definitions( -DQCA2 )
 
 include_directories(
    ${NETWORKMANAGER_INCLUDE_DIRS}
@@ -206,7 +214,7 @@ add_library(NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${DBUS_INTERFA
 
 # TODO: dlopen libModemManagerQt to make it a runtime dependency instead of compile
 # time dependency.
-target_link_libraries(NetworkManagerQt ModemManagerQt ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
+target_link_libraries(NetworkManagerQt ModemManagerQt ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY} ${QCA2_LIBRARIES})
 install(TARGETS NetworkManagerQt DESTINATION lib${LIB_SUFFIX})
 
 install( FILES
