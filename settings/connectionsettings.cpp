@@ -753,7 +753,70 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
     foreach(const Setting::Ptr &settingPtr, setting.settings()) {
         dbg.nospace() << settingPtr->typeAsString(settingPtr->type()).toUpper() << " SETTINGS\n";
         dbg.nospace() << "---------------------------\n";
-        dbg.nospace() << *settingPtr.data();
+        switch (settingPtr->type()) {
+        case Setting::Adsl:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::AdslSetting>().data());
+            break;
+        case Setting::Bond:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::BondSetting>().data());
+            break;
+        case Setting::Bluetooth:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::BluetoothSetting>().data());
+            break;
+        case Setting::Bridge:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::BridgeSetting>().data());
+            break;
+        case Setting::BridgePort:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::BridgePortSetting>().data());
+        case Setting::Cdma:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::CdmaSetting>().data());
+            break;
+        case Setting::Gsm:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::GsmSetting>().data());
+            break;
+        case Setting::Infiniband:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::InfinibandSetting>().data());
+            break;
+        case Setting::Ipv4:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::Ipv4Setting>().data());
+            break;
+        case Setting::Ipv6:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::Ipv6Setting>().data());
+            break;
+        case Setting::OlpcMesh:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::OlpcMeshSetting>().data());
+            break;
+        case Setting::Ppp:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::PppSetting>().data());
+            break;
+        case Setting::Pppoe:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::PppoeSetting>().data());
+            break;
+        case Setting::Security8021x:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::Security8021xSetting>().data());
+            break;
+        case Setting::Vlan:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::VlanSetting>().data());
+            break;
+        case Setting::Vpn:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::VpnSetting>().data());
+            break;
+        case Setting::Wimax:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::WimaxSetting>().data());
+            break;
+        case Setting::Wired:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::WiredSetting>().data());
+            break;
+        case Setting::Wireless:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::WirelessSetting>().data());
+            break;
+        case Setting::WirelessSecurity:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::WirelessSecuritySetting>().data());
+            break;
+        default:
+            dbg.nospace() << *settingPtr.data();
+        }
+
         dbg.nospace() << '\n';
     }
     return dbg.maybeSpace();
