@@ -22,11 +22,36 @@
 #define NMQT_SETTINGS_802_1X_P_H
 
 #include <QtCore/QStringList>
+#include <QtCrypto>
 
 namespace NetworkManager
 {
 namespace Settings
 {
+class KeyWrapper
+{
+public:
+    KeyWrapper();
+    KeyWrapper(const KeyWrapper&);
+    ~KeyWrapper();
+    NetworkManager::Settings::Security8021xSetting::CertKeyScheme scheme;
+    QCA::PrivateKey cert;
+    // QCA does not store this in Key
+    QString fileName;
+};
+
+class CertificateWrapper
+{
+public:
+    CertificateWrapper();
+    CertificateWrapper(const CertificateWrapper&);
+    ~CertificateWrapper();
+    NetworkManager::Settings::Security8021xSetting::CertKeyScheme scheme;
+    QCA::Certificate cert;
+    // QCA does not store this in Certificate
+    QString fileName;
+};
+
 class Security8021xSettingPrivate
 {
 public:

@@ -46,7 +46,7 @@ public:
     enum AuthEapMethod {AuthEapMethodUnknown = 0, AuthEapMethodMd5, AuthEapMethodMschapv2,
                         AuthEapMethodOtp, AuthEapMethodGtc, AuthEapMethodTls
                        };
-
+    enum CertKeyScheme {CertKeySchemeNone = 0, CertKeySchemeBlob, CertKeySchemePath, CertKeySchemeHash };
     Security8021xSetting();
     Security8021xSetting(const Ptr &other);
     ~Security8021xSetting();
