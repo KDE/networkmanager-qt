@@ -62,8 +62,7 @@ public:
     QString identity;
     QString anonymousIdentity;
     QString pacFile;
-    QByteArray caCert;
-    QString caPath;
+    CertificateWrapper caCert;
     QString subjectMatch;
     QStringList altSubjectMatches;
     QByteArray clientCert;

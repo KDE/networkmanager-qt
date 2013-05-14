@@ -65,11 +65,9 @@ public:
     void setPacFile(const QString & file);
     QString pacFile() const;
 
-    void setCaCertificate(const QByteArray & certificate);
-    QByteArray caCertificate() const;
-
-    void setCaPath(const QString & path);
-    QString caPath() const;
+    void setCaCertificate(const QString &caCertPath, CertKeyScheme scheme);
+    QByteArray caCertificateBlob() const;
+    QString caCertificatePath() const;
 
     void setSubjectMatch(const QString & substring);
     QString subjectMatch() const;

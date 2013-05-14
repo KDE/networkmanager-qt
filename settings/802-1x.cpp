@@ -79,12 +79,12 @@ NetworkManager::Settings::Security8021xSetting::Security8021xSetting(const Ptr &
     Setting(other),
     d_ptr(new Security8021xSettingPrivate())
 {
+    Q_D(Security8021xSetting);
     setEapMethods(other->eapMethods());
     setIdentity(other->identity());
     setAnonymousIdentity(other->anonymousIdentity());
     setPacFile(other->pacFile());
-    setCaCertificate(other->caCertificate());
-    setCaPath(other->caPath());
+    // WILL FIX THIS d->caCert = other.d->caCert;
     setSubjectMatch(other->subjectMatch());
     setAltSubjectMatches(other->altSubjectMatches());
     setClientCertificate(other->clientCertificate());
@@ -178,32 +178,44 @@ QString NetworkManager::Settings::Security8021xSetting::pacFile() const
     return d->pacFile;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setCaCertificate(const QByteArray& certificate)
+void NetworkManager::Settings::Security8021xSetting::setCaCertificate(const QString &caCertPath, CertKeyScheme scheme)
 {
     Q_D(Security8021xSetting);
 
-    d->caCert = certificate;
+    QCA::ConvertResult result;
+    // this is a guess, because NM and wpa_supplicant don't define the format the file should
+    // have, but wpa_supplicant.conf shows .pem files as input
+    d->caCert.cert = QCA::Certificate::fromPEMFile(caCertPath, &result);
+    if (result == QCA::ConvertGood) {
+        d->caCert.scheme = scheme;
+        if (scheme == CertKeySchemePath) {
+            d->caCert.fileName = caCertPath;
+        } else {
+            d->caCert.fileName = QString();
+        }
+    } else {
+        d->caCert.scheme = CertKeySchemeNone;
+    }
 }
 
-QByteArray NetworkManager::Settings::Security8021xSetting::caCertificate() const
+QByteArray NetworkManager::Settings::Security8021xSetting::caCertificateBlob() const
 {
     Q_D(const Security8021xSetting);
-
-    return d->caCert;
+    if (d->caCert.scheme == CertKeySchemeBlob) {
+        // this is a guess, because NM and wpa_supplicant don't define the format the blob should
+        // have, and QCA::Certificate only has one QByteArray export method.
+        return d->caCert.cert.toDER();
+    }
+    return QByteArray();
 }
 
-void NetworkManager::Settings::Security8021xSetting::setCaPath(const QString& path)
-{
-    Q_D(Security8021xSetting);
-
-    d->caPath = path;
-}
-
-QString NetworkManager::Settings::Security8021xSetting::caPath() const
+QString NetworkManager::Settings::Security8021xSetting::caCertificatePath() const
 {
     Q_D(const Security8021xSetting);
-
-    return d->caPath;
+    if (d->caCert.scheme == CertKeySchemePath) {
+        return d->caCert.fileName;
+    }
+    return QString();
 }
 
 void NetworkManager::Settings::Security8021xSetting::setSubjectMatch(const QString& substring)
@@ -683,11 +695,11 @@ void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& 
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_CA_CERT))) {
-        setCaCertificate(setting.value(QLatin1String(NM_SETTING_802_1X_CA_CERT)).toByteArray());
+        // WILL FIX THIS setCaCertificate(setting.value(QLatin1String(NM_SETTING_802_1X_CA_CERT)).toByteArray());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_CA_PATH))) {
-        setCaPath(setting.value(QLatin1String(NM_SETTING_802_1X_CA_PATH)).toString());
+        // WILL FIX THIS setCaPath(setting.value(QLatin1String(NM_SETTING_802_1X_CA_PATH)).toString());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_SUBJECT_MATCH))) {
@@ -885,6 +897,7 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_802_1X_PAC_FILE), pacFile());
     }
 
+    /* WILL FIX THIS
     if (!caCertificate().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_802_1X_CA_CERT), caCertificate());
     }
@@ -892,7 +905,7 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
     if (!caPath().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_802_1X_CA_PATH), caPath());
     }
-
+    */
     if (!subjectMatch().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_802_1X_SUBJECT_MATCH), subjectMatch());
     }
@@ -1085,8 +1098,10 @@ QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::S
     dbg.nospace() << NM_SETTING_802_1X_IDENTITY << ": " << setting.identity() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_ANONYMOUS_IDENTITY << ": " << setting.anonymousIdentity() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_PAC_FILE << ": " << setting.pacFile() << '\n';
+    /* WILL FIX THIS
     dbg.nospace() << NM_SETTING_802_1X_CA_CERT << ": " << setting.caCertificate() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_CA_PATH << ": " << setting.caPath() << '\n';
+    */
     dbg.nospace() << NM_SETTING_802_1X_SUBJECT_MATCH << ": " << setting.subjectMatch() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_ALTSUBJECT_MATCHES << ": " << setting.altSubjectMatches() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_CLIENT_CERT << ": " << setting.clientCertificate() << '\n';
