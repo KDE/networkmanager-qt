@@ -25,6 +25,36 @@
 
 #include <QtCore/QDebug>
 
+NetworkManager::Settings::CertificateWrapper::CertificateWrapper() :
+    scheme(Security8021xSetting::CertKeySchemeNone)
+{
+
+}
+
+NetworkManager::Settings::CertificateWrapper::CertificateWrapper(const NetworkManager::Settings::CertificateWrapper &other) :
+    scheme(other.scheme), cert(other.cert), fileName(other.fileName)
+{
+}
+
+NetworkManager::Settings::CertificateWrapper::~CertificateWrapper()
+{
+}
+
+NetworkManager::Settings::KeyWrapper::KeyWrapper() :
+    scheme(Security8021xSetting::CertKeySchemeNone)
+{
+
+}
+
+NetworkManager::Settings::KeyWrapper::KeyWrapper(const NetworkManager::Settings::KeyWrapper &other) :
+    scheme(other.scheme), key(other.key), fileName(other.fileName)
+{
+}
+
+NetworkManager::Settings::KeyWrapper::~KeyWrapper()
+{
+}
+
 NetworkManager::Settings::Security8021xSettingPrivate::Security8021xSettingPrivate():
     name(NM_SETTING_802_1X_SETTING_NAME),
     phase1PeapVer(Security8021xSetting::PeapVersionUnknown),

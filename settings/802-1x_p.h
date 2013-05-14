@@ -35,7 +35,7 @@ public:
     KeyWrapper(const KeyWrapper&);
     ~KeyWrapper();
     NetworkManager::Settings::Security8021xSetting::CertKeyScheme scheme;
-    QCA::PrivateKey cert;
+    QCA::PrivateKey key;
     // QCA does not store this in Key
     QString fileName;
 };
