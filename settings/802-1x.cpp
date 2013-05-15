@@ -150,8 +150,8 @@ NetworkManager::Settings::Security8021xSetting::Security8021xSetting(const Ptr &
     setPhase1FastProvisioning(other->phase1FastProvisioning());
     setPhase2AuthMethod(other->phase2AuthMethod());
     setPhase2AuthEapMethod(other->phase2AuthEapMethod());
-    setPhase2CaCertificate(other->phase2CaCertificate());
-    setPhase2CaPath(other->phase2CaPath());
+    d->phase2CaCert = other.data()->d_ptr->phase2CaCert;
+    d->phase2ClientCert = other.data()->d_ptr->phase2ClientCert;
     setPhase2SubjectMatch(other->phase2SubjectMatch());
     setPhase2AltSubjectMatches(other->phase2AltSubjectMatches());
     setPassword(other->password());
@@ -383,32 +383,29 @@ NetworkManager::Settings::Security8021xSetting::AuthEapMethod NetworkManager::Se
     return d->phase2AuthEapMethod;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2CaCertificate(const QByteArray& certificate)
+NetworkManager::Settings::Security8021xSetting::CertKeyScheme NetworkManager::Settings::Security8021xSetting::phase2CaCertificateScheme() const
+{
+    Q_D(const Security8021xSetting);
+    return d->phase2CaCert.scheme;
+}
+
+void NetworkManager::Settings::Security8021xSetting::setPhase2CaCertificate(const QString &phase2CaCertPath, CertKeyScheme scheme)
 {
     Q_D(Security8021xSetting);
 
-    d->phase2CaCert = certificate;
+    d->phase2CaCert.loadCert(phase2CaCertPath, scheme);
 }
 
-QByteArray NetworkManager::Settings::Security8021xSetting::phase2CaCertificate() const
+QByteArray NetworkManager::Settings::Security8021xSetting::phase2CaCertificateBlob() const
 {
     Q_D(const Security8021xSetting);
-
-    return d->phase2CaCert;
+    return d->phase2CaCert.blob();
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2CaPath(const QString& path)
-{
-    Q_D(Security8021xSetting);
-
-    d->phase2CaPath = path;
-}
-
-QString NetworkManager::Settings::Security8021xSetting::phase2CaPath() const
+QString NetworkManager::Settings::Security8021xSetting::phase2CaCertificatePath() const
 {
     Q_D(const Security8021xSetting);
-
-    return d->phase2CaPath;
+    return d->phase2CaCert.path();
 }
 
 void NetworkManager::Settings::Security8021xSetting::setPhase2SubjectMatch(const QString& substring)
@@ -439,18 +436,29 @@ QStringList NetworkManager::Settings::Security8021xSetting::phase2AltSubjectMatc
     return d->phase2AltSubjectMatches;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2ClientCertificate(const QByteArray& certificate)
+NetworkManager::Settings::Security8021xSetting::CertKeyScheme NetworkManager::Settings::Security8021xSetting::phase2ClientCertificateScheme() const
+{
+    Q_D(const Security8021xSetting);
+    return d->phase2ClientCert.scheme;
+}
+
+void NetworkManager::Settings::Security8021xSetting::setPhase2ClientCertificate(const QString &phase2ClientCertPath, CertKeyScheme scheme)
 {
     Q_D(Security8021xSetting);
 
-    d->phase2ClientCert = certificate;
+    d->phase2ClientCert.loadCert(phase2ClientCertPath, scheme);
 }
 
-QByteArray NetworkManager::Settings::Security8021xSetting::phase2ClientCertificate() const
+QByteArray NetworkManager::Settings::Security8021xSetting::phase2ClientCertificateBlob() const
 {
     Q_D(const Security8021xSetting);
+    return d->phase2ClientCert.blob();
+}
 
-    return d->phase2ClientCert;
+QString NetworkManager::Settings::Security8021xSetting::phase2ClientCertificatePath() const
+{
+    Q_D(const Security8021xSetting);
+    return d->phase2ClientCert.path();
 }
 
 void NetworkManager::Settings::Security8021xSetting::setPassword(const QString& password)
@@ -840,11 +848,11 @@ void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& 
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_CA_CERT))) {
-        setPhase2CaCertificate(setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_CA_CERT)).toByteArray());
+        d->phase2CaCert.setCertBlob(setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_CA_CERT)).toByteArray());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_CA_PATH))) {
-        setPhase2CaPath(setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_CA_PATH)).toString());
+        d->phase2CaCert.setCertPath(setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_CA_PATH)).toString());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_SUBJECT_MATCH))) {
@@ -856,8 +864,10 @@ void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& 
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_CLIENT_CERT))) {
-        setPhase2ClientCertificate(setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_CLIENT_CERT)).toByteArray());
+        d->phase2ClientCert.setCertBlob(setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_CLIENT_CERT)).toByteArray());
     }
+
+    // WILL PHASE2_CLIENT_CERT_PATH needed?
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PASSWORD))) {
         setPassword(setting.value(QLatin1String(NM_SETTING_802_1X_PASSWORD)).toString());
@@ -1073,12 +1083,12 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTHEAP), authEapMethod);
     }
 
-    if (!phase2CaCertificate().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_CA_CERT), phase2CaCertificate());
+    if (phase2CaCertificateScheme() == CertKeySchemeBlob) {
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_CA_CERT), phase2CaCertificateBlob());
     }
 
-    if (!phase2CaPath().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_CA_PATH), phase2CaPath());
+    if (phase2CaCertificateScheme() == CertKeySchemePath) {
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_CA_PATH), phase2CaCertificatePath());
     }
 
     if (!phase2SubjectMatch().isEmpty()) {
@@ -1089,8 +1099,8 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_ALTSUBJECT_MATCHES), phase2AltSubjectMatches());
     }
 
-    if (!phase2ClientCertificate().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_CLIENT_CERT), phase2ClientCertificate());
+    if (d->phase2ClientCert.scheme == CertKeySchemeBlob) {
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_CLIENT_CERT), d->phase2ClientCert.blob());
     }
 
     if (!password().isEmpty()) {
@@ -1186,11 +1196,31 @@ QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::S
     dbg.nospace() << NM_SETTING_802_1X_PHASE1_FAST_PROVISIONING << ": " << setting.phase1FastProvisioning() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_PHASE2_AUTH << ": " << setting.phase2AuthMethod() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_PHASE2_AUTHEAP << ": " << setting.phase2AuthEapMethod() << '\n';
-    dbg.nospace() << NM_SETTING_802_1X_PHASE2_CA_CERT << ": " << setting.phase2CaCertificate() << '\n';
-    dbg.nospace() << NM_SETTING_802_1X_PHASE2_CA_PATH << ": " << setting.phase2CaPath() << '\n';
+
+    switch (setting.phase2CaCertificateScheme()) {
+        case NetworkManager::Settings::Security8021xSetting::CertKeySchemeNone:
+            dbg.nospace() << NM_SETTING_802_1X_PHASE2_CA_CERT << ": " << "NONE";
+            break;
+        case NetworkManager::Settings::Security8021xSetting::CertKeySchemeBlob:
+            dbg.nospace() << NM_SETTING_802_1X_PHASE2_CA_CERT << ": " << setting.phase2CaCertificateBlob();
+            break;
+        case NetworkManager::Settings::Security8021xSetting::CertKeySchemePath:
+            dbg.nospace() << NM_SETTING_802_1X_PHASE2_CA_PATH << ": " << setting.phase2CaCertificatePath();
+            break;
+    };
+
     dbg.nospace() << NM_SETTING_802_1X_PHASE2_SUBJECT_MATCH << ": " << setting.phase2SubjectMatch() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_PHASE2_ALTSUBJECT_MATCHES << ": " << setting.phase2AltSubjectMatches() << '\n';
-    dbg.nospace() << NM_SETTING_802_1X_PHASE2_CLIENT_CERT << ": " << setting.phase2ClientCertificate() << '\n';
+
+    switch (setting.phase2ClientCertificateScheme()) {
+        case NetworkManager::Settings::Security8021xSetting::CertKeySchemeNone:
+            dbg.nospace() << NM_SETTING_802_1X_PHASE2_CLIENT_CERT << ": " << "NONE";
+            break;
+        case NetworkManager::Settings::Security8021xSetting::CertKeySchemeBlob:
+            dbg.nospace() << NM_SETTING_802_1X_PHASE2_CLIENT_CERT << ": " << setting.phase2ClientCertificateBlob();
+            break;
+    };
+
     dbg.nospace() << NM_SETTING_802_1X_PASSWORD << ": " << setting.password() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_PASSWORD_FLAGS << ": " << setting.passwordFlags() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_PASSWORD_RAW << ": " << setting.passwordRaw() << '\n';

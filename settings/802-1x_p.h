@@ -76,11 +76,10 @@ public:
     Security8021xSetting::FastProvisioning phase1FastProvisioning;
     Security8021xSetting::AuthMethod phase2AuthMethod;
     Security8021xSetting::AuthEapMethod phase2AuthEapMethod;
-    QByteArray phase2CaCert;
-    QString phase2CaPath;
+    CertificateWrapper phase2CaCert;
     QString phase2SubjectMatch;
     QStringList phase2AltSubjectMatches;
-    QByteArray phase2ClientCert;
+    CertificateWrapper phase2ClientCert;
     QString password;
     Setting::SecretFlags passwordFlags;
     QByteArray passwordRaw;

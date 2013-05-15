@@ -97,11 +97,10 @@ public:
     void setPhase2AuthEapMethod(AuthEapMethod method);
     AuthEapMethod phase2AuthEapMethod() const;
 
-    void setPhase2CaCertificate(const QByteArray & certificate);
-    QByteArray phase2CaCertificate() const;
-
-    void setPhase2CaPath(const QString & path);
-    QString phase2CaPath() const;
+    CertKeyScheme phase2CaCertificateScheme() const;
+    void setPhase2CaCertificate(const QString &phase2CaCertPath, CertKeyScheme scheme);
+    QByteArray phase2CaCertificateBlob() const;
+    QString phase2CaCertificatePath() const;
 
     void setPhase2SubjectMatch(const QString & substring);
     QString phase2SubjectMatch() const;
@@ -109,8 +108,10 @@ public:
     void setPhase2AltSubjectMatches(const QStringList & strings);
     QStringList phase2AltSubjectMatches() const;
 
-    void setPhase2ClientCertificate(const QByteArray & certificate);
-    QByteArray phase2ClientCertificate() const;
+    CertKeyScheme phase2ClientCertificateScheme() const;
+    void setPhase2ClientCertificate(const QString &phase2ClientCertPath, CertKeyScheme scheme);
+    QByteArray phase2ClientCertificateBlob() const;
+    QString phase2ClientCertificatePath() const;
 
     void setPassword(const QString & password);
     QString password() const;
