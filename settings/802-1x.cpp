@@ -52,13 +52,31 @@ void NetworkManager::Settings::CertificateWrapper::loadCert(const QString & path
         scheme = theScheme;
         if (theScheme == NetworkManager::Settings::Security8021xSetting::CertKeySchemePath) {
             fileName = path;
-        } else if ( theScheme == NetworkManager::Settings::Security8021xSetting::CertKeySchemeBlob ) {
+        } else {
             fileName = QString();
         }
     } else {
         scheme = NetworkManager::Settings::Security8021xSetting::CertKeySchemeNone;
         cert = QCA::Certificate();
     }
+}
+
+QByteArray NetworkManager::Settings::CertificateWrapper::blob() const
+{
+    if (scheme == NetworkManager::Settings::Security8021xSetting::CertKeySchemeBlob) {
+        // DER encoded data according to
+        // http://projects.gnome.org/NetworkManager/developers/api/09/ref-settings.html#idp8706528
+        return cert.toDER();
+    }
+    return QByteArray();
+}
+
+QString NetworkManager::Settings::CertificateWrapper::path() const
+{
+    if (scheme == NetworkManager::Settings::Security8021xSetting::CertKeySchemePath) {
+        return fileName;
+    }
+    return QString();
 }
 
 NetworkManager::Settings::KeyWrapper::KeyWrapper() :
@@ -217,21 +235,13 @@ void NetworkManager::Settings::Security8021xSetting::setCaCertificate(const QStr
 QByteArray NetworkManager::Settings::Security8021xSetting::caCertificateBlob() const
 {
     Q_D(const Security8021xSetting);
-    if (d->caCert.scheme == CertKeySchemeBlob) {
-        // DER encoded data according to
-        // http://projects.gnome.org/NetworkManager/developers/api/09/ref-settings.html#idp8706528
-        return d->caCert.cert.toDER();
-    }
-    return QByteArray();
+    return d->caCert.blob();
 }
 
 QString NetworkManager::Settings::Security8021xSetting::caCertificatePath() const
 {
     Q_D(const Security8021xSetting);
-    if (d->caCert.scheme == CertKeySchemePath) {
-        return d->caCert.fileName;
-    }
-    return QString();
+    return d->caCert.path();
 }
 
 void NetworkManager::Settings::Security8021xSetting::setSubjectMatch(const QString& substring)

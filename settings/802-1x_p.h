@@ -47,6 +47,8 @@ public:
     CertificateWrapper(const CertificateWrapper&);
     ~CertificateWrapper();
     void loadCert(const QString & path, NetworkManager::Settings::Security8021xSetting::CertKeyScheme scheme);
+    QByteArray blob() const;
+    QString path() const;
     NetworkManager::Settings::Security8021xSetting::CertKeyScheme scheme;
     QCA::Certificate cert;
     // QCA does not store this in Certificate
