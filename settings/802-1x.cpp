@@ -1,5 +1,6 @@
 /*
     Copyright 2012-2013  Jan Grulich <jgrulich@redhat.com>
+    Copyright 2013  Will Stephenson <wstephenson@suse.de>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -84,7 +85,8 @@ NetworkManager::Settings::Security8021xSetting::Security8021xSetting(const Ptr &
     setIdentity(other->identity());
     setAnonymousIdentity(other->anonymousIdentity());
     setPacFile(other->pacFile());
-    // WILL FIX THIS d->caCert = other.d->caCert;
+    // WILL is this a hack?
+    d->caCert = other.data()->d_ptr->caCert;
     setSubjectMatch(other->subjectMatch());
     setAltSubjectMatches(other->altSubjectMatches());
     setClientCertificate(other->clientCertificate());
@@ -178,13 +180,20 @@ QString NetworkManager::Settings::Security8021xSetting::pacFile() const
     return d->pacFile;
 }
 
+NetworkManager::Settings::Security8021xSetting::CertKeyScheme NetworkManager::Settings::Security8021xSetting::caCertificateScheme() const
+{
+    Q_D(const Security8021xSetting);
+    return d->caCert.scheme;
+}
+
 void NetworkManager::Settings::Security8021xSetting::setCaCertificate(const QString &caCertPath, CertKeyScheme scheme)
 {
     Q_D(Security8021xSetting);
 
     QCA::ConvertResult result;
-    // this is a guess, because NM and wpa_supplicant don't define the format the file should
-    // have, but wpa_supplicant.conf shows .pem files as input
+    // http://projects.gnome.org/NetworkManager/developers/api/09/ref-settings.html#idp8706528
+    // says this can be a PEM or DER encoded file, but QCA only has a method for PEM from a file,
+    // and i don't feel like doing file access in here myself today
     d->caCert.cert = QCA::Certificate::fromPEMFile(caCertPath, &result);
     if (result == QCA::ConvertGood) {
         d->caCert.scheme = scheme;
@@ -202,8 +211,8 @@ QByteArray NetworkManager::Settings::Security8021xSetting::caCertificateBlob() c
 {
     Q_D(const Security8021xSetting);
     if (d->caCert.scheme == CertKeySchemeBlob) {
-        // this is a guess, because NM and wpa_supplicant don't define the format the blob should
-        // have, and QCA::Certificate only has one QByteArray export method.
+        // DER encoded data according to
+        // http://projects.gnome.org/NetworkManager/developers/api/09/ref-settings.html#idp8706528
         return d->caCert.cert.toDER();
     }
     return QByteArray();
@@ -658,6 +667,8 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::secretsToMap() const
 
 void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& setting)
 {
+    Q_D(Security8021xSetting);
+
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_EAP))) {
         QStringList methods = setting.value(QLatin1String(NM_SETTING_802_1X_EAP)).toStringList();
         QList<EapMethod> eapMethods;
@@ -695,11 +706,17 @@ void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& 
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_CA_CERT))) {
-        // WILL FIX THIS setCaCertificate(setting.value(QLatin1String(NM_SETTING_802_1X_CA_CERT)).toByteArray());
+        d->caCert.cert = QCA::Certificate::fromDER(setting.value(QLatin1String(NM_SETTING_802_1X_CA_CERT)).toByteArray());
+        d->caCert.scheme = CertKeySchemeBlob;
+        d->caCert.fileName = QString();
+        // WILL also clear hash
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_CA_PATH))) {
-        // WILL FIX THIS setCaPath(setting.value(QLatin1String(NM_SETTING_802_1X_CA_PATH)).toString());
+        d->caCert.cert = QCA::Certificate();
+        d->caCert.scheme = CertKeySchemePath;
+        d->caCert.fileName = setting.value(QLatin1String(NM_SETTING_802_1X_CA_PATH)).toString();
+        // WILL also clear hash
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_SUBJECT_MATCH))) {
@@ -859,6 +876,7 @@ void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& 
 
 QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
 {
+    Q_D(const Security8021xSetting);
     QVariantMap setting;
 
     if (!eapMethods().isEmpty()) {
@@ -897,15 +915,17 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_802_1X_PAC_FILE), pacFile());
     }
 
-    /* WILL FIX THIS
-    if (!caCertificate().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_802_1X_CA_CERT), caCertificate());
-    }
+    switch (d->caCert.scheme) {
+        case CertKeySchemeNone:
+            break;
+        case CertKeySchemeBlob:
+            setting.insert(QLatin1String(NM_SETTING_802_1X_CA_CERT), d->caCert.cert.toDER());
+            break;
+        case CertKeySchemePath:
+            setting.insert(QLatin1String(NM_SETTING_802_1X_CA_PATH), d->caCert.fileName);
+            break;
+    };
 
-    if (!caPath().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_802_1X_CA_PATH), caPath());
-    }
-    */
     if (!subjectMatch().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_802_1X_SUBJECT_MATCH), subjectMatch());
     }
@@ -1098,10 +1118,19 @@ QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::S
     dbg.nospace() << NM_SETTING_802_1X_IDENTITY << ": " << setting.identity() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_ANONYMOUS_IDENTITY << ": " << setting.anonymousIdentity() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_PAC_FILE << ": " << setting.pacFile() << '\n';
-    /* WILL FIX THIS
-    dbg.nospace() << NM_SETTING_802_1X_CA_CERT << ": " << setting.caCertificate() << '\n';
-    dbg.nospace() << NM_SETTING_802_1X_CA_PATH << ": " << setting.caPath() << '\n';
-    */
+
+    switch (setting.caCertificateScheme()) {
+        case NetworkManager::Settings::Security8021xSetting::CertKeySchemeNone:
+            dbg.nospace() << NM_SETTING_802_1X_CA_CERT << ": " << "NONE";
+            break;
+        case NetworkManager::Settings::Security8021xSetting::CertKeySchemeBlob:
+            dbg.nospace() << NM_SETTING_802_1X_CA_CERT << ": " << setting.caCertificateBlob();
+            break;
+        case NetworkManager::Settings::Security8021xSetting::CertKeySchemePath:
+            dbg.nospace() << NM_SETTING_802_1X_CA_PATH << ": " << setting.caCertificatePath();
+            break;
+    };
+
     dbg.nospace() << NM_SETTING_802_1X_SUBJECT_MATCH << ": " << setting.subjectMatch() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_ALTSUBJECT_MATCHES << ": " << setting.altSubjectMatches() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_CLIENT_CERT << ": " << setting.clientCertificate() << '\n';

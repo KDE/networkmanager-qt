@@ -1,5 +1,6 @@
 /*
     Copyright 2012-2013  Jan Grulich <jgrulich@redhat.com>
+    Copyright 2013  Will Stephenson <wstephenson@suse.de>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -65,6 +66,7 @@ public:
     void setPacFile(const QString & file);
     QString pacFile() const;
 
+    CertKeyScheme caCertificateScheme() const;
     void setCaCertificate(const QString &caCertPath, CertKeyScheme scheme);
     QByteArray caCertificateBlob() const;
     QString caCertificatePath() const;
