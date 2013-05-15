@@ -41,6 +41,26 @@ NetworkManager::Settings::CertificateWrapper::~CertificateWrapper()
 {
 }
 
+void NetworkManager::Settings::CertificateWrapper::loadCert(const QString & path, NetworkManager::Settings::Security8021xSetting::CertKeyScheme theScheme)
+{
+    // http://projects.gnome.org/NetworkManager/developers/api/09/ref-settings.html#idp8706528
+    // says this can be a PEM or DER encoded file, but QCA only has a method for PEM from a file,
+    // and i don't feel like doing file access in here myself today
+    QCA::ConvertResult result;
+    cert = QCA::Certificate::fromPEMFile(path, &result);
+    if (result == QCA::ConvertGood) {
+        scheme = theScheme;
+        if (theScheme == NetworkManager::Settings::Security8021xSetting::CertKeySchemePath) {
+            fileName = path;
+        } else if ( theScheme == NetworkManager::Settings::Security8021xSetting::CertKeySchemeBlob ) {
+            fileName = QString();
+        }
+    } else {
+        scheme = NetworkManager::Settings::Security8021xSetting::CertKeySchemeNone;
+        cert = QCA::Certificate();
+    }
+}
+
 NetworkManager::Settings::KeyWrapper::KeyWrapper() :
     scheme(Security8021xSetting::CertKeySchemeNone)
 {
@@ -89,7 +109,8 @@ NetworkManager::Settings::Security8021xSetting::Security8021xSetting(const Ptr &
     d->caCert = other.data()->d_ptr->caCert;
     setSubjectMatch(other->subjectMatch());
     setAltSubjectMatches(other->altSubjectMatches());
-    setClientCertificate(other->clientCertificate());
+    // WILL is this a hack?
+    d->clientCert = other.data()->d_ptr->clientCert;
     setPhase1PeapVersion(other->phase1PeapVersion());
     setPhase1PeapLabel(other->phase1PeapLabel());
     setPhase1FastProvisioning(other->phase1FastProvisioning());
@@ -190,21 +211,7 @@ void NetworkManager::Settings::Security8021xSetting::setCaCertificate(const QStr
 {
     Q_D(Security8021xSetting);
 
-    QCA::ConvertResult result;
-    // http://projects.gnome.org/NetworkManager/developers/api/09/ref-settings.html#idp8706528
-    // says this can be a PEM or DER encoded file, but QCA only has a method for PEM from a file,
-    // and i don't feel like doing file access in here myself today
-    d->caCert.cert = QCA::Certificate::fromPEMFile(caCertPath, &result);
-    if (result == QCA::ConvertGood) {
-        d->caCert.scheme = scheme;
-        if (scheme == CertKeySchemePath) {
-            d->caCert.fileName = caCertPath;
-        } else {
-            d->caCert.fileName = QString();
-        }
-    } else {
-        d->caCert.scheme = CertKeySchemeNone;
-    }
+    d->caCert.loadCert(caCertPath, scheme);
 }
 
 QByteArray NetworkManager::Settings::Security8021xSetting::caCertificateBlob() const
