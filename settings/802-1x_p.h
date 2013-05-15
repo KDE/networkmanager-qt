@@ -47,6 +47,8 @@ public:
     CertificateWrapper(const CertificateWrapper&);
     ~CertificateWrapper();
     void loadCert(const QString & path, NetworkManager::Settings::Security8021xSetting::CertKeyScheme scheme);
+    void setCertBlob(const QByteArray& cert);
+    void setCertPath(const QString& path);
     QByteArray blob() const;
     QString path() const;
     NetworkManager::Settings::Security8021xSetting::CertKeyScheme scheme;
@@ -68,7 +70,7 @@ public:
     CertificateWrapper caCert;
     QString subjectMatch;
     QStringList altSubjectMatches;
-    QByteArray clientCert;
+    CertificateWrapper clientCert;
     Security8021xSetting::PeapVersion phase1PeapVer;
     Security8021xSetting::PeapLabel phase1PeapLabel;
     Security8021xSetting::FastProvisioning phase1FastProvisioning;

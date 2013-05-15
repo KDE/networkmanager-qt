@@ -61,6 +61,22 @@ void NetworkManager::Settings::CertificateWrapper::loadCert(const QString & path
     }
 }
 
+void NetworkManager::Settings::CertificateWrapper::setCertBlob(const QByteArray& certBytes)
+{
+    cert = QCA::Certificate::fromDER(certBytes);
+    scheme = NetworkManager::Settings::Security8021xSetting::CertKeySchemeBlob;
+    fileName = QString();
+    // WILL also clear hash
+}
+
+void NetworkManager::Settings::CertificateWrapper::setCertPath(const QString& path)
+{
+    cert = QCA::Certificate();
+    scheme = NetworkManager::Settings::Security8021xSetting::CertKeySchemePath;
+    fileName = path;
+    // WILL also clear hash
+}
+
 QByteArray NetworkManager::Settings::CertificateWrapper::blob() const
 {
     if (scheme == NetworkManager::Settings::Security8021xSetting::CertKeySchemeBlob) {
@@ -272,18 +288,29 @@ QStringList NetworkManager::Settings::Security8021xSetting::altSubjectMatches() 
     return d->altSubjectMatches;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setClientCertificate(const QByteArray& certificate)
+NetworkManager::Settings::Security8021xSetting::CertKeyScheme NetworkManager::Settings::Security8021xSetting::clientCertificateScheme() const
+{
+    Q_D(const Security8021xSetting);
+    return d->clientCert.scheme;
+}
+
+void NetworkManager::Settings::Security8021xSetting::setClientCertificate(const QString &clientCertPath, CertKeyScheme scheme)
 {
     Q_D(Security8021xSetting);
 
-    d->clientCert = certificate;
+    d->clientCert.loadCert(clientCertPath, scheme);
 }
 
-QByteArray NetworkManager::Settings::Security8021xSetting::clientCertificate() const
+QByteArray NetworkManager::Settings::Security8021xSetting::clientCertificateBlob() const
 {
     Q_D(const Security8021xSetting);
+    return d->clientCert.blob();
+}
 
-    return d->clientCert;
+QString NetworkManager::Settings::Security8021xSetting::clientCertificatePath() const
+{
+    Q_D(const Security8021xSetting);
+    return d->clientCert.path();
 }
 
 void NetworkManager::Settings::Security8021xSetting::setPhase1PeapVersion(NetworkManager::Settings::Security8021xSetting::PeapVersion version)
@@ -723,18 +750,12 @@ void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& 
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_CA_CERT))) {
-        d->caCert.cert = QCA::Certificate::fromDER(setting.value(QLatin1String(NM_SETTING_802_1X_CA_CERT)).toByteArray());
-        d->caCert.scheme = CertKeySchemeBlob;
-        d->caCert.fileName = QString();
-        // WILL also clear hash
+        d->caCert.setCertBlob(setting.value(QLatin1String(NM_SETTING_802_1X_CA_CERT)).toByteArray());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_CA_PATH))) {
-        d->caCert.cert = QCA::Certificate();
-        d->caCert.scheme = CertKeySchemePath;
-        d->caCert.fileName = setting.value(QLatin1String(NM_SETTING_802_1X_CA_PATH)).toString();
-        // WILL also clear hash
     }
+        d->caCert.setCertPath(setting.value(QLatin1String(NM_SETTING_802_1X_CA_PATH)).toString());
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_SUBJECT_MATCH))) {
         setSubjectMatch(setting.value(QLatin1String(NM_SETTING_802_1X_SUBJECT_MATCH)).toString());
@@ -745,7 +766,7 @@ void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& 
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_CLIENT_CERT))) {
-        setClientCertificate(setting.value(QLatin1String(NM_SETTING_802_1X_CLIENT_CERT)).toByteArray());
+        d->clientCert.setCertBlob(setting.value(QLatin1String(NM_SETTING_802_1X_CLIENT_CERT)).toByteArray());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPVER))) {
@@ -951,8 +972,8 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_802_1X_ALTSUBJECT_MATCHES), altSubjectMatches());
     }
 
-    if (!clientCertificate().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_802_1X_CLIENT_CERT), clientCertificate());
+    if (d->clientCert.scheme == CertKeySchemeBlob) {
+        setting.insert(QLatin1String(NM_SETTING_802_1X_CLIENT_CERT), d->clientCert.blob());
     }
 
     if (phase1PeapVersion() != PeapVersionUnknown) {
@@ -1150,7 +1171,16 @@ QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::S
 
     dbg.nospace() << NM_SETTING_802_1X_SUBJECT_MATCH << ": " << setting.subjectMatch() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_ALTSUBJECT_MATCHES << ": " << setting.altSubjectMatches() << '\n';
-    dbg.nospace() << NM_SETTING_802_1X_CLIENT_CERT << ": " << setting.clientCertificate() << '\n';
+
+    switch (setting.clientCertificateScheme()) {
+        case NetworkManager::Settings::Security8021xSetting::CertKeySchemeNone:
+            dbg.nospace() << NM_SETTING_802_1X_CLIENT_CERT << ": " << "NONE";
+            break;
+        case NetworkManager::Settings::Security8021xSetting::CertKeySchemeBlob:
+            dbg.nospace() << NM_SETTING_802_1X_CLIENT_CERT << ": " << setting.clientCertificateBlob();
+            break;
+    };
+
     dbg.nospace() << NM_SETTING_802_1X_PHASE1_PEAPVER << ": " << setting.phase1PeapVersion() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_PHASE1_PEAPLABEL << ": " << setting.phase1PeapLabel() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_PHASE1_FAST_PROVISIONING << ": " << setting.phase1FastProvisioning() << '\n';

@@ -77,8 +77,10 @@ public:
     void setAltSubjectMatches(const QStringList & strings);
     QStringList altSubjectMatches() const;
 
-    void setClientCertificate(const QByteArray & certificate);
-    QByteArray clientCertificate() const;
+    CertKeyScheme clientCertificateScheme() const;
+    void setClientCertificate(const QString &clientCertPath, CertKeyScheme scheme);
+    QByteArray clientCertificateBlob() const;
+    QString clientCertificatePath() const;
 
     void setPhase1PeapVersion(PeapVersion version);
     PeapVersion phase1PeapVersion() const;
