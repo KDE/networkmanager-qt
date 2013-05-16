@@ -23,7 +23,7 @@
 
 #include <nm-setting-vpn.h>
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::VpnSettingPrivate::VpnSettingPrivate():
     name(NM_SETTING_VPN_SETTING_NAME)
@@ -122,10 +122,7 @@ void NetworkManager::VpnSetting::secretsFromMap(const QVariantMap& secrets)
 QVariantMap NetworkManager::VpnSetting::secretsToMap() const
 {
     QVariantMap secretsMap;
-
-    if (!secrets().isEmpty()) {
-        secretsMap.insert(QLatin1String(NM_SETTING_VPN_SECRETS), QVariant::fromValue<NMStringMap>(secrets()));
-    }
+    secretsMap.insert(QLatin1String(NM_SETTING_VPN_SECRETS), QVariant::fromValue<NMStringMap>(secrets()));
 
     qDebug() << secretsMap;
     return secretsMap;
