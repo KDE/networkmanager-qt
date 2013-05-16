@@ -125,19 +125,21 @@ public:
     void setPasswordRawFlags(Setting::SecretFlags flags);
     Setting::SecretFlags passwordRawFlags() const;
 
-    void setPrivateKey(const QByteArray & key);
-    QByteArray privateKey() const;
+    CertKeyScheme privateKeyScheme() const;
+    void setPrivateKey(const QString &privateKeyPath, const QByteArray &privateKeyPassword, CertKeyScheme scheme);
+    QByteArray privateKeyBlob() const;
+    QString privateKeyPath() const;
 
-    void setPrivateKeyPassword(const QString & password);
     QString privateKeyPassword() const;
 
     void setPrivateKeyPasswordFlags(Setting::SecretFlags flags);
     Setting::SecretFlags privateKeyPasswordFlags() const;
 
-    void setPhase2PrivateKey(const QByteArray & key);
-    QByteArray phase2PrivateKey() const;
+    CertKeyScheme phase2PrivateKeyScheme() const;
+    void setPhase2PrivateKey(const QString &phase2PrivateKeyPath, const QByteArray &phase2PrivateKeyPassword, CertKeyScheme scheme);
+    QByteArray phase2PrivateKeyBlob() const;
+    QString phase2PrivateKeyPath() const;
 
-    void setPhase2PrivateKeyPassword(const QString & password);
     QString phase2PrivateKeyPassword() const;
 
     void setPhase2PrivateKeyPasswordFlags(Setting::SecretFlags flags);

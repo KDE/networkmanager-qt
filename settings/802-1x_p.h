@@ -91,11 +91,9 @@ public:
     Setting::SecretFlags passwordFlags;
     QByteArray passwordRaw;
     Setting::SecretFlags passwordRawFlags;
-    QByteArray privateKey;
-    QString privateKeyPassword;
+    KeyWrapper privateKey;
     Setting::SecretFlags privateKeyPasswordFlags;
-    QByteArray phase2PrivateKey;
-    QString phase2PrivateKeyPassword;
+    KeyWrapper phase2PrivateKey;
     Setting::SecretFlags phase2PrivateKeyPasswordFlags;
     QString pin;
     Setting::SecretFlags pinFlags;

@@ -211,11 +211,9 @@ NetworkManager::Settings::Security8021xSetting::Security8021xSetting(const Ptr &
     setPasswordFlags(other->passwordFlags());
     setPasswordRaw(other->passwordRaw());
     setPasswordRawFlags(other->passwordRawFlags());
-    setPrivateKey(other->privateKey());
-    setPrivateKeyPassword(other->privateKeyPassword());
+    d->privateKey = other.data()->d_ptr->privateKey;
     setPrivateKeyPasswordFlags(other->privateKeyPasswordFlags());
-    setPhase2PrivateKey(other->phase2PrivateKey());
-    setPhase2PrivateKeyPassword(other->phase2PrivateKeyPassword());
+    d->phase2PrivateKey = other.data()->d_ptr->phase2PrivateKey;
     setPhase2PrivateKeyPasswordFlags(other->phase2PrivateKeyPasswordFlags());
     setSystemCaCertificates(other->systemCaCertificates());
 }
@@ -570,32 +568,38 @@ NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::Securit
     return d->passwordRawFlags;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPrivateKey(const QByteArray& key)
+NetworkManager::Settings::Security8021xSetting::CertKeyScheme NetworkManager::Settings::Security8021xSetting::privateKeyScheme() const
+{
+    Q_D(const Security8021xSetting);
+    return d->privateKey.scheme;
+}
+
+void NetworkManager::Settings::Security8021xSetting::setPrivateKey(const QString &privateKeyPath, const QByteArray &privateKeyPassword, CertKeyScheme scheme)
 {
     Q_D(Security8021xSetting);
 
-    d->privateKey = key;
+    d->privateKey.loadKey(privateKeyPath, privateKeyPassword, scheme);
 }
 
-QByteArray NetworkManager::Settings::Security8021xSetting::privateKey() const
+QByteArray NetworkManager::Settings::Security8021xSetting::privateKeyBlob() const
 {
     Q_D(const Security8021xSetting);
 
-    return d->privateKey;
+    return d->privateKey.blob();
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPrivateKeyPassword(const QString& password)
+QString NetworkManager::Settings::Security8021xSetting::privateKeyPath() const
 {
-    Q_D(Security8021xSetting);
+    Q_D(const Security8021xSetting);
 
-    d->privateKeyPassword = password;
+    return d->privateKey.path();
 }
 
 QString NetworkManager::Settings::Security8021xSetting::privateKeyPassword() const
 {
     Q_D(const Security8021xSetting);
 
-    return d->privateKeyPassword;
+    return QLatin1String(d->privateKey.password.toByteArray());
 }
 
 void NetworkManager::Settings::Security8021xSetting::setPrivateKeyPasswordFlags(NetworkManager::Settings::Setting::SecretFlags flags)
@@ -612,32 +616,39 @@ NetworkManager::Settings::Setting::SecretFlags NetworkManager::Settings::Securit
     return d->privateKeyPasswordFlags;
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2PrivateKey(const QByteArray& key)
+
+NetworkManager::Settings::Security8021xSetting::CertKeyScheme NetworkManager::Settings::Security8021xSetting::phase2PrivateKeyScheme() const
+{
+    Q_D(const Security8021xSetting);
+    return d->phase2PrivateKey.scheme;
+}
+
+void NetworkManager::Settings::Security8021xSetting::setPhase2PrivateKey(const QString &phase2PrivateKeyPath, const QByteArray &phase2PrivateKeyPassword, CertKeyScheme scheme)
 {
     Q_D(Security8021xSetting);
 
-    d->phase2PrivateKey = key;
+    d->phase2PrivateKey.loadKey(phase2PrivateKeyPath, phase2PrivateKeyPassword, scheme);
 }
 
-QByteArray NetworkManager::Settings::Security8021xSetting::phase2PrivateKey() const
+QByteArray NetworkManager::Settings::Security8021xSetting::phase2PrivateKeyBlob() const
 {
     Q_D(const Security8021xSetting);
 
-    return d->phase2PrivateKey;
+    return d->phase2PrivateKey.blob();
 }
 
-void NetworkManager::Settings::Security8021xSetting::setPhase2PrivateKeyPassword(const QString& password)
+QString NetworkManager::Settings::Security8021xSetting::phase2PrivateKeyPath() const
 {
-    Q_D(Security8021xSetting);
+    Q_D(const Security8021xSetting);
 
-    d->phase2PrivateKeyPassword = password;
+    return d->phase2PrivateKey.path();
 }
 
 QString NetworkManager::Settings::Security8021xSetting::phase2PrivateKeyPassword() const
 {
     Q_D(const Security8021xSetting);
 
-    return d->phase2PrivateKeyPassword;
+    return QLatin1String(d->phase2PrivateKey.password.toByteArray());
 }
 
 void NetworkManager::Settings::Security8021xSetting::setPhase2PrivateKeyPasswordFlags(NetworkManager::Settings::Setting::SecretFlags flags)
@@ -722,6 +733,8 @@ QStringList NetworkManager::Settings::Security8021xSetting::needSecrets(bool req
 
 void NetworkManager::Settings::Security8021xSetting::secretsFromMap(const QVariantMap& secrets)
 {
+    Q_D(Security8021xSetting);
+
     if (secrets.contains(QLatin1String(NM_SETTING_802_1X_PASSWORD))) {
         setPassword(secrets.value(QLatin1String(NM_SETTING_802_1X_PASSWORD)).toString());
     }
@@ -730,12 +743,14 @@ void NetworkManager::Settings::Security8021xSetting::secretsFromMap(const QVaria
         setPasswordRaw(secrets.value(QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW)).toByteArray());
     }
 
+    // WARNING ENCODING FUDGES
     if (secrets.contains(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD))) {
-        setPrivateKeyPassword(secrets.value(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD)).toString());
+        d->privateKey.password = QCA::SecureArray(secrets.value(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD)).toString().toLocal8Bit());
     }
 
+    // WARNING ENCODING FUDGES
     if (secrets.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD))) {
-        setPhase2PrivateKeyPassword(secrets.value(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD)).toString());
+        d->privateKey.password = QCA::SecureArray(secrets.value(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD)).toString().toLocal8Bit());
     }
 
     if (secrets.contains(QLatin1String(NM_SETTING_802_1X_PIN))) {
@@ -745,6 +760,7 @@ void NetworkManager::Settings::Security8021xSetting::secretsFromMap(const QVaria
 
 QVariantMap NetworkManager::Settings::Security8021xSetting::secretsToMap() const
 {
+    Q_D(const Security8021xSetting);
     QVariantMap secrets;
 
     if (!password().isEmpty()) {
@@ -755,7 +771,7 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::secretsToMap() const
         secrets.insert(QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW), passwordRaw());
     }
 
-    if (!privateKeyPassword().isEmpty()) {
+    if (!d->privateKey.password.isEmpty()) {
         secrets.insert(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD), privateKeyPassword());
     }
 
@@ -938,24 +954,22 @@ void NetworkManager::Settings::Security8021xSetting::fromMap(const QVariantMap& 
         setPasswordRawFlags((Setting::SecretFlags)setting.value(QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW_FLAGS)).toUInt());
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY))) {
-        setPrivateKey(setting.value(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY)).toByteArray());
-    }
-
-    if (setting.contains(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD))) {
-        setPrivateKeyPassword(setting.value(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD)).toString());
+    // private key and its password
+    if (setting.contains(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY)) && setting.contains(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD))) {
+        QCA::SecureArray key(setting.value(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY)).toByteArray());
+        QCA::SecureArray password(setting.value(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD)).toString().toLocal8Bit());
+        d->privateKey.key = QCA::PrivateKey::fromDER(key, password);
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD_FLAGS))) {
         setPrivateKeyPasswordFlags((Setting::SecretFlags)setting.value(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD_FLAGS)).toUInt());
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY))) {
-        setPhase2PrivateKey(setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY)).toByteArray());
-    }
-
-    if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD))) {
-        setPhase2PrivateKeyPassword(setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD)).toString());
+    // phase2Private key and its password
+    if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY)) && setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD))) {
+        QCA::SecureArray key(setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY)).toByteArray());
+        QCA::SecureArray password(setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD)).toString().toLocal8Bit());
+        d->phase2PrivateKey.key = QCA::PrivateKey::fromDER(key, password);
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD_FLAGS))) {
@@ -1172,10 +1186,11 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW_FLAGS), (int)passwordRawFlags());
     }
 
-    if (!privateKey().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY), privateKey());
+    if (d->privateKey.scheme == CertKeySchemeBlob) {
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY), d->privateKey.key.toDER().toByteArray());
     }
 
+    // what about private key as path?
     if (!privateKeyPassword().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD), privateKeyPassword());
     }
@@ -1184,10 +1199,11 @@ QVariantMap NetworkManager::Settings::Security8021xSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD_FLAGS), (int)privateKeyPasswordFlags());
     }
 
-    if (!phase2PrivateKey().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY), phase2PrivateKey());
+    if (d->phase2PrivateKey.scheme == CertKeySchemeBlob) {
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY), d->phase2PrivateKey.key.toDER().toByteArray());
     }
 
+    // what about phase2Private key as path?
     if (!phase2PrivateKeyPassword().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD), phase2PrivateKeyPassword());
     }
@@ -1278,11 +1294,29 @@ QDebug NetworkManager::Settings::operator <<(QDebug dbg, const NetworkManager::S
     dbg.nospace() << NM_SETTING_802_1X_PASSWORD_FLAGS << ": " << setting.passwordFlags() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_PASSWORD_RAW << ": " << setting.passwordRaw() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_PASSWORD_RAW_FLAGS << ": " << setting.passwordRawFlags() << '\n';
-    dbg.nospace() << NM_SETTING_802_1X_PRIVATE_KEY << ": " << setting.privateKey() << '\n';
-    dbg.nospace() << NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD << ": " << setting.privateKeyPassword() << '\n';
+
+    switch (setting.privateKeyScheme()) {
+        case NetworkManager::Settings::Security8021xSetting::CertKeySchemeNone:
+            dbg.nospace() << NM_SETTING_802_1X_PRIVATE_KEY << ": " << "NONE";
+            break;
+        case NetworkManager::Settings::Security8021xSetting::CertKeySchemeBlob:
+            dbg.nospace() << NM_SETTING_802_1X_PRIVATE_KEY << ": " << setting.privateKeyBlob() << '\n';
+            dbg.nospace() << NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD << ": " << setting.privateKeyPassword() << '\n';
+            break;
+    };
+
     dbg.nospace() << NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD_FLAGS << ": " << setting.privateKeyPasswordFlags() << '\n';
-    dbg.nospace() << NM_SETTING_802_1X_PHASE2_PRIVATE_KEY << ": " << setting.phase2PrivateKey() << '\n';
-    dbg.nospace() << NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD << ": " << setting.phase2PrivateKeyPassword() << '\n';
+
+    switch (setting.phase2PrivateKeyScheme()) {
+        case NetworkManager::Settings::Security8021xSetting::CertKeySchemeNone:
+            dbg.nospace() << NM_SETTING_802_1X_PHASE2_PRIVATE_KEY << ": " << "NONE";
+            break;
+        case NetworkManager::Settings::Security8021xSetting::CertKeySchemeBlob:
+            dbg.nospace() << NM_SETTING_802_1X_PHASE2_PRIVATE_KEY << ": " << setting.phase2PrivateKeyBlob() << '\n';
+            dbg.nospace() << NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD << ": " << setting.phase2PrivateKeyPassword() << '\n';
+            break;
+    };
+
     dbg.nospace() << NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD_FLAGS << ": " << setting.phase2PrivateKeyPasswordFlags() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_PIN << ": " << setting.pin() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_PIN_FLAGS << ": " << setting.pinFlags() << '\n';
