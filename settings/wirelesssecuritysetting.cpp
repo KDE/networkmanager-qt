@@ -689,7 +689,8 @@ QVariantMap NetworkManager::WirelessSecuritySetting::toMap() const
 
 QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WirelessSecuritySetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
+    dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
+    dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
     dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_KEY_MGMT << ": " << setting.keyMgmt() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_WEP_TX_KEYIDX << ": " << setting.wepTxKeyindex() << '\n';

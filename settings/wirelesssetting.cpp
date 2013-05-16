@@ -413,7 +413,8 @@ QVariantMap NetworkManager::WirelessSetting::toMap() const
 
 QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WirelessSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
+    dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
+    dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
     dbg.nospace() << NM_SETTING_WIRELESS_SSID << ": " << setting.ssid() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_MODE << ": " << setting.mode() << '\n';

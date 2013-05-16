@@ -496,7 +496,8 @@ QVariantMap NetworkManager::PppSetting::toMap() const
 
 QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::PppSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
+    dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
+    dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
     dbg.nospace() << NM_SETTING_PPP_NOAUTH << ": " << setting.noAuth() << '\n';
     dbg.nospace() << NM_SETTING_PPP_REFUSE_EAP << ": " << setting.refuseEap() << '\n';

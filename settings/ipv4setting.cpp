@@ -462,7 +462,8 @@ QVariantMap NetworkManager::Ipv4Setting::toMap() const
 
 QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv4Setting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
+    dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
+    dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
     dbg.nospace() << NM_SETTING_IP4_CONFIG_METHOD << ": " << setting.method() << '\n';
     dbg.nospace() << NM_SETTING_IP4_CONFIG_DNS << ":\n";

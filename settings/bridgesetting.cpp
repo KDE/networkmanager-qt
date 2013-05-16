@@ -231,7 +231,8 @@ QVariantMap NetworkManager::BridgeSetting::toMap() const
 
 QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::BridgeSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
+    dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
+    dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
     dbg.nospace() << NM_SETTING_BRIDGE_INTERFACE_NAME << ": " << setting.interfaceName() << '\n';
     dbg.nospace() << NM_SETTING_BRIDGE_STP << ": " << setting.stp() << '\n';

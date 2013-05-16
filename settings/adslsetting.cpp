@@ -273,8 +273,9 @@ QVariantMap NetworkManager::AdslSetting::toMap() const
 
 QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::AdslSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
-
+    dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
+    dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
+    
     dbg.nospace() << NM_SETTING_ADSL_USERNAME << ": " << setting.username() << '\n';
     dbg.nospace() << NM_SETTING_ADSL_PASSWORD << ": " << setting.password() << '\n';
     dbg.nospace() << NM_SETTING_ADSL_PASSWORD_FLAGS << ": " << setting.passwordFlags() << '\n';

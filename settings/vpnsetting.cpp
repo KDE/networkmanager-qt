@@ -175,7 +175,8 @@ QVariantMap NetworkManager::VpnSetting::toMap() const
 
 QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::VpnSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
+    dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
+    dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
     dbg.nospace() << NM_SETTING_VPN_SERVICE_TYPE << ": " << setting.serviceType() << '\n';
     dbg.nospace() << NM_SETTING_VPN_USER_NAME << ": " << setting.username() << '\n';

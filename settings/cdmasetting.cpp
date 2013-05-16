@@ -189,7 +189,8 @@ QVariantMap NetworkManager::CdmaSetting::toMap() const
 
 QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::CdmaSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
+    dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
+    dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
     dbg.nospace() << NM_SETTING_CDMA_NUMBER << ": " << setting.number() << '\n';
     dbg.nospace() << NM_SETTING_CDMA_USERNAME << ": " << setting.username() << '\n';

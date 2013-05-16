@@ -111,7 +111,8 @@ QVariantMap NetworkManager::WimaxSetting::toMap() const
 
 QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WimaxSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
+    dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
+    dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
     dbg.nospace() << NM_SETTING_WIMAX_NETWORK_NAME << ": " << setting.networkName() << '\n';
     dbg.nospace() << NM_SETTING_WIMAX_MAC_ADDRESS << ": " << setting.macAddress() << '\n';

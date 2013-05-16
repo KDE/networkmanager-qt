@@ -385,7 +385,8 @@ QVariantMap NetworkManager::Ipv6Setting::toMap() const
 
 QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv6Setting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
+    dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
+    dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
     dbg.nospace() << NM_SETTING_IP6_CONFIG_METHOD << ": " << setting.method() << '\n';
     dbg.nospace() << NM_SETTING_IP6_CONFIG_DNS << '\n';

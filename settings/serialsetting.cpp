@@ -196,7 +196,8 @@ QVariantMap NetworkManager::SerialSetting::toMap() const
 
 QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::SerialSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
+    dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
+    dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
     dbg.nospace() << NM_SETTING_SERIAL_BAUD << ": " << setting.baud() << '\n';
     dbg.nospace() << NM_SETTING_SERIAL_BITS << ": " << setting.bits() << '\n';

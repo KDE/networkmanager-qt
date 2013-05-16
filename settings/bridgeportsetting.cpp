@@ -136,7 +136,8 @@ QVariantMap NetworkManager::BridgePortSetting::toMap() const
 
 QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::BridgePortSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
+    dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
+    dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
     dbg.nospace() << NM_SETTING_BRIDGE_PORT_PRIORITY << ": " << setting.priority() << '\n';
     dbg.nospace() << NM_SETTING_BRIDGE_PORT_PATH_COST << ": " << setting.pathCost() << '\n';

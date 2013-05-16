@@ -1049,7 +1049,8 @@ QVariantMap NetworkManager::Security8021xSetting::toMap() const
 
 QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Security8021xSetting &setting)
 {
-    dbg.nospace() << static_cast<NetworkManager::Setting>(setting);
+    dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
+    dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
     dbg.nospace() << NM_SETTING_802_1X_EAP << ": " << setting.eapMethods() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_IDENTITY << ": " << setting.identity() << '\n';
