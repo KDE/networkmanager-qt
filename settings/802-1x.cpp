@@ -110,6 +110,59 @@ NetworkManager::Settings::KeyWrapper::~KeyWrapper()
 {
 }
 
+// WILL use SecureArray here?
+void NetworkManager::Settings::KeyWrapper::loadKey(const QString & path, const QCA::SecureArray& password, NetworkManager::Settings::Security8021xSetting::CertKeyScheme theScheme)
+{
+    // http://projects.gnome.org/NetworkManager/developers/api/09/ref-settings.html#idp8706528
+    // says this can be a PEM or DER encoded file, but QCA only has a method for PEM from a file,
+    // and i don't feel like doing file access in here myself today
+    QCA::ConvertResult result;
+    key = QCA::PrivateKey::fromPEMFile(path, password, &result);
+    if (result == QCA::ConvertGood) {
+        scheme = theScheme;
+        if (theScheme == NetworkManager::Settings::Security8021xSetting::CertKeySchemePath) {
+            fileName = path;
+        } else {
+            fileName = QString();
+        }
+    } else {
+        scheme = NetworkManager::Settings::Security8021xSetting::CertKeySchemeNone;
+        key = QCA::PrivateKey();
+    }
+}
+
+void NetworkManager::Settings::KeyWrapper::setBlob(const QByteArray& certBytes)
+{
+    key = QCA::PrivateKey::fromDER(certBytes);
+    scheme = NetworkManager::Settings::Security8021xSetting::CertKeySchemeBlob;
+    fileName = QString();
+}
+
+void NetworkManager::Settings::KeyWrapper::setPath(const QString& path)
+{
+    key = QCA::PrivateKey();
+    scheme = NetworkManager::Settings::Security8021xSetting::CertKeySchemePath;
+    fileName = path;
+}
+
+QByteArray NetworkManager::Settings::KeyWrapper::blob() const
+{
+    if (scheme == NetworkManager::Settings::Security8021xSetting::CertKeySchemeBlob) {
+        // DER encoded data according to
+        // http://projects.gnome.org/NetworkManager/developers/api/09/ref-settings.html#idp8706528
+        return key.toDER().toByteArray();
+    }
+    return QByteArray();
+}
+
+QString NetworkManager::Settings::KeyWrapper::path() const
+{
+    if (scheme == NetworkManager::Settings::Security8021xSetting::CertKeySchemePath) {
+        return fileName;
+    }
+    return QString();
+}
+
 NetworkManager::Settings::Security8021xSettingPrivate::Security8021xSettingPrivate():
     name(NM_SETTING_802_1X_SETTING_NAME),
     phase1PeapVer(Security8021xSetting::PeapVersionUnknown),

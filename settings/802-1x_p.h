@@ -34,8 +34,15 @@ public:
     KeyWrapper();
     KeyWrapper(const KeyWrapper&);
     ~KeyWrapper();
+    void loadKey(const QString &path, const QCA::SecureArray &password, NetworkManager::Settings::Security8021xSetting::CertKeyScheme scheme);
+    void setBlob(const QByteArray& cert);
+    void setPath(const QString& path);
+    QByteArray blob() const;
+    QString path() const;
+
     NetworkManager::Settings::Security8021xSetting::CertKeyScheme scheme;
     QCA::PrivateKey key;
+    QCA::SecureArray password;
     // QCA does not store this in Key
     QString fileName;
 };
