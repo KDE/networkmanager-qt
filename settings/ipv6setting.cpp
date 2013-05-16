@@ -291,7 +291,7 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap& setting)
 
         setAddresses(addresses);
     }
-    
+
     if (setting.contains(QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES))) {
         QList<IpV6DBusRoute> temp;
         if (setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES)).canConvert<QDBusArgument>()) {
@@ -367,10 +367,15 @@ QVariantMap NetworkManager::Ipv6Setting::toMap() const
 
     if (!dns().isEmpty()) {
         QList<QByteArray> dbusDns;
-        foreach(const QHostAddress & dns, dns()) {
-            dbusDns << dns.toString().toUtf8();
-        }
+        foreach (const QHostAddress &dns, dns()) {
+            Q_IPV6ADDR dnsAddress = dns.toIPv6Address();
+            QByteArray assembledDnsAddress;
+            for (int i = 0; i <16; i++) {
+              assembledDnsAddress[i] = dnsAddress[i];
+            }
 
+            dbusDns << assembledDnsAddress;
+        }
         setting.insert(QLatin1String(NM_SETTING_IP6_CONFIG_DNS), QVariant::fromValue(dbusDns));
     }
 
@@ -379,14 +384,24 @@ QVariantMap NetworkManager::Ipv6Setting::toMap() const
     }
 
     if (!addresses().isEmpty()) {
-        IpV6DBusAddressList dbusAddresses;
-
-        foreach(const NetworkManager::IpAddress & addr, addresses()) {
+        QList<IpV6DBusAddress> dbusAddresses;
+        foreach (const NetworkManager::IpAddress &addr, addresses()) {
             IpV6DBusAddress dbusAddress;
-            dbusAddress.address = addr.ip().toString().toUtf8();
-            dbusAddress.prefix = addr.prefixLength();
-            dbusAddress.gateway = addr.gateway().toString().toUtf8();
+            Q_IPV6ADDR address = addr.ip().toIPv6Address();
+            QByteArray assembledAddress;
+            for (int i = 0; i < 16; i++) {
+                assembledAddress[i] = address[i];
+            }
 
+            Q_IPV6ADDR gateway = addr.gateway().toIPv6Address();
+            QByteArray assembledGateway;
+            for (int i = 0; i < 16; i++) {
+                assembledGateway[i] = gateway[i];
+            }
+
+            dbusAddress.address = assembledAddress;
+            dbusAddress.prefix = addr.prefixLength();
+            dbusAddress.gateway = assembledGateway;
             dbusAddresses << dbusAddress;
         }
 
@@ -394,15 +409,25 @@ QVariantMap NetworkManager::Ipv6Setting::toMap() const
     }
 
     if (!routes().isEmpty()) {
-        IpV6DBusRouteList dbusRoutes;
-
+        QList<IpV6DBusRoute> dbusRoutes;
         foreach (const NetworkManager::IpRoute &route, routes()) {
             IpV6DBusRoute dbusRoute;
-            dbusRoute.destination = route.ip().toString().toUtf8();
-            dbusRoute.prefix = route.prefixLength();
-            dbusRoute.nexthop = route.nextHop().toString().toUtf8();
-            dbusRoute.metric = route.metric();
+            Q_IPV6ADDR Route = route.ip().toIPv6Address();
+            QByteArray assembledRoute;
+            for (int i = 0; i < 16; i++) {
+                assembledRoute[i] = Route[i];
+            }
 
+            Q_IPV6ADDR nextHop = route.nextHop().toIPv6Address();
+            QByteArray assembledNextHop;
+            for (int i = 0; i < 16; i++) {
+                assembledNextHop[i] = nextHop[i];
+            }
+
+            dbusRoute.destination = assembledRoute;
+            dbusRoute.prefix = route.prefixLength();
+            dbusRoute.nexthop = assembledNextHop;
+            dbusRoute.metric = route.metric();
             dbusRoutes << dbusRoute;
         }
 
