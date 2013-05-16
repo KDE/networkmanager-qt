@@ -231,12 +231,21 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_IP6_CONFIG_DNS))) {
-        IpV6DBusNameservers dnsArg = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_DNS)).value<IpV6DBusNameservers>();
         QList<QHostAddress> dbusDns;
+        QList<QByteArray> temp;
+        if (setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_DNS)).canConvert<QDBusArgument>()) {
+            QDBusArgument dnsArg = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_DNS)).value< QDBusArgument>();
+            temp = qdbus_cast<QList<QByteArray> >(dnsArg);
+        } else {
+            temp = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_DNS)).value<QList<QByteArray> >();
+        }
 
-        foreach(const QByteArray & dns, dnsArg) {
-            QHostAddress tmpHost;
-            tmpHost.setAddress(QString(dns));
+        foreach(const QByteArray &utmp, temp) {
+            Q_IPV6ADDR tmp;
+            for (int i = 0; i < 16; i++) {
+                tmp[i] = utmp[i];
+            }
+            QHostAddress tmpHost(tmp);
             dbusDns << tmpHost;
         }
 
@@ -248,34 +257,74 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES))) {
-        IpV6DBusAddressList addressArg = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES)).value<IpV6DBusAddressList>();
-        QList<NetworkManager::IpAddress> addresses;
+        QList<IpV6DBusAddress> temp;
+        if (setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_DNS)).canConvert<QDBusArgument>()) {
+            QDBusArgument addressArg = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES)).value< QDBusArgument>();
+            temp = qdbus_cast<QList<IpV6DBusAddress> >(addressArg);
+      } else {
+          temp = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES)).value<QList<IpV6DBusAddress> >();
+      }
+      QList<NetworkManager::IpAddress> addresses;
 
-        foreach(const IpV6DBusAddress & address, addressArg) {
-            NetworkManager::IpAddress addressEntry;
-            addressEntry.setIp(QHostAddress(QString(address.address)));
-            addressEntry.setPrefixLength(address.prefix);
-            addressEntry.setGateway(QHostAddress(QString(address.gateway)));
+      foreach(const IpV6DBusAddress &addressMap, temp) {
+            if (addressMap.address.isEmpty() || !addressMap.prefix || addressMap.gateway.isEmpty()) {
+                continue;
+            }
+            Q_IPV6ADDR ip, gateway;
+            for (int i = 0; i < 16; i++) {
+                ip[i] = addressMap.address[i];
+            }
+            for (int i = 0; i < 16; i++) {
+                gateway[i] = addressMap.gateway[i];
+            }
 
-            addresses << addressEntry;
+            NetworkManager::IpAddress address;
+            address.setIp(QHostAddress(ip));
+            address.setPrefixLength(addressMap.prefix);
+            address.setGateway(QHostAddress(gateway));
+            if (!address.isValid()) {
+                continue;
+            }
+
+            addresses << address;
         }
 
         setAddresses(addresses);
     }
-
+    
     if (setting.contains(QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES))) {
-        IpV6DBusRouteList routeArg = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES)).value<IpV6DBusRouteList>();
+        QList<IpV6DBusRoute> temp;
+        if (setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES)).canConvert<QDBusArgument>()) {
+            QDBusArgument routeArg = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES)).value< QDBusArgument>();
+            temp = qdbus_cast<QList<IpV6DBusRoute> >(routeArg);
+        } else {
+            temp = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES)).value<QList<IpV6DBusRoute> >();
+        }
         QList<NetworkManager::IpRoute> routes;
 
-        foreach(const IpV6DBusRoute & dbusRoute, routeArg) {
+        foreach(const IpV6DBusRoute &routeMap, temp) {
+            if (routeMap.destination.isEmpty() || !routeMap.prefix || routeMap.nexthop.isEmpty() || !routeMap.metric) {
+                continue;
+            }
+            Q_IPV6ADDR addr, nexthop;
+            for (int i = 0; i < 16; i++) {
+                addr[i] = routeMap.destination[i];
+            }
+            for (int i = 0; i < 16; i++) {
+                nexthop[i] = routeMap.nexthop[i];
+            }
+
             NetworkManager::IpRoute route;
-            route.setIp(QHostAddress(QString(dbusRoute.destination)));
-            route.setPrefixLength(dbusRoute.prefix);
-            route.setNextHop(QHostAddress(QString(dbusRoute.nexthop)));
-            route.setMetric(dbusRoute.metric);
+            route.setIp(QHostAddress(addr));
+            route.setPrefixLength(routeMap.prefix);
+            route.setNextHop(QHostAddress(nexthop));
+            route.setMetric(routeMap.metric);
+            if (!route.isValid()) {
+                continue;
+            }
+
             routes << route;
         }
-
         setRoutes(routes);
     }
 
