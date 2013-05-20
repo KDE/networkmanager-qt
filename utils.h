@@ -26,6 +26,8 @@
 #include <QHostAddress>
 
 #include "NetworkManagerQt-export.h"
+#include "wirelessdevice.h"
+#include "settings/wirelesssecuritysetting.h"
 
 namespace NetworkManager
 {
@@ -33,6 +35,8 @@ namespace NetworkManager
 class NMQT_EXPORT Utils
 {
 public:
+    enum Type { Unknown = -1, None, StaticWep, DynamicWep, Leap, WpaPsk, WpaEap, Wpa2Psk, Wpa2Eap };
+
     /**
      * @return QHostAddress representation of an ipv6 address
      * @param address byte array containing the binary representation of the address
@@ -63,6 +67,13 @@ public:
      */
     static int findChannel(int freq);
 
+    static bool deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities, NetworkManager::AccessPoint::WpaFlags ciphers, Utils::Type type);
+
+    static bool securityIsValid(Utils::Type type, NetworkManager::WirelessDevice::Capabilities, bool haveAp, bool adHoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn);
+
+    static bool wepKeyIsValid(const QString & key, NetworkManager::WirelessSecuritySetting::WepKeyType type);
+
+    static bool wpaPskIsValid(const QString & psk);
 private:
     static QList<QPair<int, int> > getBFreqs();
     static QList<QPair<int, int> > getAFreqs();
