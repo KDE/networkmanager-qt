@@ -19,6 +19,7 @@ set(NetworkManagerQt_CAMEL_HEADERS
     OlpcMeshDevice
     SecretAgent
     Settings
+    Utils
     VlanDevice
     VpnConnection
     VpnPlugin

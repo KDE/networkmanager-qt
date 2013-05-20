@@ -63,6 +63,7 @@ set(NetworkManagerQt_HEADERS
     olpcmeshdevice.h
     secretagent.h
     settings.h
+    utils.h
     vlandevice.h
     vpnconnection.h
     vpnplugin.h
@@ -102,6 +103,7 @@ set(NetworkManagerQt_PART_SRCS
     olpcmeshdevice.cpp
     secretagent.cpp
     settings.cpp
+    utils.cpp
     vlandevice.cpp
     vpnconnection.cpp
     vpnplugin.cpp
