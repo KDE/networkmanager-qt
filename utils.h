@@ -35,7 +35,7 @@ namespace NetworkManager
 class NMQT_EXPORT Utils
 {
 public:
-    enum Type { Unknown = -1, None, StaticWep, DynamicWep, Leap, WpaPsk, WpaEap, Wpa2Psk, Wpa2Eap };
+    enum WirelessSecurityType { Unknown = -1, None, StaticWep, DynamicWep, Leap, WpaPsk, WpaEap, Wpa2Psk, Wpa2Eap };
 
     /**
      * @return QHostAddress representation of an ipv6 address
@@ -67,9 +67,11 @@ public:
      */
     static int findChannel(int freq);
 
-    static bool deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities, NetworkManager::AccessPoint::WpaFlags ciphers, Utils::Type type);
+    static bool deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities, NetworkManager::AccessPoint::WpaFlags ciphers, Utils::WirelessSecurityType type);
 
-    static bool securityIsValid(Utils::Type type, NetworkManager::WirelessDevice::Capabilities, bool haveAp, bool adHoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn);
+    static bool securityIsValid(Utils::WirelessSecurityType type, NetworkManager::WirelessDevice::Capabilities interfaceCaps, bool haveAp, bool adHoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn);
+
+    static Utils::WirelessSecurityType findBestWirelessSecurity(NetworkManager::WirelessDevice::Capabilities, bool haveAp, bool adHoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn);
 
     static bool wepKeyIsValid(const QString & key, NetworkManager::WirelessSecuritySetting::WepKeyType type);
 

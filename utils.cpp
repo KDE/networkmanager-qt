@@ -101,7 +101,7 @@ int NetworkManager::Utils::findChannel(int freq)
     return channel;
 }
 
-bool NetworkManager::Utils::deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities interfaceCaps, NetworkManager::AccessPoint::WpaFlags apCiphers, Utils::Type type )
+bool NetworkManager::Utils::deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities interfaceCaps, NetworkManager::AccessPoint::WpaFlags apCiphers, Utils::WirelessSecurityType type )
 {
     bool havePair = false;
     bool haveGroup = true;
@@ -142,7 +142,7 @@ bool NetworkManager::Utils::deviceSupportsApCiphers(NetworkManager::WirelessDevi
 }
 
 // Keep this in sync with NetworkManager/libnm-util/nm-utils.c:nm_utils_security_valid()
-bool NetworkManager::Utils::securityIsValid(Utils::Type type, NetworkManager::WirelessDevice::Capabilities interfaceCaps, bool haveAp, bool adhoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn)
+bool NetworkManager::Utils::securityIsValid(Utils::WirelessSecurityType type, NetworkManager::WirelessDevice::Capabilities interfaceCaps, bool haveAp, bool adhoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn)
 {
     bool good = true;
 
@@ -295,6 +295,24 @@ bool NetworkManager::Utils::securityIsValid(Utils::Type type, NetworkManager::Wi
     }
 
     return good;
+}
+
+NetworkManager::Utils::WirelessSecurityType NetworkManager::Utils::findBestWirelessSecurity(NetworkManager::WirelessDevice::Capabilities interfaceCaps, bool haveAp, bool adHoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn)
+{
+    QList<NetworkManager::Utils::WirelessSecurityType> types;
+
+    // The ordering of this list is a pragmatic combination of security level and popularity.
+    // Therefore static WEP is before LEAP and Dynamic WEP because there is no way to detect
+    // if an AP is capable of Dynamic WEP and showing Dynamic WEP first would confuse
+    // Static WEP users.
+    types << NetworkManager::Utils::Wpa2Eap << NetworkManager::Utils::Wpa2Psk << NetworkManager::Utils::WpaEap << NetworkManager::Utils::WpaPsk << NetworkManager::Utils::StaticWep << NetworkManager::Utils::DynamicWep << NetworkManager::Utils::Leap << NetworkManager::Utils::None;
+
+    foreach (NetworkManager::Utils::WirelessSecurityType type, types) {
+        if (NetworkManager::Utils::securityIsValid(type, interfaceCaps, haveAp, adHoc, apCaps, apWpa, apRsn)) {
+            return type;
+        }
+    }
+    return NetworkManager::Utils::Unknown;
 }
 
 bool NetworkManager::Utils::wepKeyIsValid(const QString& key, NetworkManager::WirelessSecuritySetting::WepKeyType type)
