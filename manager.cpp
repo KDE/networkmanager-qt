@@ -56,9 +56,6 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate() : watcher(DBUS_SE
 {
     connect(&watcher, SIGNAL(serviceRegistered(QString)), SLOT(daemonRegistered()));
     connect(&watcher, SIGNAL(serviceUnregistered(QString)), SLOT(daemonUnregistered()));
-    connect(&iface, SIGNAL(DeviceAdded(QDBusObjectPath)), SLOT(onDeviceAdded(QDBusObjectPath)));
-    connect(&iface, SIGNAL(DeviceRemoved(QDBusObjectPath)), SLOT(onDeviceRemoved(QDBusObjectPath)));
-    connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), SLOT(propertiesChanged(QVariantMap)));
 
     init();
 }
@@ -80,19 +77,47 @@ void NetworkManager::NetworkManagerPrivate::parseVersion(const QString & version
 
 void NetworkManager::NetworkManagerPrivate::init()
 {
+    connect(&iface, SIGNAL(DeviceAdded(QDBusObjectPath)), SLOT(onDeviceAdded(QDBusObjectPath)), Qt::UniqueConnection);
+    connect(&iface, SIGNAL(DeviceRemoved(QDBusObjectPath)), SLOT(onDeviceRemoved(QDBusObjectPath)), Qt::UniqueConnection);
+    connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), SLOT(propertiesChanged(QVariantMap)), Qt::UniqueConnection);
+
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
     qDBusRegisterMetaType<DeviceDBusStateReason>();
     qDBusRegisterMetaType<NMStringMap>();
-    nmState = iface.state();
+    if (nmState != iface.state()) {
+        nmState = iface.state();
+        emit statusChanged(convertNMState(nmState));
+    }
     m_version = iface.version();
     parseVersion(m_version);
-    m_isWirelessHardwareEnabled = iface.wirelessHardwareEnabled();
-    m_isWirelessEnabled = iface.wirelessEnabled();
-    m_isWwanEnabled = iface.wwanEnabled();
-    m_isWwanHardwareEnabled = iface.wwanHardwareEnabled();
-    m_isWimaxEnabled = iface.wimaxEnabled();
-    m_isWimaxHardwareEnabled = iface.wimaxHardwareEnabled();
-    m_isNetworkingEnabled = iface.networkingEnabled();
+    if (m_isWirelessHardwareEnabled != iface.wirelessHardwareEnabled()) {
+        m_isWirelessHardwareEnabled = iface.wirelessHardwareEnabled();
+        emit wirelessHardwareEnabledChanged(m_isWirelessHardwareEnabled);
+    }
+    if (m_isWirelessEnabled != iface.wirelessEnabled()) {
+        m_isWirelessEnabled = iface.wirelessEnabled();
+        emit wirelessEnabledChanged(m_isWirelessEnabled);
+    }
+    if (m_isWwanHardwareEnabled != iface.wwanHardwareEnabled()) {
+        m_isWwanHardwareEnabled = iface.wwanHardwareEnabled();
+        emit wwanHardwareEnabledChanged(m_isWwanHardwareEnabled);
+    }
+    if (m_isWwanEnabled != iface.wwanEnabled()) {
+        m_isWwanEnabled = iface.wwanEnabled();
+        emit wwanEnabledChanged(m_isWwanEnabled);
+    }
+    if (m_isWimaxEnabled != iface.wimaxEnabled()) {
+        m_isWimaxEnabled = iface.wimaxEnabled();
+        emit wimaxEnabledChanged(m_isWimaxEnabled);
+    }
+    if (m_isWimaxHardwareEnabled != iface.wimaxHardwareEnabled()) {
+        m_isWimaxHardwareEnabled = iface.wimaxHardwareEnabled();
+        emit wimaxHardwareEnabledChanged(m_isWimaxHardwareEnabled);
+    }
+    if (m_isNetworkingEnabled != iface.networkingEnabled()) {
+        m_isNetworkingEnabled = iface.networkingEnabled();
+        emit networkingEnabledChanged(m_isNetworkingEnabled);
+    }
 
     qobject_cast<SettingsPrivate*>(settingsNotifier())->init();
 
@@ -112,6 +137,7 @@ void NetworkManager::NetworkManagerPrivate::init()
             QList <QDBusObjectPath> devices = deviceList.value();
             foreach (const QDBusObjectPath &op, devices) {
                 networkInterfaceMap.insert(op.path(), Device::Ptr());
+                emit deviceAdded(op.path());
                 nmDebug() << "  " << op.path();
             }
         } else {

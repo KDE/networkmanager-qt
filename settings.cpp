@@ -35,9 +35,6 @@ NM_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
 NetworkManager::SettingsPrivate::SettingsPrivate()
     : iface(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, QDBusConnection::systemBus())
 {
-    connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), this, SLOT(propertiesChanged(QVariantMap)));
-    connect(&iface, SIGNAL(NewConnection(QDBusObjectPath)), this, SLOT(onConnectionAdded(QDBusObjectPath)));
-
     init();
     // This class is a friend of NetworkManagerPrivate thus initted there too
     // because of the init chain we must follow,
@@ -50,6 +47,9 @@ NetworkManager::SettingsPrivate::SettingsPrivate()
 
 void NetworkManager::SettingsPrivate::init()
 {
+    connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), this, SLOT(propertiesChanged(QVariantMap)));
+    connect(&iface, SIGNAL(NewConnection(QDBusObjectPath)), this, SLOT(onConnectionAdded(QDBusObjectPath)));
+
     QDBusPendingReply<QList<QDBusObjectPath> > reply = iface.ListConnections();
     reply.waitForFinished();
     nmDebug() << "New Connections list";
@@ -57,12 +57,19 @@ void NetworkManager::SettingsPrivate::init()
         foreach (const QDBusObjectPath &connection, reply.value()) {
             if (!connections.contains(connection.path())) {
                 connections.insert(connection.path(), Connection::Ptr());
+                emit connectionAdded(connection.path());
                 nmDebug() << " " << connection.path();
             }
         }
     }
-    m_canModify = iface.canModify();
-    m_hostname = iface.hostname();
+    if (m_canModify != iface.canModify()) {
+        m_canModify = iface.canModify();
+        emit canModifyChanged(m_canModify);
+    }
+    if (m_hostname != iface.hostname()) {
+        m_hostname = iface.hostname();
+        emit hostnameChanged(m_hostname);
+    }
 }
 
 NetworkManager::Connection::List NetworkManager::SettingsPrivate::listConnections()
