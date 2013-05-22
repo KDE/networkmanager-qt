@@ -317,13 +317,11 @@ NetworkManager::Utils::WirelessSecurityType NetworkManager::Utils::findBestWirel
 
 bool NetworkManager::Utils::wepKeyIsValid(const QString& key, NetworkManager::WirelessSecuritySetting::WepKeyType type)
 {
-    int keylen;
-
     if (key.isEmpty()) {
         return false;
     }
 
-    keylen = key.length();
+    const int keylen = key.length();
 
     if (type != WirelessSecuritySetting::NotSpecified) {
         if (type == WirelessSecuritySetting::Hex) {
@@ -358,13 +356,11 @@ bool NetworkManager::Utils::wepKeyIsValid(const QString& key, NetworkManager::Wi
 
 bool NetworkManager::Utils::wpaPskIsValid(const QString& psk)
 {
-    int psklen;
-
     if (psk.isEmpty()) {
-        return 0;
+        return false;
     }
 
-    psklen = psk.length();
+    const int psklen = psk.length();
 
     if (psklen < 8 || psklen > 64) {
         return false;
