@@ -69,6 +69,18 @@ QByteArray NetworkManager::Utils::macAddressFromString( const QString & s)
     return ba;
 }
 
+bool NetworkManager::Utils::macAddressIsValid(const QString& macAddress)
+{
+    QRegExp macAddressCheck = QRegExp("([a-fA-F0-9][a-fA-F0-9]:){5}[0-9a-fA-F][0-9a-fA-F]");
+
+    return macAddress.contains(macAddressCheck);
+}
+
+bool NetworkManager::Utils::macAddressIsValid(const QByteArray& macAddress)
+{
+    return macAddressIsValid(macAddressAsString(macAddress));
+}
+
 int NetworkManager::Utils::findChannel(int freq)
 {
     int channel;

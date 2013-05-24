@@ -59,8 +59,11 @@ public:
      * @return binary repesentation of a mac address.
      * @param s string representation of the address
      */
-    static QByteArray macAddressFromString( const QString & s);
+    static QByteArray macAddressFromString(const QString & s);
 
+    static bool macAddressIsValid(const QString & macAddress);
+    static bool macAddressIsValid(const QByteArray & macAddress);
+    
     /**
      * @param freq frequency of a wireless network
      * @return The frequency channel.
