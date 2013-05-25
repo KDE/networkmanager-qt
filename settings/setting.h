@@ -69,7 +69,7 @@ public:
      * to set the secrets from a map of strings.
      * @param map to extract secrets from
      */
-    void secretsFromStringMap(const NMStringMap &map);
+    virtual void secretsFromStringMap(const NMStringMap &map);
 
     virtual QVariantMap secretsToMap() const;
 
@@ -78,7 +78,7 @@ public:
      * to get the secrets to map of strings.
      * @return string map with current secrets
      */
-    NMStringMap secretsToStringMap() const;
+    virtual NMStringMap secretsToStringMap() const;
 
     virtual QStringList needSecrets(bool requestNew = false) const;
 

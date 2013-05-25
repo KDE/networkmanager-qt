@@ -57,6 +57,9 @@ public:
     void secretsFromMap(const QVariantMap & secrets);
     QVariantMap secretsToMap() const;
 
+    void secretsFromStringMap(const NMStringMap &map);
+    NMStringMap secretsToStringMap() const;
+
     void fromMap(const QVariantMap & setting);
 
     QVariantMap toMap() const;

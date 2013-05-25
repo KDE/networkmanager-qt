@@ -170,6 +170,34 @@ QVariantMap NetworkManager::VpnSetting::toMap() const
     return setting;
 }
 
+void NetworkManager::VpnSetting::secretsFromStringMap(const NMStringMap& map)
+{
+    if (map.contains(QLatin1String(NM_SETTING_VPN_SECRETS))) {
+        QStringList list = map.value(QLatin1String(NM_SETTING_VPN_SECRETS)).split("?SEP?");
+        NMStringMap map;
+        if (list.count() % 2 == 0) {
+            for (int i = 0; i < list.count(); i += 2 ) {
+                map.insert(list[i], list[i+1]);
+            }
+        }
+        setSecrets(map);
+    }
+}
+
+NMStringMap NetworkManager::VpnSetting::secretsToStringMap() const
+{
+    NMStringMap ret;
+    QStringList list;
+    QMap<QString,QString>::ConstIterator i = secrets().constBegin();
+    while (i != secrets().constEnd()) {
+        list << i.key() << i.value();
+        ++i;
+    }
+
+    ret.insert(QLatin1String(NM_SETTING_VPN_SECRETS), list.join("?SEP?"));
+    return ret;
+}
+
 QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::VpnSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
