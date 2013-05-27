@@ -79,7 +79,7 @@ public:
     static bool wepKeyIsValid(const QString & key, NetworkManager::WirelessSecuritySetting::WepKeyType type);
 
     static bool wpaPskIsValid(const QString & psk);
-private:
+
     static QList<QPair<int, int> > getBFreqs();
     static QList<QPair<int, int> > getAFreqs();
 };

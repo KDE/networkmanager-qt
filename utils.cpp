@@ -416,14 +416,6 @@ QList<QPair<int, int> > NetworkManager::Utils::getAFreqs()
 {
     QList<QPair<int, int> > freqs;
 
-    freqs.append(QPair<int, int>(183, 4915));
-    freqs.append(QPair<int, int>(184, 4920));
-    freqs.append(QPair<int, int>(185, 4925));
-    freqs.append(QPair<int, int>(187, 4935));
-    freqs.append(QPair<int, int>(188, 4940));
-    freqs.append(QPair<int, int>(189, 4945));
-    freqs.append(QPair<int, int>(192, 4960));
-    freqs.append(QPair<int, int>(196, 4980));
     freqs.append(QPair<int, int>(7, 5035));
     freqs.append(QPair<int, int>(8, 5040));
     freqs.append(QPair<int, int>(9, 5045));
@@ -458,6 +450,14 @@ QList<QPair<int, int> > NetworkManager::Utils::getAFreqs()
     freqs.append(QPair<int, int>(157, 5785));
     freqs.append(QPair<int, int>(161, 5805));
     freqs.append(QPair<int, int>(165, 5825));
+    freqs.append(QPair<int, int>(183, 4915));
+    freqs.append(QPair<int, int>(184, 4920));
+    freqs.append(QPair<int, int>(185, 4925));
+    freqs.append(QPair<int, int>(187, 4935));
+    freqs.append(QPair<int, int>(188, 4940));
+    freqs.append(QPair<int, int>(189, 4945));
+    freqs.append(QPair<int, int>(192, 4960));
+    freqs.append(QPair<int, int>(196, 4980));
 
     return freqs;
 }
