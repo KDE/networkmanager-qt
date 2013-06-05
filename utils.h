@@ -28,6 +28,7 @@
 #include "NetworkManagerQt-export.h"
 #include "wirelessdevice.h"
 #include "settings/wirelesssecuritysetting.h"
+#include "settings/wirelesssetting.h"
 
 namespace NetworkManager
 {
@@ -63,12 +64,14 @@ public:
 
     static bool macAddressIsValid(const QString & macAddress);
     static bool macAddressIsValid(const QByteArray & macAddress);
-    
+
     /**
      * @param freq frequency of a wireless network
      * @return The frequency channel.
      */
     static int findChannel(int freq);
+
+    static NetworkManager::WirelessSetting::FrequencyBand findFrequencyBand(int freq);
 
     static bool deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities, NetworkManager::AccessPoint::WpaFlags ciphers, Utils::WirelessSecurityType type);
 

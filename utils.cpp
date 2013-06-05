@@ -113,6 +113,15 @@ int NetworkManager::Utils::findChannel(int freq)
     return channel;
 }
 
+NetworkManager::WirelessSetting::FrequencyBand NetworkManager::Utils::findFrequencyBand(int freq)
+{
+    if (freq < 2500) {
+        return WirelessSetting::Bg;
+    }
+
+    return WirelessSetting::A;
+}
+
 bool NetworkManager::Utils::deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities interfaceCaps, NetworkManager::AccessPoint::WpaFlags apCiphers, Utils::WirelessSecurityType type )
 {
     bool havePair = false;
