@@ -21,13 +21,16 @@
 #include "ipv6setting.h"
 
 #include "generic-types.h"
-// #include "ipv6config.h"
+#include "utils.h"
 #include "../settings/ipv6setting.h"
 
 #include <arpa/inet.h>
 #include <nm-setting-ip6-config.h>
 
+#include <QHostAddress>
 #include <QTest>
+
+using namespace NetworkManager;
 
 //TODO: Test DNS,IPv6Addresses and IPv6Routes
 void IPv6Setting::testSetting_data()
@@ -48,21 +51,21 @@ void IPv6Setting::testSetting_data()
     dnsSearch << "foo.bar";
 
     IpV6DBusNameservers dns;
-    QByteArray dnsAddr1("2607:f0d0:1002:0051:0000:0000:0000:0004");
+    QByteArray dnsAddr1 = Utils::ipv6AddressFromHostAddress(QHostAddress("2607:f0d0:1002:0051:0000:0000:0000:0004"));
     dns << dnsAddr1;
 
     IpV6DBusAddressList addresses;
     IpV6DBusAddress address;
-    address.address = QByteArray("2001:0db8:0000:0000:0000::1428:57ab");
+    address.address = Utils::ipv6AddressFromHostAddress(QHostAddress("2001:0db8:0000:0000:0000::1428:57ab"));
     address.prefix = 64;
-    address.gateway = QByteArray("2001:0db8:0:f101::1");
+    address.gateway = Utils::ipv6AddressFromHostAddress(QHostAddress("2001:0db8:0:f101::1"));
     addresses << address;
 
     IpV6DBusRouteList routes;
     IpV6DBusRoute route;
-    route.destination = QByteArray("2001:0db8:0000:0000:0000::1428:57ab");
+    route.destination = Utils::ipv6AddressFromHostAddress(QHostAddress("2001:0db8:0000:0000:0000::1428:57ab"));
     route.prefix = 48;
-    route.nexthop = QByteArray("2001:638:500:101:2e0:81ff:fe24:37c6");
+    route.nexthop = Utils::ipv6AddressFromHostAddress(QHostAddress("2001:638:500:101:2e0:81ff:fe24:37c6"));
     route.metric = 1024;
     routes << route;
 
@@ -125,8 +128,10 @@ void IPv6Setting::testSetting()
     IpV6DBusNameservers nameServers2 = map1.value(QLatin1String(NM_SETTING_IP6_CONFIG_DNS)).value<IpV6DBusNameservers>();
 
     for (int i = 0; i < nameServers1.size(); i++) {
-        QHostAddress dnsAddr1(QString(nameServers1.at(i)));
-        QHostAddress dnsAddr2(QString(nameServers2.at(i)));
+        QHostAddress dnsAddr1 = Utils::ipv6AddressAsHostAddress(nameServers1.at(i));
+        QHostAddress dnsAddr2 = Utils::ipv6AddressAsHostAddress(nameServers2.at(i));
+        QCOMPARE(dnsAddr1.protocol(), QAbstractSocket::IPv6Protocol);
+        QCOMPARE(dnsAddr2.protocol(), QAbstractSocket::IPv6Protocol);
         QCOMPARE(dnsAddr1, dnsAddr2);
     }
 
