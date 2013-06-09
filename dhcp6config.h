@@ -33,7 +33,7 @@ namespace NetworkManager
 {
 class Dhcp6ConfigPrivate;
 
-class NMQT_EXPORT Dhcp6Config: public QObject
+class NETWORKMANAGERQT_EXPORT Dhcp6Config: public QObject
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(Dhcp6Config)

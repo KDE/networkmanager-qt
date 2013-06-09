@@ -35,7 +35,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 namespace NetworkManager
 {
 
-class NMQT_EXPORT SettingsNotifier : public QObject
+class NETWORKMANAGERQT_EXPORT SettingsNotifier : public QObject
 {
     Q_OBJECT
 Q_SIGNALS:
@@ -66,42 +66,42 @@ Q_SIGNALS:
 /**
  * Retrieves the list of connections.
  */
-NMQT_EXPORT NetworkManager::Connection::List listConnections();
+NETWORKMANAGERQT_EXPORT NetworkManager::Connection::List listConnections();
 
 /**
  * Retrieves the connection for the given path, returns null if not found
  */
-NMQT_EXPORT NetworkManager::Connection::Ptr findConnection(const QString &path);
+NETWORKMANAGERQT_EXPORT NetworkManager::Connection::Ptr findConnection(const QString &path);
 
 /**
  * Adds the connection with the given settings, returns the id for tracking
  */
-NMQT_EXPORT QString addConnection(const NMVariantMapMap &settings);
+NETWORKMANAGERQT_EXPORT QString addConnection(const NMVariantMapMap &settings);
 
 /**
  * Retrieves the connection for the given uuid, returns null if not found
  */
-NMQT_EXPORT NetworkManager::Connection::Ptr findConnectionByUuid(const QString &uuid);
+NETWORKMANAGERQT_EXPORT NetworkManager::Connection::Ptr findConnectionByUuid(const QString &uuid);
 
 /**
  * Configure the following hostname
  */
-NMQT_EXPORT void saveHostname(const QString &hostname);
+NETWORKMANAGERQT_EXPORT void saveHostname(const QString &hostname);
 
 /**
  * Returns if the user can modify the settings
  */
-NMQT_EXPORT bool canModify();
+NETWORKMANAGERQT_EXPORT bool canModify();
 
 /**
  * Returns hostname of the machine
  */
-NMQT_EXPORT QString hostname();
+NETWORKMANAGERQT_EXPORT QString hostname();
 
 /**
  * Notifier object for connecting signals
  */
-NMQT_EXPORT SettingsNotifier* settingsNotifier();
+NETWORKMANAGERQT_EXPORT SettingsNotifier* settingsNotifier();
 }
 
 #endif

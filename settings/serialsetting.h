@@ -30,7 +30,7 @@ namespace NetworkManager
 {
 
 class SerialSettingPrivate;
-class NMQT_EXPORT SerialSetting : public Setting
+class NETWORKMANAGERQT_EXPORT SerialSetting : public Setting
 {
     Q_DECLARE_PRIVATE(SerialSetting)
 public:

@@ -40,7 +40,7 @@ class ActiveConnectionPrivate;
 /**
  * An active connection
  */
-class NMQT_EXPORT ActiveConnection : public QObject
+class NETWORKMANAGERQT_EXPORT ActiveConnection : public QObject
 {
 Q_OBJECT
 Q_DECLARE_PRIVATE(ActiveConnection)

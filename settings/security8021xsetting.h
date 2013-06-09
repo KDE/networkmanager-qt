@@ -28,7 +28,7 @@ namespace NetworkManager
 {
 
 class Security8021xSettingPrivate;
-class NMQT_EXPORT Security8021xSetting : public Setting
+class NETWORKMANAGERQT_EXPORT Security8021xSetting : public Setting
 {
     Q_DECLARE_PRIVATE(Security8021xSetting)
 public:

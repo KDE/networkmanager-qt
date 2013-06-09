@@ -30,7 +30,7 @@ namespace NetworkManager
 {
 
 class OlpcMeshSettingPrivate;
-class NMQT_EXPORT OlpcMeshSetting : public Setting
+class NETWORKMANAGERQT_EXPORT OlpcMeshSetting : public Setting
 {
     Q_DECLARE_PRIVATE(OlpcMeshSetting)
 public:

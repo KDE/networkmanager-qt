@@ -31,7 +31,7 @@ namespace NetworkManager {
 
 class BluetoothDevicePrivate;
 
-class NMQT_EXPORT BluetoothDevice: public ModemDevice
+class NETWORKMANAGERQT_EXPORT BluetoothDevice: public ModemDevice
 {
 Q_OBJECT
 Q_DECLARE_PRIVATE(BluetoothDevice)

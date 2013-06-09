@@ -33,7 +33,7 @@ namespace NetworkManager
 {
 
 class SettingPrivate;
-class NMQT_EXPORT Setting
+class NETWORKMANAGERQT_EXPORT Setting
 {
     Q_DECLARE_PRIVATE(Setting)
 public:

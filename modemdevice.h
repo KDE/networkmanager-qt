@@ -37,7 +37,7 @@ class ModemDevicePrivate;
  * Represents a generic modem device, generally defined by the modemCapabilities() it exposes and at
  * the current point in time by the currentCapabilities().
  */
-class NMQT_EXPORT ModemDevice : public Device
+class NETWORKMANAGERQT_EXPORT ModemDevice : public Device
 {
 Q_OBJECT
 Q_DECLARE_PRIVATE(ModemDevice)

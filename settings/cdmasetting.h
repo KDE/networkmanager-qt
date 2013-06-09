@@ -30,7 +30,7 @@ namespace NetworkManager
 {
 
 class CdmaSettingPrivate;
-class NMQT_EXPORT CdmaSetting : public Setting
+class NETWORKMANAGERQT_EXPORT CdmaSetting : public Setting
 {
     Q_DECLARE_PRIVATE(CdmaSetting)
 public:

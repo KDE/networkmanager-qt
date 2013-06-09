@@ -28,7 +28,7 @@ namespace NetworkManager {
 
 class VlanDevicePrivate;
 
-class NMQT_EXPORT VlanDevice : public Device
+class NETWORKMANAGERQT_EXPORT VlanDevice : public Device
 {
 Q_OBJECT
 Q_DECLARE_PRIVATE(VlanDevice)

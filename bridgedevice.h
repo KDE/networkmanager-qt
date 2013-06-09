@@ -28,7 +28,7 @@ namespace NetworkManager {
 
 class BridgeDevicePrivate;
 
-class NMQT_EXPORT BridgeDevice : public Device
+class NETWORKMANAGERQT_EXPORT BridgeDevice : public Device
 {
 Q_OBJECT
 Q_DECLARE_PRIVATE(BridgeDevice)

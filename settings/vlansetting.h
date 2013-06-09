@@ -30,7 +30,7 @@ namespace NetworkManager
 {
 
 class VlanSettingPrivate;
-class NMQT_EXPORT VlanSetting : public Setting
+class NETWORKMANAGERQT_EXPORT VlanSetting : public Setting
 {
     Q_DECLARE_PRIVATE(VlanSetting)
 public:

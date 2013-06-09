@@ -38,7 +38,7 @@ namespace NetworkManager
 {
 
 class BondSettingPrivate;
-class NMQT_EXPORT BondSetting : public Setting
+class NETWORKMANAGERQT_EXPORT BondSetting : public Setting
 {
     Q_DECLARE_PRIVATE(BondSetting)
 public:

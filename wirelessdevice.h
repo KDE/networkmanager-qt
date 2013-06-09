@@ -39,7 +39,7 @@ class WirelessDevicePrivate;
 /**
  * A wireless network interface
  */
-class NMQT_EXPORT WirelessDevice : public Device
+class NETWORKMANAGERQT_EXPORT WirelessDevice : public Device
 {
 Q_OBJECT
 Q_ENUMS(OperationMode DeviceInterface)

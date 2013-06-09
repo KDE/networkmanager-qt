@@ -36,7 +36,7 @@ namespace NetworkManager
 {
 
 class ConnectionSettingsPrivate;
-class NMQT_EXPORT ConnectionSettings
+class NETWORKMANAGERQT_EXPORT ConnectionSettings
 {
     Q_DECLARE_PRIVATE(ConnectionSettings)
     Q_ENUMS(ConnectionType)

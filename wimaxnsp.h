@@ -32,7 +32,7 @@ namespace NetworkManager {
 
 class WimaxNspPrivate;
 
-class NMQT_EXPORT WimaxNsp : public QObject
+class NETWORKMANAGERQT_EXPORT WimaxNsp : public QObject
 {
 Q_OBJECT
 Q_DECLARE_PRIVATE(WimaxNsp)

@@ -33,7 +33,7 @@ namespace NetworkManager
 {
 class VpnPluginPrivate;
 
-class NMQT_EXPORT VpnPlugin : public QObject
+class NETWORKMANAGERQT_EXPORT VpnPlugin : public QObject
 {
 Q_OBJECT
 Q_DECLARE_PRIVATE(VpnPlugin)

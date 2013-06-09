@@ -36,7 +36,7 @@ class OlpcMeshDevicePrivate;
 /**
  * A OLPC mesh interface
  */
-class NMQT_EXPORT OlpcMeshDevice : public Device
+class NETWORKMANAGERQT_EXPORT OlpcMeshDevice : public Device
 {
 Q_OBJECT
 Q_DECLARE_PRIVATE(OlpcMeshDevice)

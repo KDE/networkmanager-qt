@@ -19,8 +19,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef NMQT_EXPORT_H
-#define NMQT_EXPORT_H
+#ifndef NETWORKMANAGERQT_EXPORT_H
+#define NETWORKMANAGERQT_EXPORT_H
 
 /** \file NetworkManagerQt-export.h
     \brief Contains Macros for exporting symbols
@@ -30,15 +30,15 @@
 
 #include <QtCore/QtGlobal>
 
-#ifndef NMQT_EXPORT
+#ifndef NETWORKMANAGERQT_EXPORT
 # if defined(MAKE_NMQT_LIB)
 /* We are building this library */
-#  define NMQT_EXPORT Q_DECL_EXPORT
+#  define NETWORKMANAGERQT_EXPORT Q_DECL_EXPORT
 # else
 /* We are using this library */
-#  define NMQT_EXPORT Q_DECL_IMPORT
+#  define NETWORKMANAGERQT_EXPORT Q_DECL_IMPORT
 # endif
 #endif
 
-#endif /*NMQT_EXPORT_H*/
+#endif /*NETWORKMANAGERQT_EXPORT_H*/
 

@@ -31,7 +31,7 @@ namespace NetworkManager
 
 class WiredDevicePrivate;
 
-class NMQT_EXPORT WiredDevice : public Device
+class NETWORKMANAGERQT_EXPORT WiredDevice : public Device
 {
 Q_OBJECT
 Q_DECLARE_PRIVATE(WiredDevice)

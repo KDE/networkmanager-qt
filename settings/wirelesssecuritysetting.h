@@ -31,7 +31,7 @@ namespace NetworkManager
 {
 
 class WirelessSecuritySettingPrivate;
-class NMQT_EXPORT WirelessSecuritySetting : public Setting
+class NETWORKMANAGERQT_EXPORT WirelessSecuritySetting : public Setting
 {
     Q_DECLARE_PRIVATE(WirelessSecuritySetting)
 public:

@@ -32,7 +32,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 namespace NetworkManager
 {
 
-class NMQT_EXPORT IpConfig
+class NETWORKMANAGERQT_EXPORT IpConfig
 {
 public:
     /**

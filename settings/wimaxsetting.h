@@ -31,7 +31,7 @@ namespace NetworkManager
 {
 
 class WimaxSettingPrivate;
-class NMQT_EXPORT WimaxSetting : public Setting
+class NETWORKMANAGERQT_EXPORT WimaxSetting : public Setting
 {
     Q_DECLARE_PRIVATE(WimaxSetting)
 public:

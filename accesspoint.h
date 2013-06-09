@@ -32,7 +32,7 @@ namespace NetworkManager {
 
 class AccessPointPrivate;
 
-class NMQT_EXPORT AccessPoint : public QObject
+class NETWORKMANAGERQT_EXPORT AccessPoint : public QObject
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(AccessPoint)

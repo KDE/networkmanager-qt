@@ -32,7 +32,7 @@ namespace NetworkManager
 {
 
 class Ipv6SettingPrivate;
-class NMQT_EXPORT Ipv6Setting : public Setting
+class NETWORKMANAGERQT_EXPORT Ipv6Setting : public Setting
 {
     Q_DECLARE_PRIVATE(Ipv6Setting)
 public:

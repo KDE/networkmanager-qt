@@ -30,7 +30,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 namespace NetworkManager
 {
 
-class NMQT_EXPORT IpAddress : public QNetworkAddressEntry
+class NETWORKMANAGERQT_EXPORT IpAddress : public QNetworkAddressEntry
 {
 public:
     /**

@@ -38,7 +38,7 @@ class VpnConnectionPrivate;
 /**
  * An active connection
  */
-class NMQT_EXPORT VpnConnection : public ActiveConnection
+class NETWORKMANAGERQT_EXPORT VpnConnection : public ActiveConnection
 {
 Q_OBJECT
 Q_DECLARE_PRIVATE(VpnConnection)

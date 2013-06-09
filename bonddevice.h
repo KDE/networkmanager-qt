@@ -28,7 +28,7 @@ namespace NetworkManager {
 
 class BondDevicePrivate;
 
-class NMQT_EXPORT BondDevice : public Device
+class NETWORKMANAGERQT_EXPORT BondDevice : public Device
 {
 Q_OBJECT
 Q_DECLARE_PRIVATE(BondDevice)

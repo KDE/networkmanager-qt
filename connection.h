@@ -35,7 +35,7 @@ namespace NetworkManager
 {
 
 class ConnectionPrivate;
-class NMQT_EXPORT Connection : public QObject
+class NETWORKMANAGERQT_EXPORT Connection : public QObject
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(Connection)

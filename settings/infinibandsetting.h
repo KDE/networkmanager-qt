@@ -30,7 +30,7 @@ namespace NetworkManager
 {
 
 class InfinibandSettingPrivate;
-class NMQT_EXPORT InfinibandSetting : public Setting
+class NETWORKMANAGERQT_EXPORT InfinibandSetting : public Setting
 {
     Q_DECLARE_PRIVATE(InfinibandSetting)
 public:

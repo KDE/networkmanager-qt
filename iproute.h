@@ -31,7 +31,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 namespace NetworkManager
 {
 
-class NMQT_EXPORT IpRoute : public QNetworkAddressEntry
+class NETWORKMANAGERQT_EXPORT IpRoute : public QNetworkAddressEntry
 {
 public:
     /**

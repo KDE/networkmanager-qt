@@ -33,7 +33,7 @@ namespace Settings
 {
 class TemplateSettingPrivate;
 
-class NMQT_EXPORT TemplateSetting : public Setting
+class NETWORKMANAGERQT_EXPORT TemplateSetting : public Setting
 {
     Q_DECLARE_PRIVATE(TemplateSetting)
 public:

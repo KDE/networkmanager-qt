@@ -30,7 +30,7 @@ namespace NetworkManager
 {
 
 class BridgeSettingPrivate;
-class NMQT_EXPORT BridgeSetting : public Setting
+class NETWORKMANAGERQT_EXPORT BridgeSetting : public Setting
 {
     Q_DECLARE_PRIVATE(BridgeSetting)
 public:

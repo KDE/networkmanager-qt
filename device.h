@@ -38,7 +38,7 @@ namespace NetworkManager {
 
 class DevicePrivate;
 class DeviceStateReason;
-class NMQT_EXPORT Device : public QObject
+class NETWORKMANAGERQT_EXPORT Device : public QObject
 {
     Q_OBJECT
     Q_ENUMS(State Capability Type)
@@ -458,7 +458,7 @@ protected:
 Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Capabilities)
 Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Types)
 
-class NMQT_EXPORT DeviceStateReason
+class NETWORKMANAGERQT_EXPORT DeviceStateReason
 {
 public:
     DeviceStateReason(Device::State state, Device::StateChangeReason reason);

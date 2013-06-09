@@ -28,7 +28,7 @@ namespace NetworkManager {
 
 class AdslDevicePrivate;
 
-class NMQT_EXPORT AdslDevice : public Device
+class NETWORKMANAGERQT_EXPORT AdslDevice : public Device
 {
 Q_OBJECT
 Q_DECLARE_PRIVATE(AdslDevice)

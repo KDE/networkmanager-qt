@@ -30,7 +30,7 @@ namespace NetworkManager
 {
 
 class VpnSettingPrivate;
-class NMQT_EXPORT VpnSetting : public Setting
+class NETWORKMANAGERQT_EXPORT VpnSetting : public Setting
 {
     Q_DECLARE_PRIVATE(VpnSetting)
 public:

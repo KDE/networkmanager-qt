@@ -30,7 +30,7 @@ namespace NetworkManager
 {
 
 class WiredSettingPrivate;
-class NMQT_EXPORT WiredSetting : public Setting
+class NETWORKMANAGERQT_EXPORT WiredSetting : public Setting
 {
     Q_DECLARE_PRIVATE(WiredSetting)
 public:

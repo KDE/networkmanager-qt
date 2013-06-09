@@ -38,7 +38,7 @@ class WimaxDevicePrivate;
 /**
  * A wireless network interface
  */
-class NMQT_EXPORT WimaxDevice : public Device
+class NETWORKMANAGERQT_EXPORT WimaxDevice : public Device
 {
 Q_OBJECT
 Q_DECLARE_PRIVATE(WimaxDevice)

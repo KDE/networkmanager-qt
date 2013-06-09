@@ -32,7 +32,7 @@ namespace NetworkManager {
 
 class WirelessDevice;
 class WirelessNetworkPrivate;
-class NMQT_EXPORT WirelessNetwork : public QObject
+class NETWORKMANAGERQT_EXPORT WirelessNetwork : public QObject
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(WirelessNetwork)

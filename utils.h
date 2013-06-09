@@ -33,7 +33,7 @@
 namespace NetworkManager
 {
 
-class NMQT_EXPORT Utils
+class NETWORKMANAGERQT_EXPORT Utils
 {
 public:
     enum WirelessSecurityType { Unknown = -1, None, StaticWep, DynamicWep, Leap, WpaPsk, WpaEap, Wpa2Psk, Wpa2Eap };

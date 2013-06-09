@@ -28,7 +28,7 @@ namespace NetworkManager {
 
 class InfinibandDevicePrivate;
 
-class NMQT_EXPORT InfinibandDevice : public Device
+class NETWORKMANAGERQT_EXPORT InfinibandDevice : public Device
 {
 Q_OBJECT
 Q_DECLARE_PRIVATE(InfinibandDevice)

@@ -30,7 +30,7 @@ namespace NetworkManager
 {
 
 class AdslSettingPrivate;
-class NMQT_EXPORT AdslSetting : public Setting
+class NETWORKMANAGERQT_EXPORT AdslSetting : public Setting
 {
     Q_DECLARE_PRIVATE(AdslSetting)
 public:

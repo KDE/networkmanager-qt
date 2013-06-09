@@ -30,7 +30,7 @@ namespace NetworkManager
 {
 
 class GsmSettingPrivate;
-class NMQT_EXPORT GsmSetting : public Setting
+class NETWORKMANAGERQT_EXPORT GsmSetting : public Setting
 {
     Q_DECLARE_PRIVATE(GsmSetting)
 public:

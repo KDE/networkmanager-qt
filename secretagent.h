@@ -34,7 +34,7 @@ namespace NetworkManager
 {
     class SecretAgentPrivate;
 
-    class NMQT_EXPORT SecretAgent : public QObject, protected QDBusContext
+    class NETWORKMANAGERQT_EXPORT SecretAgent : public QObject, protected QDBusContext
     {
     Q_OBJECT
     Q_DECLARE_PRIVATE(SecretAgent)

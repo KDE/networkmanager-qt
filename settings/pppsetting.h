@@ -30,7 +30,7 @@ namespace NetworkManager
 {
 
 class PppSettingPrivate;
-class NMQT_EXPORT PppSetting : public Setting
+class NETWORKMANAGERQT_EXPORT PppSetting : public Setting
 {
     Q_DECLARE_PRIVATE(PppSetting)
 public:
