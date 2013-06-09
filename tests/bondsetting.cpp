@@ -57,8 +57,10 @@ void BondSetting::testSetting()
     NMStringMap stringMap1 = map.value(QLatin1String(NM_SETTING_BOND_OPTIONS)).value<NMStringMap>();
     NMStringMap stringMap2 = map1.value(QLatin1String(NM_SETTING_BOND_OPTIONS)).value<NMStringMap>();
 
-    foreach (const QString & key, map.keys()) {
-        QCOMPARE(stringMap1.value(key), stringMap2.value(key));
+    NMStringMap::const_iterator it = stringMap1.constBegin();
+    while (it != stringMap1.constEnd()) {
+        QCOMPARE(it.value(), stringMap2.value(it.key()));
+        ++it;
     }
 }
 

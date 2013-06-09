@@ -472,9 +472,12 @@ NMVariantMapMap NetworkManager::ConnectionSettings::toMap() const
 
     if (!permissions().isEmpty()) {
         QStringList perm;
-        foreach(const QString & key, permissions().keys()) {
-            QString tmp = "user:" + key + ':' + permissions().value(key);
+        QHash<QString, QString> perms = permissions();
+        QHash<QString, QString>::const_iterator it = perms.constBegin();
+        while (it != perms.constEnd()) {
+            QString tmp = "user:" + it.key() + ':' + it.value();
             perm << tmp;
+            ++it;
         }
 
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS), perm);

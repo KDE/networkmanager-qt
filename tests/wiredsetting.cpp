@@ -96,11 +96,12 @@ void WiredSetting::testSetting()
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();
-
-    foreach (const QString & key, map.keys()) {
-        if (key != QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)) {
-            QCOMPARE(map.value(key), map1.value(key));
+    QVariantMap::const_iterator it = map.constBegin();
+    while (it != map.constEnd()) {
+        if (it.key() != QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)) {
+            QCOMPARE(it.value(), map1.value(it.key()));
         }
+        ++it;
     }
 
     QCOMPARE(map.value(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS)).value<NMStringMap>(),

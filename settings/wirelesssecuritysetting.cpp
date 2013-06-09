@@ -592,7 +592,7 @@ QVariantMap NetworkManager::WirelessSecuritySetting::toMap() const
 
     if (!proto().isEmpty()) {
         QStringList strList;
-        foreach(WpaProtocolVersion version, proto()) {
+        foreach (const WpaProtocolVersion &version, proto()) {
             if (version == Wpa) {
                 strList << "wpa";
             } else if (version == Rsn) {
@@ -604,7 +604,7 @@ QVariantMap NetworkManager::WirelessSecuritySetting::toMap() const
 
     if (!pairwise().isEmpty()) {
         QStringList strList;
-        foreach(WpaEncryptionCapabilities capability, pairwise()) {
+        foreach (const WpaEncryptionCapabilities &capability, pairwise()) {
             if (capability == Wep40) {
                 strList << "wep40";
             } else if (capability == Wep104) {
@@ -620,7 +620,7 @@ QVariantMap NetworkManager::WirelessSecuritySetting::toMap() const
 
     if (!group().isEmpty()) {
         QStringList strList;
-        foreach(WpaEncryptionCapabilities capability, group()) {
+        foreach (const WpaEncryptionCapabilities &capability, group()) {
             if (capability == Wep40) {
                 strList << "wep40";
             } else if (capability == Wep104) {

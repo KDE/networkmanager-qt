@@ -87,9 +87,10 @@ void ConnectionSetting::testSetting()
 
     NMVariantMapMap mapmap1 = setting.toMap();
     QVariantMap map1 = mapmap1.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
-
-    foreach (const QString & key, map.keys()) {
-        QCOMPARE(map.value(key), map1.value(key));
+    QVariantMap::const_iterator it = map.constBegin();
+    while (it != map.constEnd()) {
+        QCOMPARE(it.value(), map1.value(it.key()));
+        ++it;
     }
 }
 

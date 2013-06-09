@@ -529,8 +529,10 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
         if (property == QLatin1String("ActiveConnections")) {
             QList<QDBusObjectPath> activePaths = qdbus_cast< QList<QDBusObjectPath> >(*it);
             if (activePaths.isEmpty()) {
-                foreach (const QString &path, m_activeConnections.keys()) {
-                    emit activeConnectionRemoved(path);
+                QMap<QString, ActiveConnection::Ptr>::const_iterator it = m_activeConnections.constBegin();
+                while (it != m_activeConnections.constEnd()) {
+                    emit activeConnectionRemoved(it.key());
+                    ++it;
                 }
                 m_activeConnections.clear();
             } else {
@@ -638,8 +640,10 @@ void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
     }
     networkInterfaceMap.clear();
 
-    foreach (const QString &path, m_activeConnections.keys()) {
-        emit activeConnectionRemoved(path);
+    QMap<QString, ActiveConnection::Ptr>::const_iterator it = m_activeConnections.constBegin();
+    while (it != m_activeConnections.constEnd()) {
+        emit activeConnectionRemoved(it.key());
+        ++it;
     }
     m_activeConnections.clear();
 
@@ -652,11 +656,13 @@ void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
 NetworkManager::ActiveConnection::List NetworkManager::NetworkManagerPrivate::activeConnections()
 {
     NetworkManager::ActiveConnection::List list;
-    foreach (const QString &uni, m_activeConnections.keys()) {
-        NetworkManager::ActiveConnection::Ptr activeConnection = findRegisteredActiveConnection(uni);
+    QMap<QString, ActiveConnection::Ptr>::const_iterator it = m_activeConnections.constBegin();
+    while (it != m_activeConnections.constEnd()) {
+        NetworkManager::ActiveConnection::Ptr activeConnection = findRegisteredActiveConnection(it.key());
         if (activeConnection) {
             list << activeConnection;
         }
+        ++it;
     }
     return list;
 }

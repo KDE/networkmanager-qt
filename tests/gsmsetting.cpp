@@ -86,8 +86,10 @@ void GsmSetting::testSetting()
     QVariantMap map1 = setting.toMap();
 
     // Will fail if set some default values, because they are skipped in toMap() method
-    foreach (const QString & key, map.keys()) {
-        QCOMPARE(map.value(key), map1.value(key));
+    QVariantMap::const_iterator it = map.constBegin();
+    while (it != map.constEnd()) {
+        QCOMPARE(it.value(), map1.value(it.key()));
+        ++it;
     }
 }
 

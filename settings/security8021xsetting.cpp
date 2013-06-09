@@ -822,7 +822,7 @@ QVariantMap NetworkManager::Security8021xSetting::toMap() const
     if (!eapMethods().isEmpty()) {
         QStringList methods;
 
-        foreach(EapMethod method, eapMethods()) {
+        foreach (const EapMethod &method, eapMethods()) {
             if (method == EapMethodLeap) {
                 methods << "leap";
             } else if (method == EapMethodMd5) {

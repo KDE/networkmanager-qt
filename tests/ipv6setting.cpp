@@ -109,12 +109,14 @@ void IPv6Setting::testSetting()
     QVariantMap map1 = setting.toMap();
 
     // Will fail if set some default values, because they are skipped in toMap() method
-    foreach (const QString & key, map.keys()) {
-        if (key != QLatin1String(NM_SETTING_IP6_CONFIG_DNS) &&
-            key != QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES) &&
-            key != QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES)) {
-                QCOMPARE(map.value(key), map1.value(key));
+    QVariantMap::const_iterator it = map.constBegin();
+    while (it != map.constEnd()) {
+        if (it.key() != QLatin1String(NM_SETTING_IP6_CONFIG_DNS) &&
+            it.key() != QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES) &&
+            it.key() != QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES)) {
+                QCOMPARE(it.value(), map1.value(it.key()));
         }
+        ++it;
     }
 
     IpV6DBusNameservers nameServers1 = map.value(QLatin1String(NM_SETTING_IP6_CONFIG_DNS)).value<IpV6DBusNameservers>();
