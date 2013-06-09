@@ -26,6 +26,8 @@
 #include <arpa/inet.h>
 #include <nm-setting-ip4-config.h>
 
+#include <QTest>
+
 void IPv4Setting::testSetting_data()
 {
     QTest::addColumn<QString>("method");

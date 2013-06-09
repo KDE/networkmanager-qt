@@ -21,7 +21,7 @@
 #ifndef NMQT_WIREDSETTING_TEST_H
 #define NMQT_WIREDSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class WiredSetting : public QObject
 {

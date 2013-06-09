@@ -24,6 +24,8 @@
 
 #include <nm-setting-olpc-mesh.h>
 
+#include <QTest>
+
 void OlpcMeshSetting::testSetting_data()
 {
     QTest::addColumn<QByteArray>("ssid");

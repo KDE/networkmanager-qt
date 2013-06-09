@@ -24,6 +24,8 @@
 
 #include <nm-setting-gsm.h>
 
+#include <QTest>
+
 void GsmSetting::testSetting_data()
 {
     QTest::addColumn<QString>("number");

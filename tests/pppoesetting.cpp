@@ -24,6 +24,8 @@
 
 #include <nm-setting-pppoe.h>
 
+#include <QTest>
+
 void PppoeSetting::testSetting_data()
 {
     QTest::addColumn<QString>("service");

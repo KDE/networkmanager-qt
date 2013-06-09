@@ -23,6 +23,8 @@
 #include <nm-setting-wireless-security.h>
 #include "../settings/wirelesssecuritysetting.h"
 
+#include <QTest>
+
 void WirelessSecuritySetting::testSetting_data()
 {
     QTest::addColumn<QString>("keyMgmt");

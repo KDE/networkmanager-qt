@@ -21,7 +21,7 @@
 #ifndef NMQT_CDMASETTING_TEST_H
 #define NMQT_CDMASETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class CdmaSetting : public QObject
 {

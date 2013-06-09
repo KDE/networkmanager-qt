@@ -21,7 +21,7 @@
 #ifndef NMQT_VLANSETTING_TEST_H
 #define NMQT_VLANSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class VlanSetting : public QObject
 {

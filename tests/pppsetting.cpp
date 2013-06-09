@@ -24,6 +24,8 @@
 
 #include <nm-setting-ppp.h>
 
+#include <QTest>
+
 void PppSetting::testSetting_data()
 {
     QTest::addColumn<bool>("noAuth");

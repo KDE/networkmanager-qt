@@ -24,6 +24,8 @@
 
 #include <nm-setting-wimax.h>
 
+#include <QTest>
+
 void WimaxSetting::testSetting_data()
 {
     QTest::addColumn<QString>("networkName");

@@ -21,7 +21,7 @@
 #ifndef NMQT_SERIALSETTING_TEST_H
 #define NMQT_SERIALSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class SerialSetting : public QObject
 {

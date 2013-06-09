@@ -24,6 +24,8 @@
 
 #include <nm-setting-adsl.h>
 
+#include <QTest>
+
 void AdslSetting::testSetting_data()
 {
     QTest::addColumn<QString>("username");

@@ -25,6 +25,8 @@
 
 #include <nm-setting-wired.h>
 
+#include <QTest>
+
 void WiredSetting::testSetting_data()
 {
     QTest::addColumn<QString>("port");

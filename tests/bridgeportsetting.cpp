@@ -24,6 +24,8 @@
 
 #include <nm-setting-bridge-port.h>
 
+#include <QTest>
+
 void BridgePortSetting::testSetting_data()
 {
     QTest::addColumn<quint16>("priority");

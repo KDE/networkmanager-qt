@@ -21,7 +21,7 @@
 #ifndef NMQT_SECURITY8021XSETTING_TEST_H
 #define NMQT_SECURITY8021XSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class Security8021xSetting : public QObject
 {

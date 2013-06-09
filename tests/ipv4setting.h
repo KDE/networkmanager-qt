@@ -21,7 +21,7 @@
 #ifndef NMQT_IPV4SETTING_TEST_H
 #define NMQT_IPV4SETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class IPv4Setting : public QObject
 {

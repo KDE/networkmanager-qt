@@ -21,7 +21,7 @@
 #ifndef NMQT_PPPSETTING_TEST_H
 #define NMQT_PPPSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class PppSetting : public QObject
 {

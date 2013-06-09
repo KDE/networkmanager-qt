@@ -21,7 +21,7 @@
 #ifndef NMQT_PPPOESETTING_TEST_H
 #define NMQT_PPPOESETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class PppoeSetting : public QObject
 {

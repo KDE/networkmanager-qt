@@ -21,7 +21,7 @@
 #ifndef NMQT_CONNECTIONSETTING_TEST_H
 #define NMQT_CONNECTIONSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class ConnectionSetting : public QObject
 {

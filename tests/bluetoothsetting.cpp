@@ -24,6 +24,8 @@
 
 #include <nm-setting-bluetooth.h>
 
+#include <QTest>
+
 void BluetoothSetting::testSetting_data()
 {
     QTest::addColumn<QByteArray>("address");

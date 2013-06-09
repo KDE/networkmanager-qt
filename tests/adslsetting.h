@@ -21,7 +21,7 @@
 #ifndef NMQT_ADSLSETTING_TEST_H
 #define NMQT_ADSLSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class AdslSetting : public QObject
 {

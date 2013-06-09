@@ -21,7 +21,7 @@
 #ifndef NMQT_OLPCMESHSETTING_TEST_H
 #define NMQT_OLPCMESHSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class OlpcMeshSetting : public QObject
 {

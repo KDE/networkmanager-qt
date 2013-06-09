@@ -21,7 +21,7 @@
 #ifndef NMQT_INFINIBANDSETTING_TEST_H
 #define NMQT_INFINIBANDSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class InfinibandSetting : public QObject
 {

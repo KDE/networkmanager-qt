@@ -24,6 +24,8 @@
 
 #include <nm-setting-infiniband.h>
 
+#include <QTest>
+
 void InfinibandSetting::testSetting_data()
 {
     QTest::addColumn<QByteArray>("macAddress");

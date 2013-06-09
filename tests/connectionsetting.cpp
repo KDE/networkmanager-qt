@@ -24,6 +24,8 @@
 
 #include <nm-setting-connection.h>
 
+#include <QTest>
+
 void ConnectionSetting::testSetting_data()
 {
     QTest::addColumn<QString>("id");

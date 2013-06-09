@@ -21,7 +21,7 @@
 #ifndef NMQT_BLUETOOTHSETTING_TEST_H
 #define NMQT_BLUETOOTHSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class BluetoothSetting : public QObject
 {

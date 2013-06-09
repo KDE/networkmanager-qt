@@ -21,7 +21,7 @@
 #ifndef NMQT_IPV6SETTING_TEST_H
 #define NMQT_IPV6SETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class IPv6Setting : public QObject
 {

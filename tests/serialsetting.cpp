@@ -24,6 +24,8 @@
 
 #include <nm-setting-serial.h>
 
+#include <QTest>
+
 void SerialSetting::testSetting_data()
 {
     QTest::addColumn<quint32>("baud");

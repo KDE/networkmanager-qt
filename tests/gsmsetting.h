@@ -21,7 +21,7 @@
 #ifndef NMQT_GSMSETTING_TEST_H
 #define NMQT_GSMSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class GsmSetting : public QObject
 {

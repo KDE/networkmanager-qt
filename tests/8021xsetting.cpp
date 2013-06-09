@@ -24,6 +24,8 @@
 
 #include <nm-setting-8021x.h>
 
+#include <QTest>
+
 void Security8021xSetting::testSetting_data()
 {
     QTest::addColumn<QStringList>("eap");

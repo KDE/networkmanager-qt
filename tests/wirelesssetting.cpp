@@ -24,6 +24,8 @@
 
 #include <nm-setting-wireless.h>
 
+#include <QTest>
+
 void WirelessSetting::testSetting_data()
 {
     QTest::addColumn<QByteArray>("ssid");

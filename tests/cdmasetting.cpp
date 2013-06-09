@@ -24,6 +24,8 @@
 
 #include <nm-setting-cdma.h>
 
+#include <QTest>
+
 void CdmaSetting::testSetting_data()
 {
     QTest::addColumn<QString>("number");

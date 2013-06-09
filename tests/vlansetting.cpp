@@ -24,6 +24,8 @@
 
 #include <nm-setting-vlan.h>
 
+#include <QTest>
+
 void VlanSetting::testSetting_data()
 {
     QTest::addColumn<QString>("interfaceName");

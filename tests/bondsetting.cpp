@@ -24,6 +24,8 @@
 
 #include <nm-setting-bond.h>
 
+#include <QTest>
+
 void BondSetting::testSetting_data()
 {
     QTest::addColumn<QString>("interfaceName");

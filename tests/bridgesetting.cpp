@@ -24,6 +24,8 @@
 
 #include <nm-setting-bridge.h>
 
+#include <QTest>
+
 void BridgeSetting::testSetting_data()
 {
     QTest::addColumn<QString>("interfaceName");

@@ -21,7 +21,7 @@
 #ifndef NMQT_WIRELESSSECURITYSETTING_TEST_H
 #define NMQT_WIRELESSSECURITYSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class WirelessSecuritySetting : public QObject
 {

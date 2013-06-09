@@ -21,7 +21,7 @@
 #ifndef NMQT_WIMAXSETTING_TEST_H
 #define NMQT_WIMAXSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class WimaxSetting : public QObject
 {

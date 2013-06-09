@@ -21,7 +21,7 @@
 #ifndef NMQT_BONDSETTING_TEST_H
 #define NMQT_BONDSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class BondSetting : public QObject
 {

@@ -21,7 +21,7 @@
 #ifndef NMQT_WIRELESSSETTING_TEST_H
 #define NMQT_WIRELESSSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class WirelessSetting : public QObject
 {

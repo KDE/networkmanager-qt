@@ -21,7 +21,7 @@
 #ifndef NMQT_BRIDGEPORTSETTING_TEST_H
 #define NMQT_BRIDGEPORTSETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class BridgePortSetting : public QObject
 {

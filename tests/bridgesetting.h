@@ -21,7 +21,7 @@
 #ifndef NMQT_BRIDGESETTING_TEST_H
 #define NMQT_BRIDGESETTING_TEST_H
 
-#include <QtTest>
+#include <QObject>
 
 class BridgeSetting : public QObject
 {

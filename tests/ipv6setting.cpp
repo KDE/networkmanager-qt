@@ -27,6 +27,8 @@
 #include <arpa/inet.h>
 #include <nm-setting-ip6-config.h>
 
+#include <QTest>
+
 //TODO: Test DNS,IPv6Addresses and IPv6Routes
 void IPv6Setting::testSetting_data()
 {
