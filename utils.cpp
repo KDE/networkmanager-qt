@@ -23,17 +23,20 @@
 
 QHostAddress NetworkManager::Utils::ipv6AddressAsHostAddress(const QByteArray& address)
 {
+    Q_ASSERT(address.size() == 16);
     Q_IPV6ADDR tmp;
     for (int i = 0; i < 16; i++) {
         tmp[i] = address[i];
     }
     QHostAddress hostaddress(tmp);
+    Q_ASSERT(hostaddress.protocol() == QAbstractSocket::IPv6Protocol);
 
     return hostaddress;
 }
 
 QByteArray NetworkManager::Utils::ipv6AddressFromHostAddress(const QHostAddress& address)
 {
+    Q_ASSERT(address.protocol() == QAbstractSocket::IPv6Protocol);
     Q_IPV6ADDR tmp = address.toIPv6Address();
     QByteArray assembledAddress;
     for (int i = 0; i <16; i++) {
