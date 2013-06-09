@@ -37,7 +37,7 @@ public:
     typedef QSharedPointer<BridgeSetting> Ptr;
     typedef QList<Ptr> List;
     BridgeSetting();
-    BridgeSetting(const Ptr &other);
+    explicit BridgeSetting(const Ptr &other);
     ~BridgeSetting();
 
     QString name() const;

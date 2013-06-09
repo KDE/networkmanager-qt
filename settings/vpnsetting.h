@@ -37,7 +37,7 @@ public:
     typedef QSharedPointer<VpnSetting> Ptr;
     typedef QList<Ptr> List;
     VpnSetting();
-    VpnSetting(const Ptr &other);
+    explicit VpnSetting(const Ptr &other);
     ~VpnSetting();
 
     QString name() const;

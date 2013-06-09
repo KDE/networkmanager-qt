@@ -66,9 +66,9 @@ public:
     static QString createNewUuid();
 
     ConnectionSettings();
-    ConnectionSettings(ConnectionType type, NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
-    ConnectionSettings(const ConnectionSettings::Ptr &other);
-    ConnectionSettings(const NMVariantMapMap &map);
+    explicit ConnectionSettings(ConnectionType type, NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
+    explicit ConnectionSettings(const ConnectionSettings::Ptr &other);
+    explicit ConnectionSettings(const NMVariantMapMap &map);
     virtual ~ConnectionSettings();
 
     QString name() const;

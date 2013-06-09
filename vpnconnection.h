@@ -52,7 +52,7 @@ public:
      *
      * @param path the DBus path of the device
      */
-    VpnConnection(const QString & path, QObject * parent = 0);
+    explicit VpnConnection(const QString & path, QObject * parent = 0);
     /**
      * Destroys a VpnConnection object.
      */

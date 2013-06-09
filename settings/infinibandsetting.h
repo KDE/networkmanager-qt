@@ -39,7 +39,7 @@ public:
     enum TransportMode {Unknown = 0, Datagram, Connected};
 
     InfinibandSetting();
-    InfinibandSetting(const Ptr &other);
+    explicit InfinibandSetting(const Ptr &other);
     ~InfinibandSetting();
 
     QString name() const;

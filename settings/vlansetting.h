@@ -40,7 +40,7 @@ public:
     Q_DECLARE_FLAGS(Flags, Flag)
 
     VlanSetting();
-    VlanSetting(const Ptr &other);
+    explicit VlanSetting(const Ptr &other);
     ~VlanSetting();
 
     QString name() const;

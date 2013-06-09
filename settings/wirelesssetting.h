@@ -41,7 +41,7 @@ public:
     enum FrequencyBand {Automatic, A, Bg};
 
     WirelessSetting();
-    WirelessSetting(const Ptr &setting);
+    explicit WirelessSetting(const Ptr &setting);
     virtual ~WirelessSetting();
 
     QString name() const;

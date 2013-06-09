@@ -41,7 +41,7 @@ public:
     enum S390Nettype {Undefined = 0, Qeth, Lcs, Ctc};
 
     WiredSetting();
-    WiredSetting(const Ptr &other);
+    explicit WiredSetting(const Ptr &other);
     ~WiredSetting();
 
     QString name() const;

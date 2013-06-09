@@ -42,7 +42,7 @@ public:
     enum IPv6Privacy {Unknown = -1, Disabled, PreferPublic, PreferTemporary};
 
     Ipv6Setting();
-    Ipv6Setting(const Ptr &other);
+    explicit Ipv6Setting(const Ptr &other);
     ~Ipv6Setting();
 
     QString name() const;

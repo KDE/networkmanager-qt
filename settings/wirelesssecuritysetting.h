@@ -44,7 +44,7 @@ public:
     enum WepKeyType {NotSpecified, Hex, Passphrase};
 
     WirelessSecuritySetting();
-    WirelessSecuritySetting(const Ptr &other);
+    explicit WirelessSecuritySetting(const Ptr &other);
     virtual ~WirelessSecuritySetting();
 
     QString name() const;

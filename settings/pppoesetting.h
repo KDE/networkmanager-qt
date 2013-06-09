@@ -37,7 +37,7 @@ public:
     typedef QSharedPointer<PppoeSetting> Ptr;
     typedef QList<Ptr> List;
     PppoeSetting();
-    PppoeSetting(const Ptr &other);
+    explicit PppoeSetting(const Ptr &other);
     ~PppoeSetting();
 
     QString name() const;

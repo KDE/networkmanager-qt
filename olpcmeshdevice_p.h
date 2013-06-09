@@ -29,7 +29,7 @@ namespace NetworkManager {
 class OlpcMeshDevicePrivate : public DevicePrivate
 {
 public:
-    OlpcMeshDevicePrivate(const QString &path);
+    explicit OlpcMeshDevicePrivate(const QString &path);
     OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface iface;
     uint activeChannel;
     QString companion;

@@ -37,7 +37,7 @@ public:
     typedef QSharedPointer<CdmaSetting> Ptr;
     typedef QList<Ptr> List;
     CdmaSetting();
-    CdmaSetting(const Ptr &other);
+    explicit CdmaSetting(const Ptr &other);
     ~CdmaSetting();
 
     QString name() const;

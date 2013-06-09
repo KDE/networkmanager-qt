@@ -37,7 +37,7 @@ public:
     typedef QSharedPointer<PppSetting> Ptr;
     typedef QList<Ptr> List;
     PppSetting();
-    PppSetting(const Ptr &other);
+    explicit PppSetting(const Ptr &other);
     ~PppSetting();
 
     QString name() const;

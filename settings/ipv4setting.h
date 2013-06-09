@@ -41,7 +41,7 @@ public:
     enum ConfigMethod {Automatic, LinkLocal, Manual, Shared, Disabled};
 
     Ipv4Setting();
-    Ipv4Setting(const Ptr &other);
+    explicit Ipv4Setting(const Ptr &other);
     ~Ipv4Setting();
 
     QString name() const;

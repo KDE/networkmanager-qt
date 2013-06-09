@@ -39,7 +39,7 @@ public:
     enum Parity {NoParity, EvenParity, OddParity};
 
     SerialSetting();
-    SerialSetting(const Ptr &other);
+    explicit SerialSetting(const Ptr &other);
     ~SerialSetting();
 
     QString name() const;

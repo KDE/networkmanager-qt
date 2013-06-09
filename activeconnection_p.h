@@ -30,7 +30,7 @@ namespace NetworkManager
 class ActiveConnectionPrivate
 {
 public:
-    ActiveConnectionPrivate(const QString &);
+    explicit ActiveConnectionPrivate(const QString &);
     virtual ~ActiveConnectionPrivate();
     static NetworkManager::ActiveConnection::State convertActiveConnectionState(uint);
     NetworkManager::Connection::Ptr connection;

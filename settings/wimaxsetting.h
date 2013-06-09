@@ -38,7 +38,7 @@ public:
     typedef QSharedPointer<WimaxSetting> Ptr;
     typedef QList<Ptr> List;
     WimaxSetting();
-    WimaxSetting(const Ptr &other);
+    explicit WimaxSetting(const Ptr &other);
     ~WimaxSetting();
 
     QString name() const;

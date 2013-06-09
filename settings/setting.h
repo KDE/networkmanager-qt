@@ -49,7 +49,7 @@ public:
     static SettingType typeFromString(const QString & type);
 
     explicit Setting(SettingType type);
-    Setting(const Ptr &setting);
+    explicit Setting(const Ptr &setting);
     virtual ~Setting();
 
     /**

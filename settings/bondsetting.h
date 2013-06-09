@@ -45,7 +45,7 @@ public:
     typedef QSharedPointer<BondSetting> Ptr;
     typedef QList<Ptr> List;
     BondSetting();
-    BondSetting(const Ptr &other);
+    explicit BondSetting(const Ptr &other);
     ~BondSetting();
 
     QString name() const;

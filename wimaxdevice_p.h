@@ -29,7 +29,7 @@ namespace NetworkManager {
 class WimaxDevicePrivate : public DevicePrivate
 {
 public:
-    WimaxDevicePrivate(const QString &path);
+    explicit WimaxDevicePrivate(const QString &path);
     OrgFreedesktopNetworkManagerDeviceWiMaxInterface wimaxIface;
     QString hardwareAddress;
     mutable QMap<QString, WimaxNsp::Ptr> nspMap;

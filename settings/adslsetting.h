@@ -40,7 +40,7 @@ public:
     enum Encapsulation {UnknownEncapsulation = 0, Vcmux, Llc};
 
     AdslSetting();
-    AdslSetting(const Ptr &other);
+    explicit AdslSetting(const Ptr &other);
     ~AdslSetting();
 
     QString name() const;

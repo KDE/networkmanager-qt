@@ -38,7 +38,7 @@ class NMQT_EXPORT TemplateSetting : public Setting
     Q_DECLARE_PRIVATE(TemplateSetting)
 public:
     TemplateSetting();
-    TemplateSetting(TemplateSetting *);
+    explicit TemplateSetting(TemplateSetting *);
     ~TemplateSetting();
 
     QString name() const;

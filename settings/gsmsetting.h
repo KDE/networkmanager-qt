@@ -39,7 +39,7 @@ public:
     enum NetworkType { Any = -1, Only3G, GprsEdgeOnly, Prefer3G, Prefer2G, Prefer4GLte, Only4GLte };
 
     GsmSetting();
-    GsmSetting(const Ptr &other);
+    explicit GsmSetting(const Ptr &other);
     ~GsmSetting();
 
     QString name() const;

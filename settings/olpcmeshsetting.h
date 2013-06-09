@@ -37,7 +37,7 @@ public:
     typedef QSharedPointer<OlpcMeshSetting> Ptr;
     typedef QList<Ptr> List;
     OlpcMeshSetting();
-    OlpcMeshSetting(const Ptr &other);
+    explicit OlpcMeshSetting(const Ptr &other);
     ~OlpcMeshSetting();
 
     QString name() const;

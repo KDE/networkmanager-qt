@@ -39,7 +39,7 @@ public:
     enum ProfileType {Unknown = 0, Dun, Panu};
 
     BluetoothSetting();
-    BluetoothSetting(const Ptr &other);
+    explicit BluetoothSetting(const Ptr &other);
     ~BluetoothSetting();
 
     QString name() const;
