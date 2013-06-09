@@ -90,7 +90,7 @@ private Q_SLOTS:
 private:
     explicit WirelessNetwork(const AccessPoint::Ptr &accessPoint, WirelessDevice *device);
     void addAccessPointInternal(const AccessPoint::Ptr &accessPoint);
-    WirelessNetworkPrivate * d_ptr;
+    WirelessNetworkPrivate * const d_ptr;
 };
 
 }

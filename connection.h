@@ -35,6 +35,7 @@ namespace NetworkManager
 {
 
 class ConnectionPrivate;
+
 class NETWORKMANAGERQT_EXPORT Connection : public QObject
 {
     Q_OBJECT
@@ -94,7 +95,7 @@ public:
     void remove();
 
 private:
-    ConnectionPrivate *d_ptr;
+    ConnectionPrivate * const d_ptr;
 private Q_SLOTS:
     void onSecretsArrived(QDBusPendingCallWatcher *);
     void onConnectionUpdated();

@@ -82,7 +82,7 @@ public:
     QVariantMap toMap() const;
 
 protected:
-    Ipv6SettingPrivate * d_ptr;
+    Ipv6SettingPrivate * const d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const Ipv6Setting &setting);

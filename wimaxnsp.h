@@ -79,8 +79,7 @@ Q_SIGNALS:
 
 private:
     static WimaxNsp::NetworkType convertNetworkType(uint);
-private:
-    WimaxNspPrivate * d_ptr;
+    WimaxNspPrivate * const d_ptr;
 };
 }
 #endif

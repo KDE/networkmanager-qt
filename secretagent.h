@@ -99,7 +99,7 @@ namespace NetworkManager
         virtual void DeleteSecrets(const NMVariantMapMap &connection, const QDBusObjectPath &connection_path) = 0;
 
     private:
-        SecretAgentPrivate *d_ptr;
+        SecretAgentPrivate * const d_ptr;
         Q_PRIVATE_SLOT(d_ptr, void registerAgent())
     };
 }

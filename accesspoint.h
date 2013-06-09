@@ -133,7 +133,7 @@ protected Q_SLOTS:
 private:
     static AccessPoint::Capabilities convertCapabilities(int);
     static AccessPoint::WpaFlags convertWpaFlags(uint);
-    AccessPointPrivate * d_ptr;
+    AccessPointPrivate * const d_ptr;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(AccessPoint::WpaFlags)

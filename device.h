@@ -472,7 +472,7 @@ private:
     void setReason(const Device::StateChangeReason reason);
 
     class Private;
-    Private * d;
+    Private * const d;
 };
 
 }

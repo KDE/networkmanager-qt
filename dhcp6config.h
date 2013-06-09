@@ -57,7 +57,7 @@ protected Q_SLOTS:
     void dhcp6PropertiesChanged(const QVariantMap &);
 
 private:
-    Dhcp6ConfigPrivate * d_ptr;
+    Dhcp6ConfigPrivate * const d_ptr;
 };
 } // namespace NetworkManager
 
