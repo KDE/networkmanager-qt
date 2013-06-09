@@ -64,7 +64,7 @@ namespace NetworkManager
 
         /**
          * Send to NetworkManager the \p error the subclass has
-         * found, the \p explanation is usefull for debugging purposes,
+         * found, the \p explanation is useful for debugging purposes,
          * and the \p callMessage is ONLY needed if \sa setDelayedReply()
          * was set to true when the method was called.
          */
