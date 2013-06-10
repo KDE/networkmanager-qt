@@ -48,6 +48,7 @@ QByteArray NetworkManager::Utils::ipv6AddressFromHostAddress(const QHostAddress&
 
 QString NetworkManager::Utils::macAddressAsString(const QByteArray & ba)
 {
+    Q_ASSERT(ba.size() == 6);
     QStringList mac;
 
     for (int i=0; i < ba.size(); i++) {
@@ -57,9 +58,10 @@ QString NetworkManager::Utils::macAddressAsString(const QByteArray & ba)
     return mac.join(":");
 }
 
-QByteArray NetworkManager::Utils::macAddressFromString( const QString & s)
+QByteArray NetworkManager::Utils::macAddressFromString(const QString &s)
 {
     QStringList macStringList = s.split(':');
+    Q_ASSERT(macStringList.size() == 6);
     QByteArray ba;
     if (!s.isEmpty()) {
         ba.resize(6);
