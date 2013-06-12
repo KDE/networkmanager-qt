@@ -368,13 +368,13 @@ bool NetworkManager::Utils::wepKeyIsValid(const QString& key, NetworkManager::Wi
             }
 
             return false;
-        }
-    } else if (type == WirelessSecuritySetting::Passphrase) {
-        if (!keylen || keylen > 64) {
-            return false;
-        }
+        } else if (type == WirelessSecuritySetting::Passphrase) {
+            if (!keylen || keylen > 64) {
+                return false;
+            }
 
-        return true;
+            return true;
+        }
     }
 
     return false;
