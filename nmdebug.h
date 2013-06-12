@@ -21,6 +21,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NMQT_DEBUG_H
 #define NMQT_DEBUG_H
 
+#include <QCoreApplication>
 #include <QDebug>
 
 #define nmDebug() \
