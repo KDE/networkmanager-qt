@@ -23,7 +23,7 @@
 
 QHostAddress NetworkManager::Utils::ipv6AddressAsHostAddress(const QByteArray& address)
 {
-    Q_ASSERT(address.size() == 16);
+//     Q_ASSERT(address.size() == 16);
     Q_IPV6ADDR tmp;
     for (int i = 0; i < 16; i++) {
         tmp[i] = address[i];
@@ -36,7 +36,7 @@ QHostAddress NetworkManager::Utils::ipv6AddressAsHostAddress(const QByteArray& a
 
 QByteArray NetworkManager::Utils::ipv6AddressFromHostAddress(const QHostAddress& address)
 {
-    Q_ASSERT(address.protocol() == QAbstractSocket::IPv6Protocol);
+//     Q_ASSERT(address.protocol() == QAbstractSocket::IPv6Protocol);
     Q_IPV6ADDR tmp = address.toIPv6Address();
     QByteArray assembledAddress;
     for (int i = 0; i <16; i++) {
@@ -60,7 +60,7 @@ QString NetworkManager::Utils::macAddressAsString(const QByteArray & ba)
 QByteArray NetworkManager::Utils::macAddressFromString(const QString &s)
 {
     QStringList macStringList = s.split(':');
-    Q_ASSERT(macStringList.size() == 6);
+//     Q_ASSERT(macStringList.size() == 6);
     QByteArray ba;
     if (!s.isEmpty()) {
         ba.resize(6);
