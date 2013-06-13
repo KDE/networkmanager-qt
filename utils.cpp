@@ -357,6 +357,7 @@ bool NetworkManager::Utils::wepKeyIsValid(const QString& key, NetworkManager::Wi
                         return false;
                     }
                 }
+                return true;
             } else if (keylen == 5 || keylen == 13) {
                 /* ASCII KEY */
                 for (int i = 0; i < keylen; i++) {
@@ -364,6 +365,7 @@ bool NetworkManager::Utils::wepKeyIsValid(const QString& key, NetworkManager::Wi
                         return false;
                     }
                 }
+                return true;
             }
 
             return false;
