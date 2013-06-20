@@ -617,7 +617,7 @@ QVariantMap NetworkManager::Security8021xSetting::secretsToMap() const
 void NetworkManager::Security8021xSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_EAP))) {
-        QStringList methods = setting.value(QLatin1String(NM_SETTING_802_1X_EAP)).toStringList();
+        const QStringList methods = setting.value(QLatin1String(NM_SETTING_802_1X_EAP)).toStringList();
         QList<EapMethod> eapMethods;
         foreach(const QString & method, methods) {
             if (method == "leap") {
@@ -673,7 +673,7 @@ void NetworkManager::Security8021xSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPVER))) {
-        QString version = setting.value(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPVER)).toString();
+        const QString version = setting.value(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPVER)).toString();
 
         if (version == "0") {
             setPhase1PeapVersion(PeapVersionZero);
@@ -683,7 +683,7 @@ void NetworkManager::Security8021xSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPLABEL))) {
-        QString label = setting.value(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPLABEL)).toString();
+        const QString label = setting.value(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPLABEL)).toString();
 
         if (label == "1") {
             setPhase1PeapLabel(PeapLabelForce);
@@ -691,7 +691,7 @@ void NetworkManager::Security8021xSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE1_FAST_PROVISIONING))) {
-        QString provisioning = setting.value(QLatin1String(NM_SETTING_802_1X_PHASE1_FAST_PROVISIONING)).toString();
+        const QString provisioning = setting.value(QLatin1String(NM_SETTING_802_1X_PHASE1_FAST_PROVISIONING)).toString();
 
         if (provisioning == "0") {
             setPhase1FastProvisioning(FastProvisioningDisabled);
@@ -705,7 +705,7 @@ void NetworkManager::Security8021xSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTH))) {
-        QString authMethod = setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTH)).toString();
+        const QString authMethod = setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTH)).toString();
 
         if (authMethod == "pap") {
             setPhase2AuthMethod(AuthMethodPap);
@@ -727,7 +727,7 @@ void NetworkManager::Security8021xSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTHEAP))) {
-        QString authEapMethod = setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTHEAP)).toString();
+        const QString authEapMethod = setting.value(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTHEAP)).toString();
 
         if (authEapMethod == "md5") {
             setPhase2AuthEapMethod(AuthEapMethodMd5);

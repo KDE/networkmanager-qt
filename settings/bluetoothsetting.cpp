@@ -90,7 +90,7 @@ void NetworkManager::BluetoothSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_BLUETOOTH_TYPE))) {
-        QString type = setting.value(QLatin1String(NM_SETTING_BLUETOOTH_TYPE)).toString();
+        const QString type = setting.value(QLatin1String(NM_SETTING_BLUETOOTH_TYPE)).toString();
 
         if (type == QLatin1String(NM_SETTING_BLUETOOTH_TYPE_DUN)) {
             setProfileType(Dun);

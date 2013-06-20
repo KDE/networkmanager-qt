@@ -40,7 +40,7 @@ NetworkManager::Dhcp6Config::Dhcp6Config(const QString &path, QObject *owner)
 {
     Q_D(Dhcp6Config);
     connect(&d->dhcp6Iface, SIGNAL(PropertiesChanged(QVariantMap)),
-                            SLOT(dhcp6PropertiesChanged(QVariantMap)));
+            SLOT(dhcp6PropertiesChanged(QVariantMap)));
     d->properties = d->dhcp6Iface.options();
 }
 

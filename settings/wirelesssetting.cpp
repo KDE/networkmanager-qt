@@ -276,7 +276,7 @@ void NetworkManager::WirelessSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_MODE))) {
-        QString mode = setting.value(QLatin1String(NM_SETTING_WIRELESS_MODE)).toString();
+        const QString mode = setting.value(QLatin1String(NM_SETTING_WIRELESS_MODE)).toString();
         if (mode == QLatin1String(NM_SETTING_WIRELESS_MODE_INFRA)) {
             setMode(Infrastructure);
         } else if (mode == QLatin1String(NM_SETTING_WIRELESS_MODE_ADHOC)) {
@@ -287,7 +287,7 @@ void NetworkManager::WirelessSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_BAND))) {
-        QString band = setting.value(QLatin1String(NM_SETTING_WIRELESS_BAND)).toString();
+        const QString band = setting.value(QLatin1String(NM_SETTING_WIRELESS_BAND)).toString();
         if (band == "a") {
             setBand(A);
         } else if (band == "bg") {

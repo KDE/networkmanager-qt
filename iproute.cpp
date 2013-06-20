@@ -34,8 +34,8 @@ public:
 
 }
 
-NetworkManager::IpRoute::IpRoute()
-: d(new Private)
+NetworkManager::IpRoute::IpRoute():
+    d(new Private)
 {
 }
 

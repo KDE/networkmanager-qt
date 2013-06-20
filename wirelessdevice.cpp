@@ -46,25 +46,23 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString & path, QObject * p
     d->bitRate = d->wirelessIface.bitrate();
     d->wirelessCapabilities = convertCapabilities(d->wirelessIface.wirelessCapabilities());
 
-    connect( &d->wirelessIface, SIGNAL(PropertiesChanged(QVariantMap)),
-                this, SLOT(propertiesChanged(QVariantMap)));
-    connect( &d->wirelessIface, SIGNAL(AccessPointAdded(QDBusObjectPath)),
-                this, SLOT(accessPointAdded(QDBusObjectPath)));
-    connect( &d->wirelessIface, SIGNAL(AccessPointRemoved(QDBusObjectPath)),
-                this, SLOT(accessPointRemoved(QDBusObjectPath)));
+    connect(&d->wirelessIface, SIGNAL(PropertiesChanged(QVariantMap)),
+            this, SLOT(propertiesChanged(QVariantMap)));
+    connect(&d->wirelessIface, SIGNAL(AccessPointAdded(QDBusObjectPath)),
+            this, SLOT(accessPointAdded(QDBusObjectPath)));
+    connect(&d->wirelessIface, SIGNAL(AccessPointRemoved(QDBusObjectPath)),
+            this, SLOT(accessPointRemoved(QDBusObjectPath)));
 
 
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
     QDBusReply< QList <QDBusObjectPath> > apPathList = d->wirelessIface.GetAccessPoints();
-    if (apPathList.isValid())
-    {
+    if (apPathList.isValid()) {
         //nmDebug() << "Got device list";
         QList <QDBusObjectPath> aps = apPathList.value();
         foreach (const QDBusObjectPath &op, aps) {
             accessPointAdded(op);
         }
-    }
-    else {
+    } else {
         nmDebug() << "Error getting access point list: " << apPathList.error().name() << ": " << apPathList.error().message();
     }
     d->activeAccessPoint = findAccessPoint(d->wirelessIface.activeAccessPoint().path());
@@ -172,7 +170,7 @@ void NetworkManager::WirelessDevice::accessPointAdded(const QDBusObjectPath &acc
         d->apMap.insert(accessPoint.path(), accessPointPtr);
         emit accessPointAppeared(accessPoint.path());
 
-        QString ssid = accessPointPtr->ssid();
+        const QString ssid = accessPointPtr->ssid();
         if (!ssid.isEmpty() && !d->networks.contains(ssid)) {
             NetworkManager::WirelessNetwork::Ptr wifiNetwork(new NetworkManager::WirelessNetwork(accessPointPtr, this), &QObject::deleteLater);
             d->networks.insert(ssid, wifiNetwork);

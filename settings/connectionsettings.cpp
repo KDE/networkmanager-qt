@@ -407,7 +407,7 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap& map)
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS))) {
         QStringList permissions = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS)).toStringList();
         foreach(const QString & permission, permissions) {
-            QStringList split = permission.split(QLatin1String(":"), QString::KeepEmptyParts);
+            const QStringList split = permission.split(QLatin1String(":"), QString::KeepEmptyParts);
             addToPermissions(split.at(1), split.at(2));
         }
     }
@@ -417,7 +417,7 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap& map)
     }
 
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP))) {
-        int timestamp = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP)).toInt();
+        const int timestamp = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP)).toInt();
         QDateTime dateTime;
         dateTime.setTime_t(timestamp);
         setTimestamp(dateTime);
@@ -475,7 +475,7 @@ NMVariantMapMap NetworkManager::ConnectionSettings::toMap() const
         QHash<QString, QString> perms = permissions();
         QHash<QString, QString>::const_iterator it = perms.constBegin();
         while (it != perms.constEnd()) {
-            QString tmp = "user:" + it.key() + ':' + it.value();
+            const QString tmp = "user:" + it.key() + ':' + it.value();
             perm << tmp;
             ++it;
         }

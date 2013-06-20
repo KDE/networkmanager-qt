@@ -214,7 +214,7 @@ NetworkManager::Ipv6Setting::IPv6Privacy NetworkManager::Ipv6Setting::privacy() 
 void NetworkManager::Ipv6Setting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_IP6_CONFIG_METHOD))) {
-        QString methodType = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_METHOD)).toString();
+        const QString methodType = setting.value(QLatin1String(NM_SETTING_IP6_CONFIG_METHOD)).toString();
 
         if (methodType.toLower() == QLatin1String(NM_SETTING_IP6_CONFIG_METHOD_AUTO)) {
             setMethod(Automatic);

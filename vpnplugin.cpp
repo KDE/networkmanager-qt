@@ -45,17 +45,17 @@ NetworkManager::VpnPlugin::VpnPlugin(const QString& path, QObject* parent):
     d->state = (NetworkManager::VpnConnection::State)d->iface.state();
 
     QObject::connect(&d->iface, SIGNAL(Config(QVariantMap)),
-            this, SLOT(setConfig(QVariantMap)));
+                     this, SLOT(setConfig(QVariantMap)));
     QObject::connect(&d->iface, SIGNAL(Failure(uint)),
-            this, SLOT(setFailure(QString)));
+                     this, SLOT(setFailure(QString)));
     QObject::connect(&d->iface, SIGNAL(Ip4Config(QVariantMap)),
-            this, SLOT(setIp4Config(QVariantMap)));
+                     this, SLOT(setIp4Config(QVariantMap)));
     QObject::connect(&d->iface, SIGNAL(Ip6Config(QVariantMap)),
-            this, SLOT(setIp6Config(QVariantMap)));
+                     this, SLOT(setIp6Config(QVariantMap)));
     //QObject::connect(&d->iface, SIGNAL(LoginBanner(QString)),
     //        this, SLOT(onLoginBanner(QString)));
     QObject::connect(&d->iface, SIGNAL(StateChanged(uint)),
-            this, SLOT(onStateChanged(uint)));
+                     this, SLOT(onStateChanged(uint)));
 }
 
 NetworkManager::VpnPlugin::~VpnPlugin()

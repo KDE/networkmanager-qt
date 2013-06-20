@@ -245,7 +245,7 @@ bool NetworkManager::Ipv4Setting::mayFail() const
 void NetworkManager::Ipv4Setting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD))) {
-        QString methodType = setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD)).toString();
+        const QString methodType = setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD)).toString();
 
         if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_AUTO)) {
             setMethod(Automatic);

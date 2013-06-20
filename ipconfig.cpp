@@ -207,4 +207,3 @@ bool NetworkManager::IpConfig::isValid() const
 {
     return !d->addresses.isEmpty();
 }
-

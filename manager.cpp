@@ -525,7 +525,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
 {
     QVariantMap::const_iterator it = changedProperties.constBegin();
     while (it != changedProperties.constEnd()) {
-        QString property = it.key();
+        const QString property = it.key();
         if (property == QLatin1String("ActiveConnections")) {
             QList<QDBusObjectPath> activePaths = qdbus_cast< QList<QDBusObjectPath> >(*it);
             if (activePaths.isEmpty()) {

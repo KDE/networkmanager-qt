@@ -81,7 +81,7 @@ void NetworkManager::VpnConnection::propertiesChanged(const QVariantMap &propert
 
     QVariantMap::const_iterator it = properties.constBegin();
     while (it != properties.constEnd()) {
-        QString property = it.key();
+        const QString property = it.key();
         if (property == QLatin1String("Banner")) {
             d->banner = it->toString();
             emit bannerChanged(d->banner);

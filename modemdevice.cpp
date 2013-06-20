@@ -47,11 +47,11 @@ void NetworkManager::ModemDevice::initModemProperties()
     d->currentCapabilities = convertModemCapabilities(d->modemIface.currentCapabilities());
     d->m_modemUdi = getUdiForModemManager();
     connect(&d->modemIface, SIGNAL(PropertiesChanged(QVariantMap)),
-                this, SLOT(propertiesChanged(QVariantMap)));
+            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
-NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate & dd, QObject * parent) : Device(dd, parent),
-      modemGsmCardIface(0), modemGsmNetworkIface(0)
+NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate & dd, QObject * parent)
+    : Device(dd, parent), modemGsmCardIface(0), modemGsmNetworkIface(0)
 {
     initModemProperties();
 }

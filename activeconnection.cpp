@@ -63,8 +63,8 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString & path, QObject
 {
     Q_D(ActiveConnection);
 
-    connect( &d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-             this, SLOT(propertiesChanged(QVariantMap)));
+    connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
+            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, QObject * parent)
@@ -72,8 +72,8 @@ NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, 
 {
     Q_D(ActiveConnection);
 
-    connect( &d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-             this, SLOT(propertiesChanged(QVariantMap)));
+    connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
+            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::ActiveConnection::~ActiveConnection()
@@ -153,7 +153,7 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap &prop
 
     QVariantMap::const_iterator it = properties.constBegin();
     while (it != properties.constEnd()) {
-        QString property = it.key();
+        const QString property = it.key();
         if (property == QLatin1String("Connection")) {
             d->connection = NetworkManager::findConnection(qdbus_cast<QDBusObjectPath>(*it).path());
             emit connectionChanged(d->connection);

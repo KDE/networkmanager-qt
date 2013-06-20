@@ -50,8 +50,8 @@ NetworkManager::WimaxNsp::WimaxNsp( const QString& path, QObject * parent ) : QO
         d->networkType = convertNetworkType( d->iface.networkType() );
         d->name = d->iface.name();
         d->signalQuality = d->iface.signalQuality();
-        connect( &d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-                 this, SLOT(propertiesChanged(QVariantMap)));
+        connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
+                this, SLOT(propertiesChanged(QVariantMap)));
     }
 }
 
@@ -91,7 +91,7 @@ void NetworkManager::WimaxNsp::propertiesChanged(const QVariantMap &properties)
 
     QVariantMap::const_iterator it = properties.constBegin();
     while (it != properties.constEnd()) {
-        QString property = it.key();
+        const QString property = it.key();
         if (property == QLatin1String("Name")) {
             d->name = it->toString();
             emit nameChanged(d->name);

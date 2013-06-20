@@ -40,7 +40,7 @@ NetworkManager::Dhcp4Config::Dhcp4Config(const QString &path, QObject *owner)
 {
     Q_D(Dhcp4Config);
     connect(&d->dhcp4Iface, SIGNAL(PropertiesChanged(QVariantMap)),
-                            SLOT(dhcp4PropertiesChanged(QVariantMap)));
+            SLOT(dhcp4PropertiesChanged(QVariantMap)));
     d->properties = d->dhcp4Iface.options();
 }
 

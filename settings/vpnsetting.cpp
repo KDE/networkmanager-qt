@@ -173,7 +173,7 @@ QVariantMap NetworkManager::VpnSetting::toMap() const
 void NetworkManager::VpnSetting::secretsFromStringMap(const NMStringMap& map)
 {
     if (map.contains(QLatin1String(NM_SETTING_VPN_SECRETS))) {
-        QStringList list = map.value(QLatin1String(NM_SETTING_VPN_SECRETS)).split("%SEP%");
+        const QStringList list = map.value(QLatin1String(NM_SETTING_VPN_SECRETS)).split("%SEP%");
         NMStringMap map;
         if (list.count() % 2 == 0) {
             for (int i = 0; i < list.count(); i += 2 ) {

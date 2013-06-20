@@ -44,12 +44,12 @@ NetworkManager::WimaxDevice::WimaxDevice(const QString & path, QObject * parent)
     d->rssi = d->wimaxIface.rssi();
     d->txPower = d->wimaxIface.txPower();
 
-    connect( &d->wimaxIface, SIGNAL(PropertiesChanged(QVariantMap)),
-                this, SLOT(propertiesChanged(QVariantMap)));
-    connect( &d->wimaxIface, SIGNAL(NspAdded(QDBusObjectPath)),
-                this, SLOT(nspAdded(QDBusObjectPath)));
-    connect( &d->wimaxIface, SIGNAL(NspRemoved(QDBusObjectPath)),
-                this, SLOT(nspRemoved(QDBusObjectPath)));
+    connect(&d->wimaxIface, SIGNAL(PropertiesChanged(QVariantMap)),
+            this, SLOT(propertiesChanged(QVariantMap)));
+    connect(&d->wimaxIface, SIGNAL(NspAdded(QDBusObjectPath)),
+            this, SLOT(nspAdded(QDBusObjectPath)));
+    connect(&d->wimaxIface, SIGNAL(NspRemoved(QDBusObjectPath)),
+            this, SLOT(nspRemoved(QDBusObjectPath)));
 
 
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
@@ -58,8 +58,7 @@ NetworkManager::WimaxDevice::WimaxDevice(const QString & path, QObject * parent)
     {
         //nmDebug() << "Got device list";
         QList <QDBusObjectPath> nsps = nspPathList.value();
-        foreach (const QDBusObjectPath &op, nsps)
-        {
+        foreach (const QDBusObjectPath &op, nsps) {
             d->nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
             //nmDebug() << "  " << op.path();
         }
@@ -76,7 +75,7 @@ NetworkManager::WimaxDevice::~WimaxDevice()
 
 NetworkManager::Device::Type NetworkManager::WimaxDevice::type() const
 {
-        return NetworkManager::Device::Wimax;
+    return NetworkManager::Device::Wimax;
 }
 
 QStringList NetworkManager::WimaxDevice::nsps() const

@@ -189,7 +189,7 @@ void NetworkManager::AdslSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_ADSL_PROTOCOL))) {
-        QString protocol = setting.value(QLatin1String(NM_SETTING_ADSL_PROTOCOL)).toString();
+        const QString protocol = setting.value(QLatin1String(NM_SETTING_ADSL_PROTOCOL)).toString();
 
         if (protocol == QLatin1String(NM_SETTING_ADSL_PROTOCOL_PPPOA)) {
             setProtocol(Pppoa);
@@ -201,7 +201,7 @@ void NetworkManager::AdslSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_ADSL_ENCAPSULATION))) {
-        QString encapsulation = setting.value(QLatin1String(NM_SETTING_ADSL_ENCAPSULATION)).toString();
+        const QString encapsulation = setting.value(QLatin1String(NM_SETTING_ADSL_ENCAPSULATION)).toString();
 
         if (encapsulation == QLatin1String(NM_SETTING_ADSL_ENCAPSULATION_VCMUX)) {
             setEncapsulation(Vcmux);

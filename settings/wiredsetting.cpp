@@ -227,7 +227,7 @@ QMap<QString, QString> NetworkManager::WiredSetting::s390Options() const
 void NetworkManager::WiredSetting::fromMap(const QVariantMap& setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_PORT))) {
-        QString port = setting.value(QLatin1String(NM_SETTING_WIRED_PORT)).toString();
+        const QString port = setting.value(QLatin1String(NM_SETTING_WIRED_PORT)).toString();
 
         if (port == "tp") {
             setPort(Tp);
@@ -245,7 +245,7 @@ void NetworkManager::WiredSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_DUPLEX))) {
-        QString duplex = setting.value(QLatin1String(NM_SETTING_WIRED_DUPLEX)).toString();
+        const QString duplex = setting.value(QLatin1String(NM_SETTING_WIRED_DUPLEX)).toString();
 
         if (duplex == "half") {
             setDuplexType(Half);
@@ -279,7 +279,7 @@ void NetworkManager::WiredSetting::fromMap(const QVariantMap& setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE))) {
-        QString nettype = setting.value(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE)).toString();
+        const QString nettype = setting.value(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE)).toString();
 
         if (nettype == "qeth") {
             setS390NetType(Qeth);
