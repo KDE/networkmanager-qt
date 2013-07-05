@@ -57,7 +57,7 @@ QString NetworkManager::InfinibandSetting::name() const
     return d->name;
 }
 
-void NetworkManager::InfinibandSetting::setMacAddress(const QByteArray& address)
+void NetworkManager::InfinibandSetting::setMacAddress(const QByteArray &address)
 {
     Q_D(InfinibandSetting);
 
@@ -99,7 +99,7 @@ NetworkManager::InfinibandSetting::TransportMode NetworkManager::InfinibandSetti
     return d->transportMode;
 }
 
-void NetworkManager::InfinibandSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::InfinibandSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_INFINIBAND_MAC_ADDRESS))) {
         setMacAddress(setting.value(QLatin1String(NM_SETTING_INFINIBAND_MAC_ADDRESS)).toByteArray());

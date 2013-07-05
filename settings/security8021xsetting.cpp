@@ -92,7 +92,7 @@ QString NetworkManager::Security8021xSetting::name() const
     return d->name;
 }
 
-void NetworkManager::Security8021xSetting::setEapMethods(const QList< NetworkManager::Security8021xSetting::EapMethod >& methods)
+void NetworkManager::Security8021xSetting::setEapMethods(const QList< NetworkManager::Security8021xSetting::EapMethod > &methods)
 {
     Q_D(Security8021xSetting);
 
@@ -106,7 +106,7 @@ QList< NetworkManager::Security8021xSetting::EapMethod > NetworkManager::Securit
     return d->eap;
 }
 
-void NetworkManager::Security8021xSetting::setIdentity(const QString& identity)
+void NetworkManager::Security8021xSetting::setIdentity(const QString &identity)
 {
     Q_D(Security8021xSetting);
 
@@ -120,7 +120,7 @@ QString NetworkManager::Security8021xSetting::identity() const
     return d->identity;
 }
 
-void NetworkManager::Security8021xSetting::setAnonymousIdentity(const QString& identity)
+void NetworkManager::Security8021xSetting::setAnonymousIdentity(const QString &identity)
 {
     Q_D(Security8021xSetting);
 
@@ -134,7 +134,7 @@ QString NetworkManager::Security8021xSetting::anonymousIdentity() const
     return d->anonymousIdentity;
 }
 
-void NetworkManager::Security8021xSetting::setPacFile(const QString& file)
+void NetworkManager::Security8021xSetting::setPacFile(const QString &file)
 {
     Q_D(Security8021xSetting);
 
@@ -148,7 +148,7 @@ QString NetworkManager::Security8021xSetting::pacFile() const
     return d->pacFile;
 }
 
-void NetworkManager::Security8021xSetting::setCaCertificate(const QByteArray& certificate)
+void NetworkManager::Security8021xSetting::setCaCertificate(const QByteArray &certificate)
 {
     Q_D(Security8021xSetting);
 
@@ -162,7 +162,7 @@ QByteArray NetworkManager::Security8021xSetting::caCertificate() const
     return d->caCert;
 }
 
-void NetworkManager::Security8021xSetting::setCaPath(const QString& path)
+void NetworkManager::Security8021xSetting::setCaPath(const QString &path)
 {
     Q_D(Security8021xSetting);
 
@@ -176,7 +176,7 @@ QString NetworkManager::Security8021xSetting::caPath() const
     return d->caPath;
 }
 
-void NetworkManager::Security8021xSetting::setSubjectMatch(const QString& substring)
+void NetworkManager::Security8021xSetting::setSubjectMatch(const QString &substring)
 {
     Q_D(Security8021xSetting);
 
@@ -190,7 +190,7 @@ QString NetworkManager::Security8021xSetting::subjectMatch() const
     return d->subjectMatch;
 }
 
-void NetworkManager::Security8021xSetting::setAltSubjectMatches(const QStringList& strings)
+void NetworkManager::Security8021xSetting::setAltSubjectMatches(const QStringList &strings)
 {
     Q_D(Security8021xSetting);
 
@@ -204,7 +204,7 @@ QStringList NetworkManager::Security8021xSetting::altSubjectMatches() const
     return d->altSubjectMatches;
 }
 
-void NetworkManager::Security8021xSetting::setClientCertificate(const QByteArray& certificate)
+void NetworkManager::Security8021xSetting::setClientCertificate(const QByteArray &certificate)
 {
     Q_D(Security8021xSetting);
 
@@ -288,7 +288,7 @@ NetworkManager::Security8021xSetting::AuthEapMethod NetworkManager::Security8021
     return d->phase2AuthEapMethod;
 }
 
-void NetworkManager::Security8021xSetting::setPhase2CaCertificate(const QByteArray& certificate)
+void NetworkManager::Security8021xSetting::setPhase2CaCertificate(const QByteArray &certificate)
 {
     Q_D(Security8021xSetting);
 
@@ -302,7 +302,7 @@ QByteArray NetworkManager::Security8021xSetting::phase2CaCertificate() const
     return d->phase2CaCert;
 }
 
-void NetworkManager::Security8021xSetting::setPhase2CaPath(const QString& path)
+void NetworkManager::Security8021xSetting::setPhase2CaPath(const QString &path)
 {
     Q_D(Security8021xSetting);
 
@@ -316,7 +316,7 @@ QString NetworkManager::Security8021xSetting::phase2CaPath() const
     return d->phase2CaPath;
 }
 
-void NetworkManager::Security8021xSetting::setPhase2SubjectMatch(const QString& substring)
+void NetworkManager::Security8021xSetting::setPhase2SubjectMatch(const QString &substring)
 {
     Q_D(Security8021xSetting);
 
@@ -330,7 +330,7 @@ QString NetworkManager::Security8021xSetting::phase2SubjectMatch() const
     return d->phase2SubjectMatch;
 }
 
-void NetworkManager::Security8021xSetting::setPhase2AltSubjectMatches(const QStringList& strings)
+void NetworkManager::Security8021xSetting::setPhase2AltSubjectMatches(const QStringList &strings)
 {
     Q_D(Security8021xSetting);
 
@@ -344,7 +344,7 @@ QStringList NetworkManager::Security8021xSetting::phase2AltSubjectMatches() cons
     return d->phase2AltSubjectMatches;
 }
 
-void NetworkManager::Security8021xSetting::setPhase2ClientCertificate(const QByteArray& certificate)
+void NetworkManager::Security8021xSetting::setPhase2ClientCertificate(const QByteArray &certificate)
 {
     Q_D(Security8021xSetting);
 
@@ -358,7 +358,7 @@ QByteArray NetworkManager::Security8021xSetting::phase2ClientCertificate() const
     return d->phase2ClientCert;
 }
 
-void NetworkManager::Security8021xSetting::setPassword(const QString& password)
+void NetworkManager::Security8021xSetting::setPassword(const QString &password)
 {
     Q_D(Security8021xSetting);
 
@@ -386,7 +386,7 @@ NetworkManager::Setting::SecretFlags NetworkManager::Security8021xSetting::passw
     return d->passwordFlags;
 }
 
-void NetworkManager::Security8021xSetting::setPasswordRaw(const QByteArray& password)
+void NetworkManager::Security8021xSetting::setPasswordRaw(const QByteArray &password)
 {
     Q_D(Security8021xSetting);
 
@@ -414,7 +414,7 @@ NetworkManager::Setting::SecretFlags NetworkManager::Security8021xSetting::passw
     return d->passwordRawFlags;
 }
 
-void NetworkManager::Security8021xSetting::setPrivateKey(const QByteArray& key)
+void NetworkManager::Security8021xSetting::setPrivateKey(const QByteArray &key)
 {
     Q_D(Security8021xSetting);
 
@@ -428,7 +428,7 @@ QByteArray NetworkManager::Security8021xSetting::privateKey() const
     return d->privateKey;
 }
 
-void NetworkManager::Security8021xSetting::setPrivateKeyPassword(const QString& password)
+void NetworkManager::Security8021xSetting::setPrivateKeyPassword(const QString &password)
 {
     Q_D(Security8021xSetting);
 
@@ -456,7 +456,7 @@ NetworkManager::Setting::SecretFlags NetworkManager::Security8021xSetting::priva
     return d->privateKeyPasswordFlags;
 }
 
-void NetworkManager::Security8021xSetting::setPhase2PrivateKey(const QByteArray& key)
+void NetworkManager::Security8021xSetting::setPhase2PrivateKey(const QByteArray &key)
 {
     Q_D(Security8021xSetting);
 
@@ -470,7 +470,7 @@ QByteArray NetworkManager::Security8021xSetting::phase2PrivateKey() const
     return d->phase2PrivateKey;
 }
 
-void NetworkManager::Security8021xSetting::setPhase2PrivateKeyPassword(const QString& password)
+void NetworkManager::Security8021xSetting::setPhase2PrivateKeyPassword(const QString &password)
 {
     Q_D(Security8021xSetting);
 
@@ -505,7 +505,7 @@ void NetworkManager::Security8021xSetting::setSystemCaCertificates(bool use)
     d->systemCaCerts = use;
 }
 
-void NetworkManager::Security8021xSetting::setPin(const QString& pin)
+void NetworkManager::Security8021xSetting::setPin(const QString &pin)
 {
     Q_D(Security8021xSetting);
 
@@ -564,7 +564,7 @@ QStringList NetworkManager::Security8021xSetting::needSecrets(bool requestNew) c
     return secrets;
 }
 
-void NetworkManager::Security8021xSetting::secretsFromMap(const QVariantMap& secrets)
+void NetworkManager::Security8021xSetting::secretsFromMap(const QVariantMap &secrets)
 {
     if (secrets.contains(QLatin1String(NM_SETTING_802_1X_PASSWORD))) {
         setPassword(secrets.value(QLatin1String(NM_SETTING_802_1X_PASSWORD)).toString());
@@ -614,12 +614,12 @@ QVariantMap NetworkManager::Security8021xSetting::secretsToMap() const
     return secrets;
 }
 
-void NetworkManager::Security8021xSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::Security8021xSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_EAP))) {
         const QStringList methods = setting.value(QLatin1String(NM_SETTING_802_1X_EAP)).toStringList();
         QList<EapMethod> eapMethods;
-        foreach(const QString & method, methods) {
+        foreach (const QString &method, methods) {
             if (method == "leap") {
                 eapMethods << EapMethodLeap;
             } else if (method == "md5") {

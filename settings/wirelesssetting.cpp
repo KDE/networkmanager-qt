@@ -73,7 +73,7 @@ QString NetworkManager::WirelessSetting::name() const
     return d->name;
 }
 
-void NetworkManager::WirelessSetting::setSsid(const QByteArray& ssid)
+void NetworkManager::WirelessSetting::setSsid(const QByteArray &ssid)
 {
     Q_D(WirelessSetting);
 
@@ -129,7 +129,7 @@ quint32 NetworkManager::WirelessSetting::channel() const
     return d->channel;
 }
 
-void NetworkManager::WirelessSetting::setBssid(const QByteArray& bssid)
+void NetworkManager::WirelessSetting::setBssid(const QByteArray &bssid)
 {
     Q_D(WirelessSetting);
 
@@ -171,7 +171,7 @@ quint32 NetworkManager::WirelessSetting::txPower() const
     return d->txPower;
 }
 
-void NetworkManager::WirelessSetting::setMacAddress(const QByteArray& address)
+void NetworkManager::WirelessSetting::setMacAddress(const QByteArray &address)
 {
     Q_D(WirelessSetting);
 
@@ -185,7 +185,7 @@ QByteArray NetworkManager::WirelessSetting::macAddress() const
     return d->macAddress;
 }
 
-void NetworkManager::WirelessSetting::setClonedMacAddress(const QByteArray& address)
+void NetworkManager::WirelessSetting::setClonedMacAddress(const QByteArray &address)
 {
     Q_D(WirelessSetting);
 
@@ -199,7 +199,7 @@ QByteArray NetworkManager::WirelessSetting::clonedMacAddress() const
     return d->clonedMacAddress;
 }
 
-void NetworkManager::WirelessSetting::setMacAddressBlacklist(const QStringList& list)
+void NetworkManager::WirelessSetting::setMacAddressBlacklist(const QStringList &list)
 {
     Q_D(WirelessSetting);
 
@@ -227,7 +227,7 @@ quint32 NetworkManager::WirelessSetting::mtu() const
     return d->mtu;
 }
 
-void NetworkManager::WirelessSetting::setSeenBssids(const QStringList& list)
+void NetworkManager::WirelessSetting::setSeenBssids(const QStringList &list)
 {
     Q_D(WirelessSetting);
 
@@ -241,7 +241,7 @@ QStringList NetworkManager::WirelessSetting::seenBssids() const
     return d->seenBssids;
 }
 
-void NetworkManager::WirelessSetting::setSecurity(const QString& security)
+void NetworkManager::WirelessSetting::setSecurity(const QString &security)
 {
     Q_D(WirelessSetting);
 
@@ -269,7 +269,7 @@ bool NetworkManager::WirelessSetting::hidden() const
     return d->hidden;
 }
 
-void NetworkManager::WirelessSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::WirelessSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_SSID))) {
         setSsid(setting.value(QLatin1String(NM_SETTING_WIRELESS_SSID)).toByteArray());

@@ -65,7 +65,7 @@ QString NetworkManager::BridgeSetting::name() const
     return d->name;
 }
 
-void NetworkManager::BridgeSetting::setInterfaceName(const QString& name)
+void NetworkManager::BridgeSetting::setInterfaceName(const QString &name)
 {
     Q_D(BridgeSetting);
 
@@ -163,7 +163,7 @@ quint32 NetworkManager::BridgeSetting::agingTime() const
     return d->agingTime;
 }
 
-void NetworkManager::BridgeSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::BridgeSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_BRIDGE_INTERFACE_NAME))) {
         setInterfaceName(setting.value(QLatin1String(NM_SETTING_BRIDGE_INTERFACE_NAME)).toString());

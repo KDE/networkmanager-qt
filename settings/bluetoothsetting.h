@@ -44,18 +44,18 @@ public:
 
     QString name() const;
 
-    void setBluetoothAddress(const QByteArray & address);
+    void setBluetoothAddress(const QByteArray &address);
     QByteArray bluetoothAddress() const;
 
     void setProfileType(ProfileType type);
     ProfileType profileType() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    BluetoothSettingPrivate * d_ptr;
+    BluetoothSettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const BluetoothSetting &setting);

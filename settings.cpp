@@ -86,7 +86,7 @@ NetworkManager::Connection::List NetworkManager::SettingsPrivate::listConnection
     return list;
 }
 
-NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findConnectionByUuid(const QString & uuid)
+NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findConnectionByUuid(const QString &uuid)
 {
     QMap<QString, Connection::Ptr>::const_iterator i = connections.constBegin();
     while (i != connections.constEnd()) {
@@ -209,7 +209,7 @@ NetworkManager::Connection::List NetworkManager::listConnections()
     return globalSettings->listConnections();
 }
 
-NetworkManager::Connection::Ptr NetworkManager::findConnectionByUuid(const QString & uuid)
+NetworkManager::Connection::Ptr NetworkManager::findConnectionByUuid(const QString &uuid)
 {
     return globalSettings->findConnectionByUuid(uuid);
 }
@@ -239,7 +239,7 @@ QString NetworkManager::hostname()
     return globalSettings->hostname();
 }
 
-NetworkManager::SettingsNotifier* NetworkManager::settingsNotifier()
+NetworkManager::SettingsNotifier *NetworkManager::settingsNotifier()
 {
     return globalSettings;
 }

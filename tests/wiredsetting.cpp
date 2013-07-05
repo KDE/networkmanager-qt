@@ -50,7 +50,7 @@ void WiredSetting::testSetting_data()
     s390Subchannels << "0.0.09a2";
 
     QMap<QString, QString> s390Options;
-    s390Options.insert("portno","0");
+    s390Options.insert("portno", "0");
 
     QTest::newRow("setting1")
             << QString("tp")                    // port

@@ -100,7 +100,7 @@ bool NetworkManager::BridgePortSetting::hairpinMode() const
     return d->hairpinMode;
 }
 
-void NetworkManager::BridgePortSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::BridgePortSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_BRIDGE_PORT_PRIORITY))) {
         setPriority(setting.value(QLatin1String(NM_SETTING_BRIDGE_PORT_PRIORITY)).toUInt());

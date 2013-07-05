@@ -27,9 +27,9 @@ class Security8021xSetting : public QObject
 {
     Q_OBJECT
 
-    private Q_SLOTS:
-        void testSetting_data();
-        void testSetting();
+private Q_SLOTS:
+    void testSetting_data();
+    void testSetting();
 };
 
 #endif // NMQT_SECURITY8021XSETTING_TEST_H

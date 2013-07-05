@@ -24,7 +24,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "device_p.h"
 #include "dbus/nm-device-wimaxinterface.h"
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 class WimaxDevicePrivate : public DevicePrivate
 {

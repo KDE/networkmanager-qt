@@ -23,9 +23,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "manager_p.h"
 #include "nmdebug.h"
 
-NetworkManager::Dhcp4ConfigPrivate::Dhcp4ConfigPrivate( const QString & path, QObject * owner ) :
-    dhcp4Iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()),
-    myPath(path)
+NetworkManager::Dhcp4ConfigPrivate::Dhcp4ConfigPrivate(const QString &path, QObject *owner)
+    : dhcp4Iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+    , myPath(path)
 {
     Q_UNUSED(owner);
 }
@@ -36,7 +36,7 @@ NetworkManager::Dhcp4ConfigPrivate::~Dhcp4ConfigPrivate()
 }
 
 NetworkManager::Dhcp4Config::Dhcp4Config(const QString &path, QObject *owner)
-: d_ptr(new Dhcp4ConfigPrivate(path, owner))
+    : d_ptr(new Dhcp4ConfigPrivate(path, owner))
 {
     Q_D(Dhcp4Config);
     connect(&d->dhcp4Iface, SIGNAL(PropertiesChanged(QVariantMap)),

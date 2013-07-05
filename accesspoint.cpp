@@ -33,8 +33,15 @@ namespace NetworkManager {
 class AccessPointPrivate
 {
 public:
-    AccessPointPrivate( const QString & path ) : iface( NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()), capabilities(0), wpaFlags(0), rsnFlags(0), frequency(0), maxBitRate(0), mode((AccessPoint::OperationMode)0), signalStrength(0)
-    {
+    AccessPointPrivate(const QString &path)
+        : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+        , capabilities(0)
+        , wpaFlags(0)
+        , rsnFlags(0)
+        , frequency(0)
+        , maxBitRate(0)
+        , mode(AccessPoint::Unknown)
+        , signalStrength(0) {
     }
     OrgFreedesktopNetworkManagerAccessPointInterface iface;
     QString uni;
@@ -51,14 +58,16 @@ public:
 };
 }
 
-NetworkManager::AccessPoint::AccessPoint( const QString& path, QObject * parent ) : QObject(parent), d_ptr(new AccessPointPrivate( path ))
+NetworkManager::AccessPoint::AccessPoint(const QString &path, QObject *parent)
+    : QObject(parent)
+    , d_ptr(new AccessPointPrivate(path))
 {
     Q_D(AccessPoint);
     d->uni = path;
     if (d->iface.isValid()) {
-        d->capabilities = convertCapabilities( d->iface.flags() );
-        d->wpaFlags = convertWpaFlags( d->iface.wpaFlags() );
-        d->rsnFlags = convertWpaFlags( d->iface.rsnFlags() );
+        d->capabilities = convertCapabilities(d->iface.flags());
+        d->wpaFlags = convertWpaFlags(d->iface.wpaFlags());
+        d->rsnFlags = convertWpaFlags(d->iface.rsnFlags());
         d->signalStrength = d->iface.strength();
         d->rawSsid = d->iface.ssid();
         d->ssid = QString::fromUtf8(d->rawSsid);
@@ -67,7 +76,7 @@ NetworkManager::AccessPoint::AccessPoint( const QString& path, QObject * parent 
         d->maxBitRate = d->iface.maxBitrate();
         // make this a static on WirelessNetworkInterface
         d->mode = convertOperationMode(d->iface.mode());
-        connect( &d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
+        connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
                 this, SLOT(propertiesChanged(QVariantMap)));
     }
 }
@@ -148,20 +157,20 @@ NetworkManager::AccessPoint::OperationMode NetworkManager::AccessPoint::convertO
 {
     NetworkManager::AccessPoint::OperationMode ourMode = NetworkManager::AccessPoint::Unknown;
     switch (mode) {
-        case NM_802_11_MODE_UNKNOWN:
-            ourMode = NetworkManager::AccessPoint::Unknown;
-            break;
-        case NM_802_11_MODE_ADHOC:
-            ourMode = NetworkManager::AccessPoint::Adhoc;
-            break;
-        case NM_802_11_MODE_INFRA:
-            ourMode = NetworkManager::AccessPoint::Infra;
-            break;
-        case NM_802_11_MODE_AP:
-            ourMode = NetworkManager::AccessPoint::ApMode;
-            break;
-        default:
-            nmDebug() << "Unhandled mode" << mode;
+    case NM_802_11_MODE_UNKNOWN:
+        ourMode = NetworkManager::AccessPoint::Unknown;
+        break;
+    case NM_802_11_MODE_ADHOC:
+        ourMode = NetworkManager::AccessPoint::Adhoc;
+        break;
+    case NM_802_11_MODE_INFRA:
+        ourMode = NetworkManager::AccessPoint::Infra;
+        break;
+    case NM_802_11_MODE_AP:
+        ourMode = NetworkManager::AccessPoint::ApMode;
+        break;
+    default:
+        nmDebug() << "Unhandled mode" << mode;
     }
     return ourMode;
 }
@@ -208,7 +217,7 @@ void NetworkManager::AccessPoint::propertiesChanged(const QVariantMap &propertie
 
 NetworkManager::AccessPoint::Capabilities NetworkManager::AccessPoint::convertCapabilities(int caps)
 {
-    if ( 1 == caps ) {
+    if (1 == caps) {
         return NetworkManager::AccessPoint::Privacy;
     } else {
         return 0;

@@ -99,7 +99,7 @@ void WirelessSecuritySetting::testSetting()
 
     QVariantMap map;
 
-    map.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT),keyMgmt);
+    map.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT), keyMgmt);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_TX_KEYIDX), wepTxKeyidx);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_AUTH_ALG), authAlg);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PROTO), proto);

@@ -51,31 +51,31 @@ public:
 
     QString name() const;
 
-    void setEapMethods(const QList<EapMethod> & methods);
+    void setEapMethods(const QList<EapMethod> &methods);
     QList<EapMethod> eapMethods() const;
 
-    void setIdentity(const QString & identity);
+    void setIdentity(const QString &identity);
     QString identity() const;
 
-    void setAnonymousIdentity(const QString & identity);
+    void setAnonymousIdentity(const QString &identity);
     QString anonymousIdentity() const;
 
-    void setPacFile(const QString & file);
+    void setPacFile(const QString &file);
     QString pacFile() const;
 
-    void setCaCertificate(const QByteArray & certificate);
+    void setCaCertificate(const QByteArray &certificate);
     QByteArray caCertificate() const;
 
-    void setCaPath(const QString & path);
+    void setCaPath(const QString &path);
     QString caPath() const;
 
-    void setSubjectMatch(const QString & substring);
+    void setSubjectMatch(const QString &substring);
     QString subjectMatch() const;
 
-    void setAltSubjectMatches(const QStringList & strings);
+    void setAltSubjectMatches(const QStringList &strings);
     QStringList altSubjectMatches() const;
 
-    void setClientCertificate(const QByteArray & certificate);
+    void setClientCertificate(const QByteArray &certificate);
     QByteArray clientCertificate() const;
 
     void setPhase1PeapVersion(PeapVersion version);
@@ -93,52 +93,52 @@ public:
     void setPhase2AuthEapMethod(AuthEapMethod method);
     AuthEapMethod phase2AuthEapMethod() const;
 
-    void setPhase2CaCertificate(const QByteArray & certificate);
+    void setPhase2CaCertificate(const QByteArray &certificate);
     QByteArray phase2CaCertificate() const;
 
-    void setPhase2CaPath(const QString & path);
+    void setPhase2CaPath(const QString &path);
     QString phase2CaPath() const;
 
-    void setPhase2SubjectMatch(const QString & substring);
+    void setPhase2SubjectMatch(const QString &substring);
     QString phase2SubjectMatch() const;
 
-    void setPhase2AltSubjectMatches(const QStringList & strings);
+    void setPhase2AltSubjectMatches(const QStringList &strings);
     QStringList phase2AltSubjectMatches() const;
 
-    void setPhase2ClientCertificate(const QByteArray & certificate);
+    void setPhase2ClientCertificate(const QByteArray &certificate);
     QByteArray phase2ClientCertificate() const;
 
-    void setPassword(const QString & password);
+    void setPassword(const QString &password);
     QString password() const;
 
     void setPasswordFlags(Setting::SecretFlags flags);
     Setting::SecretFlags passwordFlags() const;
 
-    void setPasswordRaw(const QByteArray & password);
+    void setPasswordRaw(const QByteArray &password);
     QByteArray passwordRaw() const;
 
     void setPasswordRawFlags(Setting::SecretFlags flags);
     Setting::SecretFlags passwordRawFlags() const;
 
-    void setPrivateKey(const QByteArray & key);
+    void setPrivateKey(const QByteArray &key);
     QByteArray privateKey() const;
 
-    void setPrivateKeyPassword(const QString & password);
+    void setPrivateKeyPassword(const QString &password);
     QString privateKeyPassword() const;
 
     void setPrivateKeyPasswordFlags(Setting::SecretFlags flags);
     Setting::SecretFlags privateKeyPasswordFlags() const;
 
-    void setPhase2PrivateKey(const QByteArray & key);
+    void setPhase2PrivateKey(const QByteArray &key);
     QByteArray phase2PrivateKey() const;
 
-    void setPhase2PrivateKeyPassword(const QString & password);
+    void setPhase2PrivateKeyPassword(const QString &password);
     QString phase2PrivateKeyPassword() const;
 
     void setPhase2PrivateKeyPasswordFlags(Setting::SecretFlags flags);
     Setting::SecretFlags phase2PrivateKeyPasswordFlags() const;
 
-    void setPin(const QString & pin);
+    void setPin(const QString &pin);
     QString pin() const;
 
     void setPinFlags(Setting::SecretFlags flags);
@@ -149,16 +149,16 @@ public:
 
     QStringList needSecrets(bool requestNew = false) const;
 
-    void secretsFromMap(const QVariantMap & secrets);
+    void secretsFromMap(const QVariantMap &secrets);
 
     QVariantMap secretsToMap() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    Security8021xSettingPrivate * const d_ptr;
+    Security8021xSettingPrivate *const d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const Security8021xSetting &setting);

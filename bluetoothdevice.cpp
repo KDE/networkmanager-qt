@@ -25,7 +25,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "nmdebug.h"
 
-NetworkManager::BluetoothDevicePrivate::BluetoothDevicePrivate(const QString & path)
+NetworkManager::BluetoothDevicePrivate::BluetoothDevicePrivate(const QString &path)
     : ModemDevicePrivate(path), btIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
     btCapabilities = static_cast<QFlags<NetworkManager::BluetoothDevice::Capability> >(btIface.btCapabilities());
@@ -33,7 +33,7 @@ NetworkManager::BluetoothDevicePrivate::BluetoothDevicePrivate(const QString & p
     name = btIface.name();
 }
 
-NetworkManager::BluetoothDevice::BluetoothDevice(const QString & path, QObject * parent)
+NetworkManager::BluetoothDevice::BluetoothDevice(const QString &path, QObject *parent)
     : ModemDevice(*new BluetoothDevicePrivate(path), parent)
 {
     Q_D(BluetoothDevice);

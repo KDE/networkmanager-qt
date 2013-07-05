@@ -30,16 +30,16 @@ class BridgeDevicePrivate;
 
 class NETWORKMANAGERQT_EXPORT BridgeDevice : public Device
 {
-Q_OBJECT
-Q_DECLARE_PRIVATE(BridgeDevice)
-Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
-Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
-Q_PROPERTY(QList<QDBusObjectPath> slaves READ slaves NOTIFY slavesChanged)
+    Q_OBJECT
+    Q_DECLARE_PRIVATE(BridgeDevice)
+    Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
+    Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
+    Q_PROPERTY(QList<QDBusObjectPath> slaves READ slaves NOTIFY slavesChanged)
 
 public:
     typedef QSharedPointer<BridgeDevice> Ptr;
     typedef QList<Ptr> List;
-    explicit BridgeDevice(const QString& path, QObject* parent = 0);
+    explicit BridgeDevice(const QString &path, QObject *parent = 0);
     virtual ~BridgeDevice();
 
     virtual Type type() const;
@@ -49,8 +49,8 @@ public:
 
 Q_SIGNALS:
     void carrierChanged(bool plugged);
-    void hwAddressChanged(const QString & address);
-    void slavesChanged(const QList<QDBusObjectPath> & slaves);
+    void hwAddressChanged(const QString &address);
+    void slavesChanged(const QList<QDBusObjectPath> &slaves);
 
 protected:
     /**

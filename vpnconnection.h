@@ -40,8 +40,8 @@ class VpnConnectionPrivate;
  */
 class NETWORKMANAGERQT_EXPORT VpnConnection : public ActiveConnection
 {
-Q_OBJECT
-Q_DECLARE_PRIVATE(VpnConnection)
+    Q_OBJECT
+    Q_DECLARE_PRIVATE(VpnConnection)
 
 public:
     typedef QSharedPointer<VpnConnection> Ptr;
@@ -52,7 +52,7 @@ public:
      *
      * @param path the DBus path of the device
      */
-    explicit VpnConnection(const QString & path, QObject * parent = 0);
+    explicit VpnConnection(const QString &path, QObject *parent = 0);
     /**
      * Destroys a VpnConnection object.
      */
@@ -71,7 +71,7 @@ public:
      * object for every active connection, without creating an ActiveConnection object, checking
      * if it's a VPN connection, deleting the ActiveConnection and creating a VpnConnection
      */
-    operator VpnConnection*();
+    operator VpnConnection *();
 
 protected Q_SLOTS:
     void propertiesChanged(const QVariantMap &properties);

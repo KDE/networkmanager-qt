@@ -72,7 +72,7 @@ NetworkManager::ConnectionSettingsPrivate::ConnectionSettingsPrivate():
     readOnly(false)
 { }
 
-NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSettings::typeFromString(const QString & typeString)
+NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSettings::typeFromString(const QString &typeString)
 {
     ConnectionSettings::ConnectionType type = Wired;
 
@@ -396,7 +396,7 @@ void NetworkManager::ConnectionSettings::initSettings(const NetworkManager::Conn
     }
 }
 
-void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap& map)
+void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
 {
     QVariantMap connectionSettings = map.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
 
@@ -406,7 +406,7 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap& map)
 
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS))) {
         QStringList permissions = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS)).toStringList();
-        foreach(const QString & permission, permissions) {
+        foreach (const QString &permission, permissions) {
             const QStringList split = permission.split(QLatin1String(":"), QString::KeepEmptyParts);
             addToPermissions(split.at(1), split.at(2));
         }
@@ -443,7 +443,7 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap& map)
         setSecondaries(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_SECONDARIES)).toStringList());
     }
 
-    foreach(const Setting::Ptr &setting, settings()) {
+    foreach (const Setting::Ptr &setting, settings()) {
         if (map.contains(setting->name())) {
             setting->fromMap(map.value(setting->name()));
             setting->setInitialized(true);
@@ -513,7 +513,7 @@ NMVariantMapMap NetworkManager::ConnectionSettings::toMap() const
 
     result.insert(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME), connectionSetting);
 
-    foreach(const Setting::Ptr &setting, settings()) {
+    foreach (const Setting::Ptr &setting, settings()) {
         QVariantMap map = setting->toMap();
         if (!setting->isNull()) {
             result.insert(setting->name(), map);
@@ -529,7 +529,7 @@ QString NetworkManager::ConnectionSettings::name() const
     return d->name;
 }
 
-void NetworkManager::ConnectionSettings::setId(const QString& id)
+void NetworkManager::ConnectionSettings::setId(const QString &id)
 {
     Q_D(ConnectionSettings);
 
@@ -543,7 +543,7 @@ QString NetworkManager::ConnectionSettings::id() const
     return d->id;
 }
 
-void NetworkManager::ConnectionSettings::setUuid(const QString& uuid)
+void NetworkManager::ConnectionSettings::setUuid(const QString &uuid)
 {
     Q_D(ConnectionSettings);
 
@@ -573,14 +573,14 @@ NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSet
     return d->type;
 }
 
-void NetworkManager::ConnectionSettings::addToPermissions(const QString& user, const QString& type)
+void NetworkManager::ConnectionSettings::addToPermissions(const QString &user, const QString &type)
 {
     Q_D(ConnectionSettings);
 
     d->permissions.insert(user, type);
 }
 
-void NetworkManager::ConnectionSettings::setPermissions(const QHash< QString, QString >& perm)
+void NetworkManager::ConnectionSettings::setPermissions(const QHash< QString, QString > &perm)
 {
     Q_D(ConnectionSettings);
 
@@ -608,7 +608,7 @@ bool NetworkManager::ConnectionSettings::autoconnect() const
     return d->autoconnect;
 }
 
-void NetworkManager::ConnectionSettings::setTimestamp(const QDateTime& timestamp)
+void NetworkManager::ConnectionSettings::setTimestamp(const QDateTime &timestamp)
 {
     Q_D(ConnectionSettings);
 
@@ -636,7 +636,7 @@ bool NetworkManager::ConnectionSettings::readOnly() const
     return d->readOnly;
 }
 
-void NetworkManager::ConnectionSettings::setZone(const QString& zone)
+void NetworkManager::ConnectionSettings::setZone(const QString &zone)
 {
     Q_D(ConnectionSettings);
 
@@ -657,7 +657,7 @@ bool NetworkManager::ConnectionSettings::isSlave() const
     return !d->master.isEmpty() && !d->slaveType.isEmpty();
 }
 
-void NetworkManager::ConnectionSettings::setMaster(const QString & master)
+void NetworkManager::ConnectionSettings::setMaster(const QString &master)
 {
     Q_D(ConnectionSettings);
 
@@ -671,7 +671,7 @@ QString NetworkManager::ConnectionSettings::master() const
     return d->master;
 }
 
-void NetworkManager::ConnectionSettings::setSlaveType(const QString& type)
+void NetworkManager::ConnectionSettings::setSlaveType(const QString &type)
 {
     Q_D(ConnectionSettings);
 
@@ -685,7 +685,7 @@ QString NetworkManager::ConnectionSettings::slaveType() const
     return d->slaveType;
 }
 
-void NetworkManager::ConnectionSettings::setSecondaries(const QStringList& secondaries)
+void NetworkManager::ConnectionSettings::setSecondaries(const QStringList &secondaries)
 {
     Q_D(ConnectionSettings);
 
@@ -701,7 +701,7 @@ QStringList NetworkManager::ConnectionSettings::secondaries() const
 
 NetworkManager::Setting::Ptr NetworkManager::ConnectionSettings::setting(Setting::SettingType type) const
 {
-    foreach(const Setting::Ptr &setting, settings()) {
+    foreach (const Setting::Ptr &setting, settings()) {
         if (setting->type() == type) {
             return setting;
         }
@@ -753,7 +753,7 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
     dbg.nospace() << NM_SETTING_CONNECTION_SLAVE_TYPE << ": " << setting.slaveType() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_SECONDARIES << ": " << setting.secondaries() << '\n';
     dbg.nospace() << "===================\n";
-    foreach(const Setting::Ptr &settingPtr, setting.settings()) {
+    foreach (const Setting::Ptr &settingPtr, setting.settings()) {
         dbg.nospace() << settingPtr->typeAsString(settingPtr->type()).toUpper() << " SETTINGS\n";
         dbg.nospace() << "---------------------------\n";
         switch (settingPtr->type()) {

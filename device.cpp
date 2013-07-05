@@ -34,13 +34,13 @@ namespace NetworkManager
 class DeviceStateReason::Private
 {
 public:
-    Private(Device::State st, Device::StateChangeReason rsn):
-	state(st),
-	reason(rsn)
+    Private(Device::State st, Device::StateChangeReason rsn)
+        : state(st)
+        , reason(rsn)
     {}
-    Private():
-	state(Device::UnknownState),
-	reason(Device::UnknownReason)
+    Private()
+        : state(Device::UnknownState)
+        , reason(Device::UnknownReason)
     {}
     Device::State state;
     Device::StateChangeReason reason;
@@ -48,12 +48,12 @@ public:
 }
 
 NetworkManager::DeviceStateReason::DeviceStateReason(Device::State state, Device::StateChangeReason reason)
-: d(new Private(state, reason))
+    : d(new Private(state, reason))
 {
 }
 
 NetworkManager::DeviceStateReason::DeviceStateReason(const NetworkManager::DeviceStateReason &other)
-: d(new Private(*other.d))
+    : d(new Private(*other.d))
 {
 }
 
@@ -72,10 +72,10 @@ NetworkManager::Device::StateChangeReason NetworkManager::DeviceStateReason::rea
     return d->reason;
 }
 
-NetworkManager::DeviceStateReason & NetworkManager::DeviceStateReason::operator=(const NetworkManager::DeviceStateReason &other)
+NetworkManager::DeviceStateReason &NetworkManager::DeviceStateReason::operator=(const NetworkManager::DeviceStateReason &other)
 {
     if (&other != this) {
-	*d = *other.d;
+        *d = *other.d;
     }
     return *this;
 }
@@ -90,7 +90,12 @@ void NetworkManager::DeviceStateReason::setReason(const Device::StateChangeReaso
     d->reason = reason;
 }
 
-NetworkManager::DevicePrivate::DevicePrivate(const QString &path) : deviceIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()), uni(path), designSpeed(0), dhcp4Config(0), dhcp6Config(0)
+NetworkManager::DevicePrivate::DevicePrivate(const QString &path)
+    : deviceIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+    , uni(path)
+    , designSpeed(0)
+    , dhcp4Config(0)
+    , dhcp6Config(0)
 {
     activeConnection = deviceIface.activeConnection().path();
     driver = deviceIface.driver();
@@ -136,7 +141,7 @@ NetworkManager::DevicePrivate::~DevicePrivate()
 NetworkManager::Device::Capabilities NetworkManager::DevicePrivate::convertCapabilities(uint theirCaps)
 {
     NetworkManager::Device::Capabilities ourCaps
-    = (NetworkManager::Device::Capabilities) theirCaps;
+        = (NetworkManager::Device::Capabilities) theirCaps;
     return ourCaps;
 }
 
@@ -153,12 +158,16 @@ NetworkManager::Device::StateChangeReason NetworkManager::DevicePrivate::convert
     return ourReason;
 }
 
-NetworkManager::Device::Device(const QString & path, QObject * parent) : QObject(parent), d_ptr(new DevicePrivate(path))
+NetworkManager::Device::Device(const QString &path, QObject *parent)
+    : QObject(parent)
+    , d_ptr(new DevicePrivate(path))
 {
     init();
 }
 
-NetworkManager::Device::Device(DevicePrivate & dd,  QObject * parent) : QObject(parent), d_ptr(&dd)
+NetworkManager::Device::Device(DevicePrivate &dd,  QObject *parent)
+    : QObject(parent)
+    , d_ptr(&dd)
 {
     init();
 }
@@ -201,7 +210,7 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
                 emit availableConnectionAppeared(availableConnection.path());
             }
         }
-        foreach (const QString & availableConnection, d->availableConnections) {
+        foreach (const QString &availableConnection, d->availableConnections) {
             if (!newAvailableConnections.contains(availableConnection)) {
                 emit availableConnectionDisappeared(availableConnection);
                 d->availableConnections.removeOne(availableConnection);
@@ -430,7 +439,7 @@ bool NetworkManager::Device::isActive() const
     return !(d->connectionState == NetworkManager::Device::Unavailable
              || d->connectionState == NetworkManager::Device::Unmanaged
              || d->connectionState == NetworkManager::Device::Disconnected
-             || d->connectionState == NetworkManager::Device::Failed );
+             || d->connectionState == NetworkManager::Device::Failed);
 }
 
 bool NetworkManager::Device::isValid() const

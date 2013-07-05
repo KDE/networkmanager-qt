@@ -42,13 +42,13 @@ public:
 
     QString name() const;
 
-    void setService(const QString & service);
+    void setService(const QString &service);
     QString service() const;
 
-    void setUsername(const QString & username);
+    void setUsername(const QString &username);
     QString username() const;
 
-    void setPassword(const QString & password);
+    void setPassword(const QString &password);
     QString password() const;
 
     void setPasswordFlags(Setting::SecretFlags flags);
@@ -56,16 +56,16 @@ public:
 
     QStringList needSecrets(bool requestNew = false) const;
 
-    void secretsFromMap(const QVariantMap & secrets);
+    void secretsFromMap(const QVariantMap &secrets);
 
     QVariantMap secretsToMap() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    PppoeSettingPrivate * d_ptr;
+    PppoeSettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const PppoeSetting &setting);

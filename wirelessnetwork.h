@@ -82,7 +82,7 @@ Q_SIGNALS:
      * (meaning the network has disappeared from view of the network interface)
      * @param ssid the SSID of this network
      */
-    void disappeared(const QString & ssid);
+    void disappeared(const QString &ssid);
 private Q_SLOTS:
     void accessPointAppeared(const QString &);
     void accessPointDisappeared(const QString &);
@@ -90,7 +90,7 @@ private Q_SLOTS:
 private:
     explicit WirelessNetwork(const AccessPoint::Ptr &accessPoint, WirelessDevice *device);
     void addAccessPointInternal(const AccessPoint::Ptr &accessPoint);
-    WirelessNetworkPrivate * const d_ptr;
+    WirelessNetworkPrivate *const d_ptr;
 };
 
 }

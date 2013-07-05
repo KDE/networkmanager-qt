@@ -47,9 +47,9 @@ class NetworkManager::ConnectionPrivate
 {
 public:
     ConnectionPrivate(const QString &path)
-    : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
-    {
-    }
+        : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+    { }
+
     void updateSettings(const NMVariantMapMap &newSettings = NMVariantMapMap());
     QString uuid;
     QString id;
@@ -59,8 +59,9 @@ public:
     OrgFreedesktopNetworkManagerSettingsConnectionInterface iface;
 };
 
-NetworkManager::Connection::Connection(const QString & path, QObject * parent)
-: QObject(parent), d_ptr(new ConnectionPrivate(path))
+NetworkManager::Connection::Connection(const QString &path, QObject *parent)
+    : QObject(parent)
+    , d_ptr(new ConnectionPrivate(path))
 {
     Q_D(Connection);
 

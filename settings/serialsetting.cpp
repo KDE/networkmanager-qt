@@ -132,7 +132,7 @@ quint64 NetworkManager::SerialSetting::sendDelay() const
     return d->sendDelay;
 }
 
-void NetworkManager::SerialSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::SerialSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_SERIAL_BAUD))) {
         setBaud(setting.value(QLatin1String(NM_SETTING_SERIAL_BAUD)).toUInt());

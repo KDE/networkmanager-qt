@@ -43,18 +43,18 @@ public:
 
     QString name() const;
 
-    void setNetworkName(const QString & name);
+    void setNetworkName(const QString &name);
     QString networkName() const;
 
-    void setMacAddress(const QByteArray & address);
+    void setMacAddress(const QByteArray &address);
     QByteArray macAddress() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    WimaxSettingPrivate * d_ptr;
+    WimaxSettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const WimaxSetting &setting);

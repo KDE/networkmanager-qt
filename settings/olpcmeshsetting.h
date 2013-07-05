@@ -42,21 +42,21 @@ public:
 
     QString name() const;
 
-    void setSsid(const QByteArray & ssid);
+    void setSsid(const QByteArray &ssid);
     QByteArray ssid() const;
 
     void setChannel(quint32 channel);
     quint32 channel() const;
 
-    void setDhcpAnycastAddress(const QByteArray & address);
+    void setDhcpAnycastAddress(const QByteArray &address);
     QByteArray dhcpAnycastAddress() const;
 
-    void fromMap(const QVariantMap& setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    OlpcMeshSettingPrivate * d_ptr;
+    OlpcMeshSettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const OlpcMeshSetting &setting);

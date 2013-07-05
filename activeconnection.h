@@ -42,8 +42,8 @@ class ActiveConnectionPrivate;
  */
 class NETWORKMANAGERQT_EXPORT ActiveConnection : public QObject
 {
-Q_OBJECT
-Q_DECLARE_PRIVATE(ActiveConnection)
+    Q_OBJECT
+    Q_DECLARE_PRIVATE(ActiveConnection)
 
 public:
     typedef QSharedPointer<ActiveConnection> Ptr;
@@ -54,8 +54,8 @@ public:
      *
      * @param path the DBus path of the device
      */
-    explicit ActiveConnection(const QString & path, QObject * parent = 0);
-    explicit ActiveConnection(ActiveConnectionPrivate &dd, QObject * parent = 0);
+    explicit ActiveConnection(const QString &path, QObject *parent = 0);
+    explicit ActiveConnection(ActiveConnectionPrivate &dd, QObject *parent = 0);
     /**
      * Destroys a ActiveConnection object.
      */

@@ -38,8 +38,8 @@ class OlpcMeshDevicePrivate;
  */
 class NETWORKMANAGERQT_EXPORT OlpcMeshDevice : public Device
 {
-Q_OBJECT
-Q_DECLARE_PRIVATE(OlpcMeshDevice)
+    Q_OBJECT
+    Q_DECLARE_PRIVATE(OlpcMeshDevice)
 
 public:
     typedef QSharedPointer<OlpcMeshDevice> Ptr;
@@ -49,7 +49,7 @@ public:
      *
      * @param path the DBus path of the device
      */
-    explicit OlpcMeshDevice(const QString & path, QObject * parent = 0);
+    explicit OlpcMeshDevice(const QString &path, QObject *parent = 0);
     /**
      * Destroys a OlpcMeshDevice object.
      */

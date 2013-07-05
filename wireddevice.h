@@ -33,17 +33,17 @@ class WiredDevicePrivate;
 
 class NETWORKMANAGERQT_EXPORT WiredDevice : public Device
 {
-Q_OBJECT
-Q_DECLARE_PRIVATE(WiredDevice)
-Q_PROPERTY(QString hardwareAddress READ hardwareAddress)
-Q_PROPERTY(QString permanentHardwareAddress READ permanentHardwareAddress)
-Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
-Q_PROPERTY(int bitRate READ bitRate NOTIFY bitRateChanged)
+    Q_OBJECT
+    Q_DECLARE_PRIVATE(WiredDevice)
+    Q_PROPERTY(QString hardwareAddress READ hardwareAddress)
+    Q_PROPERTY(QString permanentHardwareAddress READ permanentHardwareAddress)
+    Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
+    Q_PROPERTY(int bitRate READ bitRate NOTIFY bitRateChanged)
 
 public:
     typedef QSharedPointer<WiredDevice> Ptr;
     typedef QList<Ptr> List;
-    explicit WiredDevice(const QString & path, QObject * parent = 0);
+    explicit WiredDevice(const QString &path, QObject *parent = 0);
     virtual ~WiredDevice();
     /**
      * Return the type

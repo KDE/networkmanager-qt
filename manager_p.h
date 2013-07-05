@@ -37,7 +37,7 @@ class ActiveConnection;
 
 class NetworkManagerPrivate : public NetworkManager::Notifier
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     static const QString DBUS_SERVICE;
     static const QString DBUS_DAEMON_PATH;
@@ -60,8 +60,8 @@ public:
     int m_x;
     int m_y;
     int m_z;
-    void parseVersion(const QString & version);
-    int compareVersion(const QString & version);
+    void parseVersion(const QString &version);
+    int compareVersion(const QString &version);
     int compareVersion(const int x, const int y, const int z) const;
 
     bool m_isNetworkingEnabled;
@@ -84,9 +84,9 @@ public:
     bool isWwanHardwareEnabled() const;
     bool isWimaxEnabled() const;
     bool isWimaxHardwareEnabled() const;
-    QDBusPendingReply<QDBusObjectPath> activateConnection(const QString & connectionUni, const QString & interfaceUni, const QString & connectionParameter);
-    QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> addAndActivateConnection(const NMVariantMapMap & connection, const QString & interfaceUni, const QString & connectionParameter);
-    void deactivateConnection(const QString & activeConnection);
+    QDBusPendingReply<QDBusObjectPath> activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter);
+    QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter);
+    void deactivateConnection(const QString &activeConnection);
     ActiveConnection::List activeConnections();
     QStringList activeConnectionsPaths() const;
     QDBusPendingReply<QString, QString> getLogging();

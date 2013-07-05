@@ -32,7 +32,7 @@ public:
 }
 
 NetworkManager::IpAddress::IpAddress()
-: d(new Private)
+    : d(new Private)
 {
 }
 

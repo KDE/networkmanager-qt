@@ -96,7 +96,7 @@ int main()
             }
         }
 
-        QList<NetworkManager::Settings::Connection*> connections = dev->availableConnections();
+        QList<NetworkManager::Settings::Connection *> connections = dev->availableConnections();
 
         qout << "available connections: ";
 

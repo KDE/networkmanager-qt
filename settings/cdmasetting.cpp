@@ -57,7 +57,7 @@ QString NetworkManager::CdmaSetting::name() const
     return d->name;
 }
 
-void NetworkManager::CdmaSetting::setNumber(const QString& number)
+void NetworkManager::CdmaSetting::setNumber(const QString &number)
 {
     Q_D(CdmaSetting);
 
@@ -71,7 +71,7 @@ QString NetworkManager::CdmaSetting::number() const
     return d->number;
 }
 
-void NetworkManager::CdmaSetting::setUsername(const QString& username)
+void NetworkManager::CdmaSetting::setUsername(const QString &username)
 {
     Q_D(CdmaSetting);
 
@@ -85,7 +85,7 @@ QString NetworkManager::CdmaSetting::username() const
     return d->username;
 }
 
-void NetworkManager::CdmaSetting::setPassword(const QString& password)
+void NetworkManager::CdmaSetting::setPassword(const QString &password)
 {
     Q_D(CdmaSetting);
 
@@ -125,7 +125,7 @@ QStringList NetworkManager::CdmaSetting::needSecrets(bool requestNew) const
     return secrets;
 }
 
-void NetworkManager::CdmaSetting::secretsFromMap(const QVariantMap& secrets)
+void NetworkManager::CdmaSetting::secretsFromMap(const QVariantMap &secrets)
 {
     if (secrets.contains(QLatin1String(NM_SETTING_CDMA_PASSWORD))) {
         setPassword(secrets.value(QLatin1String(NM_SETTING_CDMA_PASSWORD)).toString());
@@ -143,7 +143,7 @@ QVariantMap NetworkManager::CdmaSetting::secretsToMap() const
     return secrets;
 }
 
-void NetworkManager::CdmaSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::CdmaSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_CDMA_NUMBER))) {
         setNumber(setting.value(QLatin1String(NM_SETTING_CDMA_NUMBER)).toString());

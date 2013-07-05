@@ -30,17 +30,17 @@ class VlanDevicePrivate;
 
 class NETWORKMANAGERQT_EXPORT VlanDevice : public Device
 {
-Q_OBJECT
-Q_DECLARE_PRIVATE(VlanDevice)
-Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
-Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
-Q_PROPERTY(uint vlanId READ vlanId NOTIFY vlanIdChanged)
+    Q_OBJECT
+    Q_DECLARE_PRIVATE(VlanDevice)
+    Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
+    Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
+    Q_PROPERTY(uint vlanId READ vlanId NOTIFY vlanIdChanged)
 
 public:
     typedef QSharedPointer<VlanDevice> Ptr;
     typedef QList<Ptr> List;
 
-    explicit VlanDevice(const QString& path, QObject* parent = 0);
+    explicit VlanDevice(const QString &path, QObject *parent = 0);
     virtual ~VlanDevice();
 
     virtual Type type() const;
@@ -50,7 +50,7 @@ public:
 
 Q_SIGNALS:
     void carrierChanged(bool plugged);
-    void hwAddressChanged(const QString & address);
+    void hwAddressChanged(const QString &address);
     void vlanIdChanged(uint id);
 
 protected:

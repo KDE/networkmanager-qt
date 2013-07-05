@@ -31,7 +31,7 @@ namespace NetworkManager
 class AdslDevicePrivate : public DevicePrivate
 {
 public:
-    AdslDevicePrivate(const QString & path);
+    AdslDevicePrivate(const QString &path);
     virtual ~AdslDevicePrivate();
 
     OrgFreedesktopNetworkManagerDeviceAdslInterface iface;
@@ -39,9 +39,10 @@ public:
 };
 }
 
-NetworkManager::AdslDevicePrivate::AdslDevicePrivate(const QString& path):
-    DevicePrivate(path), iface(NetworkManagerPrivate::DBUS_SERVICE, path,QDBusConnection::systemBus()),
-    carrier(false)
+NetworkManager::AdslDevicePrivate::AdslDevicePrivate(const QString &path)
+    : DevicePrivate(path)
+    , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+    , carrier(false)
 {
 }
 
@@ -49,8 +50,8 @@ NetworkManager::AdslDevice::~AdslDevice()
 {
 }
 
-NetworkManager::AdslDevice::AdslDevice(const QString& path, QObject* parent):
-    Device(*new AdslDevicePrivate(path), parent)
+NetworkManager::AdslDevice::AdslDevice(const QString &path, QObject *parent)
+    : Device(*new AdslDevicePrivate(path), parent)
 {
     Q_D(AdslDevice);
 

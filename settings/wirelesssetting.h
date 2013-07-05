@@ -46,7 +46,7 @@ public:
 
     QString name() const;
 
-    void setSsid(const QByteArray & ssid);
+    void setSsid(const QByteArray &ssid);
     QByteArray ssid() const;
 
     void setMode(NetworkMode mode);
@@ -58,7 +58,7 @@ public:
     void setChannel(quint32 channel);
     quint32 channel() const;
 
-    void setBssid(const QByteArray & bssid);
+    void setBssid(const QByteArray &bssid);
     QByteArray bssid() const;
 
     void setRate(quint32 rate);
@@ -67,33 +67,33 @@ public:
     void setTxPower(quint32 power);
     quint32 txPower() const;
 
-    void setMacAddress(const QByteArray & address);
+    void setMacAddress(const QByteArray &address);
     QByteArray macAddress() const;
 
-    void setClonedMacAddress(const QByteArray & address);
+    void setClonedMacAddress(const QByteArray &address);
     QByteArray clonedMacAddress() const;
 
-    void setMacAddressBlacklist(const QStringList & list);
+    void setMacAddressBlacklist(const QStringList &list);
     QStringList macAddressBlacklist() const;
 
     void setMtu(quint32 mtu);
     quint32 mtu() const;
 
-    void setSeenBssids(const QStringList & list);
+    void setSeenBssids(const QStringList &list);
     QStringList seenBssids() const;
 
-    void setSecurity(const QString & security);
+    void setSecurity(const QString &security);
     QString security() const;
 
     void setHidden(bool hidden);
     bool hidden() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    WirelessSettingPrivate * d_ptr;
+    WirelessSettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const WirelessSetting &setting);

@@ -31,8 +31,10 @@ namespace NetworkManager {
 class WimaxNspPrivate
 {
 public:
-    WimaxNspPrivate( const QString & path ) : iface( NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()), networkType(WimaxNsp::Unknown), signalQuality(0)
-    {
+    WimaxNspPrivate(const QString &path)
+        : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+        , networkType(WimaxNsp::Unknown)
+        , signalQuality(0) {
     }
     OrgFreedesktopNetworkManagerWiMaxNspInterface iface;
     QString uni;
@@ -42,12 +44,14 @@ public:
 };
 }
 
-NetworkManager::WimaxNsp::WimaxNsp( const QString& path, QObject * parent ) : QObject(parent), d_ptr(new WimaxNspPrivate( path ))
+NetworkManager::WimaxNsp::WimaxNsp(const QString &path, QObject *parent)
+    : QObject(parent)
+    , d_ptr(new WimaxNspPrivate(path))
 {
     Q_D(WimaxNsp);
     d->uni = path;
     if (d->iface.isValid()) {
-        d->networkType = convertNetworkType( d->iface.networkType() );
+        d->networkType = convertNetworkType(d->iface.networkType());
         d->name = d->iface.name();
         d->signalQuality = d->iface.signalQuality();
         connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
@@ -111,14 +115,14 @@ void NetworkManager::WimaxNsp::propertiesChanged(const QVariantMap &properties)
 NetworkManager::WimaxNsp::NetworkType NetworkManager::WimaxNsp::convertNetworkType(uint type)
 {
     switch (type) {
-        case 0:
-            return NetworkManager::WimaxNsp::Unknown;
-        case 1:
-            return NetworkManager::WimaxNsp::Home;
-        case 2:
-            return NetworkManager::WimaxNsp::Partner;
-        case 3:
-            return NetworkManager::WimaxNsp::RoamingPartner;
+    case 0:
+        return NetworkManager::WimaxNsp::Unknown;
+    case 1:
+        return NetworkManager::WimaxNsp::Home;
+    case 2:
+        return NetworkManager::WimaxNsp::Partner;
+    case 3:
+        return NetworkManager::WimaxNsp::RoamingPartner;
     }
     return NetworkManager::WimaxNsp::Unknown;
 }

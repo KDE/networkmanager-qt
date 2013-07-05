@@ -47,7 +47,7 @@ public:
     /**
      * Constructs a connection object for the given path
      */
-    explicit Connection(const QString &path, QObject * parent = 0);
+    explicit Connection(const QString &path, QObject *parent = 0);
     ~Connection();
 
     /**
@@ -95,7 +95,7 @@ public:
     void remove();
 
 private:
-    ConnectionPrivate * const d_ptr;
+    ConnectionPrivate *const d_ptr;
 private Q_SLOTS:
     void onSecretsArrived(QDBusPendingCallWatcher *);
     void onConnectionUpdated();

@@ -35,10 +35,12 @@ class NetworkManager::IpConfig::Private
 {
 public:
     Private(const QList<IpAddress> &theAddresses,
-        const QList<QHostAddress> &theNameservers,
-        const QStringList &theDomains, const QList<IpRoute> &theRoutes)
-        : addresses(theAddresses), nameservers(theNameservers),
-        domains(theDomains), routes(theRoutes)
+            const QList<QHostAddress> &theNameservers,
+            const QStringList &theDomains, const QList<IpRoute> &theRoutes)
+        : addresses(theAddresses)
+        , nameservers(theNameservers)
+        , domains(theDomains)
+        , routes(theRoutes)
     {}
     Private()
     {}
@@ -51,19 +53,19 @@ public:
 }
 
 NetworkManager::IpConfig::IpConfig(const IpAddresses &addresses,
-        const QList<QHostAddress> &nameservers,
-        const QStringList &domains,
-        const IpRoutes &routes)
-: d(new Private(addresses, nameservers, domains, routes))
+                                   const QList<QHostAddress> &nameservers,
+                                   const QStringList &domains,
+                                   const IpRoutes &routes)
+    : d(new Private(addresses, nameservers, domains, routes))
 {
 }
 
 NetworkManager::IpConfig::IpConfig()
-: d(new Private())
+    : d(new Private())
 {
 }
 
-NetworkManager::IpConfig::IpConfig(const IpConfig& other) :
+NetworkManager::IpConfig::IpConfig(const IpConfig &other) :
     d(new Private)
 {
     *this = other;
@@ -78,7 +80,7 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
     UIntListList addresses = iface.addresses();
     QList<NetworkManager::IpAddress> addressObjects;
     foreach (const UIntList &addressList, addresses) {
-        if ( addressList.count() == 3 ) {
+        if (addressList.count() == 3) {
             NetworkManager::IpAddress address;
             address.setIp(QHostAddress(ntohl(addressList[0])));
             address.setPrefixLength(addressList[1]);
@@ -90,7 +92,7 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
     UIntListList routes = iface.routes();
     QList<NetworkManager::IpRoute> routeObjects;
     foreach (const UIntList &routeList, routes) {
-        if ( routeList.count() == 4 ) {
+        if (routeList.count() == 4) {
             NetworkManager::IpRoute route;
             route.setIp(QHostAddress(ntohl(routeList[0])));
             route.setPrefixLength(routeList[1]);
@@ -115,8 +117,8 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
 {
     // ask the daemon for the details
     OrgFreedesktopNetworkManagerIP6ConfigInterface iface(NetworkManagerPrivate::DBUS_SERVICE,
-                                                         path,
-                                                         QDBusConnection::systemBus());
+            path,
+            QDBusConnection::systemBus());
     IpV6DBusAddressList addresses = iface.addresses();
     QList<NetworkManager::IpAddress> addressObjects;
     foreach (const IpV6DBusAddress &address, addresses) {
@@ -194,7 +196,7 @@ QList<NetworkManager::IpRoute> NetworkManager::IpConfig::routes() const
     return d->routes;
 }
 
-NetworkManager::IpConfig &NetworkManager::IpConfig::operator=(const IpConfig& other)
+NetworkManager::IpConfig &NetworkManager::IpConfig::operator=(const IpConfig &other)
 {
     if (this == &other)
         return *this;

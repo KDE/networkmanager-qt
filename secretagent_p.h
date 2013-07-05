@@ -28,22 +28,22 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace NetworkManager
 {
-    class SecretAgent;
-    class SecretAgentPrivate
-    {
+class SecretAgent;
+class SecretAgentPrivate
+{
     Q_DECLARE_PUBLIC(SecretAgent)
-    public:
-        explicit SecretAgentPrivate(const QString &, SecretAgent * parent = 0);
-        virtual ~SecretAgentPrivate();
-    private Q_SLOTS:
-        void registerAgent();
-    private:
-        SecretAgent *q_ptr;
-        SecretAgentAdaptor agent;
-        OrgFreedesktopNetworkManagerAgentManagerInterface agentManager;
-        QDBusServiceWatcher watcher;
-        QString agentId;
-    };
+public:
+    explicit SecretAgentPrivate(const QString &, SecretAgent *parent = 0);
+    virtual ~SecretAgentPrivate();
+private Q_SLOTS:
+    void registerAgent();
+private:
+    SecretAgent *q_ptr;
+    SecretAgentAdaptor agent;
+    OrgFreedesktopNetworkManagerAgentManagerInterface agentManager;
+    QDBusServiceWatcher watcher;
+    QString agentId;
+};
 }
 
 #endif // NMQT_SECRETAGENT_P_H

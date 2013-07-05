@@ -29,14 +29,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "nmdebug.h"
 
-NetworkManager::WirelessDevicePrivate::WirelessDevicePrivate(const QString & path)
-    : DevicePrivate(path), wirelessIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()),
-      bitRate(0)
+NetworkManager::WirelessDevicePrivate::WirelessDevicePrivate(const QString &path)
+    : DevicePrivate(path), wirelessIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+    , bitRate(0)
 {
 
 }
 
-NetworkManager::WirelessDevice::WirelessDevice(const QString & path, QObject * parent)
+NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *parent)
     : Device(*new WirelessDevicePrivate(path), parent)
 {
     Q_D(WirelessDevice);
@@ -130,7 +130,7 @@ NetworkManager::AccessPoint::Ptr NetworkManager::WirelessDevice::findAccessPoint
     Q_D(const WirelessDevice);
     NetworkManager::AccessPoint::Ptr accessPoint;
 
-    QMap<QString,NetworkManager::AccessPoint::Ptr>::ConstIterator mapIt = d->apMap.constFind(uni);
+    QMap<QString, NetworkManager::AccessPoint::Ptr>::ConstIterator mapIt = d->apMap.constFind(uni);
     if (mapIt != d->apMap.constEnd()) {
         accessPoint = mapIt.value();
     } else if (!uni.isEmpty() && uni != QLatin1String("/")) {
@@ -192,7 +192,7 @@ void NetworkManager::WirelessDevice::accessPointRemoved(const QDBusObjectPath &a
 
 }
 
-void NetworkManager::WirelessDevice::removeNetwork(const QString& network)
+void NetworkManager::WirelessDevice::removeNetwork(const QString &network)
 {
     Q_D(WirelessDevice);
 
@@ -233,21 +233,21 @@ void NetworkManager::WirelessDevice::propertyChanged(const QString &property, co
 NetworkManager::WirelessDevice::OperationMode NetworkManager::WirelessDevice::convertOperationMode(uint theirMode)
 {
     NetworkManager::WirelessDevice::OperationMode ourMode = NetworkManager::WirelessDevice::Unknown;
-    switch ( theirMode ) {
-        case NM_802_11_MODE_UNKNOWN:
-            ourMode = NetworkManager::WirelessDevice::Unknown;
-            break;
-        case NM_802_11_MODE_ADHOC:
-            ourMode = NetworkManager::WirelessDevice::Adhoc;
-            break;
-        case NM_802_11_MODE_INFRA:
-            ourMode = NetworkManager::WirelessDevice::Infra;
-            break;
-        case NM_802_11_MODE_AP:
-            ourMode = NetworkManager::WirelessDevice::ApMode;
-            break;
-        default:
-            nmDebug() << "Unhandled mode" << theirMode;
+    switch (theirMode) {
+    case NM_802_11_MODE_UNKNOWN:
+        ourMode = NetworkManager::WirelessDevice::Unknown;
+        break;
+    case NM_802_11_MODE_ADHOC:
+        ourMode = NetworkManager::WirelessDevice::Adhoc;
+        break;
+    case NM_802_11_MODE_INFRA:
+        ourMode = NetworkManager::WirelessDevice::Infra;
+        break;
+    case NM_802_11_MODE_AP:
+        ourMode = NetworkManager::WirelessDevice::ApMode;
+        break;
+    default:
+        nmDebug() << "Unhandled mode" << theirMode;
     }
     return ourMode;
 }

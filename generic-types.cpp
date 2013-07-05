@@ -52,9 +52,9 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, IpV6DBusRoute &ro
     return argument;
 }
 
-QDBusArgument &operator<<(QDBusArgument &argument, const NMStringMap & mydict)
+QDBusArgument &operator<<(QDBusArgument &argument, const NMStringMap &mydict)
 {
-    argument.beginMap( QVariant::String, QVariant::String );
+    argument.beginMap(QVariant::String, QVariant::String);
 
     QMapIterator<QString, QString> i(mydict);
     while (i.hasNext()) {
@@ -67,7 +67,7 @@ QDBusArgument &operator<<(QDBusArgument &argument, const NMStringMap & mydict)
     return argument;
 }
 
-const QDBusArgument &operator>>(const QDBusArgument &argument, NMStringMap & mydict)
+const QDBusArgument &operator>>(const QDBusArgument &argument, NMStringMap &mydict)
 {
     argument.beginMap();
     mydict.clear();
@@ -85,7 +85,7 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, NMStringMap & myd
     return argument;
 }
 
-QDBusArgument &operator<<(QDBusArgument &argument, const DeviceDBusStateReason & reason)
+QDBusArgument &operator<<(QDBusArgument &argument, const DeviceDBusStateReason &reason)
 {
     argument.beginStructure();
     argument << reason.state << reason.reason;

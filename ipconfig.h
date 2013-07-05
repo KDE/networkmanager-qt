@@ -39,9 +39,9 @@ public:
      * Constructs a ip config object with a list of address, nameservers, domains and routers.
      */
     IpConfig(const IpAddresses &addresses,
-        const QList<QHostAddress> &nameservers,
-        const QStringList &domains,
-        const IpRoutes &routes);
+             const QList<QHostAddress> &nameservers,
+             const QStringList &domains,
+             const IpRoutes &routes);
 
     /**
      * Constructs an empty IpConfig object.
@@ -100,7 +100,7 @@ public:
 
 private:
     class Private;
-    Private * const d;
+    Private *const d;
 };
 
 } // namespace NetworkManager

@@ -45,10 +45,10 @@ public:
 
     QString name() const;
 
-    void setUsername(const QString & username);
+    void setUsername(const QString &username);
     QString username() const;
 
-    void setPassword(const QString & password);
+    void setPassword(const QString &password);
     QString password() const;
 
     void setPasswordFlags(SecretFlags flags);
@@ -68,12 +68,12 @@ public:
 
     QStringList needSecrets(bool requestNew = false) const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    AdslSettingPrivate * d_ptr;
+    AdslSettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const AdslSetting &setting);

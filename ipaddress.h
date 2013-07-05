@@ -70,7 +70,7 @@ public:
 
 private:
     class Private;
-    Private * const d;
+    Private *const d;
 };
 typedef QList<IpAddress> IpAddresses;
 

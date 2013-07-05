@@ -117,9 +117,9 @@ void IPv6Setting::testSetting()
     QVariantMap::const_iterator it = map.constBegin();
     while (it != map.constEnd()) {
         if (it.key() != QLatin1String(NM_SETTING_IP6_CONFIG_DNS) &&
-            it.key() != QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES) &&
-            it.key() != QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES)) {
-                QCOMPARE(it.value(), map1.value(it.key()));
+                it.key() != QLatin1String(NM_SETTING_IP6_CONFIG_ADDRESSES) &&
+                it.key() != QLatin1String(NM_SETTING_IP6_CONFIG_ROUTES)) {
+            QCOMPARE(it.value(), map1.value(it.key()));
         }
         ++it;
     }

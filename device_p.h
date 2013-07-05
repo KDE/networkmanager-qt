@@ -31,7 +31,7 @@ class NetworkManagerPrivate;
 class DevicePrivate
 {
 public:
-    explicit DevicePrivate(const QString & path);
+    explicit DevicePrivate(const QString &path);
     virtual ~DevicePrivate();
     OrgFreedesktopNetworkManagerDeviceInterface deviceIface;
     Device::Capabilities capabilities;

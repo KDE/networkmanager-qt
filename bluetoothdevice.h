@@ -33,13 +33,13 @@ class BluetoothDevicePrivate;
 
 class NETWORKMANAGERQT_EXPORT BluetoothDevice: public ModemDevice
 {
-Q_OBJECT
-Q_DECLARE_PRIVATE(BluetoothDevice)
+    Q_OBJECT
+    Q_DECLARE_PRIVATE(BluetoothDevice)
 
-Q_PROPERTY(uint bluetoothCapabilities READ bluetoothCapabilities)
-Q_PROPERTY(QString hardwareAddress READ hardwareAddress)
-Q_PROPERTY(QString name READ name)
-Q_FLAGS(Capabilities)
+    Q_PROPERTY(uint bluetoothCapabilities READ bluetoothCapabilities)
+    Q_PROPERTY(QString hardwareAddress READ hardwareAddress)
+    Q_PROPERTY(QString name READ name)
+    Q_FLAGS(Capabilities)
 
 public:
     typedef QSharedPointer<BluetoothDevice> Ptr;
@@ -55,7 +55,7 @@ public:
     /**
      * Creates a new BluetoothDevice object.
      */
-    explicit BluetoothDevice(const QString & path, QObject * parent = 0);
+    explicit BluetoothDevice(const QString &path, QObject *parent = 0);
     /**
      * Destroys a BluetoothDevice object.
      */

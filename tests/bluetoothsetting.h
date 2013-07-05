@@ -27,9 +27,9 @@ class BluetoothSetting : public QObject
 {
     Q_OBJECT
 
-    private Q_SLOTS:
-        void testSetting_data();
-        void testSetting();
+private Q_SLOTS:
+    void testSetting_data();
+    void testSetting();
 };
 
 #endif // NMQT_BLUETOOTHSETTING_TEST_H

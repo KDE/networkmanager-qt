@@ -134,7 +134,7 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     return typeString;
 }
 
-NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(const QString& typeString)
+NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(const QString &typeString)
 {
     SettingType type = Wired;
 

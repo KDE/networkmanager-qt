@@ -38,7 +38,7 @@ NetworkManager::Settings::TemplateSetting::TemplateSetting():
     d_ptr(new TemplateSettingPrivate())
 { }
 
-NetworkManager::Settings::TemplateSetting::TemplateSetting(TemplateSetting * setting):
+NetworkManager::Settings::TemplateSetting::TemplateSetting(TemplateSetting *setting):
     Setting(setting),
     d_ptr(new TemplateSettingPrivate())
 {
@@ -60,7 +60,7 @@ QString NetworkManager::Settings::TemplateSetting::name() const
     return d->name;
 }
 
-void NetworkManager::Settings::TemplateSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::Settings::TemplateSetting::fromMap(const QVariantMap &setting)
 {
     /*
      * if (setting.contains(QLatin1String(NM_SETTING_TEMPLATE_FOO))) {

@@ -42,7 +42,7 @@ public:
 
     QString name() const;
 
-    void setInterfaceName(const QString & name);
+    void setInterfaceName(const QString &name);
     QString interfaceName() const;
 
     void setStp(bool enabled);
@@ -63,12 +63,12 @@ public:
     void setAgingTime(quint32 time);
     quint32 agingTime() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    BridgeSettingPrivate * d_ptr;
+    BridgeSettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const BridgeSetting &setting);

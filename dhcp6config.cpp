@@ -23,7 +23,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "manager_p.h"
 #include "nmdebug.h"
 
-NetworkManager::Dhcp6ConfigPrivate::Dhcp6ConfigPrivate( const QString & path, QObject * owner ) :
+NetworkManager::Dhcp6ConfigPrivate::Dhcp6ConfigPrivate(const QString &path, QObject *owner) :
     dhcp6Iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()),
     myPath(path)
 {
@@ -36,7 +36,7 @@ NetworkManager::Dhcp6ConfigPrivate::~Dhcp6ConfigPrivate()
 }
 
 NetworkManager::Dhcp6Config::Dhcp6Config(const QString &path, QObject *owner)
-: d_ptr(new Dhcp6ConfigPrivate(path, owner))
+    : d_ptr(new Dhcp6ConfigPrivate(path, owner))
 {
     Q_D(Dhcp6Config);
     connect(&d->dhcp6Iface, SIGNAL(PropertiesChanged(QVariantMap)),

@@ -44,7 +44,7 @@ public:
 
     QString name() const;
 
-    void setMacAddress(const QByteArray & address);
+    void setMacAddress(const QByteArray &address);
     QByteArray macAddress() const;
 
     void setMtu(quint32 mtu);
@@ -53,12 +53,12 @@ public:
     void setTransportMode(TransportMode mode);
     TransportMode transportMode() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    InfinibandSettingPrivate * d_ptr;
+    InfinibandSettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const InfinibandSetting &setting);

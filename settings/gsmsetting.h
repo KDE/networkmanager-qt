@@ -44,28 +44,28 @@ public:
 
     QString name() const;
 
-    void setNumber(const QString & number);
+    void setNumber(const QString &number);
     QString number() const;
 
-    void setUsername(const QString & username);
+    void setUsername(const QString &username);
     QString username() const;
 
-    void setPassword(const QString & password);
+    void setPassword(const QString &password);
     QString password() const;
 
     void setPasswordFlags(SecretFlags flags);
     SecretFlags passwordFlags() const;
 
-    void setApn(const QString & apn);
+    void setApn(const QString &apn);
     QString apn() const;
 
-    void setNetworkId(const QString & id);
+    void setNetworkId(const QString &id);
     QString networkId() const;
 
     void setNetworkType(NetworkType type);
     NetworkType networkType() const;
 
-    void setPin(const QString & pin);
+    void setPin(const QString &pin);
     QString pin() const;
 
     void setPinFlags(SecretFlags flags);
@@ -77,18 +77,18 @@ public:
     void setHomeOnly(bool homeOnly);
     bool homeOnly() const;
 
-    void secretsFromMap(const QVariantMap & secrets);
+    void secretsFromMap(const QVariantMap &secrets);
 
     QVariantMap secretsToMap() const;
 
     QStringList needSecrets(bool requestNew = false) const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    GsmSettingPrivate * d_ptr;
+    GsmSettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const GsmSetting &setting);

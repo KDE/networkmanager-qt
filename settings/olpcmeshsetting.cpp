@@ -56,7 +56,7 @@ QString NetworkManager::OlpcMeshSetting::name() const
     return d->name;
 }
 
-void NetworkManager::OlpcMeshSetting::setSsid(const QByteArray& ssid)
+void NetworkManager::OlpcMeshSetting::setSsid(const QByteArray &ssid)
 {
     Q_D(OlpcMeshSetting);
 
@@ -84,7 +84,7 @@ quint32 NetworkManager::OlpcMeshSetting::channel() const
     return d->channel;
 }
 
-void NetworkManager::OlpcMeshSetting::setDhcpAnycastAddress(const QByteArray& address)
+void NetworkManager::OlpcMeshSetting::setDhcpAnycastAddress(const QByteArray &address)
 {
     Q_D(OlpcMeshSetting);
 
@@ -98,7 +98,7 @@ QByteArray NetworkManager::OlpcMeshSetting::dhcpAnycastAddress() const
     return d->dhcpAnycastAddress;
 }
 
-void NetworkManager::OlpcMeshSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::OlpcMeshSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_OLPC_MESH_SSID))) {
         setSsid(setting.value(QLatin1String(NM_SETTING_OLPC_MESH_SSID)).toByteArray());

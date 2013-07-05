@@ -26,7 +26,7 @@
 #include <QtCore/QDebug>
 
 NetworkManager::BondSettingPrivate::BondSettingPrivate():
-    name(NM_SETTING_BOND_SETTING_NAME )
+    name(NM_SETTING_BOND_SETTING_NAME)
 { }
 
 NetworkManager::BondSetting::BondSetting():
@@ -54,7 +54,7 @@ QString NetworkManager::BondSetting::name() const
     return d->name;
 }
 
-void NetworkManager::BondSetting::setInterfaceName(const QString& name)
+void NetworkManager::BondSetting::setInterfaceName(const QString &name)
 {
     Q_D(BondSetting);
 
@@ -68,14 +68,14 @@ QString NetworkManager::BondSetting::interfaceName() const
     return d->interfaceName;
 }
 
-void NetworkManager::BondSetting::addOption(const QString& option, const QString& value)
+void NetworkManager::BondSetting::addOption(const QString &option, const QString &value)
 {
     Q_D(BondSetting);
 
     d->options.insert(option, value);
 }
 
-void NetworkManager::BondSetting::setOptions(const NMStringMap& options)
+void NetworkManager::BondSetting::setOptions(const NMStringMap &options)
 {
     Q_D(BondSetting);
 
@@ -89,7 +89,7 @@ NMStringMap NetworkManager::BondSetting::options() const
     return d->options;
 }
 
-void NetworkManager::BondSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::BondSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_BOND_INTERFACE_NAME))) {
         setInterfaceName(setting.value(QLatin1String(NM_SETTING_BOND_INTERFACE_NAME)).toString());

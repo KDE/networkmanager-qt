@@ -34,7 +34,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "dhcp6config.h"
 #include "activeconnection.h"
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 class DevicePrivate;
 class DeviceStateReason;
@@ -73,30 +74,32 @@ public:
      * simplicity, states from several different layers are present -
      * this is a high level view
      */
-    enum State{ UnknownState = 0, Unmanaged = 10, Unavailable = 20, Disconnected = 30 , Preparing = 40,
-                ConfiguringHardware = 50 , NeedAuth = 60, ConfiguringIp = 70, CheckingIp = 80, WaitingForSecondaries = 90, Activated = 100, Deactivating = 110, Failed = 120};
+    enum State { UnknownState = 0, Unmanaged = 10, Unavailable = 20, Disconnected = 30 , Preparing = 40,
+                 ConfiguringHardware = 50 , NeedAuth = 60, ConfiguringIp = 70, CheckingIp = 80, WaitingForSecondaries = 90, Activated = 100, Deactivating = 110, Failed = 120
+               };
 
     /**
      * Enums describing the reason for a connection state change
      */
-    enum StateChangeReason{ UnknownReason=0, NoReason=1 , NowManagedReason=2, NowUnmanagedReason=3,
-                            ConfigFailedReason=4, ConfigUnavailableReason=5,
-                            ConfigExpiredReason=6, NoSecretsReason=7, AuthSupplicantDisconnectReason=8,
-                            AuthSupplicantConfigFailedReason=9, AuthSupplicantFailedReason=10,
-                            AuthSupplicantTimeoutReason=11, PppStartFailedReason=12, PppDisconnectReason=13,
-                            PppFailedReason=14, DhcpStartFailedReason=15, DhcpErrorReason=16, DhcpFailedReason=17,
-                            SharedStartFailedReason=18, SharedFailedReason=19,
-                            AutoIpStartFailedReason=20, AutoIpErrorReason=21, AutoIpFailedReason=22,
-                            ModemBusyReason=23, ModemNoDialToneReason=24, ModemNoCarrierReason=25, ModemDialTimeoutReason=26,
-                            ModemDialFailedReason=27, ModemInitFailedReason=28,
-                            GsmApnSelectFailedReason=29, GsmNotSearchingReason=30, GsmRegistrationDeniedReason=31,
-                            GsmRegistrationTimeoutReason=32, GsmRegistrationFailedReason=33,
-                            GsmPinCheckFailedReason=34, FirmwareMissingReason=35, DeviceRemovedReason=36,
-                            SleepingReason=37, ConnectionRemovedReason=38, UserRequestedReason=39, CarrierReason=40,
-                            ConnectionAssumedReason=41, SupplicantAvailableReason=42, ModemNotFoundReason=43, BluetoothFailedReason=44,
-                            GsmSimNotInserted=45, GsmSimPinRequired=46, GsmSimPukRequired=47, GsmSimWrong=48 , InfiniBandMode=49,
-                            DependencyFailed=50, Br2684Failed=51, ModemManagerUnavailable=52, SsidNotFound=53, SecondaryConnectionFailed=54,
-                            Reserved = 65536 };
+    enum StateChangeReason { UnknownReason = 0, NoReason = 1 , NowManagedReason = 2, NowUnmanagedReason = 3,
+                             ConfigFailedReason = 4, ConfigUnavailableReason = 5,
+                             ConfigExpiredReason = 6, NoSecretsReason = 7, AuthSupplicantDisconnectReason = 8,
+                             AuthSupplicantConfigFailedReason = 9, AuthSupplicantFailedReason = 10,
+                             AuthSupplicantTimeoutReason = 11, PppStartFailedReason = 12, PppDisconnectReason = 13,
+                             PppFailedReason = 14, DhcpStartFailedReason = 15, DhcpErrorReason = 16, DhcpFailedReason = 17,
+                             SharedStartFailedReason = 18, SharedFailedReason = 19,
+                             AutoIpStartFailedReason = 20, AutoIpErrorReason = 21, AutoIpFailedReason = 22,
+                             ModemBusyReason = 23, ModemNoDialToneReason = 24, ModemNoCarrierReason = 25, ModemDialTimeoutReason = 26,
+                             ModemDialFailedReason = 27, ModemInitFailedReason = 28,
+                             GsmApnSelectFailedReason = 29, GsmNotSearchingReason = 30, GsmRegistrationDeniedReason = 31,
+                             GsmRegistrationTimeoutReason = 32, GsmRegistrationFailedReason = 33,
+                             GsmPinCheckFailedReason = 34, FirmwareMissingReason = 35, DeviceRemovedReason = 36,
+                             SleepingReason = 37, ConnectionRemovedReason = 38, UserRequestedReason = 39, CarrierReason = 40,
+                             ConnectionAssumedReason = 41, SupplicantAvailableReason = 42, ModemNotFoundReason = 43, BluetoothFailedReason = 44,
+                             GsmSimNotInserted = 45, GsmSimPinRequired = 46, GsmSimPukRequired = 47, GsmSimWrong = 48 , InfiniBandMode = 49,
+                             DependencyFailed = 50, Br2684Failed = 51, ModemManagerUnavailable = 52, SsidNotFound = 53, SecondaryConnectionFailed = 54,
+                             Reserved = 65536
+                           };
     /**
      * Possible Device capabilities
      * - IsManageable: denotes that the device can be controlled by this API
@@ -140,8 +143,8 @@ public:
      *
      * @param path UNI of the device
      */
-    explicit Device( const QString & path, QObject * parent = 0);
-    Device( DevicePrivate &dd, QObject * parent );
+    explicit Device(const QString &path, QObject *parent = 0);
+    Device(DevicePrivate &dd, QObject *parent);
     /**
      * Destroys a NetworkInterface object.
      */
@@ -304,8 +307,7 @@ public:
       *
       * @returns a pointer to the device interface if it exists, 0 otherwise
       */
-    template <class DevIface> DevIface *as()
-    {
+    template <class DevIface> DevIface *as() {
         return qobject_cast<DevIface *>(this);
     }
 
@@ -315,8 +317,7 @@ public:
       *
       * @returns a pointer to the device interface if it exists, 0 otherwise
       */
-    template <class DevIface> const DevIface *as() const
-    {
+    template <class DevIface> const DevIface *as() const {
         return qobject_cast<const DevIface *>(this);
     }
 
@@ -351,12 +352,12 @@ Q_SIGNALS:
     /**
      * Emitted when a new connection is available
      */
-    void availableConnectionAppeared(const QString & connection);
+    void availableConnectionAppeared(const QString &connection);
 
     /**
      * Emitted when the connection is no longer available
      */
-    void availableConnectionDisappeared(const QString & connection);
+    void availableConnectionDisappeared(const QString &connection);
 
     /**
      * Emitted when the capabilities of this network has changed.
@@ -439,7 +440,7 @@ Q_SIGNALS:
     void udiChanged();
 
 protected Q_SLOTS:
-    void deviceStateChanged(uint,uint,uint);
+    void deviceStateChanged(uint, uint, uint);
     void propertiesChanged(const QVariantMap &properties);
 
 private:
@@ -452,7 +453,7 @@ protected:
      */
     virtual void propertyChanged(const QString &property, const QVariant &value);
 
-    DevicePrivate * d_ptr;
+    DevicePrivate *d_ptr;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Capabilities)
@@ -462,17 +463,17 @@ class NETWORKMANAGERQT_EXPORT DeviceStateReason
 {
 public:
     DeviceStateReason(Device::State state, Device::StateChangeReason reason);
-    DeviceStateReason(const DeviceStateReason&);
+    DeviceStateReason(const DeviceStateReason &);
     ~DeviceStateReason();
     Device::State state() const;
     Device::StateChangeReason reason() const;
-    DeviceStateReason &operator=(const DeviceStateReason&);
+    DeviceStateReason &operator=(const DeviceStateReason &);
 private:
     void setState(const Device::State state);
     void setReason(const Device::StateChangeReason reason);
 
     class Private;
-    Private * const d;
+    Private *const d;
 };
 
 }

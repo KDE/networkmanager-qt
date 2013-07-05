@@ -42,28 +42,28 @@ public:
      * @return QHostAddress representation of an ipv6 address
      * @param address byte array containing the binary representation of the address
      */
-    static QHostAddress ipv6AddressAsHostAddress(const QByteArray & address);
+    static QHostAddress ipv6AddressAsHostAddress(const QByteArray &address);
 
     /**
      * @return binary representation of an ipv6 address
      * @param address qhostaddress containing the address
      */
-    static QByteArray ipv6AddressFromHostAddress(const QHostAddress & address);
+    static QByteArray ipv6AddressFromHostAddress(const QHostAddress &address);
 
     /**
      * @return String representation of a mac address.
      * @param ba byte array containing the binary repesentation of the address
      */
-    static QString macAddressAsString(const QByteArray & ba);
+    static QString macAddressAsString(const QByteArray &ba);
 
     /**
      * @return binary repesentation of a mac address.
      * @param s string representation of the address
      */
-    static QByteArray macAddressFromString(const QString & s);
+    static QByteArray macAddressFromString(const QString &s);
 
-    static bool macAddressIsValid(const QString & macAddress);
-    static bool macAddressIsValid(const QByteArray & macAddress);
+    static bool macAddressIsValid(const QString &macAddress);
+    static bool macAddressIsValid(const QByteArray &macAddress);
 
     /**
      * @param freq frequency of a wireless network
@@ -79,9 +79,9 @@ public:
 
     static Utils::WirelessSecurityType findBestWirelessSecurity(NetworkManager::WirelessDevice::Capabilities, bool haveAp, bool adHoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn);
 
-    static bool wepKeyIsValid(const QString & key, NetworkManager::WirelessSecuritySetting::WepKeyType type);
+    static bool wepKeyIsValid(const QString &key, NetworkManager::WirelessSecuritySetting::WepKeyType type);
 
-    static bool wpaPskIsValid(const QString & psk);
+    static bool wpaPskIsValid(const QString &psk);
 
     static QList<QPair<int, int> > getBFreqs();
     static QList<QPair<int, int> > getAFreqs();

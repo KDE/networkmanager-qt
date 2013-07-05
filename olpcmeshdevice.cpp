@@ -25,13 +25,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "wimaxnsp.h"
 
-NetworkManager::OlpcMeshDevicePrivate::OlpcMeshDevicePrivate(const QString & path)
+NetworkManager::OlpcMeshDevicePrivate::OlpcMeshDevicePrivate(const QString &path)
     : DevicePrivate(path), iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
 
 }
 
-NetworkManager::OlpcMeshDevice::OlpcMeshDevice(const QString & path, QObject * parent)
+NetworkManager::OlpcMeshDevice::OlpcMeshDevice(const QString &path, QObject *parent)
     : Device(*new OlpcMeshDevicePrivate(path), parent)
 {
     Q_D(OlpcMeshDevice);

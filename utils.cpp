@@ -21,11 +21,11 @@
 
 #include "utils.h"
 
-QHostAddress NetworkManager::Utils::ipv6AddressAsHostAddress(const QByteArray& address)
+QHostAddress NetworkManager::Utils::ipv6AddressAsHostAddress(const QByteArray &address)
 {
 //     Q_ASSERT(address.size() == 16);
     Q_IPV6ADDR tmp;
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < 16; ++i) {
         tmp[i] = address[i];
     }
     QHostAddress hostaddress(tmp);
@@ -34,23 +34,23 @@ QHostAddress NetworkManager::Utils::ipv6AddressAsHostAddress(const QByteArray& a
     return hostaddress;
 }
 
-QByteArray NetworkManager::Utils::ipv6AddressFromHostAddress(const QHostAddress& address)
+QByteArray NetworkManager::Utils::ipv6AddressFromHostAddress(const QHostAddress &address)
 {
 //     Q_ASSERT(address.protocol() == QAbstractSocket::IPv6Protocol);
     Q_IPV6ADDR tmp = address.toIPv6Address();
     QByteArray assembledAddress;
-    for (int i = 0; i <16; i++) {
+    for (int i = 0; i < 16; ++i) {
         assembledAddress[i] = tmp[i];
     }
 
     return assembledAddress;
 }
 
-QString NetworkManager::Utils::macAddressAsString(const QByteArray & ba)
+QString NetworkManager::Utils::macAddressAsString(const QByteArray &ba)
 {
     QStringList mac;
 
-    for (int i=0; i < ba.size(); i++) {
+    for (int i = 0; i < ba.size(); ++i) {
         mac << QString("%1").arg((quint8)ba[i], 2, 16, QLatin1Char('0')).toUpper();
     }
 
@@ -66,21 +66,21 @@ QByteArray NetworkManager::Utils::macAddressFromString(const QString &s)
         ba.resize(6);
         int i = 0;
 
-        foreach (const QString & macPart, macStringList) {
+        foreach (const QString &macPart, macStringList) {
             ba[i++] = macPart.toUInt(0, 16);
         }
     }
     return ba;
 }
 
-bool NetworkManager::Utils::macAddressIsValid(const QString& macAddress)
+bool NetworkManager::Utils::macAddressIsValid(const QString &macAddress)
 {
     QRegExp macAddressCheck = QRegExp("([a-fA-F0-9][a-fA-F0-9]:){5}[0-9a-fA-F][0-9a-fA-F]");
 
     return macAddress.contains(macAddressCheck);
 }
 
-bool NetworkManager::Utils::macAddressIsValid(const QByteArray& macAddress)
+bool NetworkManager::Utils::macAddressIsValid(const QByteArray &macAddress)
 {
     return macAddressIsValid(macAddressAsString(macAddress));
 }
@@ -126,7 +126,7 @@ NetworkManager::WirelessSetting::FrequencyBand NetworkManager::Utils::findFreque
     return WirelessSetting::A;
 }
 
-bool NetworkManager::Utils::deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities interfaceCaps, NetworkManager::AccessPoint::WpaFlags apCiphers, Utils::WirelessSecurityType type )
+bool NetworkManager::Utils::deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities interfaceCaps, NetworkManager::AccessPoint::WpaFlags apCiphers, Utils::WirelessSecurityType type)
 {
     bool havePair = false;
     bool haveGroup = true;
@@ -180,7 +180,7 @@ bool NetworkManager::Utils::securityIsValid(Utils::WirelessSecurityType type, Ne
                 || ((type == Utils::DynamicWep) && !adhoc)
                 || ((type == Utils::Leap) && !adhoc)) {
             if (interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wep40) ||
-                interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wep104)) {
+                    interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wep104)) {
                 return true;
             }
         }
@@ -207,116 +207,116 @@ bool NetworkManager::Utils::securityIsValid(Utils::WirelessSecurityType type, Ne
     }
 
     switch (type) {
-        case Utils::None:
-            Q_ASSERT (haveAp);
-            if (apCaps.testFlag(NetworkManager::AccessPoint::Privacy))
-                return false;
-            if (apWpa || apRsn)
-                return false;
-            break;
-        case Utils::Leap: /* require PRIVACY bit for LEAP? */
-            if (adhoc)
-                return false;
-            /* Fall through */
-        case Utils::StaticWep:
-            Q_ASSERT (haveAp);
-            if (!apCaps.testFlag(NetworkManager::AccessPoint::Privacy))
-                return false;
-            if (apWpa || apRsn) {
-                if (!deviceSupportsApCiphers(interfaceCaps, apWpa, StaticWep))
-                    if (!deviceSupportsApCiphers(interfaceCaps, apRsn, StaticWep))
-                        return false;
-            }
-            break;
-        case Utils::DynamicWep:
-            if (adhoc)
-                return false;
-            Q_ASSERT (haveAp);
-            if (apRsn || !(apCaps.testFlag(NetworkManager::AccessPoint::Privacy)))
-                return false;
-            /* Some APs broadcast minimal WPA-enabled beacons that must be handled */
-            if (apWpa) {
-                if (!apWpa.testFlag(NetworkManager::AccessPoint::KeyMgmt8021x))
+    case Utils::None:
+        Q_ASSERT(haveAp);
+        if (apCaps.testFlag(NetworkManager::AccessPoint::Privacy))
+            return false;
+        if (apWpa || apRsn)
+            return false;
+        break;
+    case Utils::Leap: /* require PRIVACY bit for LEAP? */
+        if (adhoc)
+            return false;
+        /* Fall through */
+    case Utils::StaticWep:
+        Q_ASSERT(haveAp);
+        if (!apCaps.testFlag(NetworkManager::AccessPoint::Privacy))
+            return false;
+        if (apWpa || apRsn) {
+            if (!deviceSupportsApCiphers(interfaceCaps, apWpa, StaticWep))
+                if (!deviceSupportsApCiphers(interfaceCaps, apRsn, StaticWep))
                     return false;
-                if (!deviceSupportsApCiphers(interfaceCaps, apWpa, DynamicWep))
-                    return false;
-            }
-            break;
-        case Utils::WpaPsk:
-            if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wpa)) {
+        }
+        break;
+    case Utils::DynamicWep:
+        if (adhoc)
+            return false;
+        Q_ASSERT(haveAp);
+        if (apRsn || !(apCaps.testFlag(NetworkManager::AccessPoint::Privacy)))
+            return false;
+        /* Some APs broadcast minimal WPA-enabled beacons that must be handled */
+        if (apWpa) {
+            if (!apWpa.testFlag(NetworkManager::AccessPoint::KeyMgmt8021x))
                 return false;
-            }
-            if (haveAp) {
-                /* Ad-Hoc WPA APs won't necessarily have the PSK flag set */
-                if (adhoc) {
-                    if (apWpa.testFlag(NetworkManager::AccessPoint::GroupTkip) &&
+            if (!deviceSupportsApCiphers(interfaceCaps, apWpa, DynamicWep))
+                return false;
+        }
+        break;
+    case Utils::WpaPsk:
+        if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wpa)) {
+            return false;
+        }
+        if (haveAp) {
+            /* Ad-Hoc WPA APs won't necessarily have the PSK flag set */
+            if (adhoc) {
+                if (apWpa.testFlag(NetworkManager::AccessPoint::GroupTkip) &&
                         interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
-                        return true;
-                    }
-                    if (apWpa.testFlag(NetworkManager::AccessPoint::GroupCcmp) &&
-                        interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
-                        return true;
-                    }
-                } else if (apWpa.testFlag(NetworkManager::AccessPoint::KeyMgmtPsk)) {
-                    if (apWpa.testFlag(NetworkManager::AccessPoint::PairTkip) &&
-                        interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
-                        return true;
-                    }
-                    if (apWpa.testFlag(NetworkManager::AccessPoint::PairCcmp) &&
-                        interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
-                        return true;
-                    }
+                    return true;
                 }
-                return false;
-            }
-            break;
-        case Utils::Wpa2Psk:
-            if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::Rsn))
-                return false;
-            if (haveAp) {
-                /* Ad-Hoc WPA APs won't necessarily have the PSK flag set */
-                if (apRsn.testFlag(NetworkManager::AccessPoint::KeyMgmtPsk) || adhoc) {
-                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairTkip) &&
-                        interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
-                        return true;
-                    }
-                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) &&
+                if (apWpa.testFlag(NetworkManager::AccessPoint::GroupCcmp) &&
                         interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
-                        return true;
-                    }
+                    return true;
                 }
-                return false;
+            } else if (apWpa.testFlag(NetworkManager::AccessPoint::KeyMgmtPsk)) {
+                if (apWpa.testFlag(NetworkManager::AccessPoint::PairTkip) &&
+                        interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
+                    return true;
+                }
+                if (apWpa.testFlag(NetworkManager::AccessPoint::PairCcmp) &&
+                        interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
+                    return true;
+                }
             }
-            break;
-        case Utils::WpaEap:
-            if (adhoc)
-                return false;
-            if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wpa))
-                return false;
-            if (haveAp) {
-                if (!apWpa.testFlag(NetworkManager::AccessPoint::KeyMgmt8021x))
-                    return false;
-                /* Ensure at least one WPA cipher is supported */
-                if (!deviceSupportsApCiphers (interfaceCaps, apWpa, WpaEap))
-                    return false;
+            return false;
+        }
+        break;
+    case Utils::Wpa2Psk:
+        if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::Rsn))
+            return false;
+        if (haveAp) {
+            /* Ad-Hoc WPA APs won't necessarily have the PSK flag set */
+            if (apRsn.testFlag(NetworkManager::AccessPoint::KeyMgmtPsk) || adhoc) {
+                if (apRsn.testFlag(NetworkManager::AccessPoint::PairTkip) &&
+                        interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
+                    return true;
+                }
+                if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) &&
+                        interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
+                    return true;
+                }
             }
-            break;
-        case Utils::Wpa2Eap:
-            if (adhoc)
+            return false;
+        }
+        break;
+    case Utils::WpaEap:
+        if (adhoc)
+            return false;
+        if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wpa))
+            return false;
+        if (haveAp) {
+            if (!apWpa.testFlag(NetworkManager::AccessPoint::KeyMgmt8021x))
                 return false;
-            if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::Rsn))
+            /* Ensure at least one WPA cipher is supported */
+            if (!deviceSupportsApCiphers(interfaceCaps, apWpa, WpaEap))
                 return false;
-            if (haveAp) {
-                if (!apRsn.testFlag(NetworkManager::AccessPoint::KeyMgmt8021x))
-                    return false;
-                /* Ensure at least one WPA cipher is supported */
-                if (!deviceSupportsApCiphers (interfaceCaps, apRsn, Wpa2Eap))
-                    return false;
-            }
-            break;
-        default:
-            good = false;
-            break;
+        }
+        break;
+    case Utils::Wpa2Eap:
+        if (adhoc)
+            return false;
+        if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::Rsn))
+            return false;
+        if (haveAp) {
+            if (!apRsn.testFlag(NetworkManager::AccessPoint::KeyMgmt8021x))
+                return false;
+            /* Ensure at least one WPA cipher is supported */
+            if (!deviceSupportsApCiphers(interfaceCaps, apRsn, Wpa2Eap))
+                return false;
+        }
+        break;
+    default:
+        good = false;
+        break;
     }
 
     return good;
@@ -340,7 +340,7 @@ NetworkManager::Utils::WirelessSecurityType NetworkManager::Utils::findBestWirel
     return NetworkManager::Utils::Unknown;
 }
 
-bool NetworkManager::Utils::wepKeyIsValid(const QString& key, NetworkManager::WirelessSecuritySetting::WepKeyType type)
+bool NetworkManager::Utils::wepKeyIsValid(const QString &key, NetworkManager::WirelessSecuritySetting::WepKeyType type)
 {
     if (key.isEmpty()) {
         return false;
@@ -352,7 +352,7 @@ bool NetworkManager::Utils::wepKeyIsValid(const QString& key, NetworkManager::Wi
         if (type == WirelessSecuritySetting::Hex) {
             if (keylen == 10 || keylen == 26) {
                 /* Hex key */
-                for (int i = 0; i < keylen; i++) {
+                for (int i = 0; i < keylen; ++i) {
                     if (!key.at(i).isLetterOrNumber()) {
                         return false;
                     }
@@ -360,7 +360,7 @@ bool NetworkManager::Utils::wepKeyIsValid(const QString& key, NetworkManager::Wi
                 return true;
             } else if (keylen == 5 || keylen == 13) {
                 /* ASCII KEY */
-                for (int i = 0; i < keylen; i++) {
+                for (int i = 0; i < keylen; ++i) {
                     if (!key.at(i).isPrint()) {
                         return false;
                     }
@@ -381,7 +381,7 @@ bool NetworkManager::Utils::wepKeyIsValid(const QString& key, NetworkManager::Wi
     return false;
 }
 
-bool NetworkManager::Utils::wpaPskIsValid(const QString& psk)
+bool NetworkManager::Utils::wpaPskIsValid(const QString &psk)
 {
     if (psk.isEmpty()) {
         return false;
@@ -395,7 +395,7 @@ bool NetworkManager::Utils::wpaPskIsValid(const QString& psk)
 
     if (psklen == 64) {
         /* Hex PSK */
-        for (int i = 0; i < psklen; i++) {
+        for (int i = 0; i < psklen; ++i) {
             if (!psk.at(i).isLetterOrNumber()) {
                 return false;
             }

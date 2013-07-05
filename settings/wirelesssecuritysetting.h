@@ -58,16 +58,16 @@ public:
     void setAuthAlg(AuthAlg alg);
     AuthAlg authAlg() const;
 
-    void setProto(const QList<WpaProtocolVersion> & list);
+    void setProto(const QList<WpaProtocolVersion> &list);
     QList<WpaProtocolVersion> proto() const;
 
-    void setPairwise(const QList<WpaEncryptionCapabilities> & list);
+    void setPairwise(const QList<WpaEncryptionCapabilities> &list);
     QList<WpaEncryptionCapabilities> pairwise() const;
 
-    void setGroup(const QList<WpaEncryptionCapabilities> & list);
+    void setGroup(const QList<WpaEncryptionCapabilities> &list);
     QList<WpaEncryptionCapabilities> group() const;
 
-    void setLeapUsername(const QString & username);
+    void setLeapUsername(const QString &username);
     QString leapUsername() const;
 
     void setWepKey0(const QString key);
@@ -88,30 +88,30 @@ public:
     void setWepKeyType(WepKeyType type);
     WepKeyType wepKeyType() const;
 
-    void setPsk(const QString & key);
+    void setPsk(const QString &key);
     QString psk() const;
 
     void setPskFlags(SecretFlags type);
     SecretFlags pskFlags() const;
 
-    void setLeapPassword(const QString & password);
+    void setLeapPassword(const QString &password);
     QString leapPassword() const;
 
     void setLeapPasswordFlags(SecretFlags type);
     SecretFlags leapPasswordFlags() const;
 
-    void secretsFromMap(const QVariantMap & secrets);
+    void secretsFromMap(const QVariantMap &secrets);
 
     QVariantMap secretsToMap() const;
 
     QStringList needSecrets(bool requestNew = false) const;
 
-    void fromMap(const QVariantMap & map);
+    void fromMap(const QVariantMap &map);
 
     QVariantMap toMap() const;
 
 protected:
-    WirelessSecuritySettingPrivate * d_ptr;
+    WirelessSecuritySettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const WirelessSecuritySetting &setting);

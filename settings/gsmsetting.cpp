@@ -68,7 +68,7 @@ QString NetworkManager::GsmSetting::name() const
     return d->name;
 }
 
-void NetworkManager::GsmSetting::setNumber(const QString& number)
+void NetworkManager::GsmSetting::setNumber(const QString &number)
 {
     Q_D(GsmSetting);
 
@@ -82,7 +82,7 @@ QString NetworkManager::GsmSetting::number() const
     return d->number;
 }
 
-void NetworkManager::GsmSetting::setUsername(const QString& username)
+void NetworkManager::GsmSetting::setUsername(const QString &username)
 {
     Q_D(GsmSetting);
 
@@ -96,7 +96,7 @@ QString NetworkManager::GsmSetting::username() const
     return d->username;
 }
 
-void NetworkManager::GsmSetting::setPassword(const QString& password)
+void NetworkManager::GsmSetting::setPassword(const QString &password)
 {
     Q_D(GsmSetting);
 
@@ -124,7 +124,7 @@ NetworkManager::GsmSetting::SecretFlags NetworkManager::GsmSetting::passwordFlag
     return d->passwordFlags;
 }
 
-void NetworkManager::GsmSetting::setApn(const QString& apn)
+void NetworkManager::GsmSetting::setApn(const QString &apn)
 {
     Q_D(GsmSetting);
 
@@ -138,7 +138,7 @@ QString NetworkManager::GsmSetting::apn() const
     return d->apn;
 }
 
-void NetworkManager::GsmSetting::setNetworkId(const QString& id)
+void NetworkManager::GsmSetting::setNetworkId(const QString &id)
 {
     Q_D(GsmSetting);
 
@@ -166,7 +166,7 @@ NetworkManager::GsmSetting::NetworkType NetworkManager::GsmSetting::networkType(
     return d->networkType;
 }
 
-void NetworkManager::GsmSetting::setPin(const QString& pin)
+void NetworkManager::GsmSetting::setPin(const QString &pin)
 {
     Q_D(GsmSetting);
 
@@ -222,7 +222,7 @@ bool NetworkManager::GsmSetting::homeOnly() const
     return d->homeOnly;
 }
 
-void NetworkManager::GsmSetting::secretsFromMap(const QVariantMap& secrets)
+void NetworkManager::GsmSetting::secretsFromMap(const QVariantMap &secrets)
 {
     if (secrets.contains(QLatin1String(NM_SETTING_GSM_PASSWORD))) {
         setPassword(secrets.value(QLatin1String(NM_SETTING_GSM_PASSWORD)).toString());
@@ -263,7 +263,7 @@ QStringList NetworkManager::GsmSetting::needSecrets(bool requestNew) const
     return list;
 }
 
-void NetworkManager::GsmSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::GsmSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_GSM_NUMBER))) {
         setNumber(setting.value(QLatin1String(NM_SETTING_GSM_NUMBER)).toString());

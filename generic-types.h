@@ -29,17 +29,16 @@ typedef QList<QList<uint> > UIntListList;
 Q_DECLARE_METATYPE(UIntListList)
 typedef QList<uint> UIntList;
 Q_DECLARE_METATYPE(UIntList)
-typedef QMap<QString,QVariantMap> NMVariantMapMap;
+typedef QMap<QString, QVariantMap> NMVariantMapMap;
 Q_DECLARE_METATYPE(NMVariantMapMap)
-typedef QMap<QString,QString> NMStringMap;
+typedef QMap<QString, QString> NMStringMap;
 typedef QMapIterator<QString, QString> NMStringMapIterator;
 Q_DECLARE_METATYPE(NMStringMap)
 
-QDBusArgument &operator<<(QDBusArgument &argument, const NMStringMap & mydict);
-const QDBusArgument &operator>>(const QDBusArgument &argument, NMStringMap & mydict);
+QDBusArgument &operator<<(QDBusArgument &argument, const NMStringMap &mydict);
+const QDBusArgument &operator>>(const QDBusArgument &argument, NMStringMap &mydict);
 
-typedef struct
-{
+typedef struct {
     QByteArray address;
     uint prefix;
     QByteArray gateway;
@@ -52,8 +51,7 @@ Q_DECLARE_METATYPE(IpV6DBusAddressList)
 QDBusArgument &operator<<(QDBusArgument &argument, const IpV6DBusAddress &address);
 const QDBusArgument &operator>>(const QDBusArgument &argument, IpV6DBusAddress &address);
 
-typedef struct
-{
+typedef struct {
     QByteArray destination;
     uint prefix;
     QByteArray nexthop;
@@ -71,8 +69,7 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, IpV6DBusRoute &ro
 typedef QList<QByteArray> IpV6DBusNameservers;
 Q_DECLARE_METATYPE(IpV6DBusNameservers)
 
-typedef struct
-{
+typedef struct {
     uint state;
     uint reason;
 } DeviceDBusStateReason;

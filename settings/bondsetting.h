@@ -50,19 +50,19 @@ public:
 
     QString name() const;
 
-    void setInterfaceName(const QString & name);
+    void setInterfaceName(const QString &name);
     QString interfaceName() const;
 
-    void addOption(const QString & option, const QString & value);
-    void setOptions(const NMStringMap & options);
+    void addOption(const QString &option, const QString &value);
+    void setOptions(const NMStringMap &options);
     NMStringMap options() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    BondSettingPrivate * d_ptr;
+    BondSettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const BondSetting &setting);

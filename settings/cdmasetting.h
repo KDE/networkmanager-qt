@@ -42,13 +42,13 @@ public:
 
     QString name() const;
 
-    void setNumber(const QString & number);
+    void setNumber(const QString &number);
     QString number() const;
 
-    void setUsername(const QString & username);
+    void setUsername(const QString &username);
     QString username() const;
 
-    void setPassword(const QString & password);
+    void setPassword(const QString &password);
     QString password() const;
 
     void setPasswordFlags(SecretFlags flags);
@@ -56,16 +56,16 @@ public:
 
     QStringList needSecrets(bool requestNew = false) const;
 
-    void secretsFromMap(const QVariantMap & secrets);
+    void secretsFromMap(const QVariantMap &secrets);
 
     QVariantMap secretsToMap() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    CdmaSettingPrivate * d_ptr;
+    CdmaSettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const CdmaSetting &setting);

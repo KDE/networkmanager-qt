@@ -41,9 +41,9 @@ class WirelessDevicePrivate;
  */
 class NETWORKMANAGERQT_EXPORT WirelessDevice : public Device
 {
-Q_OBJECT
-Q_ENUMS(OperationMode DeviceInterface)
-Q_DECLARE_PRIVATE(WirelessDevice)
+    Q_OBJECT
+    Q_ENUMS(OperationMode DeviceInterface)
+    Q_DECLARE_PRIVATE(WirelessDevice)
 
 public:
     typedef QSharedPointer<WirelessDevice> Ptr;
@@ -76,7 +76,7 @@ public:
      *
      * @param path the DBus path of the devise
      */
-    explicit WirelessDevice(const QString & path, QObject * parent = 0);
+    explicit WirelessDevice(const QString &path, QObject *parent = 0);
     /**
      * Destroys a WirelessNetworkInterface object.
      */
@@ -94,7 +94,7 @@ public:
      * @param options Options of scan
      * No documentation for options yet, see http://projects.gnome.org/NetworkManager/developers/api/09/spec.html#org.freedesktop.NetworkManager.Device.Wireless
      */
-    QDBusPendingReply<> requestScan(const QVariantMap & options = QVariantMap());
+    QDBusPendingReply<> requestScan(const QVariantMap &options = QVariantMap());
     /**
      * Identifier (path) of the network this interface is currently associated with
      */

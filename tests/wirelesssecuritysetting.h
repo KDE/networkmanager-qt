@@ -27,9 +27,9 @@ class WirelessSecuritySetting : public QObject
 {
     Q_OBJECT
 
-    private Q_SLOTS:
-        void testSetting_data();
-        void testSetting();
+private Q_SLOTS:
+    void testSetting_data();
+    void testSetting();
 };
 
 #endif // NMQT_WIRELESSSECURITYSETTING_TEST_H

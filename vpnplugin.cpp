@@ -27,18 +27,18 @@
 class NetworkManager::VpnPluginPrivate
 {
 public:
-    VpnPluginPrivate(const QString & path);
+    VpnPluginPrivate(const QString &path);
 
     VpnConnection::State state;
     OrgFreedesktopNetworkManagerVPNPluginInterface iface;
 };
 
-NetworkManager::VpnPluginPrivate::VpnPluginPrivate(const QString& path):
+NetworkManager::VpnPluginPrivate::VpnPluginPrivate(const QString &path):
     iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
 }
 
-NetworkManager::VpnPlugin::VpnPlugin(const QString& path, QObject* parent):
+NetworkManager::VpnPlugin::VpnPlugin(const QString &path, QObject *parent):
     QObject(parent), d_ptr(new VpnPluginPrivate(path))
 {
     Q_D(VpnPlugin);
@@ -63,7 +63,7 @@ NetworkManager::VpnPlugin::~VpnPlugin()
     delete d_ptr;
 }
 
-void NetworkManager::VpnPlugin::connect(const NMVariantMapMap& connection)
+void NetworkManager::VpnPlugin::connect(const NMVariantMapMap &connection)
 {
     Q_D(VpnPlugin);
 
@@ -77,7 +77,7 @@ void NetworkManager::VpnPlugin::disconnect()
     QDBusPendingReply<> reply = d->iface.Disconnect();
 }
 
-QString NetworkManager::VpnPlugin::needSecrets(const NMVariantMapMap& connection)
+QString NetworkManager::VpnPlugin::needSecrets(const NMVariantMapMap &connection)
 {
     Q_D(VpnPlugin);
 
@@ -86,7 +86,7 @@ QString NetworkManager::VpnPlugin::needSecrets(const NMVariantMapMap& connection
     return reply.value();
 }
 
-void NetworkManager::VpnPlugin::setConfig(const QVariantMap& configuration)
+void NetworkManager::VpnPlugin::setConfig(const QVariantMap &configuration)
 {
     Q_D(VpnPlugin);
 
@@ -95,7 +95,7 @@ void NetworkManager::VpnPlugin::setConfig(const QVariantMap& configuration)
     emit configChanged(configuration);
 }
 
-void NetworkManager::VpnPlugin::setFailure(const QString& reason)
+void NetworkManager::VpnPlugin::setFailure(const QString &reason)
 {
     Q_D(VpnPlugin);
 
@@ -105,7 +105,7 @@ void NetworkManager::VpnPlugin::setFailure(const QString& reason)
     //emit failureChanged(reason);
 }
 
-void NetworkManager::VpnPlugin::setIp4Config(const QVariantMap& config)
+void NetworkManager::VpnPlugin::setIp4Config(const QVariantMap &config)
 {
     Q_D(VpnPlugin);
 
@@ -114,7 +114,7 @@ void NetworkManager::VpnPlugin::setIp4Config(const QVariantMap& config)
     emit ip4ConfigChanged(config);
 }
 
-void NetworkManager::VpnPlugin::setIp6Config(const QVariantMap& config)
+void NetworkManager::VpnPlugin::setIp6Config(const QVariantMap &config)
 {
     Q_D(VpnPlugin);
 

@@ -111,7 +111,7 @@ NetworkManager::AccessPoint::Ptr NetworkManager::WirelessNetwork::referenceAcces
     foreach (const NetworkManager::AccessPoint::Ptr &iface, d->aps) {
         int oldMax = maximumStrength;
         maximumStrength = qMax(maximumStrength, iface->signalStrength());
-        if ( oldMax <= maximumStrength ) {
+        if (oldMax <= maximumStrength) {
             strongest = iface;
         }
     }

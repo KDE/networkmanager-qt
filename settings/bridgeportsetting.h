@@ -51,12 +51,12 @@ public:
     void setHairpinMode(bool enable);
     bool hairpinMode() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    BridgePortSettingPrivate * d_ptr;
+    BridgePortSettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const BridgePortSetting &setting);

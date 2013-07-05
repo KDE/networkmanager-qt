@@ -51,8 +51,9 @@ const QString NetworkManager::NetworkManagerPrivate::DBUS_SETTINGS_PATH(QString:
 
 NM_GLOBAL_STATIC(NetworkManager::NetworkManagerPrivate, globalNetworkManager)
 
-NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate() : watcher(DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForOwnerChange, this),
-    iface( NetworkManager::NetworkManagerPrivate::DBUS_SERVICE, NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH, QDBusConnection::systemBus())
+NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
+    : watcher(DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForOwnerChange, this)
+    , iface(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE, NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH, QDBusConnection::systemBus())
 {
     connect(&watcher, SIGNAL(serviceRegistered(QString)), SLOT(daemonRegistered()));
     connect(&watcher, SIGNAL(serviceUnregistered(QString)), SLOT(daemonUnregistered()));
@@ -60,7 +61,7 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate() : watcher(DBUS_SE
     init();
 }
 
-void NetworkManager::NetworkManagerPrivate::parseVersion(const QString & version)
+void NetworkManager::NetworkManagerPrivate::parseVersion(const QString &version)
 {
     QStringList sl = version.split('.');
 
@@ -119,7 +120,7 @@ void NetworkManager::NetworkManagerPrivate::init()
         emit networkingEnabledChanged(m_isNetworkingEnabled);
     }
 
-    qobject_cast<SettingsPrivate*>(settingsNotifier())->init();
+    qobject_cast<SettingsPrivate *>(settingsNotifier())->init();
 
     nmDebug() << "Active connections:";
     QList <QDBusObjectPath> activeConnections = iface.activeConnections();
@@ -156,7 +157,7 @@ QString NetworkManager::NetworkManagerPrivate::version() const
     return m_version;
 }
 
-int NetworkManager::NetworkManagerPrivate::compareVersion(const QString & version)
+int NetworkManager::NetworkManagerPrivate::compareVersion(const QString &version)
 {
     int x, y, z;
 
@@ -301,7 +302,7 @@ NetworkManager::Device::List NetworkManager::NetworkManagerPrivate::networkInter
     return list;
 }
 
-NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::findDeviceByIpIface (const QString& iface)
+NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::findDeviceByIpIface(const QString &iface)
 {
     QMap<QString, Device::Ptr>::const_iterator i;
     for (i = networkInterfaceMap.constBegin(); i != networkInterfaceMap.constEnd(); ++i) {
@@ -349,7 +350,7 @@ bool NetworkManager::NetworkManagerPrivate::isWimaxHardwareEnabled() const
     return m_isWimaxHardwareEnabled;
 }
 
-QDBusPendingReply<QDBusObjectPath> NetworkManager::NetworkManagerPrivate::activateConnection(const QString & connectionUni, const QString & interfaceUni, const QString & connectionParameter)
+QDBusPendingReply<QDBusObjectPath> NetworkManager::NetworkManagerPrivate::activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter)
 {
     QString extra_connection_parameter = connectionParameter;
     QString extra_interface_parameter = interfaceUni;
@@ -366,7 +367,7 @@ QDBusPendingReply<QDBusObjectPath> NetworkManager::NetworkManagerPrivate::activa
     return iface.ActivateConnection(connPath, QDBusObjectPath(extra_interface_parameter), QDBusObjectPath(extra_connection_parameter));
 }
 
-QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::NetworkManagerPrivate::addAndActivateConnection(const NMVariantMapMap& connection, const QString & interfaceUni, const QString & connectionParameter)
+QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::NetworkManagerPrivate::addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter)
 {
     QString extra_connection_parameter = connectionParameter;
     if (extra_connection_parameter.isEmpty()) {
@@ -377,7 +378,7 @@ QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::NetworkManag
     return iface.AddAndActivateConnection(connection, interfacePath, QDBusObjectPath(extra_connection_parameter));
 }
 
-void NetworkManager::NetworkManagerPrivate::deactivateConnection( const QString & activeConnectionPath )
+void NetworkManager::NetworkManagerPrivate::deactivateConnection(const QString &activeConnectionPath)
 {
     iface.DeactivateConnection(QDBusObjectPath(activeConnectionPath));
 }
@@ -411,23 +412,21 @@ void NetworkManager::NetworkManagerPrivate::setLogging(NetworkManager::LogLevel 
 {
     QString logLevel;
     QStringList logDomains;
-    switch (level)
-    {
-        case NetworkManager::Error:
-            logLevel = QLatin1String("ERR");
-            break;
-        case NetworkManager::Warning:
-            logLevel = QLatin1String("WARN");
-            break;
-        case NetworkManager::Info:
-            logLevel = QLatin1String("INFO");
-            break;
-        case NetworkManager::Debug:
-            logLevel = QLatin1String("DEBUG");
-            break;
+    switch (level) {
+    case NetworkManager::Error:
+        logLevel = QLatin1String("ERR");
+        break;
+    case NetworkManager::Warning:
+        logLevel = QLatin1String("WARN");
+        break;
+    case NetworkManager::Info:
+        logLevel = QLatin1String("INFO");
+        break;
+    case NetworkManager::Debug:
+        logLevel = QLatin1String("DEBUG");
+        break;
     }
-    if (!domains.testFlag(NoChange))
-    {
+    if (!domains.testFlag(NoChange)) {
         if (domains.testFlag(NetworkManager::None))
             logDomains << QLatin1String("NONE");
         if (domains.testFlag(NetworkManager::Hardware))
@@ -506,7 +505,7 @@ void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath 
     emit deviceAdded(objpath.path());
 }
 
-void NetworkManager::NetworkManagerPrivate::onDeviceRemoved(const QDBusObjectPath & objpath)
+void NetworkManager::NetworkManagerPrivate::onDeviceRemoved(const QDBusObjectPath &objpath)
 {
     nmDebug();
     networkInterfaceMap.remove(objpath.path());
@@ -596,30 +595,30 @@ NetworkManager::Status NetworkManager::NetworkManagerPrivate::convertNMState(uin
 {
     NetworkManager::Status status = NetworkManager::Unknown;
     switch (state) {
-        case NM_STATE_UNKNOWN:
-            status = NetworkManager::Unknown;
-            break;
-        case NM_STATE_ASLEEP:
-            status = NetworkManager::Asleep;
-            break;
-        case NM_STATE_DISCONNECTED:
-            status = NetworkManager::Disconnected;
-            break;
-        case NM_STATE_DISCONNECTING:
-            status = NetworkManager::Disconnecting;
-            break;
-        case NM_STATE_CONNECTING:
-            status = NetworkManager::Connecting;
-            break;
-        case NM_STATE_CONNECTED_LOCAL:
-            status = NetworkManager::ConnectedLinkLocal;
-            break;
-        case NM_STATE_CONNECTED_SITE:
-            status = NetworkManager::ConnectedSiteOnly;
-            break;
-        case NM_STATE_CONNECTED_GLOBAL:
-            status = NetworkManager::Connected;
-            break;
+    case NM_STATE_UNKNOWN:
+        status = NetworkManager::Unknown;
+        break;
+    case NM_STATE_ASLEEP:
+        status = NetworkManager::Asleep;
+        break;
+    case NM_STATE_DISCONNECTED:
+        status = NetworkManager::Disconnected;
+        break;
+    case NM_STATE_DISCONNECTING:
+        status = NetworkManager::Disconnecting;
+        break;
+    case NM_STATE_CONNECTING:
+        status = NetworkManager::Connecting;
+        break;
+    case NM_STATE_CONNECTED_LOCAL:
+        status = NetworkManager::ConnectedLinkLocal;
+        break;
+    case NM_STATE_CONNECTED_SITE:
+        status = NetworkManager::ConnectedSiteOnly;
+        break;
+    case NM_STATE_CONNECTED_GLOBAL:
+        status = NetworkManager::Connected;
+        break;
     }
     return status;
 }
@@ -647,7 +646,7 @@ void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
     }
     m_activeConnections.clear();
 
-    qobject_cast<SettingsPrivate*>(settingsNotifier())->daemonUnregistered();
+    qobject_cast<SettingsPrivate *>(settingsNotifier())->daemonUnregistered();
 
     emit activeConnectionsChanged();
     emit serviceDisappeared();
@@ -682,7 +681,7 @@ QString NetworkManager::version()
     return globalNetworkManager->version();
 }
 
-int NetworkManager::compareVersion(const QString & version)
+int NetworkManager::compareVersion(const QString &version)
 {
     return globalNetworkManager->compareVersion(version);
 }
@@ -737,22 +736,22 @@ NetworkManager::Device::Ptr NetworkManager::findNetworkInterface(const QString &
     return globalNetworkManager->findRegisteredNetworkInterface(uni);
 }
 
-NetworkManager::Device::Ptr NetworkManager::findDeviceByIpFace (const QString &iface)
+NetworkManager::Device::Ptr NetworkManager::findDeviceByIpFace(const QString &iface)
 {
     return globalNetworkManager->findDeviceByIpIface(iface);
 }
 
-QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::addAndActivateConnection(const NMVariantMapMap & connection, const QString & interfaceUni, const QString & connectionParameter)
+QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter)
 {
     return globalNetworkManager->addAndActivateConnection(connection, interfaceUni, connectionParameter);
 }
 
-QDBusPendingReply<QDBusObjectPath> NetworkManager::activateConnection(const QString & connectionUni, const QString & interfaceUni, const QString & connectionParameter)
+QDBusPendingReply<QDBusObjectPath> NetworkManager::activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter)
 {
     return globalNetworkManager->activateConnection(connectionUni, interfaceUni, connectionParameter);
 }
 
-void NetworkManager::deactivateConnection( const QString & activeConnectionPath )
+void NetworkManager::deactivateConnection(const QString &activeConnectionPath)
 {
     globalNetworkManager->deactivateConnection(activeConnectionPath);
 }
@@ -819,22 +818,22 @@ NMStringMap NetworkManager::permissions()
 
 NetworkManager::Device::Types NetworkManager::supportedInterfaceTypes()
 {
-    return (NetworkManager::Device::Types) (
-           NetworkManager::Device::Ethernet |
-           NetworkManager::Device::Wifi |
-           NetworkManager::Device::Modem |
-           NetworkManager::Device::Wimax |
-           NetworkManager::Device::Bluetooth |
-           NetworkManager::Device::OlpcMesh |
-           NetworkManager::Device::InfiniBand |
-           NetworkManager::Device::Bond |
-           NetworkManager::Device::Vlan |
-           NetworkManager::Device::Adsl |
-           NetworkManager::Device::Bridge
+    return (NetworkManager::Device::Types)(
+               NetworkManager::Device::Ethernet |
+               NetworkManager::Device::Wifi |
+               NetworkManager::Device::Modem |
+               NetworkManager::Device::Wimax |
+               NetworkManager::Device::Bluetooth |
+               NetworkManager::Device::OlpcMesh |
+               NetworkManager::Device::InfiniBand |
+               NetworkManager::Device::Bond |
+               NetworkManager::Device::Vlan |
+               NetworkManager::Device::Adsl |
+               NetworkManager::Device::Bridge
            );
 }
 
-NetworkManager::Notifier * NetworkManager::notifier()
+NetworkManager::Notifier *NetworkManager::notifier()
 {
     return globalNetworkManager;
 }

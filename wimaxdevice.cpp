@@ -26,13 +26,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "nmdebug.h"
 
-NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString & path)
-    : DevicePrivate(path), wimaxIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString &path)
+    : DevicePrivate(path)
+    , wimaxIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
 
 }
 
-NetworkManager::WimaxDevice::WimaxDevice(const QString & path, QObject * parent)
+NetworkManager::WimaxDevice::WimaxDevice(const QString &path, QObject *parent)
     : Device(*new WimaxDevicePrivate(path), parent)
 {
     Q_D(WimaxDevice);
@@ -54,16 +55,14 @@ NetworkManager::WimaxDevice::WimaxDevice(const QString & path, QObject * parent)
 
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
     QDBusReply< QList <QDBusObjectPath> > nspPathList = d->wimaxIface.GetNspList();
-    if (nspPathList.isValid())
-    {
+    if (nspPathList.isValid()) {
         //nmDebug() << "Got device list";
         QList <QDBusObjectPath> nsps = nspPathList.value();
         foreach (const QDBusObjectPath &op, nsps) {
             d->nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
             //nmDebug() << "  " << op.path();
         }
-    }
-    else {
+    } else {
         nmDebug() << "Error getting NSP list: " << nspPathList.error().name() << ": " << nspPathList.error().message();
     }
 }
@@ -126,7 +125,7 @@ int NetworkManager::WimaxDevice::txPower() const
     return d->txPower;
 }
 
-NetworkManager::WimaxNsp::Ptr NetworkManager::WimaxDevice::findNsp(const QString & uni) const
+NetworkManager::WimaxNsp::Ptr NetworkManager::WimaxDevice::findNsp(const QString &uni) const
 {
     Q_D(const WimaxDevice);
     NetworkManager::WimaxNsp::Ptr nsp;

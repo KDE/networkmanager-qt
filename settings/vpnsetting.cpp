@@ -56,7 +56,7 @@ QString NetworkManager::VpnSetting::name() const
     return d->name;
 }
 
-void NetworkManager::VpnSetting::setServiceType(const QString& type)
+void NetworkManager::VpnSetting::setServiceType(const QString &type)
 {
     Q_D(VpnSetting);
 
@@ -70,7 +70,7 @@ QString NetworkManager::VpnSetting::serviceType() const
     return d->serviceType;
 }
 
-void NetworkManager::VpnSetting::setUsername(const QString& username)
+void NetworkManager::VpnSetting::setUsername(const QString &username)
 {
     Q_D(VpnSetting);
 
@@ -84,7 +84,7 @@ QString NetworkManager::VpnSetting::username() const
     return d->username;
 }
 
-void NetworkManager::VpnSetting::setData(const NMStringMap& data)
+void NetworkManager::VpnSetting::setData(const NMStringMap &data)
 {
     Q_D(VpnSetting);
 
@@ -98,7 +98,7 @@ NMStringMap NetworkManager::VpnSetting::data() const
     return d->data;
 }
 
-void NetworkManager::VpnSetting::setSecrets(const NMStringMap& secrets)
+void NetworkManager::VpnSetting::setSecrets(const NMStringMap &secrets)
 {
     Q_D(VpnSetting);
 
@@ -112,7 +112,7 @@ NMStringMap NetworkManager::VpnSetting::secrets() const
     return d->secrets;
 }
 
-void NetworkManager::VpnSetting::secretsFromMap(const QVariantMap& secrets)
+void NetworkManager::VpnSetting::secretsFromMap(const QVariantMap &secrets)
 {
     if (secrets.contains(QLatin1String(NM_SETTING_VPN_SECRETS))) {
         setSecrets(qdbus_cast<NMStringMap>(secrets.value(QLatin1String(NM_SETTING_VPN_SECRETS))));
@@ -128,7 +128,7 @@ QVariantMap NetworkManager::VpnSetting::secretsToMap() const
     return secretsMap;
 }
 
-void NetworkManager::VpnSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::VpnSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_VPN_SERVICE_TYPE))) {
         setServiceType(setting.value(QLatin1String(NM_SETTING_VPN_SERVICE_TYPE)).toString());
@@ -170,14 +170,14 @@ QVariantMap NetworkManager::VpnSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::VpnSetting::secretsFromStringMap(const NMStringMap& map)
+void NetworkManager::VpnSetting::secretsFromStringMap(const NMStringMap &map)
 {
     if (map.contains(QLatin1String(NM_SETTING_VPN_SECRETS))) {
         const QStringList list = map.value(QLatin1String("VpnSecrets")).split("%SEP%");
         NMStringMap map;
         if (list.count() % 2 == 0) {
-            for (int i = 0; i < list.count(); i += 2 ) {
-                map.insert(list[i], list[i+1]);
+            for (int i = 0; i < list.count(); i += 2) {
+                map.insert(list[i], list[i + 1]);
             }
         }
         setSecrets(map);
@@ -188,7 +188,7 @@ NMStringMap NetworkManager::VpnSetting::secretsToStringMap() const
 {
     NMStringMap ret;
     QStringList list;
-    QMap<QString,QString>::ConstIterator i = secrets().constBegin();
+    QMap<QString, QString>::ConstIterator i = secrets().constBegin();
     while (i != secrets().constEnd()) {
         list << i.key() << i.value();
         ++i;

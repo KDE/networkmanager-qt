@@ -46,7 +46,7 @@ public:
     Q_DECLARE_FLAGS(SecretFlags, SecretFlagType)
 
     static QString typeAsString(SettingType type);
-    static SettingType typeFromString(const QString & type);
+    static SettingType typeFromString(const QString &type);
 
     explicit Setting(SettingType type);
     explicit Setting(const Ptr &setting);
@@ -55,14 +55,14 @@ public:
     /**
      * @brief Must be reimplemented, default implementationd does nothing
      */
-    virtual void fromMap(const QVariantMap & map);
+    virtual void fromMap(const QVariantMap &map);
 
     /**
      * @brief Must be reimplemented, default implementationd does nothing
      */
     virtual QVariantMap toMap() const;
 
-    virtual void secretsFromMap(const QVariantMap & map);
+    virtual void secretsFromMap(const QVariantMap &map);
 
     /**
      * @brief secretsFromStringMap is a convenience function
@@ -97,7 +97,7 @@ public:
     QDebug foo();
 
 protected:
-    SettingPrivate * d_ptr;
+    SettingPrivate *d_ptr;
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(Setting::SecretFlags)
 

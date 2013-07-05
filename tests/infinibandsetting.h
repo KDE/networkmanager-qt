@@ -27,9 +27,9 @@ class InfinibandSetting : public QObject
 {
     Q_OBJECT
 
-    private Q_SLOTS:
-        void testSetting_data();
-        void testSetting();
+private Q_SLOTS:
+    void testSetting_data();
+    void testSetting();
 };
 
 #endif // NMQT_INFINIBANDSETTING_TEST_H

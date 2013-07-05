@@ -56,11 +56,12 @@ public:
      * Flags describing the access point's capabilities according to WPA (Wifi Protected Access)
      */
     enum WpaFlag { PairWep40 = 0x1, PairWep104 = 0x2, PairTkip = 0x4, PairCcmp = 0x8,
-           GroupWep40 = 0x10, GroupWep104 = 0x20, GroupTkip = 0x40, GroupCcmp = 0x80,
-           KeyMgmtPsk = 0x100, KeyMgmt8021x = 0x200 };
+                   GroupWep40 = 0x10, GroupWep104 = 0x20, GroupTkip = 0x40, GroupCcmp = 0x80,
+                   KeyMgmtPsk = 0x100, KeyMgmt8021x = 0x200
+                 };
     Q_DECLARE_FLAGS(Capabilities, Capability)
     Q_DECLARE_FLAGS(WpaFlags, WpaFlag)
-    explicit AccessPoint( const QString & path, QObject * parent = 0 );
+    explicit AccessPoint(const QString &path, QObject *parent = 0);
     virtual ~AccessPoint();
 
     QString uni() const;
@@ -82,58 +83,58 @@ public:
 
 protected Q_SLOTS:
     void propertiesChanged(const QVariantMap &properties);
-    Q_SIGNALS:
-        /**
-         * This signal is emitted when the signal strength of this network has changed.
-         *
-         * @param strength the new signal strength value for this network
-         */
-        void signalStrengthChanged(int strength);
+Q_SIGNALS:
+    /**
+     * This signal is emitted when the signal strength of this network has changed.
+     *
+     * @param strength the new signal strength value for this network
+     */
+    void signalStrengthChanged(int strength);
 
-        /**
-         * This signal is emitted when the bitrate of this network has changed.
-         *
-         * @param bitrate the new bitrate value for this network
-         */
-        void bitRateChanged(int bitrate);
+    /**
+     * This signal is emitted when the bitrate of this network has changed.
+     *
+     * @param bitrate the new bitrate value for this network
+     */
+    void bitRateChanged(int bitrate);
 
-        /**
-         * This signal is emitted when the capabilities of this network have changed.
-         *
-         * @param caps the new capabilities
-         */
-        void capabilitiesChanged(AccessPoint::Capabilities);
+    /**
+     * This signal is emitted when the capabilities of this network have changed.
+     *
+     * @param caps the new capabilities
+     */
+    void capabilitiesChanged(AccessPoint::Capabilities);
 
-        /**
-         * This signal is emitted when the WPA flags in use by this access point change
-         *
-         * @param flags the new flags
-         */
-        void wpaFlagsChanged(AccessPoint::WpaFlags flags);
+    /**
+     * This signal is emitted when the WPA flags in use by this access point change
+     *
+     * @param flags the new flags
+     */
+    void wpaFlagsChanged(AccessPoint::WpaFlags flags);
 
-        /**
-         * This signal is emitted when the RSN(WPA2) flags in use by this access point change
-         *
-         * @param flags the new flags
-         */
-        void rsnFlagsChanged(AccessPoint::WpaFlags flags);
-        /**
-         * This signal is emitted when the ssid of this Access Point changes
-         *
-         * @param ssid the new SSID
-         */
-        void ssidChanged(const QString &ssid);
+    /**
+     * This signal is emitted when the RSN(WPA2) flags in use by this access point change
+     *
+     * @param flags the new flags
+     */
+    void rsnFlagsChanged(AccessPoint::WpaFlags flags);
+    /**
+     * This signal is emitted when the ssid of this Access Point changes
+     *
+     * @param ssid the new SSID
+     */
+    void ssidChanged(const QString &ssid);
 
-        /**
-         * This signal is emitted when the frequency used by this Access Point changes
-         *
-         * @param frequency the new frequency
-         */
-        void frequencyChanged(uint frequency);
+    /**
+     * This signal is emitted when the frequency used by this Access Point changes
+     *
+     * @param frequency the new frequency
+     */
+    void frequencyChanged(uint frequency);
 private:
     static AccessPoint::Capabilities convertCapabilities(int);
     static AccessPoint::WpaFlags convertWpaFlags(uint);
-    AccessPointPrivate * const d_ptr;
+    AccessPointPrivate *const d_ptr;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(AccessPoint::WpaFlags)

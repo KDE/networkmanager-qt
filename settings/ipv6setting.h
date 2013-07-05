@@ -50,10 +50,10 @@ public:
     void setMethod(ConfigMethod method);
     ConfigMethod method() const;
 
-    void setDns(const QList<QHostAddress> & dns);
+    void setDns(const QList<QHostAddress> &dns);
     QList<QHostAddress> dns() const;
 
-    void setDnsSearch(const QStringList & domains);
+    void setDnsSearch(const QStringList &domains);
     QStringList dnsSearch() const;
 
     void setAddresses(const QList<NetworkManager::IpAddress> ipv6addresses);
@@ -77,12 +77,12 @@ public:
     void setPrivacy(IPv6Privacy privacy);
     IPv6Privacy privacy() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    Ipv6SettingPrivate * const d_ptr;
+    Ipv6SettingPrivate *const d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const Ipv6Setting &setting);

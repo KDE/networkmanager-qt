@@ -35,35 +35,35 @@ class VpnPluginPrivate;
 
 class NETWORKMANAGERQT_EXPORT VpnPlugin : public QObject
 {
-Q_OBJECT
-Q_DECLARE_PRIVATE(VpnPlugin)
+    Q_OBJECT
+    Q_DECLARE_PRIVATE(VpnPlugin)
 
 public:
     enum FailureType {LoginFailed, ConnectFailed, BadIpConfig};
 
-    explicit VpnPlugin(const QString & path, QObject* parent = 0);
+    explicit VpnPlugin(const QString &path, QObject *parent = 0);
     virtual ~VpnPlugin();
 
 protected Q_SLOTS:
-    void connect(const NMVariantMapMap & connection);
+    void connect(const NMVariantMapMap &connection);
     void disconnect();
-    QString needSecrets(const NMVariantMapMap & connection);
-    void setConfig(const QVariantMap & config);
-    void setFailure(const QString & reason);
-    void setIp4Config(const QVariantMap & config);
-    void setIp6Config(const QVariantMap & config);
+    QString needSecrets(const NMVariantMapMap &connection);
+    void setConfig(const QVariantMap &config);
+    void setFailure(const QString &reason);
+    void setIp4Config(const QVariantMap &config);
+    void setIp6Config(const QVariantMap &config);
     void onStateChanged(uint state);
 
 Q_SIGNALS:
-    void configChanged(const QVariantMap & configuration);
+    void configChanged(const QVariantMap &configuration);
     void failureChanged(uint reason);
-    void ip4ConfigChanged(const QVariantMap & ip4config);
-    void ip6ConfigChanged(const QVariantMap & ip6config);
-    void loginBannerChanged(const QString & banner);
+    void ip4ConfigChanged(const QVariantMap &ip4config);
+    void ip6ConfigChanged(const QVariantMap &ip6config);
+    void loginBannerChanged(const QString &banner);
     void stateChanged(VpnConnection::State state);
 
 protected:
-    VpnPluginPrivate * d_ptr;
+    VpnPluginPrivate *d_ptr;
 };
 
 } // namespace NetworkManager

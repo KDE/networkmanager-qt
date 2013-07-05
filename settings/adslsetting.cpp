@@ -65,7 +65,7 @@ QString NetworkManager::AdslSetting::name() const
     return d->name;
 }
 
-void NetworkManager::AdslSetting::setUsername(const QString& username)
+void NetworkManager::AdslSetting::setUsername(const QString &username)
 {
     Q_D(AdslSetting);
 
@@ -79,7 +79,7 @@ QString NetworkManager::AdslSetting::username() const
     return d->username;
 }
 
-void NetworkManager::AdslSetting::setPassword(const QString& password)
+void NetworkManager::AdslSetting::setPassword(const QString &password)
 {
     Q_D(AdslSetting);
 
@@ -174,7 +174,7 @@ QStringList NetworkManager::AdslSetting::needSecrets(bool requestNew) const
     return secrets;
 }
 
-void NetworkManager::AdslSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::AdslSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_ADSL_USERNAME))) {
         setUsername(setting.value(QLatin1String(NM_SETTING_ADSL_USERNAME)).toString());
@@ -275,7 +275,7 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::AdslSetting
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
-    
+
     dbg.nospace() << NM_SETTING_ADSL_USERNAME << ": " << setting.username() << '\n';
     dbg.nospace() << NM_SETTING_ADSL_PASSWORD << ": " << setting.password() << '\n';
     dbg.nospace() << NM_SETTING_ADSL_PASSWORD_FLAGS << ": " << setting.passwordFlags() << '\n';

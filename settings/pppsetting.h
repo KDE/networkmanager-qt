@@ -96,12 +96,12 @@ public:
     void setLcpEchoInterval(quint32 interval);
     quint32 lcpEchoInterval() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    PppSettingPrivate * d_ptr;
+    PppSettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const PppSetting &setting);

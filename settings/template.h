@@ -43,14 +43,14 @@ public:
 
     QString name() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
     void printSetting();
 
 protected:
-    TemplateSettingPrivate * d_ptr;
+    TemplateSettingPrivate *d_ptr;
 };
 }
 }

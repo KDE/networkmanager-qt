@@ -61,7 +61,7 @@ public:
         Wireless
     };
 
-    static ConnectionType typeFromString(const QString & typeString);
+    static ConnectionType typeFromString(const QString &typeString);
     static QString typeAsString(const ConnectionType type);
     static QString createNewUuid();
 
@@ -73,44 +73,44 @@ public:
 
     QString name() const;
 
-    void fromMap(const NMVariantMapMap & map);
+    void fromMap(const NMVariantMapMap &map);
 
     NMVariantMapMap toMap() const;
 
-    void setId(const QString & id);
+    void setId(const QString &id);
     QString id() const;
 
-    void setUuid(const QString & uuid);
+    void setUuid(const QString &uuid);
     QString uuid() const;
 
     void setConnectionType(ConnectionType type, NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
     ConnectionType connectionType() const;
 
-    void addToPermissions(const QString & user, const QString & type);
-    void setPermissions(const QHash<QString, QString> & perm);
+    void addToPermissions(const QString &user, const QString &type);
+    void setPermissions(const QHash<QString, QString> &perm);
     QHash<QString, QString> permissions() const;
 
     void setAutoconnect(bool autoconnect);
     bool autoconnect() const;
 
-    void setTimestamp(const QDateTime & timestamp);
+    void setTimestamp(const QDateTime &timestamp);
     QDateTime timestamp() const;
 
     void setReadOnly(bool readonly);
     bool readOnly() const;
 
-    void setZone(const QString & zone);
+    void setZone(const QString &zone);
     QString zone() const;
 
     bool isSlave() const;
 
-    void setMaster(const QString & master);
+    void setMaster(const QString &master);
     QString master() const;
 
-    void setSlaveType(const QString & type);
+    void setSlaveType(const QString &type);
     QString slaveType() const;
 
-    void setSecondaries(const QStringList & secondaries);
+    void setSecondaries(const QStringList &secondaries);
     QStringList secondaries() const;
 
     Setting::Ptr setting(Setting::SettingType type) const;

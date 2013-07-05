@@ -39,15 +39,15 @@ class ModemDevicePrivate;
  */
 class NETWORKMANAGERQT_EXPORT ModemDevice : public Device
 {
-Q_OBJECT
-Q_DECLARE_PRIVATE(ModemDevice)
+    Q_OBJECT
+    Q_DECLARE_PRIVATE(ModemDevice)
 public:
     typedef QSharedPointer<ModemDevice> Ptr;
     typedef QList<Ptr> List;
     enum Capability { NoCapability = 0x0, Pots = 0x1, CdmaEvdo = 0x2, GsmUmts = 0x4, Lte = 0x8 };
     Q_DECLARE_FLAGS(Capabilities, Capability)
-    explicit ModemDevice(const QString & path, QObject * parent = 0);
-    explicit ModemDevice( ModemDevicePrivate &dd, QObject * parent = 0);
+    explicit ModemDevice(const QString &path, QObject *parent = 0);
+    explicit ModemDevice(ModemDevicePrivate &dd, QObject *parent = 0);
     virtual ~ModemDevice();
     /**
      * Return the type
@@ -78,7 +78,7 @@ Q_SIGNALS:
     void currentCapabilitiesChanged(Capabilities);
 
 protected Q_SLOTS:
-    void modemRemoved(const QString & modemUdi);
+    void modemRemoved(const QString &modemUdi);
 
 protected:
     ModemManager::ModemGsmCardInterface::Ptr modemGsmCardIface;

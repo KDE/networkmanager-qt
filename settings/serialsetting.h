@@ -59,12 +59,12 @@ public:
     void setSendDelay(quint64 delay);
     quint64 sendDelay() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    SerialSettingPrivate * d_ptr;
+    SerialSettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const SerialSetting &setting);

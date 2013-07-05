@@ -32,7 +32,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "nm-active-connectioninterface.h"
 
 
-NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString & dbusPath)
+NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &dbusPath)
     : iface(NetworkManagerPrivate::DBUS_SERVICE, dbusPath, QDBusConnection::systemBus())
 {
     connection = NetworkManager::findConnection(iface.connection().path());
@@ -58,7 +58,7 @@ NetworkManager::ActiveConnection::State NetworkManager::ActiveConnectionPrivate:
     return (NetworkManager::ActiveConnection::State)state;
 }
 
-NetworkManager::ActiveConnection::ActiveConnection(const QString & path, QObject * parent)
+NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject *parent)
     : QObject(parent), d_ptr(new ActiveConnectionPrivate(path))
 {
     Q_D(ActiveConnection);
@@ -67,7 +67,7 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString & path, QObject
             this, SLOT(propertiesChanged(QVariantMap)));
 }
 
-NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, QObject * parent)
+NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, QObject *parent)
     : QObject(parent), d_ptr(&dd)
 {
     Q_D(ActiveConnection);

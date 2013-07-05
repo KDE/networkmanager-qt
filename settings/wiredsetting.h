@@ -58,19 +58,19 @@ public:
     void setAutoNegotiate(bool autoNegotiate);
     bool autoNegotiate() const;
 
-    void setMacAddress(const QByteArray & address);
+    void setMacAddress(const QByteArray &address);
     QByteArray macAddress() const;
 
-    void setClonedMacAddress(const QByteArray & address);
+    void setClonedMacAddress(const QByteArray &address);
     QByteArray clonedMacAddress() const;
 
-    void setMacAddressBlacklist(const QStringList & list);
+    void setMacAddressBlacklist(const QStringList &list);
     QStringList macAddressBlacklist() const;
 
     void setMtu(quint32 mtu);
     quint32 mtu() const;
 
-    void setS390Subchannels(const QStringList & channels);
+    void setS390Subchannels(const QStringList &channels);
     QStringList s390Subchannels() const;
 
     void setS390NetType(S390Nettype type);
@@ -79,7 +79,7 @@ public:
     void setS390Options(const QMap<QString, QString> &options);
     QMap<QString, QString> s390Options() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 

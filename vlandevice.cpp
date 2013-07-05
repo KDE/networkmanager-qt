@@ -30,7 +30,7 @@ namespace NetworkManager
 class VlanDevicePrivate : public DevicePrivate
 {
 public:
-    VlanDevicePrivate(const QString & path);
+    VlanDevicePrivate(const QString &path);
     virtual ~VlanDevicePrivate();
 
     OrgFreedesktopNetworkManagerDeviceVlanInterface iface;
@@ -41,7 +41,7 @@ public:
 }
 
 NetworkManager::VlanDevicePrivate::VlanDevicePrivate(const QString &path):
-    DevicePrivate(path), iface(NetworkManagerPrivate::DBUS_SERVICE, path,QDBusConnection::systemBus()),
+    DevicePrivate(path), iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()),
     carrier(false)
 {
 }
@@ -50,7 +50,7 @@ NetworkManager::VlanDevice::~VlanDevice()
 {
 }
 
-NetworkManager::VlanDevice::VlanDevice(const QString& path, QObject* parent):
+NetworkManager::VlanDevice::VlanDevice(const QString &path, QObject *parent):
     Device(*new VlanDevicePrivate(path), parent)
 {
     Q_D(VlanDevice);

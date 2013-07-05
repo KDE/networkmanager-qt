@@ -43,15 +43,15 @@ int main()
     QTextStream qout(stdout, QIODevice::WriteOnly);
     QTextStream qin(stdin, QIODevice::ReadOnly);
 
-    Settings::ConnectionSettings * settings = new Settings::ConnectionSettings(Settings::ConnectionSettings::Wireless);
+    Settings::ConnectionSettings *settings = new Settings::ConnectionSettings(Settings::ConnectionSettings::Wireless);
     DeviceList deviceList = NetworkManager::networkInterfaces();
 
-    WirelessDevice * wifiDevice = 0;
+    WirelessDevice *wifiDevice = 0;
 
     // We have to find some wireless device
-    foreach (Device * dev, deviceList) {
+    foreach (Device *dev, deviceList) {
         if (dev->type() == Device::Wifi) {
-            wifiDevice = qobject_cast<WirelessDevice*>(dev);
+            wifiDevice = qobject_cast<WirelessDevice *>(dev);
             break;
         }
     }
@@ -66,14 +66,14 @@ int main()
     QString accessPointPath;
 
     // Check for available accesspoint
-    foreach (const QString & ap, accessPointList) {
+    foreach (const QString &ap, accessPointList) {
         AccessPoint accessPoint(ap);
         // For simplification we use APs only with Wep security or without any security
         if (accessPoint.wpaFlags().testFlag(AccessPoint::PairWep40) ||
-            accessPoint.wpaFlags().testFlag(AccessPoint::PairWep104) ||
-            accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep40) ||
-            accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep104) ||
-            !accessPoint.wpaFlags()) {
+                accessPoint.wpaFlags().testFlag(AccessPoint::PairWep104) ||
+                accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep40) ||
+                accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep104) ||
+                !accessPoint.wpaFlags()) {
 
             qout << "Do you want to connect to " << accessPoint.ssid() << "?" << endl;
             qout << "Yes/No: " << flush;
@@ -92,10 +92,10 @@ int main()
     settings->setUuid(QUuid::createUuid().toString().mid(1, QUuid::createUuid().toString().length() - 2));
 
     // For wireless setting we have to specify SSID
-    Settings::WirelessSetting * wirelessSetting = dynamic_cast<Settings::WirelessSetting *>(settings->setting(Settings::Setting::Wireless));
+    Settings::WirelessSetting *wirelessSetting = dynamic_cast<Settings::WirelessSetting *>(settings->setting(Settings::Setting::Wireless));
     wirelessSetting->setSsid(ssid.toUtf8());
 
-    Settings::Ipv4Setting * ipv4Setting = dynamic_cast<Settings::Ipv4Setting *>(settings->setting(Settings::Setting::Ipv4));
+    Settings::Ipv4Setting *ipv4Setting = dynamic_cast<Settings::Ipv4Setting *>(settings->setting(Settings::Setting::Ipv4));
     ipv4Setting->setMethod(Settings::Ipv4Setting::Automatic);
 
     // We try to add and activate our new wireless connection
@@ -107,13 +107,13 @@ int main()
     if (reply.isValid()) {
         // Now our connection should be added in NetworkManager and we can print all settings pre-filled from NetworkManager
         Settings::Connection connection(reply.value().path());
-        Settings::ConnectionSettings * newSettings = new Settings::ConnectionSettings(Settings::ConnectionSettings::Wireless);
+        Settings::ConnectionSettings *newSettings = new Settings::ConnectionSettings(Settings::ConnectionSettings::Wireless);
         newSettings->fromMap(connection.settings());
         // Print resulting settings
         newSettings->printSetting();
 
         // Continue with adding secrets
-        Settings::WirelessSecuritySetting * wirelessSecuritySetting = dynamic_cast<Settings::WirelessSecuritySetting *>(newSettings->setting(Settings::Setting::WirelessSecurity));
+        Settings::WirelessSecuritySetting *wirelessSecuritySetting = dynamic_cast<Settings::WirelessSecuritySetting *>(newSettings->setting(Settings::Setting::WirelessSecurity));
         if (!wirelessSecuritySetting->needSecrets().isEmpty()) {
             qDebug() << "Need secrets: " << wirelessSecuritySetting->needSecrets();
             // TODO: fill missing secrets

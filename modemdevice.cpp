@@ -27,12 +27,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "manager_p.h"
 
-NetworkManager::ModemDevicePrivate::ModemDevicePrivate(const QString & path)
+NetworkManager::ModemDevicePrivate::ModemDevicePrivate(const QString &path)
     : DevicePrivate(path), modemIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
 }
 
-NetworkManager::ModemDevice::ModemDevice(const QString & path, QObject * parent)
+NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
     : Device(*new ModemDevicePrivate(path), parent),
       modemGsmCardIface(0), modemGsmNetworkIface(0)
 {
@@ -50,7 +50,7 @@ void NetworkManager::ModemDevice::initModemProperties()
             this, SLOT(propertiesChanged(QVariantMap)));
 }
 
-NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate & dd, QObject * parent)
+NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd, QObject *parent)
     : Device(dd, parent), modemGsmCardIface(0), modemGsmNetworkIface(0)
 {
     initModemProperties();
@@ -94,7 +94,7 @@ QString NetworkManager::ModemDevice::getUdiForModemManager()
     /* BlueZ knows about the rfcommX string that we could use to find the device in ModemManager
      * but does not export this info, so let's use the first bluetooth device we find in ModemManager.
      * Modem will be registered in ModemManager only after someone execute its org.bluez.Serial.Connect method. */
-    foreach(const ModemManager::ModemInterface::Ptr &modem, ModemManager::modemInterfaces()) {
+    foreach (const ModemManager::ModemInterface::Ptr &modem, ModemManager::modemInterfaces()) {
         if (modem->driver() == QLatin1String("bluetooth")) {
             return modem->udi();
         }
@@ -138,7 +138,7 @@ ModemManager::ModemInterface::Ptr NetworkManager::ModemDevice::getModemNetworkIf
     return modemGsmNetworkIface;
 }
 
-void NetworkManager::ModemDevice::modemRemoved(const QString & modemUdi)
+void NetworkManager::ModemDevice::modemRemoved(const QString &modemUdi)
 {
     Q_D(ModemDevice);
     if (modemUdi == d->m_modemUdi) {

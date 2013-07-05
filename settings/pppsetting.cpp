@@ -340,7 +340,7 @@ quint32 NetworkManager::PppSetting::lcpEchoInterval() const
     return d->lcpEchoInterval;
 }
 
-void NetworkManager::PppSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::PppSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_PPP_NOAUTH))) {
         setNoAuth(setting.value(QLatin1String(NM_SETTING_PPP_NOAUTH)).toBool());

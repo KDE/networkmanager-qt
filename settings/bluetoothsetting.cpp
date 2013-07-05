@@ -55,7 +55,7 @@ QString NetworkManager::BluetoothSetting::name() const
     return d->name;
 }
 
-void NetworkManager::BluetoothSetting::setBluetoothAddress(const QByteArray& address)
+void NetworkManager::BluetoothSetting::setBluetoothAddress(const QByteArray &address)
 {
     Q_D(BluetoothSetting);
 
@@ -83,7 +83,7 @@ NetworkManager::BluetoothSetting::ProfileType NetworkManager::BluetoothSetting::
     return d->profileType;
 }
 
-void NetworkManager::BluetoothSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::BluetoothSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_BLUETOOTH_BDADDR))) {
         setBluetoothAddress(setting.value(QLatin1String(NM_SETTING_BLUETOOTH_BDADDR)).toByteArray());

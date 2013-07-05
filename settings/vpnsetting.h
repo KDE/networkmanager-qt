@@ -42,30 +42,30 @@ public:
 
     QString name() const;
 
-    void setServiceType(const QString & type);
+    void setServiceType(const QString &type);
     QString serviceType() const;
 
-    void setUsername(const QString & username);
+    void setUsername(const QString &username);
     QString username() const;
 
-    void setData(const NMStringMap & data);
+    void setData(const NMStringMap &data);
     NMStringMap data() const;
 
-    void setSecrets(const NMStringMap & secrets);
+    void setSecrets(const NMStringMap &secrets);
     NMStringMap secrets() const;
 
-    void secretsFromMap(const QVariantMap & secrets);
+    void secretsFromMap(const QVariantMap &secrets);
     QVariantMap secretsToMap() const;
 
     void secretsFromStringMap(const NMStringMap &map);
     NMStringMap secretsToStringMap() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    VpnSettingPrivate * d_ptr;
+    VpnSettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const VpnSetting &setting);

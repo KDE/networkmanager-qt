@@ -32,12 +32,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 class NetworkManager::VpnConnectionPrivate : public NetworkManager::ActiveConnectionPrivate
 {
 public:
-    VpnConnectionPrivate(const QString & path)
-        : ActiveConnectionPrivate(path), iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
-    {
+    VpnConnectionPrivate(const QString &path)
+        : ActiveConnectionPrivate(path), iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()) {
     }
-    static NetworkManager::VpnConnection::State convertVpnConnectionState(uint state)
-    {
+    static NetworkManager::VpnConnection::State convertVpnConnectionState(uint state) {
         return (NetworkManager::VpnConnection::State)state;
     }
     QString banner;
@@ -46,16 +44,16 @@ public:
 };
 
 
-NetworkManager::VpnConnection::VpnConnection(const QString & path, QObject * parent)
+NetworkManager::VpnConnection::VpnConnection(const QString &path, QObject *parent)
     : ActiveConnection(*new VpnConnectionPrivate(path), parent)
 {
     Q_D(VpnConnection);
     d->banner = d->iface.banner();
     d->state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(d->iface.vpnState());
-    connect( &d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-                this, SLOT(propertiesChanged(QVariantMap)));
-    connect( &d->iface, SIGNAL(VpnStateChanged(uint,uint)),
-                this, SLOT(vpnStateChanged(uint,uint)));
+    connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
+            this, SLOT(propertiesChanged(QVariantMap)));
+    connect(&d->iface, SIGNAL(VpnStateChanged(uint,uint)),
+            this, SLOT(vpnStateChanged(uint,uint)));
 }
 
 NetworkManager::VpnConnection::~VpnConnection()
@@ -104,7 +102,7 @@ void NetworkManager::VpnConnection::vpnStateChanged(uint state, uint reason)
     emit stateChanged(d->state);
 }
 
-NetworkManager::VpnConnection::operator VpnConnection*()
+NetworkManager::VpnConnection::operator VpnConnection *()
 {
     Q_D(VpnConnection);
     if (d->vpn)

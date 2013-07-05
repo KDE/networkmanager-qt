@@ -49,16 +49,16 @@ public:
     void setMethod(ConfigMethod method);
     ConfigMethod method() const;
 
-    void setDns(const QList<QHostAddress> & dns);
+    void setDns(const QList<QHostAddress> &dns);
     QList<QHostAddress> dns() const;
 
-    void setDnsSearch(const QStringList & domains);
+    void setDnsSearch(const QStringList &domains);
     QStringList dnsSearch() const;
 
-    void setAddresses(const QList<NetworkManager::IpAddress> & ipv4addresses);
+    void setAddresses(const QList<NetworkManager::IpAddress> &ipv4addresses);
     QList<NetworkManager::IpAddress> addresses() const;
 
-    void setRoutes(const QList<NetworkManager::IpRoute> & ipv4routes);
+    void setRoutes(const QList<NetworkManager::IpRoute> &ipv4routes);
     QList<NetworkManager::IpRoute> routes() const;
 
     void setIgnoreAutoRoutes(bool ignore);
@@ -67,13 +67,13 @@ public:
     void setIgnoreAutoDns(bool ignore);
     bool ignoreAutoDns() const;
 
-    void setDhcpClientId(const QString & id);
+    void setDhcpClientId(const QString &id);
     QString dhcpClientId() const;
 
     void setDhcpSendHostname(bool send);
     bool dhcpSendHostname() const;
 
-    void setDhcpHostname(const QString & hostname);
+    void setDhcpHostname(const QString &hostname);
     QString dhcpHostname() const;
 
     void setNeverDefault(bool neverDefault);
@@ -82,12 +82,12 @@ public:
     void setMayFail(bool mayFail);
     bool mayFail() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    Ipv4SettingPrivate * d_ptr;
+    Ipv4SettingPrivate *d_ptr;
 };
 
 QDebug operator<<(QDebug dbg, const Ipv4Setting &setting);

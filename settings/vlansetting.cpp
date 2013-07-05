@@ -60,7 +60,7 @@ QString NetworkManager::VlanSetting::name() const
     return d->name;
 }
 
-void NetworkManager::VlanSetting::setInterfaceName(const QString& name)
+void NetworkManager::VlanSetting::setInterfaceName(const QString &name)
 {
     Q_D(VlanSetting);
 
@@ -74,7 +74,7 @@ QString NetworkManager::VlanSetting::interfaceName() const
     return d->interfaceName;
 }
 
-void NetworkManager::VlanSetting::setParent(const QString& parent)
+void NetworkManager::VlanSetting::setParent(const QString &parent)
 {
     Q_D(VlanSetting);
 
@@ -116,7 +116,7 @@ NetworkManager::VlanSetting::Flags NetworkManager::VlanSetting::flags() const
     return d->flags;
 }
 
-void NetworkManager::VlanSetting::setIngressPriorityMap(const QStringList& map)
+void NetworkManager::VlanSetting::setIngressPriorityMap(const QStringList &map)
 {
     Q_D(VlanSetting);
 
@@ -130,7 +130,7 @@ QStringList NetworkManager::VlanSetting::ingressPriorityMap() const
     return d->ingressPriorityMap;
 }
 
-void NetworkManager::VlanSetting::setEgressPriorityMap(const QStringList& map)
+void NetworkManager::VlanSetting::setEgressPriorityMap(const QStringList &map)
 {
     Q_D(VlanSetting);
 
@@ -144,7 +144,7 @@ QStringList NetworkManager::VlanSetting::egressPriorityMap() const
     return d->egressPriorityMap;
 }
 
-void NetworkManager::VlanSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::VlanSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_VLAN_INTERFACE_NAME))) {
         setInterfaceName(setting.value(QLatin1String(NM_SETTING_VLAN_INTERFACE_NAME)).toString());

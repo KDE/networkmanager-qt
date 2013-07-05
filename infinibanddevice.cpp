@@ -31,7 +31,7 @@ namespace NetworkManager
 class InfinibandDevicePrivate : public DevicePrivate
 {
 public:
-    InfinibandDevicePrivate(const QString & path);
+    InfinibandDevicePrivate(const QString &path);
     virtual ~InfinibandDevicePrivate();
 
     OrgFreedesktopNetworkManagerDeviceInfinibandInterface iface;
@@ -40,9 +40,10 @@ public:
 };
 }
 
-NetworkManager::InfinibandDevicePrivate::InfinibandDevicePrivate(const QString& path):
-    DevicePrivate(path), iface(NetworkManagerPrivate::DBUS_SERVICE, path,QDBusConnection::systemBus()),
-    carrier(false)
+NetworkManager::InfinibandDevicePrivate::InfinibandDevicePrivate(const QString &path)
+    : DevicePrivate(path)
+    , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+    , carrier(false)
 {
 }
 
@@ -50,8 +51,8 @@ NetworkManager::InfinibandDevice::~InfinibandDevice()
 {
 }
 
-NetworkManager::InfinibandDevice::InfinibandDevice(const QString& path, QObject* parent):
-    Device(*new InfinibandDevicePrivate(path), parent)
+NetworkManager::InfinibandDevice::InfinibandDevice(const QString &path, QObject *parent)
+    : Device(*new InfinibandDevicePrivate(path), parent)
 {
     Q_D(InfinibandDevice);
 

@@ -101,7 +101,7 @@ NETWORKMANAGERQT_EXPORT QString hostname();
 /**
  * Notifier object for connecting signals
  */
-NETWORKMANAGERQT_EXPORT SettingsNotifier* settingsNotifier();
+NETWORKMANAGERQT_EXPORT SettingsNotifier *settingsNotifier();
 }
 
 #endif

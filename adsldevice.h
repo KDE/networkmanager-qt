@@ -30,14 +30,14 @@ class AdslDevicePrivate;
 
 class NETWORKMANAGERQT_EXPORT AdslDevice : public Device
 {
-Q_OBJECT
-Q_DECLARE_PRIVATE(AdslDevice)
-Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
+    Q_OBJECT
+    Q_DECLARE_PRIVATE(AdslDevice)
+    Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
 
 public:
     typedef QSharedPointer<AdslDevice> Ptr;
     typedef QList<Ptr> List;
-    explicit AdslDevice(const QString& path, QObject* parent = 0);
+    explicit AdslDevice(const QString &path, QObject *parent = 0);
     virtual ~AdslDevice();
 
     virtual Type type() const;

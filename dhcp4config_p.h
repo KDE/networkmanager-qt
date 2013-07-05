@@ -29,7 +29,7 @@ namespace NetworkManager
 class Dhcp4ConfigPrivate
 {
 public:
-    Dhcp4ConfigPrivate(const QString &path, QObject * owner);
+    Dhcp4ConfigPrivate(const QString &path, QObject *owner);
     virtual ~Dhcp4ConfigPrivate();
     OrgFreedesktopNetworkManagerDHCP4ConfigInterface dhcp4Iface;
     QString myPath;

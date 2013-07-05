@@ -40,8 +40,8 @@ class WimaxDevicePrivate;
  */
 class NETWORKMANAGERQT_EXPORT WimaxDevice : public Device
 {
-Q_OBJECT
-Q_DECLARE_PRIVATE(WimaxDevice)
+    Q_OBJECT
+    Q_DECLARE_PRIVATE(WimaxDevice)
 
 public:
     typedef QSharedPointer<WimaxDevice> Ptr;
@@ -52,7 +52,7 @@ public:
      *
      * @param path the DBus path of the device
      */
-    explicit WimaxDevice(const QString & path, QObject * parent = 0);
+    explicit WimaxDevice(const QString &path, QObject *parent = 0);
     /**
      * Destroys a WimaxDevice object.
      */

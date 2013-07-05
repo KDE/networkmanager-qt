@@ -45,10 +45,10 @@ public:
 
     QString name() const;
 
-    void setInterfaceName(const QString & name);
+    void setInterfaceName(const QString &name);
     QString interfaceName() const;
 
-    void setParent(const QString & parent);
+    void setParent(const QString &parent);
     QString parent() const;
 
     void setId(quint32 id);
@@ -57,18 +57,18 @@ public:
     void setFlags(Flags flags);
     Flags flags() const;
 
-    void setIngressPriorityMap(const QStringList & map);
+    void setIngressPriorityMap(const QStringList &map);
     QStringList ingressPriorityMap() const;
 
-    void setEgressPriorityMap(const QStringList & map);
+    void setEgressPriorityMap(const QStringList &map);
     QStringList egressPriorityMap() const;
 
-    void fromMap(const QVariantMap & setting);
+    void fromMap(const QVariantMap &setting);
 
     QVariantMap toMap() const;
 
 protected:
-    VlanSettingPrivate * d_ptr;
+    VlanSettingPrivate *d_ptr;
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(VlanSetting::Flags)
 

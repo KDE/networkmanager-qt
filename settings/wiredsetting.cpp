@@ -126,7 +126,7 @@ bool NetworkManager::WiredSetting::autoNegotiate() const
     return d->autoNegotiate;
 }
 
-void NetworkManager::WiredSetting::setMacAddress(const QByteArray& address)
+void NetworkManager::WiredSetting::setMacAddress(const QByteArray &address)
 {
     Q_D(WiredSetting);
 
@@ -140,7 +140,7 @@ QByteArray NetworkManager::WiredSetting::macAddress() const
     return d->macAddress;
 }
 
-void NetworkManager::WiredSetting::setClonedMacAddress(const QByteArray& address)
+void NetworkManager::WiredSetting::setClonedMacAddress(const QByteArray &address)
 {
     Q_D(WiredSetting);
 
@@ -154,7 +154,7 @@ QByteArray NetworkManager::WiredSetting::clonedMacAddress() const
     return d->clonedMacAddress;
 }
 
-void NetworkManager::WiredSetting::setMacAddressBlacklist(const QStringList& list)
+void NetworkManager::WiredSetting::setMacAddressBlacklist(const QStringList &list)
 {
     Q_D(WiredSetting);
 
@@ -182,7 +182,7 @@ quint32 NetworkManager::WiredSetting::mtu() const
     return d->mtu;
 }
 
-void NetworkManager::WiredSetting::setS390Subchannels(const QStringList& channels)
+void NetworkManager::WiredSetting::setS390Subchannels(const QStringList &channels)
 {
     Q_D(WiredSetting);
 
@@ -224,7 +224,7 @@ QMap<QString, QString> NetworkManager::WiredSetting::s390Options() const
     return d->s390Options;
 }
 
-void NetworkManager::WiredSetting::fromMap(const QVariantMap& setting)
+void NetworkManager::WiredSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_PORT))) {
         const QString port = setting.value(QLatin1String(NM_SETTING_WIRED_PORT)).toString();
