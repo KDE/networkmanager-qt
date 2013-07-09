@@ -36,6 +36,7 @@ AccessPoint::Capabilities convertCapabilities(int caps)
     case 0: return AccessPoint::None;
     case 1: return AccessPoint::Privacy;
     }
+    return AccessPoint::None;
 }
 
 AccessPoint::WpaFlags convertWpaFlags(uint theirFlags)
