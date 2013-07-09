@@ -30,6 +30,19 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace NetworkManager {
 
+AccessPoint::Capabilities convertCapabilities(int caps)
+{
+    switch (caps) {
+    case 0: return AccessPoint::None;
+    case 1: return AccessPoint::Privacy;
+    }
+}
+
+AccessPoint::WpaFlags convertWpaFlags(uint theirFlags)
+{
+    return (AccessPoint::WpaFlags)theirFlags;
+}
+
 class AccessPointPrivate
 {
 public:
@@ -213,20 +226,6 @@ void NetworkManager::AccessPoint::propertiesChanged(const QVariantMap &propertie
         }
         ++it;
     }
-}
-
-NetworkManager::AccessPoint::Capabilities NetworkManager::AccessPoint::convertCapabilities(int caps)
-{
-    if (1 == caps) {
-        return NetworkManager::AccessPoint::Privacy;
-    } else {
-        return 0;
-    }
-}
-
-NetworkManager::AccessPoint::WpaFlags NetworkManager::AccessPoint::convertWpaFlags(uint theirFlags)
-{
-    return (NetworkManager::AccessPoint::WpaFlags)theirFlags;
 }
 
 #include "accesspoint.moc"

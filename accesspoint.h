@@ -51,7 +51,7 @@ public:
     /**
      * General capabilities of an access point
      */
-    enum Capability { Privacy = 0x1 };
+    enum Capability { None = 0x0, Privacy = 0x1 };
     /**
      * Flags describing the access point's capabilities according to WPA (Wifi Protected Access)
      */
@@ -132,8 +132,6 @@ Q_SIGNALS:
      */
     void frequencyChanged(uint frequency);
 private:
-    static AccessPoint::Capabilities convertCapabilities(int);
-    static AccessPoint::WpaFlags convertWpaFlags(uint);
     AccessPointPrivate *const d_ptr;
 };
 
