@@ -46,6 +46,7 @@ public:
     typedef QSharedPointer<VpnConnection> Ptr;
     typedef QList<Ptr> List;
     enum State {Unknown = 0, Prepare, NeedAuth, Connecting, GettingIpConfig, Activated, Failed, Disconnected};
+
     /**
      * Creates a new VpnConnection object.
      *
@@ -72,9 +73,6 @@ public:
      */
     operator VpnConnection *();
 
-protected Q_SLOTS:
-    void propertiesChanged(const QVariantMap &properties);
-    void vpnStateChanged(uint state, uint reason);
 Q_SIGNALS:
     /**
      * This signal is emitted when the connection banner has changed
@@ -84,6 +82,10 @@ Q_SIGNALS:
      * The state changed
      */
     void stateChanged(NetworkManager::VpnConnection::State);
+
+protected Q_SLOTS:
+    void propertiesChanged(const QVariantMap &properties);
+    void vpnStateChanged(uint state, uint reason);
 
 private:
     Q_DECLARE_PRIVATE(VpnConnection)

@@ -101,10 +101,6 @@ public:
      */
     NetworkManager::WimaxNsp::Ptr findNsp(const QString &uni) const;
 
-protected Q_SLOTS:
-    void nspAdded(const QDBusObjectPath &);
-    void nspRemoved(const QDBusObjectPath &);
-
 Q_SIGNALS:
     /**
      * This signal is emitted when the bitrate of this network has changed.
@@ -148,6 +144,10 @@ Q_SIGNALS:
      * A wireless access point disappeared
      */
     void nspDisappeared(const QString &);
+
+protected Q_SLOTS:
+    void nspAdded(const QDBusObjectPath &);
+    void nspRemoved(const QDBusObjectPath &);
 
 protected:
     /**

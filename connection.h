@@ -93,14 +93,6 @@ public:
      */
     void remove();
 
-private:
-    Q_DECLARE_PRIVATE(Connection)
-
-    ConnectionPrivate *const d_ptr;
-private Q_SLOTS:
-    void onSecretsArrived(QDBusPendingCallWatcher *);
-    void onConnectionUpdated();
-    void onConnectionRemoved();
 Q_SIGNALS:
     /**
      * Reports the secrets retrieved.
@@ -122,6 +114,16 @@ Q_SIGNALS:
      * @param id connections's path.
      */
     void removed(const QString &path);
+
+private Q_SLOTS:
+    void onSecretsArrived(QDBusPendingCallWatcher *);
+    void onConnectionUpdated();
+    void onConnectionRemoved();
+
+private:
+    Q_DECLARE_PRIVATE(Connection)
+
+    ConnectionPrivate *const d_ptr;
 };
 
 }

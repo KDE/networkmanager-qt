@@ -155,11 +155,6 @@ public:
      */
     WirelessNetwork::Ptr findNetwork(const QString &ssid) const;
 
-protected Q_SLOTS:
-    void accessPointAdded(const QDBusObjectPath &);
-    void accessPointRemoved(const QDBusObjectPath &);
-    void removeNetwork(const QString &network);
-
 Q_SIGNALS:
     /**
      * This signal is emitted when the bitrate of this network has changed.
@@ -214,6 +209,11 @@ protected:
      * if the property was not useful to your new class
      */
     virtual void propertyChanged(const QString &property, const QVariant &value);
+
+protected Q_SLOTS:
+    void accessPointAdded(const QDBusObjectPath &);
+    void accessPointRemoved(const QDBusObjectPath &);
+    void removeNetwork(const QString &network);
 
 private:
     Q_DECLARE_PRIVATE(WirelessDevice)

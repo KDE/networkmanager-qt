@@ -43,6 +43,14 @@ public:
     explicit VpnPlugin(const QString &path, QObject *parent = 0);
     virtual ~VpnPlugin();
 
+Q_SIGNALS:
+    void configChanged(const QVariantMap &configuration);
+    void failureChanged(uint reason);
+    void ip4ConfigChanged(const QVariantMap &ip4config);
+    void ip6ConfigChanged(const QVariantMap &ip6config);
+    void loginBannerChanged(const QString &banner);
+    void stateChanged(VpnConnection::State state);
+
 protected Q_SLOTS:
     void connect(const NMVariantMapMap &connection);
     void disconnect();
@@ -52,14 +60,6 @@ protected Q_SLOTS:
     void setIp4Config(const QVariantMap &config);
     void setIp6Config(const QVariantMap &config);
     void onStateChanged(uint state);
-
-Q_SIGNALS:
-    void configChanged(const QVariantMap &configuration);
-    void failureChanged(uint reason);
-    void ip4ConfigChanged(const QVariantMap &ip4config);
-    void ip6ConfigChanged(const QVariantMap &ip6config);
-    void loginBannerChanged(const QString &banner);
-    void stateChanged(VpnConnection::State state);
 
 protected:
     VpnPluginPrivate *d_ptr;

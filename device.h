@@ -438,15 +438,6 @@ Q_SIGNALS:
      */
     void udiChanged();
 
-protected Q_SLOTS:
-    void deviceStateChanged(uint, uint, uint);
-    void propertiesChanged(const QVariantMap &properties);
-
-private:
-    Q_DECLARE_PRIVATE(Device)
-
-    void init();
-
 protected:
     /**
      * When subclassing make sure to call the parent class method
@@ -455,6 +446,15 @@ protected:
     virtual void propertyChanged(const QString &property, const QVariant &value);
 
     DevicePrivate *d_ptr;
+
+protected Q_SLOTS:
+    void deviceStateChanged(uint, uint, uint);
+    void propertiesChanged(const QVariantMap &properties);
+
+private:
+    Q_DECLARE_PRIVATE(Device)
+
+    void init();
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Capabilities)
@@ -469,6 +469,7 @@ public:
     Device::State state() const;
     Device::StateChangeReason reason() const;
     DeviceStateReason &operator=(const DeviceStateReason &);
+
 private:
     void setState(const Device::State state);
     void setReason(const Device::StateChangeReason reason);

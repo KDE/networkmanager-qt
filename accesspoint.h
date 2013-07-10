@@ -80,8 +80,6 @@ public:
      */
     static OperationMode convertOperationMode(uint mode);
 
-protected Q_SLOTS:
-    void propertiesChanged(const QVariantMap &properties);
 Q_SIGNALS:
     /**
      * This signal is emitted when the signal strength of this network has changed.
@@ -130,8 +128,13 @@ Q_SIGNALS:
      * @param frequency the new frequency
      */
     void frequencyChanged(uint frequency);
+
+protected Q_SLOTS:
+    void propertiesChanged(const QVariantMap &properties);
+
 private:
     Q_DECLARE_PRIVATE(AccessPoint)
+
     AccessPointPrivate *const d_ptr;
 };
 

@@ -103,15 +103,6 @@ public:
      */
     QStringList devices() const;
 
-protected Q_SLOTS:
-    void propertiesChanged(const QVariantMap &properties);
-
-protected:
-    ActiveConnectionPrivate *d_ptr;
-
-private:
-    Q_DECLARE_PRIVATE(ActiveConnection)
-
 Q_SIGNALS:
     /**
      * This signal is emitted when the connection path has changed
@@ -149,6 +140,15 @@ Q_SIGNALS:
      * The list of devices changed.
      */
     void devicesChanged();
+
+protected:
+    ActiveConnectionPrivate *d_ptr;
+
+protected Q_SLOTS:
+    void propertiesChanged(const QVariantMap &properties);
+
+private:
+    Q_DECLARE_PRIVATE(ActiveConnection)
 };
 
 } // namespace NetworkManager

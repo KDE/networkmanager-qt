@@ -51,9 +51,6 @@ public:
     QString name() const;
     uint signalQuality() const;
 
-protected Q_SLOTS:
-    void propertiesChanged(const QVariantMap &properties);
-
 Q_SIGNALS:
     /**
      * This signal is emitted when the network type of this NSP has changed.
@@ -75,6 +72,9 @@ Q_SIGNALS:
      * @param quality the new quality
      */
     void signalQualityChanged(uint quality);
+
+protected Q_SLOTS:
+    void propertiesChanged(const QVariantMap &properties);
 
 private:
     Q_DECLARE_PRIVATE(WimaxNsp)

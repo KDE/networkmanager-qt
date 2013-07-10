@@ -99,7 +99,7 @@ public Q_SLOTS:
 
 private:
     Q_DECLARE_PRIVATE(SecretAgent)
-    Q_PRIVATE_SLOT(d_ptr, void registerAgent())
+    Q_PRIVATE_SLOT(d_func(), void registerAgent())
 
     SecretAgentPrivate *const d_ptr;
 };
