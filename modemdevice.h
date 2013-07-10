@@ -70,14 +70,12 @@ public:
     ModemManager::ModemInterface::Ptr getModemNetworkIface();
     void setModemNetworkIface(const ModemManager::ModemGsmNetworkInterface::Ptr &iface);
     void clearModemNetworkIface();
+
 Q_SIGNALS:
     /**
      * This signal is emitted when the capabilities of the device change
      */
     void currentCapabilitiesChanged(Capabilities);
-
-protected Q_SLOTS:
-    void modemRemoved(const QString &modemUdi);
 
 protected:
     ModemManager::ModemGsmCardInterface::Ptr modemGsmCardIface;
@@ -89,11 +87,13 @@ protected:
      */
     virtual void propertyChanged(const QString &property, const QVariant &value);
 
+protected Q_SLOTS:
+    void modemRemoved(const QString &modemUdi);
+
 private:
     Q_DECLARE_PRIVATE(ModemDevice)
 
     void initModemProperties();
-    Capabilities convertModemCapabilities(uint theirCaps);
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ModemDevice::Capabilities)

@@ -27,6 +27,13 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "manager_p.h"
 
+NetworkManager::ModemDevice::Capabilities convertModemCapabilities(uint theirCaps)
+{
+    NetworkManager::ModemDevice::Capabilities ourCaps
+        = (NetworkManager::ModemDevice::Capabilities) theirCaps;
+    return ourCaps;
+}
+
 NetworkManager::ModemDevicePrivate::ModemDevicePrivate(const QString &path)
     : DevicePrivate(path), modemIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
@@ -35,6 +42,12 @@ NetworkManager::ModemDevicePrivate::ModemDevicePrivate(const QString &path)
 NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
     : Device(*new ModemDevicePrivate(path), parent),
       modemGsmCardIface(0), modemGsmNetworkIface(0)
+{
+    initModemProperties();
+}
+
+NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd, QObject *parent)
+    : Device(dd, parent), modemGsmCardIface(0), modemGsmNetworkIface(0)
 {
     initModemProperties();
 }
@@ -50,11 +63,7 @@ void NetworkManager::ModemDevice::initModemProperties()
             this, SLOT(propertiesChanged(QVariantMap)));
 }
 
-NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd, QObject *parent)
-    : Device(dd, parent), modemGsmCardIface(0), modemGsmNetworkIface(0)
-{
-    initModemProperties();
-}
+
 
 NetworkManager::ModemDevice::~ModemDevice()
 {
@@ -64,13 +73,6 @@ NetworkManager::ModemDevice::~ModemDevice()
 NetworkManager::Device::Type NetworkManager::ModemDevice::type() const
 {
     return NetworkManager::Device::Modem;
-}
-
-NetworkManager::ModemDevice::Capabilities NetworkManager::ModemDevice::convertModemCapabilities(uint theirCaps)
-{
-    NetworkManager::ModemDevice::Capabilities ourCaps
-        = (NetworkManager::ModemDevice::Capabilities) theirCaps;
-    return ourCaps;
 }
 
 NetworkManager::ModemDevice::Capabilities NetworkManager::ModemDevice::currentCapabilities() const
