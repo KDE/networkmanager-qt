@@ -35,7 +35,6 @@ namespace NetworkManager
 class SettingPrivate;
 class NETWORKMANAGERQT_EXPORT Setting
 {
-    Q_DECLARE_PRIVATE(Setting)
 public:
     typedef QSharedPointer<Setting> Ptr;
     typedef QList<Ptr> List;
@@ -98,6 +97,9 @@ public:
 
 protected:
     SettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(Setting)
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(Setting::SecretFlags)
 

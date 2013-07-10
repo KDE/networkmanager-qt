@@ -40,7 +40,6 @@ class ModemDevicePrivate;
 class NETWORKMANAGERQT_EXPORT ModemDevice : public Device
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(ModemDevice)
 public:
     typedef QSharedPointer<ModemDevice> Ptr;
     typedef QList<Ptr> List;
@@ -91,6 +90,8 @@ protected:
     virtual void propertyChanged(const QString &property, const QVariant &value);
 
 private:
+    Q_DECLARE_PRIVATE(ModemDevice)
+
     void initModemProperties();
     Capabilities convertModemCapabilities(uint theirCaps);
 };

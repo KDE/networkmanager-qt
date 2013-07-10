@@ -32,7 +32,6 @@ namespace NetworkManager
 class WiredSettingPrivate;
 class NETWORKMANAGERQT_EXPORT WiredSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(WiredSetting)
 public:
     typedef QSharedPointer<WiredSetting> Ptr;
     typedef QList<Ptr> List;
@@ -85,6 +84,9 @@ public:
 
 protected:
     WiredSettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(WiredSetting)
 };
 
 QDebug operator<<(QDebug dbg, const WiredSetting &setting);

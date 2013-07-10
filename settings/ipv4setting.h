@@ -34,7 +34,6 @@ namespace NetworkManager
 class Ipv4SettingPrivate;
 class NETWORKMANAGERQT_EXPORT Ipv4Setting : public Setting
 {
-    Q_DECLARE_PRIVATE(Ipv4Setting)
 public:
     typedef QSharedPointer<Ipv4Setting> Ptr;
     typedef QList<Ptr> List;
@@ -88,6 +87,9 @@ public:
 
 protected:
     Ipv4SettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(Ipv4Setting)
 };
 
 QDebug operator<<(QDebug dbg, const Ipv4Setting &setting);

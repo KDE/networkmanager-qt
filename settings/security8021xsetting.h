@@ -30,7 +30,6 @@ namespace NetworkManager
 class Security8021xSettingPrivate;
 class NETWORKMANAGERQT_EXPORT Security8021xSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(Security8021xSetting)
 public:
     typedef QSharedPointer<Security8021xSetting> Ptr;
     typedef QList<Ptr> List;
@@ -159,6 +158,9 @@ public:
 
 protected:
     Security8021xSettingPrivate *const d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(Security8021xSetting)
 };
 
 QDebug operator<<(QDebug dbg, const Security8021xSetting &setting);

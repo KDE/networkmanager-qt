@@ -34,7 +34,6 @@ namespace NetworkManager
 class Ipv6SettingPrivate;
 class NETWORKMANAGERQT_EXPORT Ipv6Setting : public Setting
 {
-    Q_DECLARE_PRIVATE(Ipv6Setting)
 public:
     typedef QSharedPointer<Ipv6Setting> Ptr;
     typedef QList<Ptr> List;
@@ -83,6 +82,9 @@ public:
 
 protected:
     Ipv6SettingPrivate *const d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(Ipv6Setting)
 };
 
 QDebug operator<<(QDebug dbg, const Ipv6Setting &setting);

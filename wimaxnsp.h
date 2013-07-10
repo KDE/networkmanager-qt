@@ -35,7 +35,6 @@ class WimaxNspPrivate;
 class NETWORKMANAGERQT_EXPORT WimaxNsp : public QObject
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(WimaxNsp)
 public:
     typedef QSharedPointer<WimaxNsp> Ptr;
     typedef QList<Ptr> List;
@@ -78,6 +77,8 @@ Q_SIGNALS:
     void signalQualityChanged(uint quality);
 
 private:
+    Q_DECLARE_PRIVATE(WimaxNsp)
+
     static WimaxNsp::NetworkType convertNetworkType(uint);
     WimaxNspPrivate *const d_ptr;
 };

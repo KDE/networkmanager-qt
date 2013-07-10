@@ -37,7 +37,6 @@ class SecretAgentPrivate;
 class NETWORKMANAGERQT_EXPORT SecretAgent : public QObject, protected QDBusContext
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(SecretAgent)
 public:
     enum Error {
         NotAuthorized,
@@ -99,8 +98,10 @@ public Q_SLOTS:
     virtual void DeleteSecrets(const NMVariantMapMap &connection, const QDBusObjectPath &connection_path) = 0;
 
 private:
-    SecretAgentPrivate *const d_ptr;
+    Q_DECLARE_PRIVATE(SecretAgent)
     Q_PRIVATE_SLOT(d_ptr, void registerAgent())
+
+    SecretAgentPrivate *const d_ptr;
 };
 }
 Q_DECLARE_OPERATORS_FOR_FLAGS(NetworkManager::SecretAgent::GetSecretsFlags)

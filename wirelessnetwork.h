@@ -35,7 +35,6 @@ class WirelessNetworkPrivate;
 class NETWORKMANAGERQT_EXPORT WirelessNetwork : public QObject
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(WirelessNetwork)
     friend class WirelessDevice;
 public:
     typedef QSharedPointer<WirelessNetwork> Ptr;
@@ -88,6 +87,8 @@ private Q_SLOTS:
     void accessPointDisappeared(const QString &);
     void updateStrength();
 private:
+    Q_DECLARE_PRIVATE(WirelessNetwork)
+
     explicit WirelessNetwork(const AccessPoint::Ptr &accessPoint, WirelessDevice *device);
     void addAccessPointInternal(const AccessPoint::Ptr &accessPoint);
     WirelessNetworkPrivate *const d_ptr;

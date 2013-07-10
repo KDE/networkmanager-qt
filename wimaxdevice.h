@@ -41,7 +41,6 @@ class WimaxDevicePrivate;
 class NETWORKMANAGERQT_EXPORT WimaxDevice : public Device
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(WimaxDevice)
 
 public:
     typedef QSharedPointer<WimaxDevice> Ptr;
@@ -156,6 +155,9 @@ protected:
      * if the property was not useful to your new class
      */
     virtual void propertyChanged(const QString &property, const QVariant &value);
+
+private:
+    Q_DECLARE_PRIVATE(WimaxDevice)
 };
 
 } // namespace NetworkManager

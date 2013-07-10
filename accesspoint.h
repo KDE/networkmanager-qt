@@ -35,7 +35,6 @@ class AccessPointPrivate;
 class NETWORKMANAGERQT_EXPORT AccessPoint : public QObject
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(AccessPoint)
     Q_FLAGS(Capabilities WpaFlags)
 public:
     typedef QSharedPointer<AccessPoint> Ptr;
@@ -132,6 +131,7 @@ Q_SIGNALS:
      */
     void frequencyChanged(uint frequency);
 private:
+    Q_DECLARE_PRIVATE(AccessPoint)
     AccessPointPrivate *const d_ptr;
 };
 

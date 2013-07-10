@@ -36,7 +36,6 @@ class VpnPluginPrivate;
 class NETWORKMANAGERQT_EXPORT VpnPlugin : public QObject
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(VpnPlugin)
 
 public:
     enum FailureType {LoginFailed, ConnectFailed, BadIpConfig};
@@ -64,6 +63,9 @@ Q_SIGNALS:
 
 protected:
     VpnPluginPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(VpnPlugin)
 };
 
 } // namespace NetworkManager

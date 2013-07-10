@@ -40,7 +40,6 @@ namespace NetworkManager
 class BondSettingPrivate;
 class NETWORKMANAGERQT_EXPORT BondSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(BondSetting)
 public:
     typedef QSharedPointer<BondSetting> Ptr;
     typedef QList<Ptr> List;
@@ -63,6 +62,9 @@ public:
 
 protected:
     BondSettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(BondSetting)
 };
 
 QDebug operator<<(QDebug dbg, const BondSetting &setting);

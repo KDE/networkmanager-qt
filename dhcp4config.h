@@ -36,7 +36,6 @@ class Dhcp4ConfigPrivate;
 class NETWORKMANAGERQT_EXPORT Dhcp4Config: public QObject
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(Dhcp4Config)
 public:
     typedef QSharedPointer<Dhcp4Config> Ptr;
     typedef QList<Ptr> List;
@@ -57,6 +56,8 @@ protected Q_SLOTS:
     void dhcp4PropertiesChanged(const QVariantMap &);
 
 private:
+    Q_DECLARE_PRIVATE(Dhcp4Config)
+
     Dhcp4ConfigPrivate *const d_ptr;
 };
 } // namespace NetworkManager

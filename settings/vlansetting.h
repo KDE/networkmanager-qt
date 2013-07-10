@@ -32,7 +32,6 @@ namespace NetworkManager
 class VlanSettingPrivate;
 class NETWORKMANAGERQT_EXPORT VlanSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(VlanSetting)
 public:
     typedef QSharedPointer<VlanSetting> Ptr;
     typedef QList<Ptr> List;
@@ -69,6 +68,9 @@ public:
 
 protected:
     VlanSettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(VlanSetting)
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(VlanSetting::Flags)
 

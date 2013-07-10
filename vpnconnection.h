@@ -41,7 +41,6 @@ class VpnConnectionPrivate;
 class NETWORKMANAGERQT_EXPORT VpnConnection : public ActiveConnection
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(VpnConnection)
 
 public:
     typedef QSharedPointer<VpnConnection> Ptr;
@@ -85,6 +84,9 @@ Q_SIGNALS:
      * The state changed
      */
     void stateChanged(NetworkManager::VpnConnection::State);
+
+private:
+    Q_DECLARE_PRIVATE(VpnConnection)
 };
 
 } // namespace NetworkManager

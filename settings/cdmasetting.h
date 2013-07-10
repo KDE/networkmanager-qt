@@ -32,7 +32,6 @@ namespace NetworkManager
 class CdmaSettingPrivate;
 class NETWORKMANAGERQT_EXPORT CdmaSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(CdmaSetting)
 public:
     typedef QSharedPointer<CdmaSetting> Ptr;
     typedef QList<Ptr> List;
@@ -66,6 +65,9 @@ public:
 
 protected:
     CdmaSettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(CdmaSetting)
 };
 
 QDebug operator<<(QDebug dbg, const CdmaSetting &setting);

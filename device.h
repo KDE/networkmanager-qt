@@ -45,7 +45,6 @@ class NETWORKMANAGERQT_EXPORT Device : public QObject
     Q_ENUMS(State Capability Type)
     Q_FLAGS(Capabilities)
     Q_FLAGS(Types)
-    Q_DECLARE_PRIVATE(Device)
 
     Q_PROPERTY(QString uni READ uni)
     Q_PROPERTY(QString interfaceName READ interfaceName)
@@ -444,6 +443,8 @@ protected Q_SLOTS:
     void propertiesChanged(const QVariantMap &properties);
 
 private:
+    Q_DECLARE_PRIVATE(Device)
+
     void init();
 
 protected:

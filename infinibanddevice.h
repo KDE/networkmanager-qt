@@ -31,7 +31,6 @@ class InfinibandDevicePrivate;
 class NETWORKMANAGERQT_EXPORT InfinibandDevice : public Device
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(InfinibandDevice)
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
     Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
 
@@ -55,6 +54,9 @@ protected:
      * if the property was not useful to your new class
      */
     virtual void propertyChanged(const QString &property, const QVariant &value);
+
+private:
+    Q_DECLARE_PRIVATE(InfinibandDevice)
 };
 
 }

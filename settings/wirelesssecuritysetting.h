@@ -33,7 +33,6 @@ namespace NetworkManager
 class WirelessSecuritySettingPrivate;
 class NETWORKMANAGERQT_EXPORT WirelessSecuritySetting : public Setting
 {
-    Q_DECLARE_PRIVATE(WirelessSecuritySetting)
 public:
     typedef QSharedPointer<WirelessSecuritySetting> Ptr;
     typedef QList<Ptr> List;
@@ -112,6 +111,9 @@ public:
 
 protected:
     WirelessSecuritySettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(WirelessSecuritySetting)
 };
 
 QDebug operator<<(QDebug dbg, const WirelessSecuritySetting &setting);

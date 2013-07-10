@@ -32,7 +32,6 @@ namespace NetworkManager
 class SerialSettingPrivate;
 class NETWORKMANAGERQT_EXPORT SerialSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(SerialSetting)
 public:
     typedef QSharedPointer<SerialSetting> Ptr;
     typedef QList<Ptr> List;
@@ -65,6 +64,9 @@ public:
 
 protected:
     SerialSettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(SerialSetting)
 };
 
 QDebug operator<<(QDebug dbg, const SerialSetting &setting);

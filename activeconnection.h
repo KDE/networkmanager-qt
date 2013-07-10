@@ -29,12 +29,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "NetworkManagerQt-export.h"
 #include "connection.h"
 
-namespace NetworkManager
-{
-//namespace Settings
-//{
-//    class Connection;
-//}
+namespace NetworkManager {
+
 class ActiveConnectionPrivate;
 
 /**
@@ -43,7 +39,6 @@ class ActiveConnectionPrivate;
 class NETWORKMANAGERQT_EXPORT ActiveConnection : public QObject
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(ActiveConnection)
 
 public:
     typedef QSharedPointer<ActiveConnection> Ptr;
@@ -113,6 +108,9 @@ protected Q_SLOTS:
 
 protected:
     ActiveConnectionPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(ActiveConnection)
 
 Q_SIGNALS:
     /**

@@ -33,7 +33,6 @@ namespace NetworkManager
 class WimaxSettingPrivate;
 class NETWORKMANAGERQT_EXPORT WimaxSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(WimaxSetting)
 public:
     typedef QSharedPointer<WimaxSetting> Ptr;
     typedef QList<Ptr> List;
@@ -55,6 +54,9 @@ public:
 
 protected:
     WimaxSettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(WimaxSetting)
 };
 
 QDebug operator<<(QDebug dbg, const WimaxSetting &setting);

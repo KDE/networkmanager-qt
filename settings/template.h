@@ -35,7 +35,6 @@ class TemplateSettingPrivate;
 
 class NETWORKMANAGERQT_EXPORT TemplateSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(TemplateSetting)
 public:
     TemplateSetting();
     explicit TemplateSetting(TemplateSetting *);
@@ -51,6 +50,9 @@ public:
 
 protected:
     TemplateSettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(TemplateSetting)
 };
 }
 }

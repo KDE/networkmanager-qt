@@ -32,7 +32,6 @@ namespace NetworkManager
 class InfinibandSettingPrivate;
 class NETWORKMANAGERQT_EXPORT InfinibandSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(InfinibandSetting)
 public:
     typedef QSharedPointer<InfinibandSetting> Ptr;
     typedef QList<Ptr> List;
@@ -59,6 +58,9 @@ public:
 
 protected:
     InfinibandSettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(InfinibandSetting)
 };
 
 QDebug operator<<(QDebug dbg, const InfinibandSetting &setting);

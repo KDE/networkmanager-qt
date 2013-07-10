@@ -43,7 +43,6 @@ class NETWORKMANAGERQT_EXPORT WirelessDevice : public Device
 {
     Q_OBJECT
     Q_ENUMS(OperationMode DeviceInterface)
-    Q_DECLARE_PRIVATE(WirelessDevice)
 
 public:
     typedef QSharedPointer<WirelessDevice> Ptr;
@@ -215,6 +214,9 @@ protected:
      * if the property was not useful to your new class
      */
     virtual void propertyChanged(const QString &property, const QVariant &value);
+
+private:
+    Q_DECLARE_PRIVATE(WirelessDevice)
 };
 
 } // namespace NetworkManager

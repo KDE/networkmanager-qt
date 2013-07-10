@@ -32,7 +32,6 @@ namespace NetworkManager
 class VpnSettingPrivate;
 class NETWORKMANAGERQT_EXPORT VpnSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(VpnSetting)
 public:
     typedef QSharedPointer<VpnSetting> Ptr;
     typedef QList<Ptr> List;
@@ -66,6 +65,9 @@ public:
 
 protected:
     VpnSettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(VpnSetting)
 };
 
 QDebug operator<<(QDebug dbg, const VpnSetting &setting);

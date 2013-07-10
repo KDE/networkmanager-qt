@@ -39,7 +39,6 @@ class OlpcMeshDevicePrivate;
 class NETWORKMANAGERQT_EXPORT OlpcMeshDevice : public Device
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(OlpcMeshDevice)
 
 public:
     typedef QSharedPointer<OlpcMeshDevice> Ptr;
@@ -91,6 +90,9 @@ protected:
      * if the property was not useful to your new class
      */
     virtual void propertyChanged(const QString &property, const QVariant &value);
+
+private:
+    Q_DECLARE_PRIVATE(OlpcMeshDevice)
 };
 
 } // namespace NetworkManager

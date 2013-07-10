@@ -32,7 +32,6 @@ namespace NetworkManager
 class BluetoothSettingPrivate;
 class NETWORKMANAGERQT_EXPORT BluetoothSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(BluetoothSetting)
 public:
     typedef QSharedPointer<BluetoothSetting> Ptr;
     typedef QList<Ptr> List;
@@ -56,6 +55,9 @@ public:
 
 protected:
     BluetoothSettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(BluetoothSetting)
 };
 
 QDebug operator<<(QDebug dbg, const BluetoothSetting &setting);

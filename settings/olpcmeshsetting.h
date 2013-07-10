@@ -32,7 +32,6 @@ namespace NetworkManager
 class OlpcMeshSettingPrivate;
 class NETWORKMANAGERQT_EXPORT OlpcMeshSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(OlpcMeshSetting)
 public:
     typedef QSharedPointer<OlpcMeshSetting> Ptr;
     typedef QList<Ptr> List;
@@ -57,6 +56,9 @@ public:
 
 protected:
     OlpcMeshSettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(OlpcMeshSetting)
 };
 
 QDebug operator<<(QDebug dbg, const OlpcMeshSetting &setting);

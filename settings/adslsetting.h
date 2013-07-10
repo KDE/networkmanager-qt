@@ -32,7 +32,6 @@ namespace NetworkManager
 class AdslSettingPrivate;
 class NETWORKMANAGERQT_EXPORT AdslSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(AdslSetting)
 public:
     typedef QSharedPointer<AdslSetting> Ptr;
     typedef QList<Ptr> List;
@@ -74,6 +73,9 @@ public:
 
 protected:
     AdslSettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(AdslSetting)
 };
 
 QDebug operator<<(QDebug dbg, const AdslSetting &setting);

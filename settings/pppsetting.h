@@ -32,7 +32,6 @@ namespace NetworkManager
 class PppSettingPrivate;
 class NETWORKMANAGERQT_EXPORT PppSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(PppSetting)
 public:
     typedef QSharedPointer<PppSetting> Ptr;
     typedef QList<Ptr> List;
@@ -102,6 +101,9 @@ public:
 
 protected:
     PppSettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(PppSetting)
 };
 
 QDebug operator<<(QDebug dbg, const PppSetting &setting);

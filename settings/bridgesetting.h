@@ -32,7 +32,6 @@ namespace NetworkManager
 class BridgeSettingPrivate;
 class NETWORKMANAGERQT_EXPORT BridgeSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(BridgeSetting)
 public:
     typedef QSharedPointer<BridgeSetting> Ptr;
     typedef QList<Ptr> List;
@@ -69,6 +68,9 @@ public:
 
 protected:
     BridgeSettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(BridgeSetting)
 };
 
 QDebug operator<<(QDebug dbg, const BridgeSetting &setting);

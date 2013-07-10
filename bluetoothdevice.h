@@ -34,7 +34,6 @@ class BluetoothDevicePrivate;
 class NETWORKMANAGERQT_EXPORT BluetoothDevice: public ModemDevice
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(BluetoothDevice)
 
     Q_PROPERTY(uint bluetoothCapabilities READ bluetoothCapabilities)
     Q_PROPERTY(QString hardwareAddress READ hardwareAddress)
@@ -92,6 +91,9 @@ protected:
      * if the property was not useful to your new class
      */
     virtual void propertyChanged(const QString &property, const QVariant &value);
+
+private:
+    Q_DECLARE_PRIVATE(BluetoothDevice)
 };
 }
 #endif

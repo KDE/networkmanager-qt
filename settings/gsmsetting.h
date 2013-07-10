@@ -32,7 +32,6 @@ namespace NetworkManager
 class GsmSettingPrivate;
 class NETWORKMANAGERQT_EXPORT GsmSetting : public Setting
 {
-    Q_DECLARE_PRIVATE(GsmSetting)
 public:
     typedef QSharedPointer<GsmSetting> Ptr;
     typedef QList<Ptr> List;
@@ -89,6 +88,9 @@ public:
 
 protected:
     GsmSettingPrivate *d_ptr;
+
+private:
+    Q_DECLARE_PRIVATE(GsmSetting)
 };
 
 QDebug operator<<(QDebug dbg, const GsmSetting &setting);

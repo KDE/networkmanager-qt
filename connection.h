@@ -39,7 +39,6 @@ class ConnectionPrivate;
 class NETWORKMANAGERQT_EXPORT Connection : public QObject
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(Connection)
 public:
     typedef QSharedPointer<Connection> Ptr;
     typedef QList<Ptr> List;
@@ -95,6 +94,8 @@ public:
     void remove();
 
 private:
+    Q_DECLARE_PRIVATE(Connection)
+
     ConnectionPrivate *const d_ptr;
 private Q_SLOTS:
     void onSecretsArrived(QDBusPendingCallWatcher *);

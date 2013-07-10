@@ -38,7 +38,6 @@ namespace NetworkManager
 class ConnectionSettingsPrivate;
 class NETWORKMANAGERQT_EXPORT ConnectionSettings
 {
-    Q_DECLARE_PRIVATE(ConnectionSettings)
     Q_ENUMS(ConnectionType)
 public:
     typedef QSharedPointer<ConnectionSettings> Ptr;
@@ -122,6 +121,8 @@ protected:
     ConnectionSettingsPrivate *d_ptr;
 
 private:
+    Q_DECLARE_PRIVATE(ConnectionSettings)
+
     void addSetting(const Setting::Ptr &setting);
     void clearSettings();
     void initSettings(NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
