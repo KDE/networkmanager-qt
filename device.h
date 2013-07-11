@@ -39,6 +39,8 @@ namespace NetworkManager
 
 class DevicePrivate;
 class DeviceStateReason;
+class DeviceStateReasonPrivate;
+
 class NETWORKMANAGERQT_EXPORT Device : public QObject
 {
     Q_OBJECT
@@ -471,11 +473,9 @@ public:
     DeviceStateReason &operator=(const DeviceStateReason &);
 
 private:
-    void setState(const Device::State state);
-    void setReason(const Device::StateChangeReason reason);
+    Q_DECLARE_PRIVATE(DeviceStateReason)
 
-    class Private;
-    Private *const d;
+    DeviceStateReasonPrivate *d_ptr;
 };
 
 }

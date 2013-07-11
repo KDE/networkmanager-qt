@@ -31,14 +31,14 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace NetworkManager
 {
-class DeviceStateReason::Private
+class DeviceStateReasonPrivate
 {
 public:
-    Private(Device::State st, Device::StateChangeReason rsn)
+    DeviceStateReasonPrivate(Device::State st, Device::StateChangeReason rsn)
         : state(st)
         , reason(rsn)
     {}
-    Private()
+    DeviceStateReasonPrivate()
         : state(Device::UnknownState)
         , reason(Device::UnknownReason)
     {}
@@ -48,46 +48,38 @@ public:
 }
 
 NetworkManager::DeviceStateReason::DeviceStateReason(Device::State state, Device::StateChangeReason reason)
-    : d(new Private(state, reason))
+    : d_ptr(new DeviceStateReasonPrivate(state, reason))
 {
 }
 
 NetworkManager::DeviceStateReason::DeviceStateReason(const NetworkManager::DeviceStateReason &other)
-    : d(new Private(*other.d))
+    : d_ptr(new DeviceStateReasonPrivate(*other.d_ptr))
 {
 }
 
 NetworkManager::DeviceStateReason::~DeviceStateReason()
 {
-    delete d;
+    delete d_ptr;
 }
 
 NetworkManager::Device::State NetworkManager::DeviceStateReason::state() const
 {
+    Q_D(const DeviceStateReason);
     return d->state;
 }
 
 NetworkManager::Device::StateChangeReason NetworkManager::DeviceStateReason::reason() const
 {
+    Q_D(const DeviceStateReason);
     return d->reason;
 }
 
 NetworkManager::DeviceStateReason &NetworkManager::DeviceStateReason::operator=(const NetworkManager::DeviceStateReason &other)
 {
     if (&other != this) {
-        *d = *other.d;
+        *d_ptr = *other.d_ptr;
     }
     return *this;
-}
-
-void NetworkManager::DeviceStateReason::setState(const Device::State state)
-{
-    d->state = state;
-}
-
-void NetworkManager::DeviceStateReason::setReason(const Device::StateChangeReason reason)
-{
-    d->reason = reason;
 }
 
 NetworkManager::DevicePrivate::DevicePrivate(const QString &path)
