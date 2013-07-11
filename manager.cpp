@@ -758,7 +758,7 @@ void NetworkManager::deactivateConnection(const QString &activeConnectionPath)
 
 QDBusPendingReply< QString, QString > NetworkManager::getLogging()
 {
-    globalNetworkManager->getLogging();
+    return globalNetworkManager->getLogging();
 }
 
 void NetworkManager::setNetworkingEnabled(bool enabled)
