@@ -28,6 +28,21 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace NetworkManager {
 
+NetworkManager::WimaxNsp::NetworkType convertNetworkType(uint type)
+{
+    switch (type) {
+    case 0:
+        return NetworkManager::WimaxNsp::Unknown;
+    case 1:
+        return NetworkManager::WimaxNsp::Home;
+    case 2:
+        return NetworkManager::WimaxNsp::Partner;
+    case 3:
+        return NetworkManager::WimaxNsp::RoamingPartner;
+    }
+    return NetworkManager::WimaxNsp::Unknown;
+}
+
 class WimaxNspPrivate
 {
 public:
@@ -110,21 +125,6 @@ void NetworkManager::WimaxNsp::propertiesChanged(const QVariantMap &properties)
         }
         ++it;
     }
-}
-
-NetworkManager::WimaxNsp::NetworkType NetworkManager::WimaxNsp::convertNetworkType(uint type)
-{
-    switch (type) {
-    case 0:
-        return NetworkManager::WimaxNsp::Unknown;
-    case 1:
-        return NetworkManager::WimaxNsp::Home;
-    case 2:
-        return NetworkManager::WimaxNsp::Partner;
-    case 3:
-        return NetworkManager::WimaxNsp::RoamingPartner;
-    }
-    return NetworkManager::WimaxNsp::Unknown;
 }
 
 #include "wimaxnsp.moc"

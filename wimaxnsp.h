@@ -79,7 +79,6 @@ protected Q_SLOTS:
 private:
     Q_DECLARE_PRIVATE(WimaxNsp)
 
-    static WimaxNsp::NetworkType convertNetworkType(uint);
     WimaxNspPrivate *const d_ptr;
 };
 }
