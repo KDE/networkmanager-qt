@@ -30,7 +30,7 @@ namespace NetworkManager
 class BondDevicePrivate : public DevicePrivate
 {
 public:
-    BondDevicePrivate(const QString &path);
+    BondDevicePrivate(const QString &path, BondDevice *q);
     virtual ~BondDevicePrivate();
 
     OrgFreedesktopNetworkManagerDeviceBondInterface iface;
@@ -40,8 +40,8 @@ public:
 };
 }
 
-NetworkManager::BondDevicePrivate::BondDevicePrivate(const QString &path):
-    DevicePrivate(path), iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()),
+NetworkManager::BondDevicePrivate::BondDevicePrivate(const QString &path, BondDevice *q):
+    DevicePrivate(path, q), iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()),
     carrier(false)
 {
 }
@@ -51,7 +51,7 @@ NetworkManager::BondDevice::~BondDevice()
 }
 
 NetworkManager::BondDevice::BondDevice(const QString &path, QObject *parent):
-    Device(*new BondDevicePrivate(path), parent)
+    Device(*new BondDevicePrivate(path, this), parent)
 {
     Q_D(BondDevice);
 

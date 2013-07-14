@@ -31,8 +31,11 @@ class NetworkManagerPrivate;
 class DevicePrivate
 {
 public:
-    explicit DevicePrivate(const QString &path);
+    explicit DevicePrivate(const QString &path, Device *q);
     virtual ~DevicePrivate();
+
+    void init();
+
     OrgFreedesktopNetworkManagerDeviceInterface deviceIface;
     Device::Capabilities capabilities;
     QString uni;
@@ -64,6 +67,9 @@ public:
     static NetworkManager::Device::Capabilities convertCapabilities(uint);
     static NetworkManager::Device::State convertState(uint);
     static NetworkManager::Device::StateChangeReason convertReason(uint);
+
+    Q_DECLARE_PUBLIC(Device)
+    Device *q_ptr;
 };
 
 } // namespace NetworkManager

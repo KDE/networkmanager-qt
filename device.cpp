@@ -82,12 +82,13 @@ NetworkManager::DeviceStateReason &NetworkManager::DeviceStateReason::operator=(
     return *this;
 }
 
-NetworkManager::DevicePrivate::DevicePrivate(const QString &path)
+NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager::Device *q)
     : deviceIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
     , uni(path)
     , designSpeed(0)
     , dhcp4Config(0)
     , dhcp6Config(0)
+    , q_ptr(q)
 {
     activeConnection = deviceIface.activeConnection().path();
     driver = deviceIface.driver();
@@ -130,6 +131,24 @@ NetworkManager::DevicePrivate::~DevicePrivate()
 {
 }
 
+void NetworkManager::DevicePrivate::init()
+{
+    Q_Q(Device);
+    qDBusRegisterMetaType<UIntList>();
+    qDBusRegisterMetaType<UIntListList>();
+    qDBusRegisterMetaType<IpV6DBusAddress>();
+    qDBusRegisterMetaType<IpV6DBusAddressList>();
+    qDBusRegisterMetaType<IpV6DBusNameservers>();
+    qDBusRegisterMetaType<IpV6DBusRoute>();
+    qDBusRegisterMetaType<IpV6DBusRouteList>();
+    qDBusRegisterMetaType<DeviceDBusStateReason>();
+    capabilities = convertCapabilities(deviceIface.capabilities());
+    connectionState = convertState(deviceIface.state());
+    deviceType = static_cast<Device::Type>(deviceIface.deviceType());
+
+    QObject::connect(&deviceIface, SIGNAL(StateChanged(uint,uint,uint)), q, SLOT(deviceStateChanged(uint,uint,uint)));
+}
+
 NetworkManager::Device::Capabilities NetworkManager::DevicePrivate::convertCapabilities(uint theirCaps)
 {
     NetworkManager::Device::Capabilities ourCaps
@@ -152,34 +171,20 @@ NetworkManager::Device::StateChangeReason NetworkManager::DevicePrivate::convert
 
 NetworkManager::Device::Device(const QString &path, QObject *parent)
     : QObject(parent)
-    , d_ptr(new DevicePrivate(path))
+    , d_ptr(new DevicePrivate(path, this))
 {
-    init();
+    Q_D(Device);
+
+    d->init();
 }
 
 NetworkManager::Device::Device(DevicePrivate &dd,  QObject *parent)
     : QObject(parent)
     , d_ptr(&dd)
 {
-    init();
-}
-
-void NetworkManager::Device::init()
-{
     Q_D(Device);
-    qDBusRegisterMetaType<UIntList>();
-    qDBusRegisterMetaType<UIntListList>();
-    qDBusRegisterMetaType<IpV6DBusAddress>();
-    qDBusRegisterMetaType<IpV6DBusAddressList>();
-    qDBusRegisterMetaType<IpV6DBusNameservers>();
-    qDBusRegisterMetaType<IpV6DBusRoute>();
-    qDBusRegisterMetaType<IpV6DBusRouteList>();
-    qDBusRegisterMetaType<DeviceDBusStateReason>();
-    d->capabilities = NetworkManager::DevicePrivate::convertCapabilities(d->deviceIface.capabilities());
-    d->connectionState = NetworkManager::DevicePrivate::convertState(d->deviceIface.state());
-    d->deviceType = static_cast<Device::Type>(d->deviceIface.deviceType());
 
-    connect(&d->deviceIface, SIGNAL(StateChanged(uint,uint,uint)), this, SLOT(deviceStateChanged(uint,uint,uint)));
+    d->init();
 }
 
 void NetworkManager::Device::propertyChanged(const QString &property, const QVariant &value)

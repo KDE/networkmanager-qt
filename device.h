@@ -455,8 +455,6 @@ protected Q_SLOTS:
 
 private:
     Q_DECLARE_PRIVATE(Device)
-
-    void init();
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Capabilities)

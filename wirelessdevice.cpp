@@ -29,15 +29,15 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "nmdebug.h"
 
-NetworkManager::WirelessDevicePrivate::WirelessDevicePrivate(const QString &path)
-    : DevicePrivate(path), wirelessIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+NetworkManager::WirelessDevicePrivate::WirelessDevicePrivate(const QString &path, WirelessDevice *q)
+    : DevicePrivate(path, q)
+    , wirelessIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
     , bitRate(0)
 {
-
 }
 
 NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *parent)
-    : Device(*new WirelessDevicePrivate(path), parent)
+    : Device(*new WirelessDevicePrivate(path, this), parent)
 {
     Q_D(WirelessDevice);
     d->hardwareAddress = d->wirelessIface.hwAddress();

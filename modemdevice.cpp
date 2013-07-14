@@ -35,9 +35,8 @@ NetworkManager::ModemDevice::Capabilities convertModemCapabilities(uint theirCap
 }
 
 NetworkManager::ModemDevicePrivate::ModemDevicePrivate(const QString &path, ModemDevice *q)
-    : DevicePrivate(path)
+    : DevicePrivate(path, q)
     , modemIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
-    , q_ptr(q)
 {
 }
 
@@ -70,7 +69,6 @@ NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd,
 
 NetworkManager::ModemDevice::~ModemDevice()
 {
-
 }
 
 NetworkManager::Device::Type NetworkManager::ModemDevice::type() const
