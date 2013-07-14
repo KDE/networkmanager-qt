@@ -34,36 +34,39 @@ NetworkManager::ModemDevice::Capabilities convertModemCapabilities(uint theirCap
     return ourCaps;
 }
 
-NetworkManager::ModemDevicePrivate::ModemDevicePrivate(const QString &path)
-    : DevicePrivate(path), modemIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+NetworkManager::ModemDevicePrivate::ModemDevicePrivate(const QString &path, ModemDevice *q)
+    : DevicePrivate(path)
+    , modemIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+    , q_ptr(q)
 {
 }
 
-NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
-    : Device(*new ModemDevicePrivate(path), parent),
-      modemGsmCardIface(0), modemGsmNetworkIface(0)
+void NetworkManager::ModemDevicePrivate::initModemProperties()
 {
-    initModemProperties();
+    Q_Q(ModemDevice);
+    //TODO: get properties and store them
+    modemCapabilities = convertModemCapabilities(modemIface.modemCapabilities());
+    currentCapabilities = convertModemCapabilities(modemIface.currentCapabilities());
+    m_modemUdi = q->getUdiForModemManager();
+    QObject::connect(&modemIface, SIGNAL(PropertiesChanged(QVariantMap)),
+            q, SLOT(propertiesChanged(QVariantMap)));
+}
+
+NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
+    : Device(*new ModemDevicePrivate(path, this), parent)
+    , modemGsmCardIface(0)
+    , modemGsmNetworkIface(0)
+{
+    Q_D(ModemDevice);
+    d->initModemProperties();
 }
 
 NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd, QObject *parent)
     : Device(dd, parent), modemGsmCardIface(0), modemGsmNetworkIface(0)
 {
-    initModemProperties();
-}
-
-void NetworkManager::ModemDevice::initModemProperties()
-{
     Q_D(ModemDevice);
-    //TODO: get properties and store them
-    d->modemCapabilities = convertModemCapabilities(d->modemIface.modemCapabilities());
-    d->currentCapabilities = convertModemCapabilities(d->modemIface.currentCapabilities());
-    d->m_modemUdi = getUdiForModemManager();
-    connect(&d->modemIface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(propertiesChanged(QVariantMap)));
+    d->initModemProperties();
 }
-
-
 
 NetworkManager::ModemDevice::~ModemDevice()
 {

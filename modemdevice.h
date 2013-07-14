@@ -92,8 +92,6 @@ protected Q_SLOTS:
 
 private:
     Q_DECLARE_PRIVATE(ModemDevice)
-
-    void initModemProperties();
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ModemDevice::Capabilities)

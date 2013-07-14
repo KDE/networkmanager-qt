@@ -28,7 +28,7 @@ namespace NetworkManager {
 class BluetoothDevicePrivate : public ModemDevicePrivate
 {
 public:
-    explicit BluetoothDevicePrivate(const QString &path);
+    explicit BluetoothDevicePrivate(const QString &path, BluetoothDevice *q);
     OrgFreedesktopNetworkManagerDeviceBluetoothInterface btIface;
     BluetoothDevice::Capabilities btCapabilities;
     QString hardwareAddress;
