@@ -113,9 +113,9 @@ bool NetworkManager::SettingsPrivate::canModify() const
 QString NetworkManager::SettingsPrivate::addConnection(const NMVariantMapMap &connection)
 {
     QDBusPendingReply<QDBusObjectPath> reply = iface.AddConnection(connection);
-    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, 0);
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
     QVariantMap connectionSettings = connection.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
-    QString id = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString();
+    const QString id = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString();
     watcher->setProperty("libNetworkManagerQt_id", id);
     connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this, SLOT(onConnectionAddArrived(QDBusPendingCallWatcher*)));
     return id;
@@ -124,7 +124,7 @@ QString NetworkManager::SettingsPrivate::addConnection(const NMVariantMapMap &co
 void NetworkManager::SettingsPrivate::onConnectionAddArrived(QDBusPendingCallWatcher *watcher)
 {
     QDBusPendingReply<QDBusObjectPath> reply = *watcher;
-    QString id = watcher->property("libNetworkManagerQt_id").value<QString>();
+    const QString id = watcher->property("libNetworkManagerQt_id").toString();
     QString message;
     bool success = true;
     if (!reply.isValid()) {
@@ -151,7 +151,7 @@ void NetworkManager::SettingsPrivate::propertiesChanged(const QVariantMap &prope
 {
     QVariantMap::const_iterator it = properties.constBegin();
     while (it != properties.constEnd()) {
-        QString property = it.key();
+        const QString property = it.key();
         if (property == QLatin1String("CanModify")) {
             m_canModify = it->toBool();
             emit canModifyChanged(m_canModify);
@@ -167,7 +167,7 @@ void NetworkManager::SettingsPrivate::propertiesChanged(const QVariantMap &prope
 
 void NetworkManager::SettingsPrivate::onConnectionAdded(const QDBusObjectPath &path)
 {
-    QString id = path.path();
+    const QString id = path.path();
     if (connections.contains(id))
         return;
     connections.insert(id, Connection::Ptr());
