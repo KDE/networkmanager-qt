@@ -122,11 +122,6 @@ protected:
 
 private:
     Q_DECLARE_PRIVATE(ConnectionSettings)
-
-    void addSetting(const Setting::Ptr &setting);
-    void clearSettings();
-    void initSettings(NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
-    void initSettings(const Ptr &connectionSettings);
 };
 
 QDebug operator<<(QDebug dbg, const ConnectionSettings &setting);

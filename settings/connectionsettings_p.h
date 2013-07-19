@@ -34,7 +34,14 @@ namespace NetworkManager
 class ConnectionSettingsPrivate
 {
 public:
-    ConnectionSettingsPrivate();
+    Q_DECLARE_PUBLIC(ConnectionSettings)
+
+    ConnectionSettingsPrivate(ConnectionSettings *q);
+
+    void addSetting(const NetworkManager::Setting::Ptr &setting);
+    void clearSettings();
+    void initSettings(NMBluetoothCapabilities bt_cap);
+    void initSettings(const NetworkManager::ConnectionSettings::Ptr &connectionSettings);
 
     QString name;
     QString id;
@@ -49,6 +56,8 @@ public:
     QString slaveType;
     QStringList secondaries;
     Setting::List settings;
+
+    ConnectionSettings *q_ptr;
 };
 
 }

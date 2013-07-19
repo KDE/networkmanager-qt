@@ -64,13 +64,212 @@
 
 #include <QtCore/QUuid>
 
-NetworkManager::ConnectionSettingsPrivate::ConnectionSettingsPrivate():
-    name(NM_SETTING_CONNECTION_SETTING_NAME),
-    uuid(QUuid().toString()),
-    type(ConnectionSettings::Wired),
-    autoconnect(true),
-    readOnly(false)
+NetworkManager::ConnectionSettingsPrivate::ConnectionSettingsPrivate(ConnectionSettings *q)
+    : name(NM_SETTING_CONNECTION_SETTING_NAME)
+    , uuid(QUuid().toString())
+    , type(ConnectionSettings::Wired)
+    , autoconnect(true)
+    , readOnly(false)
+    , q_ptr(q)
 { }
+
+void NetworkManager::ConnectionSettingsPrivate::addSetting(const NetworkManager::Setting::Ptr &setting)
+{
+    settings.push_back(setting);
+}
+
+void NetworkManager::ConnectionSettingsPrivate::clearSettings()
+{
+    settings.clear();
+}
+
+void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabilities bt_cap)
+{
+    clearSettings();
+
+    switch (type) {
+    case ConnectionSettings::Adsl:
+        addSetting(Setting::Ptr(new AdslSetting()));
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+        break;
+    case ConnectionSettings::Bond:
+        addSetting(Setting::Ptr(new BondSetting()));
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+        break;
+    case ConnectionSettings::Bluetooth:
+        addSetting(Setting::Ptr(new BluetoothSetting()));
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        //addSetting(Setting::Ptr(new Ipv6Setting()));
+        if (bt_cap == NM_BT_CAPABILITY_DUN) {
+            addSetting(Setting::Ptr(new GsmSetting()));
+            addSetting(Setting::Ptr(new PppSetting()));
+            addSetting(Setting::Ptr(new SerialSetting()));
+        }
+        break;
+    case ConnectionSettings::Bridge:
+        addSetting(Setting::Ptr(new BridgeSetting()));
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+        break;
+    case ConnectionSettings::Cdma:
+        addSetting(Setting::Ptr(new CdmaSetting()));
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        //addSetting(Setting::Ptr(new Ipv6Setting()));
+        addSetting(Setting::Ptr(new PppSetting()));
+        break;
+    case ConnectionSettings::Gsm:
+        addSetting(Setting::Ptr(new GsmSetting()));
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        //addSetting(Setting::Ptr(new Ipv6Setting()));
+        addSetting(Setting::Ptr(new PppSetting()));
+        break;
+    case ConnectionSettings::Infiniband:
+        addSetting(Setting::Ptr(new InfinibandSetting()));
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+        break;
+    case ConnectionSettings::OLPCMesh:
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+        addSetting(Setting::Ptr(new OlpcMeshSetting()));
+        break;
+    case ConnectionSettings::Pppoe:
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        //addSetting(new Ipv6Setting()));
+        addSetting(Setting::Ptr(new PppSetting()));
+        addSetting(Setting::Ptr(new PppoeSetting()));
+        addSetting(Setting::Ptr(new WiredSetting()));
+        break;
+    case ConnectionSettings::Vlan:
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+        addSetting(Setting::Ptr(new VlanSetting()));
+        break;
+    case ConnectionSettings::Vpn:
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        //addSetting(Setting::Ptr(new Ipv6Setting()));
+        addSetting(Setting::Ptr(new VpnSetting()));
+        break;
+    case ConnectionSettings::Wimax:
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+        addSetting(Setting::Ptr(new WimaxSetting()));
+        break;
+    case ConnectionSettings::Wired:
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+        addSetting(Setting::Ptr(new Security8021xSetting()));
+        addSetting(Setting::Ptr(new WiredSetting()));
+        break;
+    case ConnectionSettings::Wireless:
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+        addSetting(Setting::Ptr(new Security8021xSetting()));
+        addSetting(Setting::Ptr(new WirelessSetting()));
+        addSetting(Setting::Ptr(new WirelessSecuritySetting()));
+        break;
+    case ConnectionSettings::Unknown:
+    default:
+        break;
+    }
+}
+
+void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManager::ConnectionSettings::Ptr &connectionSettings)
+{
+    Q_Q(ConnectionSettings);
+
+    clearSettings();
+
+    switch (type) {
+    case ConnectionSettings::Adsl:
+        addSetting(connectionSettings->setting(Setting::Adsl));
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        break;
+    case ConnectionSettings::Bond:
+        addSetting(connectionSettings->setting(Setting::Bond));
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        break;
+    case ConnectionSettings::Bluetooth:
+        addSetting(connectionSettings->setting(Setting::Bluetooth));
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        //addSetting(connectionSettings->setting(Setting::Ipv6));
+        if (q->setting(Setting::Gsm) && q->setting(Setting::Ppp) && q->setting(Setting::Serial)) {
+            addSetting(connectionSettings->setting(Setting::Gsm));
+            addSetting(connectionSettings->setting(Setting::Ppp));
+            addSetting(connectionSettings->setting(Setting::Serial));
+        }
+        break;
+    case ConnectionSettings::Bridge:
+        addSetting(connectionSettings->setting(Setting::Bridge));
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        break;
+    case ConnectionSettings::Cdma:
+        addSetting(connectionSettings->setting(Setting::Cdma));
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        addSetting(connectionSettings->setting(Setting::Ppp));
+        break;
+    case ConnectionSettings::Gsm:
+        addSetting(connectionSettings->setting(Setting::Gsm));
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        addSetting(connectionSettings->setting(Setting::Ppp));
+        break;
+    case ConnectionSettings::Infiniband:
+        addSetting(connectionSettings->setting(Setting::Infiniband));
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        break;
+    case ConnectionSettings::OLPCMesh:
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        addSetting(connectionSettings->setting(Setting::OlpcMesh));
+        break;
+    case ConnectionSettings::Pppoe:
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        //addSetting(Ipv6Setting(connectionSettings->setting(Setting::Ipv6));
+        addSetting(connectionSettings->setting(Setting::Ppp));
+        addSetting(connectionSettings->setting(Setting::Pppoe));
+        addSetting(connectionSettings->setting(Setting::Wired));
+        break;
+    case ConnectionSettings::Vlan:
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        addSetting(connectionSettings->setting(Setting::Vlan));
+        break;
+    case ConnectionSettings::Vpn:
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        addSetting(connectionSettings->setting(Setting::Vpn));
+        break;
+    case ConnectionSettings::Wimax:
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        addSetting(connectionSettings->setting(Setting::Wimax));
+        break;
+    case ConnectionSettings::Wired:
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        addSetting(connectionSettings->setting(Setting::Security8021x));
+        addSetting(connectionSettings->setting(Setting::Wired));
+        break;
+    case ConnectionSettings::Wireless:
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        addSetting(connectionSettings->setting(Setting::Security8021x));
+        addSetting(connectionSettings->setting(Setting::Wireless));
+        addSetting(connectionSettings->setting(Setting::WirelessSecurity));
+        break;
+    case ConnectionSettings::Unknown:
+    default:
+        break;
+    }
+}
 
 NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSettings::typeFromString(const QString &typeString)
 {
@@ -169,18 +368,20 @@ QString NetworkManager::ConnectionSettings::createNewUuid()
 }
 
 NetworkManager::ConnectionSettings::ConnectionSettings():
-    d_ptr(new ConnectionSettingsPrivate())
+    d_ptr(new ConnectionSettingsPrivate(this))
 { }
 
 NetworkManager::ConnectionSettings::ConnectionSettings(NetworkManager::ConnectionSettings::ConnectionType type, NMBluetoothCapabilities bt_cap):
-    d_ptr(new ConnectionSettingsPrivate())
+    d_ptr(new ConnectionSettingsPrivate(this))
 {
     setConnectionType(type, bt_cap);
 }
 
 NetworkManager::ConnectionSettings::ConnectionSettings(const NetworkManager::ConnectionSettings::Ptr &other):
-    d_ptr(new ConnectionSettingsPrivate())
+    d_ptr(new ConnectionSettingsPrivate(this))
 {
+    Q_D(ConnectionSettings);
+
     setId(other->id());
     setUuid(other->uuid());
     setConnectionType(other->connectionType());
@@ -192,208 +393,20 @@ NetworkManager::ConnectionSettings::ConnectionSettings(const NetworkManager::Con
     setMaster(other->master());
     setSlaveType(other->slaveType());
 
-    initSettings(other);
+    d->initSettings(other);
 }
 
 NetworkManager::ConnectionSettings::ConnectionSettings(const NMVariantMapMap &map) :
-    d_ptr(new ConnectionSettingsPrivate())
+    d_ptr(new ConnectionSettingsPrivate(this))
 {
     fromMap(map);
 }
 
 NetworkManager::ConnectionSettings::~ConnectionSettings()
 {
-    clearSettings();
+    d_ptr->clearSettings();
 
     delete d_ptr;
-}
-
-void NetworkManager::ConnectionSettings::initSettings(NMBluetoothCapabilities bt_cap)
-{
-    clearSettings();
-
-    switch (connectionType()) {
-    case Adsl:
-        addSetting(Setting::Ptr(new AdslSetting()));
-        addSetting(Setting::Ptr(new Ipv4Setting()));
-        addSetting(Setting::Ptr(new Ipv6Setting()));
-        break;
-    case Bond:
-        addSetting(Setting::Ptr(new BondSetting()));
-        addSetting(Setting::Ptr(new Ipv4Setting()));
-        addSetting(Setting::Ptr(new Ipv6Setting()));
-        break;
-    case Bluetooth:
-        addSetting(Setting::Ptr(new BluetoothSetting()));
-        addSetting(Setting::Ptr(new Ipv4Setting()));
-        //addSetting(Setting::Ptr(new Ipv6Setting()));
-        if (bt_cap == NM_BT_CAPABILITY_DUN) {
-            addSetting(Setting::Ptr(new GsmSetting()));
-            addSetting(Setting::Ptr(new PppSetting()));
-            addSetting(Setting::Ptr(new SerialSetting()));
-        }
-        break;
-    case Bridge:
-        addSetting(Setting::Ptr(new BridgeSetting()));
-        addSetting(Setting::Ptr(new Ipv4Setting()));
-        addSetting(Setting::Ptr(new Ipv6Setting()));
-        break;
-    case Cdma:
-        addSetting(Setting::Ptr(new CdmaSetting()));
-        addSetting(Setting::Ptr(new Ipv4Setting()));
-        //addSetting(Setting::Ptr(new Ipv6Setting()));
-        addSetting(Setting::Ptr(new PppSetting()));
-        break;
-    case Gsm:
-        addSetting(Setting::Ptr(new GsmSetting()));
-        addSetting(Setting::Ptr(new Ipv4Setting()));
-        //addSetting(Setting::Ptr(new Ipv6Setting()));
-        addSetting(Setting::Ptr(new PppSetting()));
-        break;
-    case Infiniband:
-        addSetting(Setting::Ptr(new InfinibandSetting()));
-        addSetting(Setting::Ptr(new Ipv4Setting()));
-        addSetting(Setting::Ptr(new Ipv6Setting()));
-        break;
-    case OLPCMesh:
-        addSetting(Setting::Ptr(new Ipv4Setting()));
-        addSetting(Setting::Ptr(new Ipv6Setting()));
-        addSetting(Setting::Ptr(new OlpcMeshSetting()));
-        break;
-    case Pppoe:
-        addSetting(Setting::Ptr(new Ipv4Setting()));
-        //addSetting(new Ipv6Setting()));
-        addSetting(Setting::Ptr(new PppSetting()));
-        addSetting(Setting::Ptr(new PppoeSetting()));
-        addSetting(Setting::Ptr(new WiredSetting()));
-        break;
-    case Vlan:
-        addSetting(Setting::Ptr(new Ipv4Setting()));
-        addSetting(Setting::Ptr(new Ipv6Setting()));
-        addSetting(Setting::Ptr(new VlanSetting()));
-        break;
-    case Vpn:
-        addSetting(Setting::Ptr(new Ipv4Setting()));
-        //addSetting(Setting::Ptr(new Ipv6Setting()));
-        addSetting(Setting::Ptr(new VpnSetting()));
-        break;
-    case Wimax:
-        addSetting(Setting::Ptr(new Ipv4Setting()));
-        addSetting(Setting::Ptr(new Ipv6Setting()));
-        addSetting(Setting::Ptr(new WimaxSetting()));
-        break;
-    case Wired:
-        addSetting(Setting::Ptr(new Ipv4Setting()));
-        addSetting(Setting::Ptr(new Ipv6Setting()));
-        addSetting(Setting::Ptr(new Security8021xSetting()));
-        addSetting(Setting::Ptr(new WiredSetting()));
-        break;
-    case Wireless:
-        addSetting(Setting::Ptr(new Ipv4Setting()));
-        addSetting(Setting::Ptr(new Ipv6Setting()));
-        addSetting(Setting::Ptr(new Security8021xSetting()));
-        addSetting(Setting::Ptr(new WirelessSetting()));
-        addSetting(Setting::Ptr(new WirelessSecuritySetting()));
-        break;
-    case Unknown:
-        break;
-    default:
-        break;
-    }
-}
-
-void NetworkManager::ConnectionSettings::initSettings(const NetworkManager::ConnectionSettings::Ptr &connectionSettings)
-{
-    clearSettings();
-
-    switch (connectionType()) {
-    case Adsl:
-        addSetting(connectionSettings->setting(Setting::Adsl));
-        addSetting(connectionSettings->setting(Setting::Ipv4));
-        addSetting(connectionSettings->setting(Setting::Ipv6));
-        break;
-    case Bond:
-        addSetting(connectionSettings->setting(Setting::Bond));
-        addSetting(connectionSettings->setting(Setting::Ipv4));
-        addSetting(connectionSettings->setting(Setting::Ipv6));
-        break;
-    case Bluetooth:
-        addSetting(connectionSettings->setting(Setting::Bluetooth));
-        addSetting(connectionSettings->setting(Setting::Ipv4));
-        //addSetting(connectionSettings->setting(Setting::Ipv6));
-        if (setting(Setting::Gsm) && setting(Setting::Ppp) && setting(Setting::Serial)) {
-            addSetting(connectionSettings->setting(Setting::Gsm));
-            addSetting(connectionSettings->setting(Setting::Ppp));
-            addSetting(connectionSettings->setting(Setting::Serial));
-        }
-        break;
-    case Bridge:
-        addSetting(connectionSettings->setting(Setting::Bridge));
-        addSetting(connectionSettings->setting(Setting::Ipv4));
-        addSetting(connectionSettings->setting(Setting::Ipv6));
-        break;
-    case Cdma:
-        addSetting(connectionSettings->setting(Setting::Cdma));
-        addSetting(connectionSettings->setting(Setting::Ipv4));
-        addSetting(connectionSettings->setting(Setting::Ipv6));
-        addSetting(connectionSettings->setting(Setting::Ppp));
-        break;
-    case Gsm:
-        addSetting(connectionSettings->setting(Setting::Gsm));
-        addSetting(connectionSettings->setting(Setting::Ipv4));
-        addSetting(connectionSettings->setting(Setting::Ipv6));
-        addSetting(connectionSettings->setting(Setting::Ppp));
-        break;
-    case Infiniband:
-        addSetting(connectionSettings->setting(Setting::Infiniband));
-        addSetting(connectionSettings->setting(Setting::Ipv4));
-        addSetting(connectionSettings->setting(Setting::Ipv6));
-        break;
-    case OLPCMesh:
-        addSetting(connectionSettings->setting(Setting::Ipv4));
-        addSetting(connectionSettings->setting(Setting::Ipv6));
-        addSetting(connectionSettings->setting(Setting::OlpcMesh));
-        break;
-    case Pppoe:
-        addSetting(connectionSettings->setting(Setting::Ipv4));
-        //addSetting(Ipv6Setting(connectionSettings->setting(Setting::Ipv6));
-        addSetting(connectionSettings->setting(Setting::Ppp));
-        addSetting(connectionSettings->setting(Setting::Pppoe));
-        addSetting(connectionSettings->setting(Setting::Wired));
-        break;
-    case Vlan:
-        addSetting(connectionSettings->setting(Setting::Ipv4));
-        addSetting(connectionSettings->setting(Setting::Ipv6));
-        addSetting(connectionSettings->setting(Setting::Vlan));
-        break;
-    case Vpn:
-        addSetting(connectionSettings->setting(Setting::Ipv4));
-        addSetting(connectionSettings->setting(Setting::Ipv6));
-        addSetting(connectionSettings->setting(Setting::Vpn));
-        break;
-    case Wimax:
-        addSetting(connectionSettings->setting(Setting::Ipv4));
-        addSetting(connectionSettings->setting(Setting::Ipv6));
-        addSetting(connectionSettings->setting(Setting::Wimax));
-        break;
-    case Wired:
-        addSetting(connectionSettings->setting(Setting::Ipv4));
-        addSetting(connectionSettings->setting(Setting::Ipv6));
-        addSetting(connectionSettings->setting(Setting::Security8021x));
-        addSetting(connectionSettings->setting(Setting::Wired));
-        break;
-    case Wireless:
-        addSetting(connectionSettings->setting(Setting::Ipv4));
-        addSetting(connectionSettings->setting(Setting::Ipv6));
-        addSetting(connectionSettings->setting(Setting::Security8021x));
-        addSetting(connectionSettings->setting(Setting::Wireless));
-        addSetting(connectionSettings->setting(Setting::WirelessSecurity));
-        break;
-    case Unknown:
-        break;
-    default:
-        break;
-    }
 }
 
 void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
@@ -562,8 +575,7 @@ void NetworkManager::ConnectionSettings::setConnectionType(NetworkManager::Conne
     Q_D(ConnectionSettings);
 
     d->type = type;
-
-    initSettings(bt_cap);
+    d->initSettings(bt_cap);
 }
 
 NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSettings::connectionType() const
@@ -720,20 +732,6 @@ NetworkManager::Setting::List NetworkManager::ConnectionSettings::settings() con
     Q_D(const ConnectionSettings);
 
     return d->settings;
-}
-
-void NetworkManager::ConnectionSettings::addSetting(const NetworkManager::Setting::Ptr &setting)
-{
-    Q_D(ConnectionSettings);
-
-    d->settings.push_back(setting);
-}
-
-void NetworkManager::ConnectionSettings::clearSettings()
-{
-    Q_D(ConnectionSettings);
-
-    d->settings.clear();
 }
 
 QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionSettings &setting)
