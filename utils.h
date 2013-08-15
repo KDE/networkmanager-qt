@@ -83,6 +83,8 @@ public:
 
     static bool wpaPskIsValid(const QString &psk);
 
+    static Utils::WirelessSecurityType securityTypeFromConnectionSetting(const NetworkManager::ConnectionSettings::Ptr & settings);
+
     static QList<QPair<int, int> > getBFreqs();
     static QList<QPair<int, int> > getAFreqs();
 };
