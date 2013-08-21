@@ -796,6 +796,9 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
         case Setting::Security8021x:
             dbg.nospace() << *(settingPtr.staticCast<NetworkManager::Security8021xSetting>().data());
             break;
+        case Setting::Serial:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::SerialSetting>().data());
+            break;
         case Setting::Vlan:
             dbg.nospace() << *(settingPtr.staticCast<NetworkManager::VlanSetting>().data());
             break;
