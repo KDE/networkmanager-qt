@@ -20,8 +20,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_WIMAXDEVICE_H
-#define NMQT_WIMAXDEVICE_H
+#ifndef NETWORKMANAGERQT_WIMAXDEVICE_H
+#define NETWORKMANAGERQT_WIMAXDEVICE_H
 
 #include "NetworkManagerQt-export.h"
 
@@ -161,5 +161,5 @@ private:
 };
 
 } // namespace NetworkManager
-#endif //NMQT_WIMAXDEVICE_H
+#endif //NETWORKMANAGERQT_WIMAXDEVICE_H
 

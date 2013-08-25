@@ -17,8 +17,8 @@ Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef NMQT_MODEMDEVICE_P_H
-#define NMQT_MODEMDEVICE_P_H
+#ifndef NETWORKMANAGERQT_MODEMDEVICE_P_H
+#define NETWORKMANAGERQT_MODEMDEVICE_P_H
 
 #include "device_p.h"
 #include "dbus/nm-device-modeminterface.h"
@@ -36,7 +36,7 @@ public:
     OrgFreedesktopNetworkManagerDeviceModemInterface modemIface;
     NetworkManager::ModemDevice::Capabilities modemCapabilities;
     NetworkManager::ModemDevice::Capabilities currentCapabilities;
-#if WITH_MODEMMANAGER_QT_SUPPORT
+#if WITH_MODEMMANAGERQT_SUPPORT
     QString m_modemUdi;
 #endif
 

@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_TEMPLATE_H
-#define NMQT_SETTINGS_TEMPLATE_H
+#ifndef NETWORKMANAGERQT_SETTINGS_TEMPLATE_H
+#define NETWORKMANAGERQT_SETTINGS_TEMPLATE_H
 
 #include "../NetworkManagerQt-export.h"
 #include "generic-types.h"
@@ -57,4 +57,4 @@ private:
 }
 }
 
-#endif // NMQT_SETTINGS_TEMPLATE_H
+#endif // NETWORKMANAGERQT_SETTINGS_TEMPLATE_H

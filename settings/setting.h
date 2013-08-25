@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_SETTING_H
-#define NMQT_SETTINGS_SETTING_H
+#ifndef NETWORKMANAGERQT_SETTINGS_SETTING_H
+#define NETWORKMANAGERQT_SETTINGS_SETTING_H
 
 #include "../NetworkManagerQt-export.h"
 #include "../generic-types.h"
@@ -107,4 +107,4 @@ QDebug operator<<(QDebug dbg, const Setting &setting);
 
 }
 
-#endif // NMQT_SETTINGS_SETTING_H
+#endif // NETWORKMANAGERQT_SETTINGS_SETTING_H

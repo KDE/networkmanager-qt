@@ -19,8 +19,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_NETWORKMANAGER_H
-#define NMQT_NETWORKMANAGER_H
+#ifndef NETWORKMANAGERQT_NETWORKMANAGER_H
+#define NETWORKMANAGERQT_NETWORKMANAGER_H
 
 #include "NetworkManagerQt-export.h"
 

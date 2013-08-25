@@ -19,8 +19,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_CONNECTION_H
-#define NMQT_SETTINGS_CONNECTION_H
+#ifndef NETWORKMANAGERQT_SETTINGS_CONNECTION_H
+#define NETWORKMANAGERQT_SETTINGS_CONNECTION_H
 
 #include "NetworkManagerQt-export.h"
 #include "generic-types.h"

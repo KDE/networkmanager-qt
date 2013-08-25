@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NMQT_SETTINGS_CONNECTIONINTERFACE_H
-#define NMQT_SETTINGS_CONNECTIONINTERFACE_H
+#ifndef NETWORKMANAGERQT_SETTINGS_CONNECTIONINTERFACE_H
+#define NETWORKMANAGERQT_SETTINGS_CONNECTIONINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

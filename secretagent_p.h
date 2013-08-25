@@ -18,8 +18,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SECRETAGENT_P_H
-#define NMQT_SECRETAGENT_P_H
+#ifndef NETWORKMANAGERQT_SECRETAGENT_P_H
+#define NETWORKMANAGERQT_SECRETAGENT_P_H
 
 #include "nm-agent-managerinterface.h"
 #include "nm-secret-agentadaptor.h"
@@ -46,4 +46,4 @@ private:
 };
 }
 
-#endif // NMQT_SECRETAGENT_P_H
+#endif // NETWORKMANAGERQT_SECRETAGENT_P_H

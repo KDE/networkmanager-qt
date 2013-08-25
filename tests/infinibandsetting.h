@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_INFINIBANDSETTING_TEST_H
-#define NMQT_INFINIBANDSETTING_TEST_H
+#ifndef NETWORKMANAGERQT_INFINIBANDSETTING_TEST_H
+#define NETWORKMANAGERQT_INFINIBANDSETTING_TEST_H
 
 #include <QObject>
 
@@ -32,4 +32,4 @@ private Q_SLOTS:
     void testSetting();
 };
 
-#endif // NMQT_INFINIBANDSETTING_TEST_H
+#endif // NETWORKMANAGERQT_INFINIBANDSETTING_TEST_H

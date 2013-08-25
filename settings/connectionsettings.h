@@ -20,8 +20,8 @@
 */
 
 
-#ifndef NMQT_SETTINGS_CONNECTION_SETTINGS_H
-#define NMQT_SETTINGS_CONNECTION_SETTINGS_H
+#ifndef NETWORKMANAGERQT_SETTINGS_CONNECTION_SETTINGS_H
+#define NETWORKMANAGERQT_SETTINGS_CONNECTION_SETTINGS_H
 
 #include "../NetworkManagerQt-export.h"
 #include "setting.h"
@@ -128,4 +128,4 @@ QDebug operator<<(QDebug dbg, const ConnectionSettings &setting);
 
 }
 
-#endif // NMQT_SETTINGS_CONNECTION_SETTINGS_H
+#endif // NETWORKMANAGERQT_SETTINGS_CONNECTION_SETTINGS_H

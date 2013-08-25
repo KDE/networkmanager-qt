@@ -19,8 +19,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SECRETAGENT_H
-#define NMQT_SECRETAGENT_H
+#ifndef NETWORKMANAGERQT_SECRETAGENT_H
+#define NETWORKMANAGERQT_SECRETAGENT_H
 
 #include <QObject>
 #include <QDBusContext>
@@ -107,4 +107,4 @@ private:
 Q_DECLARE_OPERATORS_FOR_FLAGS(NetworkManager::SecretAgent::GetSecretsFlags)
 
 
-#endif // NMQT_SECRETAGENT_H
+#endif // NETWORKMANAGERQT_SECRETAGENT_H

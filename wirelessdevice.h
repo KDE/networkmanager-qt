@@ -20,8 +20,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_WIRELESSDEVICE_H
-#define NMQT_WIRELESSDEVICE_H
+#ifndef NETWORKMANAGERQT_WIRELESSDEVICE_H
+#define NETWORKMANAGERQT_WIRELESSDEVICE_H
 
 #include "NetworkManagerQt-export.h"
 #include "device.h"
@@ -220,5 +220,5 @@ private:
 };
 
 } // namespace NetworkManager
-#endif //NMQT_WIRELESSDEVICE_H
+#endif //NETWORKMANAGERQT_WIRELESSDEVICE_H
 

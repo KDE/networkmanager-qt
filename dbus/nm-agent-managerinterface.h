@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NMQT_AGENT_MANAGERINTERFACE_H
-#define NMQT_AGENT_MANAGERINTERFACE_H
+#ifndef NETWORKMANAGERQT_AGENT_MANAGERINTERFACE_H
+#define NETWORKMANAGERQT_AGENT_MANAGERINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

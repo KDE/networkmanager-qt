@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_CONNECTIONSETTING_TEST_H
-#define NMQT_CONNECTIONSETTING_TEST_H
+#ifndef NETWORKMANAGERQT_CONNECTIONSETTING_TEST_H
+#define NETWORKMANAGERQT_CONNECTIONSETTING_TEST_H
 
 #include <QObject>
 
@@ -32,4 +32,4 @@ private Q_SLOTS:
     void testSetting();
 };
 
-#endif // NMQT_CONNECTIONSETTING_TEST_H
+#endif // NETWORKMANAGERQT_CONNECTIONSETTING_TEST_H

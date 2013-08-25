@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_UTILS_H
-#define NMQT_UTILS_H
+#ifndef NETWORKMANAGERQT_UTILS_H
+#define NETWORKMANAGERQT_UTILS_H
 
 #include <QPair>
 #include <QStringList>
@@ -91,4 +91,4 @@ public:
 
 }
 
-#endif // NMQT_UTILS_H
+#endif // NETWORKMANAGERQT_UTILS_H

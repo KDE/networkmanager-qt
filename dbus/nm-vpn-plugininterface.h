@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NMQT_VPN_PLUGININTERFACE_H
-#define NMQT_VPN_PLUGININTERFACE_H
+#ifndef NETWORKMANAGERQT_VPN_PLUGININTERFACE_H
+#define NETWORKMANAGERQT_VPN_PLUGININTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

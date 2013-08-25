@@ -18,13 +18,13 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_DEBUG_H
-#define NMQT_DEBUG_H
+#ifndef NETWORKMANAGERQT_DEBUG_H
+#define NETWORKMANAGERQT_DEBUG_H
 
 #include <QCoreApplication>
 #include <QDebug>
 
 #define nmDebug() \
-    qDebug() << "libNetworkManagerQt" << QCoreApplication::applicationName() << '(' << QCoreApplication::applicationPid() << ')' << __PRETTY_FUNCTION__ << ':'
+    qDebug() << "NetworkManagerQt" << QCoreApplication::applicationName() << '(' << QCoreApplication::applicationPid() << ')' << __PRETTY_FUNCTION__ << ':'
 
 #endif

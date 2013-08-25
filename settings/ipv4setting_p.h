@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_IPV4P_H
-#define NMQT_SETTINGS_IPV4_P_H
+#ifndef NETWORKMANAGERQT_SETTINGS_IPV4P_H
+#define NETWORKMANAGERQT_SETTINGS_IPV4_P_H
 
 #include "../ipconfig.h"
 
@@ -50,4 +50,4 @@ public:
 };
 
 }
-#endif // NMQT_SETTINGS_IPV4_P_H
+#endif // NETWORKMANAGERQT_SETTINGS_IPV4_P_H

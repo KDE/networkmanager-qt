@@ -19,8 +19,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_IPROUTE_H
-#define NMQT_IPROUTE_H
+#ifndef NETWORKMANAGERQT_IPROUTE_H
+#define NETWORKMANAGERQT_IPROUTE_H
 
 #include "NetworkManagerQt-export.h"
 #include "ipaddress.h"
@@ -88,4 +88,4 @@ typedef QList<IpRoute> IpRoutes;
 
 } // namespace NetworkManager
 
-#endif // NMQT_IPROUTE_H
+#endif // NETWORKMANAGERQT_IPROUTE_H

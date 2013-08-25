@@ -18,8 +18,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_ACTIVECONNECTION_P_H
-#define NMQT_ACTIVECONNECTION_P_H
+#ifndef NETWORKMANAGERQT_ACTIVECONNECTION_P_H
+#define NETWORKMANAGERQT_ACTIVECONNECTION_P_H
 
 #include "activeconnection.h"
 #include "nm-active-connectioninterface.h"

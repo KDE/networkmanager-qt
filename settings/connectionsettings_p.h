@@ -19,8 +19,8 @@
 */
 
 
-#ifndef NMQT_SETTINGS_CONNECTION_SETTINGS_P_H
-#define NMQT_SETTINGS_CONNECTION_SETTINGS_P_H
+#ifndef NETWORKMANAGERQT_SETTINGS_CONNECTION_SETTINGS_P_H
+#define NETWORKMANAGERQT_SETTINGS_CONNECTION_SETTINGS_P_H
 
 #include "setting.h"
 
@@ -36,7 +36,7 @@ class ConnectionSettingsPrivate
 public:
     Q_DECLARE_PUBLIC(ConnectionSettings)
 
-    ConnectionSettingsPrivate(ConnectionSettings *q);
+    explicit ConnectionSettingsPrivate(ConnectionSettings *q);
 
     void addSetting(const NetworkManager::Setting::Ptr &setting);
     void clearSettings();
@@ -62,4 +62,4 @@ public:
 
 }
 
-#endif // NMQT_SETTINGS_CONNECTION_SETTINGS_P_H
+#endif // NETWORKMANAGERQT_SETTINGS_CONNECTION_SETTINGS_P_H

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(libNetworkManagerQt)
+project(NetworkManagerQt)
 
 set(VERSION 0.9.0)
 set(CMAKE_BUILD_TYPE Debug)
@@ -11,20 +11,20 @@ set(LIB_SUFFIX "" CACHE STRING "Define suffix of library directory name (32/64)"
 find_package(Qt4 REQUIRED)
 find_package(NetworkManager 0.9.8.0 REQUIRED)
 
-pkg_check_modules(LIBMODEMMANAGERQT ModemManagerQt)
-if (LIBMODEMMANAGERQT_FOUND)
-    message("Enabling libModemManagerQt support")
-    set(WITH_MODEMMANAGER_QT_SUPPORT 1)
+pkg_check_modules(MODEMMANAGERQT ModemManagerQt)
+if (MODEMMANAGERQT_FOUND)
+    message(STATUS "Enabling ModemManagerQt support")
+    set(WITH_MODEMMANAGERQT_SUPPORT 1)
 else()
-    message("libModemManagerQt not found")
-    set(WITH_MODEMMANAGER_QT_SUPPORT 0)
+    message(STATUS "ModemManagerQt not found")
+    set(WITH_MODEMMANAGERQT_SUPPORT 0)
 endif()
 
 add_definitions(${QT_DEFINITIONS})
 
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES}
-                    ${LIBMODEMMANAGERQT_INCLUDE_DIRS} ${CMAKE_INCLUDE_PATH})
-link_directories(${LIBMODEMMANAGERQT_LIBRARY_DIRS} ${CMAKE_LIBRARY_PATH})
+                    ${MODEMMANAGERQT_INCLUDE_DIRS} ${CMAKE_INCLUDE_PATH})
+link_directories(${MODEMMANAGERQT_LIBRARY_DIRS} ${CMAKE_LIBRARY_PATH})
 
 include_directories(
    ${NETWORKMANAGER_INCLUDE_DIRS}
@@ -223,7 +223,7 @@ install( FILES
    DESTINATION
    include/NetworkManagerQt/settings COMPONENT Devel)
 
-set_property(TARGET NetworkManagerQt PROPERTY COMPILE_DEFINITIONS MAKE_NMQT_LIB)
+set_property(TARGET NetworkManagerQt PROPERTY COMPILE_DEFINITIONS MAKE_NETWORKMANAGERQT_LIB)
 set_property(TARGET NetworkManagerQt PROPERTY VERSION ${VERSION})
 set_property(TARGET NetworkManagerQt PROPERTY SOVERSION 0)
 

@@ -19,8 +19,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_IPADDRESS_H
-#define NMQT_IPADDRESS_H
+#ifndef NETWORKMANAGERQT_IPADDRESS_H
+#define NETWORKMANAGERQT_IPADDRESS_H
 
 #include "NetworkManagerQt-export.h"
 
@@ -76,4 +76,4 @@ typedef QList<IpAddress> IpAddresses;
 
 } // namespace NetworkManager
 
-#endif // NMQT_IPADDRESS_H
+#endif // NETWORKMANAGERQT_IPADDRESS_H

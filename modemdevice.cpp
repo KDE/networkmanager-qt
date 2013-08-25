@@ -23,7 +23,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "modemdevice.h"
 #include "modemdevice_p.h"
 
-#if WITH_MODEMMANAGER_QT_SUPPORT
+#if WITH_MODEMMANAGERQT_SUPPORT
 #include <ModemManagerQt/manager.h>
 #endif
 
@@ -52,14 +52,14 @@ void NetworkManager::ModemDevicePrivate::initModemProperties()
 
 NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
     : Device(*new ModemDevicePrivate(path, this), parent)
-#if WITH_MODEMMANAGER_QT_SUPPORT
+#if WITH_MODEMMANAGERQT_SUPPORT
     , modemGsmCardIface(0)
     , modemGsmNetworkIface(0)
 #endif
 {
     Q_D(ModemDevice);
     d->initModemProperties();
-#if WITH_MODEMMANAGER_QT_SUPPORT
+#if WITH_MODEMMANAGERQT_SUPPORT
     d->m_modemUdi = getUdiForModemManager();
 #endif
     connect(&d->modemIface, SIGNAL(PropertiesChanged(QVariantMap)),
@@ -68,14 +68,14 @@ NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
 
 NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd, QObject *parent)
     : Device(dd, parent)
-#if WITH_MODEMMANAGER_QT_SUPPORT
+#if WITH_MODEMMANAGERQT_SUPPORT
     , modemGsmCardIface(0)
     , modemGsmNetworkIface(0)
 #endif
 {
     Q_D(ModemDevice);
     d->initModemProperties();
-#if WITH_MODEMMANAGER_QT_SUPPORT
+#if WITH_MODEMMANAGERQT_SUPPORT
     d->m_modemUdi = getUdiForModemManager();
 #endif
     connect(&d->modemIface, SIGNAL(PropertiesChanged(QVariantMap)),
@@ -115,7 +115,7 @@ void NetworkManager::ModemDevice::propertyChanged(const QString &property, const
     }
 }
 
-#if WITH_MODEMMANAGER_QT_SUPPORT
+#if WITH_MODEMMANAGERQT_SUPPORT
 QString NetworkManager::ModemDevice::getUdiForModemManager()
 {
     if (driver() != QLatin1String("bluez")) {

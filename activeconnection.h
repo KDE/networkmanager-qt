@@ -19,8 +19,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_ACTIVECONNECTION_H
-#define NMQT_ACTIVECONNECTION_H
+#ifndef NETWORKMANAGERQT_ACTIVECONNECTION_H
+#define NETWORKMANAGERQT_ACTIVECONNECTION_H
 
 #include <QObject>
 #include <QDBusObjectPath>
@@ -152,5 +152,5 @@ private:
 };
 
 } // namespace NetworkManager
-#endif // NMQT_ACTIVECONNECTION_H
+#endif // NETWORKMANAGERQT_ACTIVECONNECTION_H
 

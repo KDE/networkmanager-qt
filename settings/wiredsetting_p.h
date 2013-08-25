@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_802_3_ETHERNET_P_H
-#define NMQT_SETTINGS_802_3_ETHERNET_P_H
+#ifndef NETWORKMANAGERQT_SETTINGS_802_3_ETHERNET_P_H
+#define NETWORKMANAGERQT_SETTINGS_802_3_ETHERNET_P_H
 
 #include <QtCore/QStringList>
 #include <QtCore/QMap>
@@ -48,4 +48,4 @@ public:
 
 }
 
-#endif // NMQT_SETTINGS_802_3_ETHERNET_P_H
+#endif // NETWORKMANAGERQT_SETTINGS_802_3_ETHERNET_P_H

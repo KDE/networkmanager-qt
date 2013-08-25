@@ -31,7 +31,7 @@
 #include <QtCore/QtGlobal>
 
 #ifndef NETWORKMANAGERQT_EXPORT
-# if defined(MAKE_NMQT_LIB)
+# if defined(MAKE_NETWORKMANAGERQT_LIB)
 /* We are building this library */
 #  define NETWORKMANAGERQT_EXPORT Q_DECL_EXPORT
 # else

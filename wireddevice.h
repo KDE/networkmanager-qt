@@ -19,8 +19,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_WIREDDEVICE_H
-#define NMQT_WIREDDEVICE_H
+#ifndef NETWORKMANAGERQT_WIREDDEVICE_H
+#define NETWORKMANAGERQT_WIREDDEVICE_H
 
 #include "NetworkManagerQt-export.h"
 
@@ -72,5 +72,5 @@ private:
 
 }
 
-#endif // NMQT_WIREDDEVICE_H
+#endif // NETWORKMANAGERQT_WIREDDEVICE_H
 

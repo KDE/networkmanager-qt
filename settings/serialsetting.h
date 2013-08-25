@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_SERIAL_H
-#define NMQT_SETTINGS_SERIAL_H
+#ifndef NETWORKMANAGERQT_SETTINGS_SERIAL_H
+#define NETWORKMANAGERQT_SETTINGS_SERIAL_H
 
 #include "../NetworkManagerQt-export.h"
 #include "setting.h"
@@ -73,4 +73,4 @@ QDebug operator<<(QDebug dbg, const SerialSetting &setting);
 
 }
 
-#endif // NMQT_SETTINGS_SERIAL_H
+#endif // NETWORKMANAGERQT_SETTINGS_SERIAL_H

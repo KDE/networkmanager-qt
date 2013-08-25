@@ -19,8 +19,8 @@
 */
 
 
-#ifndef NMQT_SETTINGS_802_11_WIRELESS_SECURITY_H
-#define NMQT_SETTINGS_802_11_WIRELESS_SECURITY_H
+#ifndef NETWORKMANAGERQT_SETTINGS_802_11_WIRELESS_SECURITY_H
+#define NETWORKMANAGERQT_SETTINGS_802_11_WIRELESS_SECURITY_H
 
 #include "../NetworkManagerQt-export.h"
 #include "setting.h"
@@ -120,4 +120,4 @@ QDebug operator<<(QDebug dbg, const WirelessSecuritySetting &setting);
 
 }
 
-#endif // NMQT_SETTINGS_802_11_WIRELESS_SECURITY_H
+#endif // NETWORKMANAGERQT_SETTINGS_802_11_WIRELESS_SECURITY_H

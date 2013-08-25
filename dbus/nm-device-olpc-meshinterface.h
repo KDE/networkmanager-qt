@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NMQT_DEVICE_OLPC_MESHINTERFACE_H
-#define NMQT_DEVICE_OLPC_MESHINTERFACE_H
+#ifndef NETWORKMANAGERQT_DEVICE_OLPC_MESHINTERFACE_H
+#define NETWORKMANAGERQT_DEVICE_OLPC_MESHINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NMQT_DHCP6_CONFIGINTERFACE_H
-#define NMQT_DHCP6_CONFIGINTERFACE_H
+#ifndef NETWORKMANAGERQT_DHCP6_CONFIGINTERFACE_H
+#define NETWORKMANAGERQT_DHCP6_CONFIGINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

@@ -19,12 +19,12 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_MODEMDEVICE_H
-#define NMQT_MODEMDEVICE_H
+#ifndef NETWORKMANAGERQT_MODEMDEVICE_H
+#define NETWORKMANAGERQT_MODEMDEVICE_H
 
-#include "config.h"
+#include <config.h>
 
-#if WITH_MODEMMANAGER_QT_SUPPORT
+#if WITH_MODEMMANAGERQT_SUPPORT
 #include <ModemManagerQt/modemgsmcardinterface.h>
 #include <ModemManagerQt/modemgsmnetworkinterface.h>
 #endif
@@ -68,7 +68,7 @@ public:
      */
     Capabilities currentCapabilities() const;
 
-#if WITH_MODEMMANAGER_QT_SUPPORT
+#if WITH_MODEMMANAGERQT_SUPPORT
     ModemManager::ModemGsmCardInterface::Ptr getModemCardIface();
     void setModemCardIface(const ModemManager::ModemGsmCardInterface::Ptr &iface);
     void clearModemCardIface();
@@ -84,7 +84,7 @@ Q_SIGNALS:
     void currentCapabilitiesChanged(Capabilities);
 
 protected:
-#if WITH_MODEMMANAGER_QT_SUPPORT
+#if WITH_MODEMMANAGERQT_SUPPORT
     ModemManager::ModemGsmCardInterface::Ptr modemGsmCardIface;
     ModemManager::ModemGsmNetworkInterface::Ptr modemGsmNetworkIface;
     QString getUdiForModemManager();
@@ -96,7 +96,7 @@ protected:
      */
     virtual void propertyChanged(const QString &property, const QVariant &value);
 
-#if WITH_MODEMMANAGER_QT_SUPPORT
+#if WITH_MODEMMANAGERQT_SUPPORT
 protected Q_SLOTS:
     void modemRemoved(const QString &modemUdi);
 #endif

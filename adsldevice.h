@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_ADSL_DEVICE_H
-#define NMQT_ADSL_DEVICE_H
+#ifndef NETWORKMANAGERQT_ADSL_DEVICE_H
+#define NETWORKMANAGERQT_ADSL_DEVICE_H
 
 #include "device.h"
 #include "NetworkManagerQt-export.h"

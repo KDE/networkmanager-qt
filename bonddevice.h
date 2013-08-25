@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_BOND_DEVICE_H
-#define NMQT_BOND_DEVICE_H
+#ifndef NETWORKMANAGERQT_BOND_DEVICE_H
+#define NETWORKMANAGERQT_BOND_DEVICE_H
 
 #include "device.h"
 #include "NetworkManagerQt-export.h"

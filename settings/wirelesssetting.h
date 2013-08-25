@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_SETTINGS_802_11_WIRELESS_H
-#define NMQT_SETTINGS_802_11_WIRELESS_H
+#ifndef NETWORKMANAGERQT_SETTINGS_802_11_WIRELESS_H
+#define NETWORKMANAGERQT_SETTINGS_802_11_WIRELESS_H
 
 #include "../NetworkManagerQt-export.h"
 #include "setting.h"
@@ -102,5 +102,5 @@ QDebug operator<<(QDebug dbg, const WirelessSetting &setting);
 
 }
 
-#endif // NMQT_SETTINGS_802_11_WIRELESS_H
+#endif // NETWORKMANAGERQT_SETTINGS_802_11_WIRELESS_H
 

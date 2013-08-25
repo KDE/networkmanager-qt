@@ -19,8 +19,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_IPCONFIG_H
-#define NMQT_IPCONFIG_H
+#ifndef NETWORKMANAGERQT_IPCONFIG_H
+#define NETWORKMANAGERQT_IPCONFIG_H
 
 #include "NetworkManagerQt-export.h"
 #include "ipaddress.h"
@@ -105,4 +105,4 @@ private:
 
 } // namespace NetworkManager
 
-#endif // NMQT_IPCONFIG_H
+#endif // NETWORKMANAGERQT_IPCONFIG_H

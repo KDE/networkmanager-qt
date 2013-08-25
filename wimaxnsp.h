@@ -20,8 +20,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_WIMAXNSP_H
-#define NMQT_WIMAXNSP_H
+#ifndef NETWORKMANAGERQT_WIMAXNSP_H
+#define NETWORKMANAGERQT_WIMAXNSP_H
 
 #include "NetworkManagerQt-export.h"
 

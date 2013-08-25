@@ -19,8 +19,8 @@
 */
 
 
-#ifndef NMQT_VPNPLUGIN_H
-#define NMQT_VPNPLUGIN_H
+#ifndef NETWORKMANAGERQT_VPNPLUGIN_H
+#define NETWORKMANAGERQT_VPNPLUGIN_H
 
 #include "NetworkManagerQt-export.h"
 #include "generic-types.h"
@@ -70,4 +70,4 @@ private:
 
 } // namespace NetworkManager
 
-#endif //NMQT_VPNPLUGIN_H
+#endif //NETWORKMANAGERQT_VPNPLUGIN_H

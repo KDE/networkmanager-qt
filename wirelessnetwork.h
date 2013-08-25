@@ -19,8 +19,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NMQT_WIRELESSNETWORK_H
-#define NMQT_WIRELESSNETWORK_H
+#ifndef NETWORKMANAGERQT_WIRELESSNETWORK_H
+#define NETWORKMANAGERQT_WIRELESSNETWORK_H
 
 #include "NetworkManagerQt-export.h"
 #include "accesspoint.h"
@@ -95,4 +95,4 @@ private:
 };
 
 }
-#endif // NMQT_WIRELESSNETWORK_H
+#endif // NETWORKMANAGERQT_WIRELESSNETWORK_H
