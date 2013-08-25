@@ -23,7 +23,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "modemdevice.h"
 #include "modemdevice_p.h"
 
+#if WITH_MODEMMANAGER_QT_SUPPORT
 #include <ModemManagerQt/manager.h>
+#endif
 
 #include "manager_p.h"
 
@@ -50,22 +52,32 @@ void NetworkManager::ModemDevicePrivate::initModemProperties()
 
 NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
     : Device(*new ModemDevicePrivate(path, this), parent)
+#if WITH_MODEMMANAGER_QT_SUPPORT
     , modemGsmCardIface(0)
     , modemGsmNetworkIface(0)
+#endif
 {
     Q_D(ModemDevice);
     d->initModemProperties();
+#if WITH_MODEMMANAGER_QT_SUPPORT
     d->m_modemUdi = getUdiForModemManager();
+#endif
     connect(&d->modemIface, SIGNAL(PropertiesChanged(QVariantMap)),
             this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd, QObject *parent)
-    : Device(dd, parent), modemGsmCardIface(0), modemGsmNetworkIface(0)
+    : Device(dd, parent)
+#if WITH_MODEMMANAGER_QT_SUPPORT
+    , modemGsmCardIface(0)
+    , modemGsmNetworkIface(0)
+#endif
 {
     Q_D(ModemDevice);
     d->initModemProperties();
+#if WITH_MODEMMANAGER_QT_SUPPORT
     d->m_modemUdi = getUdiForModemManager();
+#endif
     connect(&d->modemIface, SIGNAL(PropertiesChanged(QVariantMap)),
             this, SLOT(propertiesChanged(QVariantMap)));
 }
@@ -91,6 +103,19 @@ NetworkManager::ModemDevice::Capabilities NetworkManager::ModemDevice::modemCapa
     return d->modemCapabilities;
 }
 
+void NetworkManager::ModemDevice::propertyChanged(const QString &property, const QVariant &value)
+{
+    Q_D(ModemDevice);
+
+    if (property == QLatin1String("CurrentCapabilities")) {
+        d->currentCapabilities = convertModemCapabilities(value.toUInt());
+        emit currentCapabilitiesChanged(d->currentCapabilities);
+    } else {
+        Device::propertyChanged(property, value);
+    }
+}
+
+#if WITH_MODEMMANAGER_QT_SUPPORT
 QString NetworkManager::ModemDevice::getUdiForModemManager()
 {
     if (driver() != QLatin1String("bluez")) {
@@ -153,18 +178,6 @@ void NetworkManager::ModemDevice::modemRemoved(const QString &modemUdi)
     }
 }
 
-void NetworkManager::ModemDevice::propertyChanged(const QString &property, const QVariant &value)
-{
-    Q_D(ModemDevice);
-
-    if (property == QLatin1String("CurrentCapabilities")) {
-        d->currentCapabilities = convertModemCapabilities(value.toUInt());
-        emit currentCapabilitiesChanged(d->currentCapabilities);
-    } else {
-        Device::propertyChanged(property, value);
-    }
-}
-
 void NetworkManager::ModemDevice::setModemCardIface(const ModemManager::ModemGsmCardInterface::Ptr &iface)
 {
     modemGsmCardIface = iface;
@@ -184,6 +197,7 @@ void NetworkManager::ModemDevice::clearModemNetworkIface()
 {
     modemGsmNetworkIface.clear();
 }
+#endif
 
 // vim: sw=4 sts=4 et tw=100
 

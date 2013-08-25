@@ -22,8 +22,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NMQT_MODEMDEVICE_H
 #define NMQT_MODEMDEVICE_H
 
+#include "config.h"
+
+#if WITH_MODEMMANAGER_QT_SUPPORT
 #include <ModemManagerQt/modemgsmcardinterface.h>
 #include <ModemManagerQt/modemgsmnetworkinterface.h>
+#endif
 
 #include "device.h"
 #include "NetworkManagerQt-export.h"
@@ -64,12 +68,14 @@ public:
      */
     Capabilities currentCapabilities() const;
 
+#if WITH_MODEMMANAGER_QT_SUPPORT
     ModemManager::ModemGsmCardInterface::Ptr getModemCardIface();
     void setModemCardIface(const ModemManager::ModemGsmCardInterface::Ptr &iface);
     void clearModemCardIface();
     ModemManager::ModemInterface::Ptr getModemNetworkIface();
     void setModemNetworkIface(const ModemManager::ModemGsmNetworkInterface::Ptr &iface);
     void clearModemNetworkIface();
+#endif
 
 Q_SIGNALS:
     /**
@@ -78,17 +84,22 @@ Q_SIGNALS:
     void currentCapabilitiesChanged(Capabilities);
 
 protected:
+#if WITH_MODEMMANAGER_QT_SUPPORT
     ModemManager::ModemGsmCardInterface::Ptr modemGsmCardIface;
     ModemManager::ModemGsmNetworkInterface::Ptr modemGsmNetworkIface;
     QString getUdiForModemManager();
+#endif
+
     /**
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */
     virtual void propertyChanged(const QString &property, const QVariant &value);
 
+#if WITH_MODEMMANAGER_QT_SUPPORT
 protected Q_SLOTS:
     void modemRemoved(const QString &modemUdi);
+#endif
 
 private:
     Q_DECLARE_PRIVATE(ModemDevice)

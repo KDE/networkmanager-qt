@@ -36,7 +36,9 @@ public:
     OrgFreedesktopNetworkManagerDeviceModemInterface modemIface;
     NetworkManager::ModemDevice::Capabilities modemCapabilities;
     NetworkManager::ModemDevice::Capabilities currentCapabilities;
+#if WITH_MODEMMANAGER_QT_SUPPORT
     QString m_modemUdi;
+#endif
 
     Q_DECLARE_PUBLIC(ModemDevice)
     ModemDevice *q_ptr;

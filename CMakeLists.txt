@@ -11,10 +11,14 @@ set(LIB_SUFFIX "" CACHE STRING "Define suffix of library directory name (32/64)"
 find_package(Qt4 REQUIRED)
 find_package(NetworkManager 0.9.8.0 REQUIRED)
 
-pkg_check_modules(LIBMODEMMANAGERQT REQUIRED ModemManagerQt)
-if (NOT LIBMODEMMANAGERQT_FOUND)
-    message(FATAL_ERROR "ERROR: libModemManagerQt not found")
-endif (NOT LIBMODEMMANAGERQT_FOUND)
+pkg_check_modules(LIBMODEMMANAGERQT ModemManagerQt)
+if (LIBMODEMMANAGERQT_FOUND)
+    message("Enabling libModemManagerQt support")
+    set(WITH_MODEMMANAGER_QT_SUPPORT 1)
+else()
+    message("libModemManagerQt not found")
+    set(WITH_MODEMMANAGER_QT_SUPPORT 0)
+endif()
 
 add_definitions(${QT_DEFINITIONS})
 
@@ -206,8 +210,6 @@ qt4_automoc(${DBUS_INTERFACE_SRCS})
 
 add_library(NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${DBUS_INTERFACE_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${NetworkManagerQt_MOC} )
 
-# TODO: dlopen libModemManagerQt to make it a runtime dependency instead of compile
-# time dependency.
 target_link_libraries(NetworkManagerQt ModemManagerQt ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
 install(TARGETS NetworkManagerQt DESTINATION lib${LIB_SUFFIX})
 
@@ -225,6 +227,7 @@ set_property(TARGET NetworkManagerQt PROPERTY COMPILE_DEFINITIONS MAKE_NMQT_LIB)
 set_property(TARGET NetworkManagerQt PROPERTY VERSION ${VERSION})
 set_property(TARGET NetworkManagerQt PROPERTY SOVERSION 0)
 
+configure_file(${CMAKE_SOURCE_DIR}/config.h.cmake ${CMAKE_BINARY_DIR}/config.h @ONLY)
 configure_file(${CMAKE_SOURCE_DIR}/NetworkManagerQt.pc.cmake ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig/")
 message(STATUS "Writing pkg-config file...")
