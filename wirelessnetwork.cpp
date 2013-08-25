@@ -24,19 +24,75 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "wirelessdevice.h"
 #include "manager.h"
 
+NetworkManager::WirelessNetworkPrivate::WirelessNetworkPrivate(WirelessNetwork *q, WirelessDevice *device)
+    : q_ptr(q)
+    , wirelessNetworkInterface(device)
+{
+    QObject::connect(device, SIGNAL(accessPointAppeared(QString)),
+            q, SLOT(accessPointAppeared(QString)));
+    QObject::connect(device, SIGNAL(accessPointDisappeared(QString)),
+            q, SLOT(accessPointDisappeared(QString)));
+}
+
+NetworkManager::WirelessNetworkPrivate::~WirelessNetworkPrivate()
+{
+}
+
+void NetworkManager::WirelessNetworkPrivate::addAccessPointInternal(const NetworkManager::AccessPoint::Ptr &accessPoint)
+{
+    Q_Q(WirelessNetwork);
+
+    QObject::connect(accessPoint.data(), SIGNAL(signalStrengthChanged(int)),
+            q, SLOT(updateStrength()));
+    aps.insert(accessPoint->uni(), accessPoint);
+    updateStrength();
+}
+
+void NetworkManager::WirelessNetworkPrivate::accessPointAppeared(const QString &uni)
+{
+    if (!aps.contains(uni) && wirelessNetworkInterface) {
+        NetworkManager::AccessPoint::Ptr accessPoint = wirelessNetworkInterface->findAccessPoint(uni);
+        if (accessPoint && accessPoint->ssid() == ssid) {
+            addAccessPointInternal(accessPoint);
+        }
+    }
+}
+
+void NetworkManager::WirelessNetworkPrivate::accessPointDisappeared(const QString &uni)
+{
+    Q_Q(WirelessNetwork);
+    aps.remove(uni);
+    if (aps.isEmpty()) {
+        emit q->disappeared(ssid);
+    } else {
+        updateStrength();
+    }
+}
+
+void NetworkManager::WirelessNetworkPrivate::updateStrength()
+{
+    Q_Q(WirelessNetwork);
+    int maximumStrength = -1;
+    foreach (const NetworkManager::AccessPoint::Ptr &iface, aps) {
+        maximumStrength = qMax(maximumStrength, iface->signalStrength());
+    }
+    if (maximumStrength != strength) {
+        strength = maximumStrength;
+        emit q->signalStrengthChanged(strength);
+    }
+    //TODO: update the networks delayed
+    //kDebug() << "update strength" << ssid << strength;
+}
+
+
 NetworkManager::WirelessNetwork::WirelessNetwork(const AccessPoint::Ptr &accessPoint, WirelessDevice *device) :
-    d_ptr(new WirelessNetworkPrivate)
+    d_ptr(new WirelessNetworkPrivate(this, device))
 {
     Q_D(WirelessNetwork);
 
-    connect(device, SIGNAL(accessPointAppeared(QString)),
-            this, SLOT(accessPointAppeared(QString)));
-    connect(device, SIGNAL(accessPointDisappeared(QString)),
-            this, SLOT(accessPointDisappeared(QString)));
     d->strength = -1;
-    d->wirelessNetworkInterface = device;
     d->ssid = accessPoint->ssid();
-    addAccessPointInternal(accessPoint);
+    d->addAccessPointInternal(accessPoint);
 }
 
 NetworkManager::WirelessNetwork::~WirelessNetwork()
@@ -54,53 +110,6 @@ int NetworkManager::WirelessNetwork::signalStrength() const
 {
     Q_D(const WirelessNetwork);
     return d->strength;
-}
-
-void NetworkManager::WirelessNetwork::accessPointAppeared(const QString &uni)
-{
-    Q_D(const WirelessNetwork);
-    if (!d->aps.contains(uni) && d->wirelessNetworkInterface) {
-        NetworkManager::AccessPoint::Ptr accessPoint = d->wirelessNetworkInterface->findAccessPoint(uni);
-        if (accessPoint && accessPoint->ssid() == d->ssid) {
-            addAccessPointInternal(accessPoint);
-        }
-    }
-}
-
-void NetworkManager::WirelessNetwork::addAccessPointInternal(const NetworkManager::AccessPoint::Ptr &accessPoint)
-{
-    Q_D(WirelessNetwork);
-
-    connect(accessPoint.data(), SIGNAL(signalStrengthChanged(int)),
-            SLOT(updateStrength()));
-    d->aps.insert(accessPoint->uni(), accessPoint);
-    updateStrength();
-}
-
-void NetworkManager::WirelessNetwork::accessPointDisappeared(const QString &uni)
-{
-    Q_D(WirelessNetwork);
-    d->aps.remove(uni);
-    if (d->aps.isEmpty()) {
-        emit disappeared(d->ssid);
-    } else {
-        updateStrength();
-    }
-}
-
-void NetworkManager::WirelessNetwork::updateStrength()
-{
-    Q_D(WirelessNetwork);
-    int maximumStrength = -1;
-    foreach (const NetworkManager::AccessPoint::Ptr &iface, d->aps) {
-        maximumStrength = qMax(maximumStrength, iface->signalStrength());
-    }
-    if (maximumStrength != d->strength) {
-        d->strength = maximumStrength;
-        emit signalStrengthChanged(d->strength);
-    }
-    //TODO: update the networks delayed
-    //kDebug() << "update strength" << d->ssid << d->strength;
 }
 
 NetworkManager::AccessPoint::Ptr NetworkManager::WirelessNetwork::referenceAccessPoint() const

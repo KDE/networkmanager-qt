@@ -82,16 +82,16 @@ Q_SIGNALS:
      * @param ssid the SSID of this network
      */
     void disappeared(const QString &ssid);
-private Q_SLOTS:
-    void accessPointAppeared(const QString &);
-    void accessPointDisappeared(const QString &);
-    void updateStrength();
+
 private:
     Q_DECLARE_PRIVATE(WirelessNetwork)
+    Q_PRIVATE_SLOT(d_func(), void accessPointAppeared(const QString &))
+    Q_PRIVATE_SLOT(d_func(), void accessPointDisappeared(const QString &))
+    Q_PRIVATE_SLOT(d_func(), void updateStrength())
+
+    WirelessNetworkPrivate *const d_ptr;
 
     explicit WirelessNetwork(const AccessPoint::Ptr &accessPoint, WirelessDevice *device);
-    void addAccessPointInternal(const AccessPoint::Ptr &accessPoint);
-    WirelessNetworkPrivate *const d_ptr;
 };
 
 }
