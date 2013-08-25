@@ -232,3 +232,22 @@ configure_file(${CMAKE_SOURCE_DIR}/NetworkManagerQt.pc.cmake ${CMAKE_BINARY_DIR}
 install(FILES ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig/")
 
 add_subdirectory(include)
+
+##################  apidox ################################
+if(NETWORKMANAGERQT_BUILD_API_DOCS)
+  find_package(Doxygen)
+
+  if(DOXYGEN_EXECUTABLE)
+    configure_file(${CMAKE_SOURCE_DIR}/.Doxyfile.cmake ${CMAKE_BINARY_DIR}/Doxyfile)
+
+    if(EXISTS ${QT_DOC_DIR}/html)
+      set(QTDOCS "${QT_DOC_DIR}/html")
+    else(EXISTS ${QT_DOC_DIR}/html)
+      set(QTDOCS "http://qt-project.org/doc/latest/")
+    endif(EXISTS ${QT_DOC_DIR}/html)
+
+    add_custom_target(
+      apidox ALL
+      COMMAND ${DOXYGEN_EXECUTABLE} Doxyfile)
+  endif(DOXYGEN_EXECUTABLE)
+endif(NETWORKMANAGERQT_BUILD_API_DOCS)
