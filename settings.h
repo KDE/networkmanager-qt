@@ -61,7 +61,14 @@ Q_SIGNALS:
      * NetworkManager::serviceDisappeared signals
      */
     void connectionRemoved(const QString &path);
-    void connectionAddComplete(const QString &, bool, const QString &);
+    /**
+     * Emitted when the addConnection operation has ended.
+     *
+     * @param id ID of the connection, as returned by addConnection
+     * @param success whether the connection has been successfully added
+     * @param msg error message, if any
+     */
+    void connectionAddComplete(const QString & id, bool success, const QString & msg);
 };
 /**
  * Retrieves the list of connections.
@@ -75,6 +82,9 @@ NETWORKMANAGERQT_EXPORT NetworkManager::Connection::Ptr findConnection(const QSt
 
 /**
  * Adds the connection with the given settings, returns the id for tracking
+ *
+ * Once the connection has been added, you will get a notification through
+ * connectionAddComplete
  */
 NETWORKMANAGERQT_EXPORT QString addConnection(const NMVariantMapMap &settings);
 
