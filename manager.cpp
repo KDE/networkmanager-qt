@@ -52,8 +52,9 @@ const QString NetworkManager::NetworkManagerPrivate::DBUS_SETTINGS_PATH(QString:
 NM_GLOBAL_STATIC(NetworkManager::NetworkManagerPrivate, globalNetworkManager)
 
 NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
-    : watcher(DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForOwnerChange, this)
-    , iface(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE, NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH, QDBusConnection::systemBus())
+    : watcher(DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForOwnerChange, this),
+      iface(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE, NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH, QDBusConnection::systemBus()),
+      nmState(0)
 {
     connect(&watcher, SIGNAL(serviceRegistered(QString)), SLOT(daemonRegistered()));
     connect(&watcher, SIGNAL(serviceUnregistered(QString)), SLOT(daemonUnregistered()));
