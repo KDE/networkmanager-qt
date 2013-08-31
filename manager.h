@@ -19,6 +19,37 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*!
+ * @mainpage NetworkManagerQt
+ *
+ * NetworkManagerqt is a Qt-based library written in C++ to talk to
+ * NetworkManager service (https://projects.gnome.org/NetworkManager). It consists of several key classes and namespaces, following:
+ *
+ *     - NetworkManager
+ *         - Entry point to the library functionality. It is a namespace with several functions. It basically gives
+ *           you access to the connected devices. It will also inform through its signals when new
+ *           devices have been connected or removed.
+ *
+ *     - Connection
+ *
+ *     - ConnectionSettings
+ *
+ *     - Device
+ *         - With this class you are given information about a particular device.
+ *
+ *     - Utils
+ *         - Contains general usage routines.
+ *
+ * You can take a look at some @ref examples.
+ */
+
+/*!
+ * @page examples Examples
+ *
+ * @section networkManager NetworkManager
+ *
+ */
+
 #ifndef NETWORKMANAGERQT_NETWORKMANAGER_H
 #define NETWORKMANAGERQT_NETWORKMANAGER_H
 
