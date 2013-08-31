@@ -22,10 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QtCore/QTextStream>
 
-#include <NetworkManagerQt/manager.h>
-#include <NetworkManagerQt/device.h>
-#include <NetworkManagerQt/activeconnection.h>
-#include <NetworkManagerQt/connection.h>
+#include <NetworkManagerQt/Manager>
+#include <NetworkManagerQt/Device>
+#include <NetworkManagerQt/ActiveConnection>
+#include <NetworkManagerQt/Connection>
 
 QString typeAsString(const int type)
 {
@@ -47,38 +47,52 @@ int main()
 {
     QTextStream qout(stdout, QIODevice::WriteOnly);
 
-    NetworkManager::DeviceList list = NetworkManager::networkInterfaces();
+    NetworkManager::Device::List list = NetworkManager::networkInterfaces();
 
-    foreach (NetworkManager::Device *dev, list) {
+    foreach (NetworkManager::Device::Ptr dev, list) {
         qout << "\n=====\n";
         qout << dev->uni() << "\n";
         qout << "type: " << typeAsString(dev->type()) << "\n";
         qout << "managed: " << dev->managed() << "\n";
         qout << "interface name: " << dev->interfaceName() << "\n";
 
-        // dev->ipV4Config() is valid only in activated state
-        if (dev->state() == NetworkManager::Device::Activated) {
+        NetworkManager::IpConfig ipConfig = dev->ipV4Config();
+        if (ipConfig.isValid()) {
             // static IPv4 configuration.
-            if (dev->ipV4Config().addresses().isEmpty()) {
+            if (ipConfig.addresses().isEmpty()) {
                 qout << "ip address: <not set>\n";
             } else {
-                QHostAddress addr;
-                addr.setAddress(dev->ipV4Config().addresses().at(0).address());
-                qout << "ip address: " << addr.toString() << "\n";
-                qout << "ip address (raw): " << dev->ipV4Address() << "\n";
+                NetworkManager::IpAddress address = ipConfig.addresses().at(0);
+                qout << "ip address: " << address.ip().toString() << "\n";
+                qout << "gateway: " << address.gateway().toString() << "\n";
+                qout << "ip address (raw): " << dev->ipV4Address().toString() << "\n";
 
-                if (dev->ipV4Config().routes().isEmpty()) {
-                    qout << "default gateway: <not set>\n";
+                if (ipConfig.routes().isEmpty()) {
+                    qout << "routers: <not set>\n";
                 } else {
-                    addr.setAddress(dev->ipV4Config().routes().at(0).route());
-                    qout << "default gateway: " << addr.toString() << "\n";
+                    qout << "routers: " << ipConfig.routes().at(0).ip().toString() << "\n";
+                }
+
+                if (ipConfig.nameservers().isEmpty()) {
+                    qout << "nameserver: <not set>\n";
+                } else {
+                    qout << "nameserver: " << ipConfig.nameservers().at(0).toString() << "\n";
                 }
             }
             // DHCPv4 configuration.
-            NetworkManager::Dhcp4Config *dhcp4Config = dev->dhcp4Config();
-            if (dhcp4Config == 0) {
-                qout << "(dhcp) ip address: <not set>\n";
+            NetworkManager::Dhcp4Config::Ptr dhcp4Config = dev->dhcp4Config();
+            if (!dhcp4Config) {
+                qout << "dhcp info unavailable\n";
             } else {
+                qout << "Dhcp4 options (" << dhcp4Config->path() <<"): ";
+                QVariantMap options = dhcp4Config->options();
+                QVariantMap::ConstIterator it = options.constBegin();
+                QVariantMap::ConstIterator end = options.constEnd();
+                for (; it != end; ++it){
+                    qout << it.key() << "=" << it.value().toString() << " ";
+                }
+                qout << "\n";
+
                 qout << "(dhcp) ip address: " << dhcp4Config->optionValue("ip_address") << "\n";
                 qout << "(dhcp) network: " << dhcp4Config->optionValue("network_number") << '/' << dhcp4Config->optionValue("subnet_cidr") << " (" << dhcp4Config->optionValue("subnet_mask") << ")\n";
 
@@ -96,13 +110,14 @@ int main()
             }
         }
 
-        QList<NetworkManager::Settings::Connection *> connections = dev->availableConnections();
+        NetworkManager::Connection::List connections = dev->availableConnections();
 
         qout << "available connections: ";
 
-        foreach (NetworkManager::Settings::Connection *con, connections) {
+        foreach (NetworkManager::Connection::Ptr con, connections) {
             qDebug() << "con";
-            qout << con->settings().value("connection").value("id").toString();
+            NetworkManager::ConnectionSettings::Ptr settings = con->settings();
+            qout << "\"" << settings->id() << "\" ";
         }
     }
     qout << "\n";
