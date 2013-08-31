@@ -17,13 +17,13 @@ find_package(NetworkManager 0.9.8.0 REQUIRED)
 pkg_check_modules(MODEMMANAGERQT ModemManagerQt)
 if (MODEMMANAGERQT_FOUND)
     message(STATUS "Enabling ModemManagerQt support")
-    set(WITH_MODEMMANAGERQT_SUPPORT 1)
+    set(WITH_MODEMMANAGERQT 1)
 else()
     message(STATUS "ModemManagerQt not found")
-    set(WITH_MODEMMANAGERQT_SUPPORT 0)
+    set(WITH_MODEMMANAGERQT 0)
 endif()
 
-add_definitions(-DWITH_MODEMMANAGERQT_SUPPORT=${WITH_MODEMMANAGERQT_SUPPORT} ${QT_DEFINITIONS})
+add_definitions(-DWITH_MODEMMANAGERQT=${WITH_MODEMMANAGERQT} ${QT_DEFINITIONS})
 
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES}
                     ${MODEMMANAGERQT_INCLUDE_DIRS} ${CMAKE_INCLUDE_PATH})

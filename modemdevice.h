@@ -22,7 +22,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NETWORKMANAGERQT_MODEMDEVICE_H
 #define NETWORKMANAGERQT_MODEMDEVICE_H
 
-#if WITH_MODEMMANAGERQT_SUPPORT
+#if WITH_MODEMMANAGERQT
 #include <ModemManagerQt/modemgsmcardinterface.h>
 #include <ModemManagerQt/modemgsmnetworkinterface.h>
 #endif
@@ -66,7 +66,7 @@ public:
      */
     Capabilities currentCapabilities() const;
 
-#if WITH_MODEMMANAGERQT_SUPPORT
+#if WITH_MODEMMANAGERQT
     ModemManager::ModemGsmCardInterface::Ptr getModemCardIface();
     void setModemCardIface(const ModemManager::ModemGsmCardInterface::Ptr &iface);
     void clearModemCardIface();
@@ -82,7 +82,7 @@ Q_SIGNALS:
     void currentCapabilitiesChanged(Capabilities);
 
 protected:
-#if WITH_MODEMMANAGERQT_SUPPORT
+#if WITH_MODEMMANAGERQT
     ModemManager::ModemGsmCardInterface::Ptr modemGsmCardIface;
     ModemManager::ModemGsmNetworkInterface::Ptr modemGsmNetworkIface;
     QString getUdiForModemManager();
@@ -94,7 +94,7 @@ protected:
      */
     virtual void propertyChanged(const QString &property, const QVariant &value);
 
-#if WITH_MODEMMANAGERQT_SUPPORT
+#if WITH_MODEMMANAGERQT
 protected Q_SLOTS:
     void modemRemoved(const QString &modemUdi);
 #endif

@@ -26,5 +26,5 @@ Description: Convenience Qt library for clients of NetworkManager
 Version: @VERSION@
 
 Requires: ModemManagerQt
-Cflags: -DWITH_MODEMMANAGERQT_SUPPORT=@WITH_MODEMMANAGERQT_SUPPORT@ -I${includedir} @CMAKE_INCLUDE_PATH@
+Cflags: -DWITH_MODEMMANAGERQT=@WITH_MODEMMANAGERQT@ -I${includedir} @CMAKE_INCLUDE_PATH@
 Libs: -L${libdir} -lNetworkManagerQt @CMAKE_LIBRARY_PATH@
