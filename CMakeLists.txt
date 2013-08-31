@@ -6,9 +6,8 @@ set(VERSION 0.9.0)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_MODULE_PATH})
 set(LIB_SUFFIX "" CACHE STRING "Define suffix of library directory name (32/64)" )
 
-if ((NOT CMAKE_BUILD_TYPE) OR (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
+if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
-    enable_testing()
 endif()
 
 find_package(Qt4 REQUIRED)
@@ -47,7 +46,6 @@ if (BUILD_EXAMPLES)
 endif(BUILD_EXAMPLES)
 
 enable_testing(true)
-
 add_subdirectory(tests)
 
 set(NetworkManagerQt_HEADERS
