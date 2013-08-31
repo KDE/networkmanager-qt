@@ -247,6 +247,6 @@ if(DOXYGEN_EXECUTABLE)
   endif(EXISTS ${QT_DOC_DIR}/html)
 
   add_custom_target(
-    apidox ALL
+    apidox
     COMMAND ${DOXYGEN_EXECUTABLE} Doxyfile)
 endif(DOXYGEN_EXECUTABLE)
