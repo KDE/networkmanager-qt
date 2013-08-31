@@ -117,12 +117,12 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
     }
 
     QDBusObjectPath dhcp4ConfigObjectPath = deviceIface.dhcp4Config();
-    if (!dhcp4ConfigObjectPath.path().isNull()) {
+    if (!dhcp4ConfigObjectPath.path().isNull() && dhcp4ConfigObjectPath.path() != QLatin1String("/")) {
         dhcp4ConfigPath = dhcp4ConfigObjectPath.path();
     }
 
     QDBusObjectPath dhcp6ConfigObjectPath = deviceIface.dhcp6Config();
-    if (!dhcp6ConfigObjectPath.path().isNull()) {
+    if (!dhcp6ConfigObjectPath.path().isNull() && dhcp6ConfigObjectPath.path() != QLatin1String("/")) {
         dhcp6ConfigPath = dhcp6ConfigObjectPath.path();
     }
 }
