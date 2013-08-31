@@ -3,10 +3,13 @@ cmake_minimum_required(VERSION 2.8)
 project(NetworkManagerQt)
 
 set(VERSION 0.9.0)
-set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_MODULE_PATH})
-
 set(LIB_SUFFIX "" CACHE STRING "Define suffix of library directory name (32/64)" )
+
+if ((NOT CMAKE_BUILD_TYPE) OR (${CMAKE_BUILD_TYPE} MATCHES "Debug"))
+    set(CMAKE_BUILD_TYPE Debug)
+    enable_testing()
+endif()
 
 find_package(Qt4 REQUIRED)
 find_package(NetworkManager 0.9.8.0 REQUIRED)
