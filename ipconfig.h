@@ -69,7 +69,9 @@ public:
     void setIPv6Path(const QString &path);
 
     /**
-     * Returns a list of IP addresses related to this configuration.
+     * Returns a list of IP addresses and gateway related to this configuration.
+     * Use IpAddress::ip() to access the IP address and IpAddress::gateway()
+     * to access the gateway address.
      */
     NetworkManager::IpAddresses addresses() const;
 
@@ -84,7 +86,8 @@ public:
     QStringList domains() const;
 
     /**
-     * Returns a list of routes related to this configuration.
+     * Returns a list of static routes (not the default gateway) related to this configuration.
+     * Use @ref addresses() to retrieve the default gateway.
      */
     IpRoutes routes() const;
 

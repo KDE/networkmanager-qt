@@ -49,6 +49,8 @@ int main()
 
     NetworkManager::Device::List list = NetworkManager::networkInterfaces();
 
+    // List device configuration, not including vpn connections, which do not
+    // have a real device tied to them.
     foreach (NetworkManager::Device::Ptr dev, list) {
         qout << "\n=====\n";
         qout << dev->uni() << "\n";
@@ -67,6 +69,7 @@ int main()
                 qout << "gateway: " << address.gateway().toString() << "\n";
                 qout << "ip address (raw): " << dev->ipV4Address().toString() << "\n";
 
+                // Static routes.
                 if (ipConfig.routes().isEmpty()) {
                     qout << "routers: <not set>\n";
                 } else {
