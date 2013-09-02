@@ -85,7 +85,9 @@ void NetworkManager::NetworkManagerPrivate::init()
 
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
     qDBusRegisterMetaType<DeviceDBusStateReason>();
+    qDBusRegisterMetaType<NMVariantMapMap>();
     qDBusRegisterMetaType<NMStringMap>();
+
     if (nmState != iface.state()) {
         nmState = iface.state();
         emit statusChanged(convertNMState(nmState));
