@@ -353,7 +353,7 @@ bool NetworkManager::Utils::wepKeyIsValid(const QString &key, NetworkManager::Wi
             if (keylen == 10 || keylen == 26) {
                 /* Hex key */
                 for (int i = 0; i < keylen; ++i) {
-                    if (!key.at(i).isLetterOrNumber()) {
+                    if (!(key.at(i).isDigit() || key.at(i) >= 'A' && key.at(i) <= 'F' || key.at(i) >= 'a' && key.at(i) <= 'f')) {
                         return false;
                     }
                 }
