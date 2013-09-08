@@ -197,8 +197,8 @@ void NetworkManager::WirelessDevice::removeNetwork(const QString &network)
     Q_D(WirelessDevice);
 
     if (d->networks.contains(network)) {
-        emit networkDisappeared(network);
         d->networks.remove(network);
+        emit networkDisappeared(network);
     }
 }
 
