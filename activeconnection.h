@@ -65,18 +65,16 @@ public:
      */
     virtual ~ActiveConnection();
 
-
     /**
      * Returns true is this object holds a valid connection
      */
     bool isValid() const;
-
     /**
      * Return path of the connection object
      */
     QString path() const;
     /**
-     * returns a valid NetworkManager::Connection object
+     * Returns a valid NetworkManager::Connection object
      */
     Connection::Ptr connection() const;
     /**
@@ -108,7 +106,7 @@ public:
      */
     QString uuid() const;
     /**
-     * list of devices UNIs which are part of this connection.
+     * List of devices UNIs which are part of this connection.
      */
     QStringList devices() const;
 
@@ -120,31 +118,31 @@ Q_SIGNALS:
     /**
      * The state of the default IPv4 route changed
      */
-    void default4Changed(bool);
+    void default4Changed(bool isDefault);
     /**
      * The state of the default IPv6 route changed
      */
-    void default6Changed(bool);
+    void default6Changed(bool isDefault);
     /**
      * The master device changed.
      */
     void masterChanged(const QString &uni);
     /**
-     * The specific object changed
+     * The @p path to the specific object changed
      */
-    void specificObjectChanged(const QString &);
+    void specificObjectChanged(const QString & path);
     /**
-     * The state changed
+     * The @p state changed
      */
-    void stateChanged(NetworkManager::ActiveConnection::State);
+    void stateChanged(NetworkManager::ActiveConnection::State state);
     /**
      * The VPN property changed.
      */
-    void vpnChanged(bool);
+    void vpnChanged(bool isVpn);
     /**
-     * The uuid changed.
+     * The @p uuid changed.
      */
-    void uuidChanged(const QString &);
+    void uuidChanged(const QString & uuid);
     /**
      * The list of devices changed.
      */

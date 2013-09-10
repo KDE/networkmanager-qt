@@ -65,7 +65,7 @@ public:
     QHostAddress nextHop() const;
 
     /**
-     * Defines the metric of the given route,
+     * Defines the @p metric of the given route,
      * lower values have higher priority.
      */
     void setMetric(quint32 metric);

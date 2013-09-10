@@ -52,8 +52,8 @@ public:
     int signalStrength() const;
 
     /**
-     * The uni of the current 'best' (strongest) Access Point.  Note that this may change or disappear over time.
-     * Get the Access Point object using @ref * WirelessDevice::findAccessPoint() on the NetworkInterface this network was obtained from.
+     * The uni of the current 'best' (strongest) Access Point. Note that this may change or disappear over time.
+     * Get the Access Point object using @ref WirelessDevice::findAccessPoint() on the NetworkInterface this network was obtained from.
      * Use @ref WirelessDevice::accessPointDisappeared() or
      * WirelessNetwork::referenceAccessPointChanged() to detect this.
      */
@@ -61,7 +61,7 @@ public:
 
     /**
      * List of access points
-     * Subject to change, do not store!
+     * @warning Subject to change, do not store!
      */
     AccessPoint::List accessPoints() const;
 

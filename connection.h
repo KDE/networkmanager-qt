@@ -76,7 +76,7 @@ public:
 
     /**
      * Retrieves this connections's secrets (passwords and / or encryption keys).
-     * This is an asynchronous call, connect to the gotSecrets signal to
+     * This is an asynchronous call, connect to the gotSecrets() signal to
      * read the retrieved secrets.
      *
      * @param setting the setting identifier.

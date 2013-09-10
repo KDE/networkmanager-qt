@@ -47,8 +47,8 @@ Q_SIGNALS:
      * \note This signal is not emitted when the Network Manager
      * daemon starts, if you are interested in keeping an
      * updated listing of connections you must also watch for
-     * NetworkManager::serviceAppeared and
-     * NetworkManager::serviceDisappeared signals
+     * NetworkManager::Notifier::serviceAppeared() and
+     * NetworkManager::Notifier::serviceDisappeared() signals
      */
     void connectionAdded(const QString &path);
     /**
@@ -57,12 +57,12 @@ Q_SIGNALS:
      * \note This signal is not emitted when the Network Manager
      * daemon starts, if you are interested in keeping an
      * updated listing of connections you must also watch for
-     * NetworkManager::serviceAppeared and
-     * NetworkManager::serviceDisappeared signals
+     * NetworkManager::Notifier::serviceAppeared() and
+     * NetworkManager::Notifier::serviceDisappeared() signals
      */
     void connectionRemoved(const QString &path);
     /**
-     * Emitted when the addConnection operation has ended.
+     * Emitted when the NetworkManager::addConnection() operation has ended.
      *
      * @param id ID of the connection, as returned by addConnection
      * @param success whether the connection has been successfully added
@@ -84,12 +84,12 @@ NETWORKMANAGERQT_EXPORT NetworkManager::Connection::Ptr findConnection(const QSt
  * Adds the connection with the given settings, returns the id for tracking
  *
  * Once the connection has been added, you will get a notification through
- * connectionAddComplete
+ * SettingsNotifier::connectionAddComplete()
  */
 NETWORKMANAGERQT_EXPORT QString addConnection(const NMVariantMapMap &settings);
 
 /**
- * Retrieves the connection for the given uuid, returns null if not found
+ * Retrieves the connection for the given @p uuid, returns null if not found
  */
 NETWORKMANAGERQT_EXPORT NetworkManager::Connection::Ptr findConnectionByUuid(const QString &uuid);
 
@@ -99,7 +99,7 @@ NETWORKMANAGERQT_EXPORT NetworkManager::Connection::Ptr findConnectionByUuid(con
 NETWORKMANAGERQT_EXPORT void saveHostname(const QString &hostname);
 
 /**
- * Returns if the user can modify the settings
+ * Returns @p true if the user can modify the settings
  */
 NETWORKMANAGERQT_EXPORT bool canModify();
 

@@ -45,7 +45,19 @@ class NETWORKMANAGERQT_EXPORT VpnConnection : public ActiveConnection
 public:
     typedef QSharedPointer<VpnConnection> Ptr;
     typedef QList<Ptr> List;
-    enum State {Unknown = 0, Prepare, NeedAuth, Connecting, GettingIpConfig, Activated, Failed, Disconnected};
+    /**
+     * Enum describing the possible VPN connection states
+     */
+    enum State {
+        Unknown = 0, /**< The state of the VPN connection is unknown. */
+        Prepare, /**< The VPN connection is preparing to connect. */
+        NeedAuth, /**< The VPN connection needs authorization credentials. */
+        Connecting, /**< The VPN connection is being established. */
+        GettingIpConfig, /**< The VPN connection is getting an IP address. */
+        Activated, /**< The VPN connection is active. */
+        Failed, /**< The VPN connection failed. */
+        Disconnected /**< The VPN connection is disconnected. */
+    };
 
     /**
      * Creates a new VpnConnection object.
@@ -75,13 +87,13 @@ public:
 
 Q_SIGNALS:
     /**
-     * This signal is emitted when the connection banner has changed
+     * This signal is emitted when the connection @p banner has changed
      */
-    void bannerChanged(const QString &);
+    void bannerChanged(const QString & banner);
     /**
-     * The state changed
+     * This signal is emitted when the VPN connection @p state has changed
      */
-    void stateChanged(NetworkManager::VpnConnection::State);
+    void stateChanged(NetworkManager::VpnConnection::State state);
 
 protected Q_SLOTS:
     void propertiesChanged(const QVariantMap &properties);

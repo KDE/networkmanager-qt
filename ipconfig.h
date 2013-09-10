@@ -36,7 +36,7 @@ class NETWORKMANAGERQT_EXPORT IpConfig
 {
 public:
     /**
-     * Constructs a ip config object with a list of address, nameservers, domains and routers.
+     * Constructs an IP config object with a list of @p addresses, @p nameservers, @p domains and @p routes.
      */
     IpConfig(const IpAddresses &addresses,
              const QList<QHostAddress> &nameservers,
@@ -54,17 +54,17 @@ public:
     ~IpConfig();
 
     /**
-     * Constructs a IpConfig object that is a copy of the object other.
+     * Constructs an IpConfig object that is a copy of the object @p other.
      */
     IpConfig(const IpConfig &other);
 
     /**
-     * Configure this class using the information on the following path
+     * Configure this class using the information on the following @p path
      */
     void setIPv4Path(const QString &path);
 
     /**
-     * Configure this class using the information on the following path
+     * Configure this class using the information on the following @p path
      */
     void setIPv6Path(const QString &path);
 
@@ -92,12 +92,12 @@ public:
     IpRoutes routes() const;
 
     /**
-     * Makes a copy of the IpConfig object other.
+     * Makes a copy of the IpConfig object @p other.
      */
     IpConfig &operator=(const IpConfig &other);
 
     /**
-     * Returns false if the list of IP Addresses is empty
+     * Returns false if the list of IP addresses is empty
      */
     bool isValid() const;
 
