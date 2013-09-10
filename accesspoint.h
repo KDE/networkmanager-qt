@@ -41,16 +41,20 @@ public:
     typedef QList<Ptr> List;
     /**
      * The access point's current operating mode
-     * Unknown: not associated with a network
-     * Adhoc: part of an adhoc network
-     * Infra: a station in an infrastructure wireless network
-     * APMode: access point in an infrastructure network
      */
-    enum OperationMode { Unknown = 0, Adhoc, Infra, ApMode };
+    enum OperationMode {
+        Unknown = 0, /**< not associated with a network */
+        Adhoc, /**< part of an adhoc network */
+        Infra, /**< a station in an infrastructure wireless network */
+        ApMode /**< access point in an infrastructure network */
+    };
     /**
      * General capabilities of an access point
      */
-    enum Capability { None = 0x0, Privacy = 0x1 };
+    enum Capability {
+        None = 0x0, /**< Null capability - says nothing about the access point */
+        Privacy = 0x1 /**< Access point supports privacy measures */
+    };
     /**
      * Flags describing the access point's capabilities according to WPA (Wifi Protected Access)
      */
@@ -63,20 +67,55 @@ public:
     explicit AccessPoint(const QString &path, QObject *parent = 0);
     virtual ~AccessPoint();
 
+    /**
+     * @return path of the access point
+     */
     QString uni() const;
+    /**
+     * @return capabilities of an access point
+     */
     Capabilities capabilities() const;
+    /**
+     * @return flags describing the access point's capabilities according to WPA (Wifi Protected Access).
+     * @see WpaFlag
+     */
     AccessPoint::WpaFlags wpaFlags() const;
+    /**
+     * @return Flags describing the access point's capabilities according to the RSN (Robust Secure Network) protocol.
+     * @see WpaFlag
+     */
     AccessPoint::WpaFlags rsnFlags() const;
+    /**
+     * @return The Service Set Identifier identifying the access point.
+     */
     QString ssid() const;
+    /**
+     * @return raw SSID, encoded as a byte array
+     */
     QByteArray rawSsid() const;
+    /**
+     * @return The radio channel frequency in use by the access point, in MHz.
+     */
     uint frequency() const;
+    /**
+     * @return The hardware address (BSSID) of the access point.
+     */
     QString hardwareAddress() const;
+    /**
+     * @return The maximum bitrate this access point is capable of, in kilobits/second (Kb/s).
+     */
     uint maxBitRate() const;
+    /**
+     * @return Describes the operating mode of the access point.
+     */
     OperationMode mode() const;
+    /**
+     * @return The current signal quality of the access point, in percent.
+     */
     int signalStrength() const;
 
     /**
-     * Helper method to convert wire representation of operation mode to enum
+     * Helper method to convert wire representation of operation @p mode to enum
      */
     static OperationMode convertOperationMode(uint mode);
 
@@ -100,7 +139,7 @@ Q_SIGNALS:
      *
      * @param caps the new capabilities
      */
-    void capabilitiesChanged(AccessPoint::Capabilities);
+    void capabilitiesChanged(AccessPoint::Capabilities caps);
 
     /**
      * This signal is emitted when the WPA flags in use by this access point change
