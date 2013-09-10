@@ -102,7 +102,6 @@ set(NetworkManagerQt_PART_SRCS
     ipaddress.cpp
     iproute.cpp
     ipconfig.cpp
-    #nmpropertyhelper.cpp
     manager.cpp
     modemdevice.cpp
     olpcmeshdevice.cpp

@@ -52,18 +52,8 @@ set( ADAPTER_INTROSPECTION_XML_FILES
 
 set_source_files_properties( ${INTERFACE_INTROSPECTION_XML_FILES} ${ADAPTER_INTROSPECTION_XML_FILES} PROPERTIES NO_NAMESPACE TRUE )
 
-set( UNUSED_XML
-)
-
 set( FILES_TO_BUILD
    )
-
-set ( UNUSED_FILES
-   #activeconnection.cpp
-)
-
-set( UNUSED_GENERATED_FILES
-)
 
 QT4_ADD_DBUS_INTERFACES( FILES_TO_BUILD ${INTERFACE_INTROSPECTION_XML_FILES} )
 qt4_add_dbus_adaptor( FILES_TO_BUILD introspection/nm-secret-agent.xml "secretagent.h" "NetworkManager::SecretAgent")
@@ -78,4 +68,3 @@ endforeach(adaptor ${ADAPTER_INTROSPECTION_XML_FILES})
 add_library(networkmanagerdbus ${FILES_TO_BUILD})
 
 TARGET_LINK_LIBRARIES(networkmanagerdbus ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY})
-
