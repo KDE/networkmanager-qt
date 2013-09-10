@@ -52,7 +52,7 @@ public:
     virtual ~Setting();
 
     /**
-     * @brief Must be reimplemented, default implementationd does nothing
+     * @brief Must be reimplemented, default implementation does nothing
      */
     virtual void fromMap(const QVariantMap &map);
 
@@ -93,7 +93,7 @@ public:
     void setType(SettingType type);
     SettingType type() const;
 
-    QDebug foo();
+    QDebug foo(); // TODO bogus, remove me
 
 protected:
     SettingPrivate *d_ptr;

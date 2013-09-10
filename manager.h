@@ -29,7 +29,6 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "device.h"
 #include "activeconnection.h"
-//#include "notifier.h"
 
 /**
  * This class allows querying the underlying system to discover the available
@@ -45,12 +44,12 @@ namespace NetworkManager {
 
 enum Status {
     Unknown, /**< the networking system is not active or unable to report its status - proceed with caution */
-    Asleep, /**< networking is inactive and all devices are disabled. */
+    Asleep, /**< networking is inactive and all devices are disabled */
     Disconnected,/**< the system is not connected to any network */
     Disconnecting, /**< the system is breaking the connection */
     Connecting, /**< the system is not connected to any network */
-    ConnectedLinkLocal, /**< a network device is connected, but there is only link-local connectivity. */
-    ConnectedSiteOnly, /**< a network device is connected, but there is only site-local connectivity. */
+    ConnectedLinkLocal, /**< a network device is connected, but there is only link-local connectivity */
+    ConnectedSiteOnly, /**< a network device is connected, but there is only site-local connectivity */
     Connected /**< the system is currently connected to a network */
 };
 enum LogLevel {Error, Warning, Info, Debug};
@@ -109,10 +108,14 @@ Q_SIGNALS:
     void networkingEnabledChanged(bool);
     /**
      * This signal is emitted when a new connection was made active
+     *
+     * @param path the path of the new connection
      */
     void activeConnectionAdded(const QString &path);
     /**
      * This signal is emitted when an active connection is no longer active
+     *
+     * @param path the path of the removed connection
      */
     void activeConnectionRemoved(const QString &path);
     /**
@@ -135,12 +138,12 @@ Q_SIGNALS:
 NETWORKMANAGERQT_EXPORT QString version();
 /**
  * Compares NetworkManager's version to the parameter version.
- * returns 1, -1 or 0 if NetworkManager's version is greater, lesser or equal to parameter.
+ * returns 1, -1 or 0 if NetworkManager's version is greater, less or equal to parameter.
  */
 NETWORKMANAGERQT_EXPORT int compareVersion(const QString &version);
 /**
  * Compares NetworkManager version to x.y.z.
- * returns 1, -1 or 0 if NetworkManager's version is greater, lesser or equal to x.y.z.
+ * returns 1, -1 or 0 if NetworkManager's version is greater, less or equal to x.y.z.
  */
 NETWORKMANAGERQT_EXPORT int compareVersion(const int x, const int y, const int z);
 /**
@@ -163,14 +166,14 @@ NETWORKMANAGERQT_EXPORT Device::List networkInterfaces();
  */
 NETWORKMANAGERQT_EXPORT Device::Ptr findNetworkInterface(const QString &uni);
 /**
- * Return the network device referenced by its IP
-   interface name. This is not system independent so programs that will use this method will not be portable.
+ * Return the network device referenced by its IP interface name.
+ * This is not system independent so programs that will use this method will not be portable.
  */
 NETWORKMANAGERQT_EXPORT Device::Ptr findDeviceByIpFace(const QString &iface);
 /**
  * Retrieves the status of networking (as a whole) in the system.
  * This is distinct from whether the system's networking is online or offline.
- * To check that, see @ref NetworkStatus.
+ * To check that, see @ref status().
  *
  * @return true if this networking is enabled, false otherwise
  */
@@ -182,23 +185,23 @@ NETWORKMANAGERQT_EXPORT bool isNetworkingEnabled();
  */
 NETWORKMANAGERQT_EXPORT bool isWirelessEnabled();
 /**
- * Retrieves the status of wireless hardware in the system.  This is typically
+ * Retrieves the status of wireless hardware in the system. This is typically
  * controlled by a physical switch so there is no way to set this in software.
  *
  * @return true if this wireless networking is enabled, false otherwise
  */
 NETWORKMANAGERQT_EXPORT bool isWirelessHardwareEnabled();
 /**
- * Retrieves the status of wireless broadband (Wireless WAN) in the system.e.
+ * Retrieves the status of wireless broadband (Wireless WAN) in the system.
  *
  * @return true if this type of wireless networking is enabled, false otherwise
  */
 NETWORKMANAGERQT_EXPORT bool isWwanEnabled();
 /**
- * Retrieves the status of wireless broadband (Wireless WAN) hardware in the system.  This is typically
+ * Retrieves the status of wireless broadband (Wireless WAN) hardware in the system. This is typically
  * controlled by a physical switch so there is no way to set this in software.
  *
- * @return true if this type of wireless hardware is enabled, false otherwise
+ * @return true if this broddband hardware is enabled, false otherwise
  */
 NETWORKMANAGERQT_EXPORT bool isWwanHardwareEnabled();
 /**
@@ -208,27 +211,33 @@ NETWORKMANAGERQT_EXPORT bool isWwanHardwareEnabled();
  */
 NETWORKMANAGERQT_EXPORT bool isWimaxEnabled();
 /**
- * Retrieves the status of wimax hardware in the system.  This is typically
+ * Retrieves the status of wimax hardware in the system. This is typically
  * controlled by a physical switch so there is no way to set this in software.
  *
- * @return true if this wireless networking is enabled, false otherwise
+ * @return true if wimax HW networking is enabled, false otherwise
  */
 NETWORKMANAGERQT_EXPORT bool isWimaxHardwareEnabled();
 /**
+ * Activate a connection using the supplied device.
+ *
  * @param connectionUni unique identifier for the connection to be activated
  * @param interfaceUni unique identifier of the network interface to be activated
  * @param connectionParameter can be used to specify extra parameters not specific to the NetworkInterface or the connection, eg which AP to use when several present with same ESSID in range (because ESSID does not guarantee that the AP is part of the network you want to join!)
  */
 NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath> activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter);
 /**
- * @param connection connection to be added and activated
+ * Adds a new connection using the given details (if any) as a template (automatically filling in missing settings with the capabilities of the given device and specific object), then activate the new connection.
+ * Cannot be used for VPN connections at this time.
+ *
+ * @param connection connection definition to be added and activated
  * @param interfaceUni unique identifier of the network interface to be activated
  * @param connectionParameter can be used to specify extra parameters not specific to the NetworkInterface or the connection, eg which AP to use when several present with same ESSID in range (because ESSID does not guarantee that the AP is part of the network you want to join!)
  */
 NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter);
 /**
  * Deactivate this network interface, if active
- * @param activeConnection identifer of the connection to deactivate
+ *
+ * @param activeConnection identifier of the connection to deactivate
  */
 NETWORKMANAGERQT_EXPORT void deactivateConnection(const QString &activeConnection);
 /**
@@ -248,7 +257,7 @@ NETWORKMANAGERQT_EXPORT QStringList activeConnectionsPaths();
  */
 NETWORKMANAGERQT_EXPORT QDBusPendingReply<QString, QString> getLogging();
 /**
- * find an ActiveConnection object for an active connection id
+ * Find an ActiveConnection object for an active connection id
  *
  * @param uni the id of the ActiveConnection
  * @return a valid ActiveConnection object
@@ -273,4 +282,3 @@ NETWORKMANAGERQT_EXPORT Notifier *notifier();
 }
 
 #endif
-

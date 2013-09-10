@@ -45,7 +45,6 @@ NetworkManager::WiredDevice::WiredDevice(const QString &path, QObject *parent)
     d->permanentHardwareAddress = d->wiredIface.permHwAddress();
     d->bitrate = d->wiredIface.speed() * 1000;
     d->carrier = d->wiredIface.carrier();
-    //d->propHelper.registerProperty();
     connect(&d->wiredIface, SIGNAL(PropertiesChanged(QVariantMap)),
             this, SLOT(propertiesChanged(QVariantMap)));
 }

@@ -39,12 +39,12 @@ public:
     IpAddress();
 
     /**
-     * Constructs a IpAddress object that is a copy of the object other.
+     * Constructs an IpAddress object that is a copy of the object other.
      */
     IpAddress(const IpAddress &other);
 
     /**
-     * Destroys this IpRoute object.
+     * Destroys this IpAddress object.
      */
     ~IpAddress();
 
@@ -54,7 +54,7 @@ public:
     bool isValid() const;
 
     /**
-     * Defines the default gateway of this object.
+     * Defines the default @p gateway of this object.
      */
     void setGateway(const QHostAddress &gateway);
 
@@ -64,7 +64,7 @@ public:
     QHostAddress gateway() const;
 
     /**
-     * Makes a copy of the IpAddress object other.
+     * Makes a copy of the IpAddress object @p other.
      */
     IpAddress &operator=(const IpAddress &other);
 

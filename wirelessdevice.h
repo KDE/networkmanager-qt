@@ -50,34 +50,36 @@ public:
 
     /**
      * The device's current operating mode
-     * Unknown: not associated with a network
-     * Adhoc: part of an adhoc network
-     * Infra: a station in an infrastructure wireless network
-     * APMode: access point in an infrastructure network
      */
-    enum OperationMode { Unknown = 0, Adhoc, Infra, ApMode };
+    enum OperationMode {
+        Unknown = 0, /**< not associated with a network */
+        Adhoc, /**< part of an adhoc network */
+        Infra, /**< a station in an infrastructure wireless network */
+        ApMode /**< access point in an infrastructure network */
+    };
     /**
      * Capabilities (currently all encryption/authentication related) of the device
-     * NoCapability = 0x0,
-     * Wep40: 40 bit WEP cipher
-     * Wep104: 104 bit WEP cipher
-     * Tkip: TKIP encryption cipher
-     * Ccmp: CCMP encryption cipher
-     * Wpa: WPA authentication protocol
-     * Rsn: RSN authethication protocol
-     * ApCap: The device supports Access Point mode.
-     * AdhocCap: The device supports Ad-Hoc mode.
      */
-    enum Capability { NoCapability = 0x0, Wep40 = 0x1, Wep104 = 0x2, Tkip = 0x4, Ccmp = 0x8, Wpa = 0x10, Rsn = 0x20, ApCap = 0x40, AdhocCap = 0x80};
+    enum Capability {
+        NoCapability = 0x0, /**< Null capability */
+        Wep40 = 0x1, /**< 40 bit WEP cipher */
+        Wep104 = 0x2, /**< 104 bit WEP cipher */
+        Tkip = 0x4, /**< TKIP encryption cipher */
+        Ccmp = 0x8, /**< CCMP encryption cipher */
+        Wpa = 0x10, /**< WPA authentication protocol */
+        Rsn = 0x20, /**< RSN authethication protocol */
+        ApCap = 0x40, /**< The device supports Access Point mode. */
+        AdhocCap = 0x80 /**< The device supports Ad-Hoc mode. */
+    };
     Q_DECLARE_FLAGS(Capabilities, Capability)
     /**
-     * Creates a new WirelessNetworkInterface object.
+     * Creates a new WirelessDevice object.
      *
      * @param path the DBus path of the devise
      */
     explicit WirelessDevice(const QString &path, QObject *parent = 0);
     /**
-     * Destroys a WirelessNetworkInterface object.
+     * Destroys a WirelessDevice object.
      */
     ~WirelessDevice();
     /**
@@ -95,7 +97,7 @@ public:
      */
     QDBusPendingReply<> requestScan(const QVariantMap &options = QVariantMap());
     /**
-     * Identifier (path) of the network this interface is currently associated with
+     * AccessPoint pointer this interface is currently associated with
      */
     AccessPoint::Ptr activeAccessPoint() const;
     /**
@@ -150,7 +152,7 @@ public:
     WirelessNetwork::List networks() const;
 
     /**
-     * Find a network with the given ssid, a Null object is
+     * Find a network with the given @p ssid, a Null object is
      * returned if it can not be found
      */
     WirelessNetwork::Ptr findNetwork(const QString &ssid) const;
@@ -185,7 +187,7 @@ Q_SIGNALS:
     /**
      * The device changed its properties
      */
-    void wirelessPropertiesChanged(uint);
+    void wirelessPropertiesChanged(uint); // TODO this is bogus, remove
     /**
      * A new wireless access point appeared
      */
