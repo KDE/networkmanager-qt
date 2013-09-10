@@ -45,11 +45,13 @@ public:
     typedef QList<Ptr> List;
     /**
      * Capabilities of the Bluetooth device
-     * Dun: DUN - Dial Up Networking profile
-     * Pan: PAN - Personal Area Network profile
      */
-    enum Capability { NoCapability = 0x0, Dun = 0x1, Pan = 0x2 };
-
+    enum Capability
+    {
+        NoCapability = 0x0, /**< No special capability */
+        Dun = 0x1, /**< Dial Up Networking profile */
+        Pan = 0x2  /**< Personal Area Network profile */
+    };
     Q_DECLARE_FLAGS(Capabilities, Capability)
     /**
      * Creates a new BluetoothDevice object.
@@ -83,6 +85,9 @@ public:
     virtual Type type() const;
 
 Q_SIGNALS:
+    /**
+     * Emitted when the BT device @p name changes
+     */
     void nameChanged(const QString &name);
 
 protected:

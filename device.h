@@ -75,9 +75,21 @@ public:
      * simplicity, states from several different layers are present -
      * this is a high level view
      */
-    enum State { UnknownState = 0, Unmanaged = 10, Unavailable = 20, Disconnected = 30 , Preparing = 40,
-                 ConfiguringHardware = 50 , NeedAuth = 60, ConfiguringIp = 70, CheckingIp = 80, WaitingForSecondaries = 90, Activated = 100, Deactivating = 110, Failed = 120
-               };
+    enum State {
+        UnknownState = 0, /**< The device is in an unknown state */
+        Unmanaged = 10, /**< The device is recognized but not managed by NetworkManager */
+        Unavailable = 20, /**< The device cannot be used (carrier off, rfkill, etc) */
+        Disconnected = 30, /**< The device is not connected */
+        Preparing = 40, /**< The device is preparing to connect */
+        ConfiguringHardware = 50, /**< The device is being configured */
+        NeedAuth = 60, /**< The device is awaiting secrets necessary to continue connection */
+        ConfiguringIp = 70, /**< The IP settings of the device are being requested and configured */
+        CheckingIp = 80, /**< The device's IP connectivity ability is being determined */
+        WaitingForSecondaries = 90, /**< The device is waiting for secondary connections to be activated */
+        Activated = 100, /**< The device is active */
+        Deactivating = 110, /**< The device's network connection is being torn down */
+        Failed = 120 /**< The device is in a failure state following an attempt to activate it */
+    };
 
     /**
      * Enums describing the reason for a connection state change
@@ -102,52 +114,44 @@ public:
                              Reserved = 65536
                            };
     /**
-     * Possible Device capabilities
-     * - IsManageable: denotes that the device can be controlled by this API
-     * - SupportsCarrierDetect: the device informs us when it is plugged in to the medium
+     * Possible device capabilities
      */
     enum Capability {
-        IsManageable = 0x1,
-        SupportsCarrierDetect = 0x2
+        IsManageable = 0x1, /**< denotes that the device can be controlled by this API */
+        SupportsCarrierDetect = 0x2 /**< the device informs us when it is plugged in to the medium */
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
 
     /**
-     * Device medium types
-     * - Ethernet: Ieee8023 wired ethernet
-     * - Wifi:  the Ieee80211 family of wireless networks
-     * - Bluetooth: network bluetooth device (usually a cell phone)
-     * - Modem: POTS, GSM, CDMA or LTE modems
-     * - OlpcMesh: OLPC Mesh networking device
-     * - Wimax: WiMax WWAN technology
+     * Device type
      */
     enum Type {
-        UnknownType,
-        Ethernet,
-        Wifi,
-        Unused1,
-        Unused2,
-        Bluetooth,
-        OlpcMesh,
-        Wimax,
-        Modem,
-        InfiniBand,
-        Bond,
-        Vlan,
-        Adsl,
-        Bridge
+        UnknownType, /**< Unknown device type */
+        Ethernet, /**< Ieee8023 wired ethernet */
+        Wifi, /**< the Ieee80211 family of wireless networks */
+        Unused1, /**< Currently unused */
+        Unused2, /**< Currently unused */
+        Bluetooth, /**< network bluetooth device (usually a cell phone) */
+        OlpcMesh, /**< OLPC Mesh networking device */
+        Wimax, /**< WiMax WWAN technology */
+        Modem, /**< POTS, GSM, CDMA or LTE modems */
+        InfiniBand, /**< Infiniband network device */
+        Bond, /**< Bond virtual device */
+        Vlan, /**< Vlan virtual device */
+        Adsl, /**< ADSL modem device */
+        Bridge /**< Bridge virtual device */
     };
     Q_DECLARE_FLAGS(Types, Type)
 
     /**
-     * Creates a new NetworkInterface object.
+     * Creates a new device object.
      *
      * @param path UNI of the device
      */
     explicit Device(const QString &path, QObject *parent = 0);
     Device(DevicePrivate &dd, QObject *parent);
     /**
-     * Destroys a NetworkInterface object.
+     * Destroys a device object.
      */
     virtual ~Device();
     /**
@@ -158,14 +162,14 @@ public:
      */
     virtual Type type() const;
     /**
-     * Retrieves the Unique Network Identifier (UNI) of the NetworkInterface.
+     * Retrieves the Unique Network Identifier (UNI) of the device.
      * This identifier is unique for each network and network interface in the system.
      *
-     * @returns the Unique Network Identifier of the current network
+     * @returns the Unique Network Identifier of the current device
      */
     QString uni() const;
     /**
-     * The current active connection for this interface.
+     * The current active connection for this device
      *
      * @returns A valid ActiveConnection object or NULL if no active connection was found
      */
@@ -177,7 +181,7 @@ public:
      */
     Connection::List availableConnections();
     /**
-     * The system name for the network interface
+     * The system name for the network device
      */
     QString interfaceName() const;
     /**

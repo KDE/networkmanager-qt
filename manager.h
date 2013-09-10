@@ -45,12 +45,12 @@ namespace NetworkManager {
 
 enum Status {
     Unknown, /**< the networking system is not active or unable to report its status - proceed with caution */
-    Asleep, /**< Networking is inactive and all devices are disabled. */
+    Asleep, /**< networking is inactive and all devices are disabled. */
     Disconnected,/**< the system is not connected to any network */
     Disconnecting, /**< the system is breaking the connection */
     Connecting, /**< the system is not connected to any network */
-    ConnectedLinkLocal, /**< A network device is connected, but there is only link-local connectivity. */
-    ConnectedSiteOnly, /**< A network device is connected, but there is only site-local connectivity. */
+    ConnectedLinkLocal, /**< a network device is connected, but there is only link-local connectivity. */
+    ConnectedSiteOnly, /**< a network device is connected, but there is only site-local connectivity. */
     Connected /**< the system is currently connected to a network */
 };
 enum LogLevel {Error, Warning, Info, Debug};
