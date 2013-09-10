@@ -43,7 +43,16 @@ class NETWORKMANAGERQT_EXPORT ActiveConnection : public QObject
 public:
     typedef QSharedPointer<ActiveConnection> Ptr;
     typedef QList<Ptr> List;
-    enum State {Unknown = 0, Activating, Activated, Deactivating, Deactivated};
+    /**
+     * Enum describing possible active connection states
+     */
+    enum State {
+        Unknown = 0, /**< The active connection is in an unknown state */
+        Activating, /**< The connection is activating */
+        Activated, /**< The connection is activated */
+        Deactivating, /**< The connection is being torn down and cleaned up */
+        Deactivated /**< The connection is no longer active */
+    };
     /**
      * Creates a new ActiveConnection object.
      *
@@ -52,7 +61,7 @@ public:
     explicit ActiveConnection(const QString &path, QObject *parent = 0);
     explicit ActiveConnection(ActiveConnectionPrivate &dd, QObject *parent = 0);
     /**
-     * Destroys a ActiveConnection object.
+     * Destroys an ActiveConnection object.
      */
     virtual ~ActiveConnection();
 
