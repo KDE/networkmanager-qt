@@ -83,7 +83,12 @@ public:
      */
     void secrets(const QString &setting);
 
-    void update(const NMVariantMapMap &);
+    /**
+     * Update the connection with new @p settings and properties, replacing all previous settings and properties.
+     * Secrets may be part of the update request, and will be either stored in persistent storage or given to a Secret Agent for storage,
+     * depending on the request.
+     */
+    void update(const NMVariantMapMap & settings);
 
     /**
      * Removes the connection from NetworkManager database,
@@ -111,7 +116,7 @@ Q_SIGNALS:
 
     /**
      * Emitted when the connection was removed
-     * @param id connections's path.
+     * @param path connections's path.
      */
     void removed(const QString &path);
 

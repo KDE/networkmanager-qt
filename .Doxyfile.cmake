@@ -748,7 +748,7 @@ RECURSIVE              = YES
 # Note that relative paths are relative to the directory from which doxygen is 
 # run.
 
-EXCLUDE                = @CMAKE_CURRENT_SOURCE_DIR@/examples @CMAKE_CURRENT_SOURCE_DIR@/tests
+EXCLUDE                = @CMAKE_CURRENT_SOURCE_DIR@/examples @CMAKE_CURRENT_SOURCE_DIR@/tests @CMAKE_CURRENT_SOURCE_DIR@/dbus
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or 
 # directories that are symbolic links (a Unix file system feature) are excluded 
@@ -1272,7 +1272,7 @@ SERVER_BASED_SEARCH    = NO
 # If the GENERATE_LATEX tag is set to YES (the default) Doxygen will 
 # generate Latex output.
 
-GENERATE_LATEX         = YES
+GENERATE_LATEX         = NO
 
 # The LATEX_OUTPUT tag is used to specify where the LaTeX docs will be put. 
 # If a relative path is entered the value of OUTPUT_DIRECTORY will be 
