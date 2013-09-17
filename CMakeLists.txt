@@ -17,6 +17,7 @@ pkg_check_modules(MODEMMANAGERQT ModemManagerQt)
 if (MODEMMANAGERQT_FOUND)
     message(STATUS "Enabling ModemManagerQt support")
     set(WITH_MODEMMANAGERQT 1)
+    pkg_check_modules(MODEMMANAGER ModemManager)
 else()
     message(STATUS "ModemManagerQt not found")
     set(WITH_MODEMMANAGERQT 0)
@@ -36,6 +37,9 @@ include_directories(
    ${CMAKE_CURRENT_SOURCE_DIR}/dbus
    ${CMAKE_CURRENT_SOURCE_DIR}/settings
    ${CMAKE_CURRENT_BUILD_DIR}
+if (MODEMMANAGERQT_FOUND)
+   ${MODEMMANAGER_INCLUDE_DIRS}
+endif()
 )
 
 #add_subdirectory(dbus)

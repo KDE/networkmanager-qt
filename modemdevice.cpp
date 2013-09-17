@@ -53,8 +53,8 @@ void NetworkManager::ModemDevicePrivate::initModemProperties()
 NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
     : Device(*new ModemDevicePrivate(path, this), parent)
 #if WITH_MODEMMANAGERQT
-    , modemGsmCardIface(0)
-    , modemGsmNetworkIface(0)
+    , modemSimCardIface(0)
+    , modemNetworkIface(0)
 #endif
 {
     Q_D(ModemDevice);
@@ -69,8 +69,8 @@ NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
 NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd, QObject *parent)
     : Device(dd, parent)
 #if WITH_MODEMMANAGERQT
-    , modemGsmCardIface(0)
-    , modemGsmNetworkIface(0)
+    , modemSimCardIface(0)
+    , modemNetworkIface(0)
 #endif
 {
     Q_D(ModemDevice);
@@ -135,20 +135,23 @@ QString NetworkManager::ModemDevice::getUdiForModemManager()
     return QString();
 }
 
-ModemManager::ModemGsmCardInterface::Ptr NetworkManager::ModemDevice::getModemCardIface()
+ModemManager::ModemSimCardInterface::Ptr NetworkManager::ModemDevice::getModemCardIface()
 {
     Q_D(ModemDevice);
+
+    // TODO don't store modemSimCardIface and find it using SIM property from modemNetworkIface
+
     d->m_modemUdi = getUdiForModemManager();
     if (d->m_modemUdi.isEmpty()) {
-        return ModemManager::ModemGsmCardInterface::Ptr();
+        return ModemManager::ModemSimCardInterface::Ptr();
     }
-    if (modemGsmCardIface == 0) {
-        ModemManager::ModemInterface::Ptr modem = ModemManager::findModemInterface(d->m_modemUdi, ModemManager::ModemInterface::GsmCard);
-        modemGsmCardIface = modem.objectCast<ModemManager::ModemGsmCardInterface>();
+    if (modemSimCardIface == 0) {
+        ModemManager::ModemInterface::Ptr modem = ModemManager::findModemInterface(d->m_modemUdi, ModemManager::ModemInterface::SimCard);
+        modemSimCardIface = modem.objectCast<ModemManager::ModemSimCardInterface>();
         connect(ModemManager::notifier(), SIGNAL(modemRemoved(QString)), this, SLOT(modemRemoved(QString)));
     }
 
-    return modemGsmCardIface;
+    return modemSimCardIface;
 }
 
 ModemManager::ModemInterface::Ptr NetworkManager::ModemDevice::getModemNetworkIface()
@@ -156,46 +159,46 @@ ModemManager::ModemInterface::Ptr NetworkManager::ModemDevice::getModemNetworkIf
     Q_D(ModemDevice);
     d->m_modemUdi = getUdiForModemManager();
     if (d->m_modemUdi.isEmpty()) {
-        return ModemManager::ModemGsmCardInterface::Ptr();
+        return ModemManager::ModemInterface::Ptr();
     }
-    if (modemGsmNetworkIface.isNull()) {
-        ModemManager::ModemInterface::Ptr modem = ModemManager::findModemInterface(d->m_modemUdi, ModemManager::ModemInterface::GsmNetwork);
-        modemGsmNetworkIface = modem.objectCast<ModemManager::ModemGsmNetworkInterface>();
-        if (modemGsmNetworkIface) {
+    if (modemNetworkIface.isNull()) {
+        ModemManager::ModemInterface::Ptr modem = ModemManager::findModemInterface(d->m_modemUdi, ModemManager::ModemInterface::Gsm);
+        modemNetworkIface = modem.objectCast<ModemManager::Modem3gppInterface>(); // TODO cdma
+        if (modemNetworkIface) {
             connect(ModemManager::notifier(), SIGNAL(modemRemoved(QString)), this, SLOT(modemRemoved(QString)));
         }
     }
 
-    return modemGsmNetworkIface;
+    return modemNetworkIface;
 }
 
 void NetworkManager::ModemDevice::modemRemoved(const QString &modemUdi)
 {
     Q_D(ModemDevice);
     if (modemUdi == d->m_modemUdi) {
-        modemGsmNetworkIface.clear();
-        modemGsmCardIface.clear();
+        modemNetworkIface.clear();
+        modemSimCardIface.clear();
     }
 }
 
-void NetworkManager::ModemDevice::setModemCardIface(const ModemManager::ModemGsmCardInterface::Ptr &iface)
+void NetworkManager::ModemDevice::setModemCardIface(const ModemManager::ModemSimCardInterface::Ptr &iface)
 {
-    modemGsmCardIface = iface;
+    modemSimCardIface = iface;
 }
 
 void NetworkManager::ModemDevice::clearModemCardIface()
 {
-    modemGsmCardIface.clear();
+    modemSimCardIface.clear();
 }
 
-void NetworkManager::ModemDevice::setModemNetworkIface(const ModemManager::ModemGsmNetworkInterface::Ptr &iface)
+void NetworkManager::ModemDevice::setModemNetworkIface(const ModemManager::ModemInterface::Ptr &iface)
 {
-    modemGsmNetworkIface = iface;
+    modemNetworkIface = iface;
 }
 
 void NetworkManager::ModemDevice::clearModemNetworkIface()
 {
-    modemGsmNetworkIface.clear();
+    modemNetworkIface.clear();
 }
 #endif
 

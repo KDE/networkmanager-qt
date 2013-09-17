@@ -67,11 +67,11 @@ public:
     Capabilities currentCapabilities() const;
 
 #if WITH_MODEMMANAGERQT
-    ModemManager::ModemGsmCardInterface::Ptr getModemCardIface();
-    void setModemCardIface(const ModemManager::ModemGsmCardInterface::Ptr &iface);
+    ModemManager::ModemSimCardInterface::Ptr getModemCardIface();
+    void setModemCardIface(const ModemManager::ModemSimCardInterface::Ptr &iface);
     void clearModemCardIface();
     ModemManager::ModemInterface::Ptr getModemNetworkIface();
-    void setModemNetworkIface(const ModemManager::ModemGsmNetworkInterface::Ptr &iface);
+    void setModemNetworkIface(const ModemManager::ModemInterface::Ptr &iface);
     void clearModemNetworkIface();
 #endif
 
@@ -83,8 +83,8 @@ Q_SIGNALS:
 
 protected:
 #if WITH_MODEMMANAGERQT
-    ModemManager::ModemGsmCardInterface::Ptr modemGsmCardIface;
-    ModemManager::ModemGsmNetworkInterface::Ptr modemGsmNetworkIface;
+    ModemManager::ModemSimCardInterface::Ptr modemSimCardIface;
+    ModemManager::ModemInterface::Ptr modemNetworkIface;
     QString getUdiForModemManager();
 #endif
 
