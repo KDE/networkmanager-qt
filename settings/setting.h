@@ -22,7 +22,12 @@
 #define NETWORKMANAGERQT_SETTINGS_SETTING_H
 
 #include "../NetworkManagerQt-export.h"
+
+#ifdef WITH_MODEMMANAGERQT
+#include <ModemManagerQt/generic-types.h>
+#else
 #include "../generic-types.h"
+#endif
 
 #include <QtCore/QVariantMap>
 #include <QtCore/QStringList>

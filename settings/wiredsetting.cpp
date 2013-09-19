@@ -20,7 +20,6 @@
 
 #include "wiredsetting.h"
 #include "wiredsetting_p.h"
-#include "generic-types.h"
 
 #include <nm-setting-wired.h>
 

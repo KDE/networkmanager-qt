@@ -126,7 +126,7 @@ QString NetworkManager::ModemDevice::getUdiForModemManager()
      * but does not export this info, so let's use the first bluetooth device we find in ModemManager.
      * Modem will be registered in ModemManager only after someone execute its org.bluez.Serial.Connect method. */
     foreach (const ModemManager::ModemInterface::Ptr &modem, ModemManager::modemInterfaces()) {
-        if (modem->driver() == QLatin1String("bluetooth")) {
+        if (modem->drivers().contains(QLatin1String("bluetooth"))) {
             return modem->udi();
         }
     }
