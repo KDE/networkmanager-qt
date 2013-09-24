@@ -59,6 +59,21 @@ public:
         Disconnected /**< The VPN connection is disconnected. */
     };
 
+    enum StateChangeReason {
+        UnknownReason = 0, /**< The reason for the VPN connection state change is unknown.*/
+        NoneReason, /**< No reason was given for the VPN connection state change. */
+        UserDisconnectedReason, /**< The VPN connection changed state because the user disconnected it. */
+        DeviceDisconnectedReason, /**< The VPN connection changed state because the device it was using was disconnected. */
+        ServiceStoppedReason, /**< The service providing the VPN connection was stopped. */
+        IpConfigInvalidReason, /**< The IP config of the VPN connection was invalid. */
+        ConnectTimeoutReason, /**< The connection attempt to the VPN service timed out. */
+        ServiceStartTimeoutReason, /**< A timeout occurred while starting the service providing the VPN connection. */
+        ServiceStartFailedReason, /**< Starting the service starting the service providing the VPN connection failed. */
+        NoSecretsReason, /**< Necessary secrets for the VPN connection were not provided. */
+        LoginFailedReason, /**< Authentication to the VPN server failed. */
+        ConnectionRemovedReason /**< The connection was deleted from settings. */
+    };
+
     /**
      * Creates a new VpnConnection object.
      *
@@ -93,7 +108,7 @@ Q_SIGNALS:
     /**
      * This signal is emitted when the VPN connection @p state has changed
      */
-    void stateChanged(NetworkManager::VpnConnection::State state);
+    void stateChanged(NetworkManager::VpnConnection::State state, NetworkManager::VpnConnection::StateChangeReason reason);
 
 protected Q_SLOTS:
     void propertiesChanged(const QVariantMap &properties);
