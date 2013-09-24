@@ -38,6 +38,9 @@ public:
     static NetworkManager::VpnConnection::State convertVpnConnectionState(uint state) {
         return (NetworkManager::VpnConnection::State)state;
     }
+    static NetworkManager::VpnConnection::StateChangeReason convertVpnConnectionStateReason(uint reason) {
+        return (NetworkManager::VpnConnection::StateChangeReason)reason;
+    }
     QString banner;
     NetworkManager::VpnConnection::State state;
     OrgFreedesktopNetworkManagerVPNConnectionInterface iface;
@@ -85,7 +88,8 @@ void NetworkManager::VpnConnection::propertiesChanged(const QVariantMap &propert
             emit bannerChanged(d->banner);
         } else if (property == QLatin1String("VpnState")) {
             d->state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(it->toUInt());
-            emit stateChanged(d->state);
+            NetworkManager::VpnConnection::StateChangeReason reason = NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(properties.key("Reason").toUInt());
+            emit stateChanged(d->state, reason);
         } else {
             qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
         }
@@ -99,7 +103,8 @@ void NetworkManager::VpnConnection::vpnStateChanged(uint state, uint reason)
     Q_UNUSED(reason);
 
     d->state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(state);
-    emit stateChanged(d->state);
+    NetworkManager::VpnConnection::StateChangeReason stateChangeReason = NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(reason);
+    emit stateChanged(d->state, stateChangeReason);
 }
 
 NetworkManager::VpnConnection::operator VpnConnection *()
