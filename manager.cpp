@@ -83,6 +83,13 @@ void NetworkManager::NetworkManagerPrivate::init()
     connect(&iface, SIGNAL(DeviceRemoved(QDBusObjectPath)), SLOT(onDeviceRemoved(QDBusObjectPath)), Qt::UniqueConnection);
     connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), SLOT(propertiesChanged(QVariantMap)), Qt::UniqueConnection);
 
+    qDBusRegisterMetaType<UIntList>();
+    qDBusRegisterMetaType<UIntListList>();
+//     qDBusRegisterMetaType<IpV6DBusAddress>();
+//     qDBusRegisterMetaType<IpV6DBusAddressList>();
+//     qDBusRegisterMetaType<IpV6DBusNameservers>();
+//     qDBusRegisterMetaType<IpV6DBusRoute>();
+//     qDBusRegisterMetaType<IpV6DBusRouteList>();
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
     qDBusRegisterMetaType<DeviceDBusStateReason>();
     qDBusRegisterMetaType<NMVariantMapMap>();
