@@ -25,6 +25,5 @@ Name: NetworkManagerQt
 Description: Convenience Qt library for clients of NetworkManager
 Version: @VERSION@
 
-Requires: ModemManagerQt
 Cflags: -DWITH_MODEMMANAGERQT=@WITH_MODEMMANAGERQT@ -I${includedir} @CMAKE_INCLUDE_PATH@
 Libs: -L${libdir} -lNetworkManagerQt @CMAKE_LIBRARY_PATH@
