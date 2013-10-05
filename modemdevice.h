@@ -23,6 +23,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #define NETWORKMANAGERQT_MODEMDEVICE_H
 
 #if WITH_MODEMMANAGERQT
+#include <ModemManagerQt/modeminterface.h>
 #include <ModemManagerQt/modemgsmcardinterface.h>
 #include <ModemManagerQt/modemgsmnetworkinterface.h>
 #endif

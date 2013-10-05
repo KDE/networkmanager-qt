@@ -25,6 +25,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #if WITH_MODEMMANAGERQT
 #include <ModemManagerQt/manager.h>
+#include <ModemManagerQt/modem.h>
+#include <ModemManagerQt/modeminterface.h>
+#include <ModemManagerQt/modemgsmcardinterface.h>
 #endif
 
 #include "manager_p.h"
@@ -125,10 +128,16 @@ QString NetworkManager::ModemDevice::getUdiForModemManager()
     /* BlueZ knows about the rfcommX string that we could use to find the device in ModemManager
      * but does not export this info, so let's use the first bluetooth device we find in ModemManager.
      * Modem will be registered in ModemManager only after someone execute its org.bluez.Serial.Connect method. */
-    foreach (const ModemManager::ModemInterface::Ptr &modem, ModemManager::modemInterfaces()) {
-        if (modem->drivers().contains(QLatin1String("bluetooth"))) {
-            return modem->udi();
+    foreach (const ModemManager::Modem::Ptr &modem, ModemManager::modems()) {
+        if (modem->hasInterface(ModemManager::Modem::ModemInterface)) {
+            ModemManager::ModemInterface::Ptr modemInterface = modem->interface(ModemManager::Modem::ModemInterface).objectCast<ModemManager::ModemInterface>();
+            if (modemInterface) {
+                if (modemInterface->drivers().contains(QLatin1String("bluetooth"))) {
+                    return modem->uni();
+                }
+            }
         }
+
     }
 
     modemRemoved(udi());
@@ -146,9 +155,16 @@ ModemManager::ModemSimCardInterface::Ptr NetworkManager::ModemDevice::getModemCa
         return ModemManager::ModemSimCardInterface::Ptr();
     }
     if (modemSimCardIface == 0) {
-        ModemManager::ModemInterface::Ptr modem = ModemManager::findModemInterface(d->m_modemUdi, ModemManager::ModemInterface::SimCard);
-        modemSimCardIface = modem.objectCast<ModemManager::ModemSimCardInterface>();
-        connect(ModemManager::notifier(), SIGNAL(modemRemoved(QString)), this, SLOT(modemRemoved(QString)));
+        ModemManager::Modem::Ptr modem = ModemManager::findModem(d->m_modemUdi);
+        if (modem) {
+            if (modem->hasInterface(ModemManager::Modem::ModemInterface)) {
+                ModemManager::ModemInterface::Ptr modemInterface = modem->interface(ModemManager::Modem::ModemInterface).objectCast<ModemManager::ModemInterface>();
+                if (modemInterface) {
+                    modemSimCardIface = ModemManager::findSim(modemInterface->simPath());
+                }
+            }
+            connect(ModemManager::notifier(), SIGNAL(modemRemoved(QString)), this, SLOT(modemRemoved(QString)));
+        }
     }
 
     return modemSimCardIface;
@@ -162,10 +178,14 @@ ModemManager::ModemInterface::Ptr NetworkManager::ModemDevice::getModemNetworkIf
         return ModemManager::ModemInterface::Ptr();
     }
     if (modemNetworkIface.isNull()) {
-        ModemManager::ModemInterface::Ptr modem = ModemManager::findModemInterface(d->m_modemUdi, ModemManager::ModemInterface::Gsm);
-        modemNetworkIface = modem.objectCast<ModemManager::Modem3gppInterface>(); // TODO cdma
-        if (modemNetworkIface) {
-            connect(ModemManager::notifier(), SIGNAL(modemRemoved(QString)), this, SLOT(modemRemoved(QString)));
+        ModemManager::Modem::Ptr modem = ModemManager::findModem(d->m_modemUdi);
+        if (modem) {
+            if (modem->hasInterface(ModemManager::Modem::ModemInterface)) {
+                modemNetworkIface = modem->interface(ModemManager::Modem::ModemInterface).objectCast<ModemManager::ModemInterface>();
+            }
+            if (modemNetworkIface) {
+                connect(ModemManager::notifier(), SIGNAL(modemRemoved(QString)), this, SLOT(modemRemoved(QString)));
+            }
         }
     }
 
