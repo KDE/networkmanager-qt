@@ -23,12 +23,12 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "modemdevice.h"
 #include "modemdevice_p.h"
 
-// #if WITH_MODEMMANAGERQT
+#if WITH_MODEMMANAGERQT
 #include <ModemManagerQt/manager.h>
 #include <ModemManagerQt/modemdevice.h>
 #include <ModemManagerQt/modem.h>
 #include <ModemManagerQt/sim.h>
-// #endif
+#endif
 
 #include "manager_p.h"
 
@@ -55,32 +55,32 @@ void NetworkManager::ModemDevicePrivate::initModemProperties()
 
 NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
     : Device(*new ModemDevicePrivate(path, this), parent)
-// #if WITH_MODEMMANAGERQT
+#if WITH_MODEMMANAGERQT
     , modemSimCardIface(0)
     , modemNetworkIface(0)
-// #endif
+#endif
 {
     Q_D(ModemDevice);
     d->initModemProperties();
-// #if WITH_MODEMMANAGERQT
+#if WITH_MODEMMANAGERQT
     d->m_modemUdi = getUdiForModemManager();
-// #endif
+#endif
     connect(&d->modemIface, SIGNAL(PropertiesChanged(QVariantMap)),
             this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd, QObject *parent)
     : Device(dd, parent)
-// #if WITH_MODEMMANAGERQT
+#if WITH_MODEMMANAGERQT
     , modemSimCardIface(0)
     , modemNetworkIface(0)
-// #endif
+#endif
 {
     Q_D(ModemDevice);
     d->initModemProperties();
-// #if WITH_MODEMMANAGERQT
+#if WITH_MODEMMANAGERQT
     d->m_modemUdi = getUdiForModemManager();
-// #endif
+#endif
     connect(&d->modemIface, SIGNAL(PropertiesChanged(QVariantMap)),
             this, SLOT(propertiesChanged(QVariantMap)));
 }
@@ -118,7 +118,7 @@ void NetworkManager::ModemDevice::propertyChanged(const QString &property, const
     }
 }
 
-// #if WITH_MODEMMANAGERQT
+#if WITH_MODEMMANAGERQT
 QString NetworkManager::ModemDevice::getUdiForModemManager()
 {
     if (driver() != QLatin1String("bluez")) {
@@ -220,7 +220,7 @@ void NetworkManager::ModemDevice::clearModemNetworkIface()
 {
     modemNetworkIface.clear();
 }
-// #endif
+#endif
 
 // vim: sw=4 sts=4 et tw=100
 
