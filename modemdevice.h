@@ -22,11 +22,10 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NETWORKMANAGERQT_MODEMDEVICE_H
 #define NETWORKMANAGERQT_MODEMDEVICE_H
 
-#if WITH_MODEMMANAGERQT
-#include <ModemManagerQt/modeminterface.h>
-#include <ModemManagerQt/modemgsmcardinterface.h>
-#include <ModemManagerQt/modemgsmnetworkinterface.h>
-#endif
+// #if WITH_MODEMMANAGERQT
+#include <ModemManagerQt/modem.h>
+#include <ModemManagerQt/sim.h>
+// #endif
 
 #include "device.h"
 #include "NetworkManagerQt-export.h"
@@ -67,14 +66,14 @@ public:
      */
     Capabilities currentCapabilities() const;
 
-#if WITH_MODEMMANAGERQT
-    ModemManager::ModemSimCardInterface::Ptr getModemCardIface();
-    void setModemCardIface(const ModemManager::ModemSimCardInterface::Ptr &iface);
+// #if WITH_MODEMMANAGERQT
+    ModemManager::Sim::Ptr getModemCardIface();
+    void setModemCardIface(const ModemManager::Sim::Ptr &iface);
     void clearModemCardIface();
-    ModemManager::ModemInterface::Ptr getModemNetworkIface();
-    void setModemNetworkIface(const ModemManager::ModemInterface::Ptr &iface);
+    ModemManager::Modem::Ptr getModemNetworkIface();
+    void setModemNetworkIface(const ModemManager::Modem::Ptr &iface);
     void clearModemNetworkIface();
-#endif
+// #endif
 
 Q_SIGNALS:
     /**
@@ -83,11 +82,11 @@ Q_SIGNALS:
     void currentCapabilitiesChanged(Capabilities);
 
 protected:
-#if WITH_MODEMMANAGERQT
-    ModemManager::ModemSimCardInterface::Ptr modemSimCardIface;
-    ModemManager::ModemInterface::Ptr modemNetworkIface;
+// #if WITH_MODEMMANAGERQT
+    ModemManager::Sim::Ptr modemSimCardIface;
+    ModemManager::Modem::Ptr modemNetworkIface;
     QString getUdiForModemManager();
-#endif
+// #endif
 
     /**
      * When subclassing make sure to call the parent class method
@@ -95,10 +94,10 @@ protected:
      */
     virtual void propertyChanged(const QString &property, const QVariant &value);
 
-#if WITH_MODEMMANAGERQT
+// #if WITH_MODEMMANAGERQT
 protected Q_SLOTS:
     void modemRemoved(const QString &modemUdi);
-#endif
+// #endif
 
 private:
     Q_DECLARE_PRIVATE(ModemDevice)
