@@ -30,7 +30,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "nmdebug.h"
 
-NM_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
+//NM_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
+Q_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
 
 NetworkManager::SettingsPrivate::SettingsPrivate()
     : iface(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, QDBusConnection::systemBus())

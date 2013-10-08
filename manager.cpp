@@ -49,7 +49,7 @@ const QString NetworkManager::NetworkManagerPrivate::DBUS_SERVICE(QString::fromL
 const QString NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH(QString::fromLatin1(NM_DBUS_PATH));
 const QString NetworkManager::NetworkManagerPrivate::DBUS_SETTINGS_PATH(QString::fromLatin1(NM_DBUS_PATH_SETTINGS));
 
-NM_GLOBAL_STATIC(NetworkManager::NetworkManagerPrivate, globalNetworkManager)
+Q_GLOBAL_STATIC(NetworkManager::NetworkManagerPrivate, globalNetworkManager)
 
 NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     : watcher(DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForOwnerChange, this)
