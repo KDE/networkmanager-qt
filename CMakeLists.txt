@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 2.8)
 
 project(NetworkManagerQt)
 
+#set(DISABLE_MODEMMANAGERQT 1)
+
+
 set(VERSION 0.9.1)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_MODULE_PATH})
 set(LIB_SUFFIX "" CACHE STRING "Define suffix of library directory name (32/64)" )
@@ -10,7 +13,27 @@ if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
 
-find_package(Qt4 REQUIRED)
+#find_package(Qt4 REQUIRED)
+find_package(ECM 0.0.8 REQUIRED NO_MODULE)
+
+include(CMakePackageConfigHelpers)
+include(FeatureSummary)
+#include(WriteBasicConfigVersionFile)
+
+# where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
+
+#include(ECMOptionalAddSubdirectory)
+
+find_package(Qt5Core REQUIRED NO_MODULE)
+find_package(Qt5DBus REQUIRED NO_MODULE)
+find_package(Qt5Network REQUIRED NO_MODULE)
+find_package(Qt5Widgets REQUIRED NO_MODULE)
+
+include_directories(${Qt5Widgets_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS} ${Qt5Core_INCLUDE_DIRS} ${Qt5Network_INCLUDE_DIRS})
+set(CMAKE_AUTOMOC TRUE)
+
+
 find_package(NetworkManager 0.9.8.0 REQUIRED)
 
 if (DISABLE_MODEMMANAGERQT)
@@ -20,14 +43,15 @@ else()
     pkg_check_modules(MODEMMANAGERQT ModemManagerQt)
     if (MODEMMANAGERQT_FOUND)
         message(STATUS "Enabling ModemManagerQt support")
-        set(WITH_MODEMMANAGERQT 1)
+        set(WITH_MODEMMANAGERQT 0)
     else()
         message(STATUS "ModemManagerQt not found")
         set(WITH_MODEMMANAGERQT 0)
     endif()
 endif()
 
-add_definitions(-DWITH_MODEMMANAGERQT=${WITH_MODEMMANAGERQT} ${QT_DEFINITIONS})
+#add_definitions(-DWITH_MODEMMANAGERQT=${WITH_MODEMMANAGERQT} ${QT_DEFINITIONS})
+add_definitions(-DWITH_MODEMMANAGERQT=FALSE ${QT_DEFINITIONS})
 
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES}
                     ${MODEMMANAGERQT_INCLUDE_DIRS} ${CMAKE_INCLUDE_PATH})
@@ -41,11 +65,11 @@ include_directories(
    ${CMAKE_CURRENT_SOURCE_DIR}/dbus
    ${CMAKE_CURRENT_SOURCE_DIR}/settings
    ${CMAKE_CURRENT_BUILD_DIR}
-if (MODEMMANAGERQT_FOUND)
-   ${MODEMMANAGERQT_INCLUDE_DIRS}
-endif()
 )
 
+if (MODEMMANAGERQT_FOUND)
+	include_directories(${MODEMMANAGERQT_INCLUDE_DIRS})
+endif()
 #add_subdirectory(dbus)
 
 option(BUILD_EXAMPLES "Build example applications" FALSE)
@@ -212,9 +236,9 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/wimaxsetting.h
     )
 
-qt4_wrap_cpp(NetworkManagerQt_MOC ${NetworkManagerQt_PRIVATE_HEADERS})
-qt4_automoc(${NetworkManagerQt_PART_SRCS})
-qt4_automoc(${DBUS_INTERFACE_SRCS})
+qt5_wrap_cpp(NetworkManagerQt_MOC ${NetworkManagerQt_PRIVATE_HEADERS})
+#qt5_automoc(${NetworkManagerQt_PART_SRCS})
+#qt5_automoc(${DBUS_INTERFACE_SRCS})
 
 add_library(NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${DBUS_INTERFACE_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${NetworkManagerQt_MOC} )
 
