@@ -27,11 +27,16 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
 find_package(Qt5Core REQUIRED NO_MODULE)
 find_package(Qt5DBus REQUIRED NO_MODULE)
 find_package(Qt5Network REQUIRED NO_MODULE)
+find_package(Qt5Test REQUIRED NO_MODULE)
 find_package(Qt5Widgets REQUIRED NO_MODULE)
 
-include_directories(${Qt5Widgets_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS} ${Qt5Core_INCLUDE_DIRS} ${Qt5Network_INCLUDE_DIRS})
+include_directories(${Qt5Widgets_INCLUDE_DIRS}
+                    ${Qt5DBus_INCLUDE_DIRS}
+                    ${Qt5Core_INCLUDE_DIRS}
+                    ${Qt5Network_INCLUDE_DIRS}
+                    ${Qt5Test_INCLUDE_DIRS}
+                    )
 set(CMAKE_AUTOMOC TRUE)
-
 
 find_package(NetworkManager 0.9.8.0 REQUIRED)
 
@@ -43,6 +48,7 @@ else()
     if (MODEMMANAGERQT_FOUND)
         message(STATUS "Enabling ModemManagerQt support")
         set(WITH_MODEMMANAGERQT 1)
+        set(MODEMMANAGERQT_LIBRARY ModemManagerQt)
         include_directories(${MODEMMANAGERQT_INCLUDE_DIRS})
     else()
         message(STATUS "ModemManagerQt not found")
@@ -72,7 +78,7 @@ if (BUILD_EXAMPLES)
 endif(BUILD_EXAMPLES)
 
 enable_testing(true)
-add_subdirectory(tests)
+#add_subdirectory(tests)
 
 set(NetworkManagerQt_HEADERS
     accesspoint.h
@@ -236,7 +242,7 @@ qt5_wrap_cpp(NetworkManagerQt_MOC ${NetworkManagerQt_PRIVATE_HEADERS})
 
 add_library(NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${DBUS_INTERFACE_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${NetworkManagerQt_MOC} )
 
-target_link_libraries(NetworkManagerQt ModemManagerQt ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
+target_link_libraries(NetworkManagerQt ${MODEMMANAGERQT_LIBRARY} ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
 install(TARGETS NetworkManagerQt DESTINATION lib${LIB_SUFFIX})
 
 install( FILES
