@@ -112,4 +112,4 @@ void NetworkManager::SecretAgent::sendError(NetworkManager::SecretAgent::Error e
     }
 }
 
-#include "secretagent.moc"
+#include "moc_secretagent.cpp"

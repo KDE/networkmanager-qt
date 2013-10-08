@@ -135,4 +135,4 @@ NetworkManager::AccessPoint::List NetworkManager::WirelessNetwork::accessPoints(
 
 // vim: sw=4 sts=4 et tw=100
 
-#include "wirelessnetwork.moc"
+#include "moc_wirelessnetwork.cpp"

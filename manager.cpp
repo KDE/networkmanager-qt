@@ -848,4 +848,4 @@ NetworkManager::Notifier *NetworkManager::notifier()
     return globalNetworkManager;
 }
 
-#include "manager.moc"
+#include "moc_manager.cpp"
