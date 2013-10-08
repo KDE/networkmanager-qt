@@ -21,7 +21,8 @@
 #include <QtDBus/QtDBus>
 
 #ifdef WITH_MODEMMANAGERQT
-#include <ModemManagerQt/generic-types.h>
+#include "generic-types.h"
+//#include <ModemManagerQt/generic-types.h>
 #else
 #include "generic-types.h"
 #endif
