@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(NetworkManagerQt)
 
-#set(DISABLE_MODEMMANAGERQT 1)
+set(DISABLE_MODEMMANAGERQT 1)
 
 
 set(VERSION 0.9.1)
@@ -18,7 +18,6 @@ find_package(ECM 0.0.8 REQUIRED NO_MODULE)
 
 include(CMakePackageConfigHelpers)
 include(FeatureSummary)
-#include(WriteBasicConfigVersionFile)
 
 # where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
@@ -43,15 +42,15 @@ else()
     pkg_check_modules(MODEMMANAGERQT ModemManagerQt)
     if (MODEMMANAGERQT_FOUND)
         message(STATUS "Enabling ModemManagerQt support")
-        set(WITH_MODEMMANAGERQT 0)
+        set(WITH_MODEMMANAGERQT 1)
+        include_directories(${MODEMMANAGERQT_INCLUDE_DIRS})
     else()
         message(STATUS "ModemManagerQt not found")
         set(WITH_MODEMMANAGERQT 0)
     endif()
 endif()
 
-#add_definitions(-DWITH_MODEMMANAGERQT=${WITH_MODEMMANAGERQT} ${QT_DEFINITIONS})
-add_definitions(-DWITH_MODEMMANAGERQT=FALSE ${QT_DEFINITIONS})
+add_definitions(-DWITH_MODEMMANAGERQT=${WITH_MODEMMANAGERQT} ${QT_DEFINITIONS})
 
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES}
                     ${MODEMMANAGERQT_INCLUDE_DIRS} ${CMAKE_INCLUDE_PATH})
@@ -66,11 +65,6 @@ include_directories(
    ${CMAKE_CURRENT_SOURCE_DIR}/settings
    ${CMAKE_CURRENT_BUILD_DIR}
 )
-
-if (MODEMMANAGERQT_FOUND)
-	include_directories(${MODEMMANAGERQT_INCLUDE_DIRS})
-endif()
-#add_subdirectory(dbus)
 
 option(BUILD_EXAMPLES "Build example applications" FALSE)
 if (BUILD_EXAMPLES)
