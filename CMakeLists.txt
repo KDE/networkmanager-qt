@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(NetworkManagerQt)
 
-set(DISABLE_MODEMMANAGERQT 1)
+#set(DISABLE_MODEMMANAGERQT 1)
 
 
 set(VERSION 0.9.1)
