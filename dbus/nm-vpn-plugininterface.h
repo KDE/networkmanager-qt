@@ -20,9 +20,8 @@
 #include <QtCore/QVariant>
 #include <QtDBus/QtDBus>
 
-#ifdef WITH_MODEMMANAGERQT
-//#include <ModemManagerQt/generic-types.h>
-#include "generic-types.h"
+#if WITH_MODEMMANAGERQT
+#include <ModemManagerQt/generic-types.h>
 #else
 #include "generic-types.h"
 #endif
