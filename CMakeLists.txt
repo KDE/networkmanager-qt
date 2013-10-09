@@ -29,12 +29,14 @@ find_package(Qt5DBus REQUIRED NO_MODULE)
 find_package(Qt5Network REQUIRED NO_MODULE)
 find_package(Qt5Test REQUIRED NO_MODULE)
 find_package(Qt5Widgets REQUIRED NO_MODULE)
+find_package(Qt5Xml REQUIRED NO_MODULE)
 
 include_directories(${Qt5Widgets_INCLUDE_DIRS}
                     ${Qt5DBus_INCLUDE_DIRS}
                     ${Qt5Core_INCLUDE_DIRS}
                     ${Qt5Network_INCLUDE_DIRS}
                     ${Qt5Test_INCLUDE_DIRS}
+                    ${Qt5Xml_INCLUDE_DIRS}
                     )
 set(CMAKE_AUTOMOC TRUE)
 
