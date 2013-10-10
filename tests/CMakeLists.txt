@@ -4,13 +4,14 @@ include_directories (${CMAKE_CURRENT_BINARY_DIR}
                      ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-add_definitions(-fPIC)
+#add_definitions(-fPIC)
 
 MACRO(LIBNM_TESTS)
        FOREACH(_testname ${ARGN})
             SET(test_${_testname}_SRCS ${_testname}.cpp)
             #qt4_automoc(${test_${_testname}_SRCS})
             add_executable(test_${_testname} ${test_${_testname}_SRCS} ${test_${_testname}_HDRS} ${test_additional})
+            set_target_properties(test_${_testname} PROPERTIES POSITION_INDEPENDENT_CODE ON)
             target_link_libraries(test_${_testname}
                 ${QT_QTCORE_LIBRARY}
                 ${QT_QTTEST_LIBRARY}
@@ -20,7 +21,6 @@ MACRO(LIBNM_TESTS)
                 Qt5::Test
                 Qt5::Xml
                 NetworkManagerQt
-                ModemManagerQt
                 ${MODEMMANAGERQT_LIBRARY}
             )
             ADD_TEST(test_${_testname} test_${_testname})
