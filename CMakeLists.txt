@@ -218,7 +218,12 @@ qt4_automoc(${DBUS_INTERFACE_SRCS})
 
 add_library(NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${DBUS_INTERFACE_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${NetworkManagerQt_MOC} )
 
+if (MODEMMANAGERQT_FOUND)
 target_link_libraries(NetworkManagerQt ModemManagerQt ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
+else()
+target_link_libraries(NetworkManagerQt ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
+endif()
+
 install(TARGETS NetworkManagerQt DESTINATION lib${LIB_SUFFIX})
 
 install( FILES

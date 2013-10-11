@@ -23,7 +23,7 @@
 
 #include "../NetworkManagerQt-export.h"
 
-#ifdef WITH_MODEMMANAGERQT
+#if WITH_MODEMMANAGERQT
 #include <ModemManagerQt/generic-types.h>
 #else
 #include "../generic-types.h"

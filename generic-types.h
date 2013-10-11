@@ -26,23 +26,23 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 
 typedef QList<QList<uint> > UIntListList;
-#ifndef WITH_MODEMMANAGERQT
+#if !WITH_MODEMMANAGERQT
 Q_DECLARE_METATYPE(UIntListList)
 #endif
 
 typedef QList<uint> UIntList;
-#ifndef WITH_MODEMMANAGERQT
+#if !WITH_MODEMMANAGERQT
 Q_DECLARE_METATYPE(UIntList)
 #endif
 
 typedef QMap<QString, QVariantMap> NMVariantMapMap;
-#ifndef WITH_MODEMMANAGERQT
+#if !WITH_MODEMMANAGERQT
 Q_DECLARE_METATYPE(NMVariantMapMap)
 #endif
 
 typedef QMap<QString, QString> NMStringMap;
 typedef QMapIterator<QString, QString> NMStringMapIterator;
-#ifndef WITH_MODEMMANAGERQT
+#if !WITH_MODEMMANAGERQT
 Q_DECLARE_METATYPE(NMStringMap)
 #endif
 
