@@ -244,7 +244,7 @@ qt5_wrap_cpp(NetworkManagerQt_MOC ${NetworkManagerQt_PRIVATE_HEADERS})
 
 add_library(NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${DBUS_INTERFACE_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${NetworkManagerQt_MOC} )
 
-target_link_libraries(NetworkManagerQt ${MODEMMANAGERQT_LIBRARY} ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
+target_link_libraries(NetworkManagerQt ${MODEMMANAGERQT_LIBRARY} Qt5::DBus Qt5::Network)
 install(TARGETS NetworkManagerQt DESTINATION lib${LIB_SUFFIX})
 
 install( FILES
