@@ -58,9 +58,8 @@ if (DISABLE_TESTING)
     message(STATUS "Disabling unit tests")
 else()
     enable_testing(true)
+    add_subdirectory(tests)
 endif()
-
-add_subdirectory(tests)
 
 set(NetworkManagerQt_HEADERS
     accesspoint.h
