@@ -50,7 +50,10 @@ if (BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif(BUILD_EXAMPLES)
 
-enable_testing(true)
+if (DISABLE_TESTING)
+    enable_testing(true)
+endif()
+
 add_subdirectory(tests)
 
 set(NetworkManagerQt_HEADERS
