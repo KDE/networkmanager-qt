@@ -53,7 +53,10 @@ if (BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif(BUILD_EXAMPLES)
 
+option(DISABLE_TESTING "Disable unit tests" FALSE)
 if (DISABLE_TESTING)
+    message(STATUS "Disabling unit tests")
+else()
     enable_testing(true)
 endif()
 
