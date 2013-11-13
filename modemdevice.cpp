@@ -157,11 +157,8 @@ ModemManager::Sim::Ptr NetworkManager::ModemDevice::getModemCardIface()
     if (modemSimCardIface == 0) {
         ModemManager::ModemDevice::Ptr modem = ModemManager::findModemDevice(d->m_modemUdi);
         if (modem) {
-            if (modem->hasInterface(ModemManager::ModemDevice::ModemInterface)) {
-                ModemManager::Modem::Ptr modemInterface = modem->interface(ModemManager::ModemDevice::ModemInterface).objectCast<ModemManager::Modem>();
-                if (modemInterface) {
-                    modemSimCardIface = ModemManager::findSim(modemInterface->simPath());
-                }
+            if (modem->sims().count()) {
+                modemSimCardIface = modem->sims().first();
             }
             connect(ModemManager::notifier(), SIGNAL(modemRemoved(QString)), this, SLOT(modemRemoved(QString)));
         }
