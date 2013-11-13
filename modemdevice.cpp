@@ -48,7 +48,6 @@ NetworkManager::ModemDevicePrivate::ModemDevicePrivate(const QString &path, Mode
 void NetworkManager::ModemDevicePrivate::initModemProperties()
 {
     Q_Q(ModemDevice);
-    //TODO: get properties and store them
     modemCapabilities = convertModemCapabilities(modemIface.modemCapabilities());
     currentCapabilities = convertModemCapabilities(modemIface.currentCapabilities());
 }
@@ -148,8 +147,6 @@ ModemManager::Sim::Ptr NetworkManager::ModemDevice::getModemCardIface()
 {
     Q_D(ModemDevice);
 
-    // TODO don't store modemSimCardIface and find it using SIM property from modemNetworkIface
-
     d->m_modemUdi = getUdiForModemManager();
     if (d->m_modemUdi.isEmpty()) {
         return ModemManager::Sim::Ptr();
@@ -157,7 +154,7 @@ ModemManager::Sim::Ptr NetworkManager::ModemDevice::getModemCardIface()
     if (modemSimCardIface == 0) {
         ModemManager::ModemDevice::Ptr modem = ModemManager::findModemDevice(d->m_modemUdi);
         if (modem) {
-            if (modem->sims().count()) {
+            if (!modem->sims().isEmpty()) {
                 modemSimCardIface = modem->sims().first();
             }
             connect(ModemManager::notifier(), SIGNAL(modemRemoved(QString)), this, SLOT(modemRemoved(QString)));
