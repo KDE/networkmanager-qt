@@ -48,15 +48,39 @@ public:
      * Return the type
      */
     virtual Type type() const;
+    /**
+     * Active hardware address of the device
+     */
     QString hardwareAddress() const;
+    /**
+     * Permanent hardware address of the device
+     */
     QString permanentHardwareAddress() const;
+    /**
+     * Design speed of the device, in megabits/second (Mb/s)
+     */
     int bitRate() const;
+    /**
+     * Indicates whether the physical carrier is found (e.g. whether a cable is plugged in or not)
+     */
     bool carrier() const;
 
 Q_SIGNALS:
+    /**
+     * Emmited when the design speed of the device has changed
+     */
     void bitRateChanged(int bitRate);
+    /**
+     * Emmited when the carrier of this device has changed
+     */
     void carrierChanged(bool plugged);
+    /**
+     * Emmited when the hardware address of this device has changed
+     */
     void hardwareAddressChanged(const QString &hwAddress);
+    /**
+     * Emmited when the permanent hardware address of this device has changed
+     */
     void permanentHardwareAddressChanged(const QString &permHwAddress);
 
 protected:

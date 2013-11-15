@@ -33,7 +33,7 @@ class NETWORKMANAGERQT_EXPORT BondDevice : public Device
     Q_OBJECT
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
     Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
-    Q_PROPERTY(QList<QDBusObjectPath> slaves READ slaves NOTIFY slavesChanged)
+    Q_PROPERTY(QStringList slaves READ slaves NOTIFY slavesChanged)
 
 public:
     typedef QSharedPointer<BondDevice> Ptr;
@@ -42,14 +42,32 @@ public:
     virtual ~BondDevice();
 
     virtual Type type() const;
+    /**
+     * Indicates whether the physical carrier is found
+     */
     bool carrier() const;
+    /**
+     * Hardware address of the device
+     */
     QString hwAddress() const;
-    QList<QDBusObjectPath> slaves() const;
+    /**
+     * Array of object paths representing devices which are currently slaved to this device
+     */
+    QStringList slaves() const;
 
 Q_SIGNALS:
+    /**
+     * Emmited when the carrier of this device has changed
+     */
     void carrierChanged(bool plugged);
+    /**
+     * Emmited when the hardware address of this device has changed
+     */
     void hwAddressChanged(const QString &address);
-    void slavesChanged(const QList<QDBusObjectPath> &slaves);
+    /**
+     * Emmited when the slaves of this device have changed
+     */
+    void slavesChanged(const QStringList &slaves);
 
 protected:
     /**

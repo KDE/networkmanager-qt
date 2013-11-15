@@ -36,7 +36,7 @@ public:
     OrgFreedesktopNetworkManagerDeviceBridgeInterface iface;
     bool carrier;
     QString hwAddress;
-    QList<QDBusObjectPath> slaves;
+    QStringList slaves;
 };
 }
 
@@ -58,7 +58,11 @@ NetworkManager::BridgeDevice::BridgeDevice(const QString &path, QObject *parent)
 
     d->carrier = d->iface.carrier();
     d->hwAddress = d->iface.hwAddress();
-    d->slaves = d->iface.slaves();
+    QStringList list;
+    foreach (const QDBusObjectPath &op, d->iface.slaves()) {
+        list << op.path();
+    }
+    d->slaves = list;
 
     connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
             this, SLOT(propertiesChanged(QVariantMap)));
@@ -87,7 +91,7 @@ QString NetworkManager::BridgeDevice::hwAddress() const
     return d->hwAddress;
 }
 
-QList< QDBusObjectPath > NetworkManager::BridgeDevice::slaves() const
+QStringList NetworkManager::BridgeDevice::slaves() const
 {
     Q_D(const BridgeDevice);
 
@@ -105,7 +109,11 @@ void NetworkManager::BridgeDevice::propertyChanged(const QString &property, cons
         d->hwAddress = value.toString();
         emit hwAddressChanged(d->hwAddress);
     } else if (property == QLatin1String("Slaves")) {
-        d->slaves = value.value<QList<QDBusObjectPath> >();
+        QStringList list;
+        foreach (const QDBusObjectPath &op, value.value<QList<QDBusObjectPath> >()) {
+            list << op.path();
+        }
+        d->slaves = list;
         emit slavesChanged(d->slaves);
     } else {
         Device::propertyChanged(property, value);

@@ -40,9 +40,15 @@ public:
     virtual ~AdslDevice();
 
     virtual Type type() const;
+    /**
+     * Indicates whether the physical carrier is found
+     */
     bool carrier() const;
 
 Q_SIGNALS:
+    /**
+     * Emmited when the carrier of this device has changed
+     */
     void carrierChanged(bool plugged);
 
 protected:

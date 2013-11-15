@@ -47,8 +47,17 @@ public:
     virtual ~WimaxNsp();
 
     QString uni() const;
+    /**
+     * The network type of the NSP
+     */
     NetworkType networkType() const;
+    /**
+     * The name of the NSP
+     */
     QString name() const;
+    /**
+     * The current signal quality of the NSP, in percent
+     */
     uint signalQuality() const;
 
 Q_SIGNALS:

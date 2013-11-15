@@ -41,11 +41,23 @@ public:
     virtual ~InfinibandDevice();
 
     virtual Type type() const;
+    /**
+     * Indicates whether the physical carrier is found
+     */
     bool carrier() const;
+    /**
+     * Hardware address of the device
+     */
     QString hwAddress() const;
 
 Q_SIGNALS:
+    /**
+     * Emmited when the carrier of this device has changed
+     */
     void carrierChanged(bool plugged);
+    /**
+     * Emmited when the hardware address of this device has changed
+     */
     void hwAddressChanged(const QString &address);
 
 protected:
