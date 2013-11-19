@@ -5,6 +5,10 @@ project(NetworkManagerQt)
 set(VERSION 0.9.1)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_MODULE_PATH})
 set(LIB_SUFFIX "" CACHE STRING "Define suffix of library directory name (32/64)" )
+set(LIB_DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE STRING
+    "Library directory name")
+set(PKGCONFIG_INSTALL_PREFIX "${LIB_DESTINATION}/pkgconfig/" CACHE STRING
+    "Base directory for pkgconfig files")
 
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
@@ -229,7 +233,7 @@ else()
 target_link_libraries(NetworkManagerQt ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
 endif()
 
-install(TARGETS NetworkManagerQt DESTINATION lib${LIB_SUFFIX})
+install(TARGETS NetworkManagerQt DESTINATION ${LIB_DESTINATION})
 
 install( FILES
    ${NetworkManagerQt_HEADERS}
@@ -247,7 +251,7 @@ set_property(TARGET NetworkManagerQt PROPERTY SOVERSION 0)
 
 message(STATUS "Writing pkg-config file...")
 configure_file(${CMAKE_SOURCE_DIR}/NetworkManagerQt.pc.cmake ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc @ONLY)
-install(FILES ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig/")
+install(FILES ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc DESTINATION "${PKGCONFIG_INSTALL_PREFIX}")
 
 add_subdirectory(include)
 

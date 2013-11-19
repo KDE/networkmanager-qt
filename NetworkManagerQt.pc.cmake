@@ -18,7 +18,7 @@
 
 prefix=@CMAKE_INSTALL_PREFIX@
 exec_prefix=${prefix}
-libdir=@CMAKE_INSTALL_PREFIX@/lib@LIB_SUFFIX@
+libdir=@LIB_DESTINATION@
 includedir=${prefix}/include
 
 Name: NetworkManagerQt
