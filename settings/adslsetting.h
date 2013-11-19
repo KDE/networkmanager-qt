@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_SETTINGS_ADSL_H
-#define NETWORKMANAGERQT_SETTINGS_ADSL_H
+#ifndef NETWORKMANAGERQT_ADSL_SETTING_H
+#define NETWORKMANAGERQT_ADSL_SETTING_H
 
 #include "../NetworkManagerQt-export.h"
 #include "setting.h"
@@ -82,4 +82,4 @@ QDebug operator<<(QDebug dbg, const AdslSetting &setting);
 
 }
 
-#endif // NETWORKMANAGERQT_SETTINGS_ADSL_H
+#endif // NETWORKMANAGERQT_ADSL_SETTING_H

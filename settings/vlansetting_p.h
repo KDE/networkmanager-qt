@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_SETTINGS_VLAN_P_H
-#define NETWORKMANAGERQT_SETTINGS_VLAN_P_H
+#ifndef NETWORKMANAGERQT_VLAN_SETTING_P_H
+#define NETWORKMANAGERQT_VLAN_SETTING_P_H
 
 #include <QtCore/QStringList>
 
@@ -42,4 +42,4 @@ public:
 
 }
 
-#endif // NETWORKMANAGERQT_SETTINGS_VLAN_P_H
+#endif // NETWORKMANAGERQT_VLAN_SETTING_P_H

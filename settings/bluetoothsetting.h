@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_SETTINGS_BLUETOOTH_H
-#define NETWORKMANAGERQT_SETTINGS_BLUETOOTH_H
+#ifndef NETWORKMANAGERQT_BLUETOOTH_SETTING_H
+#define NETWORKMANAGERQT_BLUETOOTH_SETTING_H
 
 #include "../NetworkManagerQt-export.h"
 #include "setting.h"

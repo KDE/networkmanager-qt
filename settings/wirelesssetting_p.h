@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_SETTINGS_802_11_WIRELESS_P_H
-#define NETWORKMANAGERQT_SETTINGS_802_11_WIRELESS_P_H
+#ifndef NETWORKMANAGERQT_WIRELESS_SETTING_P_H
+#define NETWORKMANAGERQT_WIRELESS_SETTING_P_H
 
 #include <QtCore/QStringList>
 
@@ -50,5 +50,5 @@ public:
 
 }
 
-#endif // NETWORKMANAGERQT_SETTINGS_802_11_WIRELESS_P_H
+#endif // NETWORKMANAGERQT_WIRELESS_SETTING_P_H
 

@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_SETTINGS_BRIDGEPORT_P_H
-#define NETWORKMANAGERQT_SETTINGS_BRIDGEPORT_P_H
+#ifndef NETWORKMANAGERQT_BRIDGEPORT_SETTING_P_H
+#define NETWORKMANAGERQT_BRIDGEPORT_SETTING_P_H
 
 #include <QtCore/QString>
 
@@ -39,4 +39,4 @@ public:
 
 }
 
-#endif // NETWORKMANAGERQT_SETTINGS_BRIDGEPORT_P_H
+#endif // NETWORKMANAGERQT_BRIDGEPORT_SETTING_P_H

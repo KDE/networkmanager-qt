@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_SETTINGS_BRIDGE_H
-#define NETWORKMANAGERQT_SETTINGS_BRIDGE_H
+#ifndef NETWORKMANAGERQT_BRIDGE_SETTING_H
+#define NETWORKMANAGERQT_BRIDGE_SETTING_H
 
 #include "../NetworkManagerQt-export.h"
 #include "setting.h"
@@ -77,4 +77,4 @@ QDebug operator<<(QDebug dbg, const BridgeSetting &setting);
 
 }
 
-#endif // NETWORKMANAGERQT_SETTINGS_BRIDGE_H
+#endif // NETWORKMANAGERQT_BRIDGE_SETTING_H

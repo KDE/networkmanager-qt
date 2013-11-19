@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_SETTINGS_VLAN_H
-#define NETWORKMANAGERQT_SETTINGS_VLAN_H
+#ifndef NETWORKMANAGERQT_VLAN_SETTING_H
+#define NETWORKMANAGERQT_VLAN_SETTING_H
 
 #include "../NetworkManagerQt-export.h"
 #include "setting.h"
@@ -78,4 +78,4 @@ QDebug operator<<(QDebug dbg, const VlanSetting &setting);
 
 }
 
-#endif // NETWORKMANAGERQT_SETTINGS_VLAN_H
+#endif // NETWORKMANAGERQT_VLAN_SETTING_H

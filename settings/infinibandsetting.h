@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_SETTINGS_INFINIBAND_H
-#define NETWORKMANAGERQT_SETTINGS_INFINIBAND_H
+#ifndef NETWORKMANAGERQT_INFINIBAND_SETTING_H
+#define NETWORKMANAGERQT_INFINIBAND_SETTING_H
 
 #include "../NetworkManagerQt-export.h"
 #include "setting.h"
@@ -67,4 +67,4 @@ QDebug operator<<(QDebug dbg, const InfinibandSetting &setting);
 
 }
 
-#endif // NETWORKMANAGERQT_SETTINGS_INFINIBAND_H
+#endif // NETWORKMANAGERQT_INFINIBAND_SETTING_H

@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_SETTINGS_PPPOE_H
-#define NETWORKMANAGERQT_SETTINGS_PPPOE_H
+#ifndef NETWORKMANAGERQT_PPPOE_SETTING_H
+#define NETWORKMANAGERQT_PPPOE_SETTING_H
 
 #include "../NetworkManagerQt-export.h"
 #include "setting.h"
@@ -74,4 +74,4 @@ QDebug operator<<(QDebug dbg, const PppoeSetting &setting);
 
 }
 
-#endif // NETWORKMANAGERQT_SETTINGS_PPPOE_H
+#endif // NETWORKMANAGERQT_PPPOE_SETTING_H

@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_SETTINGS_PPP_H
-#define NETWORKMANAGERQT_SETTINGS_PPP_H
+#ifndef NETWORKMANAGERQT_PPP_SETTING_H
+#define NETWORKMANAGERQT_PPP_SETTING_H
 
 #include "../NetworkManagerQt-export.h"
 #include "setting.h"
@@ -110,4 +110,4 @@ QDebug operator<<(QDebug dbg, const PppSetting &setting);
 
 }
 
-#endif // NETWORKMANAGERQT_SETTINGS_PPP_H
+#endif // NETWORKMANAGERQT_PPP_SETTING_H

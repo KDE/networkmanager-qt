@@ -18,8 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_SETTINGS_CDMA_H
-#define NETWORKMANAGERQT_SETTINGS_CDMA_H
+#ifndef NETWORKMANAGERQT_CDMA_SETTINGS_H
+#define NETWORKMANAGERQT_CDMA_SETTINGS_H
 
 #include "../NetworkManagerQt-export.h"
 #include "setting.h"
@@ -74,4 +74,4 @@ QDebug operator<<(QDebug dbg, const CdmaSetting &setting);
 
 }
 
-#endif // NETWORKMANAGERQT_SETTINGS_CDMASETTING_H
+#endif // NETWORKMANAGERQT_CDMA_SETTINGS_H
