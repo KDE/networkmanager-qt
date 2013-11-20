@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(NetworkManagerQt)
 
-set(VERSION 0.9.1)
+set(VERSION 0.9.7.50)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_MODULE_PATH})
 set(LIB_SUFFIX "" CACHE STRING "Define suffix of library directory name (32/64)" )
 set(LIB_DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE STRING
@@ -33,22 +33,24 @@ endif()
 
 add_definitions(-DWITH_MODEMMANAGERQT=${WITH_MODEMMANAGERQT} ${QT_DEFINITIONS})
 
-include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES}
-                    ${MODEMMANAGERQT_INCLUDE_DIRS} ${CMAKE_INCLUDE_PATH})
-link_directories(${MODEMMANAGERQT_LIBRARY_DIRS} ${CMAKE_LIBRARY_PATH})
-
 include_directories(
-   ${NETWORKMANAGER_INCLUDE_DIRS}
-   ${NM-UTIL_INCLUDE_DIRS}
-   ${NM-GLIB_INCLUDE_DIRS}
-   ${CMAKE_CURRENT_SOURCE_DIR}
-   ${CMAKE_CURRENT_SOURCE_DIR}/dbus
-   ${CMAKE_CURRENT_SOURCE_DIR}/settings
-   ${CMAKE_CURRENT_BUILD_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/dbus
+    ${CMAKE_CURRENT_SOURCE_DIR}/settings
+    ${CMAKE_CURRENT_BUILD_DIR}
+    ${CMAKE_SOURCE_DIR}
+    ${CMAKE_BINARY_DIR}
+    ${CMAKE_INCLUDE_PATH}
+    ${QT_INCLUDES}
+    ${MODEMMANAGERQT_INCLUDE_DIRS}
+    ${NETWORKMANAGER_INCLUDE_DIRS}
+    ${NM-UTIL_INCLUDE_DIRS}
+    ${NM-GLIB_INCLUDE_DIRS}
 if (MODEMMANAGERQT_FOUND)
-   ${MODEMMANAGERQT_INCLUDE_DIRS}
+    ${MODEMMANAGERQT_INCLUDE_DIRS}
 endif()
 )
+link_directories(${MODEMMANAGERQT_LIBRARY_DIRS} ${CMAKE_LIBRARY_PATH})
 
 #add_subdirectory(dbus)
 
@@ -234,16 +236,8 @@ target_link_libraries(NetworkManagerQt ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY}
 endif()
 
 install(TARGETS NetworkManagerQt DESTINATION ${LIB_DESTINATION})
-
-install( FILES
-   ${NetworkManagerQt_HEADERS}
-   DESTINATION
-   include/NetworkManagerQt COMPONENT Devel)
-
-install( FILES
-   ${CONNECTIONS_SETTINGS_HEADERS}
-   DESTINATION
-   include/NetworkManagerQt/settings COMPONENT Devel)
+install(FILES ${NetworkManagerQt_HEADERS} DESTINATION include/NetworkManagerQt COMPONENT Devel)
+install(FILES ${CONNECTIONS_SETTINGS_HEADERS} DESTINATION include/NetworkManagerQt/settings COMPONENT Devel)
 
 set_property(TARGET NetworkManagerQt PROPERTY COMPILE_DEFINITIONS MAKE_NETWORKMANAGERQT_LIB)
 set_property(TARGET NetworkManagerQt PROPERTY VERSION ${VERSION})
@@ -271,3 +265,12 @@ if(DOXYGEN_EXECUTABLE)
     apidox
     COMMAND ${DOXYGEN_EXECUTABLE} Doxyfile)
 endif(DOXYGEN_EXECUTABLE)
+
+##################  uninstall target  ########################
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+    IMMEDIATE @ONLY)
+
+add_custom_target(uninstall
+    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
