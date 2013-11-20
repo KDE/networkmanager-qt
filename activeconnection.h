@@ -150,7 +150,7 @@ Q_SIGNALS:
     void devicesChanged();
 
 protected:
-    ActiveConnectionPrivate *d_ptr;
+    ActiveConnectionPrivate *const d_ptr;
 
 protected Q_SLOTS:
     void propertiesChanged(const QVariantMap &properties);

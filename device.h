@@ -452,7 +452,7 @@ protected:
      */
     virtual void propertyChanged(const QString &property, const QVariant &value);
 
-    DevicePrivate *d_ptr;
+    DevicePrivate *const d_ptr;
 
 protected Q_SLOTS:
     void deviceStateChanged(uint, uint, uint);
@@ -478,7 +478,7 @@ public:
 private:
     Q_DECLARE_PRIVATE(DeviceStateReason)
 
-    DeviceStateReasonPrivate *d_ptr;
+    DeviceStateReasonPrivate *const d_ptr;
 };
 
 }
