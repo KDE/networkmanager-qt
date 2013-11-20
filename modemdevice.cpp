@@ -155,8 +155,8 @@ ModemManager::Sim::Ptr NetworkManager::ModemDevice::getModemCardIface()
     if (modemSimCardIface == 0) {
         ModemManager::ModemDevice::Ptr modem = ModemManager::findModemDevice(d->m_modemUdi);
         if (modem) {
-            if (!modem->sims().isEmpty()) {
-                modemSimCardIface = modem->sims().first();
+            if (modem->sim()) {
+                modemSimCardIface = modem->sim();
             }
             connect(ModemManager::notifier(), SIGNAL(modemRemoved(QString)), this, SLOT(modemRemoved(QString)));
         }
