@@ -62,7 +62,7 @@ protected Q_SLOTS:
     void onStateChanged(uint state);
 
 protected:
-    VpnPluginPrivate *d_ptr;
+    VpnPluginPrivate *const d_ptr;
 
 private:
     Q_DECLARE_PRIVATE(VpnPlugin)
