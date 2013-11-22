@@ -277,7 +277,10 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
         d->ipV6Config = IpConfig();
         emit ipV6ConfigChanged();
     } else if (property == QLatin1String("IpInterface")) {
-        d->ipInterface = value.toString();
+        // FIXME small workaround, because NM 0.9.9.0 is now broken and doesn't return correct value
+        // for IpInterface in propertiesChanged, but the value on DBus is correct
+        // d->ipInterface = value.toString();
+        d->ipInterface = d->deviceIface.ipInterface();
         emit ipInterfaceChanged();
     } else if (property == QLatin1String("Managed")) {
         d->managed = value.toBool();
