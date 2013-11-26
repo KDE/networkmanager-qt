@@ -106,6 +106,7 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
     foreach (const QDBusObjectPath &availableConnection, deviceIface.availableConnections()) {
         availableConnections << availableConnection.path();
     }
+    physicalPortId = deviceIface.physicalPortId();
 
     QDBusObjectPath ip4ConfigObjectPath = deviceIface.ip4Config();
     if (!ip4ConfigObjectPath.path().isNull() || ip4ConfigObjectPath.path() != QLatin1String("/")) {
@@ -277,10 +278,7 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
         d->ipV6Config = IpConfig();
         emit ipV6ConfigChanged();
     } else if (property == QLatin1String("IpInterface")) {
-        // FIXME small workaround, because NM 0.9.9.0 is now broken and doesn't return correct value
-        // for IpInterface in propertiesChanged, but the value on DBus is correct
-        // d->ipInterface = value.toString();
-        d->ipInterface = d->deviceIface.ipInterface();
+        d->ipInterface = value.toString();
         emit ipInterfaceChanged();
     } else if (property == QLatin1String("Managed")) {
         d->managed = value.toBool();
@@ -294,6 +292,9 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
     } else if (property == QLatin1String("Udi")) {
         d->udi = value.toString();
         emit udiChanged();
+    } else if (property == QLatin1String("PhysicalPortId")) {
+        d->physicalPortId = value.toString();
+        emit physicalPortIdChanged();
     } else {
         qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
     }
@@ -384,6 +385,12 @@ QString NetworkManager::Device::udi() const
 {
     Q_D(const Device);
     return d->udi;
+}
+
+QString NetworkManager::Device::physicalPortId() const
+{
+    Q_D(const Device);
+    return d->physicalPortId;
 }
 
 QHostAddress NetworkManager::Device::ipV4Address() const

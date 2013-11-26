@@ -63,6 +63,7 @@ public:
     QStringList availableConnections;
     bool autoconnect;
     Device::StateChangeReason reason;
+    QString physicalPortId;
 
     static NetworkManager::Device::Capabilities convertCapabilities(uint);
     static NetworkManager::Device::State convertState(uint);

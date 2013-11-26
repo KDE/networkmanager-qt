@@ -112,6 +112,7 @@ public:
                              ConnectionAssumedReason = 41, SupplicantAvailableReason = 42, ModemNotFoundReason = 43, BluetoothFailedReason = 44,
                              GsmSimNotInserted = 45, GsmSimPinRequired = 46, GsmSimPukRequired = 47, GsmSimWrong = 48 , InfiniBandMode = 49,
                              DependencyFailed = 50, Br2684Failed = 51, ModemManagerUnavailable = 52, SsidNotFound = 53, SecondaryConnectionFailed = 54,
+                             DcbFcoeFailed = 55, TeamdControlFailed = 66,
                              Reserved = 65536
                            };
     /**
@@ -300,6 +301,16 @@ public:
     QString udi() const;
 
     /**
+     * @return If non-empty, an (opaque) indicator of the physical network
+     * port associated with the device. This can be used to recognize
+     * when two seemingly-separate hardware devices are actually just
+     * different virtual interfaces to the same physical port.
+     *
+     * @since 0.9.9.0
+     */
+    QString physicalPortId() const;
+
+    /**
      * If true, indicates the device is allowed to autoconnect.
      * If false, manual intervention is required before the device
      * will automatically connect to a known network, such as activating
@@ -439,6 +450,13 @@ Q_SIGNALS:
      * Emitted when the state reason of this network has changed.
      */
     void stateReasonChanged();
+
+    /**
+     * Emitted when the physical port ID changes.
+     * @see physicalPortId()
+     * @since 0.9.9.0
+     */
+    void physicalPortIdChanged();
 
     /**
      * Emitted when the Unique Device Identifier of this device has changed.

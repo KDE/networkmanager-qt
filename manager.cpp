@@ -507,6 +507,35 @@ NMStringMap NetworkManager::NetworkManagerPrivate::permissions()
     return iface.GetPermissions();
 }
 
+NetworkManager::Connectivity NetworkManager::NetworkManagerPrivate::connectivity() const
+{
+    return static_cast<Connectivity>(iface.connectivity());
+}
+
+NetworkManager::Connectivity NetworkManager::NetworkManagerPrivate::checkConnectivity()
+{
+    QDBusReply<uint> reply = iface.CheckConnectivity();
+    if (reply.isValid())
+        return static_cast<Connectivity>(reply.value());
+    else
+        return UnknownConnectivity;
+}
+
+QString NetworkManager::NetworkManagerPrivate::primaryConnection() const
+{
+    return iface.primaryConnection().path();
+}
+
+QString NetworkManager::NetworkManagerPrivate::activatingConnection() const
+{
+    return iface.activatingConnection().path();
+}
+
+bool NetworkManager::NetworkManagerPrivate::isStartingUp() const
+{
+    return iface.startup();
+}
+
 void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath &objpath)
 {
     nmDebug();
@@ -595,6 +624,14 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
             parseVersion(m_version);
         } else if (property == QLatin1String("State")) {
             stateChanged(it->toUInt());
+        } else if (property == QLatin1String("Connectivity")) {
+            emit connectivityChanged();
+        } else if (property == QLatin1String("PrimaryConnection")) {
+            emit primaryConnectionChanged();
+        } else if (property == QLatin1String("ActivatingConnection")) {
+            emit activatingConnectionChanged();
+        } else if (property == QLatin1String("Startup")) {
+            emit isStartingUpChanged();
         } else {
             qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
         }
@@ -844,9 +881,35 @@ NetworkManager::Device::Types NetworkManager::supportedInterfaceTypes()
            );
 }
 
+NetworkManager::Connectivity NetworkManager::connectivity()
+{
+    return globalNetworkManager->connectivity();
+}
+
+NetworkManager::Connectivity NetworkManager::checkConnectivity()
+{
+    return globalNetworkManager->checkConnectivity();
+}
+
+QString NetworkManager::primaryConnection()
+{
+    return globalNetworkManager->primaryConnection();
+}
+
+QString NetworkManager::activatingConnection()
+{
+    return globalNetworkManager->activatingConnection();
+}
+
+bool NetworkManager::isStartingUp()
+{
+    return globalNetworkManager->isStartingUp();
+}
+
 NetworkManager::Notifier *NetworkManager::notifier()
 {
     return globalNetworkManager;
 }
+
 
 #include "manager.moc"

@@ -127,6 +127,15 @@
       </tp:docstring>
     </property>
 
+    <property name="PhysicalPortId" type="s" access="read">
+      <tp:docstring>
+        If non-empty, an (opaque) indicator of the physical network
+        port associated with the device. This can be used to recognize
+	when two seemingly-separate hardware devices are actually just
+	different virtual interfaces to the same physical port.
+      </tp:docstring>
+    </property>
+
     <method name="Disconnect">
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_device_disconnect"/>
       <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
@@ -578,6 +587,16 @@
       <tp:enumvalue suffix="SECONDARY_CONNECTION_FAILED" value="54">
         <tp:docstring>
           A secondary connection of the base connection failed.
+        </tp:docstring>
+      </tp:enumvalue>
+     <tp:enumvalue suffix="DCB_FCOE_FAILED" value="55">
+        <tp:docstring>
+          DCB or FCoE setup failed.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="TEAMD_CONTROL_FAILED" value="56">
+        <tp:docstring>
+          teamd control failed.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>

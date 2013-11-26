@@ -91,7 +91,6 @@ public:
     ActiveConnection::List activeConnections();
     QStringList activeConnectionsPaths() const;
     QDBusPendingReply<QString, QString> getLogging();
-    Device::Types supportedInterfaceTypes() const;
     void setNetworkingEnabled(bool enabled);
     void setWirelessEnabled(bool enabled);
     void setWwanEnabled(bool enabled);
@@ -99,6 +98,11 @@ public:
     void sleep(bool sleep);
     void setLogging(NetworkManager::LogLevel, NetworkManager::LogDomains);
     NMStringMap permissions();
+    Connectivity connectivity() const;
+    Connectivity checkConnectivity();
+    QString primaryConnection() const;
+    QString activatingConnection() const;
+    bool isStartingUp() const;
 protected Q_SLOTS:
     void init();
     void onDeviceAdded(const QDBusObjectPath &state);
@@ -113,4 +117,3 @@ private:
 };
 }
 #endif
-

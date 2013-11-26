@@ -53,12 +53,27 @@ enum Status {
     ConnectedSiteOnly, /**< a network device is connected, but there is only site-local connectivity */
     Connected /**< the system is currently connected to a network */
 };
+
 enum LogLevel {Error, Warning, Info, Debug};
+
 Q_FLAGS(LogDomains)
 enum LogDomain {NoChange, None, Hardware, RFKill, Ethernet, WiFi, Bluetooth, MobileBroadBand, DHCP4, DHCP6, PPP, WiFiScan, IPv4, IPv6,
                 AutoIPv4, DNS, VPN, Sharing, Supplicant, UserSet, SysSet, Suspend, Core, Devices, OLPC, Wimax, Infiniband, Firewall, Adsl, Bond, Vlan
                };
 Q_DECLARE_FLAGS(LogDomains, LogDomain)
+
+/**
+ * Describes the network-connectivity state.
+ * @since 0.9.9.0
+ */
+enum Connectivity {
+    UnknownConnectivity = 0,
+    NoConnectivity = 1,
+    Portal = 2,
+    Limited = 3,
+    Full = 4
+};
+
 class NETWORKMANAGERQT_EXPORT Notifier : public QObject
 {
     Q_OBJECT
@@ -131,6 +146,26 @@ Q_SIGNALS:
      * This signal is emitted when the NetworkManager DBus service appears
      */
     void serviceAppeared();
+    /**
+     * Emitted when the global connectivity changes.
+     * @since 0.9.9.0
+     */
+    void connectivityChanged();
+    /**
+     * Emitted when the primary connection changes.
+     * @since 0.9.9.0
+     */
+    void primaryConnectionChanged();
+    /**
+     * Emitted when the activating connection changes.
+     * @since 0.9.9.0
+     */
+    void activatingConnectionChanged();
+    /**
+     * Emitted when NM has started/finished its startup sequence
+     * @since 0.9.9.0
+     */
+    void isStartingUpChanged();
 };
 
 /**
@@ -257,6 +292,47 @@ NETWORKMANAGERQT_EXPORT QStringList activeConnectionsPaths();
  * Get current logging verbosity level and operations domains
  */
 NETWORKMANAGERQT_EXPORT QDBusPendingReply<QString, QString> getLogging();
+
+/**
+  * @return the network connectivity state
+  * @since 0.9.9.0
+ */
+NETWORKMANAGERQT_EXPORT Connectivity connectivity();
+
+/**
+  * Re-check the network connectivity state.
+  * @see connectivity()
+  * @since 0.9.9.0
+ */
+NETWORKMANAGERQT_EXPORT Connectivity checkConnectivity();
+
+/**
+  * @return the object path of the "primary" active connection being used
+  * to access the network. In particular, if there is no VPN
+  * active, or the VPN does not have the default route, then this
+  * indicates the connection that has the default route. If there
+  * is a VPN active with the default route, then this indicates
+  * the connection that contains the route to the VPN endpoint.
+  * @since 0.9.9.0
+  */
+NETWORKMANAGERQT_EXPORT QString primaryConnection();
+
+/**
+ * @return The object path of an active connection that is currently
+ * being activated and which is expected to become the new
+ * primaryConnection() when it finishes activating.
+ * @since 0.9.9.0
+ */
+NETWORKMANAGERQT_EXPORT QString activatingConnection();
+
+/**
+  * Indicates whether NM is still starting up; this becomes FALSE
+  * when NM has finished attempting to activate every connection
+  * that it might be able to activate at startup.
+  * @since 0.9.9.0
+  */
+NETWORKMANAGERQT_EXPORT bool isStartingUp();
+
 /**
  * Find an ActiveConnection object for an active connection id
  *
@@ -271,7 +347,7 @@ NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr findActiveConnection(const QString
  */
 NETWORKMANAGERQT_EXPORT Device::Types supportedInterfaceTypes();
 NETWORKMANAGERQT_EXPORT void setNetworkingEnabled(bool enabled);
-// implement in Notifier
+// implemented in Notifier
 NETWORKMANAGERQT_EXPORT void setWirelessEnabled(bool enabled);
 NETWORKMANAGERQT_EXPORT void setWwanEnabled(bool enabled);
 NETWORKMANAGERQT_EXPORT void setWimaxEnabled(bool enabled);
