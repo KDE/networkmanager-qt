@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(NetworkManagerQt)
 
-set(VERSION 0.9.8.0)
+set(VERSION 0.9.9.0)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_MODULE_PATH})
 set(LIB_SUFFIX "" CACHE STRING "Define suffix of library directory name (32/64)" )
 set(LIB_DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE STRING
@@ -15,7 +15,7 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 find_package(Qt4 REQUIRED)
-find_package(NetworkManager 0.9.8.0 REQUIRED)
+find_package(NetworkManager 0.9.9.0 REQUIRED)
 
 if (DISABLE_MODEMMANAGERQT)
     message(STATUS "Disabling ModemManagerQt support")
