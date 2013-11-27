@@ -112,7 +112,7 @@ public:
                              ConnectionAssumedReason = 41, SupplicantAvailableReason = 42, ModemNotFoundReason = 43, BluetoothFailedReason = 44,
                              GsmSimNotInserted = 45, GsmSimPinRequired = 46, GsmSimPukRequired = 47, GsmSimWrong = 48 , InfiniBandMode = 49,
                              DependencyFailed = 50, Br2684Failed = 51, ModemManagerUnavailable = 52, SsidNotFound = 53, SecondaryConnectionFailed = 54,
-                             DcbFcoeFailed = 55, TeamdControlFailed = 66,
+                             DcbFcoeFailed = 55, TeamdControlFailed = 56,
                              Reserved = 65536
                            };
     /**
