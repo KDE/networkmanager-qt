@@ -10,6 +10,7 @@ set(NetworkManagerQt_CAMEL_HEADERS
     Dhcp4Config
     Dhcp6Config
     GenericTypes
+    GreDevice
     InfinibandDevice
     IpAddress
     IpConfig

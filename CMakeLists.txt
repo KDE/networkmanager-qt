@@ -78,6 +78,7 @@ set(NetworkManagerQt_HEADERS
     device.h
     dhcp4config.h
     dhcp6config.h
+    gredevice.h
     infinibanddevice.h
     ipaddress.h
     iproute.h
@@ -117,6 +118,7 @@ set(NetworkManagerQt_PART_SRCS
     device.cpp
     dhcp4config.cpp
     dhcp6config.cpp
+    gredevice.cpp
     infinibanddevice.cpp
     ipaddress.cpp
     iproute.cpp

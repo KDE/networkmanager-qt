@@ -141,7 +141,8 @@ public:
         Bond, /**< Bond virtual device */
         Vlan, /**< Vlan virtual device */
         Adsl, /**< ADSL modem device */
-        Bridge /**< Bridge virtual device */
+        Bridge, /**< Bridge virtual device */
+        Gre /**< @since 0.9.9.0 Gre virtual device */
     };
     Q_DECLARE_FLAGS(Types, Type)
 
