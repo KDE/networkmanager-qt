@@ -31,6 +31,11 @@ set(INTERFACE_INTROSPECTION_XML_FILES
    introspection/nm-device-wifi.xml
    introspection/nm-device-wimax.xml
    introspection/nm-device.xml
+   introspection/nm-device-gre.xml
+   introspection/nm-device-macvlan.xml
+   introspection/nm-device-team.xml
+   introspection/nm-device-tun.xml
+   introspection/nm-device-veth.xml
    introspection/nm-dhcp4-config.xml
    introspection/nm-dhcp6-config.xml
    introspection/nm-ip4-config.xml

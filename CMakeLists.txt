@@ -167,6 +167,11 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-vpn-connectioninterface.cpp
    dbus/nm-vpn-plugininterface.cpp
    dbus/nm-wimax-nspinterface.cpp
+   dbus/nm-device-gre.cpp
+   dbus/nm-device-macvlan.cpp
+   dbus/nm-device-team.cpp
+   dbus/nm-device-tun.cpp
+   dbus/nm-device-veth.cpp
    )
 
 set(CONNECTIONS_SETTINGS_SRCS
