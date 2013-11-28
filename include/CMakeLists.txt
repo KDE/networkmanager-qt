@@ -15,6 +15,7 @@ set(NetworkManagerQt_CAMEL_HEADERS
     IpAddress
     IpConfig
     IpRoute
+    MacVlanDevice
     Manager
     ModemDevice
     OlpcMeshDevice

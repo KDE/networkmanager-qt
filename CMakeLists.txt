@@ -83,6 +83,7 @@ set(NetworkManagerQt_HEADERS
     ipaddress.h
     iproute.h
     ipconfig.h
+    macvlandevice.h
     manager.h
     modemdevice.h
     olpcmeshdevice.h
@@ -123,6 +124,7 @@ set(NetworkManagerQt_PART_SRCS
     ipaddress.cpp
     iproute.cpp
     ipconfig.cpp
+    macvlandevice.cpp
     manager.cpp
     modemdevice.cpp
     olpcmeshdevice.cpp
