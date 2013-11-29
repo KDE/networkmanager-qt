@@ -40,8 +40,16 @@ class NETWORKMANAGERQT_EXPORT SettingsNotifier : public QObject
 {
     Q_OBJECT
 Q_SIGNALS:
-    void canModifyChanged(bool);
-    void hostnameChanged(const QString &);
+    /**
+     * Emitted when the settings are modifiable by user
+     * @param canModify @p true if the user can modify the settings
+     */
+    void canModifyChanged(bool canModify);
+    /**
+     * Emitted when the hostname has changed
+     * @param hostname new hostname
+     */
+    void hostnameChanged(const QString &hostname);
     /**
      * Emitted when a new connection is added
      *
