@@ -22,7 +22,9 @@ set(NetworkManagerQt_CAMEL_HEADERS
     SecretAgent
     Settings
     TeamDevice
+    TunDevice
     Utils
+    VethDevice
     VlanDevice
     VpnConnection
     VpnPlugin

@@ -144,7 +144,9 @@ public:
         Bridge, /**< Bridge virtual device */
         Gre, /**< Gre virtual device @since 0.9.9.0 */
         MacVlan, /**< MacVlan virtual device @since 0.9.9.0 */
-        Team /**< Team virtual device @since 0.9.9.0 */
+        Team, /**< Team virtual device @since 0.9.9.0 */
+        Tun, /**< Tun virtual device @since 0.9.9.0 */
+        Veth /**< Veth virtual device @since 0.9.9.0 */
     };
     Q_DECLARE_FLAGS(Types, Type)
 

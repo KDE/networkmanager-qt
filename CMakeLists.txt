@@ -90,7 +90,9 @@ set(NetworkManagerQt_HEADERS
     secretagent.h
     settings.h
     teamdevice.h
+    tundevice.h
     utils.h
+    vethdevice.h
     vlandevice.h
     vpnconnection.h
     vpnplugin.h
@@ -132,7 +134,9 @@ set(NetworkManagerQt_PART_SRCS
     secretagent.cpp
     settings.cpp
     teamdevice.cpp
+    tundevice.cpp
     utils.cpp
+    vethdevice.cpp
     vlandevice.cpp
     vpnconnection.cpp
     vpnplugin.cpp
