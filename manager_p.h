@@ -100,8 +100,8 @@ public:
     NMStringMap permissions();
     Connectivity connectivity() const;
     Connectivity checkConnectivity();
-    QString primaryConnection() const;
-    QString activatingConnection() const;
+    ActiveConnection::Ptr primaryConnection();
+    ActiveConnection::Ptr activatingConnection();
     bool isStartingUp() const;
 protected Q_SLOTS:
     void init();

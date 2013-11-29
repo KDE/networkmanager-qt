@@ -63,7 +63,7 @@ enum LogDomain {NoChange, None, Hardware, RFKill, Ethernet, WiFi, Bluetooth, Mob
 Q_DECLARE_FLAGS(LogDomains, LogDomain)
 
 /**
- * Describes the network-connectivity state.
+ * Describes the network connectivity state.
  * @since 0.9.9.0
  */
 enum Connectivity {
@@ -307,7 +307,7 @@ NETWORKMANAGERQT_EXPORT Connectivity connectivity();
 NETWORKMANAGERQT_EXPORT Connectivity checkConnectivity();
 
 /**
-  * @return the object path of the "primary" active connection being used
+  * @return the "primary" active connection being used
   * to access the network. In particular, if there is no VPN
   * active, or the VPN does not have the default route, then this
   * indicates the connection that has the default route. If there
@@ -315,18 +315,18 @@ NETWORKMANAGERQT_EXPORT Connectivity checkConnectivity();
   * the connection that contains the route to the VPN endpoint.
   * @since 0.9.9.0
   */
-NETWORKMANAGERQT_EXPORT QString primaryConnection();
+NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr primaryConnection();
 
 /**
- * @return The object path of an active connection that is currently
+ * @return an active connection that is currently
  * being activated and which is expected to become the new
  * primaryConnection() when it finishes activating.
  * @since 0.9.9.0
  */
-NETWORKMANAGERQT_EXPORT QString activatingConnection();
+NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr activatingConnection();
 
 /**
-  * Indicates whether NM is still starting up; this becomes FALSE
+  * Indicates whether NM is still starting up; this becomes @p false
   * when NM has finished attempting to activate every connection
   * that it might be able to activate at startup.
   * @since 0.9.9.0

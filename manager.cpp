@@ -223,7 +223,7 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::fin
 {
     NetworkManager::ActiveConnection::Ptr activeConnection;
     if (!uni.isEmpty() && uni != QLatin1String("/")) {
-        bool contains = m_activeConnections.contains(uni);
+        const bool contains = m_activeConnections.contains(uni);
         if (contains && m_activeConnections.value(uni)) {
             activeConnection = m_activeConnections.value(uni);
         } else {
@@ -521,14 +521,14 @@ NetworkManager::Connectivity NetworkManager::NetworkManagerPrivate::checkConnect
         return UnknownConnectivity;
 }
 
-QString NetworkManager::NetworkManagerPrivate::primaryConnection() const
+NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::primaryConnection()
 {
-    return iface.primaryConnection().path();
+    return findRegisteredActiveConnection(iface.primaryConnection().path());
 }
 
-QString NetworkManager::NetworkManagerPrivate::activatingConnection() const
+NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::activatingConnection()
 {
-    return iface.activatingConnection().path();
+    return findRegisteredActiveConnection(iface.activatingConnection().path());
 }
 
 bool NetworkManager::NetworkManagerPrivate::isStartingUp() const
@@ -891,12 +891,12 @@ NetworkManager::Connectivity NetworkManager::checkConnectivity()
     return globalNetworkManager->checkConnectivity();
 }
 
-QString NetworkManager::primaryConnection()
+NetworkManager::ActiveConnection::Ptr NetworkManager::primaryConnection()
 {
     return globalNetworkManager->primaryConnection();
 }
 
-QString NetworkManager::activatingConnection()
+NetworkManager::ActiveConnection::Ptr NetworkManager::activatingConnection()
 {
     return globalNetworkManager->activatingConnection();
 }
