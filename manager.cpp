@@ -396,7 +396,7 @@ void NetworkManager::NetworkManagerPrivate::deactivateConnection(const QString &
 
 void NetworkManager::NetworkManagerPrivate::setNetworkingEnabled(bool enabled)
 {
-    QDBusPendingReply<> reply = iface.Enable(enabled);
+    iface.Enable(enabled);
 }
 
 void NetworkManager::NetworkManagerPrivate::setWirelessEnabled(bool enabled)
