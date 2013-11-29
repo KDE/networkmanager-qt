@@ -65,7 +65,6 @@ class NETWORKMANAGERQT_EXPORT Device : public QObject
 
     //Q_PROPERTY(Solid::Control::IPv4Config ipV4Config READ ipV4Config WRITE setIpV4Config)
     Q_PROPERTY(State state READ state)
-    Q_FLAGS(Capabilities)
 
 public:
     typedef QSharedPointer<Device> Ptr;
@@ -128,23 +127,24 @@ public:
      * Device type
      */
     enum Type {
-        UnknownType, /**< Unknown device type */
-        Ethernet, /**< Ieee8023 wired ethernet */
-        Wifi, /**< the Ieee80211 family of wireless networks */
-        Unused1, /**< Currently unused */
-        Unused2, /**< Currently unused */
-        Bluetooth, /**< network bluetooth device (usually a cell phone) */
-        OlpcMesh, /**< OLPC Mesh networking device */
-        Wimax, /**< WiMax WWAN technology */
-        Modem, /**< POTS, GSM, CDMA or LTE modems */
-        InfiniBand, /**< Infiniband network device */
-        Bond, /**< Bond virtual device */
-        Vlan, /**< Vlan virtual device */
-        Adsl, /**< ADSL modem device */
-        Bridge, /**< Bridge virtual device */
+        UnknownType = NM_DEVICE_TYPE_UNKNOWN, /**< Unknown device type */
+        Ethernet = NM_DEVICE_TYPE_ETHERNET, /**< Ieee8023 wired ethernet */
+        Wifi = NM_DEVICE_TYPE_WIFI, /**< the Ieee80211 family of wireless networks */
+        Unused1 = NM_DEVICE_TYPE_UNUSED1, /**< Currently unused */
+        Unused2 = NM_DEVICE_TYPE_UNUSED2, /**< Currently unused */
+        Bluetooth = NM_DEVICE_TYPE_BT, /**< network bluetooth device (usually a cell phone) */
+        OlpcMesh = NM_DEVICE_TYPE_OLPC_MESH, /**< OLPC Mesh networking device */
+        Wimax = NM_DEVICE_TYPE_WIMAX, /**< WiMax WWAN technology */
+        Modem = NM_DEVICE_TYPE_MODEM, /**< POTS, GSM, CDMA or LTE modems */
+        InfiniBand = NM_DEVICE_TYPE_INFINIBAND, /**< Infiniband network device */
+        Bond = NM_DEVICE_TYPE_BOND, /**< Bond virtual device */
+        Vlan = NM_DEVICE_TYPE_VLAN, /**< Vlan virtual device */
+        Adsl = NM_DEVICE_TYPE_ADSL, /**< ADSL modem device */
+        Bridge = NM_DEVICE_TYPE_BRIDGE, /**< Bridge virtual device */
+        Generic = NM_DEVICE_TYPE_GENERIC, /**< Generic device @since 0.9.9.0 */
+        Team = NM_DEVICE_TYPE_TEAM, /**< Team master device @since 0.9.9.0 */
         Gre, /**< Gre virtual device @since 0.9.9.0 */
         MacVlan, /**< MacVlan virtual device @since 0.9.9.0 */
-        Team, /**< Team virtual device @since 0.9.9.0 */
         Tun, /**< Tun virtual device @since 0.9.9.0 */
         Veth /**< Veth virtual device @since 0.9.9.0 */
     };
@@ -195,7 +195,7 @@ public:
      * The name of the device's data interface when available. This property
      * may not refer to the actual data interface until the device has
      * successfully established a data connection, indicated by the device's
-     * State becoming ACTIVATED.
+     * state() becoming ACTIVATED.
      */
     QString ipInterfaceName() const;
     /**
@@ -300,7 +300,7 @@ public:
      */
     DeviceStateReason stateReason() const;
     /**
-     * Retrieves the Unique Device Identifier (UDI) of the NetworkInterface.
+     * Retrieves the Unique Device Identifier (UDI) of the device.
      * This identifier is unique for each device in the system.
      */
     QString udi() const;
@@ -319,7 +319,7 @@ public:
      * If true, indicates the device is allowed to autoconnect.
      * If false, manual intervention is required before the device
      * will automatically connect to a known network, such as activating
-     * a connection using the device, or setting this property to true.
+     * a connection using the device, or setting this property to @p true.
      */
     void setAutoconnect(bool autoconnect);
 
@@ -327,7 +327,7 @@ public:
       * Retrieves a specialized interface to interact with the device corresponding
       * to a given device interface.
       *
-      * @returns a pointer to the device interface if it exists, 0 otherwise
+      * @returns a pointer to the device interface if it exists, @p 0 otherwise
       */
     template <class DevIface> DevIface *as() {
         return qobject_cast<DevIface *>(this);
