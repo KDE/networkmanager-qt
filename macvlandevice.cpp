@@ -27,7 +27,7 @@
 
 namespace NetworkManager
 {
-class MacVlanDevicePrivate : public DevicePrivate
+class MacVlanDevicePrivate: public DevicePrivate
 {
 public:
     MacVlanDevicePrivate(const QString &path, MacVlanDevice *q);
@@ -42,7 +42,7 @@ NetworkManager::MacVlanDevicePrivate::MacVlanDevicePrivate(const QString &path, 
 {
 }
 
-NetworkManager::MacVlanDevice::~MacVlanDevice()
+NetworkManager::MacVlanDevicePrivate::~MacVlanDevicePrivate()
 {
 }
 
@@ -55,7 +55,7 @@ NetworkManager::MacVlanDevice::MacVlanDevice(const QString &path, QObject *paren
             this, SLOT(propertiesChanged(QVariantMap)));
 }
 
-NetworkManager::MacVlanDevicePrivate::~MacVlanDevicePrivate()
+NetworkManager::MacVlanDevice::~MacVlanDevice()
 {
 }
 
