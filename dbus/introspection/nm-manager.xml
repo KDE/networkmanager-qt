@@ -310,6 +310,38 @@
       </tp:docstring>
     </property>
 
+    <property name="PrimaryConnection" type="o" access="read">
+      <tp:docstring>
+        The object path of the "primary" active connection being used
+        to access the network. In particular, if there is no VPN
+        active, or the VPN does not have the default route, then this
+        indicates the connection that has the default route. If there
+        is a VPN active with the default route, then this indicates
+        the connection that contains the route to the VPN endpoint.
+      </tp:docstring>
+    </property>
+
+    <property name="ActivatingConnection" type="o" access="read">
+      <tp:docstring>
+        The object path of an active connection that is currently
+        being activated and which is expected to become the new
+        PrimaryConnection when it finishes activating.
+      </tp:docstring>
+    </property>
+
+    <method name="CheckConnectivity">
+      <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_manager_check_connectivity"/>
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <tp:docstring>
+          Re-check the network connectivity state.
+      </tp:docstring>
+      <arg name="connectivity" type="u" tp:type="NM_CONNECTIVITY" direction="out">
+        <tp:docstring>
+          The current connectivity state.
+        </tp:docstring>
+      </arg>
+    </method>
+
     <property name="State" type="u" access="read" tp:type="NM_STATE">
       <tp:docstring>
         The overall state of the NetworkManager daemon.
@@ -326,6 +358,12 @@
         </tp:docstring>
       </arg>
     </signal>
+
+    <property name="Connectivity" type="u" access="read" tp:type="NM_CONNECTIVITY">
+      <tp:docstring>
+        The network connectivity state.
+      </tp:docstring>
+    </property>
 
     <signal name="PropertiesChanged">
       <tp:docstring>

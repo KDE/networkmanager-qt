@@ -58,6 +58,17 @@ enum LogDomain {NoChange, None, Hardware, RFKill, Ethernet, WiFi, Bluetooth, Mob
                 AutoIPv4, DNS, VPN, Sharing, Supplicant, UserSet, SysSet, Suspend, Core, Devices, OLPC, Wimax, Infiniband, Firewall, Adsl, Bond, Vlan
                };
 Q_DECLARE_FLAGS(LogDomains, LogDomain)
+/**
+ * Describes the network connectivity state.
+ * @since 0.9.8.4
+ */
+enum Connectivity {
+    UnknownConnectivity = 0,
+    NoConnectivity = 1,
+    Portal = 2,
+    Limited = 3,
+    Full = 4
+};
 class NETWORKMANAGERQT_EXPORT Notifier : public QObject
 {
     Q_OBJECT
@@ -130,6 +141,21 @@ Q_SIGNALS:
      * This signal is emitted when the NetworkManager DBus service appears
      */
     void serviceAppeared();
+    /**
+     * Emitted when the global connectivity changes.
+     * @since 0.9.8.4
+     */
+    void connectivityChanged();
+    /**
+     * Emitted when the primary connection changes.
+     * @since 0.9.8.4
+     */
+    void primaryConnectionChanged();
+    /**
+     * Emitted when the activating connection changes.
+     * @since 0.9.8.4
+     */
+    void activatingConnectionChanged();
 };
 
 /**
@@ -257,11 +283,50 @@ NETWORKMANAGERQT_EXPORT QStringList activeConnectionsPaths();
  */
 NETWORKMANAGERQT_EXPORT QDBusPendingReply<QString, QString> getLogging();
 /**
+  * @return the network connectivity state
+  * @since 0.9.8.4
+ */
+NETWORKMANAGERQT_EXPORT Connectivity connectivity();
+
+/**
+  * Re-check the network connectivity state.
+  * @see connectivity()
+  * @since 0.9.8.4
+ */
+NETWORKMANAGERQT_EXPORT Connectivity checkConnectivity();
+
+/**
+  * @return the "primary" active connection being used
+  * to access the network. In particular, if there is no VPN
+  * active, or the VPN does not have the default route, then this
+  * indicates the connection that has the default route. If there
+  * is a VPN active with the default route, then this indicates
+  * the connection that contains the route to the VPN endpoint.
+  * @since 0.9.9.0
+  */
+/**
  * Find an ActiveConnection object for an active connection id
  *
  * @param uni the id of the ActiveConnection
  * @return a valid ActiveConnection object
  */
+NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr primaryConnection();
+
+/**
+ * @return an active connection that is currently
+ * being activated and which is expected to become the new
+ * primaryConnection() when it finishes activating.
+  * @since 0.9.8.4
+  */
+NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr activatingConnection();
+
+/**
+  * Indicates whether NM is still starting up; this becomes @p false
+  * when NM has finished attempting to activate every connection
+  * that it might be able to activate at startup.
+  * @since 0.9.8.4
+  */
+
 NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr findActiveConnection(const QString &uni);
 /**
  * Retrieves the interface types supported by this network manager.
