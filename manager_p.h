@@ -99,6 +99,10 @@ public:
     void sleep(bool sleep);
     void setLogging(NetworkManager::LogLevel, NetworkManager::LogDomains);
     NMStringMap permissions();
+    Connectivity connectivity() const;
+    Connectivity checkConnectivity();
+    ActiveConnection::Ptr primaryConnection();
+    ActiveConnection::Ptr activatingConnection();
 protected Q_SLOTS:
     void init();
     void onDeviceAdded(const QDBusObjectPath &state);

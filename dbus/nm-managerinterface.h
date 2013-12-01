@@ -41,13 +41,25 @@ public:
 
     ~OrgFreedesktopNetworkManagerInterface();
 
+    Q_PROPERTY(QDBusObjectPath ActivatingConnection READ activatingConnection)
+    inline QDBusObjectPath activatingConnection() const
+    { return qvariant_cast< QDBusObjectPath >(property("ActivatingConnection")); }
+
     Q_PROPERTY(QList<QDBusObjectPath> ActiveConnections READ activeConnections)
     inline QList<QDBusObjectPath> activeConnections() const
     { return qvariant_cast< QList<QDBusObjectPath> >(property("ActiveConnections")); }
 
+    Q_PROPERTY(uint Connectivity READ connectivity)
+    inline uint connectivity() const
+    { return qvariant_cast< uint >(property("Connectivity")); }
+
     Q_PROPERTY(bool NetworkingEnabled READ networkingEnabled)
     inline bool networkingEnabled() const
     { return qvariant_cast< bool >(property("NetworkingEnabled")); }
+
+    Q_PROPERTY(QDBusObjectPath PrimaryConnection READ primaryConnection)
+    inline QDBusObjectPath primaryConnection() const
+    { return qvariant_cast< QDBusObjectPath >(property("PrimaryConnection")); }
 
     Q_PROPERTY(uint State READ state)
     inline uint state() const
@@ -100,6 +112,12 @@ public Q_SLOTS: // METHODS
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(connection) << QVariant::fromValue(device) << QVariant::fromValue(specific_object);
         return asyncCallWithArgumentList(QLatin1String("AddAndActivateConnection"), argumentList);
+    }
+
+    inline QDBusPendingReply<uint> CheckConnectivity()
+    {
+        QList<QVariant> argumentList;
+        return asyncCallWithArgumentList(QLatin1String("CheckConnectivity"), argumentList);
     }
 
     inline QDBusPendingReply<> DeactivateConnection(const QDBusObjectPath &active_connection)
