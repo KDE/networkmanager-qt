@@ -61,7 +61,7 @@ enum LogDomain {NoChange, None, Hardware, RFKill, Ethernet, WiFi, Bluetooth, Mob
 Q_DECLARE_FLAGS(LogDomains, LogDomain)
 /**
  * Describes the network connectivity state.
- * @since 0.9.8.4
+ * @since 0.9.8.1
  */
 enum Connectivity {
     UnknownConnectivity = 0,
@@ -144,17 +144,17 @@ Q_SIGNALS:
     void serviceAppeared();
     /**
      * Emitted when the global connectivity changes.
-     * @since 0.9.8.4
+     * @since 0.9.8.1
      */
     void connectivityChanged();
     /**
      * Emitted when the primary connection changes.
-     * @since 0.9.8.4
+     * @since 0.9.8.1
      */
     void primaryConnectionChanged();
     /**
      * Emitted when the activating connection changes.
-     * @since 0.9.8.4
+     * @since 0.9.8.1
      */
     void activatingConnectionChanged();
 };
@@ -285,14 +285,14 @@ NETWORKMANAGERQT_EXPORT QStringList activeConnectionsPaths();
 NETWORKMANAGERQT_EXPORT QDBusPendingReply<QString, QString> getLogging();
 /**
   * @return the network connectivity state
-  * @since 0.9.8.4
+  * @since 0.9.8.1
  */
 NETWORKMANAGERQT_EXPORT Connectivity connectivity();
 
 /**
   * Re-check the network connectivity state.
   * @see connectivity()
-  * @since 0.9.8.4
+  * @since 0.9.8.1
  */
 NETWORKMANAGERQT_EXPORT Connectivity checkConnectivity();
 
@@ -317,7 +317,7 @@ NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr primaryConnection();
  * @return an active connection that is currently
  * being activated and which is expected to become the new
  * primaryConnection() when it finishes activating.
-  * @since 0.9.8.4
+  * @since 0.9.8.1
   */
 NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr activatingConnection();
 
@@ -325,7 +325,7 @@ NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr activatingConnection();
   * Indicates whether NM is still starting up; this becomes @p false
   * when NM has finished attempting to activate every connection
   * that it might be able to activate at startup.
-  * @since 0.9.8.4
+  * @since 0.9.8.1
   */
 
 NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr findActiveConnection(const QString &uni);
