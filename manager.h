@@ -64,7 +64,7 @@ Q_DECLARE_FLAGS(LogDomains, LogDomain)
 
 /**
  * Describes the network connectivity state.
- * @since 0.9.9.0
+ * @since 0.9.0.2
  */
 enum Connectivity {
     UnknownConnectivity = 0,
@@ -148,22 +148,24 @@ Q_SIGNALS:
     void serviceAppeared();
     /**
      * Emitted when the global connectivity changes.
-     * @since 0.9.8.4
+     * @since 0.9.0.2
      */
     void connectivityChanged();
     /**
      * Emitted when the primary connection changes.
-     * @since 0.9.8.4
+     * @param uni path of the new primary connection
+     * @since 0.9.0.2
      */
-    void primaryConnectionChanged();
+    void primaryConnectionChanged(const QString & uni);
     /**
      * Emitted when the activating connection changes.
-     * @since 0.9.8.4
+     * @param uni path of the new activating connection
+     * @since 0.9.0.2
      */
-    void activatingConnectionChanged();
+    void activatingConnectionChanged(const QString & uni);
     /**
      * Emitted when NM has started/finished its startup sequence
-     * @since 0.9.8.4
+     * @since 0.9.0.2
      */
     void isStartingUpChanged();
 };

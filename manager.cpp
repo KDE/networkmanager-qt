@@ -627,9 +627,9 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
         } else if (property == QLatin1String("Connectivity")) {
             emit connectivityChanged();
         } else if (property == QLatin1String("PrimaryConnection")) {
-            emit primaryConnectionChanged();
+            emit primaryConnectionChanged(it->value<QDBusObjectPath>().path());
         } else if (property == QLatin1String("ActivatingConnection")) {
-            emit activatingConnectionChanged();
+            emit activatingConnectionChanged(it->value<QDBusObjectPath>().path());
         } else if (property == QLatin1String("Startup")) {
             emit isStartingUpChanged();
         } else {
