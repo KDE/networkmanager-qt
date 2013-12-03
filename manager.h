@@ -67,11 +67,11 @@ Q_DECLARE_FLAGS(LogDomains, LogDomain)
  * @since 0.9.0.2
  */
 enum Connectivity {
-    UnknownConnectivity = 0,
-    NoConnectivity = 1,
-    Portal = 2,
-    Limited = 3,
-    Full = 4
+    UnknownConnectivity = 0, /**< Network connectivity is unknown. */
+    NoConnectivity = 1, /**< The host is not connected to any network. */
+    Portal = 2, /**< The host is behind a captive portal and cannot reach the full Internet. */
+    Limited = 3, /**< The host is connected to a network, but does not appear to be able to reach the full Internet. */
+    Full = 4 /**< The host is connected to a network, and appears to be able to reach the full Internet. */
 };
 
 class NETWORKMANAGERQT_EXPORT Notifier : public QObject
