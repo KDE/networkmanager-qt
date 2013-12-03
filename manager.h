@@ -148,14 +148,16 @@ Q_SIGNALS:
     void connectivityChanged();
     /**
      * Emitted when the primary connection changes.
+     * @param uni path of the new primary connection
      * @since 0.9.0.2
      */
-    void primaryConnectionChanged();
+    void primaryConnectionChanged(const QString & uni);
     /**
      * Emitted when the activating connection changes.
+     * @param uni path of the new activating connection
      * @since 0.9.0.2
      */
-    void activatingConnectionChanged();
+    void activatingConnectionChanged(const QString & uni);
 };
 
 /**
