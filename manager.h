@@ -165,7 +165,7 @@ Q_SIGNALS:
     void activatingConnectionChanged(const QString & uni);
     /**
      * Emitted when NM has started/finished its startup sequence
-     * @since 0.9.0.2
+     * @since 0.9.9.0
      */
     void isStartingUpChanged();
 };
