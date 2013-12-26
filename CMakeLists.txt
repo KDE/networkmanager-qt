@@ -24,19 +24,18 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
 
 #include(ECMOptionalAddSubdirectory)
 
-find_package(Qt5Core REQUIRED NO_MODULE)
-find_package(Qt5DBus REQUIRED NO_MODULE)
-find_package(Qt5Network REQUIRED NO_MODULE)
-find_package(Qt5Test REQUIRED NO_MODULE)
-find_package(Qt5Widgets REQUIRED NO_MODULE)
-find_package(Qt5Xml REQUIRED NO_MODULE)
+find_package(Qt5 COMPONENTS
+    Core
+    DBus
+    Network
+    Test
+)
 
 include_directories(${Qt5Widgets_INCLUDE_DIRS}
                     ${Qt5DBus_INCLUDE_DIRS}
                     ${Qt5Core_INCLUDE_DIRS}
                     ${Qt5Network_INCLUDE_DIRS}
                     ${Qt5Test_INCLUDE_DIRS}
-                    ${Qt5Xml_INCLUDE_DIRS}
                     )
 set(CMAKE_AUTOMOC TRUE)
 
@@ -244,7 +243,8 @@ qt5_wrap_cpp(NetworkManagerQt_MOC ${NetworkManagerQt_PRIVATE_HEADERS})
 
 add_library(NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${DBUS_INTERFACE_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${NetworkManagerQt_MOC} )
 
-target_link_libraries(NetworkManagerQt ${MODEMMANAGERQT_LIBRARY} Qt5::DBus Qt5::Network)
+qt5_use_modules(NetworkManagerQt Core Network DBus)
+target_link_libraries(NetworkManagerQt ${MODEMMANAGERQT_LIBRARY})
 install(TARGETS NetworkManagerQt DESTINATION lib${LIB_SUFFIX})
 
 install( FILES

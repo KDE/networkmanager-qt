@@ -19,7 +19,6 @@ MACRO(LIBNM_TESTS)
                 Qt5::DBus
                 Qt5::Network
                 Qt5::Test
-                Qt5::Xml
                 NetworkManagerQt
                 ${MODEMMANAGERQT_LIBRARY}
             )
