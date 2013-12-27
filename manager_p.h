@@ -49,12 +49,13 @@ public:
     QDBusServiceWatcher watcher;
     OrgFreedesktopNetworkManagerInterface iface;
     uint nmState;
+    bool m_isNetworkingEnabled;
+    bool m_isWimaxEnabled;
+    bool m_isWimaxHardwareEnabled;
     bool m_isWirelessEnabled;
     bool m_isWirelessHardwareEnabled;
     bool m_isWwanEnabled;
     bool m_isWwanHardwareEnabled;
-    bool m_isWimaxEnabled;
-    bool m_isWimaxHardwareEnabled;
     QString m_version;
 
     // to store NetworkManager's version.
@@ -65,7 +66,6 @@ public:
     int compareVersion(const QString &version);
     int compareVersion(const int x, const int y, const int z) const;
 
-    bool m_isNetworkingEnabled;
     QMap<QString, ActiveConnection::Ptr> m_activeConnections;
     ActiveConnection::Ptr findRegisteredActiveConnection(const QString &);
     // manage device children
