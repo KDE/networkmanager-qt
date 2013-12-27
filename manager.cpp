@@ -55,6 +55,13 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     : watcher(DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForOwnerChange, this)
     , iface(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE, NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH, QDBusConnection::systemBus())
     , nmState(0)
+    , m_isNetworkingEnabled(false)
+    , m_isWimaxEnabled(false)
+    , m_isWimaxHardwareEnabled(false)
+    , m_isWirelessEnabled(false)
+    , m_isWirelessHardwareEnabled(false)
+    , m_isWwanEnabled(false)
+    , m_isWwanHardwareEnabled(false)
 {
     connect(&watcher, SIGNAL(serviceRegistered(QString)), SLOT(daemonRegistered()));
     connect(&watcher, SIGNAL(serviceUnregistered(QString)), SLOT(daemonUnregistered()));
