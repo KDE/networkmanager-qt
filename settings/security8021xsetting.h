@@ -59,9 +59,21 @@ public:
     void setAnonymousIdentity(const QString &identity);
     QString anonymousIdentity() const;
 
-    void setPacFile(const QString &file);
+    /**
+     * Set UTF-8 encoded file path containing PAC for EAP-FAST.
+     *
+     * \param filePath file path to be set.
+     */
+    void setPacFile(const QString &filePath);
     QString pacFile() const;
 
+    /**
+     * Set certificate authority (ca)'s certificate for this setting.
+     *
+     * \param certificate certificate's file path encoded into a byte array.
+     *
+     * \warning certificate have to be null terminated or NetworkManager will refuse it.
+     */
     void setCaCertificate(const QByteArray &certificate);
     QByteArray caCertificate() const;
 
@@ -74,6 +86,13 @@ public:
     void setAltSubjectMatches(const QStringList &strings);
     QStringList altSubjectMatches() const;
 
+    /**
+     * Set client certificate for this setting.
+     *
+     * \param certificate certificate's file path encoded into a byte array.
+     *
+     * \warning certificate have to be null terminated or NetworkManager will refuse it.
+     */
     void setClientCertificate(const QByteArray &certificate);
     QByteArray clientCertificate() const;
 
@@ -92,6 +111,14 @@ public:
     void setPhase2AuthEapMethod(AuthEapMethod method);
     AuthEapMethod phase2AuthEapMethod() const;
 
+    /**
+     * Contains the CA certificate if used by the EAP method specified in the
+     * phase2AuthMethod() or phase2AuthEapMethod() properties.
+     *
+     * \param certificate certificate's file path encoded into a byte array.
+     *
+     * \warning certificate have to be null terminated or NetworkManager will refuse it.
+     */
     void setPhase2CaCertificate(const QByteArray &certificate);
     QByteArray phase2CaCertificate() const;
 
@@ -119,6 +146,13 @@ public:
     void setPasswordRawFlags(Setting::SecretFlags flags);
     Setting::SecretFlags passwordRawFlags() const;
 
+    /**
+     * Set private key for this setting.
+     *
+     * \param key the key to be set.
+     *
+     * \warning key have to be null terminated or NetworkManager will refuse it.
+     */
     void setPrivateKey(const QByteArray &key);
     QByteArray privateKey() const;
 
