@@ -134,11 +134,11 @@ QString NetworkManager::Security8021xSetting::anonymousIdentity() const
     return d->anonymousIdentity;
 }
 
-void NetworkManager::Security8021xSetting::setPacFile(const QString &file)
+void NetworkManager::Security8021xSetting::setPacFile(const QString &filePath)
 {
     Q_D(Security8021xSetting);
 
-    d->pacFile = file;
+    d->pacFile = filePath;
 }
 
 QString NetworkManager::Security8021xSetting::pacFile() const
