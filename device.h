@@ -218,6 +218,8 @@ public:
     /**
      * returns the current IPv4 address without the prefix
      * \sa ipV4Config()
+     * \sa ipV6Config()
+     * @deprecated
      */
     QHostAddress ipV4Address() const;
     /**
