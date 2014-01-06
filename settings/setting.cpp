@@ -203,6 +203,7 @@ void NetworkManager::Setting::fromMap(const QVariantMap &map)
 
 QVariantMap NetworkManager::Setting::toMap() const
 {
+    return QVariantMap();
 }
 
 QStringList NetworkManager::Setting::needSecrets(bool requestNew) const
@@ -213,6 +214,7 @@ QStringList NetworkManager::Setting::needSecrets(bool requestNew) const
 
 QString NetworkManager::Setting::name() const
 {
+    return QString();
 }
 
 void NetworkManager::Setting::secretsFromMap(const QVariantMap &map)
