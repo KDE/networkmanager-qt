@@ -44,6 +44,7 @@
 #include "vlansetting.h"
 #include "vpnsetting.h"
 #include "wimaxsetting.h"
+#include "teamsetting.h"
 
 #include <nm-setting-adsl.h>
 #include <nm-setting-bond.h>
@@ -60,6 +61,7 @@
 #include <nm-setting-wimax.h>
 #include <nm-setting-wired.h>
 #include <nm-setting-wireless.h>
+#include <nm-setting-team.h>
 
 
 #include <QtCore/QUuid>
@@ -170,6 +172,11 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabili
         addSetting(Setting::Ptr(new WirelessSetting()));
         addSetting(Setting::Ptr(new WirelessSecuritySetting()));
         break;
+    case ConnectionSettings::Team:
+        addSetting(Setting::Ptr(new TeamSetting()));
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+        break;
     case ConnectionSettings::Unknown:
     default:
         break;
@@ -265,6 +272,11 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
         addSetting(connectionSettings->setting(Setting::Wireless));
         addSetting(connectionSettings->setting(Setting::WirelessSecurity));
         break;
+    case ConnectionSettings::Team:
+        addSetting(connectionSettings->setting(Setting::Team));
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        break;
     case ConnectionSettings::Unknown:
     default:
         break;
@@ -303,6 +315,8 @@ NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSet
         type = Wired;
     } else if (typeString == QLatin1String(NM_SETTING_WIRELESS_SETTING_NAME)) {
         type = Wireless;
+    }  else if (typeString == QLatin1String(NM_SETTING_TEAM_SETTING_NAME)) {
+        type = Team;
     }
 
     return type;
@@ -354,6 +368,9 @@ QString NetworkManager::ConnectionSettings::typeAsString(NetworkManager::Connect
         break;
     case Wireless:
         typeString = QLatin1String(NM_SETTING_WIRELESS_SETTING_NAME);
+        break;
+    case Team:
+        typeString = QLatin1String(NM_SETTING_TEAM_SETTING_NAME);
         break;
     default:
         break;
@@ -816,6 +833,9 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
             break;
         case Setting::WirelessSecurity:
             dbg.nospace() << *(settingPtr.staticCast<NetworkManager::WirelessSecuritySetting>().data());
+            break;
+        case Setting::Team:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::TeamSetting>().data());
             break;
         default:
             dbg.nospace() << *settingPtr.data();

@@ -57,7 +57,8 @@ public:
         Vpn,
         Wimax,
         Wired,
-        Wireless
+        Wireless,
+        Team
     };
 
     static ConnectionType typeFromString(const QString &typeString);
