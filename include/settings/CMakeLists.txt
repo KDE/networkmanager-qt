@@ -17,6 +17,7 @@ set(NetworkManagerQt_settings_CAMEL_HEADERS
     PppoeSetting
     SerialSetting
     Setting
+    TeamSetting
     VlanSetting
     VpnSetting
     WimaxSetting
