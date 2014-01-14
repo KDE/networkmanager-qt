@@ -209,6 +209,7 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/pppoesetting.cpp
     settings/setting.cpp
     settings/serialsetting.cpp
+    settings/teamsetting.cpp
     #settings/template.cpp
     settings/vlansetting.cpp
     settings/vpnsetting.cpp
@@ -236,6 +237,7 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/pppoesetting.h
     settings/setting.h
     settings/serialsetting.h
+    settings/teamsetting.h
     #settings/template.h
     settings/vlansetting.h
     settings/vpnsetting.h

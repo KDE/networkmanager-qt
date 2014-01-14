@@ -34,6 +34,7 @@
 #include <nm-setting-ppp.h>
 #include <nm-setting-pppoe.h>
 #include <nm-setting-serial.h>
+#include <nm-setting-team.h>
 #include <nm-setting-vlan.h>
 #include <nm-setting-vpn.h>
 #include <nm-setting-wireless.h>
@@ -127,6 +128,9 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     case Bridge:
         typeString = QLatin1String(NM_SETTING_BRIDGE_SETTING_NAME);
         break;
+    case Team:
+        typeString = QLatin1String(NM_SETTING_TEAM_SETTING_NAME);
+        break;
     default:
         break;
     }
@@ -174,6 +178,8 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
         type = Bond;
     } else if (typeString == QLatin1String(NM_SETTING_BRIDGE_SETTING_NAME)) {
         type = Bridge;
+    } else if (typeString == QLatin1String(NM_SETTING_TEAM_SETTING_NAME)) {
+        type = Team;
     }
 
     return type;
