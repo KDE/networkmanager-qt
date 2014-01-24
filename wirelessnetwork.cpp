@@ -134,6 +134,13 @@ NetworkManager::AccessPoint::List NetworkManager::WirelessNetwork::accessPoints(
     return d->aps.values();
 }
 
+QString NetworkManager::WirelessNetwork::device() const
+{
+    Q_D(const WirelessNetwork);
+
+    return d->wirelessNetworkInterface->uni();
+}
+
 // vim: sw=4 sts=4 et tw=100
 
 #include "wirelessnetwork.moc"

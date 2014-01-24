@@ -66,6 +66,11 @@ public:
      */
     AccessPoint::List accessPoints() const;
 
+    /**
+     * The uni of device associated with this network.
+     */
+    QString device() const;
+
 Q_SIGNALS:
     /**
      * Indicate that the signal strength changed
