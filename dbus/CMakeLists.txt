@@ -24,6 +24,7 @@ set(INTERFACE_INTROSPECTION_XML_FILES
    introspection/nm-device-bridge.xml
    introspection/nm-device-bt.xml
    introspection/nm-device-ethernet.xml
+   introspection/nm-device-generic.xml
    introspection/nm-device-infiniband.xml
    introspection/nm-device-modem.xml
    introspection/nm-device-olpc-mesh.xml

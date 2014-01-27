@@ -39,7 +39,7 @@
         The state of this active connection.
       </tp:docstring>
     </property>
-    <property name="Default" type="b" access="read">
+    <property name="Default4" type="b" access="read">
       <tp:docstring>
         Whether this active connection is the default IPv4 connection, i.e.
         whether it currently owns the default IPv4 route.

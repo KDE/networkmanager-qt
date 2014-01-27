@@ -56,7 +56,7 @@ endif()
 )
 link_directories(${MODEMMANAGERQT_LIBRARY_DIRS} ${CMAKE_LIBRARY_PATH})
 
-#add_subdirectory(dbus)
+# add_subdirectory(dbus)
 
 option(BUILD_EXAMPLES "Build example applications" FALSE)
 if (BUILD_EXAMPLES)
