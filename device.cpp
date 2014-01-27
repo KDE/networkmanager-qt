@@ -89,6 +89,7 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
     , designSpeed(0)
     , dhcp4Config(0)
     , dhcp6Config(0)
+    , mtu(0)
     , q_ptr(q)
 {
     activeConnection = deviceIface.activeConnection().path();
@@ -107,6 +108,7 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
         availableConnections << availableConnection.path();
     }
     physicalPortId = deviceIface.physicalPortId();
+    mtu = deviceIface.mtu();
 
     QDBusObjectPath ip4ConfigObjectPath = deviceIface.ip4Config();
     if (!ip4ConfigObjectPath.path().isNull() || ip4ConfigObjectPath.path() != QLatin1String("/")) {
@@ -295,6 +297,9 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
     } else if (property == QLatin1String("PhysicalPortId")) {
         d->physicalPortId = value.toString();
         emit physicalPortIdChanged();
+    } else if (property == QLatin1String("Mtu")) {
+        d->mtu = value.toUInt();
+        emit mtuChanged();
     } else {
         qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
     }
@@ -460,6 +465,12 @@ bool NetworkManager::Device::managed() const
 {
     Q_D(const Device);
     return d->managed;
+}
+
+uint NetworkManager::Device::mtu() const
+{
+    Q_D(const Device);
+    return d->mtu;
 }
 
 void NetworkManager::Device::disconnectInterface()

@@ -50,6 +50,7 @@ void NetworkManager::SettingsPrivate::init()
 {
     connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), this, SLOT(propertiesChanged(QVariantMap)));
     connect(&iface, SIGNAL(NewConnection(QDBusObjectPath)), this, SLOT(onConnectionAdded(QDBusObjectPath)));
+    connect(&iface, SIGNAL(ConnectionRemoved(QDBusObjectPath)), this, SLOT(onConnectionRemoved(QDBusObjectPath)));
 
     QList<QDBusObjectPath> connectionList = iface.connections();
     foreach (const QDBusObjectPath &connection, connectionList) {
@@ -155,6 +156,8 @@ void NetworkManager::SettingsPrivate::propertiesChanged(const QVariantMap &prope
         } else if (property == QLatin1String("Hostname")) {
             m_hostname = it->toString();
             emit hostnameChanged(m_hostname);
+        } else if (property == QLatin1String("Connections")) {
+            // TODO some action??
         } else {
             qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
         }
@@ -181,7 +184,6 @@ NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findRegisteredC
         } else {
             ret = Connection::Ptr(new Connection(path), &QObject::deleteLater);
             connections[path] = ret;
-            connect(ret.data(), SIGNAL(removed(QString)), this, SLOT(onConnectionRemoved(QString)));
             if (!contains) {
                 emit connectionAdded(path);
             }
@@ -190,10 +192,11 @@ NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findRegisteredC
     return ret;
 }
 
-void NetworkManager::SettingsPrivate::onConnectionRemoved(const QString &path)
+void NetworkManager::SettingsPrivate::onConnectionRemoved(const QDBusObjectPath &path)
 {
-    connections.remove(path);
-    emit connectionRemoved(path);
+    const QString connectionPath = path.path();
+    connections.remove(connectionPath);
+    emit connectionRemoved(connectionPath);
 }
 
 void NetworkManager::SettingsPrivate::daemonUnregistered()

@@ -64,6 +64,7 @@ public:
     bool autoconnect;
     Device::StateChangeReason reason;
     QString physicalPortId;
+    uint mtu;
 
     static NetworkManager::Device::Capabilities convertCapabilities(uint);
     static NetworkManager::Device::State convertState(uint);

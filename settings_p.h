@@ -53,7 +53,7 @@ public:
     OrgFreedesktopNetworkManagerSettingsInterface iface;
 protected Q_SLOTS:
     void onConnectionAdded(const QDBusObjectPath &);
-    void onConnectionRemoved(const QString &);
+    void onConnectionRemoved(const QDBusObjectPath &);
     void propertiesChanged(const QVariantMap &properties);
     void onConnectionAddArrived(QDBusPendingCallWatcher *);
     void initNotifier();
