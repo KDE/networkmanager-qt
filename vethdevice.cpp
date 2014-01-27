@@ -23,7 +23,7 @@
 #include "manager.h"
 #include "manager_p.h"
 
-#include "nm-device-veth.h"
+#include "nm-device-vethinterface.h"
 
 namespace NetworkManager
 {

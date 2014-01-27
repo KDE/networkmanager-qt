@@ -23,7 +23,7 @@
 #include "manager.h"
 #include "manager_p.h"
 
-#include "nm-device-macvlan.h"
+#include "nm-device-macvlaninterface.h"
 
 namespace NetworkManager
 {

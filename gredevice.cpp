@@ -23,7 +23,7 @@
 #include "manager.h"
 #include "manager_p.h"
 
-#include "nm-device-gre.h"
+#include "nm-device-greinterface.h"
 
 namespace NetworkManager
 {

@@ -160,10 +160,15 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-device-bondinterface.cpp
    dbus/nm-device-bridgeinterface.cpp
    dbus/nm-device-btinterface.cpp
+   dbus/nm-device-greinterface.cpp
    dbus/nm-device-ethernetinterface.cpp
    dbus/nm-device-infinibandinterface.cpp
    dbus/nm-device-modeminterface.cpp
+   dbus/nm-device-macvlaninterface.cpp
    dbus/nm-device-olpc-meshinterface.cpp
+   dbus/nm-device-teaminterface.cpp
+   dbus/nm-device-tuninterface.cpp
+   dbus/nm-device-vethinterface.cpp
    dbus/nm-device-vlaninterface.cpp
    dbus/nm-device-wifiinterface.cpp
    dbus/nm-device-wimaxinterface.cpp
@@ -181,11 +186,6 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-vpn-connectioninterface.cpp
    dbus/nm-vpn-plugininterface.cpp
    dbus/nm-wimax-nspinterface.cpp
-   dbus/nm-device-gre.cpp
-   dbus/nm-device-macvlan.cpp
-   dbus/nm-device-team.cpp
-   dbus/nm-device-tun.cpp
-   dbus/nm-device-veth.cpp
    )
 
 set(CONNECTIONS_SETTINGS_SRCS
