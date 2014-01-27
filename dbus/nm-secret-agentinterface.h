@@ -44,21 +44,21 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QLatin1String("CancelGetSecrets"), argumentList);
     }
 
-    inline QDBusPendingReply<> DeleteSecrets(NMVariantMapMap connection, const QDBusObjectPath &connection_path)
+    inline QDBusPendingReply<> DeleteSecrets(const NMVariantMapMap &connection, const QDBusObjectPath &connection_path)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(connection) << QVariant::fromValue(connection_path);
         return asyncCallWithArgumentList(QLatin1String("DeleteSecrets"), argumentList);
     }
 
-    inline QDBusPendingReply<NMVariantMapMap> GetSecrets(NMVariantMapMap connection, const QDBusObjectPath &connection_path, const QString &setting_name, const QStringList &hints, uint flags)
+    inline QDBusPendingReply<NMVariantMapMap> GetSecrets(const NMVariantMapMap &connection, const QDBusObjectPath &connection_path, const QString &setting_name, const QStringList &hints, uint flags)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(connection) << QVariant::fromValue(connection_path) << QVariant::fromValue(setting_name) << QVariant::fromValue(hints) << QVariant::fromValue(flags);
         return asyncCallWithArgumentList(QLatin1String("GetSecrets"), argumentList);
     }
 
-    inline QDBusPendingReply<> SaveSecrets(NMVariantMapMap connection, const QDBusObjectPath &connection_path)
+    inline QDBusPendingReply<> SaveSecrets(const NMVariantMapMap &connection, const QDBusObjectPath &connection_path)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(connection) << QVariant::fromValue(connection_path);

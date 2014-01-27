@@ -71,14 +71,14 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QLatin1String("Save"), argumentList);
     }
 
-    inline QDBusPendingReply<> Update(NMVariantMapMap properties)
+    inline QDBusPendingReply<> Update(const NMVariantMapMap &properties)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(properties);
         return asyncCallWithArgumentList(QLatin1String("Update"), argumentList);
     }
 
-    inline QDBusPendingReply<> UpdateUnsaved(NMVariantMapMap properties)
+    inline QDBusPendingReply<> UpdateUnsaved(const NMVariantMapMap &properties)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(properties);
