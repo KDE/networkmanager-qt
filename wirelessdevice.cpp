@@ -56,7 +56,7 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
 
 
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
-    QList <QDBusObjectPath> aps = d->wirelessIface.GetAccessPoints();
+    QList <QDBusObjectPath> aps = d->wirelessIface.accessPoints();
     foreach (const QDBusObjectPath &op, aps) {
         accessPointAdded(op);
     }
