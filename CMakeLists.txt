@@ -15,11 +15,7 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 find_package(Qt4 REQUIRED)
-find_package(NetworkManager 0.9.8.8 REQUIRED)
-
-if (${NETWORKMANAGER_VERSION} VERSION_LESS 0.9.9.0)
-   message(STATUS "This is a development version of this library and some functionality require a newer version of NetworkManager")
-endif()
+find_package(NetworkManager 0.9.9.0 REQUIRED)
 
 if (DISABLE_MODEMMANAGERQT)
     message(STATUS "Disabling ModemManagerQt support")
