@@ -150,17 +150,12 @@ void NetworkManager::NetworkManagerPrivate::init()
     emit activeConnectionsChanged();
 
     if (iface.isValid()) {
-        QDBusReply< QList <QDBusObjectPath> > deviceList = iface.GetDevices();
-        if (deviceList.isValid()) {
-            nmDebug() << "Device list";
-            QList <QDBusObjectPath> devices = deviceList.value();
-            foreach (const QDBusObjectPath &op, devices) {
-                networkInterfaceMap.insert(op.path(), Device::Ptr());
-                emit deviceAdded(op.path());
-                nmDebug() << "  " << op.path();
-            }
-        } else {
-            nmDebug() << "Error getting device list: " << deviceList.error().name() << ": " << deviceList.error().message();
+        QList <QDBusObjectPath> devices = iface.devices();
+        nmDebug() << "Device list";
+        foreach (const QDBusObjectPath &op, devices) {
+            networkInterfaceMap.insert(op.path(), Device::Ptr());
+            emit deviceAdded(op.path());
+            nmDebug() << "  " << op.path();
         }
     }
 }

@@ -56,15 +56,9 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
 
 
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
-    QDBusReply< QList <QDBusObjectPath> > apPathList = d->wirelessIface.GetAccessPoints();
-    if (apPathList.isValid()) {
-        //nmDebug() << "Got device list";
-        QList <QDBusObjectPath> aps = apPathList.value();
-        foreach (const QDBusObjectPath &op, aps) {
-            accessPointAdded(op);
-        }
-    } else {
-        nmDebug() << "Error getting access point list: " << apPathList.error().name() << ": " << apPathList.error().message();
+    QList <QDBusObjectPath> aps = d->wirelessIface.GetAccessPoints();
+    foreach (const QDBusObjectPath &op, aps) {
+        accessPointAdded(op);
     }
     d->activeAccessPoint = findAccessPoint(d->wirelessIface.activeAccessPoint().path());
 }

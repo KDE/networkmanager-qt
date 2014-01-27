@@ -51,16 +51,12 @@ void NetworkManager::SettingsPrivate::init()
     connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), this, SLOT(propertiesChanged(QVariantMap)));
     connect(&iface, SIGNAL(NewConnection(QDBusObjectPath)), this, SLOT(onConnectionAdded(QDBusObjectPath)));
 
-    QDBusPendingReply<QList<QDBusObjectPath> > reply = iface.ListConnections();
-    reply.waitForFinished();
-    nmDebug() << "New Connections list";
-    if (reply.isValid()) {
-        foreach (const QDBusObjectPath &connection, reply.value()) {
-            if (!connections.contains(connection.path())) {
-                connections.insert(connection.path(), Connection::Ptr());
-                emit connectionAdded(connection.path());
-                nmDebug() << " " << connection.path();
-            }
+    QList<QDBusObjectPath> connectionList = iface.connections();
+    foreach (const QDBusObjectPath &connection, connectionList) {
+        if (!connections.contains(connection.path())) {
+            connections.insert(connection.path(), Connection::Ptr());
+            emit connectionAdded(connection.path());
+            nmDebug() << " " << connection.path();
         }
     }
     if (m_canModify != iface.canModify()) {

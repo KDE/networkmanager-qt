@@ -54,16 +54,10 @@ NetworkManager::WimaxDevice::WimaxDevice(const QString &path, QObject *parent)
 
 
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
-    QDBusReply< QList <QDBusObjectPath> > nspPathList = d->wimaxIface.GetNspList();
-    if (nspPathList.isValid()) {
-        //nmDebug() << "Got device list";
-        QList <QDBusObjectPath> nsps = nspPathList.value();
-        foreach (const QDBusObjectPath &op, nsps) {
-            d->nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
-            //nmDebug() << "  " << op.path();
-        }
-    } else {
-        nmDebug() << "Error getting NSP list: " << nspPathList.error().name() << ": " << nspPathList.error().message();
+    QList <QDBusObjectPath> nsps = d->wimaxIface.nsps();
+    foreach (const QDBusObjectPath &op, nsps) {
+        d->nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
+        //nmDebug() << "  " << op.path();
     }
 }
 
