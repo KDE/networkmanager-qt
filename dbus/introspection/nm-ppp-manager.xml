@@ -12,7 +12,7 @@
     <method name="SetIp4Config">
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_ppp_manager_set_ip4_config"/>
       <arg name="config" type="a{sv}" direction="in"/>
-      <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
     </method>
 
     <method name="SetState">

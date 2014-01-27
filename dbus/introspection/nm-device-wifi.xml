@@ -34,7 +34,7 @@
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_device_request_scan"/>
       <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
       <arg name="options" type="a{sv}" direction="in">
-        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
         <tp:docstring>
           Options of scan
         </tp:docstring>
@@ -88,7 +88,7 @@
 
     <signal name="PropertiesChanged">
         <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
-            <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
             <tp:docstring>
                 A dictionary containing the FIXME: check changed parameters.
             </tp:docstring>

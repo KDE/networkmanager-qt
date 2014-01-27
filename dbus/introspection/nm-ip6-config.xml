@@ -6,14 +6,15 @@
       <tp:docstring>The gateway in use.</tp:docstring>
     </property>
     <property name="Addresses" type="a(ayuay)" access="read">
-      <annotation name="com.trolltech.QtDBus.QtTypeName" value="IpV6DBusAddressList"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName" value="IpV6DBusAddressList"/>
       <tp:docstring>Tuples of IPv6 address/prefix/gateway.</tp:docstring>
     </property>
     <property name="Routes" type="a(ayuayu)" access="read">
+      <annotation name="org.qtproject.QtDBus.QtTypeName" value="IpV6DBusRouteList"/>
       <tp:docstring>Tuples of IPv6 route/prefix/next-hop/metric.</tp:docstring>
     </property>
     <property name="Nameservers" type="aay" access="read">
-      <annotation name="com.trolltech.QtDBus.QtTypeName" value="IpV6DBusNameservers"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName" value="IpV6DBusNameservers"/>
       <tp:docstring>The nameservers in use.</tp:docstring>
     </property>
     <property name="Domains" type="as" access="read">
@@ -25,6 +26,7 @@
 
     <signal name="PropertiesChanged">
       <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
+        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
         <tp:docstring>
           A dictionary mapping property names to variant boxed values
         </tp:docstring>

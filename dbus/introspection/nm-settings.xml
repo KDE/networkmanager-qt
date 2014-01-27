@@ -46,7 +46,7 @@
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_settings_add_connection"/>
       <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
       <arg name="connection" type="a{sa{sv}}" direction="in">
-        <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="NMVariantMapMap"/>
+        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="NMVariantMapMap"/>
         <tp:docstring>
           Connection settings and properties.
         </tp:docstring>
@@ -73,7 +73,7 @@
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_settings_add_connection_unsaved"/>
       <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
       <arg name="connection" type="a{sa{sv}}" direction="in">
-      <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="NMVariantMapMap"/>
         <tp:docstring>
           Connection settings and properties.
         </tp:docstring>
@@ -169,7 +169,7 @@
 
     <signal name="PropertiesChanged">
         <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
-            <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QVariantMap"/>
+            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
             <tp:docstring>
                 A dictionary mapping property names to variant boxed values
             </tp:docstring>
