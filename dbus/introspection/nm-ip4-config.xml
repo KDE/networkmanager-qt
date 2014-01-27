@@ -2,23 +2,15 @@
 
 <node name="/" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <interface name="org.freedesktop.NetworkManager.IP4Config">
+    <property name="Gateway" type="s" access="read">
+      <tp:docstring>The gateway in use.</tp:docstring>
+    </property>
     <property name="Addresses" type="aau" access="read">
       <annotation name="com.trolltech.QtDBus.QtTypeName" value="UIntListList"/>
       <tp:docstring>Array of tuples of IPv4 address/prefix/gateway.  All 3
       elements of each tuple are in network byte order.  Essentially:
       [(addr, prefix, gateway), (addr, prefix, gateway), ...]
       </tp:docstring>
-    </property>
-    <property name="Nameservers" type="au" access="read">
-      <annotation name="com.trolltech.QtDBus.QtTypeName" value="UIntList"/>
-      <tp:docstring>The nameservers in use.</tp:docstring>
-    </property>
-    <property name="WinsServers" type="au" access="read">
-      <annotation name="com.trolltech.QtDBus.QtTypeName" value="UIntList"/>
-      <tp:docstring>The Windows Internet Name Service servers associated with the connection.  Each address is in network byte order.</tp:docstring>
-    </property>
-    <property name="Domains" type="as" access="read">
-      <tp:docstring>A list of domains this address belongs to.</tp:docstring>
     </property>
     <property name="Routes" type="aau" access="read">
       <annotation name="com.trolltech.QtDBus.QtTypeName" value="UIntListList"/>
@@ -28,6 +20,28 @@
       [(route, prefix, next-hop, metric), (route, prefix, next-hop, metric), ...]
       </tp:docstring>
     </property>
+    <property name="Nameservers" type="au" access="read">
+      <annotation name="com.trolltech.QtDBus.QtTypeName" value="UIntList"/>
+      <tp:docstring>The nameservers in use.</tp:docstring>
+    </property>
+    <property name="Domains" type="as" access="read">
+      <tp:docstring>A list of domains this address belongs to.</tp:docstring>
+    </property>
+    <property name="Searches" type="as" access="read">
+      <tp:docstring>A list of dns searches.</tp:docstring>
+    </property>
+    <property name="WinsServers" type="au" access="read">
+      <annotation name="com.trolltech.QtDBus.QtTypeName" value="UIntList"/>
+      <tp:docstring>The Windows Internet Name Service servers associated with the connection.  Each address is in network byte order.</tp:docstring>
+    </property>
+
+    <signal name="PropertiesChanged">
+      <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
+        <tp:docstring>
+          A dictionary mapping property names to variant boxed values
+        </tp:docstring>
+      </arg>
+    </signal>
   </interface>
 </node>
 

@@ -53,7 +53,7 @@
     </property>
     <property name="Ip4Address" type="i" access="read">
       <tp:docstring>
-        The IPv4 address bound to the device. FIXME: what about devices with >1 IP address?
+        DEPRECATED; use the 'Addresses' property of the 'Ip4Config' object instead.
       </tp:docstring>
     </property>
     <property name="State" type="u" access="read" tp:type="NM_DEVICE_STATE">
@@ -126,13 +126,17 @@
         An array of object paths of every configured connection that is currently 'available' through this device.
       </tp:docstring>
     </property>
-
     <property name="PhysicalPortId" type="s" access="read">
       <tp:docstring>
         If non-empty, an (opaque) indicator of the physical network
         port associated with the device. This can be used to recognize
 	when two seemingly-separate hardware devices are actually just
 	different virtual interfaces to the same physical port.
+      </tp:docstring>
+    </property>
+    <property name="Mtu" type="u" access="read">
+      <tp:docstring>
+        The device MTU (maximum transmission unit).
       </tp:docstring>
     </property>
 
@@ -297,6 +301,16 @@
       <tp:enumvalue suffix="BRIDGE" value="13">
         <tp:docstring>
           The device is a bridge interface.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="GENERIC" value="14">
+        <tp:docstring>
+          The device is a generic interface type unrecognized by NetworkManager.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="TEAM" value="15">
+        <tp:docstring>
+          The device is a team master interface.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -589,7 +603,7 @@
           A secondary connection of the base connection failed.
         </tp:docstring>
       </tp:enumvalue>
-     <tp:enumvalue suffix="DCB_FCOE_FAILED" value="55">
+      <tp:enumvalue suffix="DCB_FCOE_FAILED" value="55">
         <tp:docstring>
           DCB or FCoE setup failed.
         </tp:docstring>

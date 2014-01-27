@@ -41,12 +41,17 @@
       </tp:docstring>
       <arg name="connection" type="o" direction="in">
         <tp:docstring>
-          The connection to activate the devices with.
+          The connection to activate.  If "/" is given, a valid device path must
+          be given, and NetworkManager picks the best connection to activate for
+          the given device.  VPN connections must always pass a valid connection
+          path.
         </tp:docstring>
       </arg>
       <arg name="device" type="o" direction="in">
         <tp:docstring>
-          The object path of device to be activated for physical connections.  This parameter is ignored for VPN connections, because the specific_object (if provided) specifies the device to use.
+          The object path of device to be activated for physical connections.
+          This parameter is ignored for VPN connections, because the
+          specific_object (if provided) specifies the device to use.
         </tp:docstring>
       </arg>
       <arg name="specific_object" type="o" direction="in">
@@ -55,7 +60,7 @@
           This parameter is currently ignored for wired and mobile broadband connections,
           and the value of "/" should be used (ie, no specific object).  For WiFi
           connections, pass the object path of a specific AP from the card's scan
-          list, or "/" to pick and AP automatically.  For VPN connections, pass
+          list, or "/" to pick an AP automatically.  For VPN connections, pass
           the object path of an ActiveConnection object that should serve as the
           "base" connection (to which the VPN connections lifetime will be tied),
           or pass "/" and NM will automatically use the current default device.
@@ -206,6 +211,7 @@
 
     <method name="SetLogging">
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_manager_set_logging"/>
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
       <tp:docstring>
         Set logging verbosity and which operations are logged.
       </tp:docstring>
@@ -223,8 +229,11 @@
           VPN, SHARING, SUPPLICANT, AGENTS, SETTINGS, SUSPEND, CORE, DEVICE,
           OLPC, WIMAX, INFINIBAND, FIREWALL, ADSL, BOND, VLAN].  In addition to
           these domains, the following special domains can be used: [NONE, ALL,
-          DEFAULT, DHCP, IP].  If an empty string is given, the log level is
-          changed but the current set of log domains remains unchanged.
+          DEFAULT, DHCP, IP].  You can also specify that some domains should
+          log at a different level from the default by appending a colon (':')
+          and a log level (eg, 'WIFI:DEBUG').  If an empty string is given, the
+          log level is changed but the current set of log domains remains
+          unchanged.
         </tp:docstring>
       </arg>
     </method>
@@ -250,7 +259,7 @@
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_manager_check_connectivity"/>
       <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
       <tp:docstring>
-          Re-check the network connectivity state.
+	Re-check the network connectivity state.
       </tp:docstring>
       <arg name="connectivity" type="u" tp:type="NM_CONNECTIVITY" direction="out">
         <tp:docstring>
@@ -267,6 +276,12 @@
       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_manager_get_state"/>
       <arg name="state" type="u" direction="out" tp:type="NM_STATE"/>
     </method>
+
+    <property name="Devices" type="ao" access="read">
+      <tp:docstring>
+        The list of network devices/interfaces NetworkManager knows about.
+      </tp:docstring>
+    </property>
 
     <property name="NetworkingEnabled" type="b" access="read">
       <tp:docstring>
@@ -347,6 +362,12 @@
         Indicates whether NM is still starting up; this becomes FALSE
         when NM has finished attempting to activate every connection
         that it might be able to activate at startup.
+      </tp:docstring>
+    </property>
+
+    <property name="Version" type="s" access="read">
+      <tp:docstring>
+        NetworkManager version.
       </tp:docstring>
     </property>
 
@@ -477,13 +498,13 @@
       <tp:enumvalue suffix="LIMITED" value="3">
         <tp:docstring>
           The host is connected to a network, but does not appear to
-          be able to reach the full Internet.
+	  be able to reach the full Internet.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="FULL" value="4">
         <tp:docstring>
-          The host is connected to a network, and appears to be able
-          to reach the full Internet
+	  The host is connected to a network, and appears to be able
+	  to reach the full Internet
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
