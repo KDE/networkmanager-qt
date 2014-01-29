@@ -13,7 +13,6 @@ if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
 
-#find_package(Qt4 REQUIRED)
 find_package(ECM 0.0.8 REQUIRED NO_MODULE)
 
 include(CMakePackageConfigHelpers)
@@ -241,29 +240,32 @@ qt5_wrap_cpp(NetworkManagerQt_MOC ${NetworkManagerQt_PRIVATE_HEADERS})
 #qt5_automoc(${NetworkManagerQt_PART_SRCS})
 #qt5_automoc(${DBUS_INTERFACE_SRCS})
 
-add_library(NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${DBUS_INTERFACE_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${NetworkManagerQt_MOC} )
+add_library(NetworkManagerQt5 SHARED ${NetworkManagerQt_PART_SRCS} ${DBUS_INTERFACE_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${NetworkManagerQt_MOC} )
 
-qt5_use_modules(NetworkManagerQt Core Network DBus)
-target_link_libraries(NetworkManagerQt ${MODEMMANAGERQT_LIBRARY})
-install(TARGETS NetworkManagerQt DESTINATION lib${LIB_SUFFIX})
+qt5_use_modules(NetworkManagerQt5 Core Network DBus)
+target_link_libraries(NetworkManagerQt5 ${MODEMMANAGERQT_LIBRARY})
+install(TARGETS NetworkManagerQt5 DESTINATION lib${LIB_SUFFIX})
 
 install( FILES
    ${NetworkManagerQt_HEADERS}
    DESTINATION
-   include/NetworkManagerQt COMPONENT Devel)
+   include/NetworkManagerQt5/NetworkManagerQt COMPONENT Devel)
 
 install( FILES
    ${CONNECTIONS_SETTINGS_HEADERS}
    DESTINATION
-   include/NetworkManagerQt/settings COMPONENT Devel)
+   include/NetworkManagerQt5/NetworkManagerQt/settings COMPONENT Devel)
 
-set_property(TARGET NetworkManagerQt PROPERTY COMPILE_DEFINITIONS MAKE_NETWORKMANAGERQT_LIB)
-set_property(TARGET NetworkManagerQt PROPERTY VERSION ${VERSION})
-set_property(TARGET NetworkManagerQt PROPERTY SOVERSION 0)
+set_property(TARGET NetworkManagerQt5 PROPERTY COMPILE_DEFINITIONS MAKE_NETWORKMANAGERQT_LIB)
+set_property(TARGET NetworkManagerQt5 PROPERTY VERSION ${VERSION})
+set_property(TARGET NetworkManagerQt5 PROPERTY SOVERSION 0)
 
 message(STATUS "Writing pkg-config file...")
-configure_file(${CMAKE_SOURCE_DIR}/NetworkManagerQt.pc.cmake ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc @ONLY)
-install(FILES ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig/")
+configure_file(${CMAKE_SOURCE_DIR}/NetworkManagerQt.pc.cmake ${CMAKE_BINARY_DIR}/NetworkManagerQt5.pc @ONLY)
+install(FILES
+    ${CMAKE_BINARY_DIR}/NetworkManagerQt5.pc
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig
+    RENAME NetworkManagerQt5.pc)
 
 add_subdirectory(include)
 

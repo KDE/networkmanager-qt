@@ -19,11 +19,11 @@
 prefix=@CMAKE_INSTALL_PREFIX@
 exec_prefix=${prefix}
 libdir=@CMAKE_INSTALL_PREFIX@/lib@LIB_SUFFIX@
-includedir=${prefix}/include
+includedir=${prefix}/include/NetworkManagerQt5
 
-Name: NetworkManagerQt
-Description: Convenience Qt library for clients of NetworkManager
+Name: NetworkManagerQt5
+Description: Convenience Qt5 library for clients of NetworkManager
 Version: @VERSION@
 
 Cflags: -DWITH_MODEMMANAGERQT=@WITH_MODEMMANAGERQT@ -I${includedir} @CMAKE_INCLUDE_PATH@
-Libs: -L${libdir} -lNetworkManagerQt @CMAKE_LIBRARY_PATH@
+Libs: -L${libdir} -lNetworkManagerQt5 @CMAKE_LIBRARY_PATH@
