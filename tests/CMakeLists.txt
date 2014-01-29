@@ -19,7 +19,7 @@ MACRO(LIBNM_TESTS)
                 Qt5::DBus
                 Qt5::Network
                 Qt5::Test
-                NetworkManagerQt
+                NetworkManagerQt5
                 ${MODEMMANAGERQT_LIBRARY}
             )
             ADD_TEST(test_${_testname} test_${_testname})
