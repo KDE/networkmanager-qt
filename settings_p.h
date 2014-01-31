@@ -44,7 +44,10 @@ public:
     QString hostname() const;
     bool canModify() const;
     QString addConnection(const NMVariantMapMap &);
+    QString addConnectionUnsaved(const NMVariantMapMap &);
+    QDBusPendingReply<bool, QStringList> loadConnections(const QStringList& filenames);
     void saveHostname(const QString &);
+    QDBusPendingReply<bool> reloadConnections();
     Connection::Ptr findRegisteredConnection(const QString &);
 
     QMap<QString, Connection::Ptr> connections;

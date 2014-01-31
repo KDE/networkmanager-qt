@@ -160,15 +160,6 @@ public Q_SLOTS: // METHODS
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QLatin1String("GetLogging"), argumentList);
     }
-    inline QDBusReply<QString> GetLogging(QString &domains)
-    {
-        QList<QVariant> argumentList;
-        QDBusMessage reply = callWithArgumentList(QDBus::Block, QLatin1String("GetLogging"), argumentList);
-        if (reply.type() == QDBusMessage::ReplyMessage && reply.arguments().count() == 2) {
-            domains = qdbus_cast<QString>(reply.arguments().at(1));
-        }
-        return reply;
-    }
 
     inline QDBusPendingReply<NMStringMap> GetPermissions()
     {

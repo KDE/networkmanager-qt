@@ -119,6 +119,27 @@ QString NetworkManager::SettingsPrivate::addConnection(const NMVariantMapMap &co
     return id;
 }
 
+QString NetworkManager::SettingsPrivate::addConnectionUnsaved(const NMVariantMapMap &connection)
+{
+    QDBusPendingReply<QDBusObjectPath> reply = iface.AddConnectionUnsaved(connection);
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
+    QVariantMap connectionSettings = connection.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
+    const QString id = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString();
+    watcher->setProperty("libNetworkManagerQt_id", id);
+    connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this, SLOT(onConnectionAddArrived(QDBusPendingCallWatcher*)));
+    return id;
+}
+
+QDBusPendingReply<bool, QStringList> NetworkManager::SettingsPrivate::loadConnections(const QStringList &filenames)
+{
+    return iface.LoadConnections(filenames);
+}
+
+QDBusPendingReply<bool> NetworkManager::SettingsPrivate::reloadConnections()
+{
+    return iface.ReloadConnections();
+}
+
 void NetworkManager::SettingsPrivate::onConnectionAddArrived(QDBusPendingCallWatcher *watcher)
 {
     QDBusPendingReply<QDBusObjectPath> reply = *watcher;
@@ -222,6 +243,21 @@ NetworkManager::Connection::Ptr NetworkManager::findConnection(const QString &pa
 QString NetworkManager::addConnection(const NMVariantMapMap &connection)
 {
     return globalSettings->addConnection(connection);
+}
+
+QString NetworkManager::addConnectionUnsaved(const NMVariantMapMap& connection)
+{
+    return globalSettings->addConnectionUnsaved(connection);
+}
+
+QDBusPendingReply< bool, QStringList > NetworkManager::loadConnections(const QStringList& filenames)
+{
+    return globalSettings->loadConnections(filenames);
+}
+
+QDBusPendingReply< bool > NetworkManager::reloadConnections()
+{
+    return globalSettings->reloadConnections();
 }
 
 void NetworkManager::saveHostname(const QString &hostname)

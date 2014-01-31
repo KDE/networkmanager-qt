@@ -61,7 +61,7 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QLatin1String("AddConnection"), argumentList);
     }
 
-    inline QDBusPendingReply<QDBusObjectPath> AddConnectionUnsaved(const QVariantMap &connection)
+    inline QDBusPendingReply<QDBusObjectPath> AddConnectionUnsaved(const NMVariantMapMap &connection)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(connection);
@@ -86,16 +86,6 @@ public Q_SLOTS: // METHODS
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(filenames);
         return asyncCallWithArgumentList(QLatin1String("LoadConnections"), argumentList);
-    }
-    inline QDBusReply<bool> LoadConnections(const QStringList &filenames, QStringList &failures)
-    {
-        QList<QVariant> argumentList;
-        argumentList << QVariant::fromValue(filenames);
-        QDBusMessage reply = callWithArgumentList(QDBus::Block, QLatin1String("LoadConnections"), argumentList);
-        if (reply.type() == QDBusMessage::ReplyMessage && reply.arguments().count() == 2) {
-            failures = qdbus_cast<QStringList>(reply.arguments().at(1));
-        }
-        return reply;
     }
 
     inline QDBusPendingReply<bool> ReloadConnections()

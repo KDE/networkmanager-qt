@@ -76,14 +76,19 @@ public:
     NetworkManager::IpAddresses addresses() const;
 
     /**
-     * Returns a list of nameservers related to this configuration.
-     */
-    QList<QHostAddress> nameservers() const;
-
-    /**
      * Returns a list of domains related to this configuration.
      */
     QStringList domains() const;
+
+    /**
+     * Returns the gateway in use
+     */
+    QString gateway() const;
+
+    /**
+     * Returns a list of nameservers related to this configuration.
+     */
+    QList<QHostAddress> nameservers() const;
 
     /**
      * Returns a list of static routes (not the default gateway) related to this configuration.
@@ -91,6 +96,10 @@ public:
      */
     IpRoutes routes() const;
 
+    /**
+     * Returns a list of dns searches.
+     */
+    QStringList searches() const;
     /**
      * Makes a copy of the IpConfig object @p other.
      */

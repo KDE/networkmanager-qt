@@ -45,8 +45,10 @@ public:
     Private()
     {}
     IpAddresses addresses;
+    QString gateway;
     QList<QHostAddress> nameservers;
     QStringList domains;
+    QStringList searches;
     IpRoutes routes;
 };
 
@@ -76,6 +78,8 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
     OrgFreedesktopNetworkManagerIP4ConfigInterface iface(NetworkManagerPrivate::DBUS_SERVICE,
                                                          path,
                                                          QDBusConnection::systemBus());
+    // TODO - watch propertiesChanged signal
+
     //convert ipaddresses into object
     UIntListList addresses = iface.addresses();
     QList<NetworkManager::IpAddress> addressObjects;
@@ -108,8 +112,10 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
     }
 
     d->addresses = addressObjects;
+    d->gateway = iface.gateway();
     d->nameservers = nameservers;
     d->domains = iface.domains();
+    d->searches = iface.searches();
     d->routes = routeObjects;
 }
 
@@ -119,6 +125,9 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
     OrgFreedesktopNetworkManagerIP6ConfigInterface iface(NetworkManagerPrivate::DBUS_SERVICE,
             path,
             QDBusConnection::systemBus());
+
+    // TODO - watch propertiesChanged signal
+
     IpV6DBusAddressList addresses = iface.addresses();
     QList<NetworkManager::IpAddress> addressObjects;
     foreach (const IpV6DBusAddress &address, addresses) {
@@ -166,8 +175,10 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
     }
 
     d->addresses = addressObjects;
+    d->gateway = iface.gateway();
     d->nameservers = nameservers;
     d->domains = iface.domains();
+    d->searches = iface.searches();
     d->routes = routeObjects;
 }
 
@@ -179,6 +190,11 @@ NetworkManager::IpConfig::~IpConfig()
 NetworkManager::IpAddresses NetworkManager::IpConfig::addresses() const
 {
     return d->addresses;
+}
+
+QString NetworkManager::IpConfig::gateway() const
+{
+    return d->gateway;
 }
 
 QList<QHostAddress> NetworkManager::IpConfig::nameservers() const
@@ -194,6 +210,11 @@ QStringList NetworkManager::IpConfig::domains() const
 QList<NetworkManager::IpRoute> NetworkManager::IpConfig::routes() const
 {
     return d->routes;
+}
+
+QStringList NetworkManager::IpConfig::searches() const
+{
+    return d->searches;
 }
 
 NetworkManager::IpConfig &NetworkManager::IpConfig::operator=(const IpConfig &other)
