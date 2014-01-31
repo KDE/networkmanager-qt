@@ -78,6 +78,7 @@ set(NetworkManagerQt_HEADERS
     device.h
     dhcp4config.h
     dhcp6config.h
+    genericdevice.h
     gredevice.h
     infinibanddevice.h
     ipaddress.h
@@ -122,6 +123,7 @@ set(NetworkManagerQt_PART_SRCS
     device.cpp
     dhcp4config.cpp
     dhcp6config.cpp
+    genericdevice.cpp
     gredevice.cpp
     infinibanddevice.cpp
     ipaddress.cpp
@@ -156,6 +158,7 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-device-bondinterface.cpp
    dbus/nm-device-bridgeinterface.cpp
    dbus/nm-device-btinterface.cpp
+   dbus/nm-device-genericinterface.cpp
    dbus/nm-device-greinterface.cpp
    dbus/nm-device-ethernetinterface.cpp
    dbus/nm-device-infinibandinterface.cpp

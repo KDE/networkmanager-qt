@@ -8,8 +8,8 @@
  * Do not edit! All changes made to it will be lost.
  */
 
-#ifndef NM-DEVICE-GENERICINTERFACE_H_1390813164
-#define NM-DEVICE-GENERICINTERFACE_H_1390813164
+#ifndef NETWORKMANAGERQT_DEVICE_GENERICINTERFACE_H
+#define NETWORKMANAGERQT_DEVICE_GENERICINTERFACE_H
 
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>

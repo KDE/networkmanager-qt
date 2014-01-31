@@ -38,6 +38,14 @@ public:
     bool default4;
     bool default6;
     QStringList devices;
+    mutable Dhcp4Config::Ptr dhcp4Config;
+    QString dhcp4ConfigPath;
+    mutable Dhcp6Config::Ptr dhcp6Config;
+    QString dhcp6ConfigPath;
+    mutable IpConfig ipV4Config;
+    QString ipV4ConfigPath;
+    mutable IpConfig ipV6Config;
+    QString ipV6ConfigPath;
     QString specificObject;
     ActiveConnection::State state;
     bool vpn;

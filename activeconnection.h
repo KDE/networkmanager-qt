@@ -29,6 +29,9 @@
 
 #include "NetworkManagerQt-export.h"
 #include "connection.h"
+#include "dhcp4config.h"
+#include "dhcp6config.h"
+#include "ipconfig.h"
 
 namespace NetworkManager {
 
@@ -86,6 +89,32 @@ public:
      * Whether this connection has the default IPv6 route
      */
     bool default6() const;
+   /**
+     * The Ip4Config object describing the configuration of the
+     * connection. Only valid when the connection is in the
+     * NM_ACTIVE_CONNECTION_STATE_ACTIVATED state
+     */
+    IpConfig ipV4Config() const;
+   /**
+     * The Ip6Config object describing the configuration of the
+     * connection. Only valid when the connection is in the
+     * NM_ACTIVE_CONNECTION_STATE_ACTIVATED state
+     */
+    IpConfig ipV6Config() const;
+    /**
+     * The Dhcp4Config object describing the DHCP options
+     * returned by the DHCP server (assuming the connection used DHCP). Only
+     * valid when the connection is in the NM_ACTIVE_CONNECTION_STATE_ACTIVATED
+     * state
+     */
+    Dhcp4Config::Ptr dhcp4Config() const;
+    /**
+     * The Dhcp6Config object describing the DHCP options
+     * returned by the DHCP server (assuming the connection used DHCP). Only
+     * valid when the connection is in the NM_ACTIVE_CONNECTION_STATE_ACTIVATED
+     * state
+     */
+    Dhcp6Config::Ptr dhcp6Config() const;
     /**
      * Returns the uni of master device if the connection is a slave.
      */
@@ -124,6 +153,22 @@ Q_SIGNALS:
      * The state of the default IPv6 route changed
      */
     void default6Changed(bool isDefault);
+    /**
+     * Emitted when the DHCP configuration for IPv4 of this network has changed.
+     */
+    void dhcp4ConfigChanged();
+    /**
+     * Emitted when the DHCP configuration for IPv6 of this network has changed.
+     */
+    void dhcp6ConfigChanged();
+    /**
+     * Emitted when the IPv4 configuration of this network has changed.
+     */
+    void ipV4ConfigChanged();
+    /**
+     * Emitted when the IPv6 configuration of this network has changed.
+     */
+    void ipV6ConfigChanged();
     /**
      * The master device changed.
      */

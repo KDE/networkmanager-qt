@@ -35,6 +35,8 @@
 
 NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &dbusPath)
     : iface(NetworkManagerPrivate::DBUS_SERVICE, dbusPath, QDBusConnection::systemBus())
+    , dhcp4Config(0)
+    , dhcp6Config(0)
 {
     connection = NetworkManager::findConnection(iface.connection().path());
     path = dbusPath;
@@ -47,6 +49,25 @@ NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &
     master = iface.master().path();
     foreach (const QDBusObjectPath &devicePath, iface.devices()) {
         devices.append(devicePath.path());
+    }
+    QDBusObjectPath ip4ConfigObjectPath = iface.ip4Config();
+    if (!ip4ConfigObjectPath.path().isNull() || ip4ConfigObjectPath.path() != QLatin1String("/")) {
+        ipV4ConfigPath = ip4ConfigObjectPath.path();
+    }
+
+    QDBusObjectPath ip6ConfigObjectPath = iface.ip6Config();
+    if (!ip6ConfigObjectPath.path().isNull() || ip6ConfigObjectPath.path() != QLatin1String("/")) {
+        ipV6ConfigPath = ip6ConfigObjectPath.path();
+    }
+
+    QDBusObjectPath dhcp4ConfigObjectPath = iface.dhcp4Config();
+    if (!dhcp4ConfigObjectPath.path().isNull() && dhcp4ConfigObjectPath.path() != QLatin1String("/")) {
+        dhcp4ConfigPath = dhcp4ConfigObjectPath.path();
+    }
+
+    QDBusObjectPath dhcp6ConfigObjectPath = iface.dhcp6Config();
+    if (!dhcp6ConfigObjectPath.path().isNull() && dhcp6ConfigObjectPath.path() != QLatin1String("/")) {
+        dhcp6ConfigPath = dhcp6ConfigObjectPath.path();
     }
 }
 
@@ -112,6 +133,42 @@ bool NetworkManager::ActiveConnection::default6() const
     return d->default6;
 }
 
+NetworkManager::Dhcp4Config::Ptr NetworkManager::ActiveConnection::dhcp4Config() const
+{
+    Q_D(const ActiveConnection);
+    if (!d->dhcp4Config && !d->dhcp4ConfigPath.isNull()) {
+        d->dhcp4Config = NetworkManager::Dhcp4Config::Ptr(new Dhcp4Config(d->dhcp4ConfigPath), &QObject::deleteLater);
+    }
+    return d->dhcp4Config;
+}
+
+NetworkManager::Dhcp6Config::Ptr NetworkManager::ActiveConnection::dhcp6Config() const
+{
+    Q_D(const ActiveConnection);
+    if (!d->dhcp6Config && !d->dhcp6ConfigPath.isNull()) {
+        d->dhcp6Config = NetworkManager::Dhcp6Config::Ptr(new Dhcp6Config(d->dhcp6ConfigPath), &QObject::deleteLater);
+    }
+    return d->dhcp6Config;
+}
+
+NetworkManager::IpConfig NetworkManager::ActiveConnection::ipV4Config() const
+{
+    Q_D(const ActiveConnection);
+    if (!d->ipV4Config.isValid() && !d->ipV4ConfigPath.isNull()) {
+        d->ipV4Config.setIPv4Path(d->ipV4ConfigPath);
+    }
+    return d->ipV4Config;
+}
+
+NetworkManager::IpConfig NetworkManager::ActiveConnection::ipV6Config() const
+{
+    Q_D(const ActiveConnection);
+    if (!d->ipV6Config.isValid() && !d->ipV6ConfigPath.isNull()) {
+        d->ipV6Config.setIPv6Path(d->ipV6ConfigPath);
+    }
+    return d->ipV6Config;
+}
+
 QString NetworkManager::ActiveConnection::master() const
 {
     Q_D(const ActiveConnection);
@@ -164,7 +221,45 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap &prop
         } else if (property == QLatin1String("Default6")) {
             d->default6 = it->toBool();
             emit default6Changed(d->default6);
-        } else if (property == QLatin1String("Master")) {
+        }else if (property == QLatin1String("Dhcp4Config")) {
+            QDBusObjectPath dhcp4ConfigPath = (*it).value<QDBusObjectPath>();
+            if (dhcp4ConfigPath.path().isNull()) {
+                d->dhcp4Config.clear();
+                d->dhcp4ConfigPath.clear();
+            } else if (!d->dhcp4Config || d->dhcp4Config->path() != dhcp4ConfigPath.path()) {
+                d->dhcp4Config.clear();
+                d->dhcp4ConfigPath = dhcp4ConfigPath.path();
+            }
+            emit dhcp4ConfigChanged();
+        } else if (property == QLatin1String("Dhcp6Config")) {
+            QDBusObjectPath dhcp6ConfigPath = (*it).value<QDBusObjectPath>();
+            if (dhcp6ConfigPath.path().isNull()) {
+                d->dhcp6Config.clear();
+                d->dhcp6ConfigPath.clear();
+            } else if (!d->dhcp6Config || d->dhcp6Config->path() != dhcp6ConfigPath.path()) {
+                d->dhcp6Config.clear();
+                d->dhcp6ConfigPath = dhcp6ConfigPath.path();
+            }
+            emit dhcp6ConfigChanged();
+        } else if (property == QLatin1String("Ip4Config")) {
+            QDBusObjectPath ip4ConfigObjectPath = (*it).value<QDBusObjectPath>();
+            if (ip4ConfigObjectPath.path().isNull() || ip4ConfigObjectPath.path() == QLatin1String("/")) {
+                d->ipV4ConfigPath.clear();
+            } else {
+                d->ipV4ConfigPath = ip4ConfigObjectPath.path();
+            }
+            d->ipV4Config = IpConfig();
+            emit ipV4ConfigChanged();
+        } else if (property == QLatin1String("Ip6Config")) {
+            QDBusObjectPath ip6ConfigObjectPath = (*it).value<QDBusObjectPath>();
+            if (ip6ConfigObjectPath.path().isNull() || ip6ConfigObjectPath.path() == QLatin1String("/")) {
+                d->ipV6ConfigPath.clear();
+            } else {
+                d->ipV6ConfigPath = ip6ConfigObjectPath.path();
+            }
+            d->ipV6Config = IpConfig();
+            emit ipV6ConfigChanged();
+        }  else if (property == QLatin1String("Master")) {
             d->master = qdbus_cast<QDBusObjectPath>(*it).path();
             emit masterChanged(d->master);
         } else if (property == QLatin1String("SpecificObject")) {

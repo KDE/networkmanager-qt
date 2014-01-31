@@ -28,21 +28,22 @@
 
 #include <NetworkManager.h>
 
-#include "wireddevice.h"
-#include "wirelessdevice.h"
-#include "modemdevice.h"
-#include "bluetoothdevice.h"
-#include "wimaxdevice.h"
-#include "olpcmeshdevice.h"
+#include "activeconnection.h"
 #include "adsldevice.h"
-#include "infinibanddevice.h"
-#include "vlandevice.h"
+#include "bluetoothdevice.h"
 #include "bonddevice.h"
 #include "bridgedevice.h"
-#include "activeconnection.h"
-#include "vpnconnection.h"
+#include "infinibanddevice.h"
+#include "genericdevice.h"
+#include "modemdevice.h"
+#include "olpcmeshdevice.h"
 #include "settings.h"
 #include "settings_p.h"
+#include "vpnconnection.h"
+#include "vlandevice.h"
+#include "wireddevice.h"
+#include "wirelessdevice.h"
+#include "wimaxdevice.h"
 
 #include "nmdebug.h"
 
@@ -281,6 +282,9 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
         break;
     case Device::Bridge:
         createdInterface = Device::Ptr(new NetworkManager::BridgeDevice(uni), &QObject::deleteLater);
+        break;
+    case Device::Generic:
+        createdInterface = Device::Ptr(new NetworkManager::GenericDevice(uni), &QObject::deleteLater);
         break;
     default:
         createdInterface = device;
