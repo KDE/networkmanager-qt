@@ -193,7 +193,9 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
     Q_D(Device);
 
     if (property == QLatin1String("ActiveConnection")) {
-        d->activeConnection = value.value<QDBusObjectPath>().path();
+        // FIXME workaround, because NM doesn't emit correct value
+        // d->activeConnection = value.value<QDBusObjectPath>.path();
+        d->activeConnection = d->deviceIface.activeConnection().path();
         emit activeConnectionChanged();
     } else if (property == QLatin1String("Autoconnect")) {
         d->autoconnect = value.toBool();
