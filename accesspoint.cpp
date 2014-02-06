@@ -25,8 +25,6 @@
 #include "manager_p.h"
 #include "wirelessdevice.h"
 
-#include <libnm-glib/nm-device-wifi.h>
-
 #include "nmdebug.h"
 
 namespace NetworkManager {
@@ -34,8 +32,8 @@ namespace NetworkManager {
 AccessPoint::Capabilities convertCapabilities(int caps)
 {
     switch (caps) {
-    case 0: return AccessPoint::None;
-    case 1: return AccessPoint::Privacy;
+    case NM_802_11_AP_FLAGS_NONE: return AccessPoint::None;
+    case NM_802_11_AP_FLAGS_PRIVACY: return AccessPoint::Privacy;
     }
     return AccessPoint::None;
 }
