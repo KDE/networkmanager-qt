@@ -82,6 +82,8 @@ public:
 
     /**
      * Returns the gateway in use
+     *
+     * @since 0.9.9.0
      */
     QString gateway() const;
 
@@ -97,9 +99,12 @@ public:
     IpRoutes routes() const;
 
     /**
-     * Returns a list of dns searches.
+     * Returns a list of DNS searches.
+     *
+     * @since 0.9.9.0
      */
     QStringList searches() const;
+
     /**
      * Makes a copy of the IpConfig object @p other.
      */

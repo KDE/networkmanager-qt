@@ -90,7 +90,7 @@ NETWORKMANAGERQT_EXPORT NetworkManager::Connection::List listConnections();
 NETWORKMANAGERQT_EXPORT NetworkManager::Connection::Ptr findConnection(const QString &path);
 
 /**
- * Add new connection and save it to disk.  This operation does not start
+ * Add new connection and save it to disk. This operation does not start
  * the network connection unless (1) device is idle and able to connect to
  * the network described by the new connection, and (2) the connection
  * is allowed to be started automatically.
@@ -98,6 +98,8 @@ NETWORKMANAGERQT_EXPORT NetworkManager::Connection::Ptr findConnection(const QSt
  * SettingsNotifier::connectionAddComplete()
  *
  * @returns Uuid of the new connection that was just added.
+ *
+ * @since 0.9.9.0
  */
 NETWORKMANAGERQT_EXPORT QString addConnection(const NMVariantMapMap &settings);
 
@@ -116,6 +118,8 @@ NETWORKMANAGERQT_EXPORT QString addConnection(const NMVariantMapMap &settings);
  * SettingsNotifier::connectionAddComplete()
  *
  * @returns Uuid of the new connection that was just added.
+ *
+ * @since 0.9.9.0
  */
 NETWORKMANAGERQT_EXPORT QString addConnectionUnsaved(const NMVariantMapMap &settings);
 
@@ -140,6 +144,8 @@ NETWORKMANAGERQT_EXPORT NetworkManager::Connection::Ptr findConnectionByUuid(con
  *           permission denied).
  *
  * @returns  Paths of connection files that could not be loaded.
+ *
+ * @since 0.9.9.0
  */
 NETWORKMANAGERQT_EXPORT QDBusPendingReply<bool, QStringList> loadConnections(const QStringList &filenames);
 
@@ -151,6 +157,8 @@ NETWORKMANAGERQT_EXPORT QDBusPendingReply<bool, QStringList> loadConnections(con
  * "monitor-connection-files=false" in NetworkManager.conf.
  *
  * @returns Success or failure.
+ *
+ * @since 0.9.9.0
  */
 NETWORKMANAGERQT_EXPORT QDBusPendingReply<bool> reloadConnections();
 
