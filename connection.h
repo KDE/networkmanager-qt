@@ -37,6 +37,9 @@ namespace NetworkManager
 
 class ConnectionPrivate;
 
+/**
+ * This class represents a single network connection configuration.
+ */
 class NETWORKMANAGERQT_EXPORT Connection : public QObject
 {
     Q_OBJECT
@@ -71,6 +74,17 @@ public:
     QString name() const;
 
     /**
+     * If set, indicates that the in-memory state of the
+     * connection does not match the on-disk state. This flag
+     * will be set when updateUnsaved() is called or when any
+     * connection details change, and cleared when the connection
+     * is saved to disk via save() or from internal operations.
+     *
+     * @since 0.9.9.0
+     */
+    bool isUnsaved() const;
+
+    /**
      * Returns the settings of this connection
      */
     ConnectionSettings::Ptr settings();
@@ -90,6 +104,30 @@ public:
      * depending on the request.
      */
     void update(const NMVariantMapMap & settings);
+
+    /**
+     * Update the connection with new @p settings and properties (replacing
+     * all previous settings and properties) but do not immediately save
+     * the connection to disk. Secrets may be part of the update request
+     * and may sent to a Secret Agent for storage, depending on the the
+     * flags associated with each secret.
+     *
+     * Use the save() method to save these changes to disk. Note
+     * that unsaved changes will be lost if the connection is
+     * reloaded from disk (either automatically on file change or
+     * due to an explicit reloadConnections() call).
+     *
+     * @since 0.9.9.0
+     */
+    void updateUnsaved(const NMVariantMapMap & settings);
+
+    /**
+     * Saves a "dirty" connection (that had previously been
+     * updated with updateUnsaved()) to persistent storage.
+     *
+     * @since 0.9.9.0
+     */
+    void save();
 
     /**
      * Removes the connection from NetworkManager database,

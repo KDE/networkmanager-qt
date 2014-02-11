@@ -104,6 +104,12 @@ QString NetworkManager::Connection::name() const
     return d->id;
 }
 
+bool NetworkManager::Connection::isUnsaved() const
+{
+    Q_D(const Connection);
+    return d->iface.unsaved();
+}
+
 NetworkManager::ConnectionSettings::Ptr NetworkManager::Connection::settings()
 {
     Q_D(Connection);
@@ -148,6 +154,18 @@ void NetworkManager::Connection::update(const NMVariantMapMap &settings)
 {
     Q_D(Connection);
     d->iface.Update(settings);
+}
+
+void NetworkManager::Connection::updateUnsaved(const NMVariantMapMap &settings)
+{
+    Q_D(Connection);
+    d->iface.UpdateUnsaved(settings);
+}
+
+void NetworkManager::Connection::save()
+{
+    Q_D(Connection);
+    d->iface.Save();
 }
 
 void NetworkManager::Connection::remove()
