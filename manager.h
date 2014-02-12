@@ -297,14 +297,14 @@ NETWORKMANAGERQT_EXPORT QDBusPendingReply<QString, QString> getLogging();
 
 /**
   * @return the network connectivity state
-  * @since 0.9.8.4
+  * @since 0.9.9.0
  */
 NETWORKMANAGERQT_EXPORT Connectivity connectivity();
 
 /**
   * Re-check the network connectivity state.
   * @see connectivity()
-  * @since 0.9.8.4
+  * @since 0.9.9.0
  */
 NETWORKMANAGERQT_EXPORT Connectivity checkConnectivity();
 
@@ -315,7 +315,7 @@ NETWORKMANAGERQT_EXPORT Connectivity checkConnectivity();
   * indicates the connection that has the default route. If there
   * is a VPN active with the default route, then this indicates
   * the connection that contains the route to the VPN endpoint.
-  * @since 0.9.8.4
+  * @since 0.9.9.0
   */
 NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr primaryConnection();
 
@@ -323,7 +323,7 @@ NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr primaryConnection();
  * @return an active connection that is currently
  * being activated and which is expected to become the new
  * primaryConnection() when it finishes activating.
- * @since 0.9.8.4
+ * @since 0.9.9.0
  */
 NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr activatingConnection();
 
