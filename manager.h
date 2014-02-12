@@ -307,12 +307,6 @@ NETWORKMANAGERQT_EXPORT Connectivity checkConnectivity();
   * the connection that contains the route to the VPN endpoint.
   * @since 0.9.9.0
   */
-/**
- * Find an ActiveConnection object for an active connection id
- *
- * @param uni the id of the ActiveConnection
- * @return a valid ActiveConnection object
- */
 NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr primaryConnection();
 
 /**
@@ -324,13 +318,13 @@ NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr primaryConnection();
 NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr activatingConnection();
 
 /**
-  * Indicates whether NM is still starting up; this becomes @p false
-  * when NM has finished attempting to activate every connection
-  * that it might be able to activate at startup.
-  * @since 0.9.8.1
-  */
-
+ * Find an ActiveConnection object for an active connection id
+ *
+ * @param uni the id of the ActiveConnection
+ * @return a valid ActiveConnection object
+ */
 NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr findActiveConnection(const QString &uni);
+
 /**
  * Retrieves the interface types supported by this network manager.
  *
