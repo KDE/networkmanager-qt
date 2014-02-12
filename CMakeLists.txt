@@ -46,10 +46,12 @@ include_directories(
     ${NETWORKMANAGER_INCLUDE_DIRS}
     ${NM-UTIL_INCLUDE_DIRS}
     ${NM-GLIB_INCLUDE_DIRS}
-if (MODEMMANAGERQT_FOUND)
-    ${MODEMMANAGERQT_INCLUDE_DIRS}
-endif()
 )
+if (MODEMMANAGERQT_FOUND)
+    include_directories(
+        ${MODEMMANAGERQT_INCLUDE_DIRS}
+    )
+endif()
 link_directories(${MODEMMANAGERQT_LIBRARY_DIRS} ${CMAKE_LIBRARY_PATH})
 
 #add_subdirectory(dbus)
