@@ -108,6 +108,12 @@ void NetworkManager::NetworkManagerPrivate::init()
         nmState = iface.state();
         emit statusChanged(convertNMState(nmState));
     }
+
+    if (m_connectivity != iface.connectivity()) {
+        m_connectivity = iface.connectivity();
+        emit connectivityChanged(convertConnectivity(m_connectivity));
+    }
+
     m_version = iface.version();
     parseVersion(m_version);
     if (m_isWirelessHardwareEnabled != iface.wirelessHardwareEnabled()) {
@@ -520,11 +526,7 @@ NetworkManager::Connectivity NetworkManager::NetworkManagerPrivate::connectivity
 
 NetworkManager::Connectivity NetworkManager::NetworkManagerPrivate::checkConnectivity()
 {
-    QDBusReply<uint> reply = iface.CheckConnectivity();
-    if (reply.isValid())
-        return static_cast<Connectivity>(reply.value());
-    else
-        return UnknownConnectivity;
+    return convertConnectivity(m_connectivity);
 }
 
 NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::primaryConnection()
@@ -556,6 +558,14 @@ void NetworkManager::NetworkManagerPrivate::onDeviceRemoved(const QDBusObjectPat
     nmDebug();
     networkInterfaceMap.remove(objpath.path());
     emit deviceRemoved(objpath.path());
+}
+
+void NetworkManager::NetworkManagerPrivate::connectivityChanged(uint connectivity)
+{
+    if (m_connectivity != connectivity) {
+        m_connectivity = connectivity;
+        emit Notifier::connectivityChanged(convertConnectivity(m_connectivity));
+    }
 }
 
 void NetworkManager::NetworkManagerPrivate::stateChanged(uint state)
@@ -631,7 +641,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
         } else if (property == QLatin1String("State")) {
             stateChanged(it->toUInt());
         } else if (property == QLatin1String("Connectivity")) {
-            emit connectivityChanged();
+            connectivityChanged(it->toUInt());
         } else if (property == QLatin1String("PrimaryConnection")) {
             emit primaryConnectionChanged(it->value<QDBusObjectPath>().path());
         } else if (property == QLatin1String("ActivatingConnection")) {
@@ -643,6 +653,29 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
         }
         ++it;
     }
+}
+
+NetworkManager::Connectivity NetworkManager::NetworkManagerPrivate::convertConnectivity(uint connectivity)
+{
+    NetworkManager::Connectivity convertedConnectivity = NetworkManager::UnknownConnectivity;
+    switch (connectivity) {
+        case NM_CONNECTIVITY_UNKNOWN:
+            convertedConnectivity = NetworkManager::UnknownConnectivity;
+            break;
+        case NM_CONNECTIVITY_NONE:
+            convertedConnectivity = NetworkManager::NoConnectivity;
+            break;
+        case NM_CONNECTIVITY_PORTAL:
+            convertedConnectivity = NetworkManager::Portal;
+            break;
+        case NM_CONNECTIVITY_LIMITED:
+            convertedConnectivity = NetworkManager::Limited;
+            break;
+        case NM_CONNECTIVITY_FULL:
+            convertedConnectivity = NetworkManager::Full;
+            break;
+    }
+    return convertedConnectivity;
 }
 
 NetworkManager::Status NetworkManager::NetworkManagerPrivate::convertNMState(uint state)
