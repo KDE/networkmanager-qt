@@ -305,7 +305,7 @@ NETWORKMANAGERQT_EXPORT Connectivity checkConnectivity();
   * indicates the connection that has the default route. If there
   * is a VPN active with the default route, then this indicates
   * the connection that contains the route to the VPN endpoint.
-  * @since 0.9.9.0
+  * @since 0.9.8.1
   */
 NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr primaryConnection();
 
