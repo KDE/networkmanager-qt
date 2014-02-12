@@ -62,6 +62,12 @@ include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES}
                     ${MODEMMANAGERQT_INCLUDE_DIRS} ${CMAKE_INCLUDE_PATH})
 link_directories(${MODEMMANAGERQT_LIBRARY_DIRS} ${CMAKE_LIBRARY_PATH})
 
+include(CheckCXXCompilerFlag)
+check_cxx_compiler_flag("-Werror=return-type" HAVE_GCC_ERROR_RETURN_TYPE)
+if (HAVE_GCC_ERROR_RETURN_TYPE)
+    set(CMAKE_CXX_FLAGS "-Werror=return-type")
+endif()
+
 include_directories(
    ${NETWORKMANAGER_INCLUDE_DIRS}
    ${NM-UTIL_INCLUDE_DIRS}
