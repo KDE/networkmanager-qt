@@ -429,9 +429,8 @@ NetworkManager::Utils::WirelessSecurityType NetworkManager::Utils::securityTypeF
             }
             return Utils::Utils::WpaEap;
         }
-    } else {
-        return Utils::None;
     }
+    return Utils::None;
 }
 
 
