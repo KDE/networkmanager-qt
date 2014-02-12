@@ -146,7 +146,7 @@ Q_SIGNALS:
      * Emitted when the global connectivity changes.
      * @since 0.9.8.1
      */
-    void connectivityChanged();
+    void connectivityChanged(NetworkManager::Connectivity connectivity);
     /**
      * Emitted when the primary connection changes.
      * @param uni path of the new primary connection

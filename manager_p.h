@@ -49,6 +49,7 @@ public:
     QDBusServiceWatcher watcher;
     OrgFreedesktopNetworkManagerInterface iface;
     uint nmState;
+    uint m_connectivity;
     bool m_isNetworkingEnabled;
     bool m_isWimaxEnabled;
     bool m_isWimaxHardwareEnabled;
@@ -111,7 +112,9 @@ protected Q_SLOTS:
     void daemonRegistered();
     void daemonUnregistered();
 private:
+    void connectivityChanged(uint connectivity);
     void stateChanged(uint state);
+    static NetworkManager::Connectivity convertConnectivity(uint connectivity);
     static NetworkManager::Status convertNMState(uint state);
 
 };
