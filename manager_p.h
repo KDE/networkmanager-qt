@@ -100,7 +100,7 @@ public:
     void setLogging(NetworkManager::LogLevel, NetworkManager::LogDomains);
     NMStringMap permissions();
     Connectivity connectivity() const;
-    Connectivity checkConnectivity();
+    QDBusPendingReply<uint> checkConnectivity();
     ActiveConnection::Ptr primaryConnection();
     ActiveConnection::Ptr activatingConnection();
     bool isStartingUp() const;
