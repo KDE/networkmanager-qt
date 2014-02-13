@@ -522,12 +522,12 @@ NMStringMap NetworkManager::NetworkManagerPrivate::permissions()
 
 NetworkManager::Connectivity NetworkManager::NetworkManagerPrivate::connectivity() const
 {
-    return static_cast<Connectivity>(iface.connectivity());
+    return convertConnectivity(m_connectivity);
 }
 
-NetworkManager::Connectivity NetworkManager::NetworkManagerPrivate::checkConnectivity()
+QDBusPendingReply<uint> NetworkManager::NetworkManagerPrivate::checkConnectivity()
 {
-    return convertConnectivity(m_connectivity);
+    return iface.CheckConnectivity();
 }
 
 NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::primaryConnection()
@@ -919,7 +919,7 @@ NetworkManager::Connectivity NetworkManager::connectivity()
     return globalNetworkManager->connectivity();
 }
 
-NetworkManager::Connectivity NetworkManager::checkConnectivity()
+QDBusPendingReply<uint> NetworkManager::checkConnectivity()
 {
     return globalNetworkManager->checkConnectivity();
 }

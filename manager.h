@@ -296,7 +296,7 @@ NETWORKMANAGERQT_EXPORT Connectivity connectivity();
   * @see connectivity()
   * @since 0.9.8.1
  */
-NETWORKMANAGERQT_EXPORT Connectivity checkConnectivity();
+NETWORKMANAGERQT_EXPORT QDBusPendingReply<uint> checkConnectivity();
 
 /**
   * @return the "primary" active connection being used
