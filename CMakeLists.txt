@@ -249,7 +249,7 @@ install(FILES ${CONNECTIONS_SETTINGS_HEADERS} DESTINATION include/NetworkManager
 
 set_property(TARGET NetworkManagerQt PROPERTY COMPILE_DEFINITIONS MAKE_NETWORKMANAGERQT_LIB)
 set_property(TARGET NetworkManagerQt PROPERTY VERSION ${VERSION})
-set_property(TARGET NetworkManagerQt PROPERTY SOVERSION 0)
+set_property(TARGET NetworkManagerQt PROPERTY SOVERSION 1)
 
 message(STATUS "Writing pkg-config file...")
 configure_file(${CMAKE_SOURCE_DIR}/NetworkManagerQt.pc.cmake ${CMAKE_BINARY_DIR}/NetworkManagerQt.pc @ONLY)
