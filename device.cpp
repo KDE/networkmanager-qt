@@ -215,8 +215,8 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
         }
         foreach (const QString &availableConnection, d->availableConnections) {
             if (!newAvailableConnections.contains(availableConnection)) {
-                emit availableConnectionDisappeared(availableConnection);
                 d->availableConnections.removeOne(availableConnection);
+                emit availableConnectionDisappeared(availableConnection);
             }
         }
         emit availableConnectionChanged();
