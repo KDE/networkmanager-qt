@@ -1,4 +1,4 @@
-# Copyright 2011‐2013 Lamarque Souza <lamarque@kde.org>
+# Copyright 2011‐2014 Lamarque Souza <lamarque@kde.org>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,5 +25,6 @@ Name: NetworkManagerQt
 Description: Convenience Qt library for clients of NetworkManager
 Version: @VERSION@
 
+Requires: QtCore QtDBus QtXml
 Cflags: -DWITH_MODEMMANAGERQT=@WITH_MODEMMANAGERQT@ -I${includedir} @CMAKE_INCLUDE_PATH@
 Libs: -L${libdir} -lNetworkManagerQt @CMAKE_LIBRARY_PATH@
