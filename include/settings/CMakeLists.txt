@@ -26,5 +26,5 @@ set(NetworkManagerQt_settings_CAMEL_HEADERS
 
 install(FILES
    ${NetworkManagerQt_settings_CAMEL_HEADERS}
-   DESTINATION include/NetworkManagerQt5/NetworkManagerQt
+   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/NetworkManagerQt5/NetworkManagerQt
    COMPONENT Devel)

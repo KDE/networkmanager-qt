@@ -18,7 +18,7 @@
 
 prefix=@CMAKE_INSTALL_PREFIX@
 exec_prefix=${prefix}
-libdir=@CMAKE_INSTALL_PREFIX@/lib@LIB_SUFFIX@
+libdir=@CMAKE_INSTALL_FULL_LIBDIR@
 includedir=${prefix}/include/NetworkManagerQt5
 
 Name: NetworkManagerQt5

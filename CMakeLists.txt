@@ -7,21 +7,14 @@ set(DISABLE_MODEMMANAGERQT 1)
 
 set(VERSION 0.9.1)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_MODULE_PATH})
-set(LIB_SUFFIX "" CACHE STRING "Define suffix of library directory name (32/64)" )
 
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
 
-find_package(ECM 0.0.8 REQUIRED NO_MODULE)
-
 include(CMakePackageConfigHelpers)
 include(FeatureSummary)
-
-# where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
-
-#include(ECMOptionalAddSubdirectory)
+include(GNUInstallDirs)
 
 find_package(Qt5 COMPONENTS
     Core
@@ -250,17 +243,17 @@ add_library(NetworkManagerQt5 SHARED ${NetworkManagerQt_PART_SRCS} ${DBUS_INTERF
 
 qt5_use_modules(NetworkManagerQt5 Core Network DBus)
 target_link_libraries(NetworkManagerQt5 ${MODEMMANAGERQT_LIBRARY})
-install(TARGETS NetworkManagerQt5 DESTINATION lib${LIB_SUFFIX})
+install(TARGETS NetworkManagerQt5 DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 install( FILES
    ${NetworkManagerQt_HEADERS}
    DESTINATION
-   include/NetworkManagerQt5/NetworkManagerQt COMPONENT Devel)
+   ${CMAKE_INSTALL_INCLUDEDIR}/NetworkManagerQt5/NetworkManagerQt COMPONENT Devel)
 
 install( FILES
    ${CONNECTIONS_SETTINGS_HEADERS}
    DESTINATION
-   include/NetworkManagerQt5/NetworkManagerQt/settings COMPONENT Devel)
+   ${CMAKE_INSTALL_INCLUDEDIR}/NetworkManagerQt5/NetworkManagerQt/settings COMPONENT Devel)
 
 set_property(TARGET NetworkManagerQt5 PROPERTY COMPILE_DEFINITIONS MAKE_NETWORKMANAGERQT_LIB)
 set_property(TARGET NetworkManagerQt5 PROPERTY VERSION ${VERSION})
@@ -270,7 +263,7 @@ message(STATUS "Writing pkg-config file...")
 configure_file(${CMAKE_SOURCE_DIR}/NetworkManagerQt.pc.cmake ${CMAKE_BINARY_DIR}/NetworkManagerQt5.pc @ONLY)
 install(FILES
     ${CMAKE_BINARY_DIR}/NetworkManagerQt5.pc
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/pkgconfig
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
     RENAME NetworkManagerQt5.pc)
 
 add_subdirectory(include)
