@@ -33,6 +33,6 @@ set(NetworkManagerQt_CAMEL_HEADERS
 install(FILES
    ${NetworkManagerQt_CAMEL_HEADERS}
    DESTINATION
-   include/NetworkManagerQt COMPONENT Devel)
+   ${CMAKE_INSTALL_INCLUDEDIR}/NetworkManagerQt COMPONENT Devel)
 
 add_subdirectory(settings)
