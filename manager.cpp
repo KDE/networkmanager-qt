@@ -51,7 +51,7 @@ const QString NetworkManager::NetworkManagerPrivate::DBUS_SERVICE(QString::fromL
 const QString NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH(QString::fromLatin1(NM_DBUS_PATH));
 const QString NetworkManager::NetworkManagerPrivate::DBUS_SETTINGS_PATH(QString::fromLatin1(NM_DBUS_PATH_SETTINGS));
 
-NM_GLOBAL_STATIC(NetworkManager::NetworkManagerPrivate, globalNetworkManager)
+Q_GLOBAL_STATIC(NetworkManager::NetworkManagerPrivate, globalNetworkManager)
 
 NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     : watcher(DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForOwnerChange, this)
@@ -950,5 +950,11 @@ NetworkManager::Notifier *NetworkManager::notifier()
     return globalNetworkManager;
 }
 
+#include "moc_manager.cpp"
 
-#include "manager.moc"
+// We have to trick moc here
+// this way, moc includes the file here, and not elsewhere which leads to duplicate symbols
+// automoc is triggered by the Q_OBJECT macro, but is not desired here.
+#if 0
+#include "moc_manager_p.cpp"
+#endif

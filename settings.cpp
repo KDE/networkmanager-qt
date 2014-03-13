@@ -31,7 +31,8 @@
 
 #include "nmdebug.h"
 
-NM_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
+//NM_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
+Q_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
 
 NetworkManager::SettingsPrivate::SettingsPrivate()
     : iface(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, QDBusConnection::systemBus())
@@ -280,4 +281,11 @@ NetworkManager::SettingsNotifier *NetworkManager::settingsNotifier()
     return globalSettings;
 }
 
-#include "settings.moc"
+#include "moc_settings.cpp"
+
+// We have to trick moc here
+// this way, moc includes the file here, and not elsewhere which leads to duplicate symbols
+// automoc is triggered by the Q_OBJECT macro, but is not desired here.
+#if 0
+#include "moc_settings_p.cpp"
+#endif

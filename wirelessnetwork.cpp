@@ -143,4 +143,4 @@ QString NetworkManager::WirelessNetwork::device() const
 
 // vim: sw=4 sts=4 et tw=100
 
-#include "wirelessnetwork.moc"
+#include "moc_wirelessnetwork.cpp"
