@@ -22,8 +22,7 @@ find_package(Qt5 COMPONENTS
     Test
 )
 
-include_directories(${Qt5Widgets_INCLUDE_DIRS}
-                    ${Qt5DBus_INCLUDE_DIRS}
+include_directories(${Qt5DBus_INCLUDE_DIRS}
                     ${Qt5Core_INCLUDE_DIRS}
                     ${Qt5Network_INCLUDE_DIRS}
                     ${Qt5Test_INCLUDE_DIRS}
