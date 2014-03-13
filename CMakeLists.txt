@@ -76,22 +76,16 @@ set(NetworkManagerQt_HEADERS
     device.h
     dhcp4config.h
     dhcp6config.h
-    genericdevice.h
-    gredevice.h
     infinibanddevice.h
     ipaddress.h
     iproute.h
     ipconfig.h
-    macvlandevice.h
     manager.h
     modemdevice.h
     olpcmeshdevice.h
     secretagent.h
     settings.h
-    teamdevice.h
-    tundevice.h
     utils.h
-    vethdevice.h
     vlandevice.h
     vpnconnection.h
     vpnplugin.h
@@ -121,22 +115,16 @@ set(NetworkManagerQt_PART_SRCS
     device.cpp
     dhcp4config.cpp
     dhcp6config.cpp
-    genericdevice.cpp
-    gredevice.cpp
     infinibanddevice.cpp
     ipaddress.cpp
     iproute.cpp
     ipconfig.cpp
-    macvlandevice.cpp
     manager.cpp
     modemdevice.cpp
     olpcmeshdevice.cpp
     secretagent.cpp
     settings.cpp
-    teamdevice.cpp
-    tundevice.cpp
     utils.cpp
-    vethdevice.cpp
     vlandevice.cpp
     vpnconnection.cpp
     vpnplugin.cpp
@@ -156,16 +144,10 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-device-bondinterface.cpp
    dbus/nm-device-bridgeinterface.cpp
    dbus/nm-device-btinterface.cpp
-   dbus/nm-device-genericinterface.cpp
-   dbus/nm-device-greinterface.cpp
    dbus/nm-device-ethernetinterface.cpp
    dbus/nm-device-infinibandinterface.cpp
    dbus/nm-device-modeminterface.cpp
-   dbus/nm-device-macvlaninterface.cpp
    dbus/nm-device-olpc-meshinterface.cpp
-   dbus/nm-device-teaminterface.cpp
-   dbus/nm-device-tuninterface.cpp
-   dbus/nm-device-vethinterface.cpp
    dbus/nm-device-vlaninterface.cpp
    dbus/nm-device-wifiinterface.cpp
    dbus/nm-device-wimaxinterface.cpp
@@ -240,6 +222,38 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/vpnsetting.h
     settings/wimaxsetting.h
     )
+
+if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 0.9.9.0 OR ${NETWORKMANAGER_VERSION} VERSION_GREATER 0.9.9.0)
+    set(NetworkManagerQt_HEADERS
+        ${NetworkManagerQt_HEADERS}
+        genericdevice.h
+        gredevice.h
+        macvlandevice.h
+        teamdevice.h
+        tundevice.h
+        vethdevice.h
+        )
+
+    set(NetworkManagerQt_PART_SRCS
+        ${NetworkManagerQt_PART_SRCS}
+        genericdevice.cpp
+        gredevice.cpp
+        macvlandevice.cpp
+        teamdevice.cpp
+        tundevice.cpp
+        vethdevice.cpp
+        )
+
+    set(DBUS_INTERFACE_SRCS
+        ${DBUS_INTERFACE_SRCS}
+        dbus/nm-device-genericinterface.cpp
+        dbus/nm-device-greinterface.cpp
+        dbus/nm-device-macvlaninterface.cpp
+        dbus/nm-device-teaminterface.cpp
+        dbus/nm-device-tuninterface.cpp
+        dbus/nm-device-vethinterface.cpp
+        )
+endif()
 
 qt5_wrap_cpp(NetworkManagerQt_MOC ${NetworkManagerQt_PRIVATE_HEADERS})
 #qt5_automoc(${NetworkManagerQt_PART_SRCS})
