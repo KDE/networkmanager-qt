@@ -26,6 +26,8 @@
 #include "ipaddress.h"
 #include "iproute.h"
 
+#include <NetworkManager.h>
+
 #include <QtCore/QStringList>
 #include <QNetworkAddressEntry>
 
