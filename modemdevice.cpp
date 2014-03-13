@@ -24,13 +24,6 @@
 #include "modemdevice.h"
 #include "modemdevice_p.h"
 
-#if WITH_MODEMMANAGERQT
-#include <ModemManagerQt/manager.h>
-#include <ModemManagerQt/modemdevice.h>
-#include <ModemManagerQt/modem.h>
-#include <ModemManagerQt/sim.h>
-#endif
-
 #include "manager_p.h"
 
 NetworkManager::ModemDevice::Capabilities convertModemCapabilities(uint theirCaps)
@@ -55,32 +48,20 @@ void NetworkManager::ModemDevicePrivate::initModemProperties()
 
 NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
     : Device(*new ModemDevicePrivate(path, this), parent)
-#if WITH_MODEMMANAGERQT
-    , modemSimCardIface(0)
-    , modemNetworkIface(0)
-#endif
 {
     Q_D(ModemDevice);
     d->initModemProperties();
-#if WITH_MODEMMANAGERQT
-    d->m_modemUdi = getUdiForModemManager();
-#endif
+
     connect(&d->modemIface, SIGNAL(PropertiesChanged(QVariantMap)),
             this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd, QObject *parent)
     : Device(dd, parent)
-#if WITH_MODEMMANAGERQT
-    , modemSimCardIface(0)
-    , modemNetworkIface(0)
-#endif
 {
     Q_D(ModemDevice);
     d->initModemProperties();
-#if WITH_MODEMMANAGERQT
-    d->m_modemUdi = getUdiForModemManager();
-#endif
+
     connect(&d->modemIface, SIGNAL(PropertiesChanged(QVariantMap)),
             this, SLOT(propertiesChanged(QVariantMap)));
 }
@@ -117,105 +98,6 @@ void NetworkManager::ModemDevice::propertyChanged(const QString &property, const
         Device::propertyChanged(property, value);
     }
 }
-
-#if WITH_MODEMMANAGERQT
-QString NetworkManager::ModemDevice::getUdiForModemManager()
-{
-    if (driver() != QLatin1String("bluez")) {
-        return udi();
-    }
-
-    /* BlueZ knows about the rfcommX string that we could use to find the device in ModemManager
-     * but does not export this info, so let's use the first bluetooth device we find in ModemManager.
-     * Modem will be registered in ModemManager only after someone execute its org.bluez.Serial.Connect method. */
-    foreach (const ModemManager::ModemDevice::Ptr &modem, ModemManager::modemDevices()) {
-        if (modem->hasInterface(ModemManager::ModemDevice::ModemInterface)) {
-            ModemManager::Modem::Ptr modemInterface = modem->interface(ModemManager::ModemDevice::ModemInterface).objectCast<ModemManager::Modem>();
-            if (modemInterface) {
-                if (modemInterface->drivers().contains(QLatin1String("bluetooth"))) {
-                    return modem->uni();
-                }
-            }
-        }
-
-    }
-
-    modemRemoved(udi());
-    return QString();
-}
-
-ModemManager::Sim::Ptr NetworkManager::ModemDevice::getModemCardIface()
-{
-    Q_D(ModemDevice);
-
-    d->m_modemUdi = getUdiForModemManager();
-    if (d->m_modemUdi.isEmpty()) {
-        return ModemManager::Sim::Ptr();
-    }
-    if (modemSimCardIface == 0) {
-        ModemManager::ModemDevice::Ptr modem = ModemManager::findModemDevice(d->m_modemUdi);
-        if (modem) {
-            if (modem->sim()) {
-                modemSimCardIface = modem->sim();
-            }
-            connect(ModemManager::notifier(), SIGNAL(modemRemoved(QString)), this, SLOT(modemRemoved(QString)));
-        }
-    }
-
-    return modemSimCardIface;
-}
-
-ModemManager::Modem::Ptr NetworkManager::ModemDevice::getModemNetworkIface()
-{
-    Q_D(ModemDevice);
-    d->m_modemUdi = getUdiForModemManager();
-    if (d->m_modemUdi.isEmpty()) {
-        return ModemManager::Modem::Ptr();
-    }
-    if (modemNetworkIface.isNull()) {
-        ModemManager::ModemDevice::Ptr modem = ModemManager::findModemDevice(d->m_modemUdi);
-        if (modem) {
-            if (modem->hasInterface(ModemManager::ModemDevice::ModemInterface)) {
-                modemNetworkIface = modem->interface(ModemManager::ModemDevice::ModemInterface).objectCast<ModemManager::Modem>();
-            }
-            if (modemNetworkIface) {
-                connect(ModemManager::notifier(), SIGNAL(modemRemoved(QString)), this, SLOT(modemRemoved(QString)));
-            }
-        }
-    }
-
-    return modemNetworkIface;
-}
-
-void NetworkManager::ModemDevice::modemRemoved(const QString &modemUdi)
-{
-    Q_D(ModemDevice);
-    if (modemUdi == d->m_modemUdi) {
-        modemNetworkIface.clear();
-        modemSimCardIface.clear();
-    }
-}
-
-void NetworkManager::ModemDevice::setModemCardIface(const ModemManager::Sim::Ptr &iface)
-{
-    modemSimCardIface = iface;
-}
-
-void NetworkManager::ModemDevice::clearModemCardIface()
-{
-    modemSimCardIface.clear();
-}
-
-void NetworkManager::ModemDevice::setModemNetworkIface(const ModemManager::Modem::Ptr& iface)
-{
-    modemNetworkIface = iface;
-}
-
-void NetworkManager::ModemDevice::clearModemNetworkIface()
-{
-    modemNetworkIface.clear();
-}
-#endif
 
 // vim: sw=4 sts=4 et tw=100
 

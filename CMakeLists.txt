@@ -14,22 +14,6 @@ endif()
 find_package(Qt4 REQUIRED)
 find_package(NetworkManager 0.9.9.0 REQUIRED)
 
-if (DISABLE_MODEMMANAGERQT)
-    message(STATUS "Disabling ModemManagerQt support")
-    set(WITH_MODEMMANAGERQT 0)
-else()
-    pkg_check_modules(MODEMMANAGERQT ModemManagerQt)
-    if (MODEMMANAGERQT_FOUND)
-        message(STATUS "Enabling ModemManagerQt support")
-        set(WITH_MODEMMANAGERQT 1)
-    else()
-        message(STATUS "ModemManagerQt not found")
-        set(WITH_MODEMMANAGERQT 0)
-    endif()
-endif()
-
-add_definitions(-DWITH_MODEMMANAGERQT=${WITH_MODEMMANAGERQT} ${QT_DEFINITIONS})
-
 include(CheckCXXCompilerFlag)
 check_cxx_compiler_flag("-Werror=return-type" HAVE_GCC_ERROR_RETURN_TYPE)
 if (HAVE_GCC_ERROR_RETURN_TYPE)
@@ -45,16 +29,11 @@ include_directories(
     ${CMAKE_BINARY_DIR}
     ${CMAKE_INCLUDE_PATH}
     ${QT_INCLUDES}
-    ${MODEMMANAGERQT_INCLUDE_DIRS}
     ${NETWORKMANAGER_INCLUDE_DIRS}
     ${NM-UTIL_INCLUDE_DIRS}
 )
-if (MODEMMANAGERQT_FOUND)
-    include_directories(
-        ${MODEMMANAGERQT_INCLUDE_DIRS}
-    )
-endif()
-link_directories(${MODEMMANAGERQT_LIBRARY_DIRS} ${CMAKE_LIBRARY_PATH})
+
+link_directories(${CMAKE_LIBRARY_PATH})
 
 # add_subdirectory(dbus)
 
@@ -252,12 +231,7 @@ qt4_automoc(${NetworkManagerQt_PART_SRCS})
 qt4_automoc(${DBUS_INTERFACE_SRCS})
 
 add_library(NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${DBUS_INTERFACE_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${NetworkManagerQt_MOC} )
-
-if (MODEMMANAGERQT_FOUND)
-target_link_libraries(NetworkManagerQt ModemManagerQt ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
-else()
 target_link_libraries(NetworkManagerQt ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTNETWORK_LIBRARY})
-endif()
 
 install(TARGETS NetworkManagerQt DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES ${NetworkManagerQt_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/NetworkManagerQt COMPONENT Devel)

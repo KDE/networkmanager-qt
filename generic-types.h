@@ -28,25 +28,17 @@
 
 
 typedef QList<QList<uint> > UIntListList;
-#if !WITH_MODEMMANAGERQT
 Q_DECLARE_METATYPE(UIntListList)
-#endif
 
 typedef QList<uint> UIntList;
-#if !WITH_MODEMMANAGERQT
 Q_DECLARE_METATYPE(UIntList)
-#endif
 
 typedef QMap<QString, QVariantMap> NMVariantMapMap;
-#if !WITH_MODEMMANAGERQT
 Q_DECLARE_METATYPE(NMVariantMapMap)
-#endif
 
 typedef QMap<QString, QString> NMStringMap;
 typedef QMapIterator<QString, QString> NMStringMapIterator;
-#if !WITH_MODEMMANAGERQT
 Q_DECLARE_METATYPE(NMStringMap)
-#endif
 
 QDBusArgument &operator<<(QDBusArgument &argument, const NMStringMap &mydict);
 const QDBusArgument &operator>>(const QDBusArgument &argument, NMStringMap &mydict);

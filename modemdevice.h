@@ -23,11 +23,6 @@
 #ifndef NETWORKMANAGERQT_MODEMDEVICE_H
 #define NETWORKMANAGERQT_MODEMDEVICE_H
 
-#if WITH_MODEMMANAGERQT
-#include <ModemManagerQt/modem.h>
-#include <ModemManagerQt/sim.h>
-#endif
-
 #include "device.h"
 #include "NetworkManagerQt-export.h"
 
@@ -67,15 +62,6 @@ public:
      */
     Capabilities currentCapabilities() const;
 
-#if WITH_MODEMMANAGERQT
-    ModemManager::Sim::Ptr getModemCardIface();
-    void setModemCardIface(const ModemManager::Sim::Ptr &iface);
-    void clearModemCardIface();
-    ModemManager::Modem::Ptr getModemNetworkIface();
-    void setModemNetworkIface(const ModemManager::Modem::Ptr &iface);
-    void clearModemNetworkIface();
-#endif
-
 Q_SIGNALS:
     /**
      * This signal is emitted when the capabilities of the device change
@@ -83,22 +69,11 @@ Q_SIGNALS:
     void currentCapabilitiesChanged(Capabilities);
 
 protected:
-#if WITH_MODEMMANAGERQT
-    ModemManager::Sim::Ptr modemSimCardIface;
-    ModemManager::Modem::Ptr modemNetworkIface;
-    QString getUdiForModemManager();
-#endif
-
     /**
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */
     virtual void propertyChanged(const QString &property, const QVariant &value);
-
-#if WITH_MODEMMANAGERQT
-protected Q_SLOTS:
-    void modemRemoved(const QString &modemUdi);
-#endif
 
 private:
     Q_DECLARE_PRIVATE(ModemDevice)

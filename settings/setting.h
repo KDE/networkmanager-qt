@@ -23,11 +23,7 @@
 
 #include "../NetworkManagerQt-export.h"
 
-#if WITH_MODEMMANAGERQT
-#include <ModemManagerQt/generic-types.h>
-#else
 #include "../generic-types.h"
-#endif
 
 #include <QtCore/QVariantMap>
 #include <QtCore/QStringList>

@@ -20,11 +20,7 @@
 #include <QtCore/QVariant>
 #include <QtDBus/QtDBus>
 
-#if WITH_MODEMMANAGERQT
-#include <ModemManagerQt/generic-types.h>
-#else
 #include "generic-types.h"
-#endif
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager
