@@ -103,6 +103,7 @@ NETWORKMANAGERQT_EXPORT NetworkManager::Connection::Ptr findConnection(const QSt
  */
 NETWORKMANAGERQT_EXPORT QString addConnection(const NMVariantMapMap &settings);
 
+#if NM_CHECK_VERSION(0, 9, 9)
 /**
  * Add new connection but do not save it to disk immediately.  This
  * operation does not start the network connection unless (1) device is
@@ -122,12 +123,14 @@ NETWORKMANAGERQT_EXPORT QString addConnection(const NMVariantMapMap &settings);
  * @since 0.9.9.0
  */
 NETWORKMANAGERQT_EXPORT QString addConnectionUnsaved(const NMVariantMapMap &settings);
+#endif
 
 /**
  * Retrieves the connection for the given @p uuid, returns null if not found
  */
 NETWORKMANAGERQT_EXPORT NetworkManager::Connection::Ptr findConnectionByUuid(const QString &uuid);
 
+#if NM_CHECK_VERSION(0, 9, 9)
 /**
  * Loads or reloads the indicated connections from disk. You
  * should call this after making changes directly to an on-disk
@@ -161,6 +164,7 @@ NETWORKMANAGERQT_EXPORT QDBusPendingReply<bool, QStringList> loadConnections(con
  * @since 0.9.9.0
  */
 NETWORKMANAGERQT_EXPORT QDBusPendingReply<bool> reloadConnections();
+#endif
 
 /**
  * Configure the following hostname

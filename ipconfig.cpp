@@ -45,10 +45,12 @@ public:
     Private()
     {}
     IpAddresses addresses;
+#if NM_CHECK_VERSION(0, 9, 9)
     QString gateway;
+    QStringList searches;
+#endif
     QList<QHostAddress> nameservers;
     QStringList domains;
-    QStringList searches;
     IpRoutes routes;
 };
 
@@ -112,10 +114,12 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
     }
 
     d->addresses = addressObjects;
+#if NM_CHECK_VERSION(0, 9, 9)
     d->gateway = iface.gateway();
+    d->searches = iface.searches();
+#endif
     d->nameservers = nameservers;
     d->domains = iface.domains();
-    d->searches = iface.searches();
     d->routes = routeObjects;
 }
 
@@ -175,10 +179,12 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
     }
 
     d->addresses = addressObjects;
+#if NM_CHECK_VERSION(0, 9, 9)
     d->gateway = iface.gateway();
+    d->searches = iface.searches();
+#endif
     d->nameservers = nameservers;
     d->domains = iface.domains();
-    d->searches = iface.searches();
     d->routes = routeObjects;
 }
 
@@ -192,10 +198,12 @@ NetworkManager::IpAddresses NetworkManager::IpConfig::addresses() const
     return d->addresses;
 }
 
+#if NM_CHECK_VERSION(0, 9, 9)
 QString NetworkManager::IpConfig::gateway() const
 {
     return d->gateway;
 }
+#endif
 
 QList<QHostAddress> NetworkManager::IpConfig::nameservers() const
 {
@@ -212,10 +220,12 @@ QList<NetworkManager::IpRoute> NetworkManager::IpConfig::routes() const
     return d->routes;
 }
 
+#if NM_CHECK_VERSION(0, 9, 9)
 QStringList NetworkManager::IpConfig::searches() const
 {
     return d->searches;
 }
+#endif
 
 NetworkManager::IpConfig &NetworkManager::IpConfig::operator=(const IpConfig &other)
 {

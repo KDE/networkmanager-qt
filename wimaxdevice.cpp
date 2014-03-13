@@ -52,13 +52,26 @@ NetworkManager::WimaxDevice::WimaxDevice(const QString &path, QObject *parent)
     connect(&d->wimaxIface, SIGNAL(NspRemoved(QDBusObjectPath)),
             this, SLOT(nspRemoved(QDBusObjectPath)));
 
-
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
+#if NM_CHECK_VERSION(0, 9, 9)
     QList <QDBusObjectPath> nsps = d->wimaxIface.nsps();
     foreach (const QDBusObjectPath &op, nsps) {
         d->nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
         //nmDebug() << "  " << op.path();
     }
+#else
+    QDBusReply< QList <QDBusObjectPath> > nspPathList = d->wimaxIface.GetNspList();
+    if (nspPathList.isValid()) {
+        //nmDebug() << "Got device list";
+        QList <QDBusObjectPath> nsps = nspPathList.value();
+        foreach (const QDBusObjectPath &op, nsps) {
+            d->nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
+            //nmDebug() << "  " << op.path();
+        }
+    } else {
+        nmDebug() << "Error getting NSP list: " << nspPathList.error().name() << ": " << nspPathList.error().message();
+    }
+#endif
 }
 
 NetworkManager::WimaxDevice::~WimaxDevice()

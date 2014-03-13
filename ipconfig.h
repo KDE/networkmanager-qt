@@ -80,13 +80,14 @@ public:
      */
     QStringList domains() const;
 
+#if NM_CHECK_VERSION(0, 9, 9)
     /**
      * Returns the gateway in use
      *
      * @since 0.9.9.0
      */
     QString gateway() const;
-
+#endif
     /**
      * Returns a list of nameservers related to this configuration.
      */
@@ -98,13 +99,14 @@ public:
      */
     IpRoutes routes() const;
 
+#if NM_CHECK_VERSION(0, 9, 9)
     /**
      * Returns a list of DNS searches.
      *
      * @since 0.9.9.0
      */
     QStringList searches() const;
-
+#endif
     /**
      * Makes a copy of the IpConfig object @p other.
      */

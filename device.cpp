@@ -89,7 +89,9 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
     , designSpeed(0)
     , dhcp4Config(0)
     , dhcp6Config(0)
+#if NM_CHECK_VERSION(0, 9, 9)
     , mtu(0)
+#endif
     , q_ptr(q)
 {
     activeConnection = deviceIface.activeConnection().path();
@@ -108,8 +110,9 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
         availableConnections << availableConnection.path();
     }
     physicalPortId = deviceIface.physicalPortId();
+#if NM_CHECK_VERSION(0, 9, 9)
     mtu = deviceIface.mtu();
-
+#endif
     QDBusObjectPath ip4ConfigObjectPath = deviceIface.ip4Config();
     if (!ip4ConfigObjectPath.path().isNull() || ip4ConfigObjectPath.path() != QLatin1String("/")) {
         ipV4ConfigPath = ip4ConfigObjectPath.path();
@@ -300,9 +303,11 @@ qDebug() << Q_FUNC_INFO << property << value;
     } else if (property == QLatin1String("PhysicalPortId")) {
         d->physicalPortId = value.toString();
         emit physicalPortIdChanged();
+#if NM_CHECK_VERSION(0, 9, 9)
     } else if (property == QLatin1String("Mtu")) {
         d->mtu = value.toUInt();
         emit mtuChanged();
+#endif
     } else {
         qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
     }
@@ -469,13 +474,13 @@ bool NetworkManager::Device::managed() const
     Q_D(const Device);
     return d->managed;
 }
-
+#if NM_CHECK_VERSION(0, 9, 9)
 uint NetworkManager::Device::mtu() const
 {
     Q_D(const Device);
     return d->mtu;
 }
-
+#endif
 void NetworkManager::Device::disconnectInterface()
 {
     Q_D(Device);

@@ -58,7 +58,9 @@ class NETWORKMANAGERQT_EXPORT Device : public QObject
     Q_PROPERTY(QVariant genericCapabilities READ capabilitiesV)
     Q_PROPERTY(QHostAddress ipV4Address READ ipV4Address)
     Q_PROPERTY(bool managed READ managed)
+#if NM_CHECK_VERSION(0, 9, 9)
     Q_PROPERTY(uint mtu READ mtu)
+#endif
     Q_PROPERTY(QString udi READ udi)
     Q_PROPERTY(bool firmwareMissing READ firmwareMissing)
     Q_PROPERTY(bool autoconnect READ autoconnect WRITE setAutoconnect)
@@ -317,13 +319,13 @@ public:
      * @since 0.9.9.0
      */
     QString physicalPortId() const;
-
+#if NM_CHECK_VERSION(0, 9, 9)
     /**
      * The device MTU (maximum transmission unit)
      * @since 0.9.9.0
      */
     uint mtu() const;
-
+#endif
     /**
      * If true, indicates the device is allowed to autoconnect.
      * If false, manual intervention is required before the device
@@ -454,13 +456,13 @@ Q_SIGNALS:
      * Emitted when the managed state of this network has changed.
      */
     void managedChanged();
-
+#if NM_CHECK_VERSION(0, 9, 9)
     /**
      * Emitted when the maximum transmission unit has changed
      * @since 0.9.9.0
      */
     void mtuChanged();
-
+#endif
     /**
      * Emitted when the connection state of this network has changed.
      */

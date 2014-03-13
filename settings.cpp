@@ -51,8 +51,11 @@ void NetworkManager::SettingsPrivate::init()
 {
     connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), this, SLOT(propertiesChanged(QVariantMap)));
     connect(&iface, SIGNAL(NewConnection(QDBusObjectPath)), this, SLOT(onConnectionAdded(QDBusObjectPath)));
+#if NM_CHECK_VERSION(0, 9, 9)
     connect(&iface, SIGNAL(ConnectionRemoved(QDBusObjectPath)), this, SLOT(onConnectionRemoved(QDBusObjectPath)));
+#endif
 
+#if NM_CHECK_VERSION(0, 9, 9)
     QList<QDBusObjectPath> connectionList = iface.connections();
     foreach (const QDBusObjectPath &connection, connectionList) {
         if (!connections.contains(connection.path())) {
@@ -61,6 +64,20 @@ void NetworkManager::SettingsPrivate::init()
             nmDebug() << " " << connection.path();
         }
     }
+#else
+    QDBusPendingReply<QList<QDBusObjectPath> > reply = iface.ListConnections();
+    reply.waitForFinished();
+    nmDebug() << "New Connections list";
+    if (reply.isValid()) {
+        foreach (const QDBusObjectPath &connection, reply.value()) {
+            if (!connections.contains(connection.path())) {
+                connections.insert(connection.path(), Connection::Ptr());
+                emit connectionAdded(connection.path());
+                nmDebug() << " " << connection.path();
+            }
+        }
+    }
+#endif
     if (m_canModify != iface.canModify()) {
         m_canModify = iface.canModify();
         emit canModifyChanged(m_canModify);
@@ -178,8 +195,11 @@ void NetworkManager::SettingsPrivate::propertiesChanged(const QVariantMap &prope
         } else if (property == QLatin1String("Hostname")) {
             m_hostname = it->toString();
             emit hostnameChanged(m_hostname);
-        } else if (property == QLatin1String("Connections")) {
+        }
+#if NM_CHECK_VERSION(0, 9, 9)
+        else if (property == QLatin1String("Connections")) {
             // TODO some action??
+#endif
         } else {
             qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
         }
@@ -206,6 +226,9 @@ NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findRegisteredC
         } else {
             ret = Connection::Ptr(new Connection(path), &QObject::deleteLater);
             connections[path] = ret;
+#if !NM_CHECK_VERSION(0, 9, 9)
+            connect(ret.data(), SIGNAL(removed(QString)), this, SLOT(onConnectionRemoved(QString)));
+#endif
             if (!contains) {
                 emit connectionAdded(path);
             }
@@ -214,12 +237,21 @@ NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findRegisteredC
     return ret;
 }
 
+#if NM_CHECK_VERSION(0, 9, 9)
 void NetworkManager::SettingsPrivate::onConnectionRemoved(const QDBusObjectPath &path)
 {
     const QString connectionPath = path.path();
     connections.remove(connectionPath);
     emit connectionRemoved(connectionPath);
 }
+#else
+void NetworkManager::SettingsPrivate::onConnectionRemoved(const QString &path)
+{
+    connections.remove(path);
+    emit connectionRemoved(path);
+}
+#endif
+
 
 void NetworkManager::SettingsPrivate::daemonUnregistered()
 {
@@ -245,7 +277,7 @@ QString NetworkManager::addConnection(const NMVariantMapMap &connection)
 {
     return globalSettings->addConnection(connection);
 }
-
+#if NM_CHECK_VERSION(0, 9, 9)
 QString NetworkManager::addConnectionUnsaved(const NMVariantMapMap& connection)
 {
     return globalSettings->addConnectionUnsaved(connection);
@@ -260,7 +292,7 @@ QDBusPendingReply< bool > NetworkManager::reloadConnections()
 {
     return globalSettings->reloadConnections();
 }
-
+#endif
 void NetworkManager::saveHostname(const QString &hostname)
 {
     globalSettings->saveHostname(hostname);
