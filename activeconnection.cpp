@@ -50,6 +50,7 @@ NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &
     foreach (const QDBusObjectPath &devicePath, iface.devices()) {
         devices.append(devicePath.path());
     }
+#if NM_CHECK_VERSION(0, 9, 9)
     QDBusObjectPath ip4ConfigObjectPath = iface.ip4Config();
     if (!ip4ConfigObjectPath.path().isNull() || ip4ConfigObjectPath.path() != QLatin1String("/")) {
         ipV4ConfigPath = ip4ConfigObjectPath.path();
@@ -69,6 +70,7 @@ NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &
     if (!dhcp6ConfigObjectPath.path().isNull() && dhcp6ConfigObjectPath.path() != QLatin1String("/")) {
         dhcp6ConfigPath = dhcp6ConfigObjectPath.path();
     }
+#endif
 }
 
 NetworkManager::ActiveConnectionPrivate::~ActiveConnectionPrivate()
@@ -132,7 +134,7 @@ bool NetworkManager::ActiveConnection::default6() const
     Q_D(const ActiveConnection);
     return d->default6;
 }
-
+#if NM_CHECK_VERSION(0, 9, 9)
 NetworkManager::Dhcp4Config::Ptr NetworkManager::ActiveConnection::dhcp4Config() const
 {
     Q_D(const ActiveConnection);
@@ -168,7 +170,7 @@ NetworkManager::IpConfig NetworkManager::ActiveConnection::ipV6Config() const
     }
     return d->ipV6Config;
 }
-
+#endif
 QString NetworkManager::ActiveConnection::master() const
 {
     Q_D(const ActiveConnection);
@@ -221,7 +223,8 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap &prop
         } else if (property == QLatin1String("Default6")) {
             d->default6 = it->toBool();
             emit default6Changed(d->default6);
-        }else if (property == QLatin1String("Dhcp4Config")) {
+#if NM_CHECK_VERSION(0, 9, 9)
+        } else if (property == QLatin1String("Dhcp4Config")) {
             QDBusObjectPath dhcp4ConfigPath = (*it).value<QDBusObjectPath>();
             if (dhcp4ConfigPath.path().isNull()) {
                 d->dhcp4Config.clear();
@@ -259,6 +262,7 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap &prop
             }
             d->ipV6Config = IpConfig();
             emit ipV6ConfigChanged();
+#endif
         }  else if (property == QLatin1String("Master")) {
             d->master = qdbus_cast<QDBusObjectPath>(*it).path();
             emit masterChanged(d->master);

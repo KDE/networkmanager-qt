@@ -144,12 +144,14 @@ public:
         Vlan = NM_DEVICE_TYPE_VLAN, /**< Vlan virtual device */
         Adsl = NM_DEVICE_TYPE_ADSL, /**< ADSL modem device */
         Bridge = NM_DEVICE_TYPE_BRIDGE, /**< Bridge virtual device */
+#if NM_CHECK_VERSION(0, 9, 9)
         Generic = NM_DEVICE_TYPE_GENERIC, /**< Generic device @since 0.9.9.0 */
         Team = NM_DEVICE_TYPE_TEAM, /**< Team master device @since 0.9.9.0 */
         Gre, /**< Gre virtual device @since 0.9.9.0 */
         MacVlan, /**< MacVlan virtual device @since 0.9.9.0 */
         Tun, /**< Tun virtual device @since 0.9.9.0 */
         Veth, /**< Veth virtual device @since 0.9.9.0 */
+#endif
     };
     Q_DECLARE_FLAGS(Types, Type)
 
@@ -310,6 +312,7 @@ public:
      */
     QString udi() const;
 
+#if NM_CHECK_VERSION(0, 9, 9)
     /**
      * @return If non-empty, an (opaque) indicator of the physical network
      * port associated with the device. This can be used to recognize
@@ -319,7 +322,6 @@ public:
      * @since 0.9.9.0
      */
     QString physicalPortId() const;
-#if NM_CHECK_VERSION(0, 9, 9)
     /**
      * The device MTU (maximum transmission unit)
      * @since 0.9.9.0
@@ -458,6 +460,13 @@ Q_SIGNALS:
     void managedChanged();
 #if NM_CHECK_VERSION(0, 9, 9)
     /**
+     * Emitted when the physical port ID changes.
+     * @see physicalPortId()
+     * @since 0.9.9.0
+     */
+    void physicalPortIdChanged();
+
+    /**
      * Emitted when the maximum transmission unit has changed
      * @since 0.9.9.0
      */
@@ -472,13 +481,6 @@ Q_SIGNALS:
      * Emitted when the state reason of this network has changed.
      */
     void stateReasonChanged();
-
-    /**
-     * Emitted when the physical port ID changes.
-     * @see physicalPortId()
-     * @since 0.9.9.0
-     */
-    void physicalPortIdChanged();
 
     /**
      * Emitted when the Unique Device Identifier of this device has changed.

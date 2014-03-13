@@ -304,9 +304,11 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
     case Device::Bridge:
         createdInterface = Device::Ptr(new NetworkManager::BridgeDevice(uni), &QObject::deleteLater);
         break;
+#if NM_CHECK_VERSION(0, 9, 9)
     case Device::Generic:
         createdInterface = Device::Ptr(new NetworkManager::GenericDevice(uni), &QObject::deleteLater);
         break;
+#endif
     default:
         createdInterface = device;
         if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
@@ -554,10 +556,12 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::act
     return findRegisteredActiveConnection(iface.activatingConnection().path());
 }
 
+#if NM_CHECK_VERSION(0, 9, 9)
 bool NetworkManager::NetworkManagerPrivate::isStartingUp() const
 {
     return iface.startup();
 }
+#endif
 
 void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath &objpath)
 {
@@ -661,8 +665,10 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
             emit primaryConnectionChanged(it->value<QDBusObjectPath>().path());
         } else if (property == QLatin1String("ActivatingConnection")) {
             emit activatingConnectionChanged(it->value<QDBusObjectPath>().path());
+#if NM_CHECK_VERSION(0, 9, 9)
         } else if (property == QLatin1String("Startup")) {
             emit isStartingUpChanged();
+#endif
         } else {
             qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
         }
@@ -955,10 +961,12 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::activatingConnection()
     return globalNetworkManager->activatingConnection();
 }
 
+#if NM_CHECK_VERSION(0, 9, 9)
 bool NetworkManager::isStartingUp()
 {
     return globalNetworkManager->isStartingUp();
 }
+#endif
 
 NetworkManager::Notifier *NetworkManager::notifier()
 {

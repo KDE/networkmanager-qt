@@ -109,8 +109,8 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
     foreach (const QDBusObjectPath &availableConnection, deviceIface.availableConnections()) {
         availableConnections << availableConnection.path();
     }
-    physicalPortId = deviceIface.physicalPortId();
 #if NM_CHECK_VERSION(0, 9, 9)
+    physicalPortId = deviceIface.physicalPortId();
     mtu = deviceIface.mtu();
 #endif
     QDBusObjectPath ip4ConfigObjectPath = deviceIface.ip4Config();
@@ -300,10 +300,10 @@ qDebug() << Q_FUNC_INFO << property << value;
     } else if (property == QLatin1String("Udi")) {
         d->udi = value.toString();
         emit udiChanged();
+#if NM_CHECK_VERSION(0, 9, 9)
     } else if (property == QLatin1String("PhysicalPortId")) {
         d->physicalPortId = value.toString();
         emit physicalPortIdChanged();
-#if NM_CHECK_VERSION(0, 9, 9)
     } else if (property == QLatin1String("Mtu")) {
         d->mtu = value.toUInt();
         emit mtuChanged();
@@ -400,11 +400,13 @@ QString NetworkManager::Device::udi() const
     return d->udi;
 }
 
+#if NM_CHECK_VERSION(0, 9, 9)
 QString NetworkManager::Device::physicalPortId() const
 {
     Q_D(const Device);
     return d->physicalPortId;
 }
+#endif
 
 QHostAddress NetworkManager::Device::ipV4Address() const
 {

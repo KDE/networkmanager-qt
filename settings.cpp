@@ -195,9 +195,8 @@ void NetworkManager::SettingsPrivate::propertiesChanged(const QVariantMap &prope
         } else if (property == QLatin1String("Hostname")) {
             m_hostname = it->toString();
             emit hostnameChanged(m_hostname);
-        }
 #if NM_CHECK_VERSION(0, 9, 9)
-        else if (property == QLatin1String("Connections")) {
+        } else if (property == QLatin1String("Connections")) {
             // TODO some action??
 #endif
         } else {
