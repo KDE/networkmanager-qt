@@ -9,22 +9,16 @@ set(NetworkManagerQt_CAMEL_HEADERS
     Device
     Dhcp4Config
     Dhcp6Config
-    GenericTypes
-    GreDevice
     InfinibandDevice
     IpAddress
     IpConfig
     IpRoute
-    MacVlanDevice
     Manager
     ModemDevice
     OlpcMeshDevice
     SecretAgent
     Settings
-    TeamDevice
-    TunDevice
     Utils
-    VethDevice
     VlanDevice
     VpnConnection
     VpnPlugin
@@ -34,6 +28,18 @@ set(NetworkManagerQt_CAMEL_HEADERS
     WirelessDevice
     WirelessNetwork
 )
+
+if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 0.9.9.0 OR ${NETWORKMANAGER_VERSION} VERSION_GREATER 0.9.9.0)
+    set(NetworkManagerQt_CAMEL_HEADERS
+        ${NetworkManagerQt_CAMEL_HEADERS}
+        GenericTypes
+        GreDevice
+        MacVlanDevice
+        TeamDevice
+        TunDevice
+        VethDevice
+        )
+endif()
 
 install(FILES
    ${NetworkManagerQt_CAMEL_HEADERS}

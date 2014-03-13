@@ -137,6 +137,7 @@ QString NetworkManager::SettingsPrivate::addConnection(const NMVariantMapMap &co
     return id;
 }
 
+#if NM_CHECK_VERSION(0, 9, 9)
 QString NetworkManager::SettingsPrivate::addConnectionUnsaved(const NMVariantMapMap &connection)
 {
     QDBusPendingReply<QDBusObjectPath> reply = iface.AddConnectionUnsaved(connection);
@@ -157,6 +158,7 @@ QDBusPendingReply<bool> NetworkManager::SettingsPrivate::reloadConnections()
 {
     return iface.ReloadConnections();
 }
+#endif
 
 void NetworkManager::SettingsPrivate::onConnectionAddArrived(QDBusPendingCallWatcher *watcher)
 {

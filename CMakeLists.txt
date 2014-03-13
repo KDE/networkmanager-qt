@@ -187,7 +187,6 @@ set(CONNECTIONS_SETTINGS_SRCS
     settings/pppoesetting.cpp
     settings/setting.cpp
     settings/serialsetting.cpp
-    settings/teamsetting.cpp
     #settings/template.cpp
     settings/vlansetting.cpp
     settings/vpnsetting.cpp
@@ -215,7 +214,6 @@ set(CONNECTIONS_SETTINGS_HEADERS
     settings/pppoesetting.h
     settings/setting.h
     settings/serialsetting.h
-    settings/teamsetting.h
     #settings/template.h
     settings/vlansetting.h
     settings/vpnsetting.h
@@ -251,6 +249,16 @@ if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 0.9.9.0 OR ${NETWORKMANAGER_VERSION}
         dbus/nm-device-teaminterface.cpp
         dbus/nm-device-tuninterface.cpp
         dbus/nm-device-vethinterface.cpp
+        )
+
+    set(CONNECTIONS_SETTINGS_SRCS
+        ${CONNECTIONS_SETTINGS_SRCS}
+        settings/teamsetting.cpp
+        )
+
+    SET(CONNECTIONS_SETTINGS_HEADERS
+        ${CONNECTIONS_SETTINGS_HEADERS}
+        settings/teamsetting.h
         )
 endif()
 

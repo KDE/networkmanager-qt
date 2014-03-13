@@ -35,8 +35,10 @@
 
 NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &dbusPath)
     : iface(NetworkManagerPrivate::DBUS_SERVICE, dbusPath, QDBusConnection::systemBus())
+#if NM_CHECK_VERSION(0, 9, 9)
     , dhcp4Config(0)
     , dhcp6Config(0)
+#endif
 {
     connection = NetworkManager::findConnection(iface.connection().path());
     path = dbusPath;

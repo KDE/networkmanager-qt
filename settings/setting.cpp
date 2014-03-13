@@ -20,6 +20,8 @@
 
 #include "setting.h"
 
+#include <NetworkManager.h>
+
 #include <nm-setting-bond.h>
 #include <nm-setting-bridge.h>
 #include <nm-setting-cdma.h>
@@ -34,7 +36,9 @@
 #include <nm-setting-ppp.h>
 #include <nm-setting-pppoe.h>
 #include <nm-setting-serial.h>
+#if NM_CHECK_VERSION(0, 9, 9)
 #include <nm-setting-team.h>
+#endif
 #include <nm-setting-vlan.h>
 #include <nm-setting-vpn.h>
 #include <nm-setting-wireless.h>
@@ -42,6 +46,7 @@
 #include <nm-setting-wimax.h>
 
 #include <QtCore/QDebug>
+
 
 namespace NetworkManager
 {
@@ -128,9 +133,11 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     case Bridge:
         typeString = QLatin1String(NM_SETTING_BRIDGE_SETTING_NAME);
         break;
+#if NM_CHECK_VERSION(0, 9, 9)
     case Team:
         typeString = QLatin1String(NM_SETTING_TEAM_SETTING_NAME);
         break;
+#endif
     default:
         break;
     }
@@ -178,8 +185,10 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
         type = Bond;
     } else if (typeString == QLatin1String(NM_SETTING_BRIDGE_SETTING_NAME)) {
         type = Bridge;
+#if NM_CHECK_VERSION(0, 9, 9)
     } else if (typeString == QLatin1String(NM_SETTING_TEAM_SETTING_NAME)) {
         type = Team;
+#endif
     }
 
     return type;

@@ -58,7 +58,9 @@ public:
         Wimax,
         Wired,
         Wireless,
+#if NM_CHECK_VERSION(0, 9, 9)
         Team
+#endif
     };
 
     static ConnectionType typeFromString(const QString &typeString);
