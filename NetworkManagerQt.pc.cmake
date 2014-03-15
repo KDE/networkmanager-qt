@@ -25,6 +25,6 @@ Name: NetworkManagerQt5
 Description: Convenience Qt5 library for clients of NetworkManager
 Version: @VERSION@
 
-Requires: QtCore QtDBus QtXml
+Requires: Qt5Core Qt5DBus Qt5Network
 Cflags: -DWITH_MODEMMANAGERQT=@WITH_MODEMMANAGERQT@ -I${includedir} @CMAKE_INCLUDE_PATH@
 Libs: -L${libdir} -lNetworkManagerQt5 @CMAKE_LIBRARY_PATH@
