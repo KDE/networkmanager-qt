@@ -43,6 +43,7 @@ public:
     static const QString DBUS_SERVICE;
     static const QString DBUS_DAEMON_PATH;
     static const QString DBUS_SETTINGS_PATH;
+    static const QString FDO_DBUS_PROPERTIES;
 
     NetworkManagerPrivate();
     ~NetworkManagerPrivate();

@@ -37,6 +37,14 @@ Q_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
 NetworkManager::SettingsPrivate::SettingsPrivate()
     : iface(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, QDBusConnection::systemBus())
 {
+    connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::PropertiesChanged,
+            this, &SettingsPrivate::propertiesChanged);
+    connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::NewConnection,
+            this, &SettingsPrivate::onConnectionAdded);
+#if NM_CHECK_VERSION(0, 9, 9)
+    connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::ConnectionRemoved,
+            this, &SettingsPrivate::onConnectionRemoved);
+#endif
     init();
     // This class is a friend of NetworkManagerPrivate thus initted there too
     // because of the init chain we must follow,
@@ -49,12 +57,6 @@ NetworkManager::SettingsPrivate::SettingsPrivate()
 
 void NetworkManager::SettingsPrivate::init()
 {
-    connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), this, SLOT(propertiesChanged(QVariantMap)));
-    connect(&iface, SIGNAL(NewConnection(QDBusObjectPath)), this, SLOT(onConnectionAdded(QDBusObjectPath)));
-#if NM_CHECK_VERSION(0, 9, 9)
-    connect(&iface, SIGNAL(ConnectionRemoved(QDBusObjectPath)), this, SLOT(onConnectionRemoved(QDBusObjectPath)));
-#endif
-
 #if NM_CHECK_VERSION(0, 9, 9)
     QList<QDBusObjectPath> connectionList = iface.connections();
     foreach (const QDBusObjectPath &connection, connectionList) {
@@ -78,14 +80,16 @@ void NetworkManager::SettingsPrivate::init()
         }
     }
 #endif
-    if (m_canModify != iface.canModify()) {
-        m_canModify = iface.canModify();
-        emit canModifyChanged(m_canModify);
-    }
-    if (m_hostname != iface.hostname()) {
-        m_hostname = iface.hostname();
-        emit hostnameChanged(m_hostname);
-    }
+
+    // Get all Setting's properties async
+    QDBusMessage message = QDBusMessage::createMethodCall(NetworkManagerPrivate::DBUS_SERVICE,
+                                                          NetworkManagerPrivate::DBUS_SETTINGS_PATH,
+                                                          NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                                          QLatin1String("GetAll"));
+    message << iface.staticInterfaceName();
+    QDBusConnection::systemBus().callWithCallback(message,
+                                                  this,
+                                                  SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::Connection::List NetworkManager::SettingsPrivate::listConnections()

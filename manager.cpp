@@ -47,9 +47,12 @@
 
 #include "nmdebug.h"
 
+#define DBUS_PROPERTIES  "org.freedesktop.DBus.Properties"
+
 const QString NetworkManager::NetworkManagerPrivate::DBUS_SERVICE(QString::fromLatin1(NM_DBUS_SERVICE));
 const QString NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH(QString::fromLatin1(NM_DBUS_PATH));
 const QString NetworkManager::NetworkManagerPrivate::DBUS_SETTINGS_PATH(QString::fromLatin1(NM_DBUS_PATH_SETTINGS));
+const QString NetworkManager::NetworkManagerPrivate::FDO_DBUS_PROPERTIES(QString::fromLatin1(DBUS_PROPERTIES));
 
 Q_GLOBAL_STATIC(NetworkManager::NetworkManagerPrivate, globalNetworkManager)
 
@@ -119,36 +122,15 @@ void NetworkManager::NetworkManagerPrivate::init()
         emit connectivityChanged(convertConnectivity(m_connectivity));
     }
 
-    m_version = iface.version();
-    parseVersion(m_version);
-    if (m_isWirelessHardwareEnabled != iface.wirelessHardwareEnabled()) {
-        m_isWirelessHardwareEnabled = iface.wirelessHardwareEnabled();
-        emit wirelessHardwareEnabledChanged(m_isWirelessHardwareEnabled);
-    }
-    if (m_isWirelessEnabled != iface.wirelessEnabled()) {
-        m_isWirelessEnabled = iface.wirelessEnabled();
-        emit wirelessEnabledChanged(m_isWirelessEnabled);
-    }
-    if (m_isWwanHardwareEnabled != iface.wwanHardwareEnabled()) {
-        m_isWwanHardwareEnabled = iface.wwanHardwareEnabled();
-        emit wwanHardwareEnabledChanged(m_isWwanHardwareEnabled);
-    }
-    if (m_isWwanEnabled != iface.wwanEnabled()) {
-        m_isWwanEnabled = iface.wwanEnabled();
-        emit wwanEnabledChanged(m_isWwanEnabled);
-    }
-    if (m_isWimaxEnabled != iface.wimaxEnabled()) {
-        m_isWimaxEnabled = iface.wimaxEnabled();
-        emit wimaxEnabledChanged(m_isWimaxEnabled);
-    }
-    if (m_isWimaxHardwareEnabled != iface.wimaxHardwareEnabled()) {
-        m_isWimaxHardwareEnabled = iface.wimaxHardwareEnabled();
-        emit wimaxHardwareEnabledChanged(m_isWimaxHardwareEnabled);
-    }
-    if (m_isNetworkingEnabled != iface.networkingEnabled()) {
-        m_isNetworkingEnabled = iface.networkingEnabled();
-        emit networkingEnabledChanged(m_isNetworkingEnabled);
-    }
+    // Get all Manager's properties async
+    QDBusMessage message = QDBusMessage::createMethodCall(DBUS_SERVICE,
+                                                          DBUS_DAEMON_PATH,
+                                                          FDO_DBUS_PROPERTIES,
+                                                          QLatin1String("GetAll"));
+    message << iface.staticInterfaceName();
+    QDBusConnection::systemBus().callWithCallback(message,
+                                                  this,
+                                                  SLOT(propertiesChanged(QVariantMap)));
 
     qobject_cast<SettingsPrivate *>(settingsNotifier())->init();
 
