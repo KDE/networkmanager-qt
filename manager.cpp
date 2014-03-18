@@ -65,8 +65,17 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     , m_isWwanEnabled(false)
     , m_isWwanHardwareEnabled(false)
 {
-    connect(&watcher, SIGNAL(serviceRegistered(QString)), SLOT(daemonRegistered()));
-    connect(&watcher, SIGNAL(serviceUnregistered(QString)), SLOT(daemonUnregistered()));
+    connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceAdded,
+            this, &NetworkManagerPrivate::onDeviceAdded);
+    connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceRemoved,
+            this, &NetworkManagerPrivate::onDeviceRemoved);
+    connect(&iface, &OrgFreedesktopNetworkManagerInterface::PropertiesChanged,
+            this, &NetworkManagerPrivate::propertiesChanged);
+
+    connect(&watcher, &QDBusServiceWatcher::serviceRegistered,
+            this, &NetworkManagerPrivate::daemonRegistered);
+    connect(&watcher, &QDBusServiceWatcher::serviceUnregistered,
+            this, &NetworkManagerPrivate::daemonUnregistered);
 
     init();
 }
@@ -88,10 +97,6 @@ void NetworkManager::NetworkManagerPrivate::parseVersion(const QString &version)
 
 void NetworkManager::NetworkManagerPrivate::init()
 {
-    connect(&iface, SIGNAL(DeviceAdded(QDBusObjectPath)), SLOT(onDeviceAdded(QDBusObjectPath)), Qt::UniqueConnection);
-    connect(&iface, SIGNAL(DeviceRemoved(QDBusObjectPath)), SLOT(onDeviceRemoved(QDBusObjectPath)), Qt::UniqueConnection);
-    connect(&iface, SIGNAL(PropertiesChanged(QVariantMap)), SLOT(propertiesChanged(QVariantMap)), Qt::UniqueConnection);
-
     qDBusRegisterMetaType<UIntList>();
     qDBusRegisterMetaType<UIntListList>();
 //     qDBusRegisterMetaType<IpV6DBusAddress>();
