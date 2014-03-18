@@ -27,7 +27,6 @@ include_directories(${Qt5DBus_INCLUDE_DIRS}
                     ${Qt5Network_INCLUDE_DIRS}
                     ${Qt5Test_INCLUDE_DIRS}
                     )
-set(CMAKE_AUTOMOC TRUE)
 
 find_package(NetworkManager 0.9.8.4 REQUIRED)
 
@@ -64,7 +63,15 @@ else()
     add_subdirectory(tests)
 endif()
 
+## CMakeLists for NetworkManagerQt library
+set(CMAKE_AUTOMOC ON)
+
+# As moc files are generated in the binary dir, tell CMake
+# to always look for includes there:
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
 set(NetworkManagerQt_HEADERS
+    device.h
     accesspoint.h
     activeconnection.h
     adsldevice.h
@@ -72,7 +79,6 @@ set(NetworkManagerQt_HEADERS
     bonddevice.h
     bridgedevice.h
     connection.h
-    device.h
     dhcp4config.h
     dhcp6config.h
     infinibanddevice.h
@@ -104,6 +110,7 @@ set(NetworkManagerQt_PRIVATE_HEADERS
 )
 
 set(NetworkManagerQt_PART_SRCS
+    device.cpp
     accesspoint.cpp
     activeconnection.cpp
     adsldevice.cpp
@@ -111,7 +118,6 @@ set(NetworkManagerQt_PART_SRCS
     bonddevice.cpp
     bridgedevice.cpp
     connection.cpp
-    device.cpp
     dhcp4config.cpp
     dhcp6config.cpp
     infinibanddevice.cpp
@@ -262,11 +268,11 @@ if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 0.9.9.0 OR ${NETWORKMANAGER_VERSION}
         )
 endif()
 
-qt5_wrap_cpp(NetworkManagerQt_MOC ${NetworkManagerQt_PRIVATE_HEADERS})
-#qt5_automoc(${NetworkManagerQt_PART_SRCS})
-#qt5_automoc(${DBUS_INTERFACE_SRCS})
-
-add_library(NetworkManagerQt5 SHARED ${NetworkManagerQt_PART_SRCS} ${DBUS_INTERFACE_SRCS} ${CONNECTIONS_SETTINGS_SRCS} ${NetworkManagerQt_MOC} )
+add_library(NetworkManagerQt5 SHARED
+    ${NetworkManagerQt_PART_SRCS}
+    ${DBUS_INTERFACE_SRCS}
+    ${CONNECTIONS_SETTINGS_SRCS}
+)
 
 qt5_use_modules(NetworkManagerQt5 Core Network DBus)
 install(TARGETS NetworkManagerQt5 DESTINATION ${CMAKE_INSTALL_LIBDIR})

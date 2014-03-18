@@ -166,4 +166,4 @@ void IPv6Setting::testSetting()
 }
 
 QTEST_MAIN(IPv6Setting)
-#include "ipv6setting.moc"
+#include "moc_ipv6setting.cpp"

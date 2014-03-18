@@ -38,6 +38,7 @@ namespace NetworkManager
 class ConnectionSettingsPrivate;
 class NETWORKMANAGERQT_EXPORT ConnectionSettings
 {
+    Q_GADGET
     Q_ENUMS(ConnectionType)
 public:
     typedef QSharedPointer<ConnectionSettings> Ptr;

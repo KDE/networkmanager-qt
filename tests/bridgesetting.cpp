@@ -78,4 +78,4 @@ void BridgeSetting::testSetting()
 }
 
 QTEST_MAIN(BridgeSetting)
-#include "bridgesetting.moc"
+#include "moc_bridgesetting.cpp"

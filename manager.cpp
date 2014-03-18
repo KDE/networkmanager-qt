@@ -974,10 +974,3 @@ NetworkManager::Notifier *NetworkManager::notifier()
 }
 
 #include "moc_manager.cpp"
-
-// We have to trick moc here
-// this way, moc includes the file here, and not elsewhere which leads to duplicate symbols
-// automoc is triggered by the Q_OBJECT macro, but is not desired here.
-#if 0
-#include "moc_manager_p.cpp"
-#endif

@@ -20,7 +20,6 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "device.h"
 #include "device_p.h"
 #include "manager.h"
 #include "manager_p.h"
@@ -537,4 +536,4 @@ NetworkManager::Device::Type NetworkManager::Device::type() const
     return d->deviceType;
 }
 
-#include "device.moc"
+#include "moc_device.cpp"

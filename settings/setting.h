@@ -36,6 +36,7 @@ namespace NetworkManager
 class SettingPrivate;
 class NETWORKMANAGERQT_EXPORT Setting
 {
+    Q_GADGET
 public:
     typedef QSharedPointer<Setting> Ptr;
     typedef QList<Ptr> List;

@@ -78,4 +78,4 @@ void VlanSetting::testSetting()
 }
 
 QTEST_MAIN(VlanSetting)
-#include "vlansetting.moc"
+#include "moc_vlansetting.cpp"

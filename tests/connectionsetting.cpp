@@ -97,4 +97,4 @@ void ConnectionSetting::testSetting()
 }
 
 QTEST_MAIN(ConnectionSetting)
-#include "connectionsetting.moc"
+#include "moc_connectionsetting.cpp"

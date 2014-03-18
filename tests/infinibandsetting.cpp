@@ -62,4 +62,4 @@ void InfinibandSetting::testSetting()
 }
 
 QTEST_MAIN(InfinibandSetting)
-#include "infinibandsetting.moc"
+#include "moc_infinibandsetting.cpp"

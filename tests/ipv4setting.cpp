@@ -136,4 +136,4 @@ void IPv4Setting::testSetting()
 }
 
 QTEST_MAIN(IPv4Setting)
-#include "ipv4setting.moc"
+#include "moc_ipv4setting.cpp"

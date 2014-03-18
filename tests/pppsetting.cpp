@@ -123,4 +123,4 @@ void PppSetting::testSetting()
 }
 
 QTEST_MAIN(PppSetting)
-#include "pppsetting.moc"
+#include "moc_pppsetting.cpp"
