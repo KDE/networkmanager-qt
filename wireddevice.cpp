@@ -103,5 +103,3 @@ void NetworkManager::WiredDevice::propertyChanged(const QString &property, const
         Device::propertyChanged(property, value);
     }
 }
-
-#include "wireddevice.moc"

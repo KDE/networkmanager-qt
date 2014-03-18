@@ -78,5 +78,3 @@ void NetworkManager::Dhcp4Config::dhcp4PropertiesChanged(const QVariantMap &prop
     d->properties = properties;
     emit optionsChanged(d->properties);
 }
-
-#include "dhcp4config.moc"

@@ -264,5 +264,3 @@ NetworkManager::WirelessDevice::Capabilities NetworkManager::WirelessDevice::con
 {
     return (NetworkManager::WirelessDevice::Capabilities)caps;
 }
-
-#include "wirelessdevice.moc"

@@ -100,5 +100,3 @@ void NetworkManager::InfinibandDevice::propertyChanged(const QString &property, 
         Device::propertyChanged(property, value);
     }
 }
-
-#include "infinibanddevice.moc"

@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerInterface::OrgFreedesktopNetworkManagerInterface(con
 OrgFreedesktopNetworkManagerInterface::~OrgFreedesktopNetworkManagerInterface()
 {
 }
-
-
-#include "nm-managerinterface.moc"

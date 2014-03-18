@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerDHCP6ConfigInterface::OrgFreedesktopNetworkManagerDH
 OrgFreedesktopNetworkManagerDHCP6ConfigInterface::~OrgFreedesktopNetworkManagerDHCP6ConfigInterface()
 {
 }
-
-
-#include "nm-dhcp6-configinterface.moc"

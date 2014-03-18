@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerVPNPluginInterface::OrgFreedesktopNetworkManagerVPNP
 OrgFreedesktopNetworkManagerVPNPluginInterface::~OrgFreedesktopNetworkManagerVPNPluginInterface()
 {
 }
-
-
-#include "nm-vpn-plugininterface.moc"

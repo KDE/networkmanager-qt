@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerIP6ConfigInterface::OrgFreedesktopNetworkManagerIP6C
 OrgFreedesktopNetworkManagerIP6ConfigInterface::~OrgFreedesktopNetworkManagerIP6ConfigInterface()
 {
 }
-
-
-#include "nm-ip6-configinterface.moc"

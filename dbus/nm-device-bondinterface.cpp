@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerDeviceBondInterface::OrgFreedesktopNetworkManagerDev
 OrgFreedesktopNetworkManagerDeviceBondInterface::~OrgFreedesktopNetworkManagerDeviceBondInterface()
 {
 }
-
-
-#include "nm-device-bondinterface.moc"

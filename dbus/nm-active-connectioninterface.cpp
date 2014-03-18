@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerConnectionActiveInterface::OrgFreedesktopNetworkMana
 OrgFreedesktopNetworkManagerConnectionActiveInterface::~OrgFreedesktopNetworkManagerConnectionActiveInterface()
 {
 }
-
-
-#include "nm-active-connectioninterface.moc"

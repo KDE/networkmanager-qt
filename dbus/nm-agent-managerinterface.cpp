@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerAgentManagerInterface::OrgFreedesktopNetworkManagerA
 OrgFreedesktopNetworkManagerAgentManagerInterface::~OrgFreedesktopNetworkManagerAgentManagerInterface()
 {
 }
-
-
-#include "nm-agent-managerinterface.moc"

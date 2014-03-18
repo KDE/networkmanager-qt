@@ -88,5 +88,3 @@ void NetworkManager::AdslDevice::propertyChanged(const QString &property, const 
         Device::propertyChanged(property, value);
     }
 }
-
-#include "adsldevice.moc"

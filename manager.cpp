@@ -972,5 +972,3 @@ NetworkManager::Notifier *NetworkManager::notifier()
 {
     return globalNetworkManager;
 }
-
-#include "moc_manager.cpp"

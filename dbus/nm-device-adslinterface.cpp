@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerDeviceAdslInterface::OrgFreedesktopNetworkManagerDev
 OrgFreedesktopNetworkManagerDeviceAdslInterface::~OrgFreedesktopNetworkManagerDeviceAdslInterface()
 {
 }
-
-
-#include "nm-device-adslinterface.moc"

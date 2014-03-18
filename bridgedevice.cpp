@@ -119,5 +119,3 @@ void NetworkManager::BridgeDevice::propertyChanged(const QString &property, cons
         Device::propertyChanged(property, value);
     }
 }
-
-#include "bridgedevice.moc"

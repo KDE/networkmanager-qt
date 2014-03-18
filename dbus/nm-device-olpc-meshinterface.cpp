@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface::OrgFreedesktopNetworkManage
 OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface::~OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface()
 {
 }
-
-
-#include "nm-device-olpc-meshinterface.moc"

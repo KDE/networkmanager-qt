@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerPPPInterface::OrgFreedesktopNetworkManagerPPPInterfa
 OrgFreedesktopNetworkManagerPPPInterface::~OrgFreedesktopNetworkManagerPPPInterface()
 {
 }
-
-
-#include "nm-ppp-managerinterface.moc"

@@ -217,7 +217,3 @@ void NetworkManager::ConnectionPrivate::updateSettings(const NMVariantMapMap &ne
     }
     connection.clear();
 }
-
-// vim: sw=4 sts=4 et tw=100
-
-#include "connection.moc"

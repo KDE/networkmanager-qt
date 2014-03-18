@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerDeviceWiredInterface::OrgFreedesktopNetworkManagerDe
 OrgFreedesktopNetworkManagerDeviceWiredInterface::~OrgFreedesktopNetworkManagerDeviceWiredInterface()
 {
 }
-
-
-#include "nm-device-ethernetinterface.moc"

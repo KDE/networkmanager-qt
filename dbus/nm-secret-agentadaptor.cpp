@@ -56,6 +56,3 @@ void SecretAgentAdaptor::SaveSecrets(const NMVariantMapMap &connection, const QD
     // handle method call org.freedesktop.NetworkManager.SecretAgent.SaveSecrets
     parent()->SaveSecrets(connection, connection_path);
 }
-
-
-#include "nm-secret-agentadaptor.moc"

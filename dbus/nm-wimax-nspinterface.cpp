@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerWiMaxNspInterface::OrgFreedesktopNetworkManagerWiMax
 OrgFreedesktopNetworkManagerWiMaxNspInterface::~OrgFreedesktopNetworkManagerWiMaxNspInterface()
 {
 }
-
-
-#include "nm-wimax-nspinterface.moc"

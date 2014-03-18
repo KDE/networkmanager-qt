@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerVPNConnectionInterface::OrgFreedesktopNetworkManager
 OrgFreedesktopNetworkManagerVPNConnectionInterface::~OrgFreedesktopNetworkManagerVPNConnectionInterface()
 {
 }
-
-
-#include "nm-vpn-connectioninterface.moc"

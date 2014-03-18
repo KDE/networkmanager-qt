@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerDHCP4ConfigInterface::OrgFreedesktopNetworkManagerDH
 OrgFreedesktopNetworkManagerDHCP4ConfigInterface::~OrgFreedesktopNetworkManagerDHCP4ConfigInterface()
 {
 }
-
-
-#include "nm-dhcp4-configinterface.moc"

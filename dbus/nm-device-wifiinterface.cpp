@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerDeviceWirelessInterface::OrgFreedesktopNetworkManage
 OrgFreedesktopNetworkManagerDeviceWirelessInterface::~OrgFreedesktopNetworkManagerDeviceWirelessInterface()
 {
 }
-
-
-#include "nm-device-wifiinterface.moc"

@@ -89,5 +89,3 @@ void NetworkManager::OlpcMeshDevice::propertyChanged(const QString &property, co
         Device::propertyChanged(property, value);
     }
 }
-
-#include "olpcmeshdevice.moc"

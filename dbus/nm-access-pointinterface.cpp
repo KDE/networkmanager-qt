@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerAccessPointInterface::OrgFreedesktopNetworkManagerAc
 OrgFreedesktopNetworkManagerAccessPointInterface::~OrgFreedesktopNetworkManagerAccessPointInterface()
 {
 }
-
-
-#include "nm-access-pointinterface.moc"

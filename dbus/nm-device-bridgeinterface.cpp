@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerDeviceBridgeInterface::OrgFreedesktopNetworkManagerD
 OrgFreedesktopNetworkManagerDeviceBridgeInterface::~OrgFreedesktopNetworkManagerDeviceBridgeInterface()
 {
 }
-
-
-#include "nm-device-bridgeinterface.moc"

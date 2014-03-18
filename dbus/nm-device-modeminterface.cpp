@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerDeviceModemInterface::OrgFreedesktopNetworkManagerDe
 OrgFreedesktopNetworkManagerDeviceModemInterface::~OrgFreedesktopNetworkManagerDeviceModemInterface()
 {
 }
-
-
-#include "nm-device-modeminterface.moc"

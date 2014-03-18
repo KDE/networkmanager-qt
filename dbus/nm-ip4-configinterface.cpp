@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerIP4ConfigInterface::OrgFreedesktopNetworkManagerIP4C
 OrgFreedesktopNetworkManagerIP4ConfigInterface::~OrgFreedesktopNetworkManagerIP4ConfigInterface()
 {
 }
-
-
-#include "nm-ip4-configinterface.moc"

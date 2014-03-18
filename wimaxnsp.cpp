@@ -126,5 +126,3 @@ void NetworkManager::WimaxNsp::propertiesChanged(const QVariantMap &properties)
         ++it;
     }
 }
-
-#include "wimaxnsp.moc"

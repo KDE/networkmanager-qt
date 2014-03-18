@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerSettingsConnectionInterface::OrgFreedesktopNetworkMa
 OrgFreedesktopNetworkManagerSettingsConnectionInterface::~OrgFreedesktopNetworkManagerSettingsConnectionInterface()
 {
 }
-
-
-#include "nm-settings-connectioninterface.moc"

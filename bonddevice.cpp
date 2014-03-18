@@ -118,5 +118,3 @@ void NetworkManager::BondDevice::propertyChanged(const QString &property, const 
         Device::propertyChanged(property, value);
     }
 }
-
-#include "bonddevice.moc"

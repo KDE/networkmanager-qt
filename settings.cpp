@@ -313,5 +313,3 @@ NetworkManager::SettingsNotifier *NetworkManager::settingsNotifier()
 {
     return globalSettings;
 }
-
-#include "moc_settings.cpp"

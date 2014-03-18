@@ -292,5 +292,3 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap &prop
         ++it;
     }
 }
-
-#include "activeconnection.moc"

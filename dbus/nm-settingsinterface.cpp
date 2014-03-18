@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerSettingsInterface::OrgFreedesktopNetworkManagerSetti
 OrgFreedesktopNetworkManagerSettingsInterface::~OrgFreedesktopNetworkManagerSettingsInterface()
 {
 }
-
-
-#include "nm-settingsinterface.moc"

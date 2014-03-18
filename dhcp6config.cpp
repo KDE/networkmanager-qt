@@ -78,5 +78,3 @@ void NetworkManager::Dhcp6Config::dhcp6PropertiesChanged(const QVariantMap &prop
     d->properties = properties;
     emit optionsChanged(d->properties);
 }
-
-#include "dhcp6config.moc"

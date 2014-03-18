@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerDeviceBluetoothInterface::OrgFreedesktopNetworkManag
 OrgFreedesktopNetworkManagerDeviceBluetoothInterface::~OrgFreedesktopNetworkManagerDeviceBluetoothInterface()
 {
 }
-
-
-#include "nm-device-btinterface.moc"

@@ -98,7 +98,3 @@ void NetworkManager::ModemDevice::propertyChanged(const QString &property, const
         Device::propertyChanged(property, value);
     }
 }
-
-// vim: sw=4 sts=4 et tw=100
-
-#include "modemdevice.moc"

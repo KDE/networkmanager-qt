@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerDeviceVlanInterface::OrgFreedesktopNetworkManagerDev
 OrgFreedesktopNetworkManagerDeviceVlanInterface::~OrgFreedesktopNetworkManagerDeviceVlanInterface()
 {
 }
-
-
-#include "nm-device-vlaninterface.moc"

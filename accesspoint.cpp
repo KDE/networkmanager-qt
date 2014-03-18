@@ -227,5 +227,3 @@ void NetworkManager::AccessPoint::propertiesChanged(const QVariantMap &propertie
         ++it;
     }
 }
-
-#include "accesspoint.moc"

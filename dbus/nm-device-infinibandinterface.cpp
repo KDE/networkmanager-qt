@@ -23,6 +23,3 @@ OrgFreedesktopNetworkManagerDeviceInfinibandInterface::OrgFreedesktopNetworkMana
 OrgFreedesktopNetworkManagerDeviceInfinibandInterface::~OrgFreedesktopNetworkManagerDeviceInfinibandInterface()
 {
 }
-
-
-#include "nm-device-infinibandinterface.moc"

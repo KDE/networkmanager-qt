@@ -141,6 +141,4 @@ QString NetworkManager::WirelessNetwork::device() const
     return d->wirelessNetworkInterface->uni();
 }
 
-// vim: sw=4 sts=4 et tw=100
-
 #include "moc_wirelessnetwork.cpp"
