@@ -295,7 +295,7 @@ qDebug() << Q_FUNC_INFO << property << value;
         // FIXME NetworkManager 0.9.8 (maybe greater) doesn't
         // update ActiveConnection when disconnected
         // This is fixed in NM 73d128bbd17120225bb4986e3f05566f10fab581
-        if (d->connectionState == NetworkManager::Device::Disconnected && d->activeConnection != QLatin1Char('/')) {
+        if (d->connectionState == NetworkManager::Device::Disconnected && d->activeConnection != QLatin1String("/")) {
             d->activeConnection = QLatin1Char('/');
             emit activeConnectionChanged();
         }
