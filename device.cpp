@@ -292,6 +292,13 @@ qDebug() << Q_FUNC_INFO << property << value;
         emit managedChanged();
     } else if (property == QLatin1String("State")) {
         d->connectionState = NetworkManager::DevicePrivate::convertState(value.toUInt());
+        // FIXME NetworkManager 0.9.8 (maybe greater) doesn't
+        // update ActiveConnection when disconnected
+        // This is fixed in NM 73d128bbd17120225bb4986e3f05566f10fab581
+        if (d->connectionState == NetworkManager::Device::Disconnected && d->activeConnection != QLatin1Char('/')) {
+            d->activeConnection = QLatin1Char('/');
+            emit activeConnectionChanged();
+        }
         emit connectionStateChanged();
     } else if (property == QLatin1String("StateReason")) { // just extracting the reason
         d->reason = NetworkManager::DevicePrivate::convertReason(qdbus_cast<DeviceDBusStateReason>(value).reason);
