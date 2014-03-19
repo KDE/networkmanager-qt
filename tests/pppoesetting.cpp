@@ -68,4 +68,3 @@ void PppoeSetting::testSetting()
 }
 
 QTEST_MAIN(PppoeSetting)
-#include "moc_pppoesetting.cpp"

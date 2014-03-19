@@ -63,4 +63,3 @@ void OlpcMeshSetting::testSetting()
 }
 
 QTEST_MAIN(OlpcMeshSetting)
-#include "moc_olpcmeshsetting.cpp"

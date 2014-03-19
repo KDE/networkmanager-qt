@@ -59,4 +59,3 @@ void WimaxSetting::testSetting()
 }
 
 QTEST_MAIN(WimaxSetting)
-#include "moc_wimaxsetting.cpp"

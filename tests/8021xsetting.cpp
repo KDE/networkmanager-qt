@@ -184,4 +184,3 @@ void Security8021xSetting::testSetting()
 }
 
 QTEST_MAIN(Security8021xSetting)
-#include "moc_8021xsetting.cpp"

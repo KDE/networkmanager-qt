@@ -78,4 +78,3 @@ void AdslSetting::testSetting()
 }
 
 QTEST_MAIN(AdslSetting)
-#include "moc_adslsetting.cpp"

@@ -67,4 +67,3 @@ void BondSetting::testSetting()
 }
 
 QTEST_MAIN(BondSetting)
-#include "moc_bondsetting.cpp"

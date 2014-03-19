@@ -72,4 +72,3 @@ void SerialSetting::testSetting()
 }
 
 QTEST_MAIN(SerialSetting)
-#include "moc_serialsetting.cpp"

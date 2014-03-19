@@ -62,4 +62,3 @@ void BridgePortSetting::testSetting()
 }
 
 QTEST_MAIN(BridgePortSetting)
-#include "moc_bridgeportsetting.cpp"

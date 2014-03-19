@@ -66,4 +66,3 @@ void CdmaSetting::testSetting()
 }
 
 QTEST_MAIN(CdmaSetting)
-#include "moc_cdmasetting.cpp"

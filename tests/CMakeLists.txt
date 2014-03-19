@@ -9,8 +9,8 @@ include_directories (${CMAKE_CURRENT_BINARY_DIR}
 MACRO(LIBNM_TESTS)
        FOREACH(_testname ${ARGN})
             SET(test_${_testname}_SRCS ${_testname}.cpp)
-            #qt4_automoc(${test_${_testname}_SRCS})
-            add_executable(test_${_testname} ${test_${_testname}_SRCS} ${test_${_testname}_HDRS} ${test_additional})
+            qt5_wrap_cpp(test_${_testname}_SRCS ${_testname}.h)
+            add_executable(test_${_testname} ${test_${_testname}_SRCS})
             set_target_properties(test_${_testname} PROPERTIES POSITION_INDEPENDENT_CODE ON)
             target_link_libraries(test_${_testname}
                 ${QT_QTCORE_LIBRARY}

@@ -111,4 +111,3 @@ void WiredSetting::testSetting()
 }
 
 QTEST_MAIN(WiredSetting)
-#include "moc_wiredsetting.cpp"
