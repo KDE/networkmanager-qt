@@ -59,7 +59,8 @@ Q_GLOBAL_STATIC(NetworkManager::NetworkManagerPrivate, globalNetworkManager)
 NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     : watcher(DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForOwnerChange, this)
     , iface(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE, NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH, QDBusConnection::systemBus())
-    , nmState(0)
+    , nmState(NetworkManager::Unknown)
+    , m_connectivity(NetworkManager::UnknownConnectivity)
     , m_isNetworkingEnabled(false)
     , m_isWimaxEnabled(false)
     , m_isWimaxHardwareEnabled(false)
@@ -111,16 +112,6 @@ void NetworkManager::NetworkManagerPrivate::init()
     qDBusRegisterMetaType<DeviceDBusStateReason>();
     qDBusRegisterMetaType<NMVariantMapMap>();
     qDBusRegisterMetaType<NMStringMap>();
-
-    if (nmState != iface.state()) {
-        nmState = iface.state();
-        emit statusChanged(convertNMState(nmState));
-    }
-
-    if (m_connectivity != iface.connectivity()) {
-        m_connectivity = iface.connectivity();
-        emit connectivityChanged(convertConnectivity(m_connectivity));
-    }
 
     // Get all Manager's properties async
     QDBusMessage message = QDBusMessage::createMethodCall(DBUS_SERVICE,
@@ -309,7 +300,7 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
 
 NetworkManager::Status NetworkManager::NetworkManagerPrivate::status() const
 {
-    return convertNMState(nmState);
+    return nmState;
 }
 
 NetworkManager::Device::List NetworkManager::NetworkManagerPrivate::networkInterfaces()
@@ -525,7 +516,7 @@ NMStringMap NetworkManager::NetworkManagerPrivate::permissions()
 
 NetworkManager::Connectivity NetworkManager::NetworkManagerPrivate::connectivity() const
 {
-    return convertConnectivity(m_connectivity);
+    return m_connectivity;
 }
 
 QDBusPendingReply<uint> NetworkManager::NetworkManagerPrivate::checkConnectivity()
@@ -568,17 +559,19 @@ void NetworkManager::NetworkManagerPrivate::onDeviceRemoved(const QDBusObjectPat
 
 void NetworkManager::NetworkManagerPrivate::connectivityChanged(uint connectivity)
 {
-    if (m_connectivity != connectivity) {
-        m_connectivity = connectivity;
-        emit Notifier::connectivityChanged(convertConnectivity(m_connectivity));
+    NetworkManager::Connectivity newConnectivity = convertConnectivity(connectivity);
+    if (m_connectivity != newConnectivity) {
+        m_connectivity = newConnectivity;
+        emit Notifier::connectivityChanged(newConnectivity);
     }
 }
 
 void NetworkManager::NetworkManagerPrivate::stateChanged(uint state)
 {
-    if (nmState != state) {
-        nmState = state;
-        emit Notifier::statusChanged(convertNMState(nmState));
+    NetworkManager::Status newStatus = convertNMState(state);
+    if (nmState != newStatus) {
+        nmState = newStatus;
+        emit Notifier::statusChanged(newStatus);
     }
 }
 

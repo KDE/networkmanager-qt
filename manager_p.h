@@ -49,8 +49,8 @@ public:
     ~NetworkManagerPrivate();
     QDBusServiceWatcher watcher;
     OrgFreedesktopNetworkManagerInterface iface;
-    uint nmState;
-    uint m_connectivity;
+    NetworkManager::Status nmState;
+    Connectivity m_connectivity;
     bool m_isNetworkingEnabled;
     bool m_isWimaxEnabled;
     bool m_isWimaxHardwareEnabled;
