@@ -32,7 +32,7 @@ find_package(NetworkManager 0.9.8.4 REQUIRED)
 
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES}
                     ${CMAKE_INCLUDE_PATH})
-link_directories(${MODEMMANAGERQT_LIBRARY_DIRS} ${CMAKE_LIBRARY_PATH})
+link_directories(${CMAKE_LIBRARY_PATH})
 
 include(CheckCXXCompilerFlag)
 check_cxx_compiler_flag("-Werror=return-type" HAVE_GCC_ERROR_RETURN_TYPE)
