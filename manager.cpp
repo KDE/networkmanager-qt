@@ -125,15 +125,6 @@ void NetworkManager::NetworkManagerPrivate::init()
 
     qobject_cast<SettingsPrivate *>(settingsNotifier())->init();
 
-    nmDebug() << "Active connections:";
-    QList <QDBusObjectPath> activeConnections = iface.activeConnections();
-    foreach (const QDBusObjectPath &ac, activeConnections) {
-        m_activeConnections.insert(ac.path(), NetworkManager::ActiveConnection::Ptr());
-        emit activeConnectionAdded(ac.path());
-        nmDebug() << "    " << ac.path();
-    }
-    emit activeConnectionsChanged();
-
     if (iface.isValid()) {
 #if NM_CHECK_VERSION(0, 9, 9)
         QList <QDBusObjectPath> devices = iface.devices();
