@@ -13,6 +13,7 @@ set(NetworkManagerQt_CAMEL_HEADERS
     IpAddress
     IpConfig
     IpRoute
+    GenericTypes
     Manager
     ModemDevice
     OlpcMeshDevice
@@ -32,7 +33,6 @@ set(NetworkManagerQt_CAMEL_HEADERS
 if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 0.9.9.0 OR ${NETWORKMANAGER_VERSION} VERSION_GREATER 0.9.9.0)
     set(NetworkManagerQt_CAMEL_HEADERS
         ${NetworkManagerQt_CAMEL_HEADERS}
-        GenericTypes
         GreDevice
         MacVlanDevice
         TeamDevice
