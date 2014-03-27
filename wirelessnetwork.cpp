@@ -73,13 +73,23 @@ void NetworkManager::WirelessNetworkPrivate::accessPointDisappeared(const QStrin
 void NetworkManager::WirelessNetworkPrivate::updateStrength()
 {
     Q_Q(WirelessNetwork);
+
     int maximumStrength = -1;
+    NetworkManager::AccessPoint::Ptr strongestAp;
     foreach (const NetworkManager::AccessPoint::Ptr &iface, aps) {
-        maximumStrength = qMax(maximumStrength, iface->signalStrength());
+        if (maximumStrength <= iface->signalStrength()) {
+            maximumStrength = iface->signalStrength();
+            strongestAp = iface;
+        }
     }
     if (maximumStrength != strength) {
         strength = maximumStrength;
         emit q->signalStrengthChanged(strength);
+    }
+
+    if (referenceAp != strongestAp) {
+        referenceAp = strongestAp;
+        emit q->referenceAccessPointChanged(referenceAp->uni());
     }
     //TODO: update the networks delayed
     //kDebug() << "update strength" << ssid << strength;
@@ -116,16 +126,7 @@ int NetworkManager::WirelessNetwork::signalStrength() const
 NetworkManager::AccessPoint::Ptr NetworkManager::WirelessNetwork::referenceAccessPoint() const
 {
     Q_D(const WirelessNetwork);
-    int maximumStrength = -1;
-    NetworkManager::AccessPoint::Ptr strongest;
-    foreach (const NetworkManager::AccessPoint::Ptr &iface, d->aps) {
-        int oldMax = maximumStrength;
-        maximumStrength = qMax(maximumStrength, iface->signalStrength());
-        if (oldMax <= maximumStrength) {
-            strongest = iface;
-        }
-    }
-    return strongest;
+    return d->referenceAp;
 }
 
 NetworkManager::AccessPoint::List NetworkManager::WirelessNetwork::accessPoints() const
