@@ -43,6 +43,7 @@ public:
     int strength;
     QPointer<WirelessDevice> wirelessNetworkInterface;
     QHash<QString, AccessPoint::Ptr> aps;
+    AccessPoint::Ptr referenceAp;
 
 private Q_SLOTS:
     void accessPointAppeared(const QString &uni);
