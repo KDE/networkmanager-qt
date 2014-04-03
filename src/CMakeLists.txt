@@ -202,7 +202,8 @@ ecm_generate_headers(NetworkManagerQt_SETTINGS_HEADERS
   WirelessSecuritySetting
   WirelessSetting
 
-  # this is not a typo, but we had to rename it, because it is conflicting with Settings class
+  # this is not a typo (should be Settings), but we had to rename it,
+  # because it is conflicting with Settings class
   PREFIX Setting
   RELATIVE settings
   REQUIRED_HEADERS NetworkManagerQt_SETTINGS_HEADERS
@@ -214,6 +215,11 @@ install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/networkmanagerqt_export.h
   ${NetworkManagerQt_HEADERS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/NetworkManagerQt COMPONENT Devel
+)
+
+install(FILES
+  ${NetworkManagerQt_SETTINGS_HEADERS}
+  DESTINATION ${INCLUDE_INSTALL_DIR}/NetworkManagerQt/setting COMPONENT Devel
 )
 
 include(ECMGeneratePriFile)
