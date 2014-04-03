@@ -1,327 +1,74 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.12)
 
 project(NetworkManagerQt)
 
-include(GNUInstallDirs)
-set(VERSION 0.9.9.1)
+find_package(ECM 0.0.12 REQUIRED NO_MODULE)
 
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_MODULE_PATH})
-
-if (NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Debug)
-endif()
-
-include(CMakePackageConfigHelpers)
-include(FeatureSummary)
-include(GNUInstallDirs)
-
-find_package(Qt5 COMPONENTS
-    Core
-    DBus
-    Network
-    Test
-)
-
-include_directories(${Qt5DBus_INCLUDE_DIRS}
-                    ${Qt5Core_INCLUDE_DIRS}
-                    ${Qt5Network_INCLUDE_DIRS}
-                    ${Qt5Test_INCLUDE_DIRS}
-                    )
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 find_package(NetworkManager 0.9.8.4 REQUIRED)
 
-include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES}
-                    ${CMAKE_INCLUDE_PATH})
-link_directories(${CMAKE_LIBRARY_PATH})
+include(KDEInstallDirs)
+include(KDEFrameworkCompilerSettings)
+include(KDECMakeSettings)
 
-include(CheckCXXCompilerFlag)
-check_cxx_compiler_flag("-Werror=return-type" HAVE_GCC_ERROR_RETURN_TYPE)
-if (HAVE_GCC_ERROR_RETURN_TYPE)
-    set(CMAKE_CXX_FLAGS "-Werror=return-type")
-endif()
+set(REQUIRED_QT_VERSION 5.2.0)
+find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED Core DBus Network Test)
 
-include_directories(
-   ${NETWORKMANAGER_INCLUDE_DIRS}
-   ${NM-UTIL_INCLUDE_DIRS}
-   ${NM-GLIB_INCLUDE_DIRS}
-   ${CMAKE_CURRENT_SOURCE_DIR}
-   ${CMAKE_CURRENT_SOURCE_DIR}/dbus
-   ${CMAKE_CURRENT_SOURCE_DIR}/settings
-   ${CMAKE_CURRENT_BUILD_DIR}
+add_definitions(${QT_DEFINITIONS})
+
+add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
+
+remove_definitions(-DQT3_SUPPORT_WARNINGS -DQT3_SUPPORT)
+remove_definitions(-DQT_NO_CAST_FROM_ASCII -DQT_STRICT_ITERATORS -DQT_NO_CAST_FROM_BYTEARRAY -DQT_NO_KEYWORDS)
+
+include(FeatureSummary)
+include(GenerateExportHeader)
+
+include(ECMSetupVersion)
+include(ECMGenerateHeaders)
+
+set(KF5_VERSION "4.90.0")
+
+ecm_setup_version(${KF5_VERSION} VARIABLE_PREFIX NETWORKMANAGERQT
+                        VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/networkmanagerqt_version.h"
+                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5NetworkManagerQtConfigVersion.cmake"
+                        SOVERSION 5)
+
+#add_subdirectory(tests)
+add_subdirectory(src)
+##################  examples  ################################
+# option(BUILD_EXAMPLES "Build example applications" FALSE)
+# if (BUILD_EXAMPLES)
+#     add_subdirectory(examples)
+# endif(BUILD_EXAMPLES)
+
+# create a Config.cmake and a ConfigVersion.cmake file and install them
+set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5NetworkManagerQt")
+
+include(ECMPackageConfigHelpers)
+
+ecm_configure_package_config_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/KF5NetworkManagerQtConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5NetworkManagerQtConfig.cmake"
+  INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
 )
 
-option(BUILD_EXAMPLES "Build example applications" FALSE)
-if (BUILD_EXAMPLES)
-    add_subdirectory(examples)
-endif(BUILD_EXAMPLES)
-
-option(DISABLE_TESTING "Disable unit tests" FALSE)
-if (DISABLE_TESTING)
-    message(STATUS "Disabling unit tests")
-else()
-    enable_testing(true)
-    add_subdirectory(tests)
-endif()
-
-## CMakeLists for NetworkManagerQt library
-set(CMAKE_AUTOMOC ON)
-
-# As moc files are generated in the binary dir, tell CMake
-# to always look for includes there:
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
-set(NetworkManagerQt_HEADERS
-    device.h
-    accesspoint.h
-    activeconnection.h
-    adsldevice.h
-    bluetoothdevice.h
-    bonddevice.h
-    bridgedevice.h
-    connection.h
-    dhcp4config.h
-    dhcp6config.h
-    infinibanddevice.h
-    ipaddress.h
-    iproute.h
-    ipconfig.h
-    manager.h
-    modemdevice.h
-    olpcmeshdevice.h
-    secretagent.h
-    settings.h
-    utils.h
-    vlandevice.h
-    vpnconnection.h
-    vpnplugin.h
-    wimaxdevice.h
-    wimaxnsp.h
-    wireddevice.h
-    wirelessdevice.h
-    wirelessnetwork.h
-    generic-types.h
-    NetworkManagerQt-export.h
-)
-
-set(NetworkManagerQt_PRIVATE_HEADERS
-    manager_p.h
-    settings_p.h
-    #settings/template_p.h
-)
-
-set(NetworkManagerQt_PART_SRCS
-    device.cpp
-    accesspoint.cpp
-    activeconnection.cpp
-    adsldevice.cpp
-    bluetoothdevice.cpp
-    bonddevice.cpp
-    bridgedevice.cpp
-    connection.cpp
-    dhcp4config.cpp
-    dhcp6config.cpp
-    infinibanddevice.cpp
-    ipaddress.cpp
-    iproute.cpp
-    ipconfig.cpp
-    manager.cpp
-    modemdevice.cpp
-    olpcmeshdevice.cpp
-    secretagent.cpp
-    settings.cpp
-    utils.cpp
-    vlandevice.cpp
-    vpnconnection.cpp
-    vpnplugin.cpp
-    wimaxdevice.cpp
-    wimaxnsp.cpp
-    wireddevice.cpp
-    wirelessdevice.cpp
-    wirelessnetwork.cpp
-    generic-types.cpp
-)
-
-set(DBUS_INTERFACE_SRCS
-   dbus/nm-access-pointinterface.cpp
-   dbus/nm-active-connectioninterface.cpp
-   dbus/nm-agent-managerinterface.cpp
-   dbus/nm-device-adslinterface.cpp
-   dbus/nm-device-bondinterface.cpp
-   dbus/nm-device-bridgeinterface.cpp
-   dbus/nm-device-btinterface.cpp
-   dbus/nm-device-ethernetinterface.cpp
-   dbus/nm-device-infinibandinterface.cpp
-   dbus/nm-device-modeminterface.cpp
-   dbus/nm-device-olpc-meshinterface.cpp
-   dbus/nm-device-vlaninterface.cpp
-   dbus/nm-device-wifiinterface.cpp
-   dbus/nm-device-wimaxinterface.cpp
-   dbus/nm-deviceinterface.cpp
-   dbus/nm-dhcp4-configinterface.cpp
-   dbus/nm-dhcp6-configinterface.cpp
-   dbus/nm-ip4-configinterface.cpp
-   dbus/nm-ip6-configinterface.cpp
-   dbus/nm-managerinterface.cpp
-   dbus/nm-ppp-managerinterface.cpp
-   #dbus/nm-secret-agentinterface.cpp
-   dbus/nm-secret-agentadaptor.cpp
-   dbus/nm-settings-connectioninterface.cpp
-   dbus/nm-settingsinterface.cpp
-   dbus/nm-vpn-connectioninterface.cpp
-   dbus/nm-vpn-plugininterface.cpp
-   dbus/nm-wimax-nspinterface.cpp
-   )
-
-set(CONNECTIONS_SETTINGS_SRCS
-    settings/wiredsetting.cpp
-    settings/olpcmeshsetting.cpp
-    settings/wirelesssetting.cpp
-    settings/wirelesssecuritysetting.cpp
-    settings/security8021xsetting.cpp
-    settings/adslsetting.cpp
-    settings/bluetoothsetting.cpp
-    settings/bondsetting.cpp
-    settings/bridgesetting.cpp
-    settings/bridgeportsetting.cpp
-    settings/cdmasetting.cpp
-    settings/connectionsettings.cpp
-    settings/gsmsetting.cpp
-    settings/ipv4setting.cpp
-    settings/ipv6setting.cpp
-    settings/infinibandsetting.cpp
-    settings/pppsetting.cpp
-    settings/pppoesetting.cpp
-    settings/setting.cpp
-    settings/serialsetting.cpp
-    #settings/template.cpp
-    settings/vlansetting.cpp
-    settings/vpnsetting.cpp
-    settings/wimaxsetting.cpp
-    )
-
-set(CONNECTIONS_SETTINGS_HEADERS
-    settings/wiredsetting.h
-    settings/olpcmeshsetting.h
-    settings/wirelesssetting.h
-    settings/wirelesssecuritysetting.h
-    settings/security8021xsetting.h
-    settings/adslsetting.h
-    settings/bluetoothsetting.h
-    settings/bondsetting.h
-    settings/bridgesetting.h
-    settings/bridgeportsetting.h
-    settings/cdmasetting.h
-    settings/connectionsettings.h
-    settings/gsmsetting.h
-    settings/ipv4setting.h
-    settings/ipv6setting.h
-    settings/infinibandsetting.h
-    settings/pppsetting.h
-    settings/pppoesetting.h
-    settings/setting.h
-    settings/serialsetting.h
-    #settings/template.h
-    settings/vlansetting.h
-    settings/vpnsetting.h
-    settings/wimaxsetting.h
-    )
-
-if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 0.9.9.0 OR ${NETWORKMANAGER_VERSION} VERSION_GREATER 0.9.9.0)
-    set(NetworkManagerQt_HEADERS
-        ${NetworkManagerQt_HEADERS}
-        genericdevice.h
-        gredevice.h
-        macvlandevice.h
-        teamdevice.h
-        tundevice.h
-        vethdevice.h
-        )
-
-    set(NetworkManagerQt_PART_SRCS
-        ${NetworkManagerQt_PART_SRCS}
-        genericdevice.cpp
-        gredevice.cpp
-        macvlandevice.cpp
-        teamdevice.cpp
-        tundevice.cpp
-        vethdevice.cpp
-        )
-
-    set(DBUS_INTERFACE_SRCS
-        ${DBUS_INTERFACE_SRCS}
-        dbus/nm-device-genericinterface.cpp
-        dbus/nm-device-greinterface.cpp
-        dbus/nm-device-macvlaninterface.cpp
-        dbus/nm-device-teaminterface.cpp
-        dbus/nm-device-tuninterface.cpp
-        dbus/nm-device-vethinterface.cpp
-        )
-
-    set(CONNECTIONS_SETTINGS_SRCS
-        ${CONNECTIONS_SETTINGS_SRCS}
-        settings/teamsetting.cpp
-        )
-
-    SET(CONNECTIONS_SETTINGS_HEADERS
-        ${CONNECTIONS_SETTINGS_HEADERS}
-        settings/teamsetting.h
-        )
-endif()
-
-add_library(NetworkManagerQt5 SHARED
-    ${NetworkManagerQt_PART_SRCS}
-    ${DBUS_INTERFACE_SRCS}
-    ${CONNECTIONS_SETTINGS_SRCS}
-)
-
-qt5_use_modules(NetworkManagerQt5 Core Network DBus)
-install(TARGETS NetworkManagerQt5 DESTINATION ${CMAKE_INSTALL_LIBDIR})
-
-install( FILES
-   ${NetworkManagerQt_HEADERS}
-   DESTINATION
-   ${CMAKE_INSTALL_INCLUDEDIR}/NetworkManagerQt5/NetworkManagerQt COMPONENT Devel)
-
-install( FILES
-   ${CONNECTIONS_SETTINGS_HEADERS}
-   DESTINATION
-   ${CMAKE_INSTALL_INCLUDEDIR}/NetworkManagerQt5/NetworkManagerQt/settings COMPONENT Devel)
-
-set_property(TARGET NetworkManagerQt5 PROPERTY COMPILE_DEFINITIONS MAKE_NETWORKMANAGERQT_LIB)
-set_property(TARGET NetworkManagerQt5 PROPERTY VERSION ${VERSION})
-set_property(TARGET NetworkManagerQt5 PROPERTY SOVERSION 0)
-
-message(STATUS "Writing pkg-config file...")
-configure_file(${CMAKE_SOURCE_DIR}/NetworkManagerQt.pc.cmake ${CMAKE_BINARY_DIR}/NetworkManagerQt5.pc @ONLY)
 install(FILES
-    ${CMAKE_BINARY_DIR}/NetworkManagerQt5.pc
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
-    RENAME NetworkManagerQt5.pc)
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5NetworkManagerQtConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5NetworkManagerQtConfigVersion.cmake"
+  DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+  COMPONENT Devel
+)
 
-add_subdirectory(include)
+install(EXPORT KF5NetworkManagerQtTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE KF5NetworkManagerQtTargets.cmake NAMESPACE KF5:: )
 
-##################  apidox ################################
-find_package(Doxygen)
+install(FILES
+   ${CMAKE_CURRENT_BINARY_DIR}/networkmanagerqt_version.h
+  DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel
+)
 
-if(DOXYGEN_EXECUTABLE)
-  configure_file(${CMAKE_SOURCE_DIR}/.Doxyfile.cmake ${CMAKE_BINARY_DIR}/Doxyfile)
-
-  if(EXISTS ${QT_DOC_DIR}/html)
-    set(QTDOCS "${QT_DOC_DIR}/html")
-  else(EXISTS ${QT_DOC_DIR}/html)
-    set(QTDOCS "http://qt-project.org/doc/latest/")
-  endif(EXISTS ${QT_DOC_DIR}/html)
-
-  add_custom_target(
-    apidox
-    COMMAND ${DOXYGEN_EXECUTABLE} Doxyfile)
-endif(DOXYGEN_EXECUTABLE)
-
-##################  uninstall target  ########################
-configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-    IMMEDIATE @ONLY)
-
-add_custom_target(uninstall
-    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+if ("${CMAKE_BINARY_DIR}" STREQUAL "${CMAKE_CURRENT_BINARY_DIR}")
+  feature_summary(WHAT ALL   FATAL_ON_MISSING_REQUIRED_PACKAGES)
+endif()
