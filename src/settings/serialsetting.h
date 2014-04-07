@@ -69,7 +69,7 @@ private:
     Q_DECLARE_PRIVATE(SerialSetting)
 };
 
-QDebug operator<<(QDebug dbg, const SerialSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const SerialSetting &setting);
 
 }
 

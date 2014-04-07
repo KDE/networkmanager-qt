@@ -128,7 +128,7 @@ private:
     Q_DECLARE_PRIVATE(ConnectionSettings)
 };
 
-QDebug operator<<(QDebug dbg, const ConnectionSettings &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const ConnectionSettings &setting);
 
 }
 

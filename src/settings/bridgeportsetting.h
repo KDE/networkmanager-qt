@@ -61,7 +61,7 @@ private:
     Q_DECLARE_PRIVATE(BridgePortSetting)
 };
 
-QDebug operator<<(QDebug dbg, const BridgePortSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const BridgePortSetting &setting);
 
 }
 

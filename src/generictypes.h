@@ -23,6 +23,8 @@
 #ifndef GENERIC_TYPES_H
 #define GENERIC_TYPES_H
 
+#include <networkmanagerqt_export.h>
+
 #include <QtCore/QVariantMap>
 #include <QDBusArgument>
 
@@ -40,8 +42,8 @@ typedef QMap<QString, QString> NMStringMap;
 typedef QMapIterator<QString, QString> NMStringMapIterator;
 Q_DECLARE_METATYPE(NMStringMap)
 
-QDBusArgument &operator<<(QDBusArgument &argument, const NMStringMap &mydict);
-const QDBusArgument &operator>>(const QDBusArgument &argument, NMStringMap &mydict);
+NETWORKMANAGERQT_EXPORT QDBusArgument &operator<<(QDBusArgument &argument, const NMStringMap &mydict);
+NETWORKMANAGERQT_EXPORT const QDBusArgument &operator>>(const QDBusArgument &argument, NMStringMap &mydict);
 
 typedef struct {
     QByteArray address;
@@ -53,8 +55,8 @@ Q_DECLARE_METATYPE(IpV6DBusAddress)
 typedef QList<IpV6DBusAddress> IpV6DBusAddressList;
 Q_DECLARE_METATYPE(IpV6DBusAddressList)
 
-QDBusArgument &operator<<(QDBusArgument &argument, const IpV6DBusAddress &address);
-const QDBusArgument &operator>>(const QDBusArgument &argument, IpV6DBusAddress &address);
+NETWORKMANAGERQT_EXPORT QDBusArgument &operator<<(QDBusArgument &argument, const IpV6DBusAddress &address);
+NETWORKMANAGERQT_EXPORT const QDBusArgument &operator>>(const QDBusArgument &argument, IpV6DBusAddress &address);
 
 typedef struct {
     QByteArray destination;
@@ -67,8 +69,8 @@ Q_DECLARE_METATYPE(IpV6DBusRoute)
 typedef QList<IpV6DBusRoute> IpV6DBusRouteList;
 Q_DECLARE_METATYPE(IpV6DBusRouteList)
 
-QDBusArgument &operator<<(QDBusArgument &argument, const IpV6DBusRoute &route);
-const QDBusArgument &operator>>(const QDBusArgument &argument, IpV6DBusRoute &route);
+NETWORKMANAGERQT_EXPORT QDBusArgument &operator<<(QDBusArgument &argument, const IpV6DBusRoute &route);
+NETWORKMANAGERQT_EXPORT const QDBusArgument &operator>>(const QDBusArgument &argument, IpV6DBusRoute &route);
 
 // ipv6 nameservers
 typedef QList<QByteArray> IpV6DBusNameservers;
@@ -80,7 +82,7 @@ typedef struct {
 } DeviceDBusStateReason;
 Q_DECLARE_METATYPE(DeviceDBusStateReason)
 
-QDBusArgument &operator<<(QDBusArgument &argument, const DeviceDBusStateReason &reason);
-const QDBusArgument &operator>>(const QDBusArgument &argument, DeviceDBusStateReason &reason);
+NETWORKMANAGERQT_EXPORT QDBusArgument &operator<<(QDBusArgument &argument, const DeviceDBusStateReason &reason);
+NETWORKMANAGERQT_EXPORT const QDBusArgument &operator>>(const QDBusArgument &argument, DeviceDBusStateReason &reason);
 
 #endif // GENERIC_TYPES_H

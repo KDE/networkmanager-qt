@@ -27,8 +27,8 @@
 
 #include <networkmanagerqt_export.h>
 #include "wirelessdevice.h"
-#include "settings/wirelesssecuritysetting.h"
-#include "settings/wirelesssetting.h"
+#include "wirelesssecuritysetting.h"
+#include "wirelesssetting.h"
 
 namespace NetworkManager
 {

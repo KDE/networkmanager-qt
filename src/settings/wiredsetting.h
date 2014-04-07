@@ -89,7 +89,7 @@ private:
     Q_DECLARE_PRIVATE(WiredSetting)
 };
 
-QDebug operator<<(QDebug dbg, const WiredSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const WiredSetting &setting);
 
 }
 

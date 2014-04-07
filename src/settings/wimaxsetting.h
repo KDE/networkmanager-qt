@@ -59,7 +59,7 @@ private:
     Q_DECLARE_PRIVATE(WimaxSetting)
 };
 
-QDebug operator<<(QDebug dbg, const WimaxSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const WimaxSetting &setting);
 
 }
 

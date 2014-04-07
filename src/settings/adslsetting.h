@@ -78,7 +78,7 @@ private:
     Q_DECLARE_PRIVATE(AdslSetting)
 };
 
-QDebug operator<<(QDebug dbg, const AdslSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const AdslSetting &setting);
 
 }
 

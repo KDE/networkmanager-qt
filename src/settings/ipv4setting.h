@@ -21,7 +21,7 @@
 #ifndef NETWORKMANAGERQT_IPV4_SETTING_H
 #define NETWORKMANAGERQT_IPV4_SETTING_H
 
-#include "../ipconfig.h"
+#include "ipconfig.h"
 #include <networkmanagerqt_export.h>
 #include "setting.h"
 
@@ -92,7 +92,7 @@ private:
     Q_DECLARE_PRIVATE(Ipv4Setting)
 };
 
-QDebug operator<<(QDebug dbg, const Ipv4Setting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const Ipv4Setting &setting);
 
 }
 

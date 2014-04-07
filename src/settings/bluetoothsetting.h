@@ -60,7 +60,7 @@ private:
     Q_DECLARE_PRIVATE(BluetoothSetting)
 };
 
-QDebug operator<<(QDebug dbg, const BluetoothSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const BluetoothSetting &setting);
 
 }
 

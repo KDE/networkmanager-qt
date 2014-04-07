@@ -197,7 +197,7 @@ private:
     Q_DECLARE_PRIVATE(Security8021xSetting)
 };
 
-QDebug operator<<(QDebug dbg, const Security8021xSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const Security8021xSetting &setting);
 
 }
 

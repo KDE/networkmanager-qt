@@ -73,7 +73,7 @@ private:
     Q_DECLARE_PRIVATE(BridgeSetting)
 };
 
-QDebug operator<<(QDebug dbg, const BridgeSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const BridgeSetting &setting);
 
 }
 

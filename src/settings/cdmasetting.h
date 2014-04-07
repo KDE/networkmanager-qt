@@ -70,7 +70,7 @@ private:
     Q_DECLARE_PRIVATE(CdmaSetting)
 };
 
-QDebug operator<<(QDebug dbg, const CdmaSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const CdmaSetting &setting);
 
 }
 

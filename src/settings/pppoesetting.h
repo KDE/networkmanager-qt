@@ -70,7 +70,7 @@ private:
     Q_DECLARE_PRIVATE(PppoeSetting)
 };
 
-QDebug operator<<(QDebug dbg, const PppoeSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const PppoeSetting &setting);
 
 }
 

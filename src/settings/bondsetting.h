@@ -67,7 +67,7 @@ private:
     Q_DECLARE_PRIVATE(BondSetting)
 };
 
-QDebug operator<<(QDebug dbg, const BondSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const BondSetting &setting);
 
 }
 

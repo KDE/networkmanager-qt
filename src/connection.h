@@ -25,7 +25,7 @@
 
 #include <networkmanagerqt_export.h>
 #include "generictypes.h"
-#include "settings/connectionsettings.h"
+#include "connectionsettings.h"
 
 #include <QObject>
 #include <QSharedPointer>

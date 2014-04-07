@@ -93,7 +93,7 @@ private:
     Q_DECLARE_PRIVATE(GsmSetting)
 };
 
-QDebug operator<<(QDebug dbg, const GsmSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const GsmSetting &setting);
 
 }
 

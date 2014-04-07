@@ -63,7 +63,7 @@ private:
     Q_DECLARE_PRIVATE(InfinibandSetting)
 };
 
-QDebug operator<<(QDebug dbg, const InfinibandSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const InfinibandSetting &setting);
 
 }
 

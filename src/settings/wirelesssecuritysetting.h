@@ -116,7 +116,7 @@ private:
     Q_DECLARE_PRIVATE(WirelessSecuritySetting)
 };
 
-QDebug operator<<(QDebug dbg, const WirelessSecuritySetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const WirelessSecuritySetting &setting);
 
 }
 

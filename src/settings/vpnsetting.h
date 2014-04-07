@@ -70,7 +70,7 @@ private:
     Q_DECLARE_PRIVATE(VpnSetting)
 };
 
-QDebug operator<<(QDebug dbg, const VpnSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const VpnSetting &setting);
 
 }
 

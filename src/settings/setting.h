@@ -23,7 +23,7 @@
 
 #include <networkmanagerqt_export.h>
 
-#include "../generictypes.h"
+#include "generictypes.h"
 
 #include <QtCore/QVariantMap>
 #include <QtCore/QStringList>
@@ -105,7 +105,7 @@ private:
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(Setting::SecretFlags)
 
-QDebug operator<<(QDebug dbg, const Setting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const Setting &setting);
 
 }
 

@@ -61,7 +61,7 @@ private:
     Q_DECLARE_PRIVATE(OlpcMeshSetting)
 };
 
-QDebug operator<<(QDebug dbg, const OlpcMeshSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const OlpcMeshSetting &setting);
 
 }
 

@@ -88,7 +88,7 @@ private:
     Q_DECLARE_PRIVATE(Ipv6Setting)
 };
 
-QDebug operator<<(QDebug dbg, const Ipv6Setting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const Ipv6Setting &setting);
 
 }
 

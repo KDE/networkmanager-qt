@@ -106,7 +106,7 @@ private:
     Q_DECLARE_PRIVATE(PppSetting)
 };
 
-QDebug operator<<(QDebug dbg, const PppSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const PppSetting &setting);
 
 }
 

@@ -59,7 +59,7 @@ private:
     Q_DECLARE_PRIVATE(TeamSetting)
 };
 
-QDebug operator<<(QDebug dbg, const TeamSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const TeamSetting &setting);
 
 }
 

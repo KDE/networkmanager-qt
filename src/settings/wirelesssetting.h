@@ -98,7 +98,7 @@ private:
     Q_DECLARE_PRIVATE(WirelessSetting)
 };
 
-QDebug operator<<(QDebug dbg, const WirelessSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const WirelessSetting &setting);
 
 }
 
