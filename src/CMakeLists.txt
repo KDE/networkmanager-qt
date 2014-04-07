@@ -5,6 +5,7 @@ include_directories(
    ${NM-UTIL_INCLUDE_DIRS}
    ${NM-GLIB_INCLUDE_DIRS}
    ${CMAKE_CURRENT_SOURCE_DIR}/dbus
+   ${CMAKE_CURRENT_SOURCE_DIR}/settings
 )
 
 set(NetworkManagerQt_PART_SRCS
@@ -153,6 +154,7 @@ ecm_generate_headers(NetworkManagerQt_HEADERS
   GenericTypes
   GreDevice
   InfinibandDevice
+  IpAddress
   IpConfig
   IpRoute
   MacVlanDevice
@@ -169,6 +171,7 @@ ecm_generate_headers(NetworkManagerQt_HEADERS
   VpnConnection
   VpnPlugin
   WimaxDevice
+  WimaxNsp
   WiredDevice
   WirelessDevice
   WirelessNetwork
@@ -202,9 +205,6 @@ ecm_generate_headers(NetworkManagerQt_SETTINGS_HEADERS
   WirelessSecuritySetting
   WirelessSetting
 
-  # this is not a typo (should be Settings), but we had to rename it,
-  # because it is conflicting with Settings class
-  PREFIX Setting
   RELATIVE settings
   REQUIRED_HEADERS NetworkManagerQt_SETTINGS_HEADERS
 )
