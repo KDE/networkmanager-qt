@@ -23,7 +23,7 @@
 #ifndef NETWORKMANAGERQT_WIMAXDEVICE_H
 #define NETWORKMANAGERQT_WIMAXDEVICE_H
 
-#include "NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 
 #include "device.h"
 #include "wimaxnsp.h"

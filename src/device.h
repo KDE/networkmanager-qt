@@ -28,7 +28,7 @@
 #include <QtCore/QtGlobal>
 #include <QSharedPointer>
 
-#include "NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 #include "generictypes.h"
 #include "ipconfig.h"
 #include "dhcp4config.h"

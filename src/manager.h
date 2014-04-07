@@ -23,7 +23,7 @@
 #ifndef NETWORKMANAGERQT_NETWORKMANAGER_H
 #define NETWORKMANAGERQT_NETWORKMANAGER_H
 
-#include "NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 
 #include <QtCore/QtGlobal>
 #include <QtDBus/QtDBus>

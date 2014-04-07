@@ -22,7 +22,7 @@
 #define NETWORKMANAGERQT_TEAM_DEVICE_H
 
 #include "device.h"
-#include "NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 
 namespace NetworkManager {
 

@@ -23,7 +23,7 @@
 #ifndef NETWORKMANAGERQT_VPNCONNECTION_H
 #define NETWORKMANAGERQT_VPNCONNECTION_H
 
-#include "NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 
 #include "activeconnection.h"
 

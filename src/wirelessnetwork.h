@@ -23,7 +23,7 @@
 #ifndef NETWORKMANAGERQT_WIRELESSNETWORK_H
 #define NETWORKMANAGERQT_WIRELESSNETWORK_H
 
-#include "NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 #include "accesspoint.h"
 
 #include <QtCore/QObject>

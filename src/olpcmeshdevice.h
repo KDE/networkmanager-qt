@@ -24,7 +24,7 @@
 
 #include "device.h"
 
-#include "NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 
 #include <QDBusObjectPath>
 

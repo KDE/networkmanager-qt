@@ -23,7 +23,7 @@
 #ifndef NETWORKMANAGERQT_WIREDDEVICE_H
 #define NETWORKMANAGERQT_WIREDDEVICE_H
 
-#include "NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 
 #include "device.h"
 

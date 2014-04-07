@@ -23,7 +23,7 @@
 #ifndef NETWORKMANAGERQT_SETTINGS_CONNECTION_H
 #define NETWORKMANAGERQT_SETTINGS_CONNECTION_H
 
-#include "NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 #include "generictypes.h"
 #include "settings/connectionsettings.h"
 

@@ -21,7 +21,7 @@
 #ifndef NETWORKMANAGERQT_BRIDGE_SETTING_H
 #define NETWORKMANAGERQT_BRIDGE_SETTING_H
 
-#include "../NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 #include "setting.h"
 
 #include <QtCore/QString>

@@ -22,7 +22,7 @@
 #define NETWORKMANAGERQT_IPV4_SETTING_H
 
 #include "../ipconfig.h"
-#include "../NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 #include "setting.h"
 
 #include <QtCore/QStringList>

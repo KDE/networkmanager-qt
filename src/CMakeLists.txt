@@ -214,12 +214,8 @@ install(TARGETS KF5NetworkManagerQt EXPORT KF5NetworkManagerQtTargets ${INSTALL_
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/networkmanagerqt_export.h
   ${NetworkManagerQt_HEADERS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}/NetworkManagerQt COMPONENT Devel
-)
-
-install(FILES
   ${NetworkManagerQt_SETTINGS_HEADERS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}/NetworkManagerQt/setting COMPONENT Devel
+  DESTINATION ${INCLUDE_INSTALL_DIR}/NetworkManagerQt COMPONENT Devel
 )
 
 include(ECMGeneratePriFile)

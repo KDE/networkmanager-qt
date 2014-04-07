@@ -22,7 +22,7 @@
 #ifndef NETWORKMANAGERQT_IPCONFIG_H
 #define NETWORKMANAGERQT_IPCONFIG_H
 
-#include "NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 #include "ipaddress.h"
 #include "iproute.h"
 

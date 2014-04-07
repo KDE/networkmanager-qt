@@ -25,7 +25,7 @@
 #ifndef NETWORKMANAGERQT_BLUETOOTH_DEVICE_H
 #define NETWORKMANAGERQT_BLUETOOTH_DEVICE_H
 
-#include "NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 
 namespace NetworkManager {
 

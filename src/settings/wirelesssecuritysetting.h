@@ -22,7 +22,7 @@
 #ifndef NETWORKMANAGERQT_WIRELESSSECURITY_SETTING_H
 #define NETWORKMANAGERQT_WIRELESSSECURITY_SETTING_H
 
-#include "../NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 #include "setting.h"
 
 #include <QtCore/QStringList>

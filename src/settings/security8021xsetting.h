@@ -21,7 +21,7 @@
 #ifndef NETWORKMANAGERQT_SECURITY8021X_SETTING_H
 #define NETWORKMANAGERQT_SECURITY8021X_SETTING_H
 
-#include "../NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 #include "setting.h"
 
 namespace NetworkManager

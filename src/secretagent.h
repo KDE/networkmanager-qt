@@ -27,7 +27,7 @@
 #include <QDBusObjectPath>
 #include <QDBusMessage>
 
-#include "NetworkManagerQt-export.h"
+#include <networkmanagerqt_export.h>
 #include "generictypes.h"
 
 namespace NetworkManager
