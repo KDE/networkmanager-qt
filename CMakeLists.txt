@@ -36,7 +36,11 @@ ecm_setup_version(${KF5_VERSION} VARIABLE_PREFIX NETWORKMANAGERQT
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5NetworkManagerQtConfigVersion.cmake"
                         SOVERSION 5)
 
-#add_subdirectory(tests)
+# Enable unit testing
+if (BUILD_TESTING)
+    add_subdirectory(autotests)
+endif ()
+
 add_subdirectory(src)
 ##################  examples  ################################
 # option(BUILD_EXAMPLES "Build example applications" FALSE)
