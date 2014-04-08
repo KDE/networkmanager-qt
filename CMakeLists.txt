@@ -43,10 +43,10 @@ endif ()
 
 add_subdirectory(src)
 ##################  examples  ################################
-# option(BUILD_EXAMPLES "Build example applications" FALSE)
-# if (BUILD_EXAMPLES)
-#     add_subdirectory(examples)
-# endif(BUILD_EXAMPLES)
+option(BUILD_EXAMPLES "Build example applications" FALSE)
+if (BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif(BUILD_EXAMPLES)
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them
 set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5NetworkManagerQt")

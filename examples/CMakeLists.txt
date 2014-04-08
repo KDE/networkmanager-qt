@@ -1,24 +1,40 @@
 project(exampleNetworkManagerQt)
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 
-include(FindPkgConfig)
+find_package(ECM 0.0.12 REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-pkg_check_modules(NETWORKMANAGERQT REQUIRED NetworkManagerQt)
-if (NOT NETWORKMANAGERQT_FOUND)
-    message(FATAL_ERROR "ERROR: NetworkManagerQt not found. http://projects.kde.org/search?q=networkmanager&scope=all&all_words=1&projects=1&submit=Submit")
-endif (NOT NETWORKMANAGERQT_FOUND)
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
 
-pkg_check_modules(QTNETWORK REQUIRED QtNetwork)
-pkg_check_modules(NETWORKMANAGER REQUIRED NetworkManager)
+include(ECMPackageConfigHelpers)
+include(ECMOptionalAddSubdirectory)
+include(FeatureSummary)
 
-include_directories(${QTNETWORK_INCLUDE_DIRS} ${NETWORKMANAGERQT_INCLUDE_DIRS} ${NETWORKMANAGER_INCLUDE_DIRS})
-link_directories(${QTNETWORK_LIBRARY_DIRS} ${NETWORKMANAGERQT_LIBRARY_DIRS})
+find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
+    Core
+    Network
+)
+
+find_package(KF5NetworkManagerQt)
+set_package_properties(KF5NetworkManagerQt PROPERTIES
+                       TYPE REQUIRED)
+
+find_package(NetworkManager)
+set_package_properties(NetworkManager PROPERTIES
+                       TYPE REQUIRED)
+
+include_directories(${NETWORKMANAGER_INCLUDE_DIRS})
 
 set(exampleNetworkManagerQt_SRCS
    main.cpp
 )
 
 add_executable(exampleNetworkManagerQt ${exampleNetworkManagerQt_SRCS})
-target_link_libraries(exampleNetworkManagerQt NetworkManagerQt QtCore QtNetwork)
+target_link_libraries(exampleNetworkManagerQt
+    KF5::NetworkManagerQt
+    Qt5::Core
+    Qt5::Network)
 
 add_subdirectory(createconnection)
