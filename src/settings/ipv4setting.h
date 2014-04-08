@@ -43,7 +43,7 @@ public:
     explicit Ipv4Setting(const Ptr &other);
     ~Ipv4Setting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setMethod(ConfigMethod method);
     ConfigMethod method() const;
@@ -81,9 +81,9 @@ public:
     void setMayFail(bool mayFail);
     bool mayFail() const;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     Ipv4SettingPrivate *d_ptr;

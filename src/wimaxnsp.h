@@ -32,6 +32,9 @@ namespace NetworkManager {
 
 class WimaxNspPrivate;
 
+/**
+ * Wimax network service provider (access point)
+ */
 class NETWORKMANAGERQT_EXPORT WimaxNsp : public QObject
 {
     Q_OBJECT

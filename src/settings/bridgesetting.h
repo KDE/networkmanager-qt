@@ -39,7 +39,7 @@ public:
     explicit BridgeSetting(const Ptr &other);
     ~BridgeSetting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setInterfaceName(const QString &name);
     QString interfaceName() const;
@@ -62,9 +62,9 @@ public:
     void setAgingTime(quint32 time);
     quint32 agingTime() const;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     BridgeSettingPrivate *d_ptr;

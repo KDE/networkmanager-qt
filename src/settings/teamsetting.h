@@ -40,7 +40,7 @@ public:
     explicit TeamSetting(const Ptr &other);
     ~TeamSetting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setInterfaceName(const QString &name);
     QString interfaceName() const;
@@ -48,9 +48,9 @@ public:
     QString config() const;
     void setConfig(const QString & config);
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     TeamSettingPrivate *d_ptr;

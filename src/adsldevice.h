@@ -39,7 +39,7 @@ public:
     explicit AdslDevice(const QString &path, QObject *parent = 0);
     virtual ~AdslDevice();
 
-    virtual Type type() const;
+    virtual Type type() const Q_DECL_OVERRIDE;
     /**
      * Indicates whether the physical carrier is found
      */
@@ -56,7 +56,7 @@ protected:
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */
-    virtual void propertyChanged(const QString &property, const QVariant &value);
+    virtual void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
 
 private:
     Q_DECLARE_PRIVATE(AdslDevice)

@@ -36,7 +36,7 @@ namespace NetworkManager
 class WimaxDevicePrivate;
 
 /**
- * A wireless network interface
+ * Wimax network interface
  */
 class NETWORKMANAGERQT_EXPORT WimaxDevice : public Device
 {
@@ -59,7 +59,7 @@ public:
     /**
      * Return the type
      */
-    virtual Type type() const;
+    virtual Type type() const Q_DECL_OVERRIDE;
     /**
      * List of network service providers currently visible to the hardware
      */
@@ -154,7 +154,7 @@ protected:
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */
-    virtual void propertyChanged(const QString &property, const QVariant &value);
+    virtual void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
 
 private:
     Q_DECLARE_PRIVATE(WimaxDevice)

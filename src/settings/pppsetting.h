@@ -39,7 +39,7 @@ public:
     explicit PppSetting(const Ptr &other);
     ~PppSetting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setNoAuth(bool require);
     bool noAuth() const;
@@ -95,9 +95,9 @@ public:
     void setLcpEchoInterval(quint32 interval);
     quint32 lcpEchoInterval() const;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     PppSettingPrivate *d_ptr;

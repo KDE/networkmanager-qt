@@ -48,7 +48,7 @@ public:
     explicit Security8021xSetting(const Ptr &other);
     ~Security8021xSetting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setEapMethods(const QList<EapMethod> &methods);
     QList<EapMethod> eapMethods() const;
@@ -180,15 +180,15 @@ public:
     void setSystemCaCertificates(bool use);
     bool systemCaCertificates() const;
 
-    QStringList needSecrets(bool requestNew = false) const;
+    QStringList needSecrets(bool requestNew = false) const Q_DECL_OVERRIDE;
 
-    void secretsFromMap(const QVariantMap &secrets);
+    void secretsFromMap(const QVariantMap &secrets) Q_DECL_OVERRIDE;
 
-    QVariantMap secretsToMap() const;
+    QVariantMap secretsToMap() const Q_DECL_OVERRIDE;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     Security8021xSettingPrivate *const d_ptr;

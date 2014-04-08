@@ -49,7 +49,7 @@ public:
     /**
      * Return the type
      */
-    virtual Type type() const;
+    virtual Type type() const Q_DECL_OVERRIDE;
     /**
      * The generic family of access technologies the modem supports. Not all capabilities are
      * available at the same time however; some modems require a firmware reload or other
@@ -73,7 +73,7 @@ protected:
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */
-    virtual void propertyChanged(const QString &property, const QVariant &value);
+    virtual void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
 
 private:
     Q_DECLARE_PRIVATE(ModemDevice)

@@ -47,7 +47,7 @@ public:
     explicit BondSetting(const Ptr &other);
     ~BondSetting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setInterfaceName(const QString &name);
     QString interfaceName() const;
@@ -56,9 +56,9 @@ public:
     void setOptions(const NMStringMap &options);
     NMStringMap options() const;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     BondSettingPrivate *d_ptr;

@@ -41,7 +41,7 @@ public:
     explicit InfinibandSetting(const Ptr &other);
     ~InfinibandSetting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setMacAddress(const QByteArray &address);
     QByteArray macAddress() const;
@@ -52,9 +52,9 @@ public:
     void setTransportMode(TransportMode mode);
     TransportMode transportMode() const;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     InfinibandSettingPrivate *d_ptr;

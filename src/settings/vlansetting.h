@@ -42,7 +42,7 @@ public:
     explicit VlanSetting(const Ptr &other);
     ~VlanSetting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setInterfaceName(const QString &name);
     QString interfaceName() const;
@@ -62,9 +62,9 @@ public:
     void setEgressPriorityMap(const QStringList &map);
     QStringList egressPriorityMap() const;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     VlanSettingPrivate *d_ptr;

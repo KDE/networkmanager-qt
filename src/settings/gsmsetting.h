@@ -41,7 +41,7 @@ public:
     explicit GsmSetting(const Ptr &other);
     ~GsmSetting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setNumber(const QString &number);
     QString number() const;
@@ -76,15 +76,15 @@ public:
     void setHomeOnly(bool homeOnly);
     bool homeOnly() const;
 
-    void secretsFromMap(const QVariantMap &secrets);
+    void secretsFromMap(const QVariantMap &secrets) Q_DECL_OVERRIDE;
 
-    QVariantMap secretsToMap() const;
+    QVariantMap secretsToMap() const Q_DECL_OVERRIDE;
 
-    QStringList needSecrets(bool requestNew = false) const;
+    QStringList needSecrets(bool requestNew = false) const Q_DECL_OVERRIDE;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     GsmSettingPrivate *d_ptr;

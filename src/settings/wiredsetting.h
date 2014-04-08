@@ -43,7 +43,7 @@ public:
     explicit WiredSetting(const Ptr &other);
     ~WiredSetting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setPort(PortType port);
     PortType port() const;
@@ -78,9 +78,9 @@ public:
     void setS390Options(const QMap<QString, QString> &options);
     QMap<QString, QString> s390Options() const;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     WiredSettingPrivate *d_ptr;

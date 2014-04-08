@@ -45,7 +45,7 @@ public:
     explicit Ipv6Setting(const Ptr &other);
     ~Ipv6Setting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setMethod(ConfigMethod method);
     ConfigMethod method() const;
@@ -77,9 +77,9 @@ public:
     void setPrivacy(IPv6Privacy privacy);
     IPv6Privacy privacy() const;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     Ipv6SettingPrivate *const d_ptr;

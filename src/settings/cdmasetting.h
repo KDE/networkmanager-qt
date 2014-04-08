@@ -39,7 +39,7 @@ public:
     explicit CdmaSetting(const Ptr &other);
     ~CdmaSetting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setNumber(const QString &number);
     QString number() const;
@@ -53,15 +53,15 @@ public:
     void setPasswordFlags(SecretFlags flags);
     SecretFlags passwordFlags() const;
 
-    QStringList needSecrets(bool requestNew = false) const;
+    QStringList needSecrets(bool requestNew = false) const Q_DECL_OVERRIDE;
 
-    void secretsFromMap(const QVariantMap &secrets);
+    void secretsFromMap(const QVariantMap &secrets) Q_DECL_OVERRIDE;
 
-    QVariantMap secretsToMap() const;
+    QVariantMap secretsToMap() const Q_DECL_OVERRIDE;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     CdmaSettingPrivate *d_ptr;

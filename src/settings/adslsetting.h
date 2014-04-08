@@ -42,7 +42,7 @@ public:
     explicit AdslSetting(const Ptr &other);
     ~AdslSetting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setUsername(const QString &username);
     QString username() const;
@@ -65,11 +65,11 @@ public:
     void setVci(quint32 vci);
     quint32 vci() const;
 
-    QStringList needSecrets(bool requestNew = false) const;
+    QStringList needSecrets(bool requestNew = false) const Q_DECL_OVERRIDE;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     AdslSettingPrivate *d_ptr;

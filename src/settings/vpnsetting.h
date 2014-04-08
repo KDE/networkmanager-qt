@@ -39,7 +39,7 @@ public:
     explicit VpnSetting(const Ptr &other);
     ~VpnSetting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setServiceType(const QString &type);
     QString serviceType() const;
@@ -53,15 +53,15 @@ public:
     void setSecrets(const NMStringMap &secrets);
     NMStringMap secrets() const;
 
-    void secretsFromMap(const QVariantMap &secrets);
-    QVariantMap secretsToMap() const;
+    void secretsFromMap(const QVariantMap &secrets) Q_DECL_OVERRIDE;
+    QVariantMap secretsToMap() const Q_DECL_OVERRIDE;
 
-    void secretsFromStringMap(const NMStringMap &map);
-    NMStringMap secretsToStringMap() const;
+    void secretsFromStringMap(const NMStringMap &map) Q_DECL_OVERRIDE;
+    NMStringMap secretsToStringMap() const Q_DECL_OVERRIDE;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     VpnSettingPrivate *d_ptr;

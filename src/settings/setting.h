@@ -95,8 +95,6 @@ public:
     void setType(SettingType type);
     SettingType type() const;
 
-    QDebug foo(); // TODO bogus, remove me
-
 protected:
     SettingPrivate *d_ptr;
 

@@ -43,7 +43,7 @@ public:
     explicit WirelessSetting(const Ptr &setting);
     virtual ~WirelessSetting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setSsid(const QByteArray &ssid);
     QByteArray ssid() const;
@@ -87,9 +87,9 @@ public:
     void setHidden(bool hidden);
     bool hidden() const;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     WirelessSettingPrivate *d_ptr;

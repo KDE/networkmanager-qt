@@ -39,7 +39,7 @@ public:
     explicit OlpcMeshSetting(const Ptr &other);
     ~OlpcMeshSetting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
     void setSsid(const QByteArray &ssid);
     QByteArray ssid() const;
@@ -50,9 +50,9 @@ public:
     void setDhcpAnycastAddress(const QByteArray &address);
     QByteArray dhcpAnycastAddress() const;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     OlpcMeshSettingPrivate *d_ptr;
