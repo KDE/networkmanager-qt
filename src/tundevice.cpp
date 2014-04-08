@@ -40,6 +40,7 @@ public:
 NetworkManager::TunDevicePrivate::TunDevicePrivate(const QString &path, TunDevice *q):
     DevicePrivate(path, q), iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
+    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceTunInterface::PropertiesChanged, q, &TunDevice::propertiesChanged);
 }
 
 NetworkManager::TunDevicePrivate::~TunDevicePrivate()
@@ -49,10 +50,6 @@ NetworkManager::TunDevicePrivate::~TunDevicePrivate()
 NetworkManager::TunDevice::TunDevice(const QString &path, QObject *parent):
     Device(*new TunDevicePrivate(path, this), parent)
 {
-    Q_D(TunDevice);
-
-    connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::TunDevice::~TunDevice()

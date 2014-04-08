@@ -30,48 +30,43 @@ NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString &path, Wima
     : DevicePrivate(path, q)
     , wimaxIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
+    hardwareAddress = wimaxIface.hwAddress();
+    centerFrequency = wimaxIface.centerFrequency();
+    activeNsp = wimaxIface.activeNsp().path();
+    bsid = wimaxIface.bsid();
+    cinr = wimaxIface.cinr();
+    rssi = wimaxIface.rssi();
+    txPower = wimaxIface.txPower();
 
-}
-
-NetworkManager::WimaxDevice::WimaxDevice(const QString &path, QObject *parent)
-    : Device(*new WimaxDevicePrivate(path, this), parent)
-{
-    Q_D(WimaxDevice);
-    d->hardwareAddress = d->wimaxIface.hwAddress();
-    d->centerFrequency = d->wimaxIface.centerFrequency();
-    d->activeNsp = d->wimaxIface.activeNsp().path();
-    d->bsid = d->wimaxIface.bsid();
-    d->cinr = d->wimaxIface.cinr();
-    d->rssi = d->wimaxIface.rssi();
-    d->txPower = d->wimaxIface.txPower();
-
-    connect(&d->wimaxIface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(propertiesChanged(QVariantMap)));
-    connect(&d->wimaxIface, SIGNAL(NspAdded(QDBusObjectPath)),
-            this, SLOT(nspAdded(QDBusObjectPath)));
-    connect(&d->wimaxIface, SIGNAL(NspRemoved(QDBusObjectPath)),
-            this, SLOT(nspRemoved(QDBusObjectPath)));
+    QObject::connect(&wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::PropertiesChanged, q, &WimaxDevice::propertiesChanged);
+    QObject::connect(&wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspAdded, q, &WimaxDevice::nspAdded);
+    QObject::connect(&wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspRemoved, q, &WimaxDevice::nspRemoved);
 
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
 #if NM_CHECK_VERSION(0, 9, 9)
-    QList <QDBusObjectPath> nsps = d->wimaxIface.nsps();
+    QList <QDBusObjectPath> nsps = wimaxIface.nsps();
     foreach (const QDBusObjectPath &op, nsps) {
-        d->nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
+        nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
         //nmDebug() << "  " << op.path();
     }
 #else
-    QDBusReply< QList <QDBusObjectPath> > nspPathList = d->wimaxIface.GetNspList();
+    QDBusReply< QList <QDBusObjectPath> > nspPathList = wimaxIface.GetNspList();
     if (nspPathList.isValid()) {
         //nmDebug() << "Got device list";
         QList <QDBusObjectPath> nsps = nspPathList.value();
         foreach (const QDBusObjectPath &op, nsps) {
-            d->nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
+            nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
             //nmDebug() << "  " << op.path();
         }
     } else {
         nmDebug() << "Error getting NSP list: " << nspPathList.error().name() << ": " << nspPathList.error().message();
     }
 #endif
+}
+
+NetworkManager::WimaxDevice::WimaxDevice(const QString &path, QObject *parent)
+    : Device(*new WimaxDevicePrivate(path, this), parent)
+{
 }
 
 NetworkManager::WimaxDevice::~WimaxDevice()

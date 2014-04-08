@@ -31,14 +31,12 @@ NetworkManager::BluetoothDevicePrivate::BluetoothDevicePrivate(const QString &pa
     btCapabilities = static_cast<QFlags<NetworkManager::BluetoothDevice::Capability> >(btIface.btCapabilities());
     hardwareAddress = btIface.hwAddress();
     name = btIface.name();
+    QObject::connect(&btIface, &OrgFreedesktopNetworkManagerDeviceBluetoothInterface::PropertiesChanged, q, &BluetoothDevice::propertiesChanged);
 }
 
 NetworkManager::BluetoothDevice::BluetoothDevice(const QString &path, QObject *parent)
     : ModemDevice(*new BluetoothDevicePrivate(path, this), parent)
 {
-    Q_D(BluetoothDevice);
-    connect(&d->btIface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::BluetoothDevice::~BluetoothDevice()

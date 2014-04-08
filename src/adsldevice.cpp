@@ -44,6 +44,8 @@ NetworkManager::AdslDevicePrivate::AdslDevicePrivate(const QString &path, AdslDe
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
     , carrier(false)
 {
+    carrier = iface.carrier();
+    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceAdslInterface::PropertiesChanged, q, &AdslDevice::propertiesChanged);
 }
 
 NetworkManager::AdslDevice::~AdslDevice()
@@ -53,12 +55,6 @@ NetworkManager::AdslDevice::~AdslDevice()
 NetworkManager::AdslDevice::AdslDevice(const QString &path, QObject *parent)
     : Device(*new AdslDevicePrivate(path, this), parent)
 {
-    Q_D(AdslDevice);
-
-    d->carrier = d->iface.carrier();
-
-    connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::AdslDevicePrivate::~AdslDevicePrivate()

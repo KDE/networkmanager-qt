@@ -77,8 +77,8 @@ NetworkManager::Connection::Connection(const QString &path, QObject *parent)
 
     //nmDebug() << m_connection;
 
-    connect(&d->iface, SIGNAL(Updated()), this, SLOT(onConnectionUpdated()));
-    connect(&d->iface, SIGNAL(Removed()), this, SLOT(onConnectionRemoved()));
+    connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Updated, this, &Connection::onConnectionUpdated);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Removed, this, &Connection::onConnectionRemoved);
 }
 
 NetworkManager::Connection::~Connection()
@@ -132,7 +132,6 @@ void NetworkManager::Connection::secrets(const QString &setting)
 
 void NetworkManager::Connection::onSecretsArrived(QDBusPendingCallWatcher *watcher)
 {
-    Q_D(Connection);
     if (!watcher)
         return;
     QDBusPendingReply<NMVariantMapMap> reply = *watcher;

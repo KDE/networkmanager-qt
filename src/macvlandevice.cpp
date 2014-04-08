@@ -40,6 +40,7 @@ public:
 NetworkManager::MacVlanDevicePrivate::MacVlanDevicePrivate(const QString &path, MacVlanDevice *q):
     DevicePrivate(path, q), iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
+    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceMacvlanInterface::PropertiesChanged, q, &MacVlanDevice::propertiesChanged);
 }
 
 NetworkManager::MacVlanDevicePrivate::~MacVlanDevicePrivate()
@@ -49,10 +50,6 @@ NetworkManager::MacVlanDevicePrivate::~MacVlanDevicePrivate()
 NetworkManager::MacVlanDevice::MacVlanDevice(const QString &path, QObject *parent):
     Device(*new MacVlanDevicePrivate(path, this), parent)
 {
-    Q_D(MacVlanDevice);
-
-    connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::MacVlanDevice::~MacVlanDevice()

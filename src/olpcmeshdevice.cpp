@@ -29,24 +29,20 @@ NetworkManager::OlpcMeshDevicePrivate::OlpcMeshDevicePrivate(const QString &path
     : DevicePrivate(path, q)
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
+    hardwareAddress = iface.hwAddress();
+    activeChannel = iface.activeChannel();
+    companion = iface.companion().path();
 
+    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface::PropertiesChanged, q, &OlpcMeshDevice::propertiesChanged);
 }
 
 NetworkManager::OlpcMeshDevice::OlpcMeshDevice(const QString &path, QObject *parent)
     : Device(*new OlpcMeshDevicePrivate(path, this), parent)
 {
-    Q_D(OlpcMeshDevice);
-    d->hardwareAddress = d->iface.hwAddress();
-    d->activeChannel = d->iface.activeChannel();
-    d->companion = d->iface.companion().path();
-
-    connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::OlpcMeshDevice::~OlpcMeshDevice()
 {
-
 }
 
 NetworkManager::Device::Type NetworkManager::OlpcMeshDevice::type() const

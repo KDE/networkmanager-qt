@@ -45,6 +45,15 @@ NetworkManager::BridgeDevicePrivate::BridgeDevicePrivate(const QString &path, Br
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
     , carrier(false)
 {
+    carrier = iface.carrier();
+    hwAddress = iface.hwAddress();
+    QStringList list;
+    foreach (const QDBusObjectPath &op, iface.slaves()) {
+        list << op.path();
+    }
+    slaves = list;
+
+    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceBridgeInterface::PropertiesChanged, q, &BridgeDevice::propertiesChanged);
 }
 
 NetworkManager::BridgeDevicePrivate::~BridgeDevicePrivate()
@@ -54,18 +63,6 @@ NetworkManager::BridgeDevicePrivate::~BridgeDevicePrivate()
 NetworkManager::BridgeDevice::BridgeDevice(const QString &path, QObject *parent):
     Device(*new BridgeDevicePrivate(path, this), parent)
 {
-    Q_D(BridgeDevice);
-
-    d->carrier = d->iface.carrier();
-    d->hwAddress = d->iface.hwAddress();
-    QStringList list;
-    foreach (const QDBusObjectPath &op, d->iface.slaves()) {
-        list << op.path();
-    }
-    d->slaves = list;
-
-    connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::BridgeDevice::~BridgeDevice()

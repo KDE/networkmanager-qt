@@ -41,6 +41,7 @@ NetworkManager::TeamDevicePrivate::TeamDevicePrivate(const QString &path, TeamDe
     : DevicePrivate(path, q)
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
+    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceTeamInterface::PropertiesChanged, q, &TeamDevice::propertiesChanged);
 }
 
 NetworkManager::TeamDevicePrivate::~TeamDevicePrivate()
@@ -50,10 +51,6 @@ NetworkManager::TeamDevicePrivate::~TeamDevicePrivate()
 NetworkManager::TeamDevice::TeamDevice(const QString &path, QObject *parent)
     : Device(*new TeamDevicePrivate(path, this), parent)
 {
-    Q_D(TeamDevice);
-
-    connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::TeamDevice::~TeamDevice()
@@ -92,8 +89,6 @@ QStringList NetworkManager::TeamDevice::slaves() const
 
 void NetworkManager::TeamDevice::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(TeamDevice);
-
     if (property == QLatin1String("Carrier")) {
         emit carrierChanged(value.toBool());
     } else if (property == QLatin1String("HwAddress")) {

@@ -39,8 +39,7 @@ NetworkManager::Dhcp6Config::Dhcp6Config(const QString &path, QObject *owner)
     : d_ptr(new Dhcp6ConfigPrivate(path, owner))
 {
     Q_D(Dhcp6Config);
-    connect(&d->dhcp6Iface, SIGNAL(PropertiesChanged(QVariantMap)),
-            SLOT(dhcp6PropertiesChanged(QVariantMap)));
+    connect(&d->dhcp6Iface, &OrgFreedesktopNetworkManagerDHCP6ConfigInterface::PropertiesChanged, this, &Dhcp6Config::dhcp6PropertiesChanged);
     d->properties = d->dhcp6Iface.options();
 }
 

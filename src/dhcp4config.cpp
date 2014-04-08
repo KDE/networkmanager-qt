@@ -39,8 +39,7 @@ NetworkManager::Dhcp4Config::Dhcp4Config(const QString &path, QObject *owner)
     : d_ptr(new Dhcp4ConfigPrivate(path, owner))
 {
     Q_D(Dhcp4Config);
-    connect(&d->dhcp4Iface, SIGNAL(PropertiesChanged(QVariantMap)),
-            SLOT(dhcp4PropertiesChanged(QVariantMap)));
+    connect(&d->dhcp4Iface, &OrgFreedesktopNetworkManagerDHCP4ConfigInterface::PropertiesChanged, this, &Dhcp4Config::dhcp4PropertiesChanged);
     d->properties = d->dhcp4Iface.options();
 }
 

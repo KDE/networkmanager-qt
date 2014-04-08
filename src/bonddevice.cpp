@@ -44,6 +44,15 @@ NetworkManager::BondDevicePrivate::BondDevicePrivate(const QString &path, BondDe
     DevicePrivate(path, q), iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()),
     carrier(false)
 {
+    carrier = iface.carrier();
+    hwAddress = iface.hwAddress();
+    QStringList list;
+    foreach (const QDBusObjectPath &op, iface.slaves()) {
+        list << op.path();
+    }
+    slaves = list;
+
+    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceBondInterface::PropertiesChanged, q, &BondDevice::propertiesChanged);
 }
 
 NetworkManager::BondDevice::~BondDevice()
@@ -53,18 +62,6 @@ NetworkManager::BondDevice::~BondDevice()
 NetworkManager::BondDevice::BondDevice(const QString &path, QObject *parent):
     Device(*new BondDevicePrivate(path, this), parent)
 {
-    Q_D(BondDevice);
-
-    d->carrier = d->iface.carrier();
-    d->hwAddress = d->iface.hwAddress();
-    QStringList list;
-    foreach (const QDBusObjectPath &op, d->iface.slaves()) {
-        list << op.path();
-    }
-    d->slaves = list;
-
-    connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::BondDevicePrivate::~BondDevicePrivate()

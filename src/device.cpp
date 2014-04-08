@@ -152,7 +152,7 @@ void NetworkManager::DevicePrivate::init()
     connectionState = convertState(deviceIface.state());
     deviceType = static_cast<Device::Type>(deviceIface.deviceType());
 
-    QObject::connect(&deviceIface, SIGNAL(StateChanged(uint,uint,uint)), q, SLOT(deviceStateChanged(uint,uint,uint)));
+    QObject::connect(&deviceIface, &OrgFreedesktopNetworkManagerDeviceInterface::StateChanged, q, &Device::deviceStateChanged);
 }
 
 NetworkManager::Device::Capabilities NetworkManager::DevicePrivate::convertCapabilities(uint theirCaps)

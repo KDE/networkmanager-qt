@@ -41,6 +41,7 @@ NetworkManager::VethDevicePrivate::VethDevicePrivate(const QString &path, VethDe
     : DevicePrivate(path, q)
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
+    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceVethInterface::PropertiesChanged, q, &VethDevice::propertiesChanged);
 }
 
 NetworkManager::VethDevicePrivate::~VethDevicePrivate()
@@ -50,10 +51,6 @@ NetworkManager::VethDevicePrivate::~VethDevicePrivate()
 NetworkManager::VethDevice::VethDevice(const QString &path, QObject *parent)
     : Device(*new VethDevicePrivate(path, this), parent)
 {
-    Q_D(VethDevice);
-
-    connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::VethDevice::~VethDevice()
@@ -73,8 +70,6 @@ QString NetworkManager::VethDevice::peer() const
 
 void NetworkManager::VethDevice::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(VethDevice);
-
     if (property == QLatin1String("Peer")) {
         emit peerChanged();
     } else {

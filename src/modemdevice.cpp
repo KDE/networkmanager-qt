@@ -44,6 +44,7 @@ void NetworkManager::ModemDevicePrivate::initModemProperties()
     Q_Q(ModemDevice);
     modemCapabilities = convertModemCapabilities(modemIface.modemCapabilities());
     currentCapabilities = convertModemCapabilities(modemIface.currentCapabilities());
+    QObject::connect(&modemIface, &OrgFreedesktopNetworkManagerDeviceModemInterface::PropertiesChanged, q, &ModemDevice::propertiesChanged);
 }
 
 NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
@@ -51,9 +52,6 @@ NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
 {
     Q_D(ModemDevice);
     d->initModemProperties();
-
-    connect(&d->modemIface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd, QObject *parent)
@@ -61,9 +59,6 @@ NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd,
 {
     Q_D(ModemDevice);
     d->initModemProperties();
-
-    connect(&d->modemIface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::ModemDevice::~ModemDevice()
