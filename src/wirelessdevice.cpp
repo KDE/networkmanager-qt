@@ -178,7 +178,7 @@ void NetworkManager::WirelessDevice::accessPointAdded(const QDBusObjectPath &acc
         if (!ssid.isEmpty() && !d->networks.contains(ssid)) {
             NetworkManager::WirelessNetwork::Ptr wifiNetwork(new NetworkManager::WirelessNetwork(accessPointPtr, this), &QObject::deleteLater);
             d->networks.insert(ssid, wifiNetwork);
-            connect(wifiNetwork.data(), SIGNAL(disappeared(QString)), SLOT(removeNetwork(QString)));
+            connect(wifiNetwork.data(), &WirelessNetwork::disappeared, this, &WirelessDevice::removeNetwork);
             emit networkAppeared(ssid);
         }
     }

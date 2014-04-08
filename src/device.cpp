@@ -482,6 +482,7 @@ bool NetworkManager::Device::managed() const
     Q_D(const Device);
     return d->managed;
 }
+
 #if NM_CHECK_VERSION(0, 9, 9)
 uint NetworkManager::Device::mtu() const
 {
@@ -489,6 +490,7 @@ uint NetworkManager::Device::mtu() const
     return d->mtu;
 }
 #endif
+
 void NetworkManager::Device::disconnectInterface()
 {
     Q_D(Device);

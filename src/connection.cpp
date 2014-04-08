@@ -127,7 +127,7 @@ void NetworkManager::Connection::secrets(const QString &setting)
     QDBusPendingReply<NMVariantMapMap> reply = d->iface.GetSecrets(setting);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
     watcher->setProperty("libNetworkManagerQt_id", id);
-    connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this,  SLOT(onSecretsArrived(QDBusPendingCallWatcher*)));
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, &Connection::onSecretsArrived);
 }
 
 void NetworkManager::Connection::onSecretsArrived(QDBusPendingCallWatcher *watcher)

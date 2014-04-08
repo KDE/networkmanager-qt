@@ -32,7 +32,6 @@ NetworkManager::Dhcp6ConfigPrivate::Dhcp6ConfigPrivate(const QString &path, QObj
 
 NetworkManager::Dhcp6ConfigPrivate::~Dhcp6ConfigPrivate()
 {
-
 }
 
 NetworkManager::Dhcp6Config::Dhcp6Config(const QString &path, QObject *owner)

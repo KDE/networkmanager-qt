@@ -78,25 +78,25 @@ void NetworkManager::SecretAgent::sendError(NetworkManager::SecretAgent::Error e
     QString errorString;
     switch (error) {
     case NotAuthorized:
-        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String(".NotAuthorized");
+        errorString = QStringLiteral(NM_DBUS_INTERFACE_SECRET_AGENT) % QStringLiteral(".NotAuthorized");
         break;
     case InvalidConnection:
-        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String(".InvalidConnection");
+        errorString = QStringLiteral(NM_DBUS_INTERFACE_SECRET_AGENT) % QStringLiteral(".InvalidConnection");
         break;
     case UserCanceled:
-        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String(".UserCanceled");
+        errorString = QStringLiteral(NM_DBUS_INTERFACE_SECRET_AGENT) % QStringLiteral(".UserCanceled");
         break;
     case AgentCanceled:
-        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String(".AgentCanceled");
+        errorString = QStringLiteral(NM_DBUS_INTERFACE_SECRET_AGENT) % QStringLiteral(".AgentCanceled");
         break;
     case InternalError:
-        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String(".InternalError");
+        errorString = QStringLiteral(NM_DBUS_INTERFACE_SECRET_AGENT) % QStringLiteral(".InternalError");
         break;
     case NoSecrets:
-        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String(".NoSecrets");
+        errorString = QStringLiteral(NM_DBUS_INTERFACE_SECRET_AGENT) % QStringLiteral(".NoSecrets");
         break;
     default:
-        errorString = QLatin1String(NM_DBUS_INTERFACE_SECRET_AGENT) % QLatin1String(".Unknown");
+        errorString = QStringLiteral(NM_DBUS_INTERFACE_SECRET_AGENT) % QStringLiteral(".Unknown");
         break;
     }
 

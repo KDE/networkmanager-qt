@@ -85,7 +85,7 @@ void NetworkManager::SettingsPrivate::init()
     QDBusMessage message = QDBusMessage::createMethodCall(NetworkManagerPrivate::DBUS_SERVICE,
                                                           NetworkManagerPrivate::DBUS_SETTINGS_PATH,
                                                           NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                                          QLatin1String("GetAll"));
+                                                          QStringLiteral("GetAll"));
     message << iface.staticInterfaceName();
     QDBusConnection::systemBus().callWithCallback(message,
                                                   this,
@@ -134,8 +134,8 @@ QString NetworkManager::SettingsPrivate::addConnection(const NMVariantMapMap &co
 {
     QDBusPendingReply<QDBusObjectPath> reply = iface.AddConnection(connection);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
-    QVariantMap connectionSettings = connection.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
-    const QString id = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString();
+    QVariantMap connectionSettings = connection.value(QStringLiteral(NM_SETTING_CONNECTION_SETTING_NAME));
+    const QString id = connectionSettings.value(QStringLiteral(NM_SETTING_CONNECTION_UUID)).toString();
     watcher->setProperty("libNetworkManagerQt_id", id);
     connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this, SLOT(onConnectionAddArrived(QDBusPendingCallWatcher*)));
     return id;
@@ -146,8 +146,8 @@ QString NetworkManager::SettingsPrivate::addConnectionUnsaved(const NMVariantMap
 {
     QDBusPendingReply<QDBusObjectPath> reply = iface.AddConnectionUnsaved(connection);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
-    QVariantMap connectionSettings = connection.value(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME));
-    const QString id = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString();
+    QVariantMap connectionSettings = connection.value(QStringLiteral(NM_SETTING_CONNECTION_SETTING_NAME));
+    const QString id = connectionSettings.value(QStringLiteral(NM_SETTING_CONNECTION_UUID)).toString();
     watcher->setProperty("libNetworkManagerQt_id", id);
     connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this, SLOT(onConnectionAddArrived(QDBusPendingCallWatcher*)));
     return id;
@@ -257,7 +257,6 @@ void NetworkManager::SettingsPrivate::onConnectionRemoved(const QString &path)
 }
 #endif
 
-
 void NetworkManager::SettingsPrivate::daemonUnregistered()
 {
     connections.clear();
@@ -282,6 +281,7 @@ QString NetworkManager::addConnection(const NMVariantMapMap &connection)
 {
     return globalSettings->addConnection(connection);
 }
+
 #if NM_CHECK_VERSION(0, 9, 9)
 QString NetworkManager::addConnectionUnsaved(const NMVariantMapMap& connection)
 {
@@ -298,6 +298,7 @@ QDBusPendingReply< bool > NetworkManager::reloadConnections()
     return globalSettings->reloadConnections();
 }
 #endif
+
 void NetworkManager::saveHostname(const QString &hostname)
 {
     globalSettings->saveHostname(hostname);

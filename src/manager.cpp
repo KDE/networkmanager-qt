@@ -86,7 +86,7 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
 
 void NetworkManager::NetworkManagerPrivate::parseVersion(const QString &version)
 {
-    QStringList sl = version.split('.');
+    const QStringList sl = version.split('.');
 
     if (sl.size() > 2) {
         m_x = sl[0].toInt();
@@ -909,6 +909,11 @@ NetworkManager::Device::Types NetworkManager::supportedInterfaceTypes()
                NetworkManager::Device::Vlan |
                NetworkManager::Device::Adsl |
                NetworkManager::Device::Bridge
+            #if NM_CHECK_VERSION(0, 9, 9)
+                |
+                NetworkManager::Device::Generic |
+                NetworkManager::Device::Team
+            #endif
            );
 }
 

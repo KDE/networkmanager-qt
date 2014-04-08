@@ -32,7 +32,6 @@ NetworkManager::Dhcp4ConfigPrivate::Dhcp4ConfigPrivate(const QString &path, QObj
 
 NetworkManager::Dhcp4ConfigPrivate::~Dhcp4ConfigPrivate()
 {
-
 }
 
 NetworkManager::Dhcp4Config::Dhcp4Config(const QString &path, QObject *owner)
