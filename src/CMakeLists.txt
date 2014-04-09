@@ -184,6 +184,7 @@ ecm_generate_headers(NetworkManagerQt_SETTINGS_HEADERS
   AdslSetting
   BluetoothSetting
   BondSetting
+  BridgeSetting
   BridgePortSetting
   CdmaSetting
   ConnectionSettings
