@@ -35,37 +35,39 @@ NetworkManager::WirelessDevicePrivate::WirelessDevicePrivate(const QString &path
     , wirelessIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
     , bitRate(0)
 {
-    hardwareAddress = wirelessIface.hwAddress();
-    permanentHardwareAddress = wirelessIface.permHwAddress();
-    mode = q->convertOperationMode(wirelessIface.mode());
-    bitRate = wirelessIface.bitrate();
-    wirelessCapabilities = q->convertCapabilities(wirelessIface.wirelessCapabilities());
-
-    qDBusRegisterMetaType<QList<QDBusObjectPath> >();
-
-#if NM_CHECK_VERSION(0, 9, 9)
-    QList <QDBusObjectPath> aps = wirelessIface.accessPoints();
-    foreach (const QDBusObjectPath &op, aps) {
-        q->accessPointAdded(op);
-    }
-#else
-    QDBusReply< QList <QDBusObjectPath> > apPathList = wirelessIface.GetAccessPoints();
-    if (apPathList.isValid()) {
-        //nmDebug() << "Got device list";
-        QList <QDBusObjectPath> aps = apPathList.value();
-        foreach (const QDBusObjectPath &op, aps) {
-            q->accessPointAdded(op);
-        }
-    } else {
-        nmDebug() << "Error getting access point list: " << apPathList.error().name() << ": " << apPathList.error().message();
-    }
-#endif
 }
 
 NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *parent)
     : Device(*new WirelessDevicePrivate(path, this), parent)
 {
     Q_D(WirelessDevice);
+
+    d->hardwareAddress = d->wirelessIface.hwAddress();
+    d->permanentHardwareAddress = d->wirelessIface.permHwAddress();
+    d->mode = convertOperationMode(d->wirelessIface.mode());
+    d->bitRate = d->wirelessIface.bitrate();
+    d->wirelessCapabilities = convertCapabilities(d->wirelessIface.wirelessCapabilities());
+
+    qDBusRegisterMetaType<QList<QDBusObjectPath> >();
+
+#if NM_CHECK_VERSION(0, 9, 9)
+    QList <QDBusObjectPath> aps = d->wirelessIface.accessPoints();
+    foreach (const QDBusObjectPath &op, aps) {
+        accessPointAdded(op);
+    }
+#else
+    QDBusReply< QList <QDBusObjectPath> > apPathList = d->wirelessIface.GetAccessPoints();
+    if (apPathList.isValid()) {
+        //nmDebug() << "Got device list";
+        QList <QDBusObjectPath> aps = apPathList.value();
+        foreach (const QDBusObjectPath &op, aps) {
+            accessPointAdded(op);
+        }
+    } else {
+        nmDebug() << "Error getting access point list: " << apPathList.error().name() << ": " << apPathList.error().message();
+    }
+#endif
+
     connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::PropertiesChanged, this, &WirelessDevice::propertiesChanged);
     connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::AccessPointAdded, this, &WirelessDevice::accessPointAdded);
     connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::AccessPointRemoved, this, &WirelessDevice::accessPointRemoved);
