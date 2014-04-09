@@ -21,7 +21,7 @@
 #ifndef NETWORKMANAGERQT_IPV6_SETTING_H
 #define NETWORKMANAGERQT_IPV6_SETTING_H
 
-#include "../ipconfig.h"
+#include "ipconfig.h"
 #include <networkmanagerqt_export.h>
 #include "setting.h"
 
