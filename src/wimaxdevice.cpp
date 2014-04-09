@@ -38,10 +38,6 @@ NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString &path, Wima
     rssi = wimaxIface.rssi();
     txPower = wimaxIface.txPower();
 
-    QObject::connect(&wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::PropertiesChanged, q, &WimaxDevice::propertiesChanged);
-    QObject::connect(&wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspAdded, q, &WimaxDevice::nspAdded);
-    QObject::connect(&wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspRemoved, q, &WimaxDevice::nspRemoved);
-
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
 #if NM_CHECK_VERSION(0, 9, 9)
     QList <QDBusObjectPath> nsps = wimaxIface.nsps();
@@ -67,6 +63,10 @@ NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString &path, Wima
 NetworkManager::WimaxDevice::WimaxDevice(const QString &path, QObject *parent)
     : Device(*new WimaxDevicePrivate(path, this), parent)
 {
+    Q_D(WimaxDevice);
+    connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::PropertiesChanged, this, &WimaxDevice::propertiesChanged);
+    connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspAdded, this, &WimaxDevice::nspAdded);
+    connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspRemoved, this, &WimaxDevice::nspRemoved);
 }
 
 NetworkManager::WimaxDevice::~WimaxDevice()

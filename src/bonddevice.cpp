@@ -51,8 +51,6 @@ NetworkManager::BondDevicePrivate::BondDevicePrivate(const QString &path, BondDe
         list << op.path();
     }
     slaves = list;
-
-    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceBondInterface::PropertiesChanged, q, &BondDevice::propertiesChanged);
 }
 
 NetworkManager::BondDevice::~BondDevice()
@@ -62,6 +60,8 @@ NetworkManager::BondDevice::~BondDevice()
 NetworkManager::BondDevice::BondDevice(const QString &path, QObject *parent):
     Device(*new BondDevicePrivate(path, this), parent)
 {
+    Q_D(BondDevice);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceBondInterface::PropertiesChanged, this, &BondDevice::propertiesChanged);
 }
 
 NetworkManager::BondDevicePrivate::~BondDevicePrivate()

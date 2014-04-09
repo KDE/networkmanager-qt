@@ -41,10 +41,6 @@ NetworkManager::WirelessDevicePrivate::WirelessDevicePrivate(const QString &path
     bitRate = wirelessIface.bitrate();
     wirelessCapabilities = q->convertCapabilities(wirelessIface.wirelessCapabilities());
 
-    QObject::connect(&wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::PropertiesChanged, q, &WirelessDevice::propertiesChanged);
-    QObject::connect(&wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::AccessPointAdded, q, &WirelessDevice::accessPointAdded);
-    QObject::connect(&wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::AccessPointRemoved, q, &WirelessDevice::accessPointRemoved);
-
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
 
 #if NM_CHECK_VERSION(0, 9, 9)
@@ -64,12 +60,17 @@ NetworkManager::WirelessDevicePrivate::WirelessDevicePrivate(const QString &path
         nmDebug() << "Error getting access point list: " << apPathList.error().name() << ": " << apPathList.error().message();
     }
 #endif
-    activeAccessPoint = q->findAccessPoint(wirelessIface.activeAccessPoint().path());
 }
 
 NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *parent)
     : Device(*new WirelessDevicePrivate(path, this), parent)
 {
+    Q_D(WirelessDevice);
+    connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::PropertiesChanged, this, &WirelessDevice::propertiesChanged);
+    connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::AccessPointAdded, this, &WirelessDevice::accessPointAdded);
+    connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::AccessPointRemoved, this, &WirelessDevice::accessPointRemoved);
+
+    d->activeAccessPoint = findAccessPoint(d->wirelessIface.activeAccessPoint().path());
 }
 
 NetworkManager::WirelessDevice::~WirelessDevice()

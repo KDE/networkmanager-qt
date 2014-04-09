@@ -41,7 +41,6 @@ NetworkManager::GreDevicePrivate::GreDevicePrivate(const QString &path, GreDevic
     : DevicePrivate(path, q)
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
-    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceGreInterface::PropertiesChanged, q, &GreDevice::propertiesChanged);
 }
 
 NetworkManager::GreDevicePrivate::~GreDevicePrivate()
@@ -51,6 +50,8 @@ NetworkManager::GreDevicePrivate::~GreDevicePrivate()
 NetworkManager::GreDevice::GreDevice(const QString &path, QObject *parent):
     Device(*new GreDevicePrivate(path, this), parent)
 {
+    Q_D(GreDevice);
+    QObject::connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceGreInterface::PropertiesChanged, this, &GreDevice::propertiesChanged);
 }
 
 NetworkManager::GreDevice::~GreDevice()

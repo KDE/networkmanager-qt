@@ -48,8 +48,6 @@ NetworkManager::VlanDevicePrivate::VlanDevicePrivate(const QString &path, VlanDe
     carrier = iface.carrier();
     hwAddress = iface.hwAddress();
     vlanId = iface.vlanId();
-
-    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceVlanInterface::PropertiesChanged, q, &VlanDevice::propertiesChanged);
 }
 
 NetworkManager::VlanDevice::~VlanDevice()
@@ -59,6 +57,8 @@ NetworkManager::VlanDevice::~VlanDevice()
 NetworkManager::VlanDevice::VlanDevice(const QString &path, QObject *parent)
     : Device(*new VlanDevicePrivate(path, this), parent)
 {
+    Q_D(VlanDevice);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceVlanInterface::PropertiesChanged, this, &VlanDevice::propertiesChanged);
 }
 
 NetworkManager::VlanDevicePrivate::~VlanDevicePrivate()

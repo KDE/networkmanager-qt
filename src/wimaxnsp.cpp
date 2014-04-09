@@ -69,8 +69,7 @@ NetworkManager::WimaxNsp::WimaxNsp(const QString &path, QObject *parent)
         d->networkType = convertNetworkType(d->iface.networkType());
         d->name = d->iface.name();
         d->signalQuality = d->iface.signalQuality();
-        connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-                this, SLOT(propertiesChanged(QVariantMap)));
+        connect(&d->iface, &OrgFreedesktopNetworkManagerWiMaxNspInterface::PropertiesChanged, this, &WimaxNsp::propertiesChanged);
     }
 }
 

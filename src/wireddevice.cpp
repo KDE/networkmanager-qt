@@ -36,8 +36,6 @@ NetworkManager::WiredDevicePrivate::WiredDevicePrivate(const QString &path, Wire
     permanentHardwareAddress = wiredIface.permHwAddress();
     bitrate = wiredIface.speed() * 1000;
     carrier = wiredIface.carrier();
-
-    QObject::connect(&wiredIface, &OrgFreedesktopNetworkManagerDeviceWiredInterface::PropertiesChanged, q, &WiredDevice::propertiesChanged);
 }
 
 NetworkManager::WiredDevicePrivate::~WiredDevicePrivate()
@@ -47,6 +45,8 @@ NetworkManager::WiredDevicePrivate::~WiredDevicePrivate()
 NetworkManager::WiredDevice::WiredDevice(const QString &path, QObject *parent)
     : Device(*new NetworkManager::WiredDevicePrivate(path, this), parent)
 {
+    Q_D(WiredDevice);
+    connect(&d->wiredIface, &OrgFreedesktopNetworkManagerDeviceWiredInterface::PropertiesChanged, this, &WiredDevice::propertiesChanged);
 }
 
 NetworkManager::WiredDevice::~WiredDevice()

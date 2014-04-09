@@ -134,6 +134,7 @@ bool NetworkManager::ActiveConnection::default6() const
     Q_D(const ActiveConnection);
     return d->default6;
 }
+
 #if NM_CHECK_VERSION(0, 9, 9)
 NetworkManager::Dhcp4Config::Ptr NetworkManager::ActiveConnection::dhcp4Config() const
 {
@@ -171,6 +172,7 @@ NetworkManager::IpConfig NetworkManager::ActiveConnection::ipV6Config() const
     return d->ipV6Config;
 }
 #endif
+
 QString NetworkManager::ActiveConnection::master() const
 {
     Q_D(const ActiveConnection);

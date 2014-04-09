@@ -35,6 +35,8 @@ class NetworkManager::VpnConnectionPrivate : public NetworkManager::ActiveConnec
 public:
     VpnConnectionPrivate(const QString &path)
         : ActiveConnectionPrivate(path), iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()) {
+        banner = iface.banner();
+        state = convertVpnConnectionState(iface.vpnState());
     }
     static NetworkManager::VpnConnection::State convertVpnConnectionState(uint state) {
         return (NetworkManager::VpnConnection::State)state;
@@ -52,12 +54,8 @@ NetworkManager::VpnConnection::VpnConnection(const QString &path, QObject *paren
     : ActiveConnection(*new VpnConnectionPrivate(path), parent)
 {
     Q_D(VpnConnection);
-    d->banner = d->iface.banner();
-    d->state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(d->iface.vpnState());
-    connect(&d->iface, SIGNAL(PropertiesChanged(QVariantMap)),
-            this, SLOT(propertiesChanged(QVariantMap)));
-    connect(&d->iface, SIGNAL(VpnStateChanged(uint,uint)),
-            this, SLOT(vpnStateChanged(uint,uint)));
+    connect(&d->iface, &OrgFreedesktopNetworkManagerVPNConnectionInterface::PropertiesChanged, this, &VpnConnection::propertiesChanged);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerVPNConnectionInterface::VpnStateChanged, this, &VpnConnection::vpnStateChanged);
 }
 
 NetworkManager::VpnConnection::~VpnConnection()

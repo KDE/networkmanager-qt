@@ -32,13 +32,13 @@ NetworkManager::OlpcMeshDevicePrivate::OlpcMeshDevicePrivate(const QString &path
     hardwareAddress = iface.hwAddress();
     activeChannel = iface.activeChannel();
     companion = iface.companion().path();
-
-    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface::PropertiesChanged, q, &OlpcMeshDevice::propertiesChanged);
 }
 
 NetworkManager::OlpcMeshDevice::OlpcMeshDevice(const QString &path, QObject *parent)
     : Device(*new OlpcMeshDevicePrivate(path, this), parent)
 {
+    Q_D(OlpcMeshDevice);
+    QObject::connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface::PropertiesChanged, this, &OlpcMeshDevice::propertiesChanged);
 }
 
 NetworkManager::OlpcMeshDevice::~OlpcMeshDevice()
