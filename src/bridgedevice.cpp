@@ -52,8 +52,6 @@ NetworkManager::BridgeDevicePrivate::BridgeDevicePrivate(const QString &path, Br
         list << op.path();
     }
     slaves = list;
-
-    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceBridgeInterface::PropertiesChanged, q, &BridgeDevice::propertiesChanged);
 }
 
 NetworkManager::BridgeDevicePrivate::~BridgeDevicePrivate()
@@ -63,6 +61,8 @@ NetworkManager::BridgeDevicePrivate::~BridgeDevicePrivate()
 NetworkManager::BridgeDevice::BridgeDevice(const QString &path, QObject *parent):
     Device(*new BridgeDevicePrivate(path, this), parent)
 {
+    Q_D(BridgeDevice);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceBridgeInterface::PropertiesChanged, this, &BridgeDevice::propertiesChanged);
 }
 
 NetworkManager::BridgeDevice::~BridgeDevice()

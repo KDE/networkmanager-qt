@@ -40,7 +40,6 @@ public:
 NetworkManager::MacVlanDevicePrivate::MacVlanDevicePrivate(const QString &path, MacVlanDevice *q):
     DevicePrivate(path, q), iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
-    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceMacvlanInterface::PropertiesChanged, q, &MacVlanDevice::propertiesChanged);
 }
 
 NetworkManager::MacVlanDevicePrivate::~MacVlanDevicePrivate()
@@ -50,6 +49,8 @@ NetworkManager::MacVlanDevicePrivate::~MacVlanDevicePrivate()
 NetworkManager::MacVlanDevice::MacVlanDevice(const QString &path, QObject *parent):
     Device(*new MacVlanDevicePrivate(path, this), parent)
 {
+    Q_D(MacVlanDevice);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceMacvlanInterface::PropertiesChanged, this, &MacVlanDevice::propertiesChanged);
 }
 
 NetworkManager::MacVlanDevice::~MacVlanDevice()
@@ -81,8 +82,6 @@ QString NetworkManager::MacVlanDevice::parent() const
 
 void NetworkManager::MacVlanDevice::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(MacVlanDevice);
-
     if (property == QLatin1String("Mode")) {
         emit modeChanged();
     } else if (property == QLatin1String("NoPromisc")) {

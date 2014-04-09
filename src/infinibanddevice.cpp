@@ -47,8 +47,6 @@ NetworkManager::InfinibandDevicePrivate::InfinibandDevicePrivate(const QString &
 {
     carrier = iface.carrier();
     hwAddress = iface.hwAddress();
-
-    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceInfinibandInterface::PropertiesChanged, q, &InfinibandDevice::propertiesChanged);
 }
 
 NetworkManager::InfinibandDevice::~InfinibandDevice()
@@ -58,6 +56,8 @@ NetworkManager::InfinibandDevice::~InfinibandDevice()
 NetworkManager::InfinibandDevice::InfinibandDevice(const QString &path, QObject *parent)
     : Device(*new InfinibandDevicePrivate(path, this), parent)
 {
+    Q_D(InfinibandDevice);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceInfinibandInterface::PropertiesChanged, this, &InfinibandDevice::propertiesChanged);
 }
 
 NetworkManager::InfinibandDevicePrivate::~InfinibandDevicePrivate()

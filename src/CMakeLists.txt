@@ -191,7 +191,7 @@ ecm_generate_headers(NetworkManagerQt_SETTINGS_HEADERS
   GsmSetting
   InfinibandSetting
   Ipv4Setting
-  Ipv6setting
+  Ipv6Setting
   OlpcMeshSetting
   PppoeSetting
   PppSetting

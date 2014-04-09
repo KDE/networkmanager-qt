@@ -46,7 +46,6 @@ NetworkManager::GenericDevicePrivate::GenericDevicePrivate(const QString &path, 
 {
     hwAddress = iface.hwAddress();
     typeDescription = iface.typeDescription();
-    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceGenericInterface::PropertiesChanged, q, &GenericDevice::propertiesChanged);
 }
 
 NetworkManager::GenericDevicePrivate::~GenericDevicePrivate()
@@ -56,6 +55,8 @@ NetworkManager::GenericDevicePrivate::~GenericDevicePrivate()
 NetworkManager::GenericDevice::GenericDevice(const QString &path, QObject *parent)
     : Device(*new NetworkManager::GenericDevicePrivate(path, this), parent)
 {
+    Q_D(GenericDevice);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceGenericInterface::PropertiesChanged, this, &GenericDevice::propertiesChanged);
 }
 
 NetworkManager::GenericDevice::~GenericDevice()

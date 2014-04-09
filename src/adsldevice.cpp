@@ -45,7 +45,6 @@ NetworkManager::AdslDevicePrivate::AdslDevicePrivate(const QString &path, AdslDe
     , carrier(false)
 {
     carrier = iface.carrier();
-    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceAdslInterface::PropertiesChanged, q, &AdslDevice::propertiesChanged);
 }
 
 NetworkManager::AdslDevice::~AdslDevice()
@@ -55,6 +54,8 @@ NetworkManager::AdslDevice::~AdslDevice()
 NetworkManager::AdslDevice::AdslDevice(const QString &path, QObject *parent)
     : Device(*new AdslDevicePrivate(path, this), parent)
 {
+    Q_D(AdslDevice);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceAdslInterface::PropertiesChanged, this, &AdslDevice::propertiesChanged);
 }
 
 NetworkManager::AdslDevicePrivate::~AdslDevicePrivate()

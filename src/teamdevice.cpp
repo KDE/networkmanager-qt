@@ -41,7 +41,6 @@ NetworkManager::TeamDevicePrivate::TeamDevicePrivate(const QString &path, TeamDe
     : DevicePrivate(path, q)
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 {
-    QObject::connect(&iface, &OrgFreedesktopNetworkManagerDeviceTeamInterface::PropertiesChanged, q, &TeamDevice::propertiesChanged);
 }
 
 NetworkManager::TeamDevicePrivate::~TeamDevicePrivate()
@@ -51,6 +50,8 @@ NetworkManager::TeamDevicePrivate::~TeamDevicePrivate()
 NetworkManager::TeamDevice::TeamDevice(const QString &path, QObject *parent)
     : Device(*new TeamDevicePrivate(path, this), parent)
 {
+    Q_D(TeamDevice);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceTeamInterface::PropertiesChanged, this, &TeamDevice::propertiesChanged);
 }
 
 NetworkManager::TeamDevice::~TeamDevice()
