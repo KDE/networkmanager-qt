@@ -113,6 +113,9 @@ void NetworkManager::NetworkManagerPrivate::init()
     qDBusRegisterMetaType<NMVariantMapMap>();
     qDBusRegisterMetaType<NMStringMap>();
 
+    m_version = iface.version();
+    parseVersion(m_version);
+
     // Get all Manager's properties async
     QDBusMessage message = QDBusMessage::createMethodCall(DBUS_SERVICE,
                                                           DBUS_DAEMON_PATH,
