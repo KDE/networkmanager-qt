@@ -20,6 +20,7 @@
 
 #include "adslsetting.h"
 #include "adslsetting_p.h"
+#include <manager.h>
 
 #include <nm-setting-adsl.h>
 
@@ -235,29 +236,29 @@ QVariantMap NetworkManager::AdslSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_ADSL_PASSWORD_FLAGS), (int)passwordFlags());
     }
 
-    if (protocol() != UnknownProtocol) {
-        switch (protocol()) {
-        case Pppoa:
-            setting.insert(QLatin1String(NM_SETTING_ADSL_PROTOCOL), QLatin1String(NM_SETTING_ADSL_PROTOCOL_PPPOA));
-            break;
-        case Pppoe:
-            setting.insert(QLatin1String(NM_SETTING_ADSL_PROTOCOL), QLatin1String(NM_SETTING_ADSL_PROTOCOL_PPPOE));
-            break;
-        case Ipoatm:
-            setting.insert(QLatin1String(NM_SETTING_ADSL_PROTOCOL), QLatin1String(NM_SETTING_ADSL_PROTOCOL_IPOATM));
-            break;
-        }
+    switch (protocol()) {
+    case Pppoa:
+        setting.insert(QLatin1String(NM_SETTING_ADSL_PROTOCOL), QLatin1String(NM_SETTING_ADSL_PROTOCOL_PPPOA));
+        break;
+    case Pppoe:
+        setting.insert(QLatin1String(NM_SETTING_ADSL_PROTOCOL), QLatin1String(NM_SETTING_ADSL_PROTOCOL_PPPOE));
+        break;
+    case Ipoatm:
+        setting.insert(QLatin1String(NM_SETTING_ADSL_PROTOCOL), QLatin1String(NM_SETTING_ADSL_PROTOCOL_IPOATM));
+        break;
+    case UnknownProtocol:
+        break;
     }
 
-    if (encapsulation() != UnknownEncapsulation) {
-        switch (encapsulation()) {
-        case Vcmux:
-            setting.insert(QLatin1String(NM_SETTING_ADSL_ENCAPSULATION), QLatin1String(NM_SETTING_ADSL_ENCAPSULATION_VCMUX));
-            break;
-        case Llc:
-            setting.insert(QLatin1String(NM_SETTING_ADSL_ENCAPSULATION), QLatin1String(NM_SETTING_ADSL_ENCAPSULATION_LLC));
-            break;
-        }
+    switch (encapsulation()) {
+    case Vcmux:
+        setting.insert(QLatin1String(NM_SETTING_ADSL_ENCAPSULATION), QLatin1String(NM_SETTING_ADSL_ENCAPSULATION_VCMUX));
+        break;
+    case Llc:
+        setting.insert(QLatin1String(NM_SETTING_ADSL_ENCAPSULATION), QLatin1String(NM_SETTING_ADSL_ENCAPSULATION_LLC));
+        break;
+    case UnknownEncapsulation:
+        break;
     }
 
     if (vpi()) {

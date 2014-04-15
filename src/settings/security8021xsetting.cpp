@@ -875,102 +875,94 @@ QVariantMap NetworkManager::Security8021xSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_802_1X_CLIENT_CERT), clientCertificate());
     }
 
-    if (phase1PeapVersion() != PeapVersionUnknown) {
-        QString version;
-
-        switch (phase1PeapVersion()) {
-        case PeapVersionZero:
-            version = '0';
-            break;
-        case PeapVersionOne:
-            version = '1';
-            break;
-        }
-
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPVER), version);
+    QString version;
+    switch (phase1PeapVersion()) {
+    case PeapVersionZero:
+        version = '0';
+        break;
+    case PeapVersionOne:
+        version = '1';
+        break;
+    case PeapVersionUnknown:
+        break;
     }
-
-    if (phase1PeapLabel() != PeapLabelUnknown) {
+    setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPVER), version);
+    if (!version.isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPLABEL), "1");
     }
 
-    if (phase1FastProvisioning() != FastProvisioningUnknown) {
-        QString provisioning;
+    QString provisioning;
+    switch (phase1FastProvisioning()) {
+    case FastProvisioningDisabled:
+        provisioning = '0';
+        break;
+    case FastProvisioningAllowUnauthenticated:
+        provisioning = '1';
+        break;
+    case FastProvisioningAllowAuthenticated:
+        provisioning = '2';
+        break;
+    case FastProvisioningAllowBoth:
+        provisioning = '3';
+        break;
+    case FastProvisioningUnknown:
+        break;
+    }
+    setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE1_FAST_PROVISIONING), provisioning);
 
-        switch (phase1FastProvisioning()) {
-        case FastProvisioningDisabled:
-            provisioning = '0';
-            break;
-        case FastProvisioningAllowUnauthenticated:
-            provisioning = '1';
-            break;
-        case FastProvisioningAllowAuthenticated:
-            provisioning = '2';
-            break;
-        case FastProvisioningAllowBoth:
-            provisioning = '3';
-            break;
-        }
+    QString authMethod;
+    switch (phase2AuthMethod()) {
+    case AuthMethodPap:
+        authMethod = "pap";
+        break;
+    case AuthMethodChap:
+        authMethod = "chap";
+        break;
+    case AuthMethodMschap:
+        authMethod = "mschap";
+        break;
+    case AuthMethodMschapv2:
+        authMethod = "mschapv2";
+        break;
+    case AuthMethodGtc:
+        authMethod = "gtc";
+        break;
+    case AuthMethodOtp:
+        authMethod = "otp";
+        break;
+    case AuthMethodMd5:
+        authMethod = "md5";
+        break;
+    case AuthMethodTls:
+        authMethod = "tls";
+        break;
+    case AuthMethodUnknown:
+        break;
+    }
+    setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTH), authMethod);
 
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE1_FAST_PROVISIONING), provisioning);
+    QString authEapMethod;
+    switch (phase2AuthEapMethod()) {
+    case AuthEapMethodMd5:
+        authEapMethod = "md5";
+        break;
+    case AuthEapMethodMschapv2:
+        authEapMethod = "mschapv2";
+        break;
+    case AuthEapMethodOtp:
+        authEapMethod = "otp";
+        break;
+    case AuthEapMethodGtc:
+        authEapMethod = "gtc";
+        break;
+    case AuthEapMethodTls:
+        authEapMethod = "tls";
+        break;
+    case AuthMethodUnknown:
+        break;
     }
 
-    if (phase2AuthMethod() != AuthMethodUnknown) {
-        QString authMethod;
-
-        switch (phase2AuthMethod()) {
-        case AuthMethodPap:
-            authMethod = "pap";
-            break;
-        case AuthMethodChap:
-            authMethod = "chap";
-            break;
-        case AuthMethodMschap:
-            authMethod = "mschap";
-            break;
-        case AuthMethodMschapv2:
-            authMethod = "mschapv2";
-            break;
-        case AuthMethodGtc:
-            authMethod = "gtc";
-            break;
-        case AuthMethodOtp:
-            authMethod = "otp";
-            break;
-        case AuthMethodMd5:
-            authMethod = "md5";
-            break;
-        case AuthMethodTls:
-            authMethod = "tls";
-            break;
-        }
-
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTH), authMethod);
-    }
-
-    if (phase2AuthEapMethod() != AuthEapMethodUnknown) {
-        QString authEapMethod;
-
-        switch (phase2AuthEapMethod()) {
-        case AuthEapMethodMd5:
-            authEapMethod = "md5";
-            break;
-        case AuthEapMethodMschapv2:
-            authEapMethod = "mschapv2";
-            break;
-        case AuthEapMethodOtp:
-            authEapMethod = "otp";
-            break;
-        case AuthEapMethodGtc:
-            authEapMethod = "gtc";
-            break;
-        case AuthEapMethodTls:
-            authEapMethod = "tls";
-            break;
-        }
-
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTHEAP), authEapMethod);
-    }
+    setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTHEAP), authEapMethod);
 
     if (!phase2CaCertificate().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_CA_CERT), phase2CaCertificate());

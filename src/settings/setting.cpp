@@ -214,6 +214,7 @@ NetworkManager::Setting::~Setting()
 
 void NetworkManager::Setting::fromMap(const QVariantMap &map)
 {
+    Q_UNUSED(map);
 }
 
 QVariantMap NetworkManager::Setting::toMap() const

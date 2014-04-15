@@ -125,8 +125,6 @@ uchar NetworkManager::GreDevice::ttl() const
 
 void NetworkManager::GreDevice::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(GreDevice);
-
     if (property == QLatin1String("InputFlags")) {
         emit inputFlagsChanged();
     } else if (property == QLatin1String("OutputFlags")) {

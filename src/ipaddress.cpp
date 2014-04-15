@@ -42,6 +42,7 @@ NetworkManager::IpAddress::~IpAddress()
 }
 
 NetworkManager::IpAddress::IpAddress(const NetworkManager::IpAddress &other) :
+    QNetworkAddressEntry(other),
     d(new Private)
 {
     *this = other;

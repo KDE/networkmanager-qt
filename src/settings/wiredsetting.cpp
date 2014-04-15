@@ -318,6 +318,8 @@ QVariantMap NetworkManager::WiredSetting::toMap() const
     case Mii:
         setting.insert(QLatin1String(NM_SETTING_WIRED_PORT), "mii");
         break;
+    case UnknownPort: // Make GCC hapy
+        break;
     }
 
     if (speed()) {
@@ -330,6 +332,8 @@ QVariantMap NetworkManager::WiredSetting::toMap() const
         break;
     case Full:
         setting.insert(QLatin1String(NM_SETTING_WIRED_DUPLEX), "full");
+        break;
+    case UnknownDuplexType:
         break;
     }
 
@@ -362,6 +366,8 @@ QVariantMap NetworkManager::WiredSetting::toMap() const
         break;
     case Ctc:
         setting.insert(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE), "ctc");
+        break;
+    case Undefined:
         break;
     }
 

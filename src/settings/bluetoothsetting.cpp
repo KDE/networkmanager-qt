@@ -115,6 +115,8 @@ QVariantMap NetworkManager::BluetoothSetting::toMap() const
     case Panu:
         setting.insert(QLatin1String(NM_SETTING_BLUETOOTH_TYPE), QLatin1String(NM_SETTING_BLUETOOTH_TYPE_PANU));
         break;
+    case Unknown:
+        break;
     }
 
     return setting;

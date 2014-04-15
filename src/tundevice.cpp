@@ -100,8 +100,6 @@ bool NetworkManager::TunDevice::vnetHdr() const
 
 void NetworkManager::TunDevice::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(TunDevice);
-
     if (property == QLatin1String("Owner")) {
         emit ownerChanged();
     } else if (property == QLatin1String("Group")) {

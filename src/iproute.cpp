@@ -45,6 +45,7 @@ NetworkManager::IpRoute::~IpRoute()
 }
 
 NetworkManager::IpRoute::IpRoute(const NetworkManager::IpRoute &other) :
+    QNetworkAddressEntry(other),
     d(new Private)
 {
     *this = other;
