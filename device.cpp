@@ -495,10 +495,20 @@ void NetworkManager::Device::deviceStateChanged(uint new_state, uint old_state, 
 
 void NetworkManager::Device::propertiesChanged(const QVariantMap &properties)
 {
+    Q_D(Device);
+
     QVariantMap::const_iterator it = properties.constBegin();
     while (it != properties.constEnd()) {
         propertyChanged(it.key(), it.value());
         ++it;
+    }
+
+    // FIXME workaround, we need to get a path to updated IPv[46]Config,
+    // because NM doesn't emit the updated value when the device is activated
+    // BUG: https://bugzilla.gnome.org/show_bug.cgi?id=725657
+    if (d->connectionState == NetworkManager::Device::Activated) {
+        propertyChanged(QLatin1String("Ip4Config"), QVariant::fromValue<QDBusObjectPath>(d->deviceIface.ip4Config()));
+        propertyChanged(QLatin1String("Ip6Config"), QVariant::fromValue<QDBusObjectPath>(d->deviceIface.ip6Config()));
     }
 }
 
