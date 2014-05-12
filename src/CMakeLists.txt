@@ -129,7 +129,7 @@ add_library(KF5NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${NetworkMa
 generate_export_header(KF5NetworkManagerQt BASE_NAME NetworkManagerQt)
 add_library(KF5::NetworkManagerQt ALIAS KF5NetworkManagerQt)
 
-target_include_directories(KF5NetworkManagerQt INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/NetworkManagerQt>")
+target_include_directories(KF5NetworkManagerQt INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/NetworkManagerQt>")
 
 target_link_libraries(KF5NetworkManagerQt PUBLIC Qt5::Core Qt5::Network Qt5::DBus)
 
@@ -210,13 +210,13 @@ ecm_generate_headers(NetworkManagerQt_SETTINGS_HEADERS
   REQUIRED_HEADERS NetworkManagerQt_SETTINGS_HEADERS
 )
 
-install(TARGETS KF5NetworkManagerQt EXPORT KF5NetworkManagerQtTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF5NetworkManagerQt EXPORT KF5NetworkManagerQtTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/networkmanagerqt_export.h
   ${NetworkManagerQt_HEADERS}
   ${NetworkManagerQt_SETTINGS_HEADERS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}/NetworkManagerQt COMPONENT Devel
+  DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/NetworkManagerQt COMPONENT Devel
 )
 
 include(ECMGeneratePriFile)
