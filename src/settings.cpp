@@ -63,19 +63,19 @@ void NetworkManager::SettingsPrivate::init()
         if (!connections.contains(connection.path())) {
             connections.insert(connection.path(), Connection::Ptr());
             emit connectionAdded(connection.path());
-            nmDebug() << " " << connection.path();
+            qCDebug(NMQT) << " " << connection.path();
         }
     }
 #else
     QDBusPendingReply<QList<QDBusObjectPath> > reply = iface.ListConnections();
     reply.waitForFinished();
-    nmDebug() << "New Connections list";
+    qCDebug(NMQT) << "New Connections list";
     if (reply.isValid()) {
         foreach (const QDBusObjectPath &connection, reply.value()) {
             if (!connections.contains(connection.path())) {
                 connections.insert(connection.path(), Connection::Ptr());
                 emit connectionAdded(connection.path());
-                nmDebug() << " " << connection.path();
+                qCDebug(NMQT) << " " << connection.path();
             }
         }
     }

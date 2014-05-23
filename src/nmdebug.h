@@ -21,10 +21,8 @@
 #ifndef NETWORKMANAGERQT_NMDEBUG_H
 #define NETWORKMANAGERQT_NMDEBUG_H
 
-#include <QCoreApplication>
-#include <QDebug>
+#include <QLoggingCategory>
 
-#define nmDebug() \
-    qDebug() << "NetworkManagerQt" << QCoreApplication::applicationName() << '(' << QCoreApplication::applicationPid() << ')' << __PRETTY_FUNCTION__ << ':'
+Q_DECLARE_LOGGING_CATEGORY(NMQT)
 
 #endif

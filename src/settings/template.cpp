@@ -89,7 +89,7 @@ void NetworkManager::Settings::TemplateSetting::printSetting()
     NetworkManager::Settings::Setting::printSetting();
 
     /*
-     * qDebug() << "FOO - " << foo();
+     * qCDebug(NMQT) << "FOO - " << foo();
      *
      */
 }

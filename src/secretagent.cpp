@@ -21,6 +21,7 @@
 #include "secretagent.h"
 #include "secretagent_p.h"
 #include "manager_p.h"
+#include "nmdebug.h"
 
 #include <NetworkManager.h>
 
@@ -108,7 +109,7 @@ void NetworkManager::SecretAgent::sendError(NetworkManager::SecretAgent::Error e
     }
 
     if (!d->agentManager.connection().send(reply)) {
-        qDebug() << Q_FUNC_INFO << "Failed to put error message on DBus queue" << errorString << explanation;
+        qCDebug(NMQT) << "Failed to put error message on DBus queue" << errorString << explanation;
     }
 }
 

@@ -20,10 +20,9 @@
 
 #include "vpnsetting.h"
 #include "vpnsetting_p.h"
+#include "nmdebug.h"
 
 #include <nm-setting-vpn.h>
-
-#include <QDebug>
 
 NetworkManager::VpnSettingPrivate::VpnSettingPrivate():
     name(NM_SETTING_VPN_SETTING_NAME)
@@ -124,7 +123,7 @@ QVariantMap NetworkManager::VpnSetting::secretsToMap() const
     QVariantMap secretsMap;
     secretsMap.insert(QLatin1String(NM_SETTING_VPN_SECRETS), QVariant::fromValue<NMStringMap>(secrets()));
 
-    qDebug() << secretsMap;
+    qCDebug(NMQT) << secretsMap;
     return secretsMap;
 }
 

@@ -43,19 +43,19 @@ NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString &path, Wima
     QList <QDBusObjectPath> nsps = wimaxIface.nsps();
     foreach (const QDBusObjectPath &op, nsps) {
         nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
-        //nmDebug() << "  " << op.path();
+        //qCDebug(NMQT) << "  " << op.path();
     }
 #else
     QDBusReply< QList <QDBusObjectPath> > nspPathList = wimaxIface.GetNspList();
     if (nspPathList.isValid()) {
-        //nmDebug() << "Got device list";
+        //qCDebug(NMQT) << "Got device list";
         QList <QDBusObjectPath> nsps = nspPathList.value();
         foreach (const QDBusObjectPath &op, nsps) {
             nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
-            //nmDebug() << "  " << op.path();
+            //qCDebug(NMQT) << "  " << op.path();
         }
     } else {
-        nmDebug() << "Error getting NSP list: " << nspPathList.error().name() << ": " << nspPathList.error().message();
+        qCDebug(NMQT) << "Error getting NSP list: " << nspPathList.error().name() << ": " << nspPathList.error().message();
     }
 #endif
 }
@@ -144,7 +144,7 @@ NetworkManager::WimaxNsp::Ptr NetworkManager::WimaxDevice::findNsp(const QString
 
 void NetworkManager::WimaxDevice::nspAdded(const QDBusObjectPath &nspPath)
 {
-    //nmDebug() << nspPath.path();
+    //qCDebug(NMQT) << nspPath.path();
     Q_D(WimaxDevice);
     if (!d->nspMap.contains(nspPath.path())) {
         d->nspMap.insert(nspPath.path(), NetworkManager::WimaxNsp::Ptr());
@@ -154,10 +154,10 @@ void NetworkManager::WimaxDevice::nspAdded(const QDBusObjectPath &nspPath)
 
 void NetworkManager::WimaxDevice::nspRemoved(const QDBusObjectPath &nspPath)
 {
-    //nmDebug() << nspPath.path();
+    //qCDebug(NMQT) << nspPath.path();
     Q_D(WimaxDevice);
     if (!d->nspMap.contains(nspPath.path())) {
-        nmDebug() << "Access point list lookup failed for " << nspPath.path();
+        qCDebug(NMQT) << "Access point list lookup failed for " << nspPath.path();
     }
     emit nspDisappeared(nspPath.path());
     d->nspMap.remove(nspPath.path());

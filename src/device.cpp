@@ -29,6 +29,8 @@
 
 #include <arpa/inet.h>
 
+Q_LOGGING_CATEGORY(NMQT, "libnm-qt")
+
 namespace NetworkManager
 {
 class DeviceStateReasonPrivate
@@ -197,7 +199,7 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
 {
     Q_D(Device);
 
-qDebug() << Q_FUNC_INFO << property << value;
+qCDebug(NMQT) << Q_FUNC_INFO << property << value;
     if (property == QLatin1String("ActiveConnection")) {
         // FIXME workaround, because NM doesn't emit correct value
         // d->activeConnection = value.value<QDBusObjectPath>.path();

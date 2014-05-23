@@ -58,13 +58,13 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
 #else
     QDBusReply< QList <QDBusObjectPath> > apPathList = d->wirelessIface.GetAccessPoints();
     if (apPathList.isValid()) {
-        //nmDebug() << "Got device list";
+        //qCDebug(NMQT) << "Got device list";
         QList <QDBusObjectPath> aps = apPathList.value();
         foreach (const QDBusObjectPath &op, aps) {
             accessPointAdded(op);
         }
     } else {
-        nmDebug() << "Error getting access point list: " << apPathList.error().name() << ": " << apPathList.error().message();
+        qCDebug(NMQT) << "Error getting access point list: " << apPathList.error().name() << ": " << apPathList.error().message();
     }
 #endif
 
@@ -192,7 +192,7 @@ void NetworkManager::WirelessDevice::accessPointRemoved(const QDBusObjectPath &a
     //kDebug(1441) << apPath.path();
     Q_D(WirelessDevice);
     if (!d->apMap.contains(accessPoint.path())) {
-        nmDebug() << "Access point list lookup failed for " << accessPoint.path();
+        qCDebug(NMQT) << "Access point list lookup failed for " << accessPoint.path();
     }
     emit accessPointDisappeared(accessPoint.path());
     d->apMap.remove(accessPoint.path());
@@ -254,7 +254,7 @@ NetworkManager::WirelessDevice::OperationMode NetworkManager::WirelessDevice::co
         ourMode = NetworkManager::WirelessDevice::ApMode;
         break;
     default:
-        nmDebug() << "Unhandled mode" << theirMode;
+        qCDebug(NMQT) << "Unhandled mode" << theirMode;
     }
     return ourMode;
 }

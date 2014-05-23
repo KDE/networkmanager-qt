@@ -75,7 +75,7 @@ NetworkManager::Connection::Connection(const QString &path, QObject *parent)
     }
     d->path = path;
 
-    //nmDebug() << m_connection;
+    //qCDebug(NMQT) << m_connection;
 
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Updated, this, &Connection::onConnectionUpdated);
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Removed, this, &Connection::onConnectionRemoved);

@@ -182,7 +182,7 @@ NetworkManager::AccessPoint::OperationMode NetworkManager::AccessPoint::convertO
         ourMode = NetworkManager::AccessPoint::ApMode;
         break;
     default:
-        nmDebug() << "Unhandled mode" << mode;
+        qCDebug(NMQT) << "Unhandled mode" << mode;
     }
     return ourMode;
 }

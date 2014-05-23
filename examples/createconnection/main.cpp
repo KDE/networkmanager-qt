@@ -109,16 +109,16 @@ int main()
         NetworkManager::Connection connection(reply.value().path());
         NetworkManager::ConnectionSettings::Ptr newSettings = connection.settings();
         // Print resulting settings
-        qDebug() << (*newSettings.data());
+        qCDebug(NMQT) << (*newSettings.data());
 
         // Continue with adding secrets
         NetworkManager::WirelessSecuritySetting::Ptr wirelessSecuritySetting = newSettings->setting(Setting::WirelessSecurity).dynamicCast<WirelessSecuritySetting>();
         if (!wirelessSecuritySetting->needSecrets().isEmpty()) {
-            qDebug() << "Need secrets: " << wirelessSecuritySetting->needSecrets();
+            qCDebug(NMQT) << "Need secrets: " << wirelessSecuritySetting->needSecrets();
             // TODO: fill missing secrets
         }
 
     } else {
-        qDebug() << "Connection failed: " << reply.error();
+        qCDebug(NMQT) << "Connection failed: " << reply.error();
     }
 }

@@ -69,6 +69,8 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     , m_isWwanEnabled(false)
     , m_isWwanHardwareEnabled(false)
 {
+    QLoggingCategory::setFilterRules(QStringLiteral("libnm-qt.debug = false"));
+
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceAdded,
             this, &NetworkManagerPrivate::onDeviceAdded);
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceRemoved,
@@ -131,24 +133,24 @@ void NetworkManager::NetworkManagerPrivate::init()
     if (iface.isValid()) {
 #if NM_CHECK_VERSION(0, 9, 9)
         QList <QDBusObjectPath> devices = iface.devices();
-        nmDebug() << "Device list";
+        qCDebug(NMQT) << "Device list";
         foreach (const QDBusObjectPath &op, devices) {
             networkInterfaceMap.insert(op.path(), Device::Ptr());
             emit deviceAdded(op.path());
-            nmDebug() << "  " << op.path();
+            qCDebug(NMQT) << "  " << op.path();
         }
 #else
         QDBusReply< QList <QDBusObjectPath> > deviceList = iface.GetDevices();
         if (deviceList.isValid()) {
-            nmDebug() << "Device list";
+            qCDebug(NMQT) << "Device list";
             QList <QDBusObjectPath> devices = deviceList.value();
             foreach (const QDBusObjectPath &op, devices) {
                 networkInterfaceMap.insert(op.path(), Device::Ptr());
                 emit deviceAdded(op.path());
-               nmDebug() << "  " << op.path();
+               qCDebug(NMQT) << "  " << op.path();
             }
         } else {
-            nmDebug() << "Error getting device list: " << deviceList.error().name() << ": " << deviceList.error().message();
+            qCDebug(NMQT) << "Error getting device list: " << deviceList.error().name() << ": " << deviceList.error().message();
         }
 #endif
     }
@@ -239,7 +241,7 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::fin
 
 NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetworkInterface(const QString &uni)
 {
-    //nmDebug();
+    //qCDebug(NMQT);
     Device::Ptr createdInterface;
     Device::Ptr device(new Device(uni));
     switch (device->type()) {
@@ -284,7 +286,7 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
     default:
         createdInterface = device;
         if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
-            nmDebug() << "libNetworkManagerQt: Can't create object of type " << device->type() << Device::Vlan << "for" << uni;
+            qCDebug(NMQT) << "libNetworkManagerQt: Can't create object of type " << device->type() << Device::Vlan << "for" << uni;
         }
         break;
     }
@@ -375,7 +377,7 @@ QDBusPendingReply<QDBusObjectPath> NetworkManager::NetworkManagerPrivate::activa
     // TODO store error code
     QDBusObjectPath connPath(connectionUni);
     QDBusObjectPath interfacePath(interfaceUni);
-    nmDebug() << "Activating connection" << connPath.path() << "on interface" << interfacePath.path() << "with extra" << extra_connection_parameter;
+    qCDebug(NMQT) << "Activating connection" << connPath.path() << "on interface" << interfacePath.path() << "with extra" << extra_connection_parameter;
     return iface.ActivateConnection(connPath, QDBusObjectPath(extra_interface_parameter), QDBusObjectPath(extra_connection_parameter));
 }
 
@@ -537,7 +539,7 @@ bool NetworkManager::NetworkManagerPrivate::isStartingUp() const
 
 void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath &objpath)
 {
-    nmDebug();
+    qCDebug(NMQT);
     if (!networkInterfaceMap.contains(objpath.path())) {
         networkInterfaceMap.insert(objpath.path(), Device::Ptr());
     }
@@ -546,7 +548,7 @@ void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath 
 
 void NetworkManager::NetworkManagerPrivate::onDeviceRemoved(const QDBusObjectPath &objpath)
 {
-    nmDebug();
+    qCDebug(NMQT);
     networkInterfaceMap.remove(objpath.path());
     emit deviceRemoved(objpath.path());
 }
@@ -592,7 +594,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
                     } else {
                         knownConnections.removeOne(ac.path());
                     }
-                    nmDebug() << "  " << ac.path();
+                    qCDebug(NMQT) << "  " << ac.path();
                 }
                 foreach (const QString &path, knownConnections) {
                     m_activeConnections.remove(path);
@@ -602,31 +604,31 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
             emit activeConnectionsChanged();
         } else if (property == QLatin1String("NetworkingEnabled")) {
             m_isNetworkingEnabled = it->toBool();
-            nmDebug() << property << m_isNetworkingEnabled;
+            qCDebug(NMQT) << property << m_isNetworkingEnabled;
             emit networkingEnabledChanged(m_isNetworkingEnabled);
         } else if (property == QLatin1String("WirelessHardwareEnabled")) {
             m_isWirelessHardwareEnabled = it->toBool();
-            nmDebug() << property << m_isWirelessHardwareEnabled;
+            qCDebug(NMQT) << property << m_isWirelessHardwareEnabled;
             emit wirelessHardwareEnabledChanged(m_isWirelessHardwareEnabled);
         } else if (property == QLatin1String("WirelessEnabled")) {
             m_isWirelessEnabled = it->toBool();
-            nmDebug() << property << m_isWirelessEnabled;
+            qCDebug(NMQT) << property << m_isWirelessEnabled;
             emit wirelessEnabledChanged(m_isWirelessEnabled);
         } else if (property == QLatin1String("WwanHardwareEnabled")) {
             m_isWwanHardwareEnabled = it->toBool();
-            nmDebug() << property << m_isWwanHardwareEnabled;
+            qCDebug(NMQT) << property << m_isWwanHardwareEnabled;
             emit wwanHardwareEnabledChanged(m_isWwanHardwareEnabled);
         } else if (property == QLatin1String("WwanEnabled")) {
             m_isWwanEnabled = it->toBool();
-            nmDebug() << property << m_isWwanEnabled;
+            qCDebug(NMQT) << property << m_isWwanEnabled;
             emit wwanEnabledChanged(m_isWwanEnabled);
         } else if (property == QLatin1String("WimaxHardwareEnabled")) {
             m_isWimaxHardwareEnabled = it->toBool();
-            nmDebug() << property << m_isWimaxHardwareEnabled;
+            qCDebug(NMQT) << property << m_isWimaxHardwareEnabled;
             emit wimaxHardwareEnabledChanged(m_isWimaxHardwareEnabled);
         } else if (property == QLatin1String("WimaxEnabled")) {
             m_isWimaxEnabled = it->toBool();
-            nmDebug() << property << m_isWimaxEnabled;
+            qCDebug(NMQT) << property << m_isWimaxEnabled;
             emit wimaxEnabledChanged(m_isWimaxEnabled);
         } else if (property == QLatin1String("Version")) {
             m_version = it->toString();
