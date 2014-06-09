@@ -219,7 +219,7 @@ public:
      * Disconnects a device and prevents the device from automatically
      * activating further connections without user intervention.
      */
-    void disconnectInterface();
+    QDBusPendingReply<> disconnectInterface();
     /**
      * returns the current IPv4 address without the prefix
      * \sa ipV4Config()

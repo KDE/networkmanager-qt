@@ -493,10 +493,10 @@ uint NetworkManager::Device::mtu() const
 }
 #endif
 
-void NetworkManager::Device::disconnectInterface()
+QDBusPendingReply<> NetworkManager::Device::disconnectInterface()
 {
     Q_D(Device);
-    d->deviceIface.Disconnect();
+    return d->deviceIface.Disconnect();
 }
 
 NetworkManager::Device::State NetworkManager::Device::state() const
