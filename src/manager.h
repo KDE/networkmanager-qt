@@ -279,7 +279,7 @@ NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> addA
  *
  * @param activeConnection identifier of the connection to deactivate
  */
-NETWORKMANAGERQT_EXPORT void deactivateConnection(const QString &activeConnection);
+NETWORKMANAGERQT_EXPORT QDBusPendingReply<> deactivateConnection(const QString &activeConnection);
 /**
  * Access the list of any active connections
  *

@@ -70,14 +70,6 @@ Q_SIGNALS:
      * NetworkManager::Notifier::serviceDisappeared() signals
      */
     void connectionRemoved(const QString &path);
-    /**
-     * Emitted when the NetworkManager::addConnection() operation has ended.
-     *
-     * @param id ID of the connection, as returned by addConnection
-     * @param success whether the connection has been successfully added
-     * @param msg error message, if any
-     */
-    void connectionAddComplete(const QString & id, bool success, const QString & msg);
 };
 /**
  * Retrieves the list of connections.
@@ -101,7 +93,7 @@ NETWORKMANAGERQT_EXPORT NetworkManager::Connection::Ptr findConnection(const QSt
  *
  * @since 0.9.9.0
  */
-NETWORKMANAGERQT_EXPORT QString addConnection(const NMVariantMapMap &settings);
+NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath> addConnection(const NMVariantMapMap &settings);
 
 #if NM_CHECK_VERSION(0, 9, 9)
 /**
@@ -122,7 +114,7 @@ NETWORKMANAGERQT_EXPORT QString addConnection(const NMVariantMapMap &settings);
  *
  * @since 0.9.9.0
  */
-NETWORKMANAGERQT_EXPORT QString addConnectionUnsaved(const NMVariantMapMap &settings);
+NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath> addConnectionUnsaved(const NMVariantMapMap &settings);
 #endif
 
 /**

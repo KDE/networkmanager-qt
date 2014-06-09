@@ -120,57 +120,34 @@ NetworkManager::ConnectionSettings::Ptr NetworkManager::Connection::settings()
     return d->connection;
 }
 
-void NetworkManager::Connection::secrets(const QString &setting)
+QDBusPendingReply<NMVariantMapMap> NetworkManager::Connection::secrets(const QString &setting)
 {
     Q_D(Connection);
-    QString id = uuid();
-    QDBusPendingReply<NMVariantMapMap> reply = d->iface.GetSecrets(setting);
-    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
-    watcher->setProperty("libNetworkManagerQt_id", id);
-    connect(watcher, &QDBusPendingCallWatcher::finished, this, &Connection::onSecretsArrived);
+    return d->iface.GetSecrets(setting);
 }
 
-void NetworkManager::Connection::onSecretsArrived(QDBusPendingCallWatcher *watcher)
-{
-    if (!watcher)
-        return;
-    QDBusPendingReply<NMVariantMapMap> reply = *watcher;
-    QString id = watcher->property("libNetworkManagerQt_id").value<QString>();
-    bool success = true;
-    NMVariantMapMap set;
-    QString message;
-    if (!reply.isValid()) {
-        success = false;
-        message = reply.error().message();
-    } else {
-        set = reply.argumentAt<0>();
-    }
-    emit gotSecrets(id, success, set, message);
-    watcher->deleteLater();
-}
-
-void NetworkManager::Connection::update(const NMVariantMapMap &settings)
+QDBusPendingReply<> NetworkManager::Connection::update(const NMVariantMapMap &settings)
 {
     Q_D(Connection);
-    d->iface.Update(settings);
+    return d->iface.Update(settings);
 }
 
-void NetworkManager::Connection::updateUnsaved(const NMVariantMapMap &settings)
+QDBusPendingReply<> NetworkManager::Connection::updateUnsaved(const NMVariantMapMap &settings)
 {
     Q_D(Connection);
-    d->iface.UpdateUnsaved(settings);
+    return d->iface.UpdateUnsaved(settings);
 }
 
-void NetworkManager::Connection::save()
+QDBusPendingReply<> NetworkManager::Connection::save()
 {
     Q_D(Connection);
-    d->iface.Save();
+    return d->iface.Save();
 }
 
-void NetworkManager::Connection::remove()
+QDBusPendingReply<> NetworkManager::Connection::remove()
 {
     Q_D(Connection);
-    d->iface.Delete();
+    return d->iface.Delete();
 }
 
 QString NetworkManager::Connection::path() const

@@ -29,6 +29,7 @@
 
 #include <QObject>
 #include <QSharedPointer>
+#include <QDBusPendingReply>
 
 class QDBusPendingCallWatcher;
 
@@ -91,19 +92,17 @@ public:
 
     /**
      * Retrieves this connections's secrets (passwords and / or encryption keys).
-     * This is an asynchronous call, connect to the gotSecrets() signal to
-     * read the retrieved secrets.
      *
      * @param setting the setting identifier.
      */
-    void secrets(const QString &setting);
+    QDBusPendingReply<NMVariantMapMap> secrets(const QString &setting);
 
     /**
      * Update the connection with new @p settings and properties, replacing all previous settings and properties.
      * Secrets may be part of the update request, and will be either stored in persistent storage or given to a Secret Agent for storage,
      * depending on the request.
      */
-    void update(const NMVariantMapMap & settings);
+    QDBusPendingReply<> update(const NMVariantMapMap & settings);
 
     /**
      * Update the connection with new @p settings and properties (replacing
@@ -119,7 +118,7 @@ public:
      *
      * @since 0.9.9.0
      */
-    void updateUnsaved(const NMVariantMapMap & settings);
+    QDBusPendingReply<> updateUnsaved(const NMVariantMapMap & settings);
 
     /**
      * Saves a "dirty" connection (that had previously been
@@ -127,7 +126,7 @@ public:
      *
      * @since 0.9.9.0
      */
-    void save();
+    QDBusPendingReply<> save();
 
     /**
      * Removes the connection from NetworkManager database,
@@ -135,19 +134,9 @@ public:
      * a policykit rule might prevent it from being removed
      * without the proper password.
      */
-    void remove();
+    QDBusPendingReply<> remove();
 
 Q_SIGNALS:
-    /**
-     * Reports the secrets retrieved.
-     *
-     * @param id connections's uuid.
-     * @param success true if secrets were correctly retrieved or false for error.
-     * @param set secrets retrieved.
-     * @param message error message if any, empty string if success is true.
-     */
-    void gotSecrets(const QString &id, bool success, const NMVariantMapMap &set, const QString &message);
-
     /**
      * Emitted when the connection settings changes
      */
@@ -160,7 +149,6 @@ Q_SIGNALS:
     void removed(const QString &path);
 
 private Q_SLOTS:
-    void onSecretsArrived(QDBusPendingCallWatcher *);
     void onConnectionUpdated();
     void onConnectionRemoved();
 

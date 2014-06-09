@@ -130,27 +130,15 @@ bool NetworkManager::SettingsPrivate::canModify() const
     return m_canModify;
 }
 
-QString NetworkManager::SettingsPrivate::addConnection(const NMVariantMapMap &connection)
+QDBusPendingReply<QDBusObjectPath> NetworkManager::SettingsPrivate::addConnection(const NMVariantMapMap &connection)
 {
-    QDBusPendingReply<QDBusObjectPath> reply = iface.AddConnection(connection);
-    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
-    QVariantMap connectionSettings = connection.value(QStringLiteral(NM_SETTING_CONNECTION_SETTING_NAME));
-    const QString id = connectionSettings.value(QStringLiteral(NM_SETTING_CONNECTION_UUID)).toString();
-    watcher->setProperty("libNetworkManagerQt_id", id);
-    connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this, SLOT(onConnectionAddArrived(QDBusPendingCallWatcher*)));
-    return id;
+    return iface.AddConnection(connection);
 }
 
 #if NM_CHECK_VERSION(0, 9, 9)
-QString NetworkManager::SettingsPrivate::addConnectionUnsaved(const NMVariantMapMap &connection)
+QDBusPendingReply<QDBusObjectPath> NetworkManager::SettingsPrivate::addConnectionUnsaved(const NMVariantMapMap &connection)
 {
-    QDBusPendingReply<QDBusObjectPath> reply = iface.AddConnectionUnsaved(connection);
-    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
-    QVariantMap connectionSettings = connection.value(QStringLiteral(NM_SETTING_CONNECTION_SETTING_NAME));
-    const QString id = connectionSettings.value(QStringLiteral(NM_SETTING_CONNECTION_UUID)).toString();
-    watcher->setProperty("libNetworkManagerQt_id", id);
-    connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)), this, SLOT(onConnectionAddArrived(QDBusPendingCallWatcher*)));
-    return id;
+    return iface.AddConnectionUnsaved(connection);
 }
 
 QDBusPendingReply<bool, QStringList> NetworkManager::SettingsPrivate::loadConnections(const QStringList &filenames)
@@ -163,22 +151,6 @@ QDBusPendingReply<bool> NetworkManager::SettingsPrivate::reloadConnections()
     return iface.ReloadConnections();
 }
 #endif
-
-void NetworkManager::SettingsPrivate::onConnectionAddArrived(QDBusPendingCallWatcher *watcher)
-{
-    QDBusPendingReply<QDBusObjectPath> reply = *watcher;
-    const QString id = watcher->property("libNetworkManagerQt_id").toString();
-    QString message;
-    bool success = true;
-    if (!reply.isValid()) {
-        message = reply.error().message();
-        success = false;
-    } else {
-        message = reply.argumentAt<0>().path();
-    }
-    emit connectionAddComplete(id, success, reply.error().message());
-    watcher->deleteLater();
-}
 
 void NetworkManager::SettingsPrivate::initNotifier()
 {
@@ -277,13 +249,13 @@ NetworkManager::Connection::Ptr NetworkManager::findConnection(const QString &pa
     return globalSettings->findRegisteredConnection(path);
 }
 
-QString NetworkManager::addConnection(const NMVariantMapMap &connection)
+QDBusPendingReply<QDBusObjectPath> NetworkManager::addConnection(const NMVariantMapMap &connection)
 {
     return globalSettings->addConnection(connection);
 }
 
 #if NM_CHECK_VERSION(0, 9, 9)
-QString NetworkManager::addConnectionUnsaved(const NMVariantMapMap& connection)
+QDBusPendingReply<QDBusObjectPath> NetworkManager::addConnectionUnsaved(const NMVariantMapMap& connection)
 {
     return globalSettings->addConnectionUnsaved(connection);
 }

@@ -392,9 +392,9 @@ QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::NetworkManag
     return iface.AddAndActivateConnection(connection, interfacePath, QDBusObjectPath(extra_connection_parameter));
 }
 
-void NetworkManager::NetworkManagerPrivate::deactivateConnection(const QString &activeConnectionPath)
+QDBusPendingReply<> NetworkManager::NetworkManagerPrivate::deactivateConnection(const QString &activeConnectionPath)
 {
-    iface.DeactivateConnection(QDBusObjectPath(activeConnectionPath));
+    return iface.DeactivateConnection(QDBusObjectPath(activeConnectionPath));
 }
 
 void NetworkManager::NetworkManagerPrivate::setNetworkingEnabled(bool enabled)
@@ -835,9 +835,9 @@ QDBusPendingReply<QDBusObjectPath> NetworkManager::activateConnection(const QStr
     return globalNetworkManager->activateConnection(connectionUni, interfaceUni, connectionParameter);
 }
 
-void NetworkManager::deactivateConnection(const QString &activeConnectionPath)
+QDBusPendingReply<> NetworkManager::deactivateConnection(const QString &activeConnectionPath)
 {
-    globalNetworkManager->deactivateConnection(activeConnectionPath);
+    return globalNetworkManager->deactivateConnection(activeConnectionPath);
 }
 
 QDBusPendingReply< QString, QString > NetworkManager::getLogging()
