@@ -886,8 +886,9 @@ QVariantMap NetworkManager::Security8021xSetting::toMap() const
     case PeapVersionUnknown:
         break;
     }
-    setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPVER), version);
+
     if (!version.isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPVER), version);
         setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPLABEL), "1");
     }
 
@@ -908,7 +909,10 @@ QVariantMap NetworkManager::Security8021xSetting::toMap() const
     case FastProvisioningUnknown:
         break;
     }
-    setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE1_FAST_PROVISIONING), provisioning);
+
+    if (!provisioning.isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE1_FAST_PROVISIONING), provisioning);
+    }
 
     QString authMethod;
     switch (phase2AuthMethod()) {
@@ -939,7 +943,10 @@ QVariantMap NetworkManager::Security8021xSetting::toMap() const
     case AuthMethodUnknown:
         break;
     }
-    setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTH), authMethod);
+
+    if (!authMethod.isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTH), authMethod);
+    }
 
     QString authEapMethod;
     switch (phase2AuthEapMethod()) {
@@ -962,7 +969,9 @@ QVariantMap NetworkManager::Security8021xSetting::toMap() const
         break;
     }
 
-    setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTHEAP), authEapMethod);
+    if (!authEapMethod.isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_AUTHEAP), authEapMethod);
+    }
 
     if (!phase2CaCertificate().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE2_CA_CERT), phase2CaCertificate());
