@@ -80,9 +80,17 @@ public:
     inline uint state() const
     { return qvariant_cast< uint >(property("State")); }
 
+    Q_PROPERTY(QString Id READ id)
+    inline QString id() const
+    { return qvariant_cast< QString >(property("Id")); }
+
     Q_PROPERTY(QString Uuid READ uuid)
     inline QString uuid() const
     { return qvariant_cast< QString >(property("Uuid")); }
+
+    Q_PROPERTY(QString Type READ type)
+    inline QString type() const
+    { return qvariant_cast< QString >(property("Type")); }
 
     Q_PROPERTY(bool Vpn READ vpn)
     inline bool vpn() const

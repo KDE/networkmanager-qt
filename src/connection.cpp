@@ -52,6 +52,7 @@ public:
     { }
 
     void updateSettings(const NMVariantMapMap &newSettings = NMVariantMapMap());
+    bool unsaved;
     QString uuid;
     QString id;
     NMVariantMapMap settings;
@@ -74,11 +75,14 @@ NetworkManager::Connection::Connection(const QString &path, QObject *parent)
         d->updateSettings();
     }
     d->path = path;
-
     //qCDebug(NMQT) << m_connection;
 
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Updated, this, &Connection::onConnectionUpdated);
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Removed, this, &Connection::onConnectionRemoved);
+#if NM_CHECK_VERSION(0, 9, 9)
+    d->unsaved = d->iface.unsaved();
+    connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::PropertiesChanged, this, &Connection::onPropertiesChanged);
+#endif
 }
 
 NetworkManager::Connection::~Connection()
@@ -103,13 +107,13 @@ QString NetworkManager::Connection::name() const
     Q_D(const Connection);
     return d->id;
 }
-
+#if NM_CHECK_VERSION(0, 9, 9)
 bool NetworkManager::Connection::isUnsaved() const
 {
     Q_D(const Connection);
-    return d->iface.unsaved();
+    return d->unsaved;
 }
-
+#endif
 NetworkManager::ConnectionSettings::Ptr NetworkManager::Connection::settings()
 {
     Q_D(Connection);
@@ -131,7 +135,7 @@ QDBusPendingReply<> NetworkManager::Connection::update(const NMVariantMapMap &se
     Q_D(Connection);
     return d->iface.Update(settings);
 }
-
+#if NM_CHECK_VERSION(0, 9, 9)
 QDBusPendingReply<> NetworkManager::Connection::updateUnsaved(const NMVariantMapMap &settings)
 {
     Q_D(Connection);
@@ -143,7 +147,7 @@ QDBusPendingReply<> NetworkManager::Connection::save()
     Q_D(Connection);
     return d->iface.Save();
 }
-
+#endif
 QDBusPendingReply<> NetworkManager::Connection::remove()
 {
     Q_D(Connection);
@@ -175,7 +179,23 @@ void NetworkManager::Connection::onConnectionRemoved()
     d->updateSettings();
     emit removed(path);
 }
-
+#if NM_CHECK_VERSION(0, 9, 9)
+void NetworkManager::Connection::onPropertiesChanged(const QVariantMap& properties)
+{
+    Q_D(Connection);
+    QVariantMap::const_iterator it = properties.constBegin();
+    while (it != properties.constEnd()) {
+        const QString property = it.key();
+        if (property == QLatin1String("Unsaved")) {
+            d->unsaved = it->toBool();
+            emit unsavedChanged(d->unsaved);
+        } else {
+            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+        }
+        ++it;
+    }
+}
+#endif
 void NetworkManager::ConnectionPrivate::updateSettings(const NMVariantMapMap &newSettings)
 {
     settings = newSettings;

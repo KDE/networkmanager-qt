@@ -84,6 +84,7 @@ public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
     void Removed();
     void Updated();
+    void PropertiesChanged(const QVariantMap &properties);
 };
 
 #endif

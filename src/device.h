@@ -114,7 +114,9 @@ public:
                              ConnectionAssumedReason = 41, SupplicantAvailableReason = 42, ModemNotFoundReason = 43, BluetoothFailedReason = 44,
                              GsmSimNotInserted = 45, GsmSimPinRequired = 46, GsmSimPukRequired = 47, GsmSimWrong = 48 , InfiniBandMode = 49,
                              DependencyFailed = 50, Br2684Failed = 51, ModemManagerUnavailable = 52, SsidNotFound = 53, SecondaryConnectionFailed = 54,
-                             DcbFcoeFailed = 55, TeamdControlFailed = 56,
+#if NM_CHECK_VERSION(0, 9, 9)
+                             DcbFcoeFailed = 55, TeamdControlFailed = 56, ModemFailed = 57, ModemAvailable = 58, SimPinIncorrect = 59,
+#endif
                              Reserved = 65536
                            };
     /**

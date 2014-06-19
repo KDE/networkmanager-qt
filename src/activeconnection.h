@@ -116,6 +116,14 @@ public:
      * state
      */
     Dhcp6Config::Ptr dhcp6Config() const;
+    /**
+     * The Id of the connection
+     */
+    QString id() const;
+    /**
+     * The type of the connection
+     */
+    NetworkManager::ConnectionSettings::ConnectionType type() const;
 #endif
     /**
      * Returns the uni of master device if the connection is a slave.
@@ -172,6 +180,14 @@ Q_SIGNALS:
      * Emitted when the IPv6 configuration of this network has changed.
      */
     void ipV6ConfigChanged();
+    /**
+     * The @p id changed
+     */
+    void idChanged(const QString & id);
+    /**
+     * The @p type changed
+     */
+    void typeChanged(NetworkManager::ConnectionSettings::ConnectionType type);
 #endif
     /**
      * The master device changed.

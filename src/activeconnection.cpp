@@ -53,6 +53,8 @@ NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &
         devices.append(devicePath.path());
     }
 #if NM_CHECK_VERSION(0, 9, 9)
+    id = iface.id();
+    type = iface.type();
     QDBusObjectPath ip4ConfigObjectPath = iface.ip4Config();
     if (!ip4ConfigObjectPath.path().isNull() || ip4ConfigObjectPath.path() != QLatin1String("/")) {
         ipV4ConfigPath = ip4ConfigObjectPath.path();
@@ -171,6 +173,18 @@ NetworkManager::IpConfig NetworkManager::ActiveConnection::ipV6Config() const
     }
     return d->ipV6Config;
 }
+
+QString NetworkManager::ActiveConnection::id() const
+{
+    Q_D(const ActiveConnection);
+    return d->id;
+}
+
+NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ActiveConnection::type() const
+{
+    Q_D(const ActiveConnection);
+    return NetworkManager::ConnectionSettings::typeFromString(d->type);
+}
 #endif
 
 QString NetworkManager::ActiveConnection::master() const
@@ -264,6 +278,12 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap &prop
             }
             d->ipV6Config = IpConfig();
             emit ipV6ConfigChanged();
+        } else if (property == QLatin1String("Id")) {
+            d->id = it->toString();
+            emit idChanged(d->id);
+        } else if (property == QLatin1String("Type")) {
+            d->type = it->toString();
+            emit typeChanged(NetworkManager::ConnectionSettings::typeFromString(d->type));
 #endif
         }  else if (property == QLatin1String("Master")) {
             d->master = qdbus_cast<QDBusObjectPath>(*it).path();

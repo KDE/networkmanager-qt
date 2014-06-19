@@ -48,6 +48,8 @@ public:
     QString ipV4ConfigPath;
     mutable IpConfig ipV6Config;
     QString ipV6ConfigPath;
+    QString id;
+    QString type;
 #endif
     QString specificObject;
     ActiveConnection::State state;
