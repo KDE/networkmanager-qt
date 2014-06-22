@@ -35,7 +35,8 @@
 Q_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
 
 NetworkManager::SettingsPrivate::SettingsPrivate()
-    : iface(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, QDBusConnection::systemBus())
+    : iface(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, QDBusConnection::systemBus()),
+      m_canModify(true)
 {
     connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::PropertiesChanged,
             this, &SettingsPrivate::propertiesChanged);
