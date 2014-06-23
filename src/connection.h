@@ -73,7 +73,7 @@ public:
      * Returns the name of this connection
      */
     QString name() const;
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     /**
      * If set, indicates that the in-memory state of the
      * connection does not match the on-disk state. This flag
@@ -103,7 +103,7 @@ public:
      * depending on the request.
      */
     QDBusPendingReply<> update(const NMVariantMapMap & settings);
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     /**
      * Update the connection with new @p settings and properties (replacing
      * all previous settings and properties) but do not immediately save
@@ -147,7 +147,7 @@ Q_SIGNALS:
      * @param path connections's path.
      */
     void removed(const QString &path);
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     /**
      * Emitted when the connection unsaved state changes
      */
@@ -156,7 +156,7 @@ Q_SIGNALS:
 private Q_SLOTS:
     void onConnectionUpdated();
     void onConnectionRemoved();
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     void onPropertiesChanged(const QVariantMap &properties);
 #endif
 private:

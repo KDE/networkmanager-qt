@@ -59,7 +59,7 @@ public:
         Wimax,
         Wired,
         Wireless,
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
         Team
 #endif
     };

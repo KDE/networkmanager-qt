@@ -104,7 +104,7 @@ public:
     QDBusPendingReply<uint> checkConnectivity();
     ActiveConnection::Ptr primaryConnection();
     ActiveConnection::Ptr activatingConnection();
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     bool isStartingUp() const;
 #endif
 protected Q_SLOTS:

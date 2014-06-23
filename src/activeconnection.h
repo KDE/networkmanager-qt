@@ -89,7 +89,7 @@ public:
      * Whether this connection has the default IPv6 route
      */
     bool default6() const;
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
    /**
      * The Ip4Config object describing the configuration of the
      * connection. Only valid when the connection is in the
@@ -163,7 +163,7 @@ Q_SIGNALS:
      * The state of the default IPv6 route changed
      */
     void default6Changed(bool isDefault);
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     /**
      * Emitted when the DHCP configuration for IPv4 of this network has changed.
      */

@@ -58,7 +58,7 @@ class NETWORKMANAGERQT_EXPORT Device : public QObject
     Q_PROPERTY(QVariant genericCapabilities READ capabilitiesV)
     Q_PROPERTY(QHostAddress ipV4Address READ ipV4Address)
     Q_PROPERTY(bool managed READ managed)
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     Q_PROPERTY(uint mtu READ mtu)
 #endif
     Q_PROPERTY(QString udi READ udi)
@@ -114,7 +114,7 @@ public:
                              ConnectionAssumedReason = 41, SupplicantAvailableReason = 42, ModemNotFoundReason = 43, BluetoothFailedReason = 44,
                              GsmSimNotInserted = 45, GsmSimPinRequired = 46, GsmSimPukRequired = 47, GsmSimWrong = 48 , InfiniBandMode = 49,
                              DependencyFailed = 50, Br2684Failed = 51, ModemManagerUnavailable = 52, SsidNotFound = 53, SecondaryConnectionFailed = 54,
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
                              DcbFcoeFailed = 55, TeamdControlFailed = 56, ModemFailed = 57, ModemAvailable = 58, SimPinIncorrect = 59,
 #endif
                              Reserved = 65536
@@ -146,7 +146,7 @@ public:
         Vlan = NM_DEVICE_TYPE_VLAN, /**< Vlan virtual device */
         Adsl = NM_DEVICE_TYPE_ADSL, /**< ADSL modem device */
         Bridge = NM_DEVICE_TYPE_BRIDGE, /**< Bridge virtual device */
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
         Generic = NM_DEVICE_TYPE_GENERIC, /**< Generic device @since 0.9.9.0 */
         Team = NM_DEVICE_TYPE_TEAM, /**< Team master device @since 0.9.9.0 */
         Gre, /**< Gre virtual device @since 0.9.9.0 */
@@ -314,7 +314,7 @@ public:
      */
     QString udi() const;
 
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     /**
      * @return If non-empty, an (opaque) indicator of the physical network
      * port associated with the device. This can be used to recognize
@@ -460,7 +460,7 @@ Q_SIGNALS:
      * Emitted when the managed state of this network has changed.
      */
     void managedChanged();
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     /**
      * Emitted when the physical port ID changes.
      * @see physicalPortId()

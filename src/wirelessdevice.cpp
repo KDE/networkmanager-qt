@@ -50,7 +50,7 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
 
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
 
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     QList <QDBusObjectPath> aps = d->wirelessIface.accessPoints();
     foreach (const QDBusObjectPath &op, aps) {
         accessPointAdded(op);

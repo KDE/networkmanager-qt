@@ -131,7 +131,7 @@ void NetworkManager::NetworkManagerPrivate::init()
     qobject_cast<SettingsPrivate *>(settingsNotifier())->init();
 
     if (iface.isValid()) {
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
         QList <QDBusObjectPath> devices = iface.devices();
         qCDebug(NMQT) << "Device list";
         foreach (const QDBusObjectPath &op, devices) {
@@ -278,7 +278,7 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
     case Device::Bridge:
         createdInterface = Device::Ptr(new NetworkManager::BridgeDevice(uni), &QObject::deleteLater);
         break;
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     case Device::Generic:
         createdInterface = Device::Ptr(new NetworkManager::GenericDevice(uni), &QObject::deleteLater);
         break;
@@ -530,7 +530,7 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::act
     return findRegisteredActiveConnection(iface.activatingConnection().path());
 }
 
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
 bool NetworkManager::NetworkManagerPrivate::isStartingUp() const
 {
     return iface.startup();
@@ -641,7 +641,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
             emit primaryConnectionChanged(it->value<QDBusObjectPath>().path());
         } else if (property == QLatin1String("ActivatingConnection")) {
             emit activatingConnectionChanged(it->value<QDBusObjectPath>().path());
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
         } else if (property == QLatin1String("Startup")) {
             emit isStartingUpChanged();
 #endif
@@ -914,7 +914,7 @@ NetworkManager::Device::Types NetworkManager::supportedInterfaceTypes()
                NetworkManager::Device::Vlan |
                NetworkManager::Device::Adsl |
                NetworkManager::Device::Bridge
-            #if NM_CHECK_VERSION(0, 9, 9)
+            #if NM_CHECK_VERSION(0, 9, 10)
                 |
                 NetworkManager::Device::Generic |
                 NetworkManager::Device::Team
@@ -942,7 +942,7 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::activatingConnection()
     return globalNetworkManager->activatingConnection();
 }
 
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
 bool NetworkManager::isStartingUp()
 {
     return globalNetworkManager->isStartingUp();

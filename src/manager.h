@@ -163,7 +163,7 @@ Q_SIGNALS:
      * @since 0.9.9.0
      */
     void activatingConnectionChanged(const QString & uni);
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     /**
      * Emitted when NM has started/finished its startup sequence
      * @since 0.9.9.0
@@ -329,7 +329,7 @@ NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr primaryConnection();
  */
 NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr activatingConnection();
 
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
 /**
   * Indicates whether NM is still starting up; this becomes @p false
   * when NM has finished attempting to activate every connection

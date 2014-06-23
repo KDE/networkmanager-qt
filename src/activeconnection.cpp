@@ -35,7 +35,7 @@
 
 NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &dbusPath)
     : iface(NetworkManagerPrivate::DBUS_SERVICE, dbusPath, QDBusConnection::systemBus())
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     , dhcp4Config(0)
     , dhcp6Config(0)
 #endif
@@ -52,7 +52,7 @@ NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &
     foreach (const QDBusObjectPath &devicePath, iface.devices()) {
         devices.append(devicePath.path());
     }
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     id = iface.id();
     type = iface.type();
     QDBusObjectPath ip4ConfigObjectPath = iface.ip4Config();
@@ -137,7 +137,7 @@ bool NetworkManager::ActiveConnection::default6() const
     return d->default6;
 }
 
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
 NetworkManager::Dhcp4Config::Ptr NetworkManager::ActiveConnection::dhcp4Config() const
 {
     Q_D(const ActiveConnection);
@@ -239,7 +239,7 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap &prop
         } else if (property == QLatin1String("Default6")) {
             d->default6 = it->toBool();
             emit default6Changed(d->default6);
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
         } else if (property == QLatin1String("Dhcp4Config")) {
             QDBusObjectPath dhcp4ConfigPath = (*it).value<QDBusObjectPath>();
             if (dhcp4ConfigPath.path().isNull()) {

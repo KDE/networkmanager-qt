@@ -90,7 +90,7 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
     , designSpeed(0)
     , dhcp4Config(0)
     , dhcp6Config(0)
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     , mtu(0)
 #endif
     , q_ptr(q)
@@ -110,7 +110,7 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
     foreach (const QDBusObjectPath &availableConnection, deviceIface.availableConnections()) {
         availableConnections << availableConnection.path();
     }
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     physicalPortId = deviceIface.physicalPortId();
     mtu = deviceIface.mtu();
 #endif
@@ -308,7 +308,7 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
     } else if (property == QLatin1String("Udi")) {
         d->udi = value.toString();
         emit udiChanged();
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     } else if (property == QLatin1String("PhysicalPortId")) {
         d->physicalPortId = value.toString();
         emit physicalPortIdChanged();
@@ -408,7 +408,7 @@ QString NetworkManager::Device::udi() const
     return d->udi;
 }
 
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
 QString NetworkManager::Device::physicalPortId() const
 {
     Q_D(const Device);
@@ -485,7 +485,7 @@ bool NetworkManager::Device::managed() const
     return d->managed;
 }
 
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
 uint NetworkManager::Device::mtu() const
 {
     Q_D(const Device);

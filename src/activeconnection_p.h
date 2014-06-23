@@ -39,7 +39,7 @@ public:
     bool default6;
     QStringList devices;
     OrgFreedesktopNetworkManagerConnectionActiveInterface iface;
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     mutable Dhcp4Config::Ptr dhcp4Config;
     QString dhcp4ConfigPath;
     mutable Dhcp6Config::Ptr dhcp6Config;

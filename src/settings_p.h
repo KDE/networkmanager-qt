@@ -44,23 +44,23 @@ public:
     QString hostname() const;
     bool canModify() const;
     QDBusPendingReply<QDBusObjectPath> addConnection(const NMVariantMapMap &);
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     QDBusPendingReply<QDBusObjectPath> addConnectionUnsaved(const NMVariantMapMap &);
     QDBusPendingReply<bool, QStringList> loadConnections(const QStringList& filenames);
 #endif
     void saveHostname(const QString &);
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     QDBusPendingReply<bool> reloadConnections();
 #endif
     Connection::Ptr findRegisteredConnection(const QString &);
 
     QMap<QString, Connection::Ptr> connections;
-    bool m_canModify;
-    QString m_hostname;
+    bool canModify;
+    QString hostname;
     OrgFreedesktopNetworkManagerSettingsInterface iface;
 protected Q_SLOTS:
     void onConnectionAdded(const QDBusObjectPath &);
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     void onConnectionRemoved(const QDBusObjectPath &);
 #else
     void onConnectionRemoved(const QString &);

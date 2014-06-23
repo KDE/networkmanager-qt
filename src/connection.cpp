@@ -79,7 +79,7 @@ NetworkManager::Connection::Connection(const QString &path, QObject *parent)
 
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Updated, this, &Connection::onConnectionUpdated);
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Removed, this, &Connection::onConnectionRemoved);
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     d->unsaved = d->iface.unsaved();
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::PropertiesChanged, this, &Connection::onPropertiesChanged);
 #endif
@@ -107,7 +107,7 @@ QString NetworkManager::Connection::name() const
     Q_D(const Connection);
     return d->id;
 }
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
 bool NetworkManager::Connection::isUnsaved() const
 {
     Q_D(const Connection);
@@ -135,7 +135,7 @@ QDBusPendingReply<> NetworkManager::Connection::update(const NMVariantMapMap &se
     Q_D(Connection);
     return d->iface.Update(settings);
 }
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
 QDBusPendingReply<> NetworkManager::Connection::updateUnsaved(const NMVariantMapMap &settings)
 {
     Q_D(Connection);
@@ -179,7 +179,7 @@ void NetworkManager::Connection::onConnectionRemoved()
     d->updateSettings();
     emit removed(path);
 }
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
 void NetworkManager::Connection::onPropertiesChanged(const QVariantMap& properties)
 {
     Q_D(Connection);

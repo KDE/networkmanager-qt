@@ -95,7 +95,7 @@ NETWORKMANAGERQT_EXPORT NetworkManager::Connection::Ptr findConnection(const QSt
  */
 NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath> addConnection(const NMVariantMapMap &settings);
 
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
 /**
  * Add new connection but do not save it to disk immediately.  This
  * operation does not start the network connection unless (1) device is
@@ -122,7 +122,7 @@ NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath> addConnectionUnsaved(
  */
 NETWORKMANAGERQT_EXPORT NetworkManager::Connection::Ptr findConnectionByUuid(const QString &uuid);
 
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
 /**
  * Loads or reloads the indicated connections from disk. You
  * should call this after making changes directly to an on-disk

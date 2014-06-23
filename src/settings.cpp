@@ -42,7 +42,7 @@ NetworkManager::SettingsPrivate::SettingsPrivate()
             this, &SettingsPrivate::propertiesChanged);
     connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::NewConnection,
             this, &SettingsPrivate::onConnectionAdded);
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::ConnectionRemoved,
             this, &SettingsPrivate::onConnectionRemoved);
 #endif
@@ -58,7 +58,7 @@ NetworkManager::SettingsPrivate::SettingsPrivate()
 
 void NetworkManager::SettingsPrivate::init()
 {
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     QList<QDBusObjectPath> connectionList = iface.connections();
     foreach (const QDBusObjectPath &connection, connectionList) {
         if (!connections.contains(connection.path())) {
@@ -123,12 +123,12 @@ NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findConnectionB
 
 QString NetworkManager::SettingsPrivate::hostname() const
 {
-    return m_hostname;
+    return hostname;
 }
 
 bool NetworkManager::SettingsPrivate::canModify() const
 {
-    return m_canModify;
+    return canModify;
 }
 
 QDBusPendingReply<QDBusObjectPath> NetworkManager::SettingsPrivate::addConnection(const NMVariantMapMap &connection)
@@ -136,7 +136,7 @@ QDBusPendingReply<QDBusObjectPath> NetworkManager::SettingsPrivate::addConnectio
     return iface.AddConnection(connection);
 }
 
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
 QDBusPendingReply<QDBusObjectPath> NetworkManager::SettingsPrivate::addConnectionUnsaved(const NMVariantMapMap &connection)
 {
     return iface.AddConnectionUnsaved(connection);
@@ -169,12 +169,12 @@ void NetworkManager::SettingsPrivate::propertiesChanged(const QVariantMap &prope
     while (it != properties.constEnd()) {
         const QString property = it.key();
         if (property == QLatin1String("CanModify")) {
-            m_canModify = it->toBool();
-            emit canModifyChanged(m_canModify);
+            canModify = it->toBool();
+            emit canModifyChanged(canModify);
         } else if (property == QLatin1String("Hostname")) {
-            m_hostname = it->toString();
-            emit hostnameChanged(m_hostname);
-#if NM_CHECK_VERSION(0, 9, 9)
+            hostname = it->toString();
+            emit hostnameChanged(hostname);
+#if NM_CHECK_VERSION(0, 9, 10)
         } else if (property == QLatin1String("Connections")) {
             // TODO some action??
 #endif
@@ -215,7 +215,7 @@ NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findRegisteredC
     return ret;
 }
 
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
 void NetworkManager::SettingsPrivate::onConnectionRemoved(const QDBusObjectPath &path)
 {
     const QString connectionPath = path.path();
@@ -255,7 +255,7 @@ QDBusPendingReply<QDBusObjectPath> NetworkManager::addConnection(const NMVariant
     return globalSettings->addConnection(connection);
 }
 
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
 QDBusPendingReply<QDBusObjectPath> NetworkManager::addConnectionUnsaved(const NMVariantMapMap& connection)
 {
     return globalSettings->addConnectionUnsaved(connection);

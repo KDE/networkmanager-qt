@@ -39,7 +39,7 @@ NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString &path, Wima
     txPower = wimaxIface.txPower();
 
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     QList <QDBusObjectPath> nsps = wimaxIface.nsps();
     foreach (const QDBusObjectPath &op, nsps) {
         nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());

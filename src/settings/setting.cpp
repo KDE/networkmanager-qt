@@ -36,7 +36,7 @@
 #include <nm-setting-ppp.h>
 #include <nm-setting-pppoe.h>
 #include <nm-setting-serial.h>
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
 #include <nm-setting-team.h>
 #endif
 #include <nm-setting-vlan.h>
@@ -133,7 +133,7 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     case Bridge:
         typeString = QLatin1String(NM_SETTING_BRIDGE_SETTING_NAME);
         break;
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     case Team:
         typeString = QLatin1String(NM_SETTING_TEAM_SETTING_NAME);
         break;
@@ -185,7 +185,7 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
         type = Bond;
     } else if (typeString == QLatin1String(NM_SETTING_BRIDGE_SETTING_NAME)) {
         type = Bridge;
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     } else if (typeString == QLatin1String(NM_SETTING_TEAM_SETTING_NAME)) {
         type = Team;
 #endif

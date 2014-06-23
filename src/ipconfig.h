@@ -82,7 +82,7 @@ public:
      */
     QStringList domains() const;
 
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     /**
      * Returns the gateway in use
      *
@@ -101,7 +101,7 @@ public:
      */
     IpRoutes routes() const;
 
-#if NM_CHECK_VERSION(0, 9, 9)
+#if NM_CHECK_VERSION(0, 9, 10)
     /**
      * Returns a list of DNS searches.
      *
