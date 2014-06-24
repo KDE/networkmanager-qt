@@ -54,10 +54,10 @@ public:
 #endif
     Connection::Ptr findRegisteredConnection(const QString &);
 
-    QMap<QString, Connection::Ptr> connections;
-    bool canModify;
-    QString hostname;
     OrgFreedesktopNetworkManagerSettingsInterface iface;
+    QMap<QString, Connection::Ptr> connections;
+    bool m_canModify;
+    QString m_hostname;
 protected Q_SLOTS:
     void onConnectionAdded(const QDBusObjectPath &);
 #if NM_CHECK_VERSION(0, 9, 10)

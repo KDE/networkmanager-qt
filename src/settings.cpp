@@ -35,8 +35,8 @@
 Q_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
 
 NetworkManager::SettingsPrivate::SettingsPrivate()
-    : iface(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, QDBusConnection::systemBus()),
-      m_canModify(true)
+    : iface(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, QDBusConnection::systemBus())
+    , m_canModify(true)
 {
     connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::PropertiesChanged,
             this, &SettingsPrivate::propertiesChanged);
@@ -123,12 +123,12 @@ NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findConnectionB
 
 QString NetworkManager::SettingsPrivate::hostname() const
 {
-    return hostname;
+    return m_hostname;
 }
 
 bool NetworkManager::SettingsPrivate::canModify() const
 {
-    return canModify;
+    return m_canModify;
 }
 
 QDBusPendingReply<QDBusObjectPath> NetworkManager::SettingsPrivate::addConnection(const NMVariantMapMap &connection)
@@ -169,11 +169,11 @@ void NetworkManager::SettingsPrivate::propertiesChanged(const QVariantMap &prope
     while (it != properties.constEnd()) {
         const QString property = it.key();
         if (property == QLatin1String("CanModify")) {
-            canModify = it->toBool();
-            emit canModifyChanged(canModify);
+            m_canModify = it->toBool();
+            emit canModifyChanged(m_canModify);
         } else if (property == QLatin1String("Hostname")) {
-            hostname = it->toString();
-            emit hostnameChanged(hostname);
+            m_hostname = it->toString();
+            emit hostnameChanged(m_hostname);
 #if NM_CHECK_VERSION(0, 9, 10)
         } else if (property == QLatin1String("Connections")) {
             // TODO some action??
