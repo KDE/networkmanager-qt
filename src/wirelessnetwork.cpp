@@ -87,7 +87,7 @@ void NetworkManager::WirelessNetworkPrivate::updateStrength()
         emit q->signalStrengthChanged(strength);
     }
 
-    if (referenceAp != strongestAp) {
+    if (strongestAp && referenceAp != strongestAp) {
         referenceAp = strongestAp;
         emit q->referenceAccessPointChanged(referenceAp->uni());
     }
@@ -139,7 +139,11 @@ QString NetworkManager::WirelessNetwork::device() const
 {
     Q_D(const WirelessNetwork);
 
-    return d->wirelessNetworkInterface->uni();
+    if (d->wirelessNetworkInterface) {
+        return d->wirelessNetworkInterface->uni();
+    } else {
+        return QString();
+    }
 }
 
 #include "moc_wirelessnetwork.cpp"
