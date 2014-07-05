@@ -4,7 +4,7 @@ project(NetworkManagerQt)
 
 include(GNUInstallDirs)
 
-set(VERSION 0.9.8.1)
+set(VERSION 0.9.8.2)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_MODULE_PATH})
 
 if (NOT CMAKE_BUILD_TYPE)
