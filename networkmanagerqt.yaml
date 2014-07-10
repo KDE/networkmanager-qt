@@ -1,1 +1,10 @@
+maintainer: Lamarque Souza, Jan Grulich, Lukáš Tinkl
+description: Qt wrapper for NetworkManager API
 tier: 1
+type: integration
+platforms:
+    - name: Linux
+    - note: Functional only with running NetworkManager
+portingAid: false
+deprecated: false
+release: false
