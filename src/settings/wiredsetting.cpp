@@ -25,24 +25,24 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::WiredSettingPrivate::WiredSettingPrivate():
-    name(NM_SETTING_WIRED_SETTING_NAME),
-    port(NetworkManager::WiredSetting::UnknownPort),
-    speed(0),
-    duplex(NetworkManager::WiredSetting::UnknownDuplexType),
-    autoNegotiate(true),
-    mtu(0),
-    s390NetType(NetworkManager::WiredSetting::Undefined)
+NetworkManager::WiredSettingPrivate::WiredSettingPrivate()
+    : name(NM_SETTING_WIRED_SETTING_NAME)
+    , port(NetworkManager::WiredSetting::UnknownPort)
+    , speed(0)
+    , duplex(NetworkManager::WiredSetting::UnknownDuplexType)
+    , autoNegotiate(true)
+    , mtu(0)
+    , s390NetType(NetworkManager::WiredSetting::Undefined)
 { }
 
-NetworkManager::WiredSetting::WiredSetting():
-    Setting(Setting::Wired),
-    d_ptr(new WiredSettingPrivate())
+NetworkManager::WiredSetting::WiredSetting()
+    : Setting(Setting::Wired)
+    , d_ptr(new WiredSettingPrivate())
 { }
 
-NetworkManager::WiredSetting::WiredSetting(const WiredSetting::Ptr &other):
-    Setting(other),
-    d_ptr(new WiredSettingPrivate())
+NetworkManager::WiredSetting::WiredSetting(const WiredSetting::Ptr &other)
+    : Setting(other)
+    , d_ptr(new WiredSettingPrivate())
 {
     setPort(other->port());
     setSpeed(other->speed());

@@ -25,25 +25,25 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::WirelessSettingPrivate::WirelessSettingPrivate():
-    name(NM_SETTING_WIRELESS_SETTING_NAME),
-    mode(NetworkManager::WirelessSetting::Infrastructure),
-    band(WirelessSetting::Automatic),
-    channel(0),
-    rate(0),
-    txPower(0),
-    mtu(0),
-    hidden(false)
+NetworkManager::WirelessSettingPrivate::WirelessSettingPrivate()
+    : name(NM_SETTING_WIRELESS_SETTING_NAME)
+    , mode(NetworkManager::WirelessSetting::Infrastructure)
+    , band(WirelessSetting::Automatic)
+    , channel(0)
+    , rate(0)
+    , txPower(0)
+    , mtu(0)
+    , hidden(false)
 { }
 
-NetworkManager::WirelessSetting::WirelessSetting():
-    Setting(Setting::Wireless),
-    d_ptr(new WirelessSettingPrivate())
+NetworkManager::WirelessSetting::WirelessSetting()
+    : Setting(Setting::Wireless)
+    , d_ptr(new WirelessSettingPrivate())
 { }
 
-NetworkManager::WirelessSetting::WirelessSetting(const Ptr &setting):
-    Setting(setting),
-    d_ptr(new WirelessSettingPrivate)
+NetworkManager::WirelessSetting::WirelessSetting(const Ptr &setting)
+    : Setting(setting)
+    , d_ptr(new WirelessSettingPrivate)
 {
     setSsid(setting->ssid());
     setMode(setting->mode());

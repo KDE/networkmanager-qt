@@ -25,19 +25,19 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::PppoeSettingPrivate::PppoeSettingPrivate():
-    name(NM_SETTING_PPPOE_SETTING_NAME),
-    passwordFlags(Setting::None)
+NetworkManager::PppoeSettingPrivate::PppoeSettingPrivate()
+    : name(NM_SETTING_PPPOE_SETTING_NAME)
+    , passwordFlags(Setting::None)
 { }
 
-NetworkManager::PppoeSetting::PppoeSetting():
-    Setting(Setting::Pppoe),
-    d_ptr(new PppoeSettingPrivate())
+NetworkManager::PppoeSetting::PppoeSetting()
+    : Setting(Setting::Pppoe)
+    , d_ptr(new PppoeSettingPrivate())
 { }
 
-NetworkManager::PppoeSetting::PppoeSetting(const Ptr &other):
-    Setting(other),
-    d_ptr(new PppoeSettingPrivate())
+NetworkManager::PppoeSetting::PppoeSetting(const Ptr &other)
+    :Setting(other)
+    , d_ptr(new PppoeSettingPrivate())
 {
     setService(other->service());
     setUsername(other->username());

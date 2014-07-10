@@ -25,18 +25,18 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::TeamSettingPrivate::TeamSettingPrivate():
-    name(NM_SETTING_TEAM_SETTING_NAME)
+NetworkManager::TeamSettingPrivate::TeamSettingPrivate()
+    : name(NM_SETTING_TEAM_SETTING_NAME)
 { }
 
-NetworkManager::TeamSetting::TeamSetting():
-    Setting(Setting::Team),
-    d_ptr(new TeamSettingPrivate())
+NetworkManager::TeamSetting::TeamSetting()
+    : Setting(Setting::Team)
+    , d_ptr(new TeamSettingPrivate())
 { }
 
-NetworkManager::TeamSetting::TeamSetting(const Ptr &other):
-    Setting(other),
-    d_ptr(new TeamSettingPrivate())
+NetworkManager::TeamSetting::TeamSetting(const Ptr &other)
+    : Setting(other)
+    , d_ptr(new TeamSettingPrivate())
 {
     setInterfaceName(other->interfaceName());
     setConfig(other->config());

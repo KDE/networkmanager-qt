@@ -25,23 +25,23 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::GsmSettingPrivate::GsmSettingPrivate():
-    name(NM_SETTING_GSM_SETTING_NAME),
-    passwordFlags(NetworkManager::GsmSetting::None),
-    networkType(NetworkManager::GsmSetting::Any),
-    pinFlags(NetworkManager::GsmSetting::None),
-    allowedBand(1),
-    homeOnly(false)
+NetworkManager::GsmSettingPrivate::GsmSettingPrivate()
+    : name(NM_SETTING_GSM_SETTING_NAME)
+    , passwordFlags(NetworkManager::GsmSetting::None)
+    , networkType(NetworkManager::GsmSetting::Any)
+    , pinFlags(NetworkManager::GsmSetting::None)
+    , allowedBand(1)
+    , homeOnly(false)
 { }
 
-NetworkManager::GsmSetting::GsmSetting():
-    Setting(Setting::Gsm),
-    d_ptr(new GsmSettingPrivate())
+NetworkManager::GsmSetting::GsmSetting()
+    : Setting(Setting::Gsm)
+    , d_ptr(new GsmSettingPrivate())
 { }
 
-NetworkManager::GsmSetting::GsmSetting(const Ptr &other):
-    Setting(other),
-    d_ptr(new GsmSettingPrivate())
+NetworkManager::GsmSetting::GsmSetting(const Ptr &other)
+    : Setting(other)
+    , d_ptr(new GsmSettingPrivate())
 {
     setNumber(other->number());
     setUsername(other->username());

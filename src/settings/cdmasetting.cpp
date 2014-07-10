@@ -30,14 +30,14 @@ NetworkManager::CdmaSettingPrivate::CdmaSettingPrivate():
     passwordFlags(Setting::None)
 { }
 
-NetworkManager::CdmaSetting::CdmaSetting():
-    Setting(Setting::Cdma),
-    d_ptr(new CdmaSettingPrivate())
+NetworkManager::CdmaSetting::CdmaSetting()
+    : Setting(Setting::Cdma)
+    , d_ptr(new CdmaSettingPrivate())
 { }
 
-NetworkManager::CdmaSetting::CdmaSetting(const Ptr &other):
-    Setting(other),
-    d_ptr(new CdmaSettingPrivate())
+NetworkManager::CdmaSetting::CdmaSetting(const Ptr &other)
+    : Setting(other)
+    , d_ptr(new CdmaSettingPrivate())
 {
     setUsername(other->username());
     setNumber(other->number());

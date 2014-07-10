@@ -41,9 +41,9 @@ NetworkManager::IpAddress::~IpAddress()
     delete d;
 }
 
-NetworkManager::IpAddress::IpAddress(const NetworkManager::IpAddress &other) :
-    QNetworkAddressEntry(other),
-    d(new Private)
+NetworkManager::IpAddress::IpAddress(const NetworkManager::IpAddress &other)
+    : QNetworkAddressEntry(other)
+    , d(new Private)
 {
     *this = other;
 }

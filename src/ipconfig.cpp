@@ -69,8 +69,8 @@ NetworkManager::IpConfig::IpConfig()
 {
 }
 
-NetworkManager::IpConfig::IpConfig(const IpConfig &other) :
-    d(new Private)
+NetworkManager::IpConfig::IpConfig(const IpConfig &other)
+    : d(new Private)
 {
     *this = other;
 }

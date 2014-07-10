@@ -25,23 +25,23 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::SerialSettingPrivate::SerialSettingPrivate():
-    name(NM_SETTING_SERIAL_SETTING_NAME),
-    baud(57600),
-    bits(8),
-    parity(SerialSetting::NoParity),
-    stopbits(1),
-    sendDelay(0)
+NetworkManager::SerialSettingPrivate::SerialSettingPrivate()
+    : name(NM_SETTING_SERIAL_SETTING_NAME)
+    , baud(57600)
+    , bits(8)
+    , parity(SerialSetting::NoParity)
+    , stopbits(1)
+    , sendDelay(0)
 { }
 
-NetworkManager::SerialSetting::SerialSetting():
-    Setting(Setting::Serial),
-    d_ptr(new SerialSettingPrivate())
+NetworkManager::SerialSetting::SerialSetting()
+    : Setting(Setting::Serial)
+    , d_ptr(new SerialSettingPrivate())
 { }
 
-NetworkManager::SerialSetting::SerialSetting(const Ptr &other):
-    Setting(other),
-    d_ptr(new SerialSettingPrivate())
+NetworkManager::SerialSetting::SerialSetting(const Ptr &other)
+    : Setting(other)
+    , d_ptr(new SerialSettingPrivate())
 {
     setBaud(other->baud());
     setBits(other->bits());

@@ -26,25 +26,25 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::WirelessSecuritySettingPrivate::WirelessSecuritySettingPrivate():
-    name(NM_SETTING_WIRELESS_SECURITY_SETTING_NAME),
-    keyMgmt(NetworkManager::WirelessSecuritySetting::Unknown),
-    wepTxKeyidx(0),
-    authAlg(NetworkManager::WirelessSecuritySetting::None),
-    wepKeyFlags(NetworkManager::Setting::None),
-    wepKeyType(NetworkManager::WirelessSecuritySetting::NotSpecified),
-    pskFlags(NetworkManager::Setting::None),
-    leapPasswordFlags(NetworkManager::Setting::None)
+NetworkManager::WirelessSecuritySettingPrivate::WirelessSecuritySettingPrivate()
+    : name(NM_SETTING_WIRELESS_SECURITY_SETTING_NAME)
+    , keyMgmt(NetworkManager::WirelessSecuritySetting::Unknown)
+    , wepTxKeyidx(0)
+    , authAlg(NetworkManager::WirelessSecuritySetting::None)
+    , wepKeyFlags(NetworkManager::Setting::None)
+    , wepKeyType(NetworkManager::WirelessSecuritySetting::NotSpecified)
+    , pskFlags(NetworkManager::Setting::None)
+    , leapPasswordFlags(NetworkManager::Setting::None)
 { }
 
-NetworkManager::WirelessSecuritySetting::WirelessSecuritySetting():
-    Setting(Setting::WirelessSecurity),
-    d_ptr(new WirelessSecuritySettingPrivate())
+NetworkManager::WirelessSecuritySetting::WirelessSecuritySetting()
+    : Setting(Setting::WirelessSecurity)
+    , d_ptr(new WirelessSecuritySettingPrivate())
 { }
 
-NetworkManager::WirelessSecuritySetting::WirelessSecuritySetting(const Ptr &other):
-    Setting(Setting::WirelessSecurity),
-    d_ptr(new WirelessSecuritySettingPrivate())
+NetworkManager::WirelessSecuritySetting::WirelessSecuritySetting(const Ptr &other)
+    : Setting(Setting::WirelessSecurity)
+    , d_ptr(new WirelessSecuritySettingPrivate())
 {
     setKeyMgmt(other->keyMgmt());
     setWepTxKeyindex(other->wepTxKeyindex());

@@ -194,14 +194,14 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
     return type;
 }
 
-NetworkManager::Setting::Setting(SettingType type):
-    d_ptr(new SettingPrivate())
+NetworkManager::Setting::Setting(SettingType type)
+    : d_ptr(new SettingPrivate())
 {
     setType(type);
 }
 
-NetworkManager::Setting::Setting(const NetworkManager::Setting::Ptr &setting):
-    d_ptr(new SettingPrivate())
+NetworkManager::Setting::Setting(const NetworkManager::Setting::Ptr &setting)
+    : d_ptr(new SettingPrivate())
 {
     setInitialized(!setting->isNull());
     setType(setting->type());

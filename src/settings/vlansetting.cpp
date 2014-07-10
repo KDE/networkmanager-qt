@@ -25,20 +25,20 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::VlanSettingPrivate::VlanSettingPrivate():
-    name(NM_SETTING_VLAN_SETTING_NAME),
-    id(0),
-    flags(VlanSetting::None)
+NetworkManager::VlanSettingPrivate::VlanSettingPrivate()
+    : name(NM_SETTING_VLAN_SETTING_NAME)
+    , id(0)
+    , flags(VlanSetting::None)
 { }
 
-NetworkManager::VlanSetting::VlanSetting():
-    Setting(Setting::Vlan),
-    d_ptr(new VlanSettingPrivate())
+NetworkManager::VlanSetting::VlanSetting()
+    : Setting(Setting::Vlan)
+    , d_ptr(new VlanSettingPrivate())
 { }
 
-NetworkManager::VlanSetting::VlanSetting(const Ptr &other):
-    Setting(other),
-    d_ptr(new VlanSettingPrivate())
+NetworkManager::VlanSetting::VlanSetting(const Ptr &other)
+    : Setting(other)
+    , d_ptr(new VlanSettingPrivate())
 {
     setInterfaceName(other->interfaceName());
     setParent(other->parent());

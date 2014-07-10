@@ -25,36 +25,36 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::PppSettingPrivate::PppSettingPrivate():
-    name(NM_SETTING_PPP_SETTING_NAME),
-    noauth(true),
-    refuseEap(false),
-    refusePap(false),
-    refuseChap(false),
-    refuseMschap(false),
-    refuseMschapv2(false),
-    nobsdcomp(false),
-    nodeflate(false),
-    noVjComp(false),
-    requireMppe(false),
-    requireMppe128(false),
-    mppeStateful(false),
-    crtscts(false),
-    baud(0),
-    mru(0),
-    mtu(0),
-    lcpEchoFailure(0),
-    lcpEchoInterval(0)
+NetworkManager::PppSettingPrivate::PppSettingPrivate()
+    : name(NM_SETTING_PPP_SETTING_NAME)
+    , noauth(true)
+    , refuseEap(false)
+    , refusePap(false)
+    , refuseChap(false)
+    , refuseMschap(false)
+    , refuseMschapv2(false)
+    , nobsdcomp(false)
+    , nodeflate(false)
+    , noVjComp(false)
+    , requireMppe(false)
+    , requireMppe128(false)
+    , mppeStateful(false)
+    , crtscts(false)
+    , baud(0)
+    , mru(0)
+    , mtu(0)
+    , lcpEchoFailure(0)
+    , lcpEchoInterval(0)
 { }
 
-NetworkManager::PppSetting::PppSetting():
-    Setting(Setting::Ppp),
-    d_ptr(new PppSettingPrivate())
+NetworkManager::PppSetting::PppSetting()
+    : Setting(Setting::Ppp)
+    , d_ptr(new PppSettingPrivate())
 { }
 
-NetworkManager::PppSetting::PppSetting(const Ptr &other):
-    Setting(other),
-    d_ptr(new PppSettingPrivate())
+NetworkManager::PppSetting::PppSetting(const Ptr &other)
+    : Setting(other)
+    , d_ptr(new PppSettingPrivate())
 {
     setNoAuth(other->noAuth());
     setRefuseEap(other->refuseEap());

@@ -29,24 +29,24 @@
 #include <arpa/inet.h>
 #include <nm-setting-ip6-config.h>
 
-NetworkManager::Ipv6SettingPrivate::Ipv6SettingPrivate():
-    name(NM_SETTING_IP6_CONFIG_SETTING_NAME),
-    method(NetworkManager::Ipv6Setting::Automatic),
-    ignoreAutoRoutes(false),
-    ignoreAutoDns(false),
-    neverDefault(false),
-    mayFail(true),
-    privacy(NetworkManager::Ipv6Setting::Unknown)
+NetworkManager::Ipv6SettingPrivate::Ipv6SettingPrivate()
+    : name(NM_SETTING_IP6_CONFIG_SETTING_NAME)
+    , method(NetworkManager::Ipv6Setting::Automatic)
+    , ignoreAutoRoutes(false)
+    , ignoreAutoDns(false)
+    , neverDefault(false)
+    , mayFail(true)
+    , privacy(NetworkManager::Ipv6Setting::Unknown)
 { }
 
-NetworkManager::Ipv6Setting::Ipv6Setting():
-    Setting(Setting::Ipv6),
-    d_ptr(new Ipv6SettingPrivate())
+NetworkManager::Ipv6Setting::Ipv6Setting()
+    : Setting(Setting::Ipv6)
+    , d_ptr(new Ipv6SettingPrivate())
 { }
 
-NetworkManager::Ipv6Setting::Ipv6Setting(const Ptr &other):
-    Setting(other),
-    d_ptr(new Ipv6SettingPrivate())
+NetworkManager::Ipv6Setting::Ipv6Setting(const Ptr &other)
+    : Setting(other)
+    , d_ptr(new Ipv6SettingPrivate())
 {
     setMethod(other->method());
     setDns(other->dns());

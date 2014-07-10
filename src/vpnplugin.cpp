@@ -38,8 +38,8 @@ NetworkManager::VpnPluginPrivate::VpnPluginPrivate(const QString &path):
 {
 }
 
-NetworkManager::VpnPlugin::VpnPlugin(const QString &path, QObject *parent):
-    QObject(parent), d_ptr(new VpnPluginPrivate(path))
+NetworkManager::VpnPlugin::VpnPlugin(const QString &path, QObject *parent)
+    : QObject(parent), d_ptr(new VpnPluginPrivate(path))
 {
     Q_D(VpnPlugin);
     d->state = (NetworkManager::VpnConnection::State)d->iface.state();

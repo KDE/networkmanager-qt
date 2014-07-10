@@ -25,24 +25,24 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::BridgeSettingPrivate::BridgeSettingPrivate():
-    name(NM_SETTING_BRIDGE_SETTING_NAME),
-    stp(true),
-    priority(128),
-    forwardDelay(15),
-    helloTime(2),
-    maxAge(20),
-    agingTime(300)
+NetworkManager::BridgeSettingPrivate::BridgeSettingPrivate()
+    : name(NM_SETTING_BRIDGE_SETTING_NAME)
+    , stp(true)
+    , priority(128)
+    , forwardDelay(15)
+    , helloTime(2)
+    , maxAge(20)
+    , agingTime(300)
 { }
 
-NetworkManager::BridgeSetting::BridgeSetting():
-    Setting(Setting::Bridge),
-    d_ptr(new BridgeSettingPrivate())
+NetworkManager::BridgeSetting::BridgeSetting()
+    : Setting(Setting::Bridge)
+    , d_ptr(new BridgeSettingPrivate())
 { }
 
-NetworkManager::BridgeSetting::BridgeSetting(const Ptr &other):
-    Setting(other),
-    d_ptr(new BridgeSettingPrivate())
+NetworkManager::BridgeSetting::BridgeSetting(const Ptr &other)
+    : Setting(other)
+    , d_ptr(new BridgeSettingPrivate())
 {
     setInterfaceName(other->interfaceName());
     setStp(other->stp());

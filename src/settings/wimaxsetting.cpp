@@ -26,18 +26,18 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::WimaxSettingPrivate::WimaxSettingPrivate():
-    name(NM_SETTING_WIMAX_SETTING_NAME)
+NetworkManager::WimaxSettingPrivate::WimaxSettingPrivate()
+    : name(NM_SETTING_WIMAX_SETTING_NAME)
 { }
 
-NetworkManager::WimaxSetting::WimaxSetting():
-    Setting(Setting::Wimax),
-    d_ptr(new WimaxSettingPrivate())
+NetworkManager::WimaxSetting::WimaxSetting()
+    : Setting(Setting::Wimax)
+    , d_ptr(new WimaxSettingPrivate())
 { }
 
-NetworkManager::WimaxSetting::WimaxSetting(const Ptr &other):
-    Setting(other),
-    d_ptr(new WimaxSettingPrivate())
+NetworkManager::WimaxSetting::WimaxSetting(const Ptr &other)
+    : Setting(other)
+    , d_ptr(new WimaxSettingPrivate())
 {
     setNetworkName(other->networkName());
     setMacAddress(other->macAddress());

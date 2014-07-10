@@ -26,13 +26,13 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::AdslSettingPrivate::AdslSettingPrivate():
-    name(NM_SETTING_ADSL_SETTING_NAME),
-    passwordFlags(Setting::None),
-    protocol(AdslSetting::UnknownProtocol),
-    encapsulation(AdslSetting::UnknownEncapsulation),
-    vpi(0),
-    vci(0)
+NetworkManager::AdslSettingPrivate::AdslSettingPrivate()
+    : name(NM_SETTING_ADSL_SETTING_NAME)
+    , passwordFlags(Setting::None)
+    , protocol(AdslSetting::UnknownProtocol)
+    , encapsulation(AdslSetting::UnknownEncapsulation)
+    , vpi(0)
+    , vci(0)
 { }
 
 NetworkManager::AdslSetting::AdslSetting():
@@ -40,9 +40,9 @@ NetworkManager::AdslSetting::AdslSetting():
     d_ptr(new AdslSettingPrivate())
 { }
 
-NetworkManager::AdslSetting::AdslSetting(const AdslSetting::Ptr &other):
-    Setting(other),
-    d_ptr(new AdslSettingPrivate())
+NetworkManager::AdslSetting::AdslSetting(const AdslSetting::Ptr &other)
+    : Setting(other)
+    , d_ptr(new AdslSettingPrivate())
 {
     setUsername(other->username());
     setPassword(other->password());

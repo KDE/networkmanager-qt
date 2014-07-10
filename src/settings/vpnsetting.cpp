@@ -24,18 +24,18 @@
 
 #include <nm-setting-vpn.h>
 
-NetworkManager::VpnSettingPrivate::VpnSettingPrivate():
-    name(NM_SETTING_VPN_SETTING_NAME)
+NetworkManager::VpnSettingPrivate::VpnSettingPrivate()
+    : name(NM_SETTING_VPN_SETTING_NAME)
 { }
 
-NetworkManager::VpnSetting::VpnSetting():
-    Setting(Setting::Vpn),
-    d_ptr(new VpnSettingPrivate())
+NetworkManager::VpnSetting::VpnSetting()
+    : Setting(Setting::Vpn)
+    , d_ptr(new VpnSettingPrivate())
 { }
 
-NetworkManager::VpnSetting::VpnSetting(const Ptr &other):
-    Setting(other),
-    d_ptr(new VpnSettingPrivate())
+NetworkManager::VpnSetting::VpnSetting(const Ptr &other)
+    : Setting(other)
+    , d_ptr(new VpnSettingPrivate())
 {
     setServiceType(other->serviceType());
     setUsername(other->username());

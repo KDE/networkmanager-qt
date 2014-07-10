@@ -25,23 +25,23 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::InfinibandSettingPrivate::InfinibandSettingPrivate():
-    name(NM_SETTING_INFINIBAND_SETTING_NAME),
-    mtu(0)
+NetworkManager::InfinibandSettingPrivate::InfinibandSettingPrivate()
+    : name(NM_SETTING_INFINIBAND_SETTING_NAME)
+    , mtu(0)
 #if NM_CHECK_VERSION(0, 9, 10)
     , transportMode(InfinibandSetting::Unknown)
     , pKey(-1)
 #endif
 { }
 
-NetworkManager::InfinibandSetting::InfinibandSetting():
-    Setting(Setting::Infiniband),
-    d_ptr(new InfinibandSettingPrivate())
+NetworkManager::InfinibandSetting::InfinibandSetting()
+    : Setting(Setting::Infiniband)
+    , d_ptr(new InfinibandSettingPrivate())
 { }
 
-NetworkManager::InfinibandSetting::InfinibandSetting(const NetworkManager::InfinibandSetting::Ptr &other) :
-    Setting(other),
-    d_ptr(new InfinibandSettingPrivate())
+NetworkManager::InfinibandSetting::InfinibandSetting(const NetworkManager::InfinibandSetting::Ptr &other)
+    : Setting(other)
+    , d_ptr(new InfinibandSettingPrivate())
 {
     setMacAddress(other->macAddress());
     setMtu(other->mtu());

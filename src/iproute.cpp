@@ -34,8 +34,8 @@ public:
 
 }
 
-NetworkManager::IpRoute::IpRoute():
-    d(new Private)
+NetworkManager::IpRoute::IpRoute()
+    : d(new Private)
 {
 }
 
@@ -44,9 +44,9 @@ NetworkManager::IpRoute::~IpRoute()
     delete d;
 }
 
-NetworkManager::IpRoute::IpRoute(const NetworkManager::IpRoute &other) :
-    QNetworkAddressEntry(other),
-    d(new Private)
+NetworkManager::IpRoute::IpRoute(const NetworkManager::IpRoute &other)
+    : QNetworkAddressEntry(other)
+    , d(new Private)
 {
     *this = other;
 }

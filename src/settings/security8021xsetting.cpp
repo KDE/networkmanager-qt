@@ -25,29 +25,29 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Security8021xSettingPrivate::Security8021xSettingPrivate():
-    name(NM_SETTING_802_1X_SETTING_NAME),
-    phase1PeapVer(Security8021xSetting::PeapVersionUnknown),
-    phase1PeapLabel(Security8021xSetting::PeapLabelUnknown),
-    phase1FastProvisioning(Security8021xSetting::FastProvisioningUnknown),
-    phase2AuthMethod(Security8021xSetting::AuthMethodUnknown),
-    phase2AuthEapMethod(Security8021xSetting::AuthEapMethodUnknown),
-    passwordFlags(NetworkManager::Setting::None),
-    passwordRawFlags(NetworkManager::Setting::None),
-    privateKeyPasswordFlags(NetworkManager::Setting::None),
-    phase2PrivateKeyPasswordFlags(NetworkManager::Setting::None),
-    pinFlags(NetworkManager::Setting::None),
-    systemCaCerts(false)
+NetworkManager::Security8021xSettingPrivate::Security8021xSettingPrivate()
+    : name(NM_SETTING_802_1X_SETTING_NAME)
+    , phase1PeapVer(Security8021xSetting::PeapVersionUnknown)
+    , phase1PeapLabel(Security8021xSetting::PeapLabelUnknown)
+    , phase1FastProvisioning(Security8021xSetting::FastProvisioningUnknown)
+    , phase2AuthMethod(Security8021xSetting::AuthMethodUnknown)
+    , phase2AuthEapMethod(Security8021xSetting::AuthEapMethodUnknown)
+    , passwordFlags(NetworkManager::Setting::None)
+    , passwordRawFlags(NetworkManager::Setting::None)
+    , privateKeyPasswordFlags(NetworkManager::Setting::None)
+    , phase2PrivateKeyPasswordFlags(NetworkManager::Setting::None)
+    , pinFlags(NetworkManager::Setting::None)
+    , systemCaCerts(false)
 { }
 
-NetworkManager::Security8021xSetting::Security8021xSetting():
-    Setting(Setting::Security8021x),
-    d_ptr(new Security8021xSettingPrivate())
+NetworkManager::Security8021xSetting::Security8021xSetting()
+    : Setting(Setting::Security8021x)
+    , d_ptr(new Security8021xSettingPrivate())
 { }
 
-NetworkManager::Security8021xSetting::Security8021xSetting(const Ptr &other):
-    Setting(other),
-    d_ptr(new Security8021xSettingPrivate())
+NetworkManager::Security8021xSetting::Security8021xSetting(const Ptr &other)
+    : Setting(other)
+    , d_ptr(new Security8021xSettingPrivate())
 {
     setEapMethods(other->eapMethods());
     setIdentity(other->identity());

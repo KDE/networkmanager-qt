@@ -25,19 +25,19 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::BluetoothSettingPrivate::BluetoothSettingPrivate():
-    name(NM_SETTING_BLUETOOTH_SETTING_NAME),
-    profileType(BluetoothSetting::Unknown)
+NetworkManager::BluetoothSettingPrivate::BluetoothSettingPrivate()
+    : name(NM_SETTING_BLUETOOTH_SETTING_NAME)
+    , profileType(BluetoothSetting::Unknown)
 { }
 
-NetworkManager::BluetoothSetting::BluetoothSetting():
-    Setting(Setting::Bluetooth),
-    d_ptr(new BluetoothSettingPrivate())
+NetworkManager::BluetoothSetting::BluetoothSetting()
+    : Setting(Setting::Bluetooth)
+    , d_ptr(new BluetoothSettingPrivate())
 { }
 
-NetworkManager::BluetoothSetting::BluetoothSetting(const Ptr &other):
-    Setting(other),
-    d_ptr(new BluetoothSettingPrivate())
+NetworkManager::BluetoothSetting::BluetoothSetting(const Ptr &other)
+    : Setting(other)
+    , d_ptr(new BluetoothSettingPrivate())
 {
     setBluetoothAddress(other->bluetoothAddress());
     setProfileType(other->profileType());

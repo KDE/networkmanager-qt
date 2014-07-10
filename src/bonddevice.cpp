@@ -40,9 +40,9 @@ public:
 };
 }
 
-NetworkManager::BondDevicePrivate::BondDevicePrivate(const QString &path, BondDevice *q):
-    DevicePrivate(path, q), iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()),
-    carrier(false)
+NetworkManager::BondDevicePrivate::BondDevicePrivate(const QString &path, BondDevice *q)
+    : DevicePrivate(path, q), iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+    , carrier(false)
 {
     carrier = iface.carrier();
     hwAddress = iface.hwAddress();

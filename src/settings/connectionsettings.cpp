@@ -395,18 +395,18 @@ QString NetworkManager::ConnectionSettings::createNewUuid()
     return QUuid::createUuid().toString().mid(1, QUuid::createUuid().toString().length() - 2);
 }
 
-NetworkManager::ConnectionSettings::ConnectionSettings():
-    d_ptr(new ConnectionSettingsPrivate(this))
+NetworkManager::ConnectionSettings::ConnectionSettings()
+    : d_ptr(new ConnectionSettingsPrivate(this))
 { }
 
-NetworkManager::ConnectionSettings::ConnectionSettings(NetworkManager::ConnectionSettings::ConnectionType type, NMBluetoothCapabilities bt_cap):
-    d_ptr(new ConnectionSettingsPrivate(this))
+NetworkManager::ConnectionSettings::ConnectionSettings(NetworkManager::ConnectionSettings::ConnectionType type, NMBluetoothCapabilities bt_cap)
+    : d_ptr(new ConnectionSettingsPrivate(this))
 {
     setConnectionType(type, bt_cap);
 }
 
-NetworkManager::ConnectionSettings::ConnectionSettings(const NetworkManager::ConnectionSettings::Ptr &other):
-    d_ptr(new ConnectionSettingsPrivate(this))
+NetworkManager::ConnectionSettings::ConnectionSettings(const NetworkManager::ConnectionSettings::Ptr &other)
+    : d_ptr(new ConnectionSettingsPrivate(this))
 {
     Q_D(ConnectionSettings);
 
@@ -429,8 +429,8 @@ NetworkManager::ConnectionSettings::ConnectionSettings(const NetworkManager::Con
     d->initSettings(other);
 }
 
-NetworkManager::ConnectionSettings::ConnectionSettings(const NMVariantMapMap &map) :
-    d_ptr(new ConnectionSettingsPrivate(this))
+NetworkManager::ConnectionSettings::ConnectionSettings(const NMVariantMapMap &map)
+    : d_ptr(new ConnectionSettingsPrivate(this))
 {
     fromMap(map);
 }

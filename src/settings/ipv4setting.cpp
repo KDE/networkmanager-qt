@@ -29,24 +29,24 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Ipv4SettingPrivate::Ipv4SettingPrivate():
-    name(NM_SETTING_IP4_CONFIG_SETTING_NAME),
-    method(NetworkManager::Ipv4Setting::Automatic),
-    ignoreAutoRoutes(false),
-    ignoreAutoDns(false),
-    dhcpSendHostname(true),
-    neverDefault(false),
-    mayFail(true)
+NetworkManager::Ipv4SettingPrivate::Ipv4SettingPrivate()
+    : name(NM_SETTING_IP4_CONFIG_SETTING_NAME)
+    , method(NetworkManager::Ipv4Setting::Automatic)
+    , ignoreAutoRoutes(false)
+    , ignoreAutoDns(false)
+    , dhcpSendHostname(true)
+    , neverDefault(false)
+    , mayFail(true)
 { }
 
-NetworkManager::Ipv4Setting::Ipv4Setting():
-    Setting(Setting::Ipv4),
-    d_ptr(new Ipv4SettingPrivate())
+NetworkManager::Ipv4Setting::Ipv4Setting()
+    : Setting(Setting::Ipv4)
+    , d_ptr(new Ipv4SettingPrivate())
 { }
 
-NetworkManager::Ipv4Setting::Ipv4Setting(const Ptr &other):
-    Setting(other),
-    d_ptr(new Ipv4SettingPrivate())
+NetworkManager::Ipv4Setting::Ipv4Setting(const Ptr &other)
+    : Setting(other)
+    , d_ptr(new Ipv4SettingPrivate())
 {
     setMethod(other->method());
     setDns(other->dns());

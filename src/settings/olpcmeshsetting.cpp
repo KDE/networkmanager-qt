@@ -25,19 +25,19 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::OlpcMeshSettingPrivate::OlpcMeshSettingPrivate():
-    name(NM_SETTING_OLPC_MESH_SETTING_NAME),
-    channel(0)
+NetworkManager::OlpcMeshSettingPrivate::OlpcMeshSettingPrivate()
+    : name(NM_SETTING_OLPC_MESH_SETTING_NAME)
+    , channel(0)
 { }
 
-NetworkManager::OlpcMeshSetting::OlpcMeshSetting():
-    Setting(Setting::Bond),
-    d_ptr(new OlpcMeshSettingPrivate())
+NetworkManager::OlpcMeshSetting::OlpcMeshSetting()
+    : Setting(Setting::Bond)
+    , d_ptr(new OlpcMeshSettingPrivate())
 { }
 
-NetworkManager::OlpcMeshSetting::OlpcMeshSetting(const Ptr &other):
-    Setting(other),
-    d_ptr(new OlpcMeshSettingPrivate())
+NetworkManager::OlpcMeshSetting::OlpcMeshSetting(const Ptr &other)
+    : Setting(other)
+    , d_ptr(new OlpcMeshSettingPrivate())
 {
     setSsid(other->ssid());
     setChannel(other->channel());

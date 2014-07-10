@@ -26,8 +26,8 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::Settings::TemplateSettingPrivate::TemplateSettingPrivate():
-    name(QString("template"))
+NetworkManager::Settings::TemplateSettingPrivate::TemplateSettingPrivate()
+    : name(QString("template"))
 { }
 
 NetworkManager::Settings::TemplateSetting::TemplateSetting():
@@ -38,9 +38,9 @@ NetworkManager::Settings::TemplateSetting::TemplateSetting():
     d_ptr(new TemplateSettingPrivate())
 { }
 
-NetworkManager::Settings::TemplateSetting::TemplateSetting(TemplateSetting *setting):
-    Setting(setting),
-    d_ptr(new TemplateSettingPrivate())
+NetworkManager::Settings::TemplateSetting::TemplateSetting(TemplateSetting *setting)
+    : Setting(setting)
+    , d_ptr(new TemplateSettingPrivate())
 {
     /*
      * setFoo(setting->foo());

@@ -25,18 +25,18 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::BondSettingPrivate::BondSettingPrivate():
-    name(NM_SETTING_BOND_SETTING_NAME)
+NetworkManager::BondSettingPrivate::BondSettingPrivate()
+    : name(NM_SETTING_BOND_SETTING_NAME)
 { }
 
-NetworkManager::BondSetting::BondSetting():
-    Setting(Setting::Bond),
-    d_ptr(new BondSettingPrivate())
+NetworkManager::BondSetting::BondSetting()
+    : Setting(Setting::Bond)
+    , d_ptr(new BondSettingPrivate())
 { }
 
-NetworkManager::BondSetting::BondSetting(const Ptr &other):
-    Setting(other),
-    d_ptr(new BondSettingPrivate())
+NetworkManager::BondSetting::BondSetting(const Ptr &other)
+    : Setting(other)
+    , d_ptr(new BondSettingPrivate())
 {
     setInterfaceName(other->interfaceName());
     setOptions(other->options());

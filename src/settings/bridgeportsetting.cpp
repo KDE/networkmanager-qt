@@ -25,21 +25,21 @@
 
 #include <QtCore/QDebug>
 
-NetworkManager::BridgePortSettingPrivate::BridgePortSettingPrivate():
-    name(NM_SETTING_BRIDGE_PORT_SETTING_NAME),
-    priority(32),
-    pathCost(100),
-    hairpinMode(false)
+NetworkManager::BridgePortSettingPrivate::BridgePortSettingPrivate()
+    : name(NM_SETTING_BRIDGE_PORT_SETTING_NAME)
+    , priority(32)
+    , pathCost(100)
+    , hairpinMode(false)
 { }
 
-NetworkManager::BridgePortSetting::BridgePortSetting():
-    Setting(Setting::BridgePort),
-    d_ptr(new BridgePortSettingPrivate())
+NetworkManager::BridgePortSetting::BridgePortSetting()
+    : Setting(Setting::BridgePort)
+    , d_ptr(new BridgePortSettingPrivate())
 { }
 
-NetworkManager::BridgePortSetting::BridgePortSetting(const NetworkManager::BridgePortSetting::Ptr &other) :
-    Setting(other),
-    d_ptr(new BridgePortSettingPrivate())
+NetworkManager::BridgePortSetting::BridgePortSetting(const NetworkManager::BridgePortSetting::Ptr &other)
+    : Setting(other)
+    , d_ptr(new BridgePortSettingPrivate())
 {
     setPriority(other->priority());
     setPathCost(other->pathCost());
