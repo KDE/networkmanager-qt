@@ -412,6 +412,9 @@ NetworkManager::ConnectionSettings::ConnectionSettings(const NetworkManager::Con
 
     setId(other->id());
     setUuid(other->uuid());
+#if NM_CHECK_VERSION(0, 9, 10)
+    setInterfaceName(other->interfaceName());
+#endif
     setConnectionType(other->connectionType());
     setPermissions(other->permissions());
     setAutoconnect(other->autoconnect());
@@ -420,7 +423,9 @@ NetworkManager::ConnectionSettings::ConnectionSettings(const NetworkManager::Con
     setZone(other->zone());
     setMaster(other->master());
     setSlaveType(other->slaveType());
-
+#if NM_CHECK_VERSION(0, 9, 10)
+    setGatewayPingTimeout(other->gatewayPingTimeout());
+#endif
     d->initSettings(other);
 }
 
@@ -445,6 +450,11 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
     setUuid(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString());
     setConnectionType(typeFromString(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_TYPE)).toString()));
 
+#if NM_CHECK_VERSION(0, 9, 10)
+    if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_INTERFACE_NAME))) {
+        setInterfaceName(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_INTERFACE_NAME)).toString());
+    }
+#endif
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS))) {
         QStringList permissions = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS)).toStringList();
         foreach (const QString &permission, permissions) {
@@ -484,6 +494,12 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
         setSecondaries(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_SECONDARIES)).toStringList());
     }
 
+#if NM_CHECK_VERSION(0, 9, 10)
+    if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_GATEWAY_PING_TIMEOUT))) {
+        setGatewayPingTimeout(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_GATEWAY_PING_TIMEOUT)).toUInt());
+    }
+#endif
+
     foreach (const Setting::Ptr &setting, settings()) {
         if (map.contains(setting->name())) {
             setting->fromMap(map.value(setting->name()));
@@ -510,6 +526,12 @@ NMVariantMapMap NetworkManager::ConnectionSettings::toMap() const
     if (connectionType()) {
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_TYPE), typeAsString(connectionType()));
     }
+
+#if NM_CHECK_VERSION(0, 9, 10)
+    if (!interfaceName().isEmpty()) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_INTERFACE_NAME), interfaceName());
+    }
+#endif
 
     if (!permissions().isEmpty()) {
         QStringList perm;
@@ -551,6 +573,12 @@ NMVariantMapMap NetworkManager::ConnectionSettings::toMap() const
     if (!secondaries().isEmpty()) {
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_SECONDARIES), secondaries());
     }
+
+#if NM_CHECK_VERSION(0, 9, 10)
+    if (gatewayPingTimeout()) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_GATEWAY_PING_TIMEOUT), gatewayPingTimeout());
+    }
+#endif
 
     result.insert(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME), connectionSetting);
 
@@ -597,6 +625,22 @@ QString NetworkManager::ConnectionSettings::uuid() const
 
     return d->uuid;
 }
+
+#if NM_CHECK_VERSION(0, 9, 10)
+void NetworkManager::ConnectionSettings::setInterfaceName(const QString &interfaceName)
+{
+    Q_D(ConnectionSettings);
+
+    d->interfaceName = interfaceName;
+}
+
+QString NetworkManager::ConnectionSettings::interfaceName() const
+{
+    Q_D(const ConnectionSettings);
+
+    return d->interfaceName;
+}
+#endif
 
 void NetworkManager::ConnectionSettings::setConnectionType(NetworkManager::ConnectionSettings::ConnectionType type, NMBluetoothCapabilities bt_cap)
 {
@@ -739,6 +783,22 @@ QStringList NetworkManager::ConnectionSettings::secondaries() const
     return d->secondaries;
 }
 
+#if NM_CHECK_VERSION(0, 9, 10)
+void NetworkManager::ConnectionSettings::setGatewayPingTimeout(quint32 timeout)
+{
+    Q_D(ConnectionSettings);
+
+    d->gatewayPingTimeout = timeout;
+}
+
+quint32 NetworkManager::ConnectionSettings::gatewayPingTimeout() const
+{
+    Q_D(const ConnectionSettings);
+
+    return d->gatewayPingTimeout;
+}
+#endif
+
 NetworkManager::Setting::Ptr NetworkManager::ConnectionSettings::setting(Setting::SettingType type) const
 {
     foreach (const Setting::Ptr &setting, settings()) {
@@ -769,6 +829,9 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
 
     dbg.nospace() << NM_SETTING_CONNECTION_ID << ": " << setting.id() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_UUID << ": " << setting.uuid() << '\n';
+#if NM_CHECK_VERSION(0, 9, 10)
+    dbg.nospace() << NM_SETTING_CONNECTION_INTERFACE_NAME << ": " << setting.interfaceName() << '\n';
+#endif
     dbg.nospace() << NM_SETTING_CONNECTION_TYPE << ": " << setting.typeAsString(setting.connectionType()) << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_PERMISSIONS << ": " << setting.permissions() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_AUTOCONNECT << ": " << setting.autoconnect() << '\n';
@@ -778,6 +841,9 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
     dbg.nospace() << NM_SETTING_CONNECTION_MASTER << ": " << setting.master() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_SLAVE_TYPE << ": " << setting.slaveType() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_SECONDARIES << ": " << setting.secondaries() << '\n';
+#if NM_CHECK_VERSION(0, 9, 10)
+    dbg.nospace() << NM_SETTING_CONNECTION_GATEWAY_PING_TIMEOUT << ": " << setting.gatewayPingTimeout() << '\n';
+#endif
     dbg.nospace() << "===================\n";
     foreach (const Setting::Ptr &settingPtr, setting.settings()) {
         dbg.nospace() << settingPtr->typeAsString(settingPtr->type()).toUpper() << " SETTINGS\n";

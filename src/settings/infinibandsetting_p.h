@@ -22,6 +22,7 @@
 #define NETWORKMANAGERQT_INFINIBAND_SETTING_P_H
 
 #include <QtCore/QString>
+#include <NetworkManager.h>
 
 namespace NetworkManager
 {
@@ -35,6 +36,11 @@ public:
     QByteArray macAddress;
     quint32 mtu;
     NetworkManager::InfinibandSetting::TransportMode transportMode;
+#if NM_CHECK_VERSION(0, 9, 10)
+    qint32 pKey;
+    QString parent;
+#endif
+
 };
 
 }

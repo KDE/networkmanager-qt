@@ -25,6 +25,7 @@
 #include "setting.h"
 
 #include <QtCore/QString>
+#include <NetworkManager.h>
 
 namespace NetworkManager
 {
@@ -52,6 +53,14 @@ public:
     void setTransportMode(TransportMode mode);
     TransportMode transportMode() const;
 
+#if NM_CHECK_VERSION(0, 9, 10)
+    void setPKey(qint32 key);
+    qint32 pKey() const;
+
+    void setParent(const QString &parent);
+    QString parent() const;
+
+#endif
     void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
     QVariantMap toMap() const Q_DECL_OVERRIDE;
