@@ -204,7 +204,7 @@ NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findRegisteredC
         } else {
             ret = Connection::Ptr(new Connection(path), &QObject::deleteLater);
             connections[path] = ret;
-#if !NM_CHECK_VERSION(0, 9, 9)
+#if !NM_CHECK_VERSION(0, 9, 10)
             connect(ret.data(), SIGNAL(removed(QString)), this, SLOT(onConnectionRemoved(QString)));
 #endif
             if (!contains) {
