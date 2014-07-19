@@ -13,7 +13,7 @@ include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
 
 set(REQUIRED_QT_VERSION 5.2.0)
-find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED Core DBus Network Test)
+find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED Core DBus Network)
 
 add_definitions(${QT_DEFINITIONS})
 
