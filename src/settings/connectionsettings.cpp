@@ -223,13 +223,13 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
     case ConnectionSettings::Cdma:
         addSetting(connectionSettings->setting(Setting::Cdma));
         addSetting(connectionSettings->setting(Setting::Ipv4));
-        addSetting(connectionSettings->setting(Setting::Ipv6));
+        //addSetting(connectionSettings->setting(Setting::Ipv6));
         addSetting(connectionSettings->setting(Setting::Ppp));
         break;
     case ConnectionSettings::Gsm:
         addSetting(connectionSettings->setting(Setting::Gsm));
         addSetting(connectionSettings->setting(Setting::Ipv4));
-        addSetting(connectionSettings->setting(Setting::Ipv6));
+        //addSetting(connectionSettings->setting(Setting::Ipv6));
         addSetting(connectionSettings->setting(Setting::Ppp));
         break;
     case ConnectionSettings::Infiniband:
