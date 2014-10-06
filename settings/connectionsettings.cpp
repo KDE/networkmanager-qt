@@ -149,7 +149,7 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabili
         break;
     case ConnectionSettings::Vpn:
         addSetting(Setting::Ptr(new Ipv4Setting()));
-        //addSetting(Setting::Ptr(new Ipv6Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
         addSetting(Setting::Ptr(new VpnSetting()));
         break;
     case ConnectionSettings::Wimax:
