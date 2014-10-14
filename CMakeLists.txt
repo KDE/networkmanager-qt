@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.12)
 
 project(NetworkManagerQt)
-set(PROJECT_VERSION "5.0.95")
+set(PROJECT_VERSION "5.1.0")
 
 find_package(ECM 1.0.0 REQUIRED NO_MODULE)
 
