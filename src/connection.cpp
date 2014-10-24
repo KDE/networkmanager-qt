@@ -44,6 +44,8 @@
 #include "nm-settings-connectioninterface.h"
 #include "generictypes.h"
 
+#include "nmdebug.h"
+
 class NetworkManager::ConnectionPrivate
 {
 public:
