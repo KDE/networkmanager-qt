@@ -182,7 +182,7 @@ NetworkManager::AccessPoint::OperationMode NetworkManager::AccessPoint::convertO
         ourMode = NetworkManager::AccessPoint::ApMode;
         break;
     default:
-        qCDebug(NMQT) << "Unhandled mode" << mode;
+        qCDebug(NMQT) << Q_FUNC_INFO << "Unhandled mode" << mode;
     }
     return ourMode;
 }
@@ -190,6 +190,8 @@ NetworkManager::AccessPoint::OperationMode NetworkManager::AccessPoint::convertO
 void NetworkManager::AccessPoint::propertiesChanged(const QVariantMap &properties)
 {
     Q_D(AccessPoint);
+
+    // qCDebug(NMQT) << Q_FUNC_INFO << properties;
 
     QVariantMap::const_iterator it = properties.constBegin();
     while (it != properties.constEnd()) {
@@ -221,7 +223,7 @@ void NetworkManager::AccessPoint::propertiesChanged(const QVariantMap &propertie
             d->signalStrength = it->toInt();
             emit signalStrengthChanged(d->signalStrength);
         } else {
-            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+            qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
         ++it;
     }

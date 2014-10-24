@@ -123,7 +123,7 @@ QVariantMap NetworkManager::VpnSetting::secretsToMap() const
     QVariantMap secretsMap;
     secretsMap.insert(QLatin1String(NM_SETTING_VPN_SECRETS), QVariant::fromValue<NMStringMap>(secrets()));
 
-    //qCDebug(NMQT) << secretsMap;
+    // qCDebug(NMQT) << secretsMap;
     return secretsMap;
 }
 

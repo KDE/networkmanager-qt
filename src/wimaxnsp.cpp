@@ -120,7 +120,7 @@ void NetworkManager::WimaxNsp::propertiesChanged(const QVariantMap &properties)
             d->signalQuality = it->toUInt();
             emit signalQualityChanged(d->signalQuality);
         } else {
-            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+            qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
         ++it;
     }

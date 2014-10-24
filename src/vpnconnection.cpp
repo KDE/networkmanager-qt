@@ -19,11 +19,12 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "vpnconnection.h"
 #include "activeconnection_p.h"
 #include "connection.h"
-#include "settings.h"
 #include "device.h"
+#include "nmdebug.h"
+#include "settings.h"
+#include "vpnconnection.h"
 
 #include <QDBusObjectPath>
 
@@ -91,7 +92,7 @@ void NetworkManager::VpnConnection::propertiesChanged(const QVariantMap &propert
             // Do not notify about changed VpnState twice, because there is also signal VpnStateChanged() from NetworkManager
             // emit stateChanged(d->state, reason);
         } else {
-            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+            qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
         ++it;
     }

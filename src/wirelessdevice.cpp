@@ -52,15 +52,19 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
 
 #if NM_CHECK_VERSION(0, 9, 10)
     QList <QDBusObjectPath> aps = d->wirelessIface.accessPoints();
+    // qCDebug(NMQT) << "AccessPoint list";
     foreach (const QDBusObjectPath &op, aps) {
+        // qCDebug(NMQT) << "  " << op.path();
         accessPointAdded(op);
     }
 #else
     QDBusReply< QList <QDBusObjectPath> > apPathList = d->wirelessIface.GetAccessPoints();
+    // qCDebug(NMQT) << "AccessPoint list";
     if (apPathList.isValid()) {
         //qCDebug(NMQT) << "Got device list";
         QList <QDBusObjectPath> aps = apPathList.value();
         foreach (const QDBusObjectPath &op, aps) {
+            // qCDebug(NMQT) << "  " << op.path();
             accessPointAdded(op);
         }
     } else {
@@ -254,7 +258,7 @@ NetworkManager::WirelessDevice::OperationMode NetworkManager::WirelessDevice::co
         ourMode = NetworkManager::WirelessDevice::ApMode;
         break;
     default:
-        qCDebug(NMQT) << "Unhandled mode" << theirMode;
+        qCDebug(NMQT) << Q_FUNC_INFO << "Unhandled mode" << theirMode;
     }
     return ourMode;
 }

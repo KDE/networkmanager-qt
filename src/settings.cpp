@@ -60,6 +60,7 @@ void NetworkManager::SettingsPrivate::init()
 {
 #if NM_CHECK_VERSION(0, 9, 10)
     QList<QDBusObjectPath> connectionList = iface.connections();
+    qCDebug(NMQT) << "Connections list";
     foreach (const QDBusObjectPath &connection, connectionList) {
         if (!connections.contains(connection.path())) {
             connections.insert(connection.path(), Connection::Ptr());
@@ -70,7 +71,7 @@ void NetworkManager::SettingsPrivate::init()
 #else
     QDBusPendingReply<QList<QDBusObjectPath> > reply = iface.ListConnections();
     reply.waitForFinished();
-    qCDebug(NMQT) << "New Connections list";
+    qCDebug(NMQT) << "Connections list";
     if (reply.isValid()) {
         foreach (const QDBusObjectPath &connection, reply.value()) {
             if (!connections.contains(connection.path())) {
@@ -179,7 +180,7 @@ void NetworkManager::SettingsPrivate::propertiesChanged(const QVariantMap &prope
             // TODO some action??
 #endif
         } else {
-            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+            qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
         ++it;
     }

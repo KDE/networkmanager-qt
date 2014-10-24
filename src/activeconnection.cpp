@@ -23,15 +23,15 @@
 #include "activeconnection.h"
 #include "activeconnection_p.h"
 #include "connection.h"
-#include "settings.h"
 #include "device.h"
+#include "nmdebug.h"
 #include "manager.h"
+#include "settings.h"
 
 #include <QDBusObjectPath>
 
 #include "manager_p.h"
 #include "nm-active-connectioninterface.h"
-
 
 NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &dbusPath)
     : iface(NetworkManagerPrivate::DBUS_SERVICE, dbusPath, QDBusConnection::systemBus())
@@ -227,6 +227,8 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap &prop
 {
     Q_D(ActiveConnection);
 
+    // qCDebug(NMQT) << Q_FUNC_INFO << properties;
+
     QVariantMap::const_iterator it = properties.constBegin();
     while (it != properties.constEnd()) {
         const QString property = it.key();
@@ -307,7 +309,7 @@ void NetworkManager::ActiveConnection::propertiesChanged(const QVariantMap &prop
             }
             emit devicesChanged();
         } else {
-            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+            qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
         ++it;
     }

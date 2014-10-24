@@ -199,7 +199,6 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
 {
     Q_D(Device);
 
-    qCDebug(NMQT) << property << value;
     if (property == QLatin1String("ActiveConnection")) {
         // FIXME workaround, because NM doesn't emit correct value
         // d->activeConnection = value.value<QDBusObjectPath>.path();
@@ -317,7 +316,7 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
         emit mtuChanged();
 #endif
     } else {
-        qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+        qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
     }
 }
 
@@ -535,6 +534,8 @@ void NetworkManager::Device::deviceStateChanged(uint new_state, uint old_state, 
 void NetworkManager::Device::propertiesChanged(const QVariantMap &properties)
 {
     Q_D(Device);
+
+    // qCDebug(NMQT) << Q_FUNC_INFO << properties;
 
     QVariantMap::const_iterator it = properties.constBegin();
     while (it != properties.constEnd()) {

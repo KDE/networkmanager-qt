@@ -70,6 +70,7 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     , m_isWwanHardwareEnabled(false)
 {
     QLoggingCategory::setFilterRules(QStringLiteral("libnm-qt.debug = false"));
+    QLoggingCategory::setFilterRules(QStringLiteral("libnm-qt.warning = true"));
 
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceAdded,
             this, &NetworkManagerPrivate::onDeviceAdded);
@@ -286,7 +287,7 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
     default:
         createdInterface = device;
         if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
-            qCDebug(NMQT) << "libNetworkManagerQt: Can't create object of type " << device->type() << Device::Vlan << "for" << uni;
+            qCDebug(NMQT) << "Can't create device of type " << device->type() << "for" << uni;
         }
         break;
     }
@@ -309,7 +310,7 @@ NetworkManager::Device::List NetworkManager::NetworkManagerPrivate::networkInter
         if (!networkInterface.isNull()) {
             list.append(networkInterface);
         } else {
-            qWarning() << "warning: null network Interface for" << i.key();
+            qCWarning(NMQT) << "warning: null network Interface for" << i.key();
         }
     }
 
@@ -377,7 +378,7 @@ QDBusPendingReply<QDBusObjectPath> NetworkManager::NetworkManagerPrivate::activa
     // TODO store error code
     QDBusObjectPath connPath(connectionUni);
     QDBusObjectPath interfacePath(interfaceUni);
-    qCDebug(NMQT) << "Activating connection" << connPath.path() << "on interface" << interfacePath.path() << "with extra" << extra_connection_parameter;
+    // qCDebug(NMQT) << "Activating connection" << connPath.path() << "on interface" << interfacePath.path() << "with extra" << extra_connection_parameter;
     return iface.ActivateConnection(connPath, QDBusObjectPath(extra_interface_parameter), QDBusObjectPath(extra_connection_parameter));
 }
 
@@ -539,7 +540,7 @@ bool NetworkManager::NetworkManagerPrivate::isStartingUp() const
 
 void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath &objpath)
 {
-    qCDebug(NMQT);
+    // qCDebug(NMQT);
     if (!networkInterfaceMap.contains(objpath.path())) {
         networkInterfaceMap.insert(objpath.path(), Device::Ptr());
     }
@@ -548,7 +549,7 @@ void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath 
 
 void NetworkManager::NetworkManagerPrivate::onDeviceRemoved(const QDBusObjectPath &objpath)
 {
-    qCDebug(NMQT);
+    // qCDebug(NMQT);
     networkInterfaceMap.remove(objpath.path());
     emit deviceRemoved(objpath.path());
 }
@@ -573,6 +574,8 @@ void NetworkManager::NetworkManagerPrivate::stateChanged(uint state)
 
 void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap &changedProperties)
 {
+    // qCDebug(NMQT) << Q_FUNC_INFO << changedProperties;
+
     QVariantMap::const_iterator it = changedProperties.constBegin();
     while (it != changedProperties.constEnd()) {
         const QString property = it.key();
@@ -594,7 +597,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
                     } else {
                         knownConnections.removeOne(ac.path());
                     }
-                    qCDebug(NMQT) << "  " << ac.path();
+                    // qCDebug(NMQT) << "  " << ac.path();
                 }
                 foreach (const QString &path, knownConnections) {
                     m_activeConnections.remove(path);
@@ -646,7 +649,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
             emit isStartingUpChanged();
 #endif
         } else {
-            qWarning() << Q_FUNC_INFO << "Unhandled property" << property;
+            qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
         ++it;
     }
