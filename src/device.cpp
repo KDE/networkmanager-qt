@@ -286,7 +286,8 @@ void NetworkManager::Device::propertyChanged(const QString &property, const QVar
         d->ipV6Config = IpConfig();
         emit ipV6ConfigChanged();
     } else if (property == QLatin1String("IpInterface")) {
-        d->ipInterface = value.toString();
+        // FIXME workaround, because NM doesn't emit correct value
+        d->ipInterface = d->deviceIface.ipInterface();
         emit ipInterfaceChanged();
     } else if (property == QLatin1String("Managed")) {
         d->managed = value.toBool();
