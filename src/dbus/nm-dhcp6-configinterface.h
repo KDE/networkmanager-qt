@@ -29,8 +29,11 @@ class OrgFreedesktopNetworkManagerDHCP6ConfigInterface: public QDBusAbstractInte
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
+#ifdef NMQT_STATIC
+    { return "org.kde.fakenetwork.DHCP6Config"; }
+#else
     { return "org.freedesktop.NetworkManager.DHCP6Config"; }
-
+#endif
 public:
     OrgFreedesktopNetworkManagerDHCP6ConfigInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 

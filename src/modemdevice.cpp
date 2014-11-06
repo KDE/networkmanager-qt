@@ -35,7 +35,11 @@ NetworkManager::ModemDevice::Capabilities convertModemCapabilities(uint theirCap
 
 NetworkManager::ModemDevicePrivate::ModemDevicePrivate(const QString &path, ModemDevice *q)
     : DevicePrivate(path, q)
+#ifdef NMQT_STATIC
+    , modemIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+#else
     , modemIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+#endif
 {
 }
 

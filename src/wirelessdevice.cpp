@@ -32,7 +32,11 @@
 
 NetworkManager::WirelessDevicePrivate::WirelessDevicePrivate(const QString &path, WirelessDevice *q)
     : DevicePrivate(path, q)
+#ifdef NMQT_STATIC
+    , wirelessIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+#else
     , wirelessIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+#endif
     , bitRate(0)
 {
 }

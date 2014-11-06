@@ -29,8 +29,11 @@ class OrgFreedesktopNetworkManagerDeviceInfinibandInterface: public QDBusAbstrac
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
+#ifdef NMQT_STATIC
+    { return "org.kde.fakenetwork.Device.Infiniband"; }
+#else
     { return "org.freedesktop.NetworkManager.Device.Infiniband"; }
-
+#endif
 public:
     OrgFreedesktopNetworkManagerDeviceInfinibandInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 

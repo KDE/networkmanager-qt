@@ -29,8 +29,11 @@ class OrgFreedesktopNetworkManagerVPNConnectionInterface: public QDBusAbstractIn
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
+#ifdef NMQT_STATIC
+    { return "org.kde.fakenetwork.Settings.VPN.Connection"; }
+#else
     { return "org.freedesktop.NetworkManager.VPN.Connection"; }
-
+#endif
 public:
     OrgFreedesktopNetworkManagerVPNConnectionInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 

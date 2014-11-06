@@ -29,8 +29,11 @@ class OrgFreedesktopNetworkManagerDeviceGreInterface: public QDBusAbstractInterf
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
+#ifdef NMQT_STATIC
+    { return "org.kde.fakenetwork.Device.Gre"; }
+#else
     { return "org.freedesktop.NetworkManager.Device.Gre"; }
-
+#endif
 public:
     OrgFreedesktopNetworkManagerDeviceGreInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 

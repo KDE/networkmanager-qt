@@ -39,6 +39,7 @@ ecm_setup_version(${KF5_VERSION} VARIABLE_PREFIX NETWORKMANAGERQT
 
 # Enable unit testing
 if (BUILD_TESTING)
+    add_subdirectory(src/fakenetwork)
     add_subdirectory(autotests)
 endif ()
 

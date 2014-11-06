@@ -29,8 +29,11 @@ class OrgFreedesktopNetworkManagerDeviceVlanInterface: public QDBusAbstractInter
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
+#ifdef NMQT_STATIC
+    { return "org.kde.fakenetwork.Device.Vlan"; }
+#else
     { return "org.freedesktop.NetworkManager.Device.Vlan"; }
-
+#endif
 public:
     OrgFreedesktopNetworkManagerDeviceVlanInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 

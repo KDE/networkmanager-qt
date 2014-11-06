@@ -28,7 +28,11 @@
 
 NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString &path, WimaxDevice *q)
     : DevicePrivate(path, q)
+#ifdef NMQT_STATIC
+    , wimaxIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+#else
     , wimaxIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+#endif
 {
     hardwareAddress = wimaxIface.hwAddress();
     centerFrequency = wimaxIface.centerFrequency();

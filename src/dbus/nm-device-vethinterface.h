@@ -29,8 +29,11 @@ class OrgFreedesktopNetworkManagerDeviceVethInterface: public QDBusAbstractInter
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
+#ifdef NMQT_STATIC
+    { return "org.kde.fakenetwork.Device.Veth"; }
+#else
     { return "org.freedesktop.NetworkManager.Device.Veth"; }
-
+#endif
 public:
     OrgFreedesktopNetworkManagerDeviceVethInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 

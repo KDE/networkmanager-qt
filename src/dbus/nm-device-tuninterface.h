@@ -29,8 +29,11 @@ class OrgFreedesktopNetworkManagerDeviceTunInterface: public QDBusAbstractInterf
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
+#ifdef NMQT_STATIC
+    { return "org.kde.fakenetwork.Device.Tun"; }
+#else
     { return "org.freedesktop.NetworkManager.Device.Tun"; }
-
+#endif
 public:
     OrgFreedesktopNetworkManagerDeviceTunInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 

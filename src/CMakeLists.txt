@@ -138,6 +138,13 @@ set_target_properties(KF5NetworkManagerQt PROPERTIES VERSION ${NETWORKMANAGERQT_
                                                    EXPORT_NAME NetworkManagerQt
 )
 
+########### static lib for tests  ###############
+add_library(KF5NetworkManagerQt_static STATIC ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
+set_target_properties(KF5NetworkManagerQt_static PROPERTIES COMPILE_FLAGS -DNMQT_STATIC=1)
+
+target_link_libraries(KF5NetworkManagerQt_static PUBLIC Qt5::Core Qt5::Network Qt5::DBus)
+target_include_directories(KF5NetworkManagerQt_static PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..;${CMAKE_CURRENT_BINARY_DIR}/..>")
+
 ecm_generate_headers(NetworkManagerQt_HEADERS
   HEADER_NAMES
   AccessPoint

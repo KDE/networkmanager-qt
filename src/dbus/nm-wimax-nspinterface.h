@@ -29,8 +29,11 @@ class OrgFreedesktopNetworkManagerWiMaxNspInterface: public QDBusAbstractInterfa
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
+#ifdef NMQT_STATIC
+    { return "org.kde.fakenetwork.Settings.WiMax.Nsp"; }
+#else
     { return "org.freedesktop.NetworkManager.WiMax.Nsp"; }
-
+#endif
 public:
     OrgFreedesktopNetworkManagerWiMaxNspInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 

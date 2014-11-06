@@ -24,7 +24,11 @@
 #include "nmdebug.h"
 
 NetworkManager::Dhcp6ConfigPrivate::Dhcp6ConfigPrivate(const QString &path, QObject *owner)
+#ifdef NMQT_STATIC
+    : dhcp6Iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+#else
     : dhcp6Iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+#endif
     , myPath(path)
 {
     Q_UNUSED(owner);

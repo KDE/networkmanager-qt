@@ -28,7 +28,11 @@
 
 NetworkManager::WiredDevicePrivate::WiredDevicePrivate(const QString &path, WiredDevice *q)
     : DevicePrivate(path, q)
+#ifdef NMQT_STATIC
+    , wiredIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+#else
     , wiredIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+#endif
     , bitrate(0)
     , carrier(false)
 {
