@@ -1,5 +1,27 @@
 /** @mainpage NetworkManagerQt
 
+\section purpos Purpos
+
 The Qt NetworkManager wrapper library
+
+\section desc Description
+
+NetworkManagerQt is a librarty to create Qt programs to talk to
+NetworkManager dbus service.
+
+@authors
+Will Stephenson <wstephenson@kde.org>
+Lamarque V. Souza <lamarque@kde.org>
+Ilia Kats <ilia-kats@gmx.net>
+Jan Grulich <jgrulich@redhat.com>
+Daniel Nicoletti <dantti12@gmail.com>
+
+@maintainers
+Lamarque V. Souza <lamarque@kde.org>
+
+@licenses
+@lgplv2+
+
+// DOXYGEN_PROJECTNAME=NetworkManagerQt
 
 */
