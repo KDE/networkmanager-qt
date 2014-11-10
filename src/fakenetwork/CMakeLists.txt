@@ -1,9 +1,3 @@
-project(fakeNetwork)
-
-cmake_minimum_required(VERSION 2.8.12)
-
-find_package(KF5NetworkManagerQt ${KF5_VERSION} REQUIRED)
-
 include_directories(
    ${NETWORKMANAGER_INCLUDE_DIRS}
    ${CMAKE_SOURCE_DIR}/src/settings
