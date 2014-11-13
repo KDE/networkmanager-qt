@@ -118,7 +118,7 @@ int main()
         qout << "available connections: ";
 
         foreach (NetworkManager::Connection::Ptr con, connections) {
-            qCDebug(NMQT) << "con";
+            qout << "con";
             NetworkManager::ConnectionSettings::Ptr settings = con->settings();
             qout << "\"" << settings->id() << "\" ";
         }
