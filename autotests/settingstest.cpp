@@ -54,7 +54,7 @@ void SettingsTest::testConnections()
     wiredSetting->setSpeed(100);
 
     NetworkManager::addConnection(connectionSettings->toMap());
-    connect(NetworkManager::settingsNotifier(), SIGNAL(connectionAdded(QString)), SLOT(testConnectionAdded(QString)));
+    connect(NetworkManager::settingsNotifier(), &NetworkManager::SettingsNotifier::connectionAdded, this, &SettingsTest::testConnectionAdded);
     QSignalSpy connectionAddedSpy(NetworkManager::settingsNotifier(), SIGNAL(connectionAdded(QString)));
     QVERIFY(connectionAddedSpy.wait());
     QCOMPARE(NetworkManager::listConnections().count(), 1);

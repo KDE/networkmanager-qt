@@ -55,7 +55,7 @@ void ManagerTest::testDevices()
     device->setPermanentHwAddress(QLatin1Literal("F0:DE:F1:FB:30:C1"));
 
     QSignalSpy addDeviceSpy(NetworkManager::notifier(), SIGNAL(deviceAdded(QString)));
-    connect(NetworkManager::notifier(), SIGNAL(deviceAdded(QString)), SLOT(testDeviceAdded(QString)));
+    connect(NetworkManager::notifier(), &NetworkManager::Notifier::deviceAdded, this, &ManagerTest::testDeviceAdded);
     fakeNetwork->addDevice(device);
     QVERIFY(addDeviceSpy.wait());
     QCOMPARE(NetworkManager::networkInterfaces().count(), 1);
