@@ -29,8 +29,11 @@ class OrgFreedesktopNetworkManagerDeviceMacvlanInterface: public QDBusAbstractIn
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
+#ifdef NMQT_STATIC
+    { return "org.kde.fakenetwork.Device.Macvlan"; }
+#else
     { return "org.freedesktop.NetworkManager.Device.Macvlan"; }
-
+#endif
 public:
     OrgFreedesktopNetworkManagerDeviceMacvlanInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 

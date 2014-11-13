@@ -34,8 +34,13 @@
 NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id, NetworkManager::SecretAgent *parent)
     : q_ptr(parent)
     , agent(parent)
+#ifdef NMQT_STATIC
+    , agentManager(NetworkManagerPrivate::DBUS_SERVICE, QLatin1String(NM_DBUS_PATH_AGENT_MANAGER), QDBusConnection::sessionBus(), parent)
+    , watcher(NetworkManagerPrivate::DBUS_SERVICE, QDBusConnection::sessionBus(), QDBusServiceWatcher::WatchForRegistration, parent)
+#else
     , agentManager(NetworkManagerPrivate::DBUS_SERVICE, QLatin1String(NM_DBUS_PATH_AGENT_MANAGER), QDBusConnection::systemBus(), parent)
     , watcher(NetworkManagerPrivate::DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForRegistration, parent)
+#endif
     , agentId(id)
 {
     Q_Q(SecretAgent);

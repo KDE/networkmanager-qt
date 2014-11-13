@@ -39,7 +39,11 @@ public:
 
 NetworkManager::VethDevicePrivate::VethDevicePrivate(const QString &path, VethDevice *q)
     : DevicePrivate(path, q)
+#ifdef NMQT_STATIC
+    , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+#else
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+#endif
 {
 }
 

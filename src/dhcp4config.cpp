@@ -24,7 +24,11 @@
 #include "nmdebug.h"
 
 NetworkManager::Dhcp4ConfigPrivate::Dhcp4ConfigPrivate(const QString &path, QObject *owner)
+#ifdef NMQT_STATIC
+    : dhcp4Iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+#else
     : dhcp4Iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+#endif
     , myPath(path)
 {
     Q_UNUSED(owner);

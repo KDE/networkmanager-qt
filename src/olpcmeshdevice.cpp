@@ -27,7 +27,11 @@
 
 NetworkManager::OlpcMeshDevicePrivate::OlpcMeshDevicePrivate(const QString &path, OlpcMeshDevice *q)
     : DevicePrivate(path, q)
+#ifdef NMQT_STATIC
+    , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+#else
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+#endif
 {
     hardwareAddress = iface.hwAddress();
     activeChannel = iface.activeChannel();

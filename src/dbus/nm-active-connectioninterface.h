@@ -29,8 +29,11 @@ class OrgFreedesktopNetworkManagerConnectionActiveInterface: public QDBusAbstrac
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
+#ifdef NMQT_STATIC
+    { return "org.kde.fakenetwork.Connection.Active"; }
+#else
     { return "org.freedesktop.NetworkManager.Connection.Active"; }
-
+#endif
 public:
     OrgFreedesktopNetworkManagerConnectionActiveInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 

@@ -47,7 +47,11 @@ class AccessPointPrivate
 {
 public:
     AccessPointPrivate(const QString &path)
+#ifdef NMQT_STATIC
+        : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+#else
         : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+#endif
         , capabilities(0)
         , wpaFlags(0)
         , rsnFlags(0)

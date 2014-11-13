@@ -42,7 +42,11 @@ public:
 
 NetworkManager::BridgeDevicePrivate::BridgeDevicePrivate(const QString &path, BridgeDevice *q)
     : DevicePrivate(path, q)
+#ifdef NMQT_STATIC
+    , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+#else
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+#endif
     , carrier(false)
 {
     carrier = iface.carrier();

@@ -34,7 +34,12 @@
 #include "nm-active-connectioninterface.h"
 
 NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &dbusPath)
+#ifdef NMQT_STATIC
+    : iface(NetworkManagerPrivate::DBUS_SERVICE, dbusPath, QDBusConnection::sessionBus())
+#else
     : iface(NetworkManagerPrivate::DBUS_SERVICE, dbusPath, QDBusConnection::systemBus())
+
+#endif
 #if NM_CHECK_VERSION(0, 9, 10)
     , dhcp4Config(0)
     , dhcp6Config(0)

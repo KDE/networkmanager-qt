@@ -50,7 +50,11 @@ class NetworkManager::ConnectionPrivate
 {
 public:
     ConnectionPrivate(const QString &path)
+#ifdef NMQT_STATIC
+        : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+#else
         : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+#endif
     { }
 
     void updateSettings(const NMVariantMapMap &newSettings = NMVariantMapMap());

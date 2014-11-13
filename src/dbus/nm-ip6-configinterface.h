@@ -29,8 +29,11 @@ class OrgFreedesktopNetworkManagerIP6ConfigInterface: public QDBusAbstractInterf
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
+#ifdef NMQT_STATIC
+    { return "org.kde.fakenetwork.IP6Config"; }
+#else
     { return "org.freedesktop.NetworkManager.IP6Config"; }
-
+#endif
 public:
     OrgFreedesktopNetworkManagerIP6ConfigInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 

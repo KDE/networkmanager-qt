@@ -29,8 +29,11 @@ class OrgFreedesktopNetworkManagerDeviceGenericInterface: public QDBusAbstractIn
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
+#ifdef NMQT_STATIC
+    { return "org.kde.fakenetwork.Device.Generic"; }
+#else
     { return "org.freedesktop.NetworkManager.Device.Generic"; }
-
+#endif
 public:
     OrgFreedesktopNetworkManagerDeviceGenericInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 

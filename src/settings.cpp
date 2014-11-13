@@ -35,7 +35,11 @@
 Q_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
 
 NetworkManager::SettingsPrivate::SettingsPrivate()
+#ifdef NMQT_STATIC
+    : iface(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, QDBusConnection::sessionBus())
+#else
     : iface(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, QDBusConnection::systemBus())
+#endif
     , m_canModify(true)
 {
     connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::PropertiesChanged,
@@ -89,7 +93,11 @@ void NetworkManager::SettingsPrivate::init()
                                                           NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                                           QStringLiteral("GetAll"));
     message << iface.staticInterfaceName();
+#ifdef NMQT_STATIC
+    QDBusConnection::sessionBus().callWithCallback(message,
+#else
     QDBusConnection::systemBus().callWithCallback(message,
+#endif
                                                   this,
                                                   SLOT(propertiesChanged(QVariantMap)));
 }

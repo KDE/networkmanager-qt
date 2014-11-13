@@ -35,7 +35,13 @@ class NetworkManager::VpnConnectionPrivate : public NetworkManager::ActiveConnec
 {
 public:
     VpnConnectionPrivate(const QString &path)
-        : ActiveConnectionPrivate(path), iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus()) {
+        : ActiveConnectionPrivate(path)
+#ifdef NMQT_STATIC
+    , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+#else
+    , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+#endif
+    {
         banner = iface.banner();
         state = convertVpnConnectionState(iface.vpnState());
     }

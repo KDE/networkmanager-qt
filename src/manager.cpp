@@ -49,16 +49,27 @@
 
 #define DBUS_PROPERTIES  "org.freedesktop.DBus.Properties"
 
+#ifdef NMQT_STATIC
+const QString NetworkManager::NetworkManagerPrivate::DBUS_SERVICE(QString::fromLatin1("org.kde.fakenetwork"));
+const QString NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH(QString::fromLatin1("/org/kde/fakenetwork"));
+const QString NetworkManager::NetworkManagerPrivate::DBUS_SETTINGS_PATH(QString::fromLatin1("/org/kde/fakenetwork/Settings"));
+#else
 const QString NetworkManager::NetworkManagerPrivate::DBUS_SERVICE(QString::fromLatin1(NM_DBUS_SERVICE));
 const QString NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH(QString::fromLatin1(NM_DBUS_PATH));
 const QString NetworkManager::NetworkManagerPrivate::DBUS_SETTINGS_PATH(QString::fromLatin1(NM_DBUS_PATH_SETTINGS));
+#endif
 const QString NetworkManager::NetworkManagerPrivate::FDO_DBUS_PROPERTIES(QString::fromLatin1(DBUS_PROPERTIES));
 
 Q_GLOBAL_STATIC(NetworkManager::NetworkManagerPrivate, globalNetworkManager)
 
 NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
+#ifdef NMQT_STATIC
+    : watcher(DBUS_SERVICE, QDBusConnection::sessionBus(), QDBusServiceWatcher::WatchForOwnerChange, this)
+    , iface(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE, NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH, QDBusConnection::sessionBus())
+#else
     : watcher(DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForOwnerChange, this)
     , iface(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE, NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH, QDBusConnection::systemBus())
+#endif
     , nmState(NetworkManager::Unknown)
     , m_connectivity(NetworkManager::UnknownConnectivity)
     , m_isNetworkingEnabled(false)
@@ -69,7 +80,7 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     , m_isWwanEnabled(false)
     , m_isWwanHardwareEnabled(false)
 {
-    QLoggingCategory::setFilterRules(QStringLiteral("libnm-qt.debug = false"));
+    QLoggingCategory::setFilterRules(QStringLiteral("libnm-qt.debug = true"));
     QLoggingCategory::setFilterRules(QStringLiteral("libnm-qt.warning = true"));
 
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceAdded,
@@ -125,7 +136,11 @@ void NetworkManager::NetworkManagerPrivate::init()
                                                           FDO_DBUS_PROPERTIES,
                                                           QLatin1String("GetAll"));
     message << iface.staticInterfaceName();
+#ifdef NMQT_STATIC
+    QDBusConnection::sessionBus().callWithCallback(message,
+#else
     QDBusConnection::systemBus().callWithCallback(message,
+#endif
                                                   this,
                                                   SLOT(propertiesChanged(QVariantMap)));
 

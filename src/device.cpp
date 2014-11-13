@@ -85,7 +85,11 @@ NetworkManager::DeviceStateReason &NetworkManager::DeviceStateReason::operator=(
 }
 
 NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager::Device *q)
+#ifdef NMQT_STATIC
+    : deviceIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+#else
     : deviceIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+#endif
     , uni(path)
     , designSpeed(0)
     , dhcp4Config(0)

@@ -30,8 +30,11 @@ class OrgFreedesktopNetworkManagerSettingsInterface: public QDBusAbstractInterfa
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
+#ifdef NMQT_STATIC
+    { return "org.kde.fakenetwork.Settings"; }
+#else
     { return "org.freedesktop.NetworkManager.Settings"; }
-
+#endif
 public:
     OrgFreedesktopNetworkManagerSettingsInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
 

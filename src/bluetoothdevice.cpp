@@ -26,7 +26,12 @@
 #include "nmdebug.h"
 
 NetworkManager::BluetoothDevicePrivate::BluetoothDevicePrivate(const QString &path, BluetoothDevice *q)
-    : ModemDevicePrivate(path, q), btIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+    : ModemDevicePrivate(path, q)
+#ifdef NMQT_STATIC
+    , btIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+#else
+    , btIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+#endif
 {
     btCapabilities = static_cast<QFlags<NetworkManager::BluetoothDevice::Capability> >(btIface.btCapabilities());
     hardwareAddress = btIface.hwAddress();

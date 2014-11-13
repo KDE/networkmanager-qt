@@ -79,7 +79,11 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
 {
     OrgFreedesktopNetworkManagerIP4ConfigInterface iface(NetworkManagerPrivate::DBUS_SERVICE,
                                                          path,
+#ifdef NMQT_STATIC
+                                                         QDBusConnection::sessionBus());
+#else
                                                          QDBusConnection::systemBus());
+#endif
     // TODO - watch propertiesChanged signal
 
     //convert ipaddresses into object
@@ -128,8 +132,11 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
     // ask the daemon for the details
     OrgFreedesktopNetworkManagerIP6ConfigInterface iface(NetworkManagerPrivate::DBUS_SERVICE,
             path,
+#ifdef NMQT_STATIC
+            QDBusConnection::sessionBus());
+#else
             QDBusConnection::systemBus());
-
+#endif
     // TODO - watch propertiesChanged signal
 
     IpV6DBusAddressList addresses = iface.addresses();
