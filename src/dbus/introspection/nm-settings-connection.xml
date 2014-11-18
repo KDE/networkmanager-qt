@@ -17,8 +17,8 @@
           </tp:docstring>
           <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_settings_connection_update"/>
           <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="NMVariantMapMap"/>
           <arg name="properties" type="a{sa{sv}}" direction="in">
-            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="NMVariantMapMap"/>
             <tp:docstring>
               New connection settings, properties, and (optionally) secrets.
             </tp:docstring>
@@ -40,8 +40,8 @@
           </tp:docstring>
           <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_settings_connection_update_unsaved"/>
           <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+          <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="NMVariantMapMap"/>
           <arg name="properties" type="a{sa{sv}}" direction="in">
-            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="NMVariantMapMap"/>
             <tp:docstring>
               New connection settings, properties, and (optionally) secrets.
             </tp:docstring>
@@ -65,8 +65,8 @@
             </tp:docstring>
             <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_settings_connection_get_settings"/>
             <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+            <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="NMVariantMapMap"/>
             <arg name="settings" type="a{sa{sv}}" direction="out" tp:type="String_String_Variant_Map_Map">
-                <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="NMVariantMapMap"/>
                 <tp:docstring>
                     The nested settings maps describing this object.
                 </tp:docstring>
@@ -89,8 +89,8 @@
                 </tp:docstring>
             </arg>
 
+            <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="NMVariantMapMap"/>
             <arg name="secrets" type="a{sa{sv}}" direction="out" tp:type="String_String_Variant_Map_Map">
-                <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="NMVariantMapMap"/>
                 <tp:docstring>
                     Nested settings maps containing secrets.
                 </tp:docstring>
@@ -136,8 +136,8 @@
         </property>
 
         <signal name="PropertiesChanged">
+            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
             <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
-                <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
                 <tp:docstring>
                     A dictionary mapping property names to variant boxed values.
                 </tp:docstring>

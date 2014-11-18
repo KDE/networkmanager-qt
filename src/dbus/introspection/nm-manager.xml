@@ -92,8 +92,8 @@
         given device and specific object), then activate the new connection.
         Cannot be used for VPN connections at this time.
       </tp:docstring>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="NMVariantMapMap"/>
       <arg name="connection" type="a{sa{sv}}" direction="in">
-        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="NMVariantMapMap"/>
         <tp:docstring>
           Connection settings and properties; if incomplete missing settings will
           be automatically completed using the given device and specific object.
@@ -188,8 +188,8 @@
         that NetworkManager provides, like Enable/Disable networking, changing
         WiFi, WWAN, and WiMAX state, etc.
       </tp:docstring>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="NMStringMap"/>
       <arg name="permissions" type="a{ss}" direction="out">
-        <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="NMStringMap"/>
         <tp:docstring>
           Dictionary of available permissions and results.  Each permission
           is represented by a name (ie "org.freedesktop.NetworkManager.Foobar")
@@ -398,8 +398,8 @@
       <tp:docstring>
         NetworkManager's properties changed.
       </tp:docstring>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
       <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
-        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
         <tp:docstring>
           The changed properties.
         </tp:docstring>

@@ -1,4 +1,4 @@
-#add_subdirectory(dbus)
+# add_subdirectory(dbus)
 
 include_directories(
    ${NETWORKMANAGER_INCLUDE_DIRS}

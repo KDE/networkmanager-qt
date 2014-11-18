@@ -25,18 +25,18 @@ set(INTERFACE_INTROSPECTION_XML_FILES
    introspection/nm-device-bt.xml
    introspection/nm-device-ethernet.xml
    introspection/nm-device-generic.xml
+   introspection/nm-device-gre.xml
    introspection/nm-device-infiniband.xml
+   introspection/nm-device-macvlan.xml
    introspection/nm-device-modem.xml
    introspection/nm-device-olpc-mesh.xml
+   introspection/nm-device-team.xml
+   introspection/nm-device-tun.xml
+   introspection/nm-device-veth.xml
    introspection/nm-device-vlan.xml
    introspection/nm-device-wifi.xml
    introspection/nm-device-wimax.xml
    introspection/nm-device.xml
-   introspection/nm-device-gre.xml
-   introspection/nm-device-macvlan.xml
-   introspection/nm-device-team.xml
-   introspection/nm-device-tun.xml
-   introspection/nm-device-veth.xml
    introspection/nm-dhcp4-config.xml
    introspection/nm-dhcp6-config.xml
    introspection/nm-ip4-config.xml
@@ -51,20 +51,20 @@ set(INTERFACE_INTROSPECTION_XML_FILES
    introspection/nm-wimax-nsp.xml
    )
 
-set_property( SOURCE ${INTERFACE_INTROSPECTION_XML_FILES} PROPERTY INCLUDE generictypes.h)
+set_property(SOURCE ${INTERFACE_INTROSPECTION_XML_FILES} PROPERTY INCLUDE generictypes.h)
 
-set( ADAPTER_INTROSPECTION_XML_FILES
+set(ADAPTER_INTROSPECTION_XML_FILES
    )
 
-set_source_files_properties( ${INTERFACE_INTROSPECTION_XML_FILES} ${ADAPTER_INTROSPECTION_XML_FILES} PROPERTIES NO_NAMESPACE TRUE )
+set_source_files_properties(${INTERFACE_INTROSPECTION_XML_FILES} ${ADAPTER_INTROSPECTION_XML_FILES} PROPERTIES NO_NAMESPACE TRUE )
 
-set( FILES_TO_BUILD
+set(FILES_TO_BUILD
    )
 
-QT4_ADD_DBUS_INTERFACES( FILES_TO_BUILD ${INTERFACE_INTROSPECTION_XML_FILES} )
-qt4_add_dbus_adaptor( FILES_TO_BUILD introspection/nm-secret-agent.xml "secretagent.h" "NetworkManager::SecretAgent")
+QT5_ADD_DBUS_INTERFACES( FILES_TO_BUILD ${INTERFACE_INTROSPECTION_XML_FILES} )
+qt5_add_dbus_adaptor( FILES_TO_BUILD introspection/nm-secret-agent.xml "secretagent.h" "NetworkManager::SecretAgent")
 foreach(adaptor ${ADAPTER_INTROSPECTION_XML_FILES})
-    qt4_add_dbus_adaptor( FILES_TO_BUILD ${adaptor} "generictypes.h")
+    qt5_add_dbus_adaptor( FILES_TO_BUILD ${adaptor} "generictypes.h")
 endforeach(adaptor ${ADAPTER_INTROSPECTION_XML_FILES})
 
 #message(status "before patch in ${CMAKE_CURRENT_BUILD_DIR}")

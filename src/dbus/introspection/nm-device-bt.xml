@@ -22,8 +22,8 @@
     </property>
 
     <signal name="PropertiesChanged">
+        <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
         <arg name="properties" type="a{sv}" tp:type="String_Variant_Map">
-            <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
             <tp:docstring>
                 A dictionary mapping property names to variant boxed values
             </tp:docstring>
