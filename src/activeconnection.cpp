@@ -182,6 +182,7 @@ NetworkManager::IpConfig NetworkManager::ActiveConnection::ipV6Config() const
     }
     return d->ipV6Config;
 }
+#endif
 
 QString NetworkManager::ActiveConnection::id() const
 {
@@ -194,7 +195,7 @@ NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ActiveConnect
     Q_D(const ActiveConnection);
     return NetworkManager::ConnectionSettings::typeFromString(d->type);
 }
-#endif
+
 
 QString NetworkManager::ActiveConnection::master() const
 {
