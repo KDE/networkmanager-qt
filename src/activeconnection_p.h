@@ -49,9 +49,9 @@ public:
     QString ipV4ConfigPath;
     mutable IpConfig ipV6Config;
     QString ipV6ConfigPath;
+#endif
     QString id;
     QString type;
-#endif
     QString specificObject;
     ActiveConnection::State state;
     bool vpn;
