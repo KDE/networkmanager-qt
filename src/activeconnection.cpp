@@ -80,6 +80,9 @@ NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &
     if (!dhcp6ConfigObjectPath.path().isNull() && dhcp6ConfigObjectPath.path() != QLatin1String("/")) {
         dhcp6ConfigPath = dhcp6ConfigObjectPath.path();
     }
+#else
+    id = connection->settings()->id();
+    type = connection->settings()->typeAsString(connection->settings()->connectionType());
 #endif
 }
 
@@ -241,6 +244,18 @@ void NetworkManager::ActiveConnectionPrivate::propertiesChanged(const QVariantMa
         if (property == QLatin1String("Connection")) {
             connection = NetworkManager::findConnection(qdbus_cast<QDBusObjectPath>(*it).path());
             emit q->connectionChanged(connection);
+#if !NM_CHECK_VERSION(0, 9, 10)
+            const QString tmpId = connection->settings()->id();
+            const QString tmpType = connection->settings()->typeAsString(connection->settings()->connectionType());
+            if (tmpId != id) {
+                id = tmpId;
+                emit q->idChanged(id);
+            }
+
+            if (tmpType != type) {
+                emit q->typeChanged(NetworkManager::ConnectionSettings::typeFromString(type));
+            }
+#endif
         } else if (property == QLatin1String("Default")) {
             default4 = it->toBool();
             emit q->default4Changed(default4);
