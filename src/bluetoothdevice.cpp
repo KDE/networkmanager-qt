@@ -42,7 +42,7 @@ NetworkManager::BluetoothDevice::BluetoothDevice(const QString &path, QObject *p
     : ModemDevice(*new BluetoothDevicePrivate(path, this), parent)
 {
     Q_D(BluetoothDevice);
-    connect(&d->btIface, &OrgFreedesktopNetworkManagerDeviceBluetoothInterface::PropertiesChanged, this, &BluetoothDevice::propertiesChanged);
+    connect(&d->btIface, &OrgFreedesktopNetworkManagerDeviceBluetoothInterface::PropertiesChanged, d, &BluetoothDevicePrivate::propertiesChanged);
 }
 
 NetworkManager::BluetoothDevice::~BluetoothDevice()
@@ -54,19 +54,19 @@ NetworkManager::Device::Type NetworkManager::BluetoothDevice::type() const
     return NetworkManager::Device::Bluetooth;
 }
 
-void NetworkManager::BluetoothDevice::propertyChanged(const QString &property, const QVariant &value)
+void NetworkManager::BluetoothDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(BluetoothDevice);
+    Q_Q(BluetoothDevice);
 
     if (property == QLatin1String("Name")) {
-        d->name = value.toString();
-        emit nameChanged(d->name);
+        name = value.toString();
+        emit q->nameChanged(name);
     } else if (property == QLatin1String("HwAddress")) {
-        d->hardwareAddress = value.toString();
+        hardwareAddress = value.toString();
     } else if (property == QLatin1String("BtCapabilities")) {
-        d->btCapabilities = static_cast<NetworkManager::BluetoothDevice::Capabilities>(value.toUInt());
+        btCapabilities = static_cast<NetworkManager::BluetoothDevice::Capabilities>(value.toUInt());
     } else {
-        Device::propertyChanged(property, value);
+        DevicePrivate::propertyChanged(property, value);
     }
 }
 

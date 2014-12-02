@@ -1,5 +1,6 @@
 /*
     Copyright 2011 Ilia Kats <ilia-kats@gmx.net>
+    Copyright 2013-2014 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -18,44 +19,38 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_WIMAXDEVICE_P_H
-#define NETWORKMANAGERQT_WIMAXDEVICE_P_H
+#ifndef NETWORKMANAGERQT_VPNCONNECTION_P_H
+#define NETWORKMANAGERQT_VPNCONNECTION_P_H
 
-#include "device_p.h"
-#include "dbus/nm-device-wimaxinterface.h"
+#include "activeconnection_p.h"
+#include "manager_p.h"
+#include "vpnconnection.h"
+
+#include "nm-vpn-connectioninterface.h"
 
 namespace NetworkManager
 {
 
-class WimaxDevicePrivate : public DevicePrivate
+class VpnConnectionPrivate : public ActiveConnectionPrivate
 {
 Q_OBJECT
 public:
-    explicit WimaxDevicePrivate(const QString &path, WimaxDevice *q);
-    OrgFreedesktopNetworkManagerDeviceWiMaxInterface wimaxIface;
-    QString hardwareAddress;
-    mutable QMap<QString, WimaxNsp::Ptr> nspMap;
-    QString activeNsp;
-    uint centerFrequency;
-    int cinr;
-    QString bsid;
-    int rssi;
-    int txPower;
+    VpnConnectionPrivate(const QString &path, VpnConnection *q);
 
-    Q_DECLARE_PUBLIC(WimaxDevice)
-protected Q_SLOTS:
-    void nspAdded(const QDBusObjectPath &);
-    void nspRemoved(const QDBusObjectPath &);
+    static NetworkManager::VpnConnection::State convertVpnConnectionState(uint state);
+    static NetworkManager::VpnConnection::StateChangeReason convertVpnConnectionStateReason(uint reason);
 
-protected:
-    /**
-     * When subclassing make sure to call the parent class method
-     * if the property was not useful to your new class
-     */
-    virtual void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
+    QString banner;
+    NetworkManager::VpnConnection::State state;
+    OrgFreedesktopNetworkManagerVPNConnectionInterface iface;
+
+    Q_DECLARE_PUBLIC(VpnConnection)
+    VpnConnection *q_ptr;
+private Q_SLOTS:
+    void propertiesChanged(const QVariantMap &properties);
+    void vpnStateChanged(uint new_state, uint reason);
 };
 
 }
 
-#endif
-
+#endif // NETWORKMANAGERQT_VPNCONNECTION_P_H

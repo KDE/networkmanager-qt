@@ -85,9 +85,6 @@ Q_SIGNALS:
      */
     void signalQualityChanged(uint quality);
 
-protected Q_SLOTS:
-    void propertiesChanged(const QVariantMap &properties);
-
 private:
     Q_DECLARE_PRIVATE(WimaxNsp)
 
@@ -95,5 +92,3 @@ private:
 };
 }
 #endif
-
-

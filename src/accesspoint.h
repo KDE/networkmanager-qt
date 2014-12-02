@@ -169,9 +169,6 @@ Q_SIGNALS:
      */
     void frequencyChanged(uint frequency);
 
-protected Q_SLOTS:
-    void propertiesChanged(const QVariantMap &properties);
-
 private:
     Q_DECLARE_PRIVATE(AccessPoint)
 

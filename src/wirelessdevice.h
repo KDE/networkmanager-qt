@@ -206,18 +206,6 @@ Q_SIGNALS:
      */
     void networkDisappeared(const QString &ssid);
 
-protected:
-    /**
-     * When subclassing make sure to call the parent class method
-     * if the property was not useful to your new class
-     */
-    virtual void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
-
-protected Q_SLOTS:
-    void accessPointAdded(const QDBusObjectPath &);
-    void accessPointRemoved(const QDBusObjectPath &);
-    void removeNetwork(const QString &network);
-
 private:
     Q_DECLARE_PRIVATE(WirelessDevice)
 };

@@ -153,12 +153,7 @@ Q_SIGNALS:
      */
     void unsavedChanged(bool unsaved);
 #endif
-private Q_SLOTS:
-    void onConnectionUpdated();
-    void onConnectionRemoved();
-#if NM_CHECK_VERSION(0, 9, 10)
-    void onPropertiesChanged(const QVariantMap &properties);
-#endif
+
 private:
     Q_DECLARE_PRIVATE(Connection)
 

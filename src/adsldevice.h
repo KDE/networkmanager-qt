@@ -32,7 +32,6 @@ class NETWORKMANAGERQT_EXPORT AdslDevice : public Device
 {
     Q_OBJECT
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
-
 public:
     typedef QSharedPointer<AdslDevice> Ptr;
     typedef QList<Ptr> List;
@@ -50,13 +49,6 @@ Q_SIGNALS:
      * Emmited when the carrier of this device has changed
      */
     void carrierChanged(bool plugged);
-
-protected:
-    /**
-     * When subclassing make sure to call the parent class method
-     * if the property was not useful to your new class
-     */
-    virtual void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
 
 private:
     Q_DECLARE_PRIVATE(AdslDevice)

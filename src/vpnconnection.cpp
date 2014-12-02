@@ -19,50 +19,41 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "activeconnection_p.h"
+#include "vpnconnection_p.h"
 #include "connection.h"
 #include "device.h"
 #include "nmdebug.h"
 #include "settings.h"
-#include "vpnconnection.h"
 
 #include <QDBusObjectPath>
 
-#include "manager_p.h"
-#include "nm-vpn-connectioninterface.h"
-
-class NetworkManager::VpnConnectionPrivate : public NetworkManager::ActiveConnectionPrivate
-{
-public:
-    VpnConnectionPrivate(const QString &path)
-        : ActiveConnectionPrivate(path)
+NetworkManager::VpnConnectionPrivate::VpnConnectionPrivate(const QString &path, VpnConnection *q)
+    : ActiveConnectionPrivate(path, q)
 #ifdef NMQT_STATIC
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
 #else
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
-    {
-        banner = iface.banner();
-        state = convertVpnConnectionState(iface.vpnState());
-    }
-    static NetworkManager::VpnConnection::State convertVpnConnectionState(uint state) {
-        return (NetworkManager::VpnConnection::State)state;
-    }
-    static NetworkManager::VpnConnection::StateChangeReason convertVpnConnectionStateReason(uint reason) {
-        return (NetworkManager::VpnConnection::StateChangeReason)reason;
-    }
-    QString banner;
-    NetworkManager::VpnConnection::State state;
-    OrgFreedesktopNetworkManagerVPNConnectionInterface iface;
-};
+    , q_ptr(q)
+{
+    banner = iface.banner();
+    state = convertVpnConnectionState(iface.vpnState());
+}
 
+NetworkManager::VpnConnection::State NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(uint state) {
+    return static_cast<NetworkManager::VpnConnection::State>(state);
+}
+
+NetworkManager::VpnConnection::StateChangeReason NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(uint reason) {
+    return static_cast<NetworkManager::VpnConnection::StateChangeReason>(reason);
+}
 
 NetworkManager::VpnConnection::VpnConnection(const QString &path, QObject *parent)
-    : ActiveConnection(*new VpnConnectionPrivate(path), parent)
+    : ActiveConnection(*new VpnConnectionPrivate(path, this), parent)
 {
     Q_D(VpnConnection);
-    connect(&d->iface, &OrgFreedesktopNetworkManagerVPNConnectionInterface::PropertiesChanged, this, &VpnConnection::propertiesChanged);
-    connect(&d->iface, &OrgFreedesktopNetworkManagerVPNConnectionInterface::VpnStateChanged, this, &VpnConnection::vpnStateChanged);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerVPNConnectionInterface::PropertiesChanged, d, &VpnConnectionPrivate::propertiesChanged);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerVPNConnectionInterface::VpnStateChanged, d, &VpnConnectionPrivate::vpnStateChanged);
 }
 
 NetworkManager::VpnConnection::~VpnConnection()
@@ -82,18 +73,18 @@ NetworkManager::VpnConnection::State NetworkManager::VpnConnection::state() cons
     return d->state;
 }
 
-void NetworkManager::VpnConnection::propertiesChanged(const QVariantMap &properties)
+void NetworkManager::VpnConnectionPrivate::propertiesChanged(const QVariantMap &properties)
 {
-    Q_D(VpnConnection);
+    Q_Q(VpnConnection);
 
     QVariantMap::const_iterator it = properties.constBegin();
     while (it != properties.constEnd()) {
         const QString property = it.key();
         if (property == QLatin1String("Banner")) {
-            d->banner = it->toString();
-            emit bannerChanged(d->banner);
+            banner = it->toString();
+            emit q->bannerChanged(banner);
         } else if (property == QLatin1String("VpnState")) {
-            d->state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(it->toUInt());
+            state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(it->toUInt());
             NetworkManager::VpnConnection::StateChangeReason reason = NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(properties.key("Reason").toUInt());
             // Do not notify about changed VpnState twice, because there is also signal VpnStateChanged() from NetworkManager
             // emit stateChanged(d->state, reason);
@@ -104,14 +95,14 @@ void NetworkManager::VpnConnection::propertiesChanged(const QVariantMap &propert
     }
 }
 
-void NetworkManager::VpnConnection::vpnStateChanged(uint state, uint reason)
+void NetworkManager::VpnConnectionPrivate::vpnStateChanged(uint newState, uint reason)
 {
-    Q_D(VpnConnection);
+    Q_Q(VpnConnection);
     Q_UNUSED(reason);
 
-    d->state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(state);
+    state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(newState);
     NetworkManager::VpnConnection::StateChangeReason stateChangeReason = NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(reason);
-    emit stateChanged(d->state, stateChangeReason);
+    emit q->stateChanged(state, stateChangeReason);
 }
 
 NetworkManager::VpnConnection::operator VpnConnection *()

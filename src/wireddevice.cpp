@@ -50,7 +50,7 @@ NetworkManager::WiredDevice::WiredDevice(const QString &path, QObject *parent)
     : Device(*new NetworkManager::WiredDevicePrivate(path, this), parent)
 {
     Q_D(WiredDevice);
-    connect(&d->wiredIface, &OrgFreedesktopNetworkManagerDeviceWiredInterface::PropertiesChanged, this, &WiredDevice::propertiesChanged);
+    connect(&d->wiredIface, &OrgFreedesktopNetworkManagerDeviceWiredInterface::PropertiesChanged, d, &WiredDevicePrivate::propertiesChanged);
 }
 
 NetworkManager::WiredDevice::~WiredDevice()
@@ -86,23 +86,23 @@ bool NetworkManager::WiredDevice::carrier() const
     return d->carrier;
 }
 
-void NetworkManager::WiredDevice::propertyChanged(const QString &property, const QVariant &value)
+void NetworkManager::WiredDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(NetworkManager::WiredDevice);
+    Q_Q(NetworkManager::WiredDevice);
 
     if (property == QLatin1String("Carrier")) {
-        d->carrier = value.toBool();
-        emit carrierChanged(d->carrier);
+        carrier = value.toBool();
+        emit q->carrierChanged(carrier);
     } else if (property == QLatin1String("HwAddress")) {
-        d->hardwareAddress = value.toString();
-        emit hardwareAddressChanged(d->hardwareAddress);
+        hardwareAddress = value.toString();
+        emit q->hardwareAddressChanged(hardwareAddress);
     } else if (property == QLatin1String("PermHwAddress")) {
-        d->permanentHardwareAddress = value.toString();
-        emit permanentHardwareAddressChanged(d->permanentHardwareAddress);
+        permanentHardwareAddress = value.toString();
+        emit q->permanentHardwareAddressChanged(permanentHardwareAddress);
     } else if (property == QLatin1String("Speed")) {
-        d->bitrate = value.toUInt() * 1000;
-        emit bitRateChanged(d->bitrate);
+        bitrate = value.toUInt() * 1000;
+        emit q->bitRateChanged(bitrate);
     } else {
-        Device::propertyChanged(property, value);
+        DevicePrivate::propertyChanged(property, value);
     }
 }

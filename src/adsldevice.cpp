@@ -19,25 +19,7 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "adsldevice.h"
-#include "device_p.h"
-#include "manager.h"
-#include "manager_p.h"
-
-#include "nm-device-adslinterface.h"
-
-namespace NetworkManager
-{
-class AdslDevicePrivate : public DevicePrivate
-{
-public:
-    AdslDevicePrivate(const QString &path, AdslDevice *q);
-    virtual ~AdslDevicePrivate();
-
-    OrgFreedesktopNetworkManagerDeviceAdslInterface iface;
-    bool carrier;
-};
-}
+#include "adsldevice_p.h"
 
 NetworkManager::AdslDevicePrivate::AdslDevicePrivate(const QString &path, AdslDevice *q)
     : DevicePrivate(path, q)
@@ -59,7 +41,7 @@ NetworkManager::AdslDevice::AdslDevice(const QString &path, QObject *parent)
     : Device(*new AdslDevicePrivate(path, this), parent)
 {
     Q_D(AdslDevice);
-    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceAdslInterface::PropertiesChanged, this, &AdslDevice::propertiesChanged);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceAdslInterface::PropertiesChanged, d, &AdslDevicePrivate::propertiesChanged);
 }
 
 NetworkManager::AdslDevicePrivate::~AdslDevicePrivate()
@@ -78,14 +60,14 @@ bool NetworkManager::AdslDevice::carrier() const
     return d->carrier;
 }
 
-void NetworkManager::AdslDevice::propertyChanged(const QString &property, const QVariant &value)
+void NetworkManager::AdslDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(AdslDevice);
+    Q_Q(AdslDevice);
 
     if (property == QLatin1String("Carrier")) {
-        d->carrier = value.toBool();
-        emit carrierChanged(d->carrier);
+        carrier = value.toBool();
+        emit q->carrierChanged(carrier);
     } else {
-        Device::propertyChanged(property, value);
+        DevicePrivate::propertyChanged(property, value);
     }
 }

@@ -1,5 +1,6 @@
 /*
     Copyright 2013 Lukáš Tinkl <ltinkl@redhat.com>
+    Copyright 2014 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -18,24 +19,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "tundevice.h"
-#include "device_p.h"
-#include "manager.h"
+#include "tundevice_p.h"
 #include "manager_p.h"
-
-#include "nm-device-tuninterface.h"
-
-namespace NetworkManager
-{
-class TunDevicePrivate: public DevicePrivate
-{
-public:
-    TunDevicePrivate(const QString &path, TunDevice *q);
-    virtual ~TunDevicePrivate();
-
-    OrgFreedesktopNetworkManagerDeviceTunInterface iface;
-};
-}
 
 NetworkManager::TunDevicePrivate::TunDevicePrivate(const QString &path, TunDevice *q)
     : DevicePrivate(path, q)
@@ -45,6 +30,12 @@ NetworkManager::TunDevicePrivate::TunDevicePrivate(const QString &path, TunDevic
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
 {
+    owner = iface.owner();
+    group = iface.group();
+    mode = iface.mode();
+    multiQueue = iface.multiQueue();
+    noPi = iface.noPi();
+    vnetHdr = iface.vnetHdr();
 }
 
 NetworkManager::TunDevicePrivate::~TunDevicePrivate()
@@ -55,7 +46,7 @@ NetworkManager::TunDevice::TunDevice(const QString &path, QObject *parent)
     : Device(*new TunDevicePrivate(path, this), parent)
 {
     Q_D(TunDevice);
-    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceTunInterface::PropertiesChanged, this, &TunDevice::propertiesChanged);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceTunInterface::PropertiesChanged, d, &TunDevicePrivate::propertiesChanged);
 }
 
 NetworkManager::TunDevice::~TunDevice()
@@ -70,56 +61,62 @@ NetworkManager::Device::Type NetworkManager::TunDevice::type() const
 qlonglong NetworkManager::TunDevice::owner() const
 {
     Q_D(const TunDevice);
-    return d->iface.owner();
+    return d->owner;
 }
 
 qlonglong NetworkManager::TunDevice::group() const
 {
     Q_D(const TunDevice);
-    return d->iface.group();
+    return d->group;
 }
 
 QString NetworkManager::TunDevice::mode() const
 {
     Q_D(const TunDevice);
-    return d->iface.mode();
+    return d->mode;
 }
 
 bool NetworkManager::TunDevice::multiQueue() const
 {
     Q_D(const TunDevice);
-    return d->iface.multiQueue();
+    return d->multiQueue;
 }
 
 bool NetworkManager::TunDevice::noPi() const
 {
     Q_D(const TunDevice);
-    return d->iface.noPi();
+    return d->noPi;
 }
 
 bool NetworkManager::TunDevice::vnetHdr() const
 {
     Q_D(const TunDevice);
-    return d->iface.vnetHdr();
+    return d->vnetHdr;
 }
 
-void NetworkManager::TunDevice::propertyChanged(const QString &property, const QVariant &value)
+void NetworkManager::TunDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
+    Q_Q(TunDevice);
+
     if (property == QLatin1String("Owner")) {
-        emit ownerChanged();
+        owner = value.toLongLong();
+        emit q->ownerChanged(owner);
     } else if (property == QLatin1String("Group")) {
-        emit groupChanged();
+        group = value.toLongLong();
+        emit q->groupChanged(group);
     } else if (property == QLatin1String("Mode")) {
-        emit modeChanged();
+        mode = value.toString();
+        emit q->modeChanged(mode);
     } else if (property == QLatin1String("MultiQueue")) {
-        emit multiQueueChanged();
+        multiQueue = value.toBool();
+        emit q->multiQueueChanged(multiQueue);
     } else if (property == QLatin1String("NoPi")) {
-        emit noPiChanged();
+        noPi = value.toBool();
+        emit q->noPiChanged(noPi);
     } else if (property == QLatin1String("VnetHdr")) {
-        emit vnetHdrChanged();
+        vnetHdr = value.toBool();
+        emit q->vnetHdrChanged(vnetHdr);
     } else {
-        Device::propertyChanged(property, value);
+        DevicePrivate::propertyChanged(property, value);
     }
 }
-
-#include "tundevice.moc"

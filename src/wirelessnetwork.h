@@ -37,6 +37,7 @@ class NETWORKMANAGERQT_EXPORT WirelessNetwork : public QObject
 {
     Q_OBJECT
     friend class WirelessDevice;
+    friend class WirelessDevicePrivate;
 public:
     typedef QSharedPointer<WirelessNetwork> Ptr;
     typedef QList<Ptr> List;

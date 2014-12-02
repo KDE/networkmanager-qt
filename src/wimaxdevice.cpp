@@ -68,9 +68,9 @@ NetworkManager::WimaxDevice::WimaxDevice(const QString &path, QObject *parent)
     : Device(*new WimaxDevicePrivate(path, this), parent)
 {
     Q_D(WimaxDevice);
-    connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::PropertiesChanged, this, &WimaxDevice::propertiesChanged);
-    connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspAdded, this, &WimaxDevice::nspAdded);
-    connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspRemoved, this, &WimaxDevice::nspRemoved);
+    connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::PropertiesChanged, d, &WimaxDevicePrivate::propertiesChanged);
+    connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspAdded, d, &WimaxDevicePrivate::nspAdded);
+    connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspRemoved, d, &WimaxDevicePrivate::nspRemoved);
 }
 
 NetworkManager::WimaxDevice::~WimaxDevice()
@@ -146,53 +146,53 @@ NetworkManager::WimaxNsp::Ptr NetworkManager::WimaxDevice::findNsp(const QString
     return nsp;
 }
 
-void NetworkManager::WimaxDevice::nspAdded(const QDBusObjectPath &nspPath)
+void NetworkManager::WimaxDevicePrivate::nspAdded(const QDBusObjectPath &nspPath)
 {
     //qCDebug(NMQT) << nspPath.path();
-    Q_D(WimaxDevice);
-    if (!d->nspMap.contains(nspPath.path())) {
-        d->nspMap.insert(nspPath.path(), NetworkManager::WimaxNsp::Ptr());
-        emit nspAppeared(nspPath.path());
+    Q_Q(WimaxDevice);
+    if (!nspMap.contains(nspPath.path())) {
+        nspMap.insert(nspPath.path(), NetworkManager::WimaxNsp::Ptr());
+        emit q->nspAppeared(nspPath.path());
     }
 }
 
-void NetworkManager::WimaxDevice::nspRemoved(const QDBusObjectPath &nspPath)
+void NetworkManager::WimaxDevicePrivate::nspRemoved(const QDBusObjectPath &nspPath)
 {
     //qCDebug(NMQT) << nspPath.path();
-    Q_D(WimaxDevice);
-    if (!d->nspMap.contains(nspPath.path())) {
+    Q_Q(WimaxDevice);
+    if (!nspMap.contains(nspPath.path())) {
         qCDebug(NMQT) << "Access point list lookup failed for " << nspPath.path();
     }
-    emit nspDisappeared(nspPath.path());
-    d->nspMap.remove(nspPath.path());
+    emit q->nspDisappeared(nspPath.path());
+    nspMap.remove(nspPath.path());
 }
 
-void NetworkManager::WimaxDevice::propertyChanged(const QString &property, const QVariant &value)
+void NetworkManager::WimaxDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(WimaxDevice);
+    Q_Q(WimaxDevice);
 
     if (property == QLatin1String("ActiveNsp")) {
-        d->activeNsp = qdbus_cast<QDBusObjectPath>(value).path();
-        emit activeNspChanged(d->activeNsp);
+        activeNsp = qdbus_cast<QDBusObjectPath>(value).path();
+        emit q->activeNspChanged(activeNsp);
     } else if (property == QLatin1String("HwAddress")) {
-        d->hardwareAddress = value.toString();
-        emit hardwareAddressChanged(d->hardwareAddress);
+        hardwareAddress = value.toString();
+        emit q->hardwareAddressChanged(hardwareAddress);
     } else if (property == QLatin1String("Bsid")) {
-        d->bsid = value.toString();
-        emit bsidChanged(d->bsid);
+        bsid = value.toString();
+        emit q->bsidChanged(bsid);
     } else if (property == QLatin1String("CenterFrequency")) {
-        d->centerFrequency = value.toUInt();
-        emit centerFrequencyChanged(d->centerFrequency);
+        centerFrequency = value.toUInt();
+        emit q->centerFrequencyChanged(centerFrequency);
     } else if (property == QLatin1String("Cinr")) {
-        d->cinr = value.toInt();
-        emit cinrChanged(d->cinr);
+        cinr = value.toInt();
+        emit q->cinrChanged(cinr);
     } else if (property == QLatin1String("Rssi")) {
-        d->rssi = value.toInt();
-        emit rssiChanged(d->rssi);
+        rssi = value.toInt();
+        emit q->rssiChanged(rssi);
     } else if (property == QLatin1String("TxPower")) {
-        d->txPower = value.toInt();
-        emit txPowerChanged(d->txPower);
+        txPower = value.toInt();
+        emit q->txPowerChanged(txPower);
     } else {
-        Device::propertyChanged(property, value);
+        DevicePrivate::propertyChanged(property, value);
     }
 }

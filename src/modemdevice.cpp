@@ -54,7 +54,7 @@ NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
 {
     Q_D(ModemDevice);
     d->initModemProperties();
-    QObject::connect(&d->modemIface, &OrgFreedesktopNetworkManagerDeviceModemInterface::PropertiesChanged, this, &ModemDevice::propertiesChanged);
+    QObject::connect(&d->modemIface, &OrgFreedesktopNetworkManagerDeviceModemInterface::PropertiesChanged, d, &ModemDevicePrivate::propertiesChanged);
 }
 
 NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd, QObject *parent)
@@ -62,7 +62,7 @@ NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd,
 {
     Q_D(ModemDevice);
     d->initModemProperties();
-    QObject::connect(&d->modemIface, &OrgFreedesktopNetworkManagerDeviceModemInterface::PropertiesChanged, this, &ModemDevice::propertiesChanged);
+    QObject::connect(&d->modemIface, &OrgFreedesktopNetworkManagerDeviceModemInterface::PropertiesChanged, d, &ModemDevicePrivate::propertiesChanged);
 }
 
 NetworkManager::ModemDevice::~ModemDevice()
@@ -86,14 +86,14 @@ NetworkManager::ModemDevice::Capabilities NetworkManager::ModemDevice::modemCapa
     return d->modemCapabilities;
 }
 
-void NetworkManager::ModemDevice::propertyChanged(const QString &property, const QVariant &value)
+void NetworkManager::ModemDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(ModemDevice);
+    Q_Q(ModemDevice);
 
     if (property == QLatin1String("CurrentCapabilities")) {
-        d->currentCapabilities = convertModemCapabilities(value.toUInt());
-        emit currentCapabilitiesChanged(d->currentCapabilities);
+        currentCapabilities = convertModemCapabilities(value.toUInt());
+        emit q->currentCapabilitiesChanged(currentCapabilities);
     } else {
-        Device::propertyChanged(property, value);
+        DevicePrivate::propertyChanged(property, value);
     }
 }

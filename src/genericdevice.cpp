@@ -18,27 +18,9 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "genericdevice.h"
-#include "device_p.h"
+#include "genericdevice_p.h"
 #include "manager.h"
-#include "manager_p.h"
 #include "nmdebug.h"
-
-#include "nm-device-genericinterface.h"
-
-namespace NetworkManager
-{
-class GenericDevicePrivate : public DevicePrivate
-{
-public:
-    GenericDevicePrivate(const QString &path, GenericDevice *q);
-    virtual ~GenericDevicePrivate();
-
-    OrgFreedesktopNetworkManagerDeviceGenericInterface iface;
-    QString hwAddress;
-    QString typeDescription;
-};
-}
 
 NetworkManager::GenericDevicePrivate::GenericDevicePrivate(const QString &path, GenericDevice *q)
     : DevicePrivate(path, q)
@@ -60,7 +42,7 @@ NetworkManager::GenericDevice::GenericDevice(const QString &path, QObject *paren
     : Device(*new NetworkManager::GenericDevicePrivate(path, this), parent)
 {
     Q_D(GenericDevice);
-    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceGenericInterface::PropertiesChanged, this, &GenericDevice::propertiesChanged);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceGenericInterface::PropertiesChanged, d, &GenericDevicePrivate::propertiesChanged);
 }
 
 NetworkManager::GenericDevice::~GenericDevice()
@@ -74,29 +56,27 @@ NetworkManager::Device::Type NetworkManager::GenericDevice::type() const
 
 QString NetworkManager::GenericDevice::hardwareAddress() const
 {
-    Q_D(const NetworkManager::GenericDevice);
+    Q_D(const GenericDevice);
     return d->hwAddress;
 }
 
 QString NetworkManager::GenericDevice::typeDescription() const
 {
-    Q_D(const NetworkManager::GenericDevice);
+    Q_D(const GenericDevice);
     return d->typeDescription;
 }
 
-void NetworkManager::GenericDevice::propertyChanged(const QString &property, const QVariant &value)
+void NetworkManager::GenericDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(NetworkManager::GenericDevice);
+    Q_Q(GenericDevice);
 
     if (property == QLatin1String("HwAddress")) {
-        d->hwAddress = value.toString();
-        emit hardwareAddressChanged(d->hwAddress);
+        hwAddress = value.toString();
+        emit q->hardwareAddressChanged(hwAddress);
     } else if (property == QLatin1String("TypeDescription")) {
-        d->typeDescription = value.toString();
-        emit permanentHardwareAddressChanged(d->typeDescription);
+        typeDescription = value.toString();
+        emit q->permanentHardwareAddressChanged(typeDescription);
     } else {
-        Device::propertyChanged(property, value);
+        DevicePrivate::propertyChanged(property, value);
     }
 }
-
-#include "genericdevice.moc"

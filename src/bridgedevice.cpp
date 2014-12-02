@@ -18,27 +18,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "bridgedevice.h"
-#include "device_p.h"
-#include "manager.h"
+#include "bridgedevice_p.h"
 #include "manager_p.h"
-
-#include "nm-device-bridgeinterface.h"
-
-namespace NetworkManager
-{
-class BridgeDevicePrivate : public DevicePrivate
-{
-public:
-    BridgeDevicePrivate(const QString &path, BridgeDevice *q);
-    virtual ~BridgeDevicePrivate();
-
-    OrgFreedesktopNetworkManagerDeviceBridgeInterface iface;
-    bool carrier;
-    QString hwAddress;
-    QStringList slaves;
-};
-}
 
 NetworkManager::BridgeDevicePrivate::BridgeDevicePrivate(const QString &path, BridgeDevice *q)
     : DevicePrivate(path, q)
@@ -66,7 +47,7 @@ NetworkManager::BridgeDevice::BridgeDevice(const QString &path, QObject *parent)
     Device(*new BridgeDevicePrivate(path, this), parent)
 {
     Q_D(BridgeDevice);
-    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceBridgeInterface::PropertiesChanged, this, &BridgeDevice::propertiesChanged);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceBridgeInterface::PropertiesChanged, d, &BridgeDevicePrivate::propertiesChanged);
 }
 
 NetworkManager::BridgeDevice::~BridgeDevice()
@@ -99,24 +80,24 @@ QStringList NetworkManager::BridgeDevice::slaves() const
     return d->slaves;
 }
 
-void NetworkManager::BridgeDevice::propertyChanged(const QString &property, const QVariant &value)
+void NetworkManager::BridgeDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(BridgeDevice);
+    Q_Q(BridgeDevice);
 
     if (property == QLatin1String("Carrier")) {
-        d->carrier = value.toBool();
-        emit carrierChanged(d->carrier);
+        carrier = value.toBool();
+        emit q->carrierChanged(carrier);
     } else if (property == QLatin1String("HwAddress")) {
-        d->hwAddress = value.toString();
-        emit hwAddressChanged(d->hwAddress);
+        hwAddress = value.toString();
+        emit q->hwAddressChanged(hwAddress);
     } else if (property == QLatin1String("Slaves")) {
         QStringList list;
         foreach (const QDBusObjectPath &op, value.value<QList<QDBusObjectPath> >()) {
             list << op.path();
         }
-        d->slaves = list;
-        emit slavesChanged(d->slaves);
+        slaves = list;
+        emit q->slavesChanged(slaves);
     } else {
-        Device::propertyChanged(property, value);
+        DevicePrivate::propertyChanged(property, value);
     }
 }

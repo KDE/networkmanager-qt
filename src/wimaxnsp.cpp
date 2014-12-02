@@ -19,11 +19,9 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "wimaxnsp.h"
-#include "dbus/nm-wimax-nspinterface.h"
+#include "wimaxnsp_p.h"
 #include "manager_p.h"
 #include "wimaxdevice.h"
-
 #include "nmdebug.h"
 
 namespace NetworkManager {
@@ -43,29 +41,23 @@ NetworkManager::WimaxNsp::NetworkType convertNetworkType(uint type)
     return NetworkManager::WimaxNsp::Unknown;
 }
 
-class WimaxNspPrivate
-{
-public:
-    WimaxNspPrivate(const QString &path)
+}
+
+NetworkManager::WimaxNspPrivate::WimaxNspPrivate(const QString &path, WimaxNsp *q)
 #ifdef NMQT_STATIC
-        : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+    : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
 #else
-        : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+    : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
-        , networkType(WimaxNsp::Unknown)
-        , signalQuality(0) {
-    }
-    OrgFreedesktopNetworkManagerWiMaxNspInterface iface;
-    QString uni;
-    WimaxNsp::NetworkType networkType;
-    QString name;
-    uint signalQuality;
-};
+    , networkType(WimaxNsp::Unknown)
+    , signalQuality(0)
+    , q_ptr(q)
+{
 }
 
 NetworkManager::WimaxNsp::WimaxNsp(const QString &path, QObject *parent)
     : QObject(parent)
-    , d_ptr(new WimaxNspPrivate(path))
+    , d_ptr(new WimaxNspPrivate(path, this))
 {
     Q_D(WimaxNsp);
     d->uni = path;
@@ -73,7 +65,7 @@ NetworkManager::WimaxNsp::WimaxNsp(const QString &path, QObject *parent)
         d->networkType = convertNetworkType(d->iface.networkType());
         d->name = d->iface.name();
         d->signalQuality = d->iface.signalQuality();
-        connect(&d->iface, &OrgFreedesktopNetworkManagerWiMaxNspInterface::PropertiesChanged, this, &WimaxNsp::propertiesChanged);
+        connect(&d->iface, &OrgFreedesktopNetworkManagerWiMaxNspInterface::PropertiesChanged, d, &WimaxNspPrivate::propertiesChanged);
     }
 }
 
@@ -107,22 +99,22 @@ uint NetworkManager::WimaxNsp::signalQuality() const
     return d->signalQuality;
 }
 
-void NetworkManager::WimaxNsp::propertiesChanged(const QVariantMap &properties)
+void NetworkManager::WimaxNspPrivate::propertiesChanged(const QVariantMap &properties)
 {
-    Q_D(WimaxNsp);
+    Q_Q(WimaxNsp);
 
     QVariantMap::const_iterator it = properties.constBegin();
     while (it != properties.constEnd()) {
         const QString property = it.key();
         if (property == QLatin1String("Name")) {
-            d->name = it->toString();
-            emit nameChanged(d->name);
+            name = it->toString();
+            emit q->nameChanged(name);
         } else if (property == QLatin1String("NetworkType")) {
-            d->networkType = convertNetworkType(it->toUInt());
-            emit networkTypeChanged(d->networkType);
+            networkType = convertNetworkType(it->toUInt());
+            emit q->networkTypeChanged(networkType);
         } else if (property == QLatin1String("SignalQuality")) {
-            d->signalQuality = it->toUInt();
-            emit signalQualityChanged(d->signalQuality);
+            signalQuality = it->toUInt();
+            emit q->signalQualityChanged(signalQuality);
         } else {
             qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }

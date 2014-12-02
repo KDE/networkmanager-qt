@@ -27,10 +27,11 @@
 namespace NetworkManager
 {
 
-class ActiveConnectionPrivate
+class ActiveConnectionPrivate : public QObject
 {
+Q_OBJECT
 public:
-    explicit ActiveConnectionPrivate(const QString &);
+    explicit ActiveConnectionPrivate(const QString &, ActiveConnection *q);
     virtual ~ActiveConnectionPrivate();
     static NetworkManager::ActiveConnection::State convertActiveConnectionState(uint);
     NetworkManager::Connection::Ptr connection;
@@ -56,6 +57,11 @@ public:
     bool vpn;
     QString uuid;
     QString master;
+
+    Q_DECLARE_PUBLIC(ActiveConnection)
+    ActiveConnection *q_ptr;
+private Q_SLOTS:
+    void propertiesChanged(const QVariantMap &properties);
 };
 
 }

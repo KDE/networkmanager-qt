@@ -53,6 +53,9 @@ public:
      */
     QString hwAddress() const;
 
+    /**
+     * Devices which are currently slaved to this device
+     */
     QStringList slaves() const;
 
 Q_SIGNALS:
@@ -65,13 +68,10 @@ Q_SIGNALS:
      */
     void hwAddressChanged(const QString &address);
 
-    void slavesChanged();
-protected:
     /**
-     * When subclassing make sure to call the parent class method
-     * if the property was not useful to your new class
+     * Emmited when the list of devices slaved to this device has changed
      */
-    virtual void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
+    void slavesChanged(const QStringList &slaves);
 
 private:
     Q_DECLARE_PRIVATE(TeamDevice)

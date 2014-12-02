@@ -42,7 +42,7 @@ NetworkManager::OlpcMeshDevice::OlpcMeshDevice(const QString &path, QObject *par
     : Device(*new OlpcMeshDevicePrivate(path, this), parent)
 {
     Q_D(OlpcMeshDevice);
-    QObject::connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface::PropertiesChanged, this, &OlpcMeshDevice::propertiesChanged);
+    QObject::connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface::PropertiesChanged, d, &OlpcMeshDevicePrivate::propertiesChanged);
 }
 
 NetworkManager::OlpcMeshDevice::~OlpcMeshDevice()
@@ -72,20 +72,20 @@ NetworkManager::Device::Ptr NetworkManager::OlpcMeshDevice::companionDevice() co
     return NetworkManager::findNetworkInterface(d->companion);
 }
 
-void NetworkManager::OlpcMeshDevice::propertyChanged(const QString &property, const QVariant &value)
+void NetworkManager::OlpcMeshDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(OlpcMeshDevice);
+    Q_Q(OlpcMeshDevice);
 
     if (property == QLatin1String("ActiveChannel")) {
-        d->activeChannel = value.toUInt();
-        emit activeChannelChanged(d->activeChannel);
+        activeChannel = value.toUInt();
+        emit q->activeChannelChanged(activeChannel);
     } else if (property == QLatin1String("HwAddress")) {
-        d->hardwareAddress = value.toString();
-        emit hardwareAddressChanged(d->hardwareAddress);
+        hardwareAddress = value.toString();
+        emit q->hardwareAddressChanged(hardwareAddress);
     } else if (property == QLatin1String("Companion")) {
-        d->companion = qdbus_cast<QDBusObjectPath>(value).path();
-        emit companionChanged(NetworkManager::findNetworkInterface(d->companion));
+        companion = qdbus_cast<QDBusObjectPath>(value).path();
+        emit q->companionChanged(NetworkManager::findNetworkInterface(companion));
     } else {
-        Device::propertyChanged(property, value);
+        DevicePrivate::propertyChanged(property, value);
     }
 }

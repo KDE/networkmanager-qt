@@ -1,6 +1,7 @@
 /*
+    Copyright 2008,2009 Will Stephenson <wstephenson@kde.org>
     Copyright 2011-2013 Lamarque V. Souza <lamarque@kde.org>
-    Copyright 2014 Jan Grulich <jgrulich@redhat.com>
+    Copyright 2013-2014 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -19,44 +20,46 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_DHCP4CONFIG_H
-#define NETWORKMANAGERQT_DHCP4CONFIG_H
+#ifndef NETWORKMANAGERQT_SETTINGS_CONNECTION_P_H
+#define NETWORKMANAGERQT_SETTINGS_CONNECTION_P_H
 
+#include "connection.h"
+#include "device.h"
+#include "manager_p.h"
+#include "nm-settings-connectioninterface.h"
 #include "generictypes.h"
 
-#include <networkmanagerqt_export.h>
 
-#include <QtCore/QStringList>
-#include <QSharedPointer>
+class QDBusPendingCallWatcher;
 
 namespace NetworkManager
 {
-class Dhcp4ConfigPrivate;
 
-class NETWORKMANAGERQT_EXPORT Dhcp4Config: public QObject
+class ConnectionPrivate : public QObject
 {
-    Q_OBJECT
+Q_OBJECT
 public:
-    typedef QSharedPointer<Dhcp4Config> Ptr;
-    typedef QList<Ptr> List;
+    ConnectionPrivate(const QString &path, Connection *q);
 
-    explicit Dhcp4Config(const QString &path, QObject *owner = 0);
-    ~Dhcp4Config();
+    void updateSettings(const NMVariantMapMap &newSettings = NMVariantMapMap());
+    bool unsaved;
+    QString uuid;
+    QString id;
+    NMVariantMapMap settings;
+    ConnectionSettings::Ptr connection;
+    QString path;
+    OrgFreedesktopNetworkManagerSettingsConnectionInterface iface;
 
-    QString path() const;
-
-    QVariantMap options() const;
-
-    QString optionValue(const QString &key) const;
-
-Q_SIGNALS:
-    void optionsChanged(const QVariantMap &);
-
-private:
-    Q_DECLARE_PRIVATE(Dhcp4Config)
-
-    Dhcp4ConfigPrivate *const d_ptr;
+    Q_DECLARE_PUBLIC(Connection)
+    Connection *q_ptr;
+private Q_SLOTS:
+    void onConnectionUpdated();
+    void onConnectionRemoved();
+#if NM_CHECK_VERSION(0, 9, 10)
+    void onPropertiesChanged(const QVariantMap &properties);
+#endif
 };
-} // namespace NetworkManager
 
-#endif // NETWORKMANAGERQT_DHCP4CONFIG_H
+}
+
+#endif

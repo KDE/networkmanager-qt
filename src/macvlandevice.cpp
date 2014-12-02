@@ -18,24 +18,9 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "macvlandevice.h"
+#include "macvlandevice_p.h"
 #include "device_p.h"
 #include "manager.h"
-#include "manager_p.h"
-
-#include "nm-device-macvlaninterface.h"
-
-namespace NetworkManager
-{
-class MacVlanDevicePrivate: public DevicePrivate
-{
-public:
-    MacVlanDevicePrivate(const QString &path, MacVlanDevice *q);
-    virtual ~MacVlanDevicePrivate();
-
-    OrgFreedesktopNetworkManagerDeviceMacvlanInterface iface;
-};
-}
 
 NetworkManager::MacVlanDevicePrivate::MacVlanDevicePrivate(const QString &path, MacVlanDevice *q)
     : DevicePrivate(path, q)
@@ -45,6 +30,9 @@ NetworkManager::MacVlanDevicePrivate::MacVlanDevicePrivate(const QString &path, 
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
 {
+    mode = iface.mode();
+    noPromisc = iface.noPromisc();
+    parent = iface.parent().path();
 }
 
 NetworkManager::MacVlanDevicePrivate::~MacVlanDevicePrivate()
@@ -55,7 +43,7 @@ NetworkManager::MacVlanDevice::MacVlanDevice(const QString &path, QObject *paren
     Device(*new MacVlanDevicePrivate(path, this), parent)
 {
     Q_D(MacVlanDevice);
-    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceMacvlanInterface::PropertiesChanged, this, &MacVlanDevice::propertiesChanged);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceMacvlanInterface::PropertiesChanged, d, &MacVlanDevicePrivate::propertiesChanged);
 }
 
 NetworkManager::MacVlanDevice::~MacVlanDevice()
@@ -70,32 +58,35 @@ NetworkManager::Device::Type NetworkManager::MacVlanDevice::type() const
 QString NetworkManager::MacVlanDevice::mode() const
 {
     Q_D(const MacVlanDevice);
-    return d->iface.mode();
+    return d->mode;
 }
 
 bool NetworkManager::MacVlanDevice::noPromisc() const
 {
     Q_D(const MacVlanDevice);
-    return d->iface.noPromisc();
+    return d->noPromisc;
 }
 
 QString NetworkManager::MacVlanDevice::parent() const
 {
     Q_D(const MacVlanDevice);
-    return d->iface.parent().path();
+    return d->parent;
 }
 
-void NetworkManager::MacVlanDevice::propertyChanged(const QString &property, const QVariant &value)
+void NetworkManager::MacVlanDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
+    Q_Q(MacVlanDevice);
+
     if (property == QLatin1String("Mode")) {
-        emit modeChanged();
+        mode = value.toString();
+        emit q->modeChanged(mode);
     } else if (property == QLatin1String("NoPromisc")) {
-        emit noPromiscChanged();
+        noPromisc = value.toBool();
+        emit q->noPromiscChanged(noPromisc);
     } else if (property == QLatin1String("Parent")) {
-        emit parentChanged();
+        parent = value.toString();
+        emit q->parentChanged(parent);
     } else {
-        Device::propertyChanged(property, value);
+        DevicePrivate::propertyChanged(property, value);
     }
 }
-
-#include "macvlandevice.moc"

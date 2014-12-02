@@ -1,5 +1,4 @@
 /*
-    Copyright 2011-2013 Lamarque V. Souza <lamarque@kde.org>
     Copyright 2014 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
@@ -19,44 +18,36 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_DHCP4CONFIG_H
-#define NETWORKMANAGERQT_DHCP4CONFIG_H
+#ifndef NETWORKMANAGERQT_BRIDGE_DEVICE_P_H
+#define NETWORKMANAGERQT_BRIDGE_DEVICE_P_H
 
-#include "generictypes.h"
+#include "bridgedevice.h"
+#include "device_p.h"
+#include "manager.h"
 
-#include <networkmanagerqt_export.h>
-
-#include <QtCore/QStringList>
-#include <QSharedPointer>
+#include "nm-device-bridgeinterface.h"
 
 namespace NetworkManager
 {
-class Dhcp4ConfigPrivate;
-
-class NETWORKMANAGERQT_EXPORT Dhcp4Config: public QObject
+class BridgeDevicePrivate : public DevicePrivate
 {
-    Q_OBJECT
 public:
-    typedef QSharedPointer<Dhcp4Config> Ptr;
-    typedef QList<Ptr> List;
+    BridgeDevicePrivate(const QString &path, BridgeDevice *q);
+    virtual ~BridgeDevicePrivate();
 
-    explicit Dhcp4Config(const QString &path, QObject *owner = 0);
-    ~Dhcp4Config();
+    OrgFreedesktopNetworkManagerDeviceBridgeInterface iface;
+    bool carrier;
+    QString hwAddress;
+    QStringList slaves;
 
-    QString path() const;
-
-    QVariantMap options() const;
-
-    QString optionValue(const QString &key) const;
-
-Q_SIGNALS:
-    void optionsChanged(const QVariantMap &);
-
-private:
-    Q_DECLARE_PRIVATE(Dhcp4Config)
-
-    Dhcp4ConfigPrivate *const d_ptr;
+    Q_DECLARE_PUBLIC(BridgeDevice)
+protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
 };
-} // namespace NetworkManager
+}
 
-#endif // NETWORKMANAGERQT_DHCP4CONFIG_H
+#endif

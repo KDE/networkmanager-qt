@@ -19,26 +19,9 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "infinibanddevice.h"
+#include "infinibanddevice_p.h"
 #include "device_p.h"
 #include "manager.h"
-#include "manager_p.h"
-
-#include "nm-device-infinibandinterface.h"
-
-namespace NetworkManager
-{
-class InfinibandDevicePrivate : public DevicePrivate
-{
-public:
-    InfinibandDevicePrivate(const QString &path, InfinibandDevice *q);
-    virtual ~InfinibandDevicePrivate();
-
-    OrgFreedesktopNetworkManagerDeviceInfinibandInterface iface;
-    bool carrier;
-    QString hwAddress;
-};
-}
 
 NetworkManager::InfinibandDevicePrivate::InfinibandDevicePrivate(const QString &path, InfinibandDevice *q)
     : DevicePrivate(path, q)
@@ -61,7 +44,7 @@ NetworkManager::InfinibandDevice::InfinibandDevice(const QString &path, QObject 
     : Device(*new InfinibandDevicePrivate(path, this), parent)
 {
     Q_D(InfinibandDevice);
-    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceInfinibandInterface::PropertiesChanged, this, &InfinibandDevice::propertiesChanged);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceInfinibandInterface::PropertiesChanged, d, &InfinibandDevicePrivate::propertiesChanged);
 }
 
 NetworkManager::InfinibandDevicePrivate::~InfinibandDevicePrivate()
@@ -87,17 +70,17 @@ QString NetworkManager::InfinibandDevice::hwAddress() const
     return d->hwAddress;
 }
 
-void NetworkManager::InfinibandDevice::propertyChanged(const QString &property, const QVariant &value)
+void NetworkManager::InfinibandDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(InfinibandDevice);
+    Q_Q(InfinibandDevice);
 
     if (property == QLatin1String("Carrier")) {
-        d->carrier = value.toBool();
-        emit carrierChanged(d->carrier);
+        carrier = value.toBool();
+        emit q->carrierChanged(carrier);
     } else if (property == QLatin1String("HwAddress")) {
-        d->hwAddress = value.toString();
-        emit hwAddressChanged(d->hwAddress);
+        hwAddress = value.toString();
+        emit q->hwAddressChanged(hwAddress);
     } else {
-        Device::propertyChanged(property, value);
+        DevicePrivate::propertyChanged(property, value);
     }
 }

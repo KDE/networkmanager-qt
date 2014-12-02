@@ -217,9 +217,6 @@ Q_SIGNALS:
 protected:
     ActiveConnectionPrivate *const d_ptr;
 
-protected Q_SLOTS:
-    void propertiesChanged(const QVariantMap &properties);
-
 private:
     Q_DECLARE_PRIVATE(ActiveConnection)
 };

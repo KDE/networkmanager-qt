@@ -21,7 +21,7 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "connection.h"
+#include "connection_p.h"
 
 #include <NetworkManager.h>
 #include <nm-setting-cdma.h>
@@ -39,37 +39,20 @@
 #include <QDBusPendingReply>
 #include <QDBusPendingCallWatcher>
 
-#include "manager_p.h"
-#include "device.h"
-#include "nm-settings-connectioninterface.h"
-#include "generictypes.h"
-
 #include "nmdebug.h"
 
-class NetworkManager::ConnectionPrivate
-{
-public:
-    ConnectionPrivate(const QString &path)
+NetworkManager::ConnectionPrivate::ConnectionPrivate(const QString &path, Connection *q)
 #ifdef NMQT_STATIC
-        : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+    : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
 #else
-        : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+    : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
+    , q_ptr(q)
     { }
-
-    void updateSettings(const NMVariantMapMap &newSettings = NMVariantMapMap());
-    bool unsaved;
-    QString uuid;
-    QString id;
-    NMVariantMapMap settings;
-    ConnectionSettings::Ptr connection;
-    QString path;
-    OrgFreedesktopNetworkManagerSettingsConnectionInterface iface;
-};
 
 NetworkManager::Connection::Connection(const QString &path, QObject *parent)
     : QObject(parent)
-    , d_ptr(new ConnectionPrivate(path))
+    , d_ptr(new ConnectionPrivate(path, this))
 {
     Q_D(Connection);
 
@@ -83,11 +66,11 @@ NetworkManager::Connection::Connection(const QString &path, QObject *parent)
     d->path = path;
     //qCDebug(NMQT) << m_connection;
 
-    connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Updated, this, &Connection::onConnectionUpdated);
-    connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Removed, this, &Connection::onConnectionRemoved);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Updated, d, &ConnectionPrivate::onConnectionUpdated);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Removed, d, &ConnectionPrivate::onConnectionRemoved);
 #if NM_CHECK_VERSION(0, 9, 10)
     d->unsaved = d->iface.unsaved();
-    connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::PropertiesChanged, this, &Connection::onPropertiesChanged);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::PropertiesChanged, d, &ConnectionPrivate::onPropertiesChanged);
 #endif
 }
 
@@ -166,35 +149,35 @@ QString NetworkManager::Connection::path() const
     return d->path;
 }
 
-void NetworkManager::Connection::onConnectionUpdated()
+void NetworkManager::ConnectionPrivate::onConnectionUpdated()
 {
-    Q_D(Connection);
-    QDBusReply<NMVariantMapMap> reply = d->iface.GetSettings();
+    Q_Q(Connection);
+    QDBusReply<NMVariantMapMap> reply = iface.GetSettings();
     if (reply.isValid()) {
-        d->updateSettings(reply.value());
+        updateSettings(reply.value());
     } else {
-        d->updateSettings();
+        updateSettings();
     }
-    emit updated();
+    emit q->updated();
 }
 
-void NetworkManager::Connection::onConnectionRemoved()
+void NetworkManager::ConnectionPrivate::onConnectionRemoved()
 {
-    Q_D(Connection);
-    QString path = d->path;
-    d->updateSettings();
-    emit removed(path);
+    Q_Q(Connection);
+    QString tmpPath = path;
+    updateSettings();
+    emit q->removed(tmpPath);
 }
 #if NM_CHECK_VERSION(0, 9, 10)
-void NetworkManager::Connection::onPropertiesChanged(const QVariantMap& properties)
+void NetworkManager::ConnectionPrivate::onPropertiesChanged(const QVariantMap& properties)
 {
-    Q_D(Connection);
+    Q_Q(Connection);
     QVariantMap::const_iterator it = properties.constBegin();
     while (it != properties.constEnd()) {
         const QString property = it.key();
         if (property == QLatin1String("Unsaved")) {
-            d->unsaved = it->toBool();
-            emit unsavedChanged(d->unsaved);
+            unsaved = it->toBool();
+            emit q->unsavedChanged(unsaved);
         } else {
             qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }

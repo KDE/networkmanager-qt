@@ -1,6 +1,6 @@
 /*
-    Copyright 2011 Lamarque V. Souza <lamarque@kde.org>
     Copyright 2011-2013 Lamarque V. Souza <lamarque@kde.org>
+    Copyright 2014 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -51,9 +51,6 @@ public:
 
 Q_SIGNALS:
     void optionsChanged(const QVariantMap &);
-
-protected Q_SLOTS:
-    void dhcp6PropertiesChanged(const QVariantMap &);
 
 private:
     Q_DECLARE_PRIVATE(Dhcp6Config)

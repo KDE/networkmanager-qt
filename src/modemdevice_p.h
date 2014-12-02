@@ -29,6 +29,7 @@ namespace NetworkManager
 
 class ModemDevicePrivate : public DevicePrivate
 {
+Q_OBJECT
 public:
     explicit ModemDevicePrivate(const QString &path, ModemDevice *q);
 
@@ -39,7 +40,12 @@ public:
     NetworkManager::ModemDevice::Capabilities currentCapabilities;
 
     Q_DECLARE_PUBLIC(ModemDevice)
-    ModemDevice *q_ptr;
+protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
 };
 
 } // namespace NetworkManager

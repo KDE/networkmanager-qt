@@ -29,8 +29,9 @@ namespace NetworkManager
 
 class NetworkManagerPrivate;
 
-class DevicePrivate
+class DevicePrivate : public QObject
 {
+Q_OBJECT
 public:
     explicit DevicePrivate(const QString &path, Device *q);
     virtual ~DevicePrivate();
@@ -74,6 +75,16 @@ public:
 
     Q_DECLARE_PUBLIC(Device)
     Device *q_ptr;
+public:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value);
+
+public Q_SLOTS:
+    void deviceStateChanged(uint, uint, uint);
+    void propertiesChanged(const QVariantMap &properties);
 };
 
 } // namespace NetworkManager

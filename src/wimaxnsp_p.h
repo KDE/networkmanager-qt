@@ -1,5 +1,4 @@
 /*
-    Copyright 2011-2013 Lamarque V. Souza <lamarque@kde.org>
     Copyright 2014 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
@@ -19,44 +18,31 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_DHCP4CONFIG_H
-#define NETWORKMANAGERQT_DHCP4CONFIG_H
+#ifndef NETWORKMANAGERQT_WIMAXNSP_P_H
+#define NETWORKMANAGERQT_WIMAXNSP_P_H
 
-#include "generictypes.h"
-
-#include <networkmanagerqt_export.h>
-
-#include <QtCore/QStringList>
-#include <QSharedPointer>
+#include "wimaxnsp.h"
+#include "dbus/nm-wimax-nspinterface.h"
 
 namespace NetworkManager
 {
-class Dhcp4ConfigPrivate;
-
-class NETWORKMANAGERQT_EXPORT Dhcp4Config: public QObject
+class WimaxNspPrivate : public QObject
 {
-    Q_OBJECT
+Q_OBJECT
 public:
-    typedef QSharedPointer<Dhcp4Config> Ptr;
-    typedef QList<Ptr> List;
+    WimaxNspPrivate(const QString &path, WimaxNsp *q);
 
-    explicit Dhcp4Config(const QString &path, QObject *owner = 0);
-    ~Dhcp4Config();
+    OrgFreedesktopNetworkManagerWiMaxNspInterface iface;
+    QString uni;
+    WimaxNsp::NetworkType networkType;
+    QString name;
+    uint signalQuality;
 
-    QString path() const;
-
-    QVariantMap options() const;
-
-    QString optionValue(const QString &key) const;
-
-Q_SIGNALS:
-    void optionsChanged(const QVariantMap &);
-
-private:
-    Q_DECLARE_PRIVATE(Dhcp4Config)
-
-    Dhcp4ConfigPrivate *const d_ptr;
+    Q_DECLARE_PUBLIC(WimaxNsp)
+    WimaxNsp *q_ptr;
+private Q_SLOTS:
+    void propertiesChanged(const QVariantMap &properties);
 };
-} // namespace NetworkManager
+}
 
-#endif // NETWORKMANAGERQT_DHCP4CONFIG_H
+#endif // NETWORKMANAGERQT_WIMAXNSP_P_H

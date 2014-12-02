@@ -1,5 +1,6 @@
 /*
     Copyright 2013 Lukáš Tinkl <ltinkl@redhat.com>
+    Copyright 2014 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -18,24 +19,9 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "gredevice.h"
+#include "gredevice_p.h"
 #include "device_p.h"
 #include "manager.h"
-#include "manager_p.h"
-
-#include "nm-device-greinterface.h"
-
-namespace NetworkManager
-{
-class GreDevicePrivate : public DevicePrivate
-{
-public:
-    GreDevicePrivate(const QString &path, GreDevice *q);
-    virtual ~GreDevicePrivate();
-
-    OrgFreedesktopNetworkManagerDeviceGreInterface iface;
-};
-}
 
 NetworkManager::GreDevicePrivate::GreDevicePrivate(const QString &path, GreDevice *q)
     : DevicePrivate(path, q)
@@ -45,6 +31,16 @@ NetworkManager::GreDevicePrivate::GreDevicePrivate(const QString &path, GreDevic
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
 {
+    inputFlags = iface.inputFlags();
+    outputFlags = iface.outputFlags();
+    inputKey = iface.inputKey();
+    outputKey = iface.outputKey();
+    localEnd = iface.local();
+    remoteEnd = iface.remote();
+    parent = iface.parent().path();
+    pathMtuDiscovery = iface.pathMtuDiscovery();
+    tos = iface.tos();
+    ttl = iface.ttl();
 }
 
 NetworkManager::GreDevicePrivate::~GreDevicePrivate()
@@ -55,7 +51,7 @@ NetworkManager::GreDevice::GreDevice(const QString &path, QObject *parent):
     Device(*new GreDevicePrivate(path, this), parent)
 {
     Q_D(GreDevice);
-    QObject::connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceGreInterface::PropertiesChanged, this, &GreDevice::propertiesChanged);
+    QObject::connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceGreInterface::PropertiesChanged, d, &GreDevicePrivate::propertiesChanged);
 }
 
 NetworkManager::GreDevice::~GreDevice()
@@ -70,90 +66,98 @@ NetworkManager::Device::Type NetworkManager::GreDevice::type() const
 ushort NetworkManager::GreDevice::inputFlags() const
 {
     Q_D(const GreDevice);
-    return d->iface.inputFlags();
+    return d->inputFlags;
 }
 
 ushort NetworkManager::GreDevice::outputFlags() const
 {
     Q_D(const GreDevice);
-    return d->iface.outputFlags();
+    return d->outputFlags;
 }
 
 uint NetworkManager::GreDevice::inputKey() const
 {
     Q_D(const GreDevice);
-    return d->iface.inputKey();
+    return d->inputKey;
 }
 
 uint NetworkManager::GreDevice::outputKey() const
 {
     Q_D(const GreDevice);
-    return d->iface.outputKey();
+    return d->outputKey;
 }
 
 QString NetworkManager::GreDevice::localEnd() const
 {
     Q_D(const GreDevice);
-    return d->iface.local();
+    return d->localEnd;
 }
 
 QString NetworkManager::GreDevice::remoteEnd() const
 {
     Q_D(const GreDevice);
-    return d->iface.remote();
+    return d->remoteEnd;
 }
 
 QString NetworkManager::GreDevice::parent() const
 {
     Q_D(const GreDevice);
-    return d->iface.parent().path();
+    return d->parent;
 }
 
 bool NetworkManager::GreDevice::pathMtuDiscovery() const
 {
     Q_D(const GreDevice);
-    return d->iface.pathMtuDiscovery();
+    return d->pathMtuDiscovery;
 }
 
 uchar NetworkManager::GreDevice::tos() const
 {
     Q_D(const GreDevice);
-    return d->iface.tos();
+    return d->tos;
 }
 
 uchar NetworkManager::GreDevice::ttl() const
 {
     Q_D(const GreDevice);
-    return d->iface.ttl();
+    return d->ttl;
 }
 
-void NetworkManager::GreDevice::propertyChanged(const QString &property, const QVariant &value)
+void NetworkManager::GreDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
+    Q_Q(GreDevice);
+
     if (property == QLatin1String("InputFlags")) {
-        emit inputFlagsChanged();
+        inputFlags = static_cast<ushort>(value.toUInt());
+        emit q->inputFlagsChanged(inputFlags);
     } else if (property == QLatin1String("OutputFlags")) {
-        emit outputFlagsChanged();
+        outputFlags = static_cast<ushort>(value.toUInt());
+        emit q->outputFlagsChanged(outputFlags);
     } else if (property == QLatin1String("InputKey")) {
-        emit inputKeyChanged();
+        inputKey = value.toUInt();
+        emit q->inputKeyChanged(inputKey);
     } else if (property == QLatin1String("OutputKey")) {
-        emit outputKeyChanged();
+        outputKey = value.toUInt();
+        emit q->outputKeyChanged(outputKey);
     } else if (property == QLatin1String("Local")) {
-        emit localEndChanged();
+        localEnd = value.toString();
+        emit q->localEndChanged(localEnd);
     } else if (property == QLatin1String("Remote")) {
-        emit remoteEndChanged();
+        remoteEnd = value.toString();
+        emit q->remoteEndChanged(remoteEnd);
     } else if (property == QLatin1String("Parent")) {
-        emit parentChanged();
-    } else if (property == QLatin1String("Parent")) {
-        emit parentChanged();
+        parent = value.toString();
+        emit q->parentChanged(parent);
     } else if (property == QLatin1String("PathMtuDiscovery")) {
-        emit pathMtuDiscoveryChanged();
+        pathMtuDiscovery = value.toBool();
+        emit q->pathMtuDiscoveryChanged(pathMtuDiscovery);
     } else if (property == QLatin1String("Tos")) {
-        emit tosChanged();
+        tos = static_cast<uchar>(value.toUInt());
+        emit q->tosChanged(tos);
     } else if (property == QLatin1String("Ttl")) {
-        emit ttlChanged();
+        ttl = static_cast<uchar>(value.toUInt());
+        emit q->ttlChanged(ttl);
     } else {
-        Device::propertyChanged(property, value);
+        DevicePrivate::propertyChanged(property, value);
     }
 }
-
-#include "gredevice.moc"

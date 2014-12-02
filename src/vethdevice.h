@@ -1,5 +1,6 @@
 /*
     Copyright 2013 Lukáš Tinkl <ltinkl@redhat.com>
+    Copyright 2014 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -45,14 +46,7 @@ public:
     QString peer() const;
 
 Q_SIGNALS:
-    void peerChanged();
-
-protected:
-    /**
-     * When subclassing make sure to call the parent class method
-     * if the property was not useful to your new class
-     */
-    virtual void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
+    void peerChanged(const QString &peer);
 
 private:
     Q_DECLARE_PRIVATE(VethDevice)

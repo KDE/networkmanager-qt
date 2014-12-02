@@ -27,12 +27,22 @@ namespace NetworkManager {
 
 class BluetoothDevicePrivate : public ModemDevicePrivate
 {
+Q_OBJECT
 public:
     explicit BluetoothDevicePrivate(const QString &path, BluetoothDevice *q);
     OrgFreedesktopNetworkManagerDeviceBluetoothInterface btIface;
     BluetoothDevice::Capabilities btCapabilities;
     QString hardwareAddress;
     QString name;
+
+    Q_DECLARE_PUBLIC(BluetoothDevice)
+protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
 };
+
 }
 #endif // NETWORKMANAGERQT__BLUETOOTH_DEVICE_P_H

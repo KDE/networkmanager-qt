@@ -35,7 +35,7 @@ set(KF5_VERSION ${PROJECT_VERSION})
 ecm_setup_version(${KF5_VERSION} VARIABLE_PREFIX NETWORKMANAGERQT
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/networkmanagerqt_version.h"
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5NetworkManagerQtConfigVersion.cmake"
-                        SOVERSION 5)
+                        SOVERSION 6)
 
 # Enable unit testing
 if (BUILD_TESTING)

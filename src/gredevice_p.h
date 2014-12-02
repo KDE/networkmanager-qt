@@ -1,6 +1,5 @@
 /*
-    Copyright 2008,2011 Will Stephenson <wstephenson@kde.org>
-    Copyright 2013 Jan Grulich <jgrulich@redhat.com>
+    Copyright 2012-2014 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -19,46 +18,47 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_WIRELESSDEVICE_P_H
-#define NETWORKMANAGERQT_WIRELESSDEVICE_P_H
+#ifndef NETWORKMANAGERQT_GRE_DEVICE_P_H
+#define NETWORKMANAGERQT_GRE_DEVICE_P_H
 
+#include "gredevice.h"
 #include "device_p.h"
-#include "dbus/nm-device-wifiinterface.h"
+#include "manager.h"
+#include "manager_p.h"
+
+#include "nm-device-greinterface.h"
 
 namespace NetworkManager
 {
 
-class WirelessDevicePrivate : public DevicePrivate
+class GreDevicePrivate : public DevicePrivate
 {
 Q_OBJECT
 public:
-    explicit WirelessDevicePrivate(const QString &path, WirelessDevice *q);
-    OrgFreedesktopNetworkManagerDeviceWirelessInterface wirelessIface;
-    QString permanentHardwareAddress;
-    QString hardwareAddress;
-    QHash<QString, WirelessNetwork::Ptr> networks;
-    QMap<QString, AccessPoint::Ptr> apMap;
-    // index of the active AP or -1 if none
-    AccessPoint::Ptr activeAccessPoint;
-    WirelessDevice::OperationMode mode;
-    uint bitRate;
-    WirelessDevice::Capabilities wirelessCapabilities;
+    GreDevicePrivate(const QString &path, GreDevice *q);
+    virtual ~GreDevicePrivate();
 
-    Q_DECLARE_PUBLIC(WirelessDevice)
+    OrgFreedesktopNetworkManagerDeviceGreInterface iface;
+    ushort inputFlags;
+    ushort outputFlags;
+    uint inputKey;
+    uint outputKey;
+    QString localEnd;
+    QString remoteEnd;
+    QString parent;
+    bool pathMtuDiscovery;
+    uchar tos;
+    uchar ttl;
+
+    Q_DECLARE_PUBLIC(GreDevice)
 protected:
     /**
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */
     virtual void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
-
-protected Q_SLOTS:
-    void accessPointAdded(const QDBusObjectPath &);
-    void accessPointRemoved(const QDBusObjectPath &);
-    void removeNetwork(const QString &network);
 };
 
 }
 
 #endif
-

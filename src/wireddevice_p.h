@@ -29,6 +29,7 @@ namespace NetworkManager
 
 class WiredDevicePrivate : public DevicePrivate
 {
+Q_OBJECT
 public:
     explicit WiredDevicePrivate(const QString &path, WiredDevice *q);
     virtual ~WiredDevicePrivate();
@@ -37,6 +38,14 @@ public:
     QString permanentHardwareAddress;
     int bitrate;
     bool carrier;
+
+    Q_DECLARE_PUBLIC(WiredDevice)
+protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
 };
 
 } // namespace NetworkManager

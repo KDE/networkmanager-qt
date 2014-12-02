@@ -1,5 +1,6 @@
 /*
     Copyright 2013 Lukáš Tinkl <ltinkl@redhat.com>
+    Copyright 2014 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -62,23 +63,16 @@ public:
     uchar ttl() const;
 
 Q_SIGNALS:
-    void inputFlagsChanged();
-    void outputFlagsChanged();
-    void inputKeyChanged();
-    void outputKeyChanged();
-    void localEndChanged();
-    void remoteEndChanged();
-    void parentChanged();
-    void pathMtuDiscoveryChanged();
-    void tosChanged();
-    void ttlChanged();
-
-protected:
-    /**
-     * When subclassing make sure to call the parent class method
-     * if the property was not useful to your new class
-     */
-    virtual void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
+    void inputFlagsChanged(ushort inputflags);
+    void outputFlagsChanged(ushort outputFlags);
+    void inputKeyChanged(uint inputKey);
+    void outputKeyChanged(uint outputKey);
+    void localEndChanged(const QString &localEnd);
+    void remoteEndChanged(const QString &remoteEnd);
+    void parentChanged(const QString &parent);
+    void pathMtuDiscoveryChanged(bool pathMtuDiscovery);
+    void tosChanged(uchar tos);
+    void ttlChanged(uchar ttl);
 
 private:
     Q_DECLARE_PRIVATE(GreDevice)

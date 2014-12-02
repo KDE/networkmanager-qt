@@ -1,5 +1,6 @@
 /*
     Copyright 2011 Lamarque V. Souza <lamarque@kde.org>
+    Copyright 2014 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -21,19 +22,26 @@
 #ifndef NETWORKMANAGERQT_DHCP4CONFIG_P_H
 #define NETWORKMANAGERQT_DHCP4CONFIG_P_H
 
+#include "dhcp4config.h"
 #include "dbus/nm-dhcp4-configinterface.h"
 
 namespace NetworkManager
 {
 
-class Dhcp4ConfigPrivate
+class Dhcp4ConfigPrivate : public QObject
 {
+Q_OBJECT
 public:
-    Dhcp4ConfigPrivate(const QString &path, QObject *owner);
+    Dhcp4ConfigPrivate(const QString &path, Dhcp4Config *q);
     virtual ~Dhcp4ConfigPrivate();
     OrgFreedesktopNetworkManagerDHCP4ConfigInterface dhcp4Iface;
     QString myPath;
-    QVariantMap properties;
+    QVariantMap options;
+
+    Q_DECLARE_PUBLIC(Dhcp4Config)
+    Dhcp4Config *q_ptr;
+protected Q_SLOTS:
+    void dhcp4PropertiesChanged(const QVariantMap &);
 };
 
 } // namespace NetworkManager

@@ -18,27 +18,10 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "bonddevice.h"
+#include "bonddevice_p.h"
 #include "device_p.h"
 #include "manager.h"
 #include "manager_p.h"
-
-#include "nm-device-bondinterface.h"
-
-namespace NetworkManager
-{
-class BondDevicePrivate : public DevicePrivate
-{
-public:
-    BondDevicePrivate(const QString &path, BondDevice *q);
-    virtual ~BondDevicePrivate();
-
-    OrgFreedesktopNetworkManagerDeviceBondInterface iface;
-    bool carrier;
-    QString hwAddress;
-    QStringList slaves;
-};
-}
 
 NetworkManager::BondDevicePrivate::BondDevicePrivate(const QString &path, BondDevice *q)
     : DevicePrivate(path, q)
@@ -66,7 +49,7 @@ NetworkManager::BondDevice::BondDevice(const QString &path, QObject *parent):
     Device(*new BondDevicePrivate(path, this), parent)
 {
     Q_D(BondDevice);
-    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceBondInterface::PropertiesChanged, this, &BondDevice::propertiesChanged);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceBondInterface::PropertiesChanged, d, &BondDevicePrivate::propertiesChanged);
 }
 
 NetworkManager::BondDevicePrivate::~BondDevicePrivate()
@@ -99,24 +82,24 @@ QStringList NetworkManager::BondDevice::slaves() const
     return d->slaves;
 }
 
-void NetworkManager::BondDevice::propertyChanged(const QString &property, const QVariant &value)
+void NetworkManager::BondDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(BondDevice);
+    Q_Q(BondDevice);
 
     if (property == QLatin1String("Carrier")) {
-        d->carrier = value.toBool();
-        emit carrierChanged(d->carrier);
+        carrier = value.toBool();
+        emit q->carrierChanged(carrier);
     } else if (property == QLatin1String("HwAddress")) {
-        d->hwAddress = value.toString();
-        emit hwAddressChanged(d->hwAddress);
+        hwAddress = value.toString();
+        emit q->hwAddressChanged(hwAddress);
     } else if (property == QLatin1String("Slaves")) {
         QStringList list;
         foreach (const QDBusObjectPath &op, value.value<QList<QDBusObjectPath> >()) {
             list << op.path();
         }
-        d->slaves = list;
-        emit slavesChanged(d->slaves);
+        slaves = list;
+        emit q->slavesChanged(slaves);
     } else {
-        Device::propertyChanged(property, value);
+        DevicePrivate::propertyChanged(property, value);
     }
 }

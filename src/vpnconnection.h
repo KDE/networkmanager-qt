@@ -111,10 +111,6 @@ Q_SIGNALS:
      */
     void stateChanged(NetworkManager::VpnConnection::State state, NetworkManager::VpnConnection::StateChangeReason reason);
 
-protected Q_SLOTS:
-    void propertiesChanged(const QVariantMap &properties);
-    void vpnStateChanged(uint state, uint reason);
-
 private:
     Q_DECLARE_PRIVATE(VpnConnection)
 };

@@ -1,5 +1,6 @@
 /*
     Copyright 2011 Lamarque V. Souza <lamarque@kde.org>
+    Copyright 2014 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -23,15 +24,15 @@
 #include "manager_p.h"
 #include "nmdebug.h"
 
-NetworkManager::Dhcp4ConfigPrivate::Dhcp4ConfigPrivate(const QString &path, QObject *owner)
+NetworkManager::Dhcp4ConfigPrivate::Dhcp4ConfigPrivate(const QString &path, Dhcp4Config *q)
 #ifdef NMQT_STATIC
     : dhcp4Iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
 #else
     : dhcp4Iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
     , myPath(path)
+    , q_ptr(q)
 {
-    Q_UNUSED(owner);
 }
 
 NetworkManager::Dhcp4ConfigPrivate::~Dhcp4ConfigPrivate()
@@ -39,11 +40,13 @@ NetworkManager::Dhcp4ConfigPrivate::~Dhcp4ConfigPrivate()
 }
 
 NetworkManager::Dhcp4Config::Dhcp4Config(const QString &path, QObject *owner)
-    : d_ptr(new Dhcp4ConfigPrivate(path, owner))
+    : d_ptr(new Dhcp4ConfigPrivate(path, this))
 {
     Q_D(Dhcp4Config);
-    connect(&d->dhcp4Iface, &OrgFreedesktopNetworkManagerDHCP4ConfigInterface::PropertiesChanged, this, &Dhcp4Config::dhcp4PropertiesChanged);
-    d->properties = d->dhcp4Iface.options();
+    Q_UNUSED(owner);
+
+    connect(&d->dhcp4Iface, &OrgFreedesktopNetworkManagerDHCP4ConfigInterface::PropertiesChanged, d, &Dhcp4ConfigPrivate::dhcp4PropertiesChanged);
+    d->options = d->dhcp4Iface.options();
 }
 
 NetworkManager::Dhcp4Config::~Dhcp4Config()
@@ -60,23 +63,33 @@ QString NetworkManager::Dhcp4Config::path() const
 QVariantMap NetworkManager::Dhcp4Config::options() const
 {
     Q_D(const Dhcp4Config);
-    return d->properties;
+    return d->options;
 }
 
 QString NetworkManager::Dhcp4Config::optionValue(const QString &key) const
 {
     Q_D(const Dhcp4Config);
     QString value;
-    if (d->properties.contains(key)) {
-        value = d->properties.value(key).toString();
+    if (d->options.contains(key)) {
+        value = d->options.value(key).toString();
     }
     return value;
 }
 
 
-void NetworkManager::Dhcp4Config::dhcp4PropertiesChanged(const QVariantMap &properties)
+void NetworkManager::Dhcp4ConfigPrivate::dhcp4PropertiesChanged(const QVariantMap &properties)
 {
-    Q_D(Dhcp4Config);
-    d->properties = properties;
-    emit optionsChanged(d->properties);
+    Q_Q(Dhcp4Config);
+
+    QVariantMap::const_iterator it = properties.constBegin();
+    while (it != properties.constEnd()) {
+        const QString property = it.key();
+        if (property == QLatin1String("Options")) {
+            options = it.value().toMap();
+            emit q->optionsChanged(options);
+        } else {
+            qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
+        }
+        ++it;
+    }
 }

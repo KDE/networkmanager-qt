@@ -18,27 +18,9 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "vlandevice.h"
+#include "vlandevice_p.h"
 #include "device_p.h"
 #include "manager.h"
-#include "manager_p.h"
-
-#include "nm-device-vlaninterface.h"
-
-namespace NetworkManager
-{
-class VlanDevicePrivate : public DevicePrivate
-{
-public:
-    VlanDevicePrivate(const QString &path, VlanDevice *q);
-    virtual ~VlanDevicePrivate();
-
-    OrgFreedesktopNetworkManagerDeviceVlanInterface iface;
-    bool carrier;
-    QString hwAddress;
-    uint vlanId;
-};
-}
 
 NetworkManager::VlanDevicePrivate::VlanDevicePrivate(const QString &path, VlanDevice *q)
     : DevicePrivate(path, q)
@@ -62,7 +44,7 @@ NetworkManager::VlanDevice::VlanDevice(const QString &path, QObject *parent)
     : Device(*new VlanDevicePrivate(path, this), parent)
 {
     Q_D(VlanDevice);
-    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceVlanInterface::PropertiesChanged, this, &VlanDevice::propertiesChanged);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceVlanInterface::PropertiesChanged, d, &VlanDevicePrivate::propertiesChanged);
 }
 
 NetworkManager::VlanDevicePrivate::~VlanDevicePrivate()
@@ -95,20 +77,20 @@ uint NetworkManager::VlanDevice::vlanId() const
     return d->vlanId;
 }
 
-void NetworkManager::VlanDevice::propertyChanged(const QString &property, const QVariant &value)
+void NetworkManager::VlanDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_D(VlanDevice);
+    Q_Q(VlanDevice);
 
     if (property == QLatin1String("Carrier")) {
-        d->carrier = value.toBool();
-        emit carrierChanged(d->carrier);
+        carrier = value.toBool();
+        emit q->carrierChanged(carrier);
     } else if (property == QLatin1String("HwAddress")) {
-        d->hwAddress = value.toString();
-        emit hwAddressChanged(d->hwAddress);
+        hwAddress = value.toString();
+        emit q->hwAddressChanged(hwAddress);
     } else if (property == QLatin1String("VlanId")) {
-        d->vlanId = value.toUInt();
-        emit vlanIdChanged(d->vlanId);
+        vlanId = value.toUInt();
+        emit q->vlanIdChanged(vlanId);
     } else {
-        Device::propertyChanged(property, value);
+        DevicePrivate::propertyChanged(property, value);
     }
 }

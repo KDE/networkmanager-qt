@@ -1,5 +1,6 @@
 /*
     Copyright 2011 Lamarque V. Souza <lamarque@kde.org>
+    Copyright 2014 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -21,19 +22,26 @@
 #ifndef NETWORKMANAGERQT_DHCP6CONFIG_P_H
 #define NETWORKMANAGERQT_DHCP6CONFIG_P_H
 
+#include "dhcp6config.h"
 #include "dbus/nm-dhcp6-configinterface.h"
 
 namespace NetworkManager
 {
 
-class Dhcp6ConfigPrivate
+class Dhcp6ConfigPrivate : public QObject
 {
+Q_OBJECT
 public:
-    Dhcp6ConfigPrivate(const QString &path, QObject *owner);
+    Dhcp6ConfigPrivate(const QString &path, Dhcp6Config *q);
     virtual ~Dhcp6ConfigPrivate();
     OrgFreedesktopNetworkManagerDHCP6ConfigInterface dhcp6Iface;
-    QString myPath;
-    QVariantMap properties;
+    QString path;
+    QVariantMap options;
+
+Q_DECLARE_PUBLIC(Dhcp6Config)
+    Dhcp6Config *q_ptr;
+protected Q_SLOTS:
+    void dhcp6PropertiesChanged(const QVariantMap &);
 };
 
 } // namespace NetworkManager

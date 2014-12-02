@@ -1,5 +1,6 @@
 /*
     Copyright 2013 Lukáš Tinkl <ltinkl@redhat.com>
+    Copyright 2014 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -18,24 +19,10 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "vethdevice.h"
-#include "device_p.h"
+#include "vethdevice_p.h"
+#include "device.h"
 #include "manager.h"
 #include "manager_p.h"
-
-#include "nm-device-vethinterface.h"
-
-namespace NetworkManager
-{
-class VethDevicePrivate : public DevicePrivate
-{
-public:
-    VethDevicePrivate(const QString &path, VethDevice *q);
-    virtual ~VethDevicePrivate();
-
-    OrgFreedesktopNetworkManagerDeviceVethInterface iface;
-};
-}
 
 NetworkManager::VethDevicePrivate::VethDevicePrivate(const QString &path, VethDevice *q)
     : DevicePrivate(path, q)
@@ -45,6 +32,7 @@ NetworkManager::VethDevicePrivate::VethDevicePrivate(const QString &path, VethDe
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
 {
+    peer = iface.peer().path();
 }
 
 NetworkManager::VethDevicePrivate::~VethDevicePrivate()
@@ -55,7 +43,7 @@ NetworkManager::VethDevice::VethDevice(const QString &path, QObject *parent)
     : Device(*new VethDevicePrivate(path, this), parent)
 {
     Q_D(VethDevice);
-    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceVethInterface::PropertiesChanged, this, &VethDevice::propertiesChanged);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceVethInterface::PropertiesChanged, d, &VethDevicePrivate::propertiesChanged);
 }
 
 NetworkManager::VethDevice::~VethDevice()
@@ -70,16 +58,17 @@ NetworkManager::Device::Type NetworkManager::VethDevice::type() const
 QString NetworkManager::VethDevice::peer() const
 {
     Q_D(const VethDevice);
-    return d->iface.peer().path();
+    return d->peer;
 }
 
-void NetworkManager::VethDevice::propertyChanged(const QString &property, const QVariant &value)
+void NetworkManager::VethDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
+    Q_Q (VethDevice);
+
     if (property == QLatin1String("Peer")) {
-        emit peerChanged();
+        peer = value.toString();
+        emit q->peerChanged(peer);
     } else {
-        Device::propertyChanged(property, value);
+        DevicePrivate::propertyChanged(property, value);
     }
 }
-
-#include "vethdevice.moc"
