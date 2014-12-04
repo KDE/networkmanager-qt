@@ -34,7 +34,6 @@ namespace NetworkManager
 class Ipv6SettingPrivate;
 class NETWORKMANAGERQT_EXPORT Ipv6Setting : public Setting
 {
-    Q_GADGET
 public:
     typedef QSharedPointer<Ipv6Setting> Ptr;
     typedef QList<Ptr> List;
