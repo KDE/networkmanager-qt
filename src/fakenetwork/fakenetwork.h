@@ -36,10 +36,10 @@
 
 class FakeNetwork : public QObject
 {
-Q_OBJECT
-Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork")
+    Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork")
 public:
-    explicit FakeNetwork(QObject* parent = 0);
+    explicit FakeNetwork(QObject *parent = 0);
     virtual ~FakeNetwork();
 
     Q_PROPERTY(QDBusObjectPath ActivatingConnection READ activatingConnection)
@@ -78,8 +78,8 @@ public:
     bool wwanHardwareEnabled() const;
 
     /* Not part of DBus interface */
-    void addDevice(Device * device);
-    void removeDevice(Device * device);
+    void addDevice(Device *device);
+    void removeDevice(Device *device);
 
 private Q_SLOTS:
     void onConnectionAdded(const QDBusObjectPath &connection);
@@ -103,9 +103,9 @@ Q_SIGNALS:
 
 private:
     QDBusObjectPath m_activatingConnection;
-    QMap<QDBusObjectPath,ActiveConnection*> m_activeConnections;
+    QMap<QDBusObjectPath, ActiveConnection *> m_activeConnections;
     uint m_connectivity;
-    QMap<QDBusObjectPath,Device*> m_devices;
+    QMap<QDBusObjectPath, Device *> m_devices;
     bool m_networkingEnabled;
     QDBusObjectPath m_primaryConnection;
     uint m_state;

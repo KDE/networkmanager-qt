@@ -24,5 +24,4 @@ OrgFreedesktopNetworkManagerDeviceVethInterface::~OrgFreedesktopNetworkManagerDe
 {
 }
 
-
 #include "nm-device-vethinterface.moc"

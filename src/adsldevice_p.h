@@ -32,7 +32,7 @@ namespace NetworkManager
 {
 class AdslDevicePrivate : public DevicePrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     AdslDevicePrivate(const QString &path, AdslDevice *q);
     virtual ~AdslDevicePrivate();

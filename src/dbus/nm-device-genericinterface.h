@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerDeviceGenericInterface: public QDBusAbstractIn
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.Device.Generic"; }
+    {
+        return "org.kde.fakenetwork.Device.Generic";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.Device.Generic"; }
+    {
+        return "org.freedesktop.NetworkManager.Device.Generic";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerDeviceGenericInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -41,11 +45,15 @@ public:
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const
-    { return qvariant_cast< QString >(property("HwAddress")); }
+    {
+        return qvariant_cast< QString >(property("HwAddress"));
+    }
 
     Q_PROPERTY(QString TypeDescription READ typeDescription)
     inline QString typeDescription() const
-    { return qvariant_cast< QString >(property("TypeDescription")); }
+    {
+        return qvariant_cast< QString >(property("TypeDescription"));
+    }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS

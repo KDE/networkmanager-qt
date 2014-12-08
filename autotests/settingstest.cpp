@@ -71,7 +71,7 @@ void SettingsTest::testConnections()
     QCOMPARE(NetworkManager::hostname(), QLatin1Literal("fake-hostname"));
 }
 
-void SettingsTest::testConnectionAdded(const QString& connection)
+void SettingsTest::testConnectionAdded(const QString &connection)
 {
     NetworkManager::Connection::Ptr addedConnection = NetworkManager::findConnection(connection);
     QCOMPARE(addedConnection->uuid(), QLatin1Literal("39af79a5-b053-4893-9378-7342a5a30d06"));

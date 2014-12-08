@@ -30,7 +30,7 @@ namespace NetworkManager
 
 class Dhcp6ConfigPrivate : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     Dhcp6ConfigPrivate(const QString &path, Dhcp6Config *q);
     virtual ~Dhcp6ConfigPrivate();
@@ -38,7 +38,7 @@ public:
     QString path;
     QVariantMap options;
 
-Q_DECLARE_PUBLIC(Dhcp6Config)
+    Q_DECLARE_PUBLIC(Dhcp6Config)
     Dhcp6Config *q_ptr;
 protected Q_SLOTS:
     void dhcp6PropertiesChanged(const QVariantMap &);

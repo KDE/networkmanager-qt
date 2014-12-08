@@ -29,7 +29,9 @@ class OrgFreedesktopNetworkManagerSecretAgentInterface: public QDBusAbstractInte
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
-    { return "org.freedesktop.NetworkManager.SecretAgent"; }
+    {
+        return "org.freedesktop.NetworkManager.SecretAgent";
+    }
 
 public:
     OrgFreedesktopNetworkManagerSecretAgentInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);

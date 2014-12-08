@@ -24,5 +24,4 @@ OrgFreedesktopNetworkManagerDeviceTeamInterface::~OrgFreedesktopNetworkManagerDe
 {
 }
 
-
 #include "nm-device-teaminterface.moc"

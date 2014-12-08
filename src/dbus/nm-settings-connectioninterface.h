@@ -31,9 +31,13 @@ class OrgFreedesktopNetworkManagerSettingsConnectionInterface: public QDBusAbstr
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.Settings.Connection"; }
+    {
+        return "org.kde.fakenetwork.Settings.Connection";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.Settings.Connection"; }
+    {
+        return "org.freedesktop.NetworkManager.Settings.Connection";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerSettingsConnectionInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -42,7 +46,9 @@ public:
 
     Q_PROPERTY(bool Unsaved READ unsaved)
     inline bool unsaved() const
-    { return qvariant_cast< bool >(property("Unsaved")); }
+    {
+        return qvariant_cast< bool >(property("Unsaved"));
+    }
 
 public Q_SLOTS: // METHODS
     inline QDBusPendingReply<> Delete()

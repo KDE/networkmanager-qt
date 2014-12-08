@@ -40,11 +40,13 @@ NetworkManager::VpnConnectionPrivate::VpnConnectionPrivate(const QString &path, 
     state = convertVpnConnectionState(iface.vpnState());
 }
 
-NetworkManager::VpnConnection::State NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(uint state) {
+NetworkManager::VpnConnection::State NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(uint state)
+{
     return static_cast<NetworkManager::VpnConnection::State>(state);
 }
 
-NetworkManager::VpnConnection::StateChangeReason NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(uint reason) {
+NetworkManager::VpnConnection::StateChangeReason NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(uint reason)
+{
     return static_cast<NetworkManager::VpnConnection::StateChangeReason>(reason);
 }
 
@@ -108,8 +110,9 @@ void NetworkManager::VpnConnectionPrivate::vpnStateChanged(uint newState, uint r
 NetworkManager::VpnConnection::operator VpnConnection *()
 {
     Q_D(VpnConnection);
-    if (d->vpn)
+    if (d->vpn) {
         return this;
-    else
+    } else {
         return 0;
+    }
 }

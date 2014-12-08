@@ -22,7 +22,7 @@
 
 #include <QtDBus/QtDBus>
 
-Connection::Connection(QObject* parent, const NMVariantMapMap &settings)
+Connection::Connection(QObject *parent, const NMVariantMapMap &settings)
     : QObject(parent)
     , m_unsaved(false)
     , m_settings(settings)
@@ -50,7 +50,7 @@ void Connection::Delete()
     Q_EMIT connectionRemoved(QDBusObjectPath(m_connectionPath));
 }
 
-NMVariantMapMap Connection::GetSecrets(const QString& setting_name)
+NMVariantMapMap Connection::GetSecrets(const QString &setting_name)
 {
     // TODO
     return NMVariantMapMap();
@@ -67,14 +67,14 @@ void Connection::Save()
     // TODO
 }
 
-void Connection::Update(const NMVariantMapMap& properties)
+void Connection::Update(const NMVariantMapMap &properties)
 {
     m_settings = properties;
 
     Q_EMIT Updated();
 }
 
-void Connection::UpdateUnsaved(const NMVariantMapMap& properties)
+void Connection::UpdateUnsaved(const NMVariantMapMap &properties)
 {
     // TODO
 }
@@ -84,7 +84,7 @@ QString Connection::connectionPath() const
     return m_connectionPath;
 }
 
-void Connection::setConnectionPath(const QString& path)
+void Connection::setConnectionPath(const QString &path)
 {
     m_connectionPath = path;
 }

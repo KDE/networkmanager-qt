@@ -22,7 +22,7 @@
 
 #include <QtDBus/QtDBus>
 
-Settings::Settings(QObject* parent)
+Settings::Settings(QObject *parent)
     : QObject(parent)
     , m_canModify(true)
     , m_hostname(QLatin1Literal("fake-hostname"))
@@ -33,7 +33,7 @@ Settings::Settings(QObject* parent)
 
 Settings::~Settings()
 {
-    foreach (const QDBusObjectPath &connection, m_connections.keys()) {
+    foreach (const QDBusObjectPath & connection, m_connections.keys()) {
         QDBusConnection::sessionBus().unregisterObject(connection.path());
         Q_EMIT ConnectionRemoved(connection);
     }
@@ -56,7 +56,7 @@ QString Settings::hostname() const
     return m_hostname;
 }
 
-QDBusObjectPath Settings::AddConnection(const NMVariantMapMap& connection)
+QDBusObjectPath Settings::AddConnection(const NMVariantMapMap &connection)
 {
     Connection *newConnection = new Connection(this, connection);
     QString newConnectionPath = QString("/org/kde/fakenetwork/Settings/") + QString::number(m_connectionCounter++);
@@ -73,13 +73,13 @@ QDBusObjectPath Settings::AddConnection(const NMVariantMapMap& connection)
     return QDBusObjectPath(newConnectionPath);
 }
 
-QDBusObjectPath Settings::AddConnectionUnsaved(const NMVariantMapMap& connection)
+QDBusObjectPath Settings::AddConnectionUnsaved(const NMVariantMapMap &connection)
 {
     // TODO
     return QDBusObjectPath();
 }
 
-QDBusObjectPath Settings::GetConnectionByUuid(const QString& uuid)
+QDBusObjectPath Settings::GetConnectionByUuid(const QString &uuid)
 {
     // TODO
     return QDBusObjectPath();
@@ -90,14 +90,14 @@ QList< QDBusObjectPath > Settings::ListConnections()
     return m_connections.keys();
 }
 
-void Settings::SaveHostname(const QString& hostname)
+void Settings::SaveHostname(const QString &hostname)
 {
     m_hostname = hostname;
 }
 
 void Settings::onConnectionRemoved(const QDBusObjectPath &connectionPath)
 {
-    Connection * connection = m_connections.value(connectionPath);
+    Connection *connection = m_connections.value(connectionPath);
 
     if (connection) {
         QDBusConnection::sessionBus().unregisterObject(connectionPath.path());

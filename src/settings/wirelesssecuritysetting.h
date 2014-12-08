@@ -18,7 +18,6 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #ifndef NETWORKMANAGERQT_WIRELESSSECURITY_SETTING_H
 #define NETWORKMANAGERQT_WIRELESSSECURITY_SETTING_H
 

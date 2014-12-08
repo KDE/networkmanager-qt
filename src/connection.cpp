@@ -48,7 +48,7 @@ NetworkManager::ConnectionPrivate::ConnectionPrivate(const QString &path, Connec
     : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
     , q_ptr(q)
-    { }
+{ }
 
 NetworkManager::Connection::Connection(const QString &path, QObject *parent)
     : QObject(parent)
@@ -169,7 +169,7 @@ void NetworkManager::ConnectionPrivate::onConnectionRemoved()
     emit q->removed(tmpPath);
 }
 #if NM_CHECK_VERSION(0, 9, 10)
-void NetworkManager::ConnectionPrivate::onPropertiesChanged(const QVariantMap& properties)
+void NetworkManager::ConnectionPrivate::onPropertiesChanged(const QVariantMap &properties)
 {
     Q_Q(Connection);
     QVariantMap::const_iterator it = properties.constBegin();

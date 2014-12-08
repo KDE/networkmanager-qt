@@ -29,7 +29,6 @@
 #include "nm-settings-connectioninterface.h"
 #include "generictypes.h"
 
-
 class QDBusPendingCallWatcher;
 
 namespace NetworkManager
@@ -37,7 +36,7 @@ namespace NetworkManager
 
 class ConnectionPrivate : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     ConnectionPrivate(const QString &path, Connection *q);
 

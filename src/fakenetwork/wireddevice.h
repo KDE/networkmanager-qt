@@ -33,10 +33,10 @@
 
 class WiredDevice : public Device
 {
-Q_OBJECT
-Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Device.Wired")
+    Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Device.Wired")
 public:
-    explicit WiredDevice(QObject* parent = 0);
+    explicit WiredDevice(QObject *parent = 0);
     virtual ~WiredDevice();
 
     Q_PROPERTY(bool Carrier READ carrier)

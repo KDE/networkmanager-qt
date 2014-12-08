@@ -29,7 +29,7 @@ namespace NetworkManager
 
 class ModemDevicePrivate : public DevicePrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     explicit ModemDevicePrivate(const QString &path, ModemDevice *q);
 

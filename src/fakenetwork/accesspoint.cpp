@@ -20,7 +20,7 @@
 
 #include "accesspoint.h"
 
-AccessPoint::AccessPoint(QObject* parent)
+AccessPoint::AccessPoint(QObject *parent)
     : QObject(parent)
     , m_flags(0)
     , m_frequency(0)
@@ -86,7 +86,7 @@ QString AccessPoint::accessPointPath() const
     return m_apPath;
 }
 
-void AccessPoint::setAccessPointPath(const QString& path)
+void AccessPoint::setAccessPointPath(const QString &path)
 {
     m_apPath = path;
 }
@@ -101,7 +101,7 @@ void AccessPoint::setFrequency(uint frequency)
     m_frequency = frequency;
 }
 
-void AccessPoint::setHwAddress(const QString& hwAddress)
+void AccessPoint::setHwAddress(const QString &hwAddress)
 {
     m_hwAddress = hwAddress;
 }
@@ -121,7 +121,7 @@ void AccessPoint::setRsnFlags(uint flags)
     m_rsnFlags = flags;
 }
 
-void AccessPoint::setSsid(const QByteArray& ssid)
+void AccessPoint::setSsid(const QByteArray &ssid)
 {
     m_ssid = ssid;
 }

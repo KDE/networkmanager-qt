@@ -31,10 +31,10 @@
 
 class Device : public QObject
 {
-Q_OBJECT
-Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Device")
+    Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Device")
 public:
-    explicit Device(QObject* parent = 0);
+    explicit Device(QObject *parent = 0);
     virtual ~Device();
 
     Q_PROPERTY(QDBusObjectPath ActiveConnection READ activeConnection)

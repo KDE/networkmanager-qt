@@ -36,7 +36,7 @@ NetworkManager::PppoeSetting::PppoeSetting()
 { }
 
 NetworkManager::PppoeSetting::PppoeSetting(const Ptr &other)
-    :Setting(other)
+    : Setting(other)
     , d_ptr(new PppoeSettingPrivate())
 {
     setService(other->service());

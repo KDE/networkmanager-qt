@@ -66,7 +66,7 @@ int main()
     QString accessPointPath;
 
     // Check for available accesspoint
-    foreach (const QString &ap, accessPointList) {
+    foreach (const QString & ap, accessPointList) {
         AccessPoint accessPoint(ap);
         // For simplification we use APs only with Wep security or without any security
         if (accessPoint.wpaFlags().testFlag(AccessPoint::PairWep40) ||

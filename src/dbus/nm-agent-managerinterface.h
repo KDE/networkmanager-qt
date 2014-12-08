@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerAgentManagerInterface: public QDBusAbstractInt
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.AgentManager"; }
+    {
+        return "org.kde.fakenetwork.AgentManager";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.AgentManager"; }
+    {
+        return "org.freedesktop.NetworkManager.AgentManager";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerAgentManagerInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);

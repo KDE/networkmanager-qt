@@ -30,7 +30,7 @@ namespace NetworkManager
 
 class Dhcp4ConfigPrivate : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     Dhcp4ConfigPrivate(const QString &path, Dhcp4Config *q);
     virtual ~Dhcp4ConfigPrivate();

@@ -24,5 +24,4 @@ OrgFreedesktopNetworkManagerDeviceGenericInterface::~OrgFreedesktopNetworkManage
 {
 }
 
-
 #include "nm-device-genericinterface.moc"

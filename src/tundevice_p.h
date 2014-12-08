@@ -30,7 +30,7 @@ namespace NetworkManager
 
 class TunDevicePrivate: public DevicePrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     TunDevicePrivate(const QString &path, TunDevice *q);
     virtual ~TunDevicePrivate();

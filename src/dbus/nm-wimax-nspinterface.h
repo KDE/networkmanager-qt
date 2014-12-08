@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerWiMaxNspInterface: public QDBusAbstractInterfa
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.Settings.WiMax.Nsp"; }
+    {
+        return "org.kde.fakenetwork.Settings.WiMax.Nsp";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.WiMax.Nsp"; }
+    {
+        return "org.freedesktop.NetworkManager.WiMax.Nsp";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerWiMaxNspInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -41,15 +45,21 @@ public:
 
     Q_PROPERTY(QString Name READ name)
     inline QString name() const
-    { return qvariant_cast< QString >(property("Name")); }
+    {
+        return qvariant_cast< QString >(property("Name"));
+    }
 
     Q_PROPERTY(uint NetworkType READ networkType)
     inline uint networkType() const
-    { return qvariant_cast< uint >(property("NetworkType")); }
+    {
+        return qvariant_cast< uint >(property("NetworkType"));
+    }
 
     Q_PROPERTY(uint SignalQuality READ signalQuality)
     inline uint signalQuality() const
-    { return qvariant_cast< uint >(property("SignalQuality")); }
+    {
+        return qvariant_cast< uint >(property("SignalQuality"));
+    }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS

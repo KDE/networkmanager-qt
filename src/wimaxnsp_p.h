@@ -28,7 +28,7 @@ namespace NetworkManager
 {
 class WimaxNspPrivate : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     WimaxNspPrivate(const QString &path, WimaxNsp *q);
 

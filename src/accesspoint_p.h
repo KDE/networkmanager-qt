@@ -31,7 +31,7 @@ namespace NetworkManager
 
 class AccessPointPrivate : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     AccessPointPrivate(const QString &path, AccessPoint *q);
 

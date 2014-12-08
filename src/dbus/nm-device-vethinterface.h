@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerDeviceVethInterface: public QDBusAbstractInter
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.Device.Veth"; }
+    {
+        return "org.kde.fakenetwork.Device.Veth";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.Device.Veth"; }
+    {
+        return "org.freedesktop.NetworkManager.Device.Veth";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerDeviceVethInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -41,7 +45,9 @@ public:
 
     Q_PROPERTY(QDBusObjectPath Peer READ peer)
     inline QDBusObjectPath peer() const
-    { return qvariant_cast< QDBusObjectPath >(property("Peer")); }
+    {
+        return qvariant_cast< QDBusObjectPath >(property("Peer"));
+    }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS

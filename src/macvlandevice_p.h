@@ -31,7 +31,7 @@ namespace NetworkManager
 
 class MacVlanDevicePrivate: public DevicePrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     MacVlanDevicePrivate(const QString &path, MacVlanDevice *q);
     virtual ~MacVlanDevicePrivate();

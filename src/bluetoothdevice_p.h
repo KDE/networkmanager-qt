@@ -23,11 +23,12 @@
 #include "modemdevice_p.h"
 #include "dbus/nm-device-btinterface.h"
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 class BluetoothDevicePrivate : public ModemDevicePrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     explicit BluetoothDevicePrivate(const QString &path, BluetoothDevice *q);
     OrgFreedesktopNetworkManagerDeviceBluetoothInterface btIface;

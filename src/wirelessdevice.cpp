@@ -57,7 +57,7 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
 #if NM_CHECK_VERSION(0, 9, 10)
     QList <QDBusObjectPath> aps = d->wirelessIface.accessPoints();
     // qCDebug(NMQT) << "AccessPoint list";
-    foreach (const QDBusObjectPath &op, aps) {
+    foreach (const QDBusObjectPath & op, aps) {
         // qCDebug(NMQT) << "  " << op.path();
         d->accessPointAdded(op);
     }
@@ -67,7 +67,7 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
     if (apPathList.isValid()) {
         //qCDebug(NMQT) << "Got device list";
         QList <QDBusObjectPath> aps = apPathList.value();
-        foreach (const QDBusObjectPath &op, aps) {
+        foreach (const QDBusObjectPath & op, aps) {
             // qCDebug(NMQT) << "  " << op.path();
             d->accessPointAdded(op);
         }

@@ -34,7 +34,7 @@ private Q_SLOTS:
     void testActiveConnection();
 
 private:
-    FakeNetwork * fakeNetwork;
+    FakeNetwork *fakeNetwork;
 };
 
 #endif // NETWORKMANAGERQT_ACTIVE_CONNECTION_TEST_H

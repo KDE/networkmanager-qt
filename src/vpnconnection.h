@@ -105,7 +105,7 @@ Q_SIGNALS:
     /**
      * This signal is emitted when the connection @p banner has changed
      */
-    void bannerChanged(const QString & banner);
+    void bannerChanged(const QString &banner);
     /**
      * This signal is emitted when the VPN connection @p state has changed
      */

@@ -29,7 +29,7 @@ namespace NetworkManager
 {
 class BondDevicePrivate : public DevicePrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     BondDevicePrivate(const QString &path, BondDevice *q);
     virtual ~BondDevicePrivate();

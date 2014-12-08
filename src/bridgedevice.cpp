@@ -33,7 +33,7 @@ NetworkManager::BridgeDevicePrivate::BridgeDevicePrivate(const QString &path, Br
     carrier = iface.carrier();
     hwAddress = iface.hwAddress();
     QStringList list;
-    foreach (const QDBusObjectPath &op, iface.slaves()) {
+    foreach (const QDBusObjectPath & op, iface.slaves()) {
         list << op.path();
     }
     slaves = list;
@@ -92,7 +92,7 @@ void NetworkManager::BridgeDevicePrivate::propertyChanged(const QString &propert
         emit q->hwAddressChanged(hwAddress);
     } else if (property == QLatin1String("Slaves")) {
         QStringList list;
-        foreach (const QDBusObjectPath &op, value.value<QList<QDBusObjectPath> >()) {
+        foreach (const QDBusObjectPath & op, value.value<QList<QDBusObjectPath> >()) {
             list << op.path();
         }
         slaves = list;

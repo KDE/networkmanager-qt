@@ -34,10 +34,10 @@
 
 class WirelessDevice : public Device
 {
-Q_OBJECT
-Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Device.Wireless")
+    Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Device.Wireless")
 public:
-    explicit WirelessDevice(QObject* parent = 0);
+    explicit WirelessDevice(QObject *parent = 0);
     virtual ~WirelessDevice();
 
     Q_PROPERTY(QList<QDBusObjectPath> AccessPoints READ accessPoints)
@@ -78,7 +78,7 @@ Q_SIGNALS:
     Q_SCRIPTABLE void PropertiesChanged(const QVariantMap &properties);
 
 private:
-    QMap<QDBusObjectPath,AccessPoint*> m_accessPoints;
+    QMap<QDBusObjectPath, AccessPoint *> m_accessPoints;
     QDBusObjectPath m_activeAccessPoint;
     uint m_bitrate;
     QString m_hwAddress;

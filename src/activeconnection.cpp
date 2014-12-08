@@ -55,7 +55,7 @@ NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &
     vpn = iface.vpn();
     uuid = iface.uuid();
     master = iface.master().path();
-    foreach (const QDBusObjectPath &devicePath, iface.devices()) {
+    foreach (const QDBusObjectPath & devicePath, iface.devices()) {
         devices.append(devicePath.path());
     }
 #if NM_CHECK_VERSION(0, 9, 10)
@@ -196,7 +196,6 @@ NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ActiveConnect
     return NetworkManager::ConnectionSettings::typeFromString(d->type);
 }
 
-
 QString NetworkManager::ActiveConnection::master() const
 {
     Q_D(const ActiveConnection);
@@ -326,7 +325,7 @@ void NetworkManager::ActiveConnectionPrivate::propertiesChanged(const QVariantMa
             emit q->uuidChanged(uuid);
         } else if (property == QLatin1String("Devices")) {
             devices.clear();
-            foreach (const QDBusObjectPath &path, it->value<QList<QDBusObjectPath> >()) {
+            foreach (const QDBusObjectPath & path, it->value<QList<QDBusObjectPath> >()) {
                 devices.append(path.path());
             }
             emit q->devicesChanged();

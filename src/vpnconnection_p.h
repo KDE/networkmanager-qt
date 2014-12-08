@@ -33,7 +33,7 @@ namespace NetworkManager
 
 class VpnConnectionPrivate : public ActiveConnectionPrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     VpnConnectionPrivate(const QString &path, VpnConnection *q);
 

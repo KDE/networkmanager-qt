@@ -28,7 +28,8 @@
 #include <QSharedPointer>
 #include <QVariantMap>
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 class WimaxNspPrivate;
 

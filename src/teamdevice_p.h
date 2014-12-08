@@ -33,7 +33,7 @@ namespace NetworkManager
 
 class TeamDevicePrivate : public DevicePrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     TeamDevicePrivate(const QString &path, TeamDevice *q);
     virtual ~TeamDevicePrivate();

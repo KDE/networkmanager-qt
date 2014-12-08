@@ -32,10 +32,10 @@
 
 class Settings : public QObject
 {
-Q_OBJECT
-Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Settings")
+    Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Settings")
 public:
-    explicit Settings(QObject* parent = 0);
+    explicit Settings(QObject *parent = 0);
     virtual ~Settings();
 
     Q_PROPERTY(bool CanModify READ canModify)
@@ -64,7 +64,7 @@ Q_SIGNALS:
     Q_SCRIPTABLE void PropertiesChanged(const QVariantMap &properties);
 private:
     bool m_canModify;
-    QMap<QDBusObjectPath,Connection*> m_connections;
+    QMap<QDBusObjectPath, Connection *> m_connections;
     QString m_hostname;
 
     /* Not part of DBus interface */

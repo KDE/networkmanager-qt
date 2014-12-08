@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerIP6ConfigInterface: public QDBusAbstractInterf
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.IP6Config"; }
+    {
+        return "org.kde.fakenetwork.IP6Config";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.IP6Config"; }
+    {
+        return "org.freedesktop.NetworkManager.IP6Config";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerIP6ConfigInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -41,27 +45,39 @@ public:
 
     Q_PROPERTY(IpV6DBusAddressList Addresses READ addresses)
     inline IpV6DBusAddressList addresses() const
-    { return qvariant_cast< IpV6DBusAddressList >(property("Addresses")); }
+    {
+        return qvariant_cast< IpV6DBusAddressList >(property("Addresses"));
+    }
 
     Q_PROPERTY(QStringList Domains READ domains)
     inline QStringList domains() const
-    { return qvariant_cast< QStringList >(property("Domains")); }
+    {
+        return qvariant_cast< QStringList >(property("Domains"));
+    }
 
     Q_PROPERTY(QString Gateway READ gateway)
     inline QString gateway() const
-    { return qvariant_cast< QString >(property("Gateway")); }
+    {
+        return qvariant_cast< QString >(property("Gateway"));
+    }
 
     Q_PROPERTY(IpV6DBusNameservers Nameservers READ nameservers)
     inline IpV6DBusNameservers nameservers() const
-    { return qvariant_cast< IpV6DBusNameservers >(property("Nameservers")); }
+    {
+        return qvariant_cast< IpV6DBusNameservers >(property("Nameservers"));
+    }
 
     Q_PROPERTY(IpV6DBusRouteList Routes READ routes)
     inline IpV6DBusRouteList routes() const
-    { return qvariant_cast< IpV6DBusRouteList >(property("Routes")); }
+    {
+        return qvariant_cast< IpV6DBusRouteList >(property("Routes"));
+    }
 
     Q_PROPERTY(QStringList Searches READ searches)
     inline QStringList searches() const
-    { return qvariant_cast< QStringList >(property("Searches")); }
+    {
+        return qvariant_cast< QStringList >(property("Searches"));
+    }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS

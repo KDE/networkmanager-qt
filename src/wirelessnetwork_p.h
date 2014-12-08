@@ -26,7 +26,8 @@
 
 #include <QPointer>
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 class WirelessNetworkPrivate
 {

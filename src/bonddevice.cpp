@@ -26,16 +26,16 @@
 NetworkManager::BondDevicePrivate::BondDevicePrivate(const QString &path, BondDevice *q)
     : DevicePrivate(path, q)
 #ifdef NMQT_STATIC
-    ,iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+    , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
 #else
-    ,iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+    , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
     , carrier(false)
 {
     carrier = iface.carrier();
     hwAddress = iface.hwAddress();
     QStringList list;
-    foreach (const QDBusObjectPath &op, iface.slaves()) {
+    foreach (const QDBusObjectPath & op, iface.slaves()) {
         list << op.path();
     }
     slaves = list;
@@ -94,7 +94,7 @@ void NetworkManager::BondDevicePrivate::propertyChanged(const QString &property,
         emit q->hwAddressChanged(hwAddress);
     } else if (property == QLatin1String("Slaves")) {
         QStringList list;
-        foreach (const QDBusObjectPath &op, value.value<QList<QDBusObjectPath> >()) {
+        foreach (const QDBusObjectPath & op, value.value<QList<QDBusObjectPath> >()) {
             list << op.path();
         }
         slaves = list;

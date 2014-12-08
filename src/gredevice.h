@@ -25,7 +25,8 @@
 #include "device.h"
 #include <networkmanagerqt_export.h>
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 class GreDevicePrivate;
 

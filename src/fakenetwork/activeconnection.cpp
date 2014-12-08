@@ -23,7 +23,7 @@
 
 #include <QtDBus/QtDBus>
 
-ActiveConnection::ActiveConnection(QObject* parent)
+ActiveConnection::ActiveConnection(QObject *parent)
     : QObject(parent)
     , m_connection(QDBusObjectPath("/"))
     , m_default4(false)
@@ -123,7 +123,7 @@ void ActiveConnection::addDevice(const QDBusObjectPath &device)
     m_devices << device;
 }
 
-void ActiveConnection::removeDevice(const QDBusObjectPath& device)
+void ActiveConnection::removeDevice(const QDBusObjectPath &device)
 {
     m_devices.removeAll(device);
 }
@@ -133,16 +133,16 @@ QString ActiveConnection::activeConnectionPath() const
     return m_activeConnectionPath;
 }
 
-void ActiveConnection::setActiveConnectionPath(const QString& path)
+void ActiveConnection::setActiveConnectionPath(const QString &path)
 {
     m_activeConnectionPath = path;
 }
 
-void ActiveConnection::setConnection(const QDBusObjectPath& connection)
+void ActiveConnection::setConnection(const QDBusObjectPath &connection)
 {
     m_connection = connection;
 
-    Connection * usedConnection = static_cast<Connection*>(QDBusConnection::sessionBus().objectRegisteredAt(connection.path()));
+    Connection *usedConnection = static_cast<Connection *>(QDBusConnection::sessionBus().objectRegisteredAt(connection.path()));
     if (usedConnection) {
         NMVariantMapMap settings = usedConnection->GetSettings();
         setId(settings.value(QLatin1Literal("connection")).value(QLatin1Literal("id")).toString());
@@ -161,37 +161,37 @@ void ActiveConnection::setDefault6(bool default6)
     m_default6 = default6;
 }
 
-void ActiveConnection::setDhcp4Config(const QDBusObjectPath& dhcp4Config)
+void ActiveConnection::setDhcp4Config(const QDBusObjectPath &dhcp4Config)
 {
     m_dhcp4Config = dhcp4Config;
 }
 
-void ActiveConnection::setDhcp6Config(const QDBusObjectPath& dhcp6Config)
+void ActiveConnection::setDhcp6Config(const QDBusObjectPath &dhcp6Config)
 {
     m_dhcp6Config = dhcp6Config;
 }
 
-void ActiveConnection::setId(const QString& id)
+void ActiveConnection::setId(const QString &id)
 {
     m_id = id;
 }
 
-void ActiveConnection::setIpv4Config(const QDBusObjectPath& ipv4Config)
+void ActiveConnection::setIpv4Config(const QDBusObjectPath &ipv4Config)
 {
     m_ip4Config = ipv4Config;
 }
 
-void ActiveConnection::setIpv6Config(const QDBusObjectPath& ipv6Config)
+void ActiveConnection::setIpv6Config(const QDBusObjectPath &ipv6Config)
 {
     m_ip6Config = ipv6Config;
 }
 
-void ActiveConnection::setMaster(const QDBusObjectPath& master)
+void ActiveConnection::setMaster(const QDBusObjectPath &master)
 {
     m_master = master;
 }
 
-void ActiveConnection::setSpecificObject(const QDBusObjectPath& specificObject)
+void ActiveConnection::setSpecificObject(const QDBusObjectPath &specificObject)
 {
     m_specificObject = specificObject;
 }
@@ -201,7 +201,7 @@ void ActiveConnection::setState(uint state)
     m_state = state;
 }
 
-void ActiveConnection::setType(const QString& type)
+void ActiveConnection::setType(const QString &type)
 {
     m_type = type;
 
@@ -210,7 +210,7 @@ void ActiveConnection::setType(const QString& type)
     }
 }
 
-void ActiveConnection::setUuid(const QString& uuid)
+void ActiveConnection::setUuid(const QString &uuid)
 {
     m_uuid = uuid;
 }

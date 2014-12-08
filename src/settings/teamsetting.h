@@ -46,7 +46,7 @@ public:
     QString interfaceName() const;
 
     QString config() const;
-    void setConfig(const QString & config);
+    void setConfig(const QString &config);
 
     void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 

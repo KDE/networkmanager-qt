@@ -29,7 +29,7 @@ namespace NetworkManager
 
 class WimaxDevicePrivate : public DevicePrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     explicit WimaxDevicePrivate(const QString &path, WimaxDevice *q);
     OrgFreedesktopNetworkManagerDeviceWiMaxInterface wimaxIface;

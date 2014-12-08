@@ -28,18 +28,18 @@
 
 NetworkManager::AccessPointPrivate::AccessPointPrivate(const QString &path, AccessPoint *q)
 #ifdef NMQT_STATIC
-        : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
+    : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
 #else
-        : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
+    : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
-        , capabilities(0)
-        , wpaFlags(0)
-        , rsnFlags(0)
-        , frequency(0)
-        , maxBitRate(0)
-        , mode(AccessPoint::Unknown)
-        , signalStrength(0)
-        , q_ptr(q)
+    , capabilities(0)
+    , wpaFlags(0)
+    , rsnFlags(0)
+    , frequency(0)
+    , maxBitRate(0)
+    , mode(AccessPoint::Unknown)
+    , signalStrength(0)
+    , q_ptr(q)
 {
     uni = path;
     if (iface.isValid()) {

@@ -22,7 +22,7 @@
 
 #include <QDBusConnection>
 
-WirelessDevice::WirelessDevice(QObject* parent)
+WirelessDevice::WirelessDevice(QObject *parent)
     : Device(parent)
     , m_activeAccessPoint(QDBusObjectPath("/"))
     , m_bitrate(0)
@@ -34,7 +34,7 @@ WirelessDevice::WirelessDevice(QObject* parent)
 
 WirelessDevice::~WirelessDevice()
 {
-    foreach (const QDBusObjectPath &ap, m_accessPoints.keys()) {
+    foreach (const QDBusObjectPath & ap, m_accessPoints.keys()) {
         QDBusConnection::sessionBus().unregisterObject(ap.path());
         Q_EMIT AccessPointRemoved(ap);
     }
@@ -81,7 +81,7 @@ uint WirelessDevice::wirelessCapabilities() const
     return m_wirelessCapabilities;
 }
 
-void WirelessDevice::addAccessPoint(AccessPoint* accessPoint)
+void WirelessDevice::addAccessPoint(AccessPoint *accessPoint)
 {
     QString newApPath = QString("/org/kde/fakenetwork/AccessPoints/") + QString::number(m_accessPointCounter++);
     accessPoint->setAccessPointPath(newApPath);
@@ -91,14 +91,14 @@ void WirelessDevice::addAccessPoint(AccessPoint* accessPoint)
     Q_EMIT AccessPointAdded(QDBusObjectPath(newApPath));
 }
 
-void WirelessDevice::removeAccessPoint(AccessPoint* accessPoint)
+void WirelessDevice::removeAccessPoint(AccessPoint *accessPoint)
 {
     m_accessPoints.remove(QDBusObjectPath(accessPoint->accessPointPath()));
 
     Q_EMIT AccessPointRemoved(QDBusObjectPath(accessPoint->accessPointPath()));
 }
 
-void WirelessDevice::setActiveAccessPoint(const QString& activeAccessPoint)
+void WirelessDevice::setActiveAccessPoint(const QString &activeAccessPoint)
 {
     m_activeAccessPoint = QDBusObjectPath(activeAccessPoint);
 }
@@ -108,7 +108,7 @@ void WirelessDevice::setBitrate(uint bitrate)
     m_bitrate = bitrate;
 }
 
-void WirelessDevice::setHwAddress(const QString& hwAddress)
+void WirelessDevice::setHwAddress(const QString &hwAddress)
 {
     m_hwAddress = hwAddress;
 }
@@ -118,7 +118,7 @@ void WirelessDevice::setMode(uint mode)
     m_mode = mode;
 }
 
-void WirelessDevice::setPermHwAddress(const QString& permHwAddress)
+void WirelessDevice::setPermHwAddress(const QString &permHwAddress)
 {
     m_permHwAddress = permHwAddress;
 }
@@ -145,7 +145,7 @@ QList< QDBusObjectPath > WirelessDevice::GetAllAccessPoints()
     return m_accessPoints.keys();
 }
 
-void WirelessDevice::RequestScan(const QVariantMap& options)
+void WirelessDevice::RequestScan(const QVariantMap &options)
 {
     Q_UNUSED(options);
 }

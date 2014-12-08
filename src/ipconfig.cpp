@@ -29,7 +29,8 @@
 #include "dbus/nm-ip4-configinterface.h"
 #include "dbus/nm-ip6-configinterface.h"
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 class NetworkManager::IpConfig::Private
 {
@@ -78,18 +79,18 @@ NetworkManager::IpConfig::IpConfig(const IpConfig &other)
 void NetworkManager::IpConfig::setIPv4Path(const QString &path)
 {
     OrgFreedesktopNetworkManagerIP4ConfigInterface iface(NetworkManagerPrivate::DBUS_SERVICE,
-                                                         path,
+            path,
 #ifdef NMQT_STATIC
-                                                         QDBusConnection::sessionBus());
+            QDBusConnection::sessionBus());
 #else
-                                                         QDBusConnection::systemBus());
+            QDBusConnection::systemBus());
 #endif
     // TODO - watch propertiesChanged signal
 
     //convert ipaddresses into object
     UIntListList addresses = iface.addresses();
     QList<NetworkManager::IpAddress> addressObjects;
-    foreach (const UIntList &addressList, addresses) {
+    foreach (const UIntList & addressList, addresses) {
         if (addressList.count() == 3) {
             NetworkManager::IpAddress address;
             address.setIp(QHostAddress(ntohl(addressList[0])));
@@ -101,7 +102,7 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
     //convert routes into objects
     UIntListList routes = iface.routes();
     QList<NetworkManager::IpRoute> routeObjects;
-    foreach (const UIntList &routeList, routes) {
+    foreach (const UIntList & routeList, routes) {
         if (routeList.count() == 4) {
             NetworkManager::IpRoute route;
             route.setIp(QHostAddress(ntohl(routeList[0])));
@@ -141,7 +142,7 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
 
     IpV6DBusAddressList addresses = iface.addresses();
     QList<NetworkManager::IpAddress> addressObjects;
-    foreach (const IpV6DBusAddress &address, addresses) {
+    foreach (const IpV6DBusAddress & address, addresses) {
         Q_IPV6ADDR addr;
         Q_IPV6ADDR gateway;
         for (int i = 0; i < 16; i++) {
@@ -159,7 +160,7 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
 
     IpV6DBusRouteList routes = iface.routes();
     QList<NetworkManager::IpRoute> routeObjects;
-    foreach (const IpV6DBusRoute &route, routes) {
+    foreach (const IpV6DBusRoute & route, routes) {
         Q_IPV6ADDR dest;
         Q_IPV6ADDR nexthop;
         for (int i = 0; i < 16; i++) {
@@ -177,7 +178,7 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
     }
 
     QList<QHostAddress> nameservers;
-    foreach (const QByteArray &nameserver, iface.nameservers()) {
+    foreach (const QByteArray & nameserver, iface.nameservers()) {
         Q_IPV6ADDR address;
         for (int i = 0; i < 16; i++) {
             address[i] = static_cast<quint8>(nameserver[i]);
@@ -236,8 +237,9 @@ QStringList NetworkManager::IpConfig::searches() const
 
 NetworkManager::IpConfig &NetworkManager::IpConfig::operator=(const IpConfig &other)
 {
-    if (this == &other)
+    if (this == &other) {
         return *this;
+    }
 
     *d = *other.d;
     return *this;

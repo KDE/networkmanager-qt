@@ -27,7 +27,8 @@
 
 #include <networkmanagerqt_export.h>
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 class BluetoothDevicePrivate;
 
@@ -46,8 +47,7 @@ public:
     /**
      * Capabilities of the Bluetooth device
      */
-    enum Capability
-    {
+    enum Capability {
         NoCapability = 0x0, /**< No special capability */
         Dun = 0x1, /**< Dial Up Networking profile */
         Pan = 0x2  /**< Personal Area Network profile */

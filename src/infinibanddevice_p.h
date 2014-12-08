@@ -31,7 +31,7 @@ namespace NetworkManager
 
 class InfinibandDevicePrivate : public DevicePrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     InfinibandDevicePrivate(const QString &path, InfinibandDevice *q);
     virtual ~InfinibandDevicePrivate();

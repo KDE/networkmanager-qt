@@ -65,7 +65,7 @@ void NetworkManager::SettingsPrivate::init()
 #if NM_CHECK_VERSION(0, 9, 10)
     QList<QDBusObjectPath> connectionList = iface.connections();
     qCDebug(NMQT) << "Connections list";
-    foreach (const QDBusObjectPath &connection, connectionList) {
+    foreach (const QDBusObjectPath & connection, connectionList) {
         if (!connections.contains(connection.path())) {
             connections.insert(connection.path(), Connection::Ptr());
             emit connectionAdded(connection.path());
@@ -77,7 +77,7 @@ void NetworkManager::SettingsPrivate::init()
     reply.waitForFinished();
     qCDebug(NMQT) << "Connections list";
     if (reply.isValid()) {
-        foreach (const QDBusObjectPath &connection, reply.value()) {
+        foreach (const QDBusObjectPath & connection, reply.value()) {
             if (!connections.contains(connection.path())) {
                 connections.insert(connection.path(), Connection::Ptr());
                 emit connectionAdded(connection.path());
@@ -89,17 +89,17 @@ void NetworkManager::SettingsPrivate::init()
 
     // Get all Setting's properties async
     QDBusMessage message = QDBusMessage::createMethodCall(NetworkManagerPrivate::DBUS_SERVICE,
-                                                          NetworkManagerPrivate::DBUS_SETTINGS_PATH,
-                                                          NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                                          QStringLiteral("GetAll"));
+                           NetworkManagerPrivate::DBUS_SETTINGS_PATH,
+                           NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                           QStringLiteral("GetAll"));
     message << iface.staticInterfaceName();
 #ifdef NMQT_STATIC
     QDBusConnection::sessionBus().callWithCallback(message,
 #else
     QDBusConnection::systemBus().callWithCallback(message,
 #endif
-                                                  this,
-                                                  SLOT(propertiesChanged(QVariantMap)));
+            this,
+            SLOT(propertiesChanged(QVariantMap)));
 }
 
 NetworkManager::Connection::List NetworkManager::SettingsPrivate::listConnections()
@@ -197,8 +197,9 @@ void NetworkManager::SettingsPrivate::propertiesChanged(const QVariantMap &prope
 void NetworkManager::SettingsPrivate::onConnectionAdded(const QDBusObjectPath &path)
 {
     const QString id = path.path();
-    if (connections.contains(id))
+    if (connections.contains(id)) {
         return;
+    }
     connections.insert(id, Connection::Ptr());
     emit connectionAdded(id);
 }
@@ -265,12 +266,12 @@ QDBusPendingReply<QDBusObjectPath> NetworkManager::addConnection(const NMVariant
 }
 
 #if NM_CHECK_VERSION(0, 9, 10)
-QDBusPendingReply<QDBusObjectPath> NetworkManager::addConnectionUnsaved(const NMVariantMapMap& connection)
+QDBusPendingReply<QDBusObjectPath> NetworkManager::addConnectionUnsaved(const NMVariantMapMap &connection)
 {
     return globalSettings->addConnectionUnsaved(connection);
 }
 
-QDBusPendingReply< bool, QStringList > NetworkManager::loadConnections(const QStringList& filenames)
+QDBusPendingReply< bool, QStringList > NetworkManager::loadConnections(const QStringList &filenames)
 {
     return globalSettings->loadConnections(filenames);
 }

@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerDeviceInterface: public QDBusAbstractInterface
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.Device"; }
+    {
+        return "org.kde.fakenetwork.Device";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.Device"; }
+    {
+        return "org.freedesktop.NetworkManager.Device";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerDeviceInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -41,93 +45,139 @@ public:
 
     Q_PROPERTY(QDBusObjectPath ActiveConnection READ activeConnection)
     inline QDBusObjectPath activeConnection() const
-    { return qvariant_cast< QDBusObjectPath >(property("ActiveConnection")); }
+    {
+        return qvariant_cast< QDBusObjectPath >(property("ActiveConnection"));
+    }
 
     Q_PROPERTY(bool Autoconnect READ autoconnect WRITE setAutoconnect)
     inline bool autoconnect() const
-    { return qvariant_cast< bool >(property("Autoconnect")); }
+    {
+        return qvariant_cast< bool >(property("Autoconnect"));
+    }
     inline void setAutoconnect(bool value)
-    { setProperty("Autoconnect", QVariant::fromValue(value)); }
+    {
+        setProperty("Autoconnect", QVariant::fromValue(value));
+    }
 
     Q_PROPERTY(QList<QDBusObjectPath> AvailableConnections READ availableConnections)
     inline QList<QDBusObjectPath> availableConnections() const
-    { return qvariant_cast< QList<QDBusObjectPath> >(property("AvailableConnections")); }
+    {
+        return qvariant_cast< QList<QDBusObjectPath> >(property("AvailableConnections"));
+    }
 
     Q_PROPERTY(uint Capabilities READ capabilities)
     inline uint capabilities() const
-    { return qvariant_cast< uint >(property("Capabilities")); }
+    {
+        return qvariant_cast< uint >(property("Capabilities"));
+    }
 
     Q_PROPERTY(uint DeviceType READ deviceType)
     inline uint deviceType() const
-    { return qvariant_cast< uint >(property("DeviceType")); }
+    {
+        return qvariant_cast< uint >(property("DeviceType"));
+    }
 
     Q_PROPERTY(QDBusObjectPath Dhcp4Config READ dhcp4Config)
     inline QDBusObjectPath dhcp4Config() const
-    { return qvariant_cast< QDBusObjectPath >(property("Dhcp4Config")); }
+    {
+        return qvariant_cast< QDBusObjectPath >(property("Dhcp4Config"));
+    }
 
     Q_PROPERTY(QDBusObjectPath Dhcp6Config READ dhcp6Config)
     inline QDBusObjectPath dhcp6Config() const
-    { return qvariant_cast< QDBusObjectPath >(property("Dhcp6Config")); }
+    {
+        return qvariant_cast< QDBusObjectPath >(property("Dhcp6Config"));
+    }
 
     Q_PROPERTY(QString Driver READ driver)
     inline QString driver() const
-    { return qvariant_cast< QString >(property("Driver")); }
+    {
+        return qvariant_cast< QString >(property("Driver"));
+    }
 
     Q_PROPERTY(QString DriverVersion READ driverVersion)
     inline QString driverVersion() const
-    { return qvariant_cast< QString >(property("DriverVersion")); }
+    {
+        return qvariant_cast< QString >(property("DriverVersion"));
+    }
 
     Q_PROPERTY(bool FirmwareMissing READ firmwareMissing)
     inline bool firmwareMissing() const
-    { return qvariant_cast< bool >(property("FirmwareMissing")); }
+    {
+        return qvariant_cast< bool >(property("FirmwareMissing"));
+    }
 
     Q_PROPERTY(QString FirmwareVersion READ firmwareVersion)
     inline QString firmwareVersion() const
-    { return qvariant_cast< QString >(property("FirmwareVersion")); }
+    {
+        return qvariant_cast< QString >(property("FirmwareVersion"));
+    }
 
     Q_PROPERTY(QString Interface READ interface)
     inline QString interface() const
-    { return qvariant_cast< QString >(property("Interface")); }
+    {
+        return qvariant_cast< QString >(property("Interface"));
+    }
 
     Q_PROPERTY(int Ip4Address READ ip4Address)
     inline int ip4Address() const
-    { return qvariant_cast< int >(property("Ip4Address")); }
+    {
+        return qvariant_cast< int >(property("Ip4Address"));
+    }
 
     Q_PROPERTY(QDBusObjectPath Ip4Config READ ip4Config)
     inline QDBusObjectPath ip4Config() const
-    { return qvariant_cast< QDBusObjectPath >(property("Ip4Config")); }
+    {
+        return qvariant_cast< QDBusObjectPath >(property("Ip4Config"));
+    }
 
     Q_PROPERTY(QDBusObjectPath Ip6Config READ ip6Config)
     inline QDBusObjectPath ip6Config() const
-    { return qvariant_cast< QDBusObjectPath >(property("Ip6Config")); }
+    {
+        return qvariant_cast< QDBusObjectPath >(property("Ip6Config"));
+    }
 
     Q_PROPERTY(QString IpInterface READ ipInterface)
     inline QString ipInterface() const
-    { return qvariant_cast< QString >(property("IpInterface")); }
+    {
+        return qvariant_cast< QString >(property("IpInterface"));
+    }
 
     Q_PROPERTY(bool Managed READ managed)
     inline bool managed() const
-    { return qvariant_cast< bool >(property("Managed")); }
+    {
+        return qvariant_cast< bool >(property("Managed"));
+    }
 
     Q_PROPERTY(uint Mtu READ mtu)
     inline uint mtu() const
-    { return qvariant_cast< uint >(property("Mtu")); }
+    {
+        return qvariant_cast< uint >(property("Mtu"));
+    }
 
     Q_PROPERTY(QString PhysicalPortId READ physicalPortId)
     inline QString physicalPortId() const
-    { return qvariant_cast< QString >(property("PhysicalPortId")); }
+    {
+        return qvariant_cast< QString >(property("PhysicalPortId"));
+    }
 
     Q_PROPERTY(uint State READ state)
     inline uint state() const
-    { return qvariant_cast< uint >(property("State")); }
+    {
+        return qvariant_cast< uint >(property("State"));
+    }
 
     Q_PROPERTY(DeviceDBusStateReason StateReason READ stateReason)
     inline DeviceDBusStateReason stateReason() const
-    { return qvariant_cast< DeviceDBusStateReason >(property("StateReason")); }
+    {
+        return qvariant_cast< DeviceDBusStateReason >(property("StateReason"));
+    }
 
     Q_PROPERTY(QString Udi READ udi)
     inline QString udi() const
-    { return qvariant_cast< QString >(property("Udi")); }
+    {
+        return qvariant_cast< QString >(property("Udi"));
+    }
 
 public Q_SLOTS: // METHODS
     inline QDBusPendingReply<> Disconnect()

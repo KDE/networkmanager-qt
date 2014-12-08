@@ -24,7 +24,7 @@
 #include <QDBusConnection>
 #include <QtDBus/QtDBus>
 
-Device::Device(QObject* parent)
+Device::Device(QObject *parent)
     : QObject(parent)
     , m_activeConnection(QDBusObjectPath("/"))
     , m_autoconnect(true)
@@ -88,7 +88,7 @@ QString Device::devicePath() const
     return m_devicePath;
 }
 
-void Device::setDevicePath(const QString& devicePath)
+void Device::setDevicePath(const QString &devicePath)
 {
     m_devicePath = devicePath;
 }
@@ -178,17 +178,17 @@ QString Device::udi() const
     return m_udi;
 }
 
-void Device::addAvailableConnection(const QDBusObjectPath& availableConnection)
+void Device::addAvailableConnection(const QDBusObjectPath &availableConnection)
 {
     m_availableConnections << availableConnection;
 }
 
-void Device::removeAvailableConnection(const QDBusObjectPath& availableConnection)
+void Device::removeAvailableConnection(const QDBusObjectPath &availableConnection)
 {
     m_availableConnections.removeAll(availableConnection);
 }
 
-void Device::setActiveConnection(const QString& activeConnection)
+void Device::setActiveConnection(const QString &activeConnection)
 {
     m_activeConnection = QDBusObjectPath(activeConnection);
 }
@@ -203,22 +203,22 @@ void Device::setDeviceType(uint deviceType)
     m_deviceType = deviceType;
 }
 
-void Device::setDhcp4Config(const QString& config)
+void Device::setDhcp4Config(const QString &config)
 {
     m_dhcp4Config = QDBusObjectPath(config);
 }
 
-void Device::setDhcp6Config(const QString& config)
+void Device::setDhcp6Config(const QString &config)
 {
     m_dhcp6Config = QDBusObjectPath(config);
 }
 
-void Device::setDriver(const QString& driver)
+void Device::setDriver(const QString &driver)
 {
     m_driver = driver;
 }
 
-void Device::setDriverVersion(const QString& driverVersion)
+void Device::setDriverVersion(const QString &driverVersion)
 {
     m_driverVersion = driverVersion;
 }
@@ -228,22 +228,22 @@ void Device::setFirmwareMissing(bool firmwareMissing)
     m_firmwareMissing = firmwareMissing;
 }
 
-void Device::setFirmwareVersion(const QString& firmwareVersion)
+void Device::setFirmwareVersion(const QString &firmwareVersion)
 {
     m_firmwareVersion = firmwareVersion;
 }
 
-void Device::setInterface(const QString& interface)
+void Device::setInterface(const QString &interface)
 {
     m_interface = interface;
 }
 
-void Device::setIp4Config(const QString& config)
+void Device::setIp4Config(const QString &config)
 {
     m_ip4Config = QDBusObjectPath(config);
 }
 
-void Device::setIp6Config(const QString& config)
+void Device::setIp6Config(const QString &config)
 {
     m_ip6Config = QDBusObjectPath(config);
 }
@@ -253,7 +253,7 @@ void Device::setIpv4Address(int address)
     m_ip4Address = address;
 }
 
-void Device::setIpInterface(const QString& interface)
+void Device::setIpInterface(const QString &interface)
 {
     m_ipInterface = interface;
 }
@@ -279,12 +279,12 @@ void Device::setState(uint state)
     QDBusConnection::sessionBus().send(message);
 }
 
-void Device::setStateReason(const DeviceDBusStateReason& reason)
+void Device::setStateReason(const DeviceDBusStateReason &reason)
 {
     m_stateReason = reason;
 }
 
-void Device::setUdi(const QString& udi)
+void Device::setUdi(const QString &udi)
 {
     m_udi = udi;
 }

@@ -41,7 +41,8 @@
  *
  * Note that it is implemented as a singleton
  */
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 enum Status {
     Unknown, /**< the networking system is not active or unable to report its status - proceed with caution */
@@ -156,13 +157,13 @@ Q_SIGNALS:
      * @param uni path of the new primary connection
      * @since 0.9.9.0
      */
-    void primaryConnectionChanged(const QString & uni);
+    void primaryConnectionChanged(const QString &uni);
     /**
      * Emitted when the activating connection changes.
      * @param uni path of the new activating connection
      * @since 0.9.9.0
      */
-    void activatingConnectionChanged(const QString & uni);
+    void activatingConnectionChanged(const QString &uni);
 #if NM_CHECK_VERSION(0, 9, 10)
     /**
      * Emitted when NM has started/finished its startup sequence

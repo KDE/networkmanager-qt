@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerDeviceWiredInterface: public QDBusAbstractInte
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.Device.Wired"; }
+    {
+        return "org.kde.fakenetwork.Device.Wired";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.Device.Wired"; }
+    {
+        return "org.freedesktop.NetworkManager.Device.Wired";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerDeviceWiredInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -41,19 +45,27 @@ public:
 
     Q_PROPERTY(bool Carrier READ carrier)
     inline bool carrier() const
-    { return qvariant_cast< bool >(property("Carrier")); }
+    {
+        return qvariant_cast< bool >(property("Carrier"));
+    }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const
-    { return qvariant_cast< QString >(property("HwAddress")); }
+    {
+        return qvariant_cast< QString >(property("HwAddress"));
+    }
 
     Q_PROPERTY(QString PermHwAddress READ permHwAddress)
     inline QString permHwAddress() const
-    { return qvariant_cast< QString >(property("PermHwAddress")); }
+    {
+        return qvariant_cast< QString >(property("PermHwAddress"));
+    }
 
     Q_PROPERTY(uint Speed READ speed)
     inline uint speed() const
-    { return qvariant_cast< uint >(property("Speed")); }
+    {
+        return qvariant_cast< uint >(property("Speed"));
+    }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS

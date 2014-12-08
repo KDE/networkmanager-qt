@@ -35,7 +35,7 @@ private Q_SLOTS:
     void testConnectionAdded(const QString &connection);
 
 private:
-    FakeNetwork * fakeNetwork;
+    FakeNetwork *fakeNetwork;
 };
 
 #endif // NETWORKMANAGERQT_SETTINGS_TEST_H

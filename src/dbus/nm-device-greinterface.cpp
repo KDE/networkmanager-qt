@@ -24,5 +24,4 @@ OrgFreedesktopNetworkManagerDeviceGreInterface::~OrgFreedesktopNetworkManagerDev
 {
 }
 
-
 #include "nm-device-greinterface.moc"

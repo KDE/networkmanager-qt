@@ -31,7 +31,7 @@ namespace NetworkManager
 
 class VlanDevicePrivate : public DevicePrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     VlanDevicePrivate(const QString &path, VlanDevice *q);
     virtual ~VlanDevicePrivate();

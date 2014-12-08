@@ -31,7 +31,8 @@
 
 #include "manager.h"
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 class Device;
 class ActiveConnection;

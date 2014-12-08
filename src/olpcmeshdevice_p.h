@@ -24,11 +24,12 @@
 #include "device_p.h"
 #include "dbus/nm-device-olpc-meshinterface.h"
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 class OlpcMeshDevicePrivate : public DevicePrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     explicit OlpcMeshDevicePrivate(const QString &path, OlpcMeshDevice *q);
     OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface iface;

@@ -29,7 +29,7 @@ namespace NetworkManager
 
 class WiredDevicePrivate : public DevicePrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     explicit WiredDevicePrivate(const QString &path, WiredDevice *q);
     virtual ~WiredDevicePrivate();

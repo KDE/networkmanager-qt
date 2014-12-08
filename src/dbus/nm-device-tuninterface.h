@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerDeviceTunInterface: public QDBusAbstractInterf
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.Device.Tun"; }
+    {
+        return "org.kde.fakenetwork.Device.Tun";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.Device.Tun"; }
+    {
+        return "org.freedesktop.NetworkManager.Device.Tun";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerDeviceTunInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -41,27 +45,39 @@ public:
 
     Q_PROPERTY(qlonglong Group READ group)
     inline qlonglong group() const
-    { return qvariant_cast< qlonglong >(property("Group")); }
+    {
+        return qvariant_cast< qlonglong >(property("Group"));
+    }
 
     Q_PROPERTY(QString Mode READ mode)
     inline QString mode() const
-    { return qvariant_cast< QString >(property("Mode")); }
+    {
+        return qvariant_cast< QString >(property("Mode"));
+    }
 
     Q_PROPERTY(bool MultiQueue READ multiQueue)
     inline bool multiQueue() const
-    { return qvariant_cast< bool >(property("MultiQueue")); }
+    {
+        return qvariant_cast< bool >(property("MultiQueue"));
+    }
 
     Q_PROPERTY(bool NoPi READ noPi)
     inline bool noPi() const
-    { return qvariant_cast< bool >(property("NoPi")); }
+    {
+        return qvariant_cast< bool >(property("NoPi"));
+    }
 
     Q_PROPERTY(qlonglong Owner READ owner)
     inline qlonglong owner() const
-    { return qvariant_cast< qlonglong >(property("Owner")); }
+    {
+        return qvariant_cast< qlonglong >(property("Owner"));
+    }
 
     Q_PROPERTY(bool VnetHdr READ vnetHdr)
     inline bool vnetHdr() const
-    { return qvariant_cast< bool >(property("VnetHdr")); }
+    {
+        return qvariant_cast< bool >(property("VnetHdr"));
+    }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS

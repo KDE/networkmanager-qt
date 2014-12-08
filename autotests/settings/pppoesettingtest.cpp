@@ -33,7 +33,6 @@ void PppoeSettingTest::testSetting_data()
     QTest::addColumn<QString>("password");
     QTest::addColumn<quint32>("passwordFlags");
 
-
     QTest::newRow("setting1")
             << QString("service")    // service
             << QString("username")   // username

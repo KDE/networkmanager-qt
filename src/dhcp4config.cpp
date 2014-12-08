@@ -76,7 +76,6 @@ QString NetworkManager::Dhcp4Config::optionValue(const QString &key) const
     return value;
 }
 
-
 void NetworkManager::Dhcp4ConfigPrivate::dhcp4PropertiesChanged(const QVariantMap &properties)
 {
     Q_Q(Dhcp4Config);

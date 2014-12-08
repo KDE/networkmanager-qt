@@ -31,7 +31,7 @@ namespace NetworkManager
 
 class GenericDevicePrivate : public DevicePrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     GenericDevicePrivate(const QString &path, GenericDevice *q);
     virtual ~GenericDevicePrivate();

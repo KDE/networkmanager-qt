@@ -24,5 +24,4 @@ OrgFreedesktopNetworkManagerDeviceMacvlanInterface::~OrgFreedesktopNetworkManage
 {
 }
 
-
 #include "nm-device-macvlaninterface.moc"

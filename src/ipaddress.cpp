@@ -21,7 +21,8 @@
 
 #include "ipaddress.h"
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 class IpAddress::Private
 {
@@ -65,8 +66,9 @@ QHostAddress NetworkManager::IpAddress::gateway() const
 
 NetworkManager::IpAddress &NetworkManager::IpAddress::operator=(const NetworkManager::IpAddress &other)
 {
-    if (this == &other)
+    if (this == &other) {
         return *this;
+    }
 
     QNetworkAddressEntry::operator =(other);
     *d = *other.d;

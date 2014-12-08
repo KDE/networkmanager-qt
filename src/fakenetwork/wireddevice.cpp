@@ -22,7 +22,7 @@
 
 #include <QDBusConnection>
 
-WiredDevice::WiredDevice(QObject* parent)
+WiredDevice::WiredDevice(QObject *parent)
     : Device(parent)
 {
 }
@@ -59,12 +59,12 @@ void WiredDevice::setCarrier(bool carrier)
     m_carrier = carrier;
 }
 
-void WiredDevice::setHwAddress(const QString& hwAddress)
+void WiredDevice::setHwAddress(const QString &hwAddress)
 {
     m_hwAddress = hwAddress;
 }
 
-void WiredDevice::setPermanentHwAddress(const QString& permanentHwAddress)
+void WiredDevice::setPermanentHwAddress(const QString &permanentHwAddress)
 {
     m_permHwAddress = permanentHwAddress;
 }

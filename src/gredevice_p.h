@@ -33,7 +33,7 @@ namespace NetworkManager
 
 class GreDevicePrivate : public DevicePrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     GreDevicePrivate(const QString &path, GreDevice *q);
     virtual ~GreDevicePrivate();

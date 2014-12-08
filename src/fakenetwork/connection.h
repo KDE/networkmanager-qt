@@ -30,10 +30,10 @@
 
 class Connection : public QObject
 {
-Q_OBJECT
-Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Settings.Connection")
+    Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Settings.Connection")
 public:
-    explicit Connection(QObject* parent = 0, const NMVariantMapMap &settings = NMVariantMapMap());
+    explicit Connection(QObject *parent = 0, const NMVariantMapMap &settings = NMVariantMapMap());
     virtual ~Connection();
 
     Q_PROPERTY(bool Unsaved READ unsaved)

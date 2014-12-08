@@ -24,7 +24,8 @@
 #include "wimaxdevice.h"
 #include "nmdebug.h"
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 NetworkManager::WimaxNsp::NetworkType convertNetworkType(uint type)
 {

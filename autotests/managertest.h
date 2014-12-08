@@ -36,7 +36,7 @@ private Q_SLOTS:
     void testManager();
 
 private:
-    FakeNetwork * fakeNetwork;
+    FakeNetwork *fakeNetwork;
 };
 
 #endif // NETWORKMANAGERQT_MANAGER_TEST_H

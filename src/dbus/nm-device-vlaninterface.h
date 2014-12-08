@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerDeviceVlanInterface: public QDBusAbstractInter
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.Device.Vlan"; }
+    {
+        return "org.kde.fakenetwork.Device.Vlan";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.Device.Vlan"; }
+    {
+        return "org.freedesktop.NetworkManager.Device.Vlan";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerDeviceVlanInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -41,15 +45,21 @@ public:
 
     Q_PROPERTY(bool Carrier READ carrier)
     inline bool carrier() const
-    { return qvariant_cast< bool >(property("Carrier")); }
+    {
+        return qvariant_cast< bool >(property("Carrier"));
+    }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const
-    { return qvariant_cast< QString >(property("HwAddress")); }
+    {
+        return qvariant_cast< QString >(property("HwAddress"));
+    }
 
     Q_PROPERTY(uint VlanId READ vlanId)
     inline uint vlanId() const
-    { return qvariant_cast< uint >(property("VlanId")); }
+    {
+        return qvariant_cast< uint >(property("VlanId"));
+    }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS

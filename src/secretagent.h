@@ -138,5 +138,4 @@ private:
 }
 Q_DECLARE_OPERATORS_FOR_FLAGS(NetworkManager::SecretAgent::GetSecretsFlags)
 
-
 #endif // NETWORKMANAGERQT_SECRETAGENT_H

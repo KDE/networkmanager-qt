@@ -24,5 +24,4 @@ OrgFreedesktopNetworkManagerDeviceTunInterface::~OrgFreedesktopNetworkManagerDev
 {
 }
 
-
 #include "nm-device-tuninterface.moc"

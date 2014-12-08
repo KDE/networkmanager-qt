@@ -63,7 +63,7 @@ QString NetworkManager::VethDevice::peer() const
 
 void NetworkManager::VethDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
-    Q_Q (VethDevice);
+    Q_Q(VethDevice);
 
     if (property == QLatin1String("Peer")) {
         peer = value.toString();

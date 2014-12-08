@@ -29,7 +29,7 @@ namespace NetworkManager
 
 class ActiveConnectionPrivate : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     explicit ActiveConnectionPrivate(const QString &, ActiveConnection *q);
     virtual ~ActiveConnectionPrivate();

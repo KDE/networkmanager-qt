@@ -18,7 +18,6 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #ifndef NETWORKMANAGERQT_VPNPLUGIN_H
 #define NETWORKMANAGERQT_VPNPLUGIN_H
 

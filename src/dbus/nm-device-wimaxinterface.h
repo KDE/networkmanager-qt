@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerDeviceWiMaxInterface: public QDBusAbstractInte
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.Device.WiMax"; }
+    {
+        return "org.kde.fakenetwork.Device.WiMax";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.Device.WiMax"; }
+    {
+        return "org.freedesktop.NetworkManager.Device.WiMax";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerDeviceWiMaxInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -41,35 +45,51 @@ public:
 
     Q_PROPERTY(QDBusObjectPath ActiveNsp READ activeNsp)
     inline QDBusObjectPath activeNsp() const
-    { return qvariant_cast< QDBusObjectPath >(property("ActiveNsp")); }
+    {
+        return qvariant_cast< QDBusObjectPath >(property("ActiveNsp"));
+    }
 
     Q_PROPERTY(QString Bsid READ bsid)
     inline QString bsid() const
-    { return qvariant_cast< QString >(property("Bsid")); }
+    {
+        return qvariant_cast< QString >(property("Bsid"));
+    }
 
     Q_PROPERTY(uint CenterFrequency READ centerFrequency)
     inline uint centerFrequency() const
-    { return qvariant_cast< uint >(property("CenterFrequency")); }
+    {
+        return qvariant_cast< uint >(property("CenterFrequency"));
+    }
 
     Q_PROPERTY(int Cinr READ cinr)
     inline int cinr() const
-    { return qvariant_cast< int >(property("Cinr")); }
+    {
+        return qvariant_cast< int >(property("Cinr"));
+    }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const
-    { return qvariant_cast< QString >(property("HwAddress")); }
+    {
+        return qvariant_cast< QString >(property("HwAddress"));
+    }
 
     Q_PROPERTY(QList<QDBusObjectPath> Nsps READ nsps)
     inline QList<QDBusObjectPath> nsps() const
-    { return qvariant_cast< QList<QDBusObjectPath> >(property("Nsps")); }
+    {
+        return qvariant_cast< QList<QDBusObjectPath> >(property("Nsps"));
+    }
 
     Q_PROPERTY(int Rssi READ rssi)
     inline int rssi() const
-    { return qvariant_cast< int >(property("Rssi")); }
+    {
+        return qvariant_cast< int >(property("Rssi"));
+    }
 
     Q_PROPERTY(int TxPower READ txPower)
     inline int txPower() const
-    { return qvariant_cast< int >(property("TxPower")); }
+    {
+        return qvariant_cast< int >(property("TxPower"));
+    }
 
 public Q_SLOTS: // METHODS
     inline QDBusPendingReply<QList<QDBusObjectPath> > GetNspList()

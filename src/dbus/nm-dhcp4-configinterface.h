@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerDHCP4ConfigInterface: public QDBusAbstractInte
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.DHCP4Config"; }
+    {
+        return "org.kde.fakenetwork.DHCP4Config";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.DHCP4Config"; }
+    {
+        return "org.freedesktop.NetworkManager.DHCP4Config";
+    }
 #endif
 
 public:
@@ -42,7 +46,9 @@ public:
 
     Q_PROPERTY(QVariantMap Options READ options)
     inline QVariantMap options() const
-    { return qvariant_cast< QVariantMap >(property("Options")); }
+    {
+        return qvariant_cast< QVariantMap >(property("Options"));
+    }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS

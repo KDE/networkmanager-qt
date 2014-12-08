@@ -31,9 +31,13 @@ class OrgFreedesktopNetworkManagerVPNPluginInterface: public QDBusAbstractInterf
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.Settings.VPN.Plugin"; }
+    {
+        return "org.kde.fakenetwork.Settings.VPN.Plugin";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.VPN.Plugin"; }
+    {
+        return "org.freedesktop.NetworkManager.VPN.Plugin";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerVPNPluginInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -42,7 +46,9 @@ public:
 
     Q_PROPERTY(uint State READ state)
     inline uint state() const
-    { return qvariant_cast< uint >(property("State")); }
+    {
+        return qvariant_cast< uint >(property("State"));
+    }
 
 public Q_SLOTS: // METHODS
     inline QDBusPendingReply<> Connect(const NMVariantMapMap &connection)

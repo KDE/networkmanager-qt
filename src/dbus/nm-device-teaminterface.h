@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerDeviceTeamInterface: public QDBusAbstractInter
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.Device.Team"; }
+    {
+        return "org.kde.fakenetwork.Device.Team";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.Device.Team"; }
+    {
+        return "org.freedesktop.NetworkManager.Device.Team";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerDeviceTeamInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -41,15 +45,21 @@ public:
 
     Q_PROPERTY(bool Carrier READ carrier)
     inline bool carrier() const
-    { return qvariant_cast< bool >(property("Carrier")); }
+    {
+        return qvariant_cast< bool >(property("Carrier"));
+    }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const
-    { return qvariant_cast< QString >(property("HwAddress")); }
+    {
+        return qvariant_cast< QString >(property("HwAddress"));
+    }
 
     Q_PROPERTY(QList<QDBusObjectPath> Slaves READ slaves)
     inline QList<QDBusObjectPath> slaves() const
-    { return qvariant_cast< QList<QDBusObjectPath> >(property("Slaves")); }
+    {
+        return qvariant_cast< QList<QDBusObjectPath> >(property("Slaves"));
+    }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS

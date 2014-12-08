@@ -56,7 +56,7 @@ FakeNetwork::FakeNetwork(QObject *parent)
 
 FakeNetwork::~FakeNetwork()
 {
-    foreach (const QDBusObjectPath &devicePath, m_devices.keys()) {
+    foreach (const QDBusObjectPath & devicePath, m_devices.keys()) {
         QDBusConnection::sessionBus().unregisterObject(devicePath.path());
         Q_EMIT DeviceRemoved(devicePath);
     }
@@ -183,7 +183,7 @@ bool FakeNetwork::wwanHardwareEnabled() const
     return m_wwanHardwareEnabled;
 }
 
-void FakeNetwork::addDevice(Device* device)
+void FakeNetwork::addDevice(Device *device)
 {
     QString newDevicePath = QString("/org/kde/fakenetwork/Devices/") + QString::number(m_deviceCounter++);
     device->setDevicePath(newDevicePath);
@@ -192,14 +192,14 @@ void FakeNetwork::addDevice(Device* device)
     Q_EMIT DeviceAdded(QDBusObjectPath(newDevicePath));
 }
 
-void FakeNetwork::removeDevice(Device* device)
+void FakeNetwork::removeDevice(Device *device)
 {
     m_devices.remove(QDBusObjectPath(device->devicePath()));
     QDBusConnection::sessionBus().unregisterObject(device->devicePath());
     Q_EMIT DeviceRemoved(QDBusObjectPath(device->devicePath()));
 }
 
-QDBusObjectPath FakeNetwork::ActivateConnection(const QDBusObjectPath& connection, const QDBusObjectPath& device, const QDBusObjectPath& specific_object)
+QDBusObjectPath FakeNetwork::ActivateConnection(const QDBusObjectPath &connection, const QDBusObjectPath &device, const QDBusObjectPath &specific_object)
 {
     ActiveConnection *newActiveConnection = new ActiveConnection(this);
     QString newActiveConnectionPath = QString("/org/kde/fakenetwork/ActiveConnection/") + QString::number(m_activeConnectionsCounter++);
@@ -231,7 +231,7 @@ QDBusObjectPath FakeNetwork::ActivateConnection(const QDBusObjectPath& connectio
     message << map;
     QDBusConnection::sessionBus().send(message);
 
-    Device * usedDevice = static_cast<Device*>(QDBusConnection::sessionBus().objectRegisteredAt(device.path()));
+    Device *usedDevice = static_cast<Device *>(QDBusConnection::sessionBus().objectRegisteredAt(device.path()));
     if (usedDevice) {
         m_activatedDevice = usedDevice->devicePath();
         // Start simulation of activation
@@ -246,7 +246,7 @@ QDBusObjectPath FakeNetwork::ActivateConnection(const QDBusObjectPath& connectio
 void FakeNetwork::updateConnectingState()
 {
     QVariantMap deviceMap;
-    Device * device = m_devices.value(QDBusObjectPath(m_activatedDevice));
+    Device *device = m_devices.value(QDBusObjectPath(m_activatedDevice));
     if (device->state() == NetworkManager::Device::Preparing) {
         device->setState(NetworkManager::Device::ConfiguringHardware);
     } else if (device->state() == NetworkManager::Device::ConfiguringHardware) {
@@ -258,7 +258,7 @@ void FakeNetwork::updateConnectingState()
     } else if (device->state() == NetworkManager::Device::CheckingIp) {
         device->setState(NetworkManager::Device::Activated);
 
-        ActiveConnection * activeConnection = static_cast<ActiveConnection*>(QDBusConnection::sessionBus().objectRegisteredAt(device->activeConnection().path()));
+        ActiveConnection *activeConnection = static_cast<ActiveConnection *>(QDBusConnection::sessionBus().objectRegisteredAt(device->activeConnection().path()));
         if (activeConnection) {
             QVariantMap activeConnectionMap;
             activeConnectionMap.insert(QLatin1Literal("State"), NetworkManager::ActiveConnection::Activated);
@@ -311,9 +311,9 @@ uint FakeNetwork::CheckConnectivity() const
     return m_connectivity;
 }
 
-void FakeNetwork::DeactivateConnection(const QDBusObjectPath& active_connection)
+void FakeNetwork::DeactivateConnection(const QDBusObjectPath &active_connection)
 {
-    ActiveConnection * activeConnection = m_activeConnections.value(active_connection);
+    ActiveConnection *activeConnection = m_activeConnections.value(active_connection);
     if (activeConnection) {
         activeConnection->setState(NetworkManager::ActiveConnection::Deactivating);
 
@@ -325,7 +325,7 @@ void FakeNetwork::DeactivateConnection(const QDBusObjectPath& active_connection)
         message << activeConnectionMap;
         QDBusConnection::sessionBus().send(message);
 
-        Device * device = m_devices.value(activeConnection->devices().first());
+        Device *device = m_devices.value(activeConnection->devices().first());
         if (device) {
             m_deactivatedDevice = device->devicePath();
             device->setState(NetworkManager::Device::Deactivating);
@@ -352,8 +352,8 @@ void FakeNetwork::DeactivateConnection(const QDBusObjectPath& active_connection)
 void FakeNetwork::updateDeactivatingState()
 {
     QVariantMap deviceMap;
-    Device * device = m_devices.value(QDBusObjectPath(m_deactivatedDevice));
-    ActiveConnection * activeConnection = static_cast<ActiveConnection*>(QDBusConnection::sessionBus().objectRegisteredAt(device->activeConnection().path()));
+    Device *device = m_devices.value(QDBusObjectPath(m_deactivatedDevice));
+    ActiveConnection *activeConnection = static_cast<ActiveConnection *>(QDBusConnection::sessionBus().objectRegisteredAt(device->activeConnection().path()));
     if (activeConnection) {
         QVariantMap activeConnectionMap;
         activeConnectionMap.insert(QLatin1Literal("State"), NetworkManager::ActiveConnection::Deactivated);
@@ -384,7 +384,7 @@ void FakeNetwork::updateDeactivatingState()
     QDBusConnection::sessionBus().send(message);
 }
 
-QDBusObjectPath FakeNetwork::GetDeviceByIpIface(const QString& iface)
+QDBusObjectPath FakeNetwork::GetDeviceByIpIface(const QString &iface)
 {
     // TODO
     return QDBusObjectPath();
@@ -395,15 +395,15 @@ QList< QDBusObjectPath > FakeNetwork::GetDevices() const
     return m_devices.keys();
 }
 
-void FakeNetwork::onConnectionAdded(const QDBusObjectPath& connection)
+void FakeNetwork::onConnectionAdded(const QDBusObjectPath &connection)
 {
-    Connection * newConnection = static_cast<Connection*>(QDBusConnection::sessionBus().objectRegisteredAt(connection.path()));
+    Connection *newConnection = static_cast<Connection *>(QDBusConnection::sessionBus().objectRegisteredAt(connection.path()));
     if (newConnection) {
         NMVariantMapMap settings = newConnection->GetSettings();
         NetworkManager::ConnectionSettings::ConnectionType type = NetworkManager::ConnectionSettings::typeFromString(settings.value(QLatin1Literal("connection")).value(QLatin1Literal("type")).toString());
         if (!m_devices.isEmpty()) {
-            Device * selectedDevice = 0;
-            foreach (Device *device, m_devices.values()) {
+            Device *selectedDevice = 0;
+            foreach (Device * device, m_devices.values()) {
                 if (type == NetworkManager::ConnectionSettings::Wired && device->deviceType() == NetworkManager::Device::Ethernet) {
                     selectedDevice = device;
                     device->addAvailableConnection(connection);
@@ -427,9 +427,9 @@ void FakeNetwork::onConnectionAdded(const QDBusObjectPath& connection)
     }
 }
 
-void FakeNetwork::onConnectionRemoved(const QDBusObjectPath& connection)
+void FakeNetwork::onConnectionRemoved(const QDBusObjectPath &connection)
 {
-    foreach (Device *device, m_devices.values()) {
+    foreach (Device * device, m_devices.values()) {
         if (device && device->availableConnections().contains(connection)) {
             device->removeAvailableConnection(connection);
 
@@ -443,7 +443,7 @@ void FakeNetwork::onConnectionRemoved(const QDBusObjectPath& connection)
     }
 }
 
-void FakeNetwork::removeActiveConnection(const QDBusObjectPath& activeConnection)
+void FakeNetwork::removeActiveConnection(const QDBusObjectPath &activeConnection)
 {
     delete m_activeConnections.value(activeConnection);
     m_activeConnections.remove(activeConnection);

@@ -33,7 +33,8 @@
 #include "dhcp6config.h"
 #include "ipconfig.h"
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 class ActiveConnectionPrivate;
 
@@ -90,17 +91,17 @@ public:
      */
     bool default6() const;
 #if NM_CHECK_VERSION(0, 9, 10)
-   /**
-     * The Ip4Config object describing the configuration of the
-     * connection. Only valid when the connection is in the
-     * NM_ACTIVE_CONNECTION_STATE_ACTIVATED state
-     */
+    /**
+      * The Ip4Config object describing the configuration of the
+      * connection. Only valid when the connection is in the
+      * NM_ACTIVE_CONNECTION_STATE_ACTIVATED state
+      */
     IpConfig ipV4Config() const;
-   /**
-     * The Ip6Config object describing the configuration of the
-     * connection. Only valid when the connection is in the
-     * NM_ACTIVE_CONNECTION_STATE_ACTIVATED state
-     */
+    /**
+      * The Ip6Config object describing the configuration of the
+      * connection. Only valid when the connection is in the
+      * NM_ACTIVE_CONNECTION_STATE_ACTIVATED state
+      */
     IpConfig ipV6Config() const;
     /**
      * The Dhcp4Config object describing the DHCP options
@@ -184,7 +185,7 @@ Q_SIGNALS:
     /**
      * The @p id changed
      */
-    void idChanged(const QString & id);
+    void idChanged(const QString &id);
     /**
      * The @p type changed
      */
@@ -196,7 +197,7 @@ Q_SIGNALS:
     /**
      * The @p path to the specific object changed
      */
-    void specificObjectChanged(const QString & path);
+    void specificObjectChanged(const QString &path);
     /**
      * The @p state changed
      */
@@ -208,7 +209,7 @@ Q_SIGNALS:
     /**
      * The @p uuid changed.
      */
-    void uuidChanged(const QString & uuid);
+    void uuidChanged(const QString &uuid);
     /**
      * The list of devices changed.
      */

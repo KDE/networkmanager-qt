@@ -391,7 +391,7 @@ QVariantMap NetworkManager::Ipv4Setting::toMap() const
 
     if (!dns().isEmpty()) {
         QList<uint> dbusDns;
-        foreach (const QHostAddress &dns, dns()) {
+        foreach (const QHostAddress & dns, dns()) {
             dbusDns << htonl(dns.toIPv4Address());
         }
 
@@ -404,7 +404,7 @@ QVariantMap NetworkManager::Ipv4Setting::toMap() const
 
     if (!addresses().isEmpty()) {
         QList<QList<uint> > dbusAddresses;
-        foreach (const NetworkManager::IpAddress &addr, addresses()) {
+        foreach (const NetworkManager::IpAddress & addr, addresses()) {
             QList<uint> dbusAddress;
             dbusAddress << htonl(addr.ip().toIPv4Address())
                         << addr.prefixLength()
@@ -417,7 +417,7 @@ QVariantMap NetworkManager::Ipv4Setting::toMap() const
 
     if (!routes().isEmpty()) {
         QList<QList<uint> > dbusRoutes;
-        foreach (const NetworkManager::IpRoute &route, routes()) {
+        foreach (const NetworkManager::IpRoute & route, routes()) {
             QList<uint> dbusRoute;
             dbusRoute << htonl(route.ip().toIPv4Address())
                       << route.prefixLength()
@@ -467,16 +467,16 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv4Setting
 
     dbg.nospace() << NM_SETTING_IP4_CONFIG_METHOD << ": " << setting.method() << '\n';
     dbg.nospace() << NM_SETTING_IP4_CONFIG_DNS << ":\n";
-    foreach (const QHostAddress &address, setting.dns()) {
+    foreach (const QHostAddress & address, setting.dns()) {
         dbg.nospace() << address.toString() << '\n';
     }
     dbg.nospace() << NM_SETTING_IP4_CONFIG_DNS_SEARCH << ": " << setting.dnsSearch() << '\n';
     dbg.nospace() << NM_SETTING_IP4_CONFIG_ADDRESSES << '\n';
-    foreach (const NetworkManager::IpAddress &address, setting.addresses()) {
+    foreach (const NetworkManager::IpAddress & address, setting.addresses()) {
         dbg.nospace() << address.ip() << ": " << address.gateway() << ": " << address.netmask() << '\n';
     }
     dbg.nospace() << NM_SETTING_IP4_CONFIG_ROUTES << '\n';
-    foreach (const NetworkManager::IpRoute &route, setting.routes()) {
+    foreach (const NetworkManager::IpRoute & route, setting.routes()) {
         dbg.nospace() << route.ip() << ": " << route.netmask() << ": " << route.nextHop() << ": " << route.metric() << '\n';
     }
     dbg.nospace() << NM_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES << ": " << setting.ignoreAutoRoutes() << '\n';

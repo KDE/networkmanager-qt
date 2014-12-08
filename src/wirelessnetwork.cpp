@@ -76,7 +76,7 @@ void NetworkManager::WirelessNetworkPrivate::updateStrength()
 
     int maximumStrength = -1;
     NetworkManager::AccessPoint::Ptr strongestAp;
-    foreach (const NetworkManager::AccessPoint::Ptr &iface, aps) {
+    foreach (const NetworkManager::AccessPoint::Ptr & iface, aps) {
         if (maximumStrength <= iface->signalStrength()) {
             maximumStrength = iface->signalStrength();
             strongestAp = iface;
@@ -94,7 +94,6 @@ void NetworkManager::WirelessNetworkPrivate::updateStrength()
     //TODO: update the networks delayed
     //kDebug() << "update strength" << ssid << strength;
 }
-
 
 NetworkManager::WirelessNetwork::WirelessNetwork(const AccessPoint::Ptr &accessPoint, WirelessDevice *device) :
     d_ptr(new WirelessNetworkPrivate(this, device))

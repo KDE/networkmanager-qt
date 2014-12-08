@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerDeviceMacvlanInterface: public QDBusAbstractIn
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.Device.Macvlan"; }
+    {
+        return "org.kde.fakenetwork.Device.Macvlan";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.Device.Macvlan"; }
+    {
+        return "org.freedesktop.NetworkManager.Device.Macvlan";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerDeviceMacvlanInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -41,15 +45,21 @@ public:
 
     Q_PROPERTY(QString Mode READ mode)
     inline QString mode() const
-    { return qvariant_cast< QString >(property("Mode")); }
+    {
+        return qvariant_cast< QString >(property("Mode"));
+    }
 
     Q_PROPERTY(bool NoPromisc READ noPromisc)
     inline bool noPromisc() const
-    { return qvariant_cast< bool >(property("NoPromisc")); }
+    {
+        return qvariant_cast< bool >(property("NoPromisc"));
+    }
 
     Q_PROPERTY(QDBusObjectPath Parent READ parent)
     inline QDBusObjectPath parent() const
-    { return qvariant_cast< QDBusObjectPath >(property("Parent")); }
+    {
+        return qvariant_cast< QDBusObjectPath >(property("Parent"));
+    }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS

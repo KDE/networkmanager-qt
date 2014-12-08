@@ -36,7 +36,7 @@ void ManagerTest::initTestCase()
 
 void ManagerTest::testDevices()
 {
-    WiredDevice * device = new WiredDevice();
+    WiredDevice *device = new WiredDevice();
     /* Device properties */
     device->setAutoconnect(true);
     device->setCapabilities(3);

@@ -45,7 +45,7 @@ NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString &path, Wima
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
 #if NM_CHECK_VERSION(0, 9, 10)
     QList <QDBusObjectPath> nsps = wimaxIface.nsps();
-    foreach (const QDBusObjectPath &op, nsps) {
+    foreach (const QDBusObjectPath & op, nsps) {
         nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
         //qCDebug(NMQT) << "  " << op.path();
     }
@@ -54,7 +54,7 @@ NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString &path, Wima
     if (nspPathList.isValid()) {
         //qCDebug(NMQT) << "Got device list";
         QList <QDBusObjectPath> nsps = nspPathList.value();
-        foreach (const QDBusObjectPath &op, nsps) {
+        foreach (const QDBusObjectPath & op, nsps) {
             nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
             //qCDebug(NMQT) << "  " << op.path();
         }

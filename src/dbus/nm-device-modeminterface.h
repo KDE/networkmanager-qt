@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerDeviceModemInterface: public QDBusAbstractInte
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.Device.Modem"; }
+    {
+        return "org.kde.fakenetwork.Device.Modem";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.Device.Modem"; }
+    {
+        return "org.freedesktop.NetworkManager.Device.Modem";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerDeviceModemInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -41,11 +45,15 @@ public:
 
     Q_PROPERTY(uint CurrentCapabilities READ currentCapabilities)
     inline uint currentCapabilities() const
-    { return qvariant_cast< uint >(property("CurrentCapabilities")); }
+    {
+        return qvariant_cast< uint >(property("CurrentCapabilities"));
+    }
 
     Q_PROPERTY(uint ModemCapabilities READ modemCapabilities)
     inline uint modemCapabilities() const
-    { return qvariant_cast< uint >(property("ModemCapabilities")); }
+    {
+        return qvariant_cast< uint >(property("ModemCapabilities"));
+    }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS

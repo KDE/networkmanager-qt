@@ -29,7 +29,8 @@
 #include <QSharedPointer>
 #include <QVariantMap>
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 class AccessPointPrivate;
 
@@ -179,5 +180,4 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(AccessPoint::WpaFlags)
 
 }
 #endif
-
 

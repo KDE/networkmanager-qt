@@ -31,9 +31,13 @@ class OrgFreedesktopNetworkManagerIP4ConfigInterface: public QDBusAbstractInterf
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.IP4Config"; }
+    {
+        return "org.kde.fakenetwork.IP4Config";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.IP4Config"; }
+    {
+        return "org.freedesktop.NetworkManager.IP4Config";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerIP4ConfigInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -42,31 +46,45 @@ public:
 
     Q_PROPERTY(UIntListList Addresses READ addresses)
     inline UIntListList addresses() const
-    { return qvariant_cast< UIntListList >(property("Addresses")); }
+    {
+        return qvariant_cast< UIntListList >(property("Addresses"));
+    }
 
     Q_PROPERTY(QStringList Domains READ domains)
     inline QStringList domains() const
-    { return qvariant_cast< QStringList >(property("Domains")); }
+    {
+        return qvariant_cast< QStringList >(property("Domains"));
+    }
 
     Q_PROPERTY(QString Gateway READ gateway)
     inline QString gateway() const
-    { return qvariant_cast< QString >(property("Gateway")); }
+    {
+        return qvariant_cast< QString >(property("Gateway"));
+    }
 
     Q_PROPERTY(UIntList Nameservers READ nameservers)
     inline UIntList nameservers() const
-    { return qvariant_cast< UIntList >(property("Nameservers")); }
+    {
+        return qvariant_cast< UIntList >(property("Nameservers"));
+    }
 
     Q_PROPERTY(UIntListList Routes READ routes)
     inline UIntListList routes() const
-    { return qvariant_cast< UIntListList >(property("Routes")); }
+    {
+        return qvariant_cast< UIntListList >(property("Routes"));
+    }
 
     Q_PROPERTY(QStringList Searches READ searches)
     inline QStringList searches() const
-    { return qvariant_cast< QStringList >(property("Searches")); }
+    {
+        return qvariant_cast< QStringList >(property("Searches"));
+    }
 
     Q_PROPERTY(UIntList WinsServers READ winsServers)
     inline UIntList winsServers() const
-    { return qvariant_cast< UIntList >(property("WinsServers")); }
+    {
+        return qvariant_cast< UIntList >(property("WinsServers"));
+    }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS

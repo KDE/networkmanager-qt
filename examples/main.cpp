@@ -87,11 +87,11 @@ int main()
             if (!dhcp4Config) {
                 qout << "dhcp info unavailable\n";
             } else {
-                qout << "Dhcp4 options (" << dhcp4Config->path() <<"): ";
+                qout << "Dhcp4 options (" << dhcp4Config->path() << "): ";
                 QVariantMap options = dhcp4Config->options();
                 QVariantMap::ConstIterator it = options.constBegin();
                 QVariantMap::ConstIterator end = options.constEnd();
-                for (; it != end; ++it){
+                for (; it != end; ++it) {
                     qout << it.key() << "=" << it.value().toString() << " ";
                 }
                 qout << "\n";

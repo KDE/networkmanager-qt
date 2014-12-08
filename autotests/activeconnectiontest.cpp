@@ -39,7 +39,7 @@ void ActiveConnectionTest::initTestCase()
 {
     fakeNetwork = new FakeNetwork();
 
-    WiredDevice * device = new WiredDevice();
+    WiredDevice *device = new WiredDevice();
     /* Device properties */
     device->setAutoconnect(true);
     device->setCapabilities(3);

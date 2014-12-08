@@ -21,7 +21,8 @@
 
 #include "ipconfig.h"
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 class NetworkManager::IpRoute::Private
 {
@@ -73,8 +74,9 @@ quint32 NetworkManager::IpRoute::metric() const
 
 NetworkManager::IpRoute &NetworkManager::IpRoute::operator=(const NetworkManager::IpRoute &other)
 {
-    if (this == &other)
+    if (this == &other) {
         return *this;
+    }
 
     QNetworkAddressEntry::operator =(other);
     *d = *other.d;

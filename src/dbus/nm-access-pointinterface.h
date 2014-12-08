@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerAccessPointInterface: public QDBusAbstractInte
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.AccessPoint"; }
+    {
+        return "org.kde.fakenetwork.AccessPoint";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.AccessPoint"; }
+    {
+        return "org.freedesktop.NetworkManager.AccessPoint";
+    }
 #endif
 
 public:
@@ -42,39 +46,57 @@ public:
 
     Q_PROPERTY(uint Flags READ flags)
     inline uint flags() const
-    { return qvariant_cast< uint >(property("Flags")); }
+    {
+        return qvariant_cast< uint >(property("Flags"));
+    }
 
     Q_PROPERTY(uint Frequency READ frequency)
     inline uint frequency() const
-    { return qvariant_cast< uint >(property("Frequency")); }
+    {
+        return qvariant_cast< uint >(property("Frequency"));
+    }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const
-    { return qvariant_cast< QString >(property("HwAddress")); }
+    {
+        return qvariant_cast< QString >(property("HwAddress"));
+    }
 
     Q_PROPERTY(uint MaxBitrate READ maxBitrate)
     inline uint maxBitrate() const
-    { return qvariant_cast< uint >(property("MaxBitrate")); }
+    {
+        return qvariant_cast< uint >(property("MaxBitrate"));
+    }
 
     Q_PROPERTY(uint Mode READ mode)
     inline uint mode() const
-    { return qvariant_cast< uint >(property("Mode")); }
+    {
+        return qvariant_cast< uint >(property("Mode"));
+    }
 
     Q_PROPERTY(uint RsnFlags READ rsnFlags)
     inline uint rsnFlags() const
-    { return qvariant_cast< uint >(property("RsnFlags")); }
+    {
+        return qvariant_cast< uint >(property("RsnFlags"));
+    }
 
     Q_PROPERTY(QByteArray Ssid READ ssid)
     inline QByteArray ssid() const
-    { return qvariant_cast< QByteArray >(property("Ssid")); }
+    {
+        return qvariant_cast< QByteArray >(property("Ssid"));
+    }
 
     Q_PROPERTY(uchar Strength READ strength)
     inline uchar strength() const
-    { return qvariant_cast< uchar >(property("Strength")); }
+    {
+        return qvariant_cast< uchar >(property("Strength"));
+    }
 
     Q_PROPERTY(uint WpaFlags READ wpaFlags)
     inline uint wpaFlags() const
-    { return qvariant_cast< uint >(property("WpaFlags")); }
+    {
+        return qvariant_cast< uint >(property("WpaFlags"));
+    }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS

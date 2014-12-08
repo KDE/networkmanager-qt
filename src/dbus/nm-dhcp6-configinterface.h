@@ -30,9 +30,13 @@ class OrgFreedesktopNetworkManagerDHCP6ConfigInterface: public QDBusAbstractInte
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.DHCP6Config"; }
+    {
+        return "org.kde.fakenetwork.DHCP6Config";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.DHCP6Config"; }
+    {
+        return "org.freedesktop.NetworkManager.DHCP6Config";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerDHCP6ConfigInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -41,7 +45,9 @@ public:
 
     Q_PROPERTY(QVariantMap Options READ options)
     inline QVariantMap options() const
-    { return qvariant_cast< QVariantMap >(property("Options")); }
+    {
+        return qvariant_cast< QVariantMap >(property("Options"));
+    }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS

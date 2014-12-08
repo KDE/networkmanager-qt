@@ -30,7 +30,7 @@ namespace NetworkManager
 
 class WirelessDevicePrivate : public DevicePrivate
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     explicit WirelessDevicePrivate(const QString &path, WirelessDevice *q);
     OrgFreedesktopNetworkManagerDeviceWirelessInterface wirelessIface;

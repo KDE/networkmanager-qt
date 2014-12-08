@@ -344,7 +344,8 @@ public:
       *
       * @returns a pointer to the device interface if it exists, @p 0 otherwise
       */
-    template <class DevIface> DevIface *as() {
+    template <class DevIface> DevIface *as()
+    {
         return qobject_cast<DevIface *>(this);
     }
 
@@ -354,7 +355,8 @@ public:
       *
       * @returns a pointer to the device interface if it exists, 0 otherwise
       */
-    template <class DevIface> const DevIface *as() const {
+    template <class DevIface> const DevIface *as() const
+    {
         return qobject_cast<const DevIface *>(this);
     }
 

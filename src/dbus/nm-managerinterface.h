@@ -31,9 +31,13 @@ class OrgFreedesktopNetworkManagerInterface: public QDBusAbstractInterface
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork"; }
+    {
+        return "org.kde.fakenetwork";
+    }
 #else
-    { return "org.freedesktop.NetworkManager"; }
+    {
+        return "org.freedesktop.NetworkManager";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -42,69 +46,105 @@ public:
 
     Q_PROPERTY(QDBusObjectPath ActivatingConnection READ activatingConnection)
     inline QDBusObjectPath activatingConnection() const
-    { return qvariant_cast< QDBusObjectPath >(property("ActivatingConnection")); }
+    {
+        return qvariant_cast< QDBusObjectPath >(property("ActivatingConnection"));
+    }
 
     Q_PROPERTY(QList<QDBusObjectPath> ActiveConnections READ activeConnections)
     inline QList<QDBusObjectPath> activeConnections() const
-    { return qvariant_cast< QList<QDBusObjectPath> >(property("ActiveConnections")); }
+    {
+        return qvariant_cast< QList<QDBusObjectPath> >(property("ActiveConnections"));
+    }
 
     Q_PROPERTY(uint Connectivity READ connectivity)
     inline uint connectivity() const
-    { return qvariant_cast< uint >(property("Connectivity")); }
+    {
+        return qvariant_cast< uint >(property("Connectivity"));
+    }
 
     Q_PROPERTY(QList<QDBusObjectPath> Devices READ devices)
     inline QList<QDBusObjectPath> devices() const
-    { return qvariant_cast< QList<QDBusObjectPath> >(property("Devices")); }
+    {
+        return qvariant_cast< QList<QDBusObjectPath> >(property("Devices"));
+    }
 
     Q_PROPERTY(bool NetworkingEnabled READ networkingEnabled)
     inline bool networkingEnabled() const
-    { return qvariant_cast< bool >(property("NetworkingEnabled")); }
+    {
+        return qvariant_cast< bool >(property("NetworkingEnabled"));
+    }
 
     Q_PROPERTY(QDBusObjectPath PrimaryConnection READ primaryConnection)
     inline QDBusObjectPath primaryConnection() const
-    { return qvariant_cast< QDBusObjectPath >(property("PrimaryConnection")); }
+    {
+        return qvariant_cast< QDBusObjectPath >(property("PrimaryConnection"));
+    }
 
     Q_PROPERTY(bool Startup READ startup)
     inline bool startup() const
-    { return qvariant_cast< bool >(property("Startup")); }
+    {
+        return qvariant_cast< bool >(property("Startup"));
+    }
 
     Q_PROPERTY(uint State READ state)
     inline uint state() const
-    { return qvariant_cast< uint >(property("State")); }
+    {
+        return qvariant_cast< uint >(property("State"));
+    }
 
     Q_PROPERTY(QString Version READ version)
     inline QString version() const
-    { return qvariant_cast< QString >(property("Version")); }
+    {
+        return qvariant_cast< QString >(property("Version"));
+    }
 
     Q_PROPERTY(bool WimaxEnabled READ wimaxEnabled WRITE setWimaxEnabled)
     inline bool wimaxEnabled() const
-    { return qvariant_cast< bool >(property("WimaxEnabled")); }
+    {
+        return qvariant_cast< bool >(property("WimaxEnabled"));
+    }
     inline void setWimaxEnabled(bool value)
-    { setProperty("WimaxEnabled", QVariant::fromValue(value)); }
+    {
+        setProperty("WimaxEnabled", QVariant::fromValue(value));
+    }
 
     Q_PROPERTY(bool WimaxHardwareEnabled READ wimaxHardwareEnabled)
     inline bool wimaxHardwareEnabled() const
-    { return qvariant_cast< bool >(property("WimaxHardwareEnabled")); }
+    {
+        return qvariant_cast< bool >(property("WimaxHardwareEnabled"));
+    }
 
     Q_PROPERTY(bool WirelessEnabled READ wirelessEnabled WRITE setWirelessEnabled)
     inline bool wirelessEnabled() const
-    { return qvariant_cast< bool >(property("WirelessEnabled")); }
+    {
+        return qvariant_cast< bool >(property("WirelessEnabled"));
+    }
     inline void setWirelessEnabled(bool value)
-    { setProperty("WirelessEnabled", QVariant::fromValue(value)); }
+    {
+        setProperty("WirelessEnabled", QVariant::fromValue(value));
+    }
 
     Q_PROPERTY(bool WirelessHardwareEnabled READ wirelessHardwareEnabled)
     inline bool wirelessHardwareEnabled() const
-    { return qvariant_cast< bool >(property("WirelessHardwareEnabled")); }
+    {
+        return qvariant_cast< bool >(property("WirelessHardwareEnabled"));
+    }
 
     Q_PROPERTY(bool WwanEnabled READ wwanEnabled WRITE setWwanEnabled)
     inline bool wwanEnabled() const
-    { return qvariant_cast< bool >(property("WwanEnabled")); }
+    {
+        return qvariant_cast< bool >(property("WwanEnabled"));
+    }
     inline void setWwanEnabled(bool value)
-    { setProperty("WwanEnabled", QVariant::fromValue(value)); }
+    {
+        setProperty("WwanEnabled", QVariant::fromValue(value));
+    }
 
     Q_PROPERTY(bool WwanHardwareEnabled READ wwanHardwareEnabled)
     inline bool wwanHardwareEnabled() const
-    { return qvariant_cast< bool >(property("WwanHardwareEnabled")); }
+    {
+        return qvariant_cast< bool >(property("WwanHardwareEnabled"));
+    }
 
 public Q_SLOTS: // METHODS
     inline QDBusPendingReply<QDBusObjectPath> ActivateConnection(const QDBusObjectPath &connection, const QDBusObjectPath &device, const QDBusObjectPath &specific_object)

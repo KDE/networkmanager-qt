@@ -132,17 +132,17 @@ void NetworkManager::NetworkManagerPrivate::init()
 
     // Get all Manager's properties async
     QDBusMessage message = QDBusMessage::createMethodCall(DBUS_SERVICE,
-                                                          DBUS_DAEMON_PATH,
-                                                          FDO_DBUS_PROPERTIES,
-                                                          QLatin1String("GetAll"));
+                           DBUS_DAEMON_PATH,
+                           FDO_DBUS_PROPERTIES,
+                           QLatin1String("GetAll"));
     message << iface.staticInterfaceName();
 #ifdef NMQT_STATIC
     QDBusConnection::sessionBus().callWithCallback(message,
 #else
     QDBusConnection::systemBus().callWithCallback(message,
 #endif
-                                                  this,
-                                                  SLOT(propertiesChanged(QVariantMap)));
+            this,
+            SLOT(propertiesChanged(QVariantMap)));
 
     qobject_cast<SettingsPrivate *>(settingsNotifier())->init();
 
@@ -150,7 +150,7 @@ void NetworkManager::NetworkManagerPrivate::init()
 #if NM_CHECK_VERSION(0, 9, 10)
         QList <QDBusObjectPath> devices = iface.devices();
         qCDebug(NMQT) << "Device list";
-        foreach (const QDBusObjectPath &op, devices) {
+        foreach (const QDBusObjectPath & op, devices) {
             networkInterfaceMap.insert(op.path(), Device::Ptr());
             emit deviceAdded(op.path());
             qCDebug(NMQT) << "  " << op.path();
@@ -160,10 +160,10 @@ void NetworkManager::NetworkManagerPrivate::init()
         if (deviceList.isValid()) {
             qCDebug(NMQT) << "Device list";
             QList <QDBusObjectPath> devices = deviceList.value();
-            foreach (const QDBusObjectPath &op, devices) {
+            foreach (const QDBusObjectPath & op, devices) {
                 networkInterfaceMap.insert(op.path(), Device::Ptr());
                 emit deviceAdded(op.path());
-               qCDebug(NMQT) << "  " << op.path();
+                qCDebug(NMQT) << "  " << op.path();
             }
         } else {
             qCDebug(NMQT) << "Error getting device list: " << deviceList.error().name() << ": " << deviceList.error().message();
@@ -457,66 +457,96 @@ void NetworkManager::NetworkManagerPrivate::setLogging(NetworkManager::LogLevel 
         break;
     }
     if (!domains.testFlag(NoChange)) {
-        if (domains.testFlag(NetworkManager::None))
+        if (domains.testFlag(NetworkManager::None)) {
             logDomains << QLatin1String("NONE");
-        if (domains.testFlag(NetworkManager::Hardware))
+        }
+        if (domains.testFlag(NetworkManager::Hardware)) {
             logDomains << QLatin1String("HW");
-        if (domains.testFlag(NetworkManager::RFKill))
+        }
+        if (domains.testFlag(NetworkManager::RFKill)) {
             logDomains << QLatin1String("RFKILL");
-        if (domains.testFlag(NetworkManager::Ethernet))
+        }
+        if (domains.testFlag(NetworkManager::Ethernet)) {
             logDomains << QLatin1String("ETHER");
-        if (domains.testFlag(NetworkManager::WiFi))
+        }
+        if (domains.testFlag(NetworkManager::WiFi)) {
             logDomains << QLatin1String("WIFI");
-        if (domains.testFlag(NetworkManager::Bluetooth))
+        }
+        if (domains.testFlag(NetworkManager::Bluetooth)) {
             logDomains << QLatin1String("BT");
-        if (domains.testFlag(NetworkManager::MobileBroadBand))
+        }
+        if (domains.testFlag(NetworkManager::MobileBroadBand)) {
             logDomains << QLatin1String("MB");
-        if (domains.testFlag(NetworkManager::DHCP4))
+        }
+        if (domains.testFlag(NetworkManager::DHCP4)) {
             logDomains << QLatin1String("DHCP4");
-        if (domains.testFlag(NetworkManager::DHCP6))
+        }
+        if (domains.testFlag(NetworkManager::DHCP6)) {
             logDomains << QLatin1String("DHCP6");
-        if (domains.testFlag(NetworkManager::PPP))
+        }
+        if (domains.testFlag(NetworkManager::PPP)) {
             logDomains << QLatin1String("PPP");
-        if (domains.testFlag(NetworkManager::WiFiScan))
+        }
+        if (domains.testFlag(NetworkManager::WiFiScan)) {
             logDomains << QLatin1String("WIFI_SCAN");
-        if (domains.testFlag(NetworkManager::IPv4))
+        }
+        if (domains.testFlag(NetworkManager::IPv4)) {
             logDomains << QLatin1String("IP4");
-        if (domains.testFlag(NetworkManager::IPv6))
+        }
+        if (domains.testFlag(NetworkManager::IPv6)) {
             logDomains << QLatin1String("IP6");
-        if (domains.testFlag(NetworkManager::AutoIPv4))
+        }
+        if (domains.testFlag(NetworkManager::AutoIPv4)) {
             logDomains << QLatin1String("AUTOIP4");
-        if (domains.testFlag(NetworkManager::DNS))
+        }
+        if (domains.testFlag(NetworkManager::DNS)) {
             logDomains << QLatin1String("DNS");
-        if (domains.testFlag(NetworkManager::VPN))
+        }
+        if (domains.testFlag(NetworkManager::VPN)) {
             logDomains << QLatin1String("VPN");
-        if (domains.testFlag(NetworkManager::Sharing))
+        }
+        if (domains.testFlag(NetworkManager::Sharing)) {
             logDomains << QLatin1String("SHARING");
-        if (domains.testFlag(NetworkManager::Supplicant))
+        }
+        if (domains.testFlag(NetworkManager::Supplicant)) {
             logDomains << QLatin1String("SUPPLICANT");
-        if (domains.testFlag(NetworkManager::UserSet))
+        }
+        if (domains.testFlag(NetworkManager::UserSet)) {
             logDomains << QLatin1String("USER_SET");
-        if (domains.testFlag(NetworkManager::SysSet))
+        }
+        if (domains.testFlag(NetworkManager::SysSet)) {
             logDomains << QLatin1String("SYS_SET");
-        if (domains.testFlag(NetworkManager::Suspend))
+        }
+        if (domains.testFlag(NetworkManager::Suspend)) {
             logDomains << QLatin1String("SUSPEND");
-        if (domains.testFlag(NetworkManager::Core))
+        }
+        if (domains.testFlag(NetworkManager::Core)) {
             logDomains << QLatin1String("CORE");
-        if (domains.testFlag(NetworkManager::Devices))
+        }
+        if (domains.testFlag(NetworkManager::Devices)) {
             logDomains << QLatin1String("DEVICE");
-        if (domains.testFlag(NetworkManager::OLPC))
+        }
+        if (domains.testFlag(NetworkManager::OLPC)) {
             logDomains << QLatin1String("OLPC");
-        if (domains.testFlag(NetworkManager::Wimax))
+        }
+        if (domains.testFlag(NetworkManager::Wimax)) {
             logDomains << QLatin1String("WIMAX");
-        if (domains.testFlag(NetworkManager::Infiniband))
+        }
+        if (domains.testFlag(NetworkManager::Infiniband)) {
             logDomains << QLatin1String("INFINIBAND");
-        if (domains.testFlag(NetworkManager::Firewall))
+        }
+        if (domains.testFlag(NetworkManager::Firewall)) {
             logDomains << QLatin1String("FIREWALL");
-        if (domains.testFlag(NetworkManager::Adsl))
+        }
+        if (domains.testFlag(NetworkManager::Adsl)) {
             logDomains << QLatin1String("ADSL");
-        if (domains.testFlag(NetworkManager::Bond))
+        }
+        if (domains.testFlag(NetworkManager::Bond)) {
             logDomains << QLatin1String("BOND");
-        if (domains.testFlag(NetworkManager::Vlan))
+        }
+        if (domains.testFlag(NetworkManager::Vlan)) {
             logDomains << QLatin1String("VLAN");
+        }
     }
     iface.SetLogging(logLevel, logDomains.join(QLatin1String(",")));
 }
@@ -605,7 +635,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
                 m_activeConnections.clear();
             } else {
                 QStringList knownConnections = m_activeConnections.keys();
-                foreach (const QDBusObjectPath &ac, activePaths) {
+                foreach (const QDBusObjectPath & ac, activePaths) {
                     if (!m_activeConnections.contains(ac.path())) {
                         m_activeConnections.insert(ac.path(), NetworkManager::ActiveConnection::Ptr());
                         emit activeConnectionAdded(ac.path());
@@ -614,7 +644,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
                     }
                     // qCDebug(NMQT) << "  " << ac.path();
                 }
-                foreach (const QString &path, knownConnections) {
+                foreach (const QString & path, knownConnections) {
                     m_activeConnections.remove(path);
                     emit activeConnectionRemoved(path);
                 }
@@ -674,21 +704,21 @@ NetworkManager::Connectivity NetworkManager::NetworkManagerPrivate::convertConne
 {
     NetworkManager::Connectivity convertedConnectivity = NetworkManager::UnknownConnectivity;
     switch (connectivity) {
-        case NM_CONNECTIVITY_UNKNOWN:
-            convertedConnectivity = NetworkManager::UnknownConnectivity;
-            break;
-        case NM_CONNECTIVITY_NONE:
-            convertedConnectivity = NetworkManager::NoConnectivity;
-            break;
-        case NM_CONNECTIVITY_PORTAL:
-            convertedConnectivity = NetworkManager::Portal;
-            break;
-        case NM_CONNECTIVITY_LIMITED:
-            convertedConnectivity = NetworkManager::Limited;
-            break;
-        case NM_CONNECTIVITY_FULL:
-            convertedConnectivity = NetworkManager::Full;
-            break;
+    case NM_CONNECTIVITY_UNKNOWN:
+        convertedConnectivity = NetworkManager::UnknownConnectivity;
+        break;
+    case NM_CONNECTIVITY_NONE:
+        convertedConnectivity = NetworkManager::NoConnectivity;
+        break;
+    case NM_CONNECTIVITY_PORTAL:
+        convertedConnectivity = NetworkManager::Portal;
+        break;
+    case NM_CONNECTIVITY_LIMITED:
+        convertedConnectivity = NetworkManager::Limited;
+        break;
+    case NM_CONNECTIVITY_FULL:
+        convertedConnectivity = NetworkManager::Full;
+        break;
     }
     return convertedConnectivity;
 }
@@ -932,11 +962,11 @@ NetworkManager::Device::Types NetworkManager::supportedInterfaceTypes()
                NetworkManager::Device::Vlan |
                NetworkManager::Device::Adsl |
                NetworkManager::Device::Bridge
-            #if NM_CHECK_VERSION(0, 9, 10)
-                |
-                NetworkManager::Device::Generic |
-                NetworkManager::Device::Team
-            #endif
+#if NM_CHECK_VERSION(0, 9, 10)
+               |
+               NetworkManager::Device::Generic |
+               NetworkManager::Device::Team
+#endif
            );
 }
 

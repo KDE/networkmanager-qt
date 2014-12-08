@@ -29,7 +29,8 @@
 #include <QtCore/QObject>
 #include <QSharedPointer>
 
-namespace NetworkManager {
+namespace NetworkManager
+{
 
 class WirelessDevice;
 class WirelessNetworkPrivate;

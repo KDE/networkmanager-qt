@@ -46,7 +46,7 @@ public:
     QDBusPendingReply<QDBusObjectPath> addConnection(const NMVariantMapMap &);
 #if NM_CHECK_VERSION(0, 9, 10)
     QDBusPendingReply<QDBusObjectPath> addConnectionUnsaved(const NMVariantMapMap &);
-    QDBusPendingReply<bool, QStringList> loadConnections(const QStringList& filenames);
+    QDBusPendingReply<bool, QStringList> loadConnections(const QStringList &filenames);
 #endif
     void saveHostname(const QString &);
 #if NM_CHECK_VERSION(0, 9, 10)
@@ -73,6 +73,5 @@ protected:
 };
 
 }
-
 
 #endif

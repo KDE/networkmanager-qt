@@ -113,7 +113,7 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
     firmwareVersion = deviceIface.firmwareVersion();
     autoconnect = deviceIface.autoconnect();
     reason = NetworkManager::DevicePrivate::convertReason(deviceIface.stateReason().reason);
-    foreach (const QDBusObjectPath &availableConnection, deviceIface.availableConnections()) {
+    foreach (const QDBusObjectPath & availableConnection, deviceIface.availableConnections()) {
         availableConnections << availableConnection.path();
     }
 #if NM_CHECK_VERSION(0, 9, 10)
@@ -169,7 +169,6 @@ NetworkManager::Device::Capabilities NetworkManager::DevicePrivate::convertCapab
     return ourCaps;
 }
 
-
 NetworkManager::Device::State NetworkManager::DevicePrivate::convertState(uint theirState)
 {
     NetworkManager::Device::State ourState = static_cast<NetworkManager::Device::State>(theirState);
@@ -215,14 +214,14 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
     } else if (property == QLatin1String("AvailableConnections")) {
         QStringList newAvailableConnections;
         QList<QDBusObjectPath> availableConnectionsTmp = qdbus_cast< QList<QDBusObjectPath> >(value);
-        foreach (const QDBusObjectPath &availableConnection, availableConnectionsTmp) {
+        foreach (const QDBusObjectPath & availableConnection, availableConnectionsTmp) {
             newAvailableConnections << availableConnection.path();
             if (!availableConnections.contains(availableConnection.path())) {
                 availableConnections << availableConnection.path();
                 emit q->availableConnectionAppeared(availableConnection.path());
             }
         }
-        foreach (const QString &availableConnection, availableConnections) {
+        foreach (const QString & availableConnection, availableConnections) {
             if (!newAvailableConnections.contains(availableConnection)) {
                 availableConnections.removeOne(availableConnection);
                 emit q->availableConnectionDisappeared(availableConnection);
@@ -383,7 +382,7 @@ NetworkManager::Connection::List NetworkManager::Device::availableConnections()
     Q_D(const Device);
 
     NetworkManager::Connection::List list;
-    foreach (const QString &availableConnection, d->availableConnections) {
+    foreach (const QString & availableConnection, d->availableConnections) {
         NetworkManager::Connection::Ptr connection = NetworkManager::findConnection(availableConnection);
         if (connection) {
             list << connection;

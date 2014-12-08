@@ -31,9 +31,13 @@ class OrgFreedesktopNetworkManagerSettingsInterface: public QDBusAbstractInterfa
 public:
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
-    { return "org.kde.fakenetwork.Settings"; }
+    {
+        return "org.kde.fakenetwork.Settings";
+    }
 #else
-    { return "org.freedesktop.NetworkManager.Settings"; }
+    {
+        return "org.freedesktop.NetworkManager.Settings";
+    }
 #endif
 public:
     OrgFreedesktopNetworkManagerSettingsInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
@@ -42,15 +46,21 @@ public:
 
     Q_PROPERTY(bool CanModify READ canModify)
     inline bool canModify() const
-    { return qvariant_cast< bool >(property("CanModify")); }
+    {
+        return qvariant_cast< bool >(property("CanModify"));
+    }
 
     Q_PROPERTY(QList<QDBusObjectPath> Connections READ connections)
     inline QList<QDBusObjectPath> connections() const
-    { return qvariant_cast< QList<QDBusObjectPath> >(property("Connections")); }
+    {
+        return qvariant_cast< QList<QDBusObjectPath> >(property("Connections"));
+    }
 
     Q_PROPERTY(QString Hostname READ hostname)
     inline QString hostname() const
-    { return qvariant_cast< QString >(property("Hostname")); }
+    {
+        return qvariant_cast< QString >(property("Hostname"));
+    }
 
 public Q_SLOTS: // METHODS
     inline QDBusPendingReply<QDBusObjectPath> AddConnection(const NMVariantMapMap &connection)

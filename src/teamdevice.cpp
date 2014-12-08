@@ -34,7 +34,7 @@ NetworkManager::TeamDevicePrivate::TeamDevicePrivate(const QString &path, TeamDe
 {
     carrier = iface.carrier();
     hwAddress = iface.hwAddress();
-    foreach (const QDBusObjectPath &op, iface.slaves()) {
+    foreach (const QDBusObjectPath & op, iface.slaves()) {
         slaves << op.path();
     }
 }
@@ -91,7 +91,7 @@ void NetworkManager::TeamDevicePrivate::propertyChanged(const QString &property,
         emit q->hwAddressChanged(hwAddress);
     } else if (property == QLatin1String("Slaves")) {
         QStringList list;
-        foreach (const QDBusObjectPath &op, value.value<QList<QDBusObjectPath> >()) {
+        foreach (const QDBusObjectPath & op, value.value<QList<QDBusObjectPath> >()) {
             list << op.path();
         }
         slaves = list;

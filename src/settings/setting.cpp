@@ -47,7 +47,6 @@
 
 #include <QtCore/QDebug>
 
-
 namespace NetworkManager
 {
 

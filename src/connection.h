@@ -102,7 +102,7 @@ public:
      * Secrets may be part of the update request, and will be either stored in persistent storage or given to a Secret Agent for storage,
      * depending on the request.
      */
-    QDBusPendingReply<> update(const NMVariantMapMap & settings);
+    QDBusPendingReply<> update(const NMVariantMapMap &settings);
 #if NM_CHECK_VERSION(0, 9, 10)
     /**
      * Update the connection with new @p settings and properties (replacing
@@ -118,7 +118,7 @@ public:
      *
      * @since 0.9.9.0
      */
-    QDBusPendingReply<> updateUnsaved(const NMVariantMapMap & settings);
+    QDBusPendingReply<> updateUnsaved(const NMVariantMapMap &settings);
 
     /**
      * Saves a "dirty" connection (that had previously been
