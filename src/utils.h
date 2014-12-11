@@ -32,63 +32,57 @@
 
 namespace NetworkManager
 {
-
-class NETWORKMANAGERQT_EXPORT Utils
-{
-public:
-    enum WirelessSecurityType { Unknown = -1, None, StaticWep, DynamicWep, Leap, WpaPsk, WpaEap, Wpa2Psk, Wpa2Eap };
+    enum WirelessSecurityType { UnknownSecurity = -1, NoneSecurity, StaticWep, DynamicWep, Leap, WpaPsk, WpaEap, Wpa2Psk, Wpa2Eap };
 
     /**
      * @return QHostAddress representation of an ipv6 address
      * @param address byte array containing the binary representation of the address
      */
-    static QHostAddress ipv6AddressAsHostAddress(const QByteArray &address);
+    NETWORKMANAGERQT_EXPORT QHostAddress ipv6AddressAsHostAddress(const QByteArray &address);
 
     /**
      * @return binary representation of an ipv6 address
      * @param address qhostaddress containing the address
      */
-    static QByteArray ipv6AddressFromHostAddress(const QHostAddress &address);
+    NETWORKMANAGERQT_EXPORT QByteArray ipv6AddressFromHostAddress(const QHostAddress &address);
 
     /**
      * @return String representation of a mac address.
      * @param ba byte array containing the binary repesentation of the address
      */
-    static QString macAddressAsString(const QByteArray &ba);
+    NETWORKMANAGERQT_EXPORT QString macAddressAsString(const QByteArray &ba);
 
     /**
      * @return binary repesentation of a mac address.
      * @param s string representation of the address
      */
-    static QByteArray macAddressFromString(const QString &s);
+    NETWORKMANAGERQT_EXPORT QByteArray macAddressFromString(const QString &s);
 
-    static bool macAddressIsValid(const QString &macAddress);
-    static bool macAddressIsValid(const QByteArray &macAddress);
+    NETWORKMANAGERQT_EXPORT bool macAddressIsValid(const QString &macAddress);
+    NETWORKMANAGERQT_EXPORT bool macAddressIsValid(const QByteArray &macAddress);
 
     /**
      * @param freq frequency of a wireless network
      * @return The frequency channel.
      */
-    static int findChannel(int freq);
+    NETWORKMANAGERQT_EXPORT int findChannel(int freq);
 
-    static NetworkManager::WirelessSetting::FrequencyBand findFrequencyBand(int freq);
+    NETWORKMANAGERQT_EXPORT NetworkManager::WirelessSetting::FrequencyBand findFrequencyBand(int freq);
 
-    static bool deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities, NetworkManager::AccessPoint::WpaFlags ciphers, Utils::WirelessSecurityType type);
+    NETWORKMANAGERQT_EXPORT bool deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities, NetworkManager::AccessPoint::WpaFlags ciphers, WirelessSecurityType type);
 
-    static bool securityIsValid(Utils::WirelessSecurityType type, NetworkManager::WirelessDevice::Capabilities interfaceCaps, bool haveAp, bool adHoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn);
+    NETWORKMANAGERQT_EXPORT bool securityIsValid(WirelessSecurityType type, NetworkManager::WirelessDevice::Capabilities interfaceCaps, bool haveAp, bool adHoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn);
 
-    static Utils::WirelessSecurityType findBestWirelessSecurity(NetworkManager::WirelessDevice::Capabilities, bool haveAp, bool adHoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn);
+    NETWORKMANAGERQT_EXPORT WirelessSecurityType findBestWirelessSecurity(NetworkManager::WirelessDevice::Capabilities, bool haveAp, bool adHoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn);
 
-    static bool wepKeyIsValid(const QString &key, NetworkManager::WirelessSecuritySetting::WepKeyType type);
+    NETWORKMANAGERQT_EXPORT bool wepKeyIsValid(const QString &key, NetworkManager::WirelessSecuritySetting::WepKeyType type);
 
-    static bool wpaPskIsValid(const QString &psk);
+    NETWORKMANAGERQT_EXPORT bool wpaPskIsValid(const QString &psk);
 
-    static Utils::WirelessSecurityType securityTypeFromConnectionSetting(const NetworkManager::ConnectionSettings::Ptr &settings);
+    NETWORKMANAGERQT_EXPORT WirelessSecurityType securityTypeFromConnectionSetting(const NetworkManager::ConnectionSettings::Ptr &settings);
 
-    static QList<QPair<int, int> > getBFreqs();
-    static QList<QPair<int, int> > getAFreqs();
-};
-
+    NETWORKMANAGERQT_EXPORT QList<QPair<int, int> > getBFreqs();
+    NETWORKMANAGERQT_EXPORT QList<QPair<int, int> > getAFreqs();
 }
 
 #endif // NETWORKMANAGERQT_UTILS_H

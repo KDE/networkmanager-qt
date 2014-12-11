@@ -21,7 +21,7 @@
 
 #include "utils.h"
 
-QHostAddress NetworkManager::Utils::ipv6AddressAsHostAddress(const QByteArray &address)
+QHostAddress NetworkManager::ipv6AddressAsHostAddress(const QByteArray &address)
 {
 //     Q_ASSERT(address.size() == 16);
     Q_IPV6ADDR tmp;
@@ -34,7 +34,7 @@ QHostAddress NetworkManager::Utils::ipv6AddressAsHostAddress(const QByteArray &a
     return hostaddress;
 }
 
-QByteArray NetworkManager::Utils::ipv6AddressFromHostAddress(const QHostAddress &address)
+QByteArray NetworkManager::ipv6AddressFromHostAddress(const QHostAddress &address)
 {
 //     Q_ASSERT(address.protocol() == QAbstractSocket::IPv6Protocol);
     Q_IPV6ADDR tmp = address.toIPv6Address();
@@ -46,7 +46,7 @@ QByteArray NetworkManager::Utils::ipv6AddressFromHostAddress(const QHostAddress 
     return assembledAddress;
 }
 
-QString NetworkManager::Utils::macAddressAsString(const QByteArray &ba)
+QString NetworkManager::macAddressAsString(const QByteArray &ba)
 {
     QStringList mac;
 
@@ -57,7 +57,7 @@ QString NetworkManager::Utils::macAddressAsString(const QByteArray &ba)
     return mac.join(":");
 }
 
-QByteArray NetworkManager::Utils::macAddressFromString(const QString &s)
+QByteArray NetworkManager::macAddressFromString(const QString &s)
 {
     QStringList macStringList = s.split(':');
 //     Q_ASSERT(macStringList.size() == 6);
@@ -73,19 +73,19 @@ QByteArray NetworkManager::Utils::macAddressFromString(const QString &s)
     return ba;
 }
 
-bool NetworkManager::Utils::macAddressIsValid(const QString &macAddress)
+bool NetworkManager::macAddressIsValid(const QString &macAddress)
 {
     QRegExp macAddressCheck = QRegExp("([a-fA-F0-9][a-fA-F0-9]:){5}[0-9a-fA-F][0-9a-fA-F]");
 
     return macAddress.contains(macAddressCheck);
 }
 
-bool NetworkManager::Utils::macAddressIsValid(const QByteArray &macAddress)
+bool NetworkManager::macAddressIsValid(const QByteArray &macAddress)
 {
     return macAddressIsValid(macAddressAsString(macAddress));
 }
 
-int NetworkManager::Utils::findChannel(int freq)
+int NetworkManager::findChannel(int freq)
 {
     int channel;
     if (freq < 2500) {
@@ -117,7 +117,7 @@ int NetworkManager::Utils::findChannel(int freq)
     return channel;
 }
 
-NetworkManager::WirelessSetting::FrequencyBand NetworkManager::Utils::findFrequencyBand(int freq)
+NetworkManager::WirelessSetting::FrequencyBand NetworkManager::findFrequencyBand(int freq)
 {
     if (freq < 2500) {
         return WirelessSetting::Bg;
@@ -126,12 +126,12 @@ NetworkManager::WirelessSetting::FrequencyBand NetworkManager::Utils::findFreque
     return WirelessSetting::A;
 }
 
-bool NetworkManager::Utils::deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities interfaceCaps, NetworkManager::AccessPoint::WpaFlags apCiphers, Utils::WirelessSecurityType type)
+bool NetworkManager::deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities interfaceCaps, NetworkManager::AccessPoint::WpaFlags apCiphers, WirelessSecurityType type)
 {
     bool havePair = false;
     bool haveGroup = true;
 
-    if (type == NetworkManager::Utils::StaticWep) {
+    if (type == NetworkManager::StaticWep) {
         havePair = true;
     } else {
         if (interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wep40) && apCiphers.testFlag(NetworkManager::AccessPoint::PairWep40)) {
@@ -167,19 +167,19 @@ bool NetworkManager::Utils::deviceSupportsApCiphers(NetworkManager::WirelessDevi
 }
 
 // Keep this in sync with NetworkManager/libnm-util/nm-utils.c:nm_utils_security_valid()
-bool NetworkManager::Utils::securityIsValid(Utils::WirelessSecurityType type, NetworkManager::WirelessDevice::Capabilities interfaceCaps, bool haveAp, bool adhoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn)
+bool NetworkManager::securityIsValid(WirelessSecurityType type, NetworkManager::WirelessDevice::Capabilities interfaceCaps, bool haveAp, bool adhoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn)
 {
     bool good = true;
 
     //kDebug() << "type(" << type << ") interfaceCaps(" << interfaceCaps << ") haveAp(" << haveAp << ") adhoc(" << adhoc << ") apCaps(" << apCaps << ") apWpa(" << apWpa << " apRsn(" << apRsn << ")";
 
     if (!haveAp) {
-        if (type == Utils::None) {
+        if (type == NoneSecurity) {
             return true;
         }
-        if ((type == Utils::StaticWep)
-                || ((type == Utils::DynamicWep) && !adhoc)
-                || ((type == Utils::Leap) && !adhoc)) {
+        if ((type == StaticWep)
+                || ((type == DynamicWep) && !adhoc)
+                || ((type == Leap) && !adhoc)) {
             if (interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wep40) ||
                     interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wep104)) {
                 return true;
@@ -208,7 +208,7 @@ bool NetworkManager::Utils::securityIsValid(Utils::WirelessSecurityType type, Ne
     }
 
     switch (type) {
-    case Utils::None:
+    case NoneSecurity:
         Q_ASSERT(haveAp);
         if (apCaps.testFlag(NetworkManager::AccessPoint::Privacy)) {
             return false;
@@ -217,12 +217,12 @@ bool NetworkManager::Utils::securityIsValid(Utils::WirelessSecurityType type, Ne
             return false;
         }
         break;
-    case Utils::Leap: /* require PRIVACY bit for LEAP? */
+    case Leap: /* require PRIVACY bit for LEAP? */
         if (adhoc) {
             return false;
         }
     /* Fall through */
-    case Utils::StaticWep:
+    case StaticWep:
         Q_ASSERT(haveAp);
         if (!apCaps.testFlag(NetworkManager::AccessPoint::Privacy)) {
             return false;
@@ -234,7 +234,7 @@ bool NetworkManager::Utils::securityIsValid(Utils::WirelessSecurityType type, Ne
                 }
         }
         break;
-    case Utils::DynamicWep:
+    case DynamicWep:
         if (adhoc) {
             return false;
         }
@@ -252,7 +252,7 @@ bool NetworkManager::Utils::securityIsValid(Utils::WirelessSecurityType type, Ne
             }
         }
         break;
-    case Utils::WpaPsk:
+    case WpaPsk:
         if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wpa)) {
             return false;
         }
@@ -280,7 +280,7 @@ bool NetworkManager::Utils::securityIsValid(Utils::WirelessSecurityType type, Ne
             return false;
         }
         break;
-    case Utils::Wpa2Psk:
+    case Wpa2Psk:
         if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::Rsn)) {
             return false;
         }
@@ -299,7 +299,7 @@ bool NetworkManager::Utils::securityIsValid(Utils::WirelessSecurityType type, Ne
             return false;
         }
         break;
-    case Utils::WpaEap:
+    case WpaEap:
         if (adhoc) {
             return false;
         }
@@ -316,7 +316,7 @@ bool NetworkManager::Utils::securityIsValid(Utils::WirelessSecurityType type, Ne
             }
         }
         break;
-    case Utils::Wpa2Eap:
+    case Wpa2Eap:
         if (adhoc) {
             return false;
         }
@@ -341,25 +341,25 @@ bool NetworkManager::Utils::securityIsValid(Utils::WirelessSecurityType type, Ne
     return good;
 }
 
-NetworkManager::Utils::WirelessSecurityType NetworkManager::Utils::findBestWirelessSecurity(NetworkManager::WirelessDevice::Capabilities interfaceCaps, bool haveAp, bool adHoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn)
+NetworkManager::WirelessSecurityType NetworkManager::findBestWirelessSecurity(NetworkManager::WirelessDevice::Capabilities interfaceCaps, bool haveAp, bool adHoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn)
 {
-    QList<NetworkManager::Utils::WirelessSecurityType> types;
+    QList<NetworkManager::WirelessSecurityType> types;
 
     // The ordering of this list is a pragmatic combination of security level and popularity.
     // Therefore static WEP is before LEAP and Dynamic WEP because there is no way to detect
     // if an AP is capable of Dynamic WEP and showing Dynamic WEP first would confuse
     // Static WEP users.
-    types << NetworkManager::Utils::Wpa2Eap << NetworkManager::Utils::Wpa2Psk << NetworkManager::Utils::WpaEap << NetworkManager::Utils::WpaPsk << NetworkManager::Utils::StaticWep << NetworkManager::Utils::DynamicWep << NetworkManager::Utils::Leap << NetworkManager::Utils::None;
+    types << NetworkManager::Wpa2Eap << NetworkManager::Wpa2Psk << NetworkManager::WpaEap << NetworkManager::WpaPsk << NetworkManager::StaticWep << NetworkManager::DynamicWep << NetworkManager::Leap << NetworkManager::NoneSecurity;
 
-    foreach (NetworkManager::Utils::WirelessSecurityType type, types) {
-        if (NetworkManager::Utils::securityIsValid(type, interfaceCaps, haveAp, adHoc, apCaps, apWpa, apRsn)) {
+    foreach (NetworkManager::WirelessSecurityType type, types) {
+        if (NetworkManager::securityIsValid(type, interfaceCaps, haveAp, adHoc, apCaps, apWpa, apRsn)) {
             return type;
         }
     }
-    return NetworkManager::Utils::Unknown;
+    return NetworkManager::UnknownSecurity;
 }
 
-bool NetworkManager::Utils::wepKeyIsValid(const QString &key, NetworkManager::WirelessSecuritySetting::WepKeyType type)
+bool NetworkManager::wepKeyIsValid(const QString &key, NetworkManager::WirelessSecuritySetting::WepKeyType type)
 {
     if (key.isEmpty()) {
         return false;
@@ -400,7 +400,7 @@ bool NetworkManager::Utils::wepKeyIsValid(const QString &key, NetworkManager::Wi
     return false;
 }
 
-bool NetworkManager::Utils::wpaPskIsValid(const QString &psk)
+bool NetworkManager::wpaPskIsValid(const QString &psk)
 {
     if (psk.isEmpty()) {
         return false;
@@ -424,35 +424,35 @@ bool NetworkManager::Utils::wpaPskIsValid(const QString &psk)
     return true;
 }
 
-NetworkManager::Utils::WirelessSecurityType NetworkManager::Utils::securityTypeFromConnectionSetting(const NetworkManager::ConnectionSettings::Ptr &settings)
+NetworkManager::WirelessSecurityType NetworkManager::securityTypeFromConnectionSetting(const NetworkManager::ConnectionSettings::Ptr &settings)
 {
     NetworkManager::WirelessSetting::Ptr wifiSetting = settings->setting(Setting::Wireless).dynamicCast<WirelessSetting>();
     if (!wifiSetting->security().isEmpty()) {
         NetworkManager::WirelessSecuritySetting::Ptr wifiSecuritySetting = settings->setting(Setting::WirelessSecurity).dynamicCast<WirelessSecuritySetting>();
         if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::Wep) {
-            return Utils::StaticWep;
+            return StaticWep;
         } else if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::Ieee8021x) {
             if (wifiSecuritySetting->authAlg() == WirelessSecuritySetting::Leap) {
-                return Utils::Leap;
+                return Leap;
             } else {
-                return Utils::DynamicWep;
+                return DynamicWep;
             }
         } else if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::WpaPsk) {
             if (wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Rsn) && !wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Wpa)) {
-                return Utils::Utils::Wpa2Psk;
+                return Wpa2Psk;
             }
-            return Utils::WpaPsk;
+            return WpaPsk;
         } else if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::WpaEap) {
             if (wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Rsn) && !wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Wpa)) {
-                return Utils::Wpa2Eap;
+                return Wpa2Eap;
             }
-            return Utils::Utils::WpaEap;
+            return WpaEap;
         }
     }
-    return Utils::None;
+    return NoneSecurity;
 }
 
-QList<QPair<int, int> > NetworkManager::Utils::getBFreqs()
+QList<QPair<int, int> > NetworkManager::getBFreqs()
 {
     QList<QPair<int, int> > freqs;
 
@@ -474,7 +474,7 @@ QList<QPair<int, int> > NetworkManager::Utils::getBFreqs()
     return freqs;
 }
 
-QList<QPair<int, int> > NetworkManager::Utils::getAFreqs()
+QList<QPair<int, int> > NetworkManager::getAFreqs()
 {
     QList<QPair<int, int> > freqs;
 
