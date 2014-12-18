@@ -7,4 +7,5 @@ platforms:
     - note: Functional only with running NetworkManager
 portingAid: false
 deprecated: false
-release: false
+release: true
+cmakename: KF5NetworkManagerQt
