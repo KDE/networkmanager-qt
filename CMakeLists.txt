@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 2.8.12)
 
 project(NetworkManagerQt)
-set(PROJECT_VERSION "5.1.90")
 
 find_package(ECM 1.0.0 REQUIRED NO_MODULE)
 
@@ -30,7 +29,7 @@ include(GenerateExportHeader)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 
-set(KF5_VERSION ${PROJECT_VERSION})
+set(KF5_VERSION "5.6.0") # handled by release scripts
 
 ecm_setup_version(${KF5_VERSION} VARIABLE_PREFIX NETWORKMANAGERQT
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/networkmanagerqt_version.h"
