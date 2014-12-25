@@ -81,8 +81,10 @@ NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &
         dhcp6ConfigPath = dhcp6ConfigObjectPath.path();
     }
 #else
-    id = connection->settings()->id();
-    type = connection->settings()->typeAsString(connection->settings()->connectionType());
+    if (connection && connection->settings()) {
+        id = connection->settings()->id();
+        type = connection->settings()->typeAsString(connection->settings()->connectionType());
+    }
 #endif
 }
 
