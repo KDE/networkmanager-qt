@@ -20,7 +20,6 @@
 
 #include <arpa/inet.h>
 
-#include <NetworkManagerQt/generic-types.h>
 #include <NetworkManagerQt/Manager>
 #include <NetworkManagerQt/Device>
 #include <NetworkManagerQt/WirelessDevice>
@@ -97,6 +96,13 @@ int main()
 
     NetworkManager::Ipv4Setting::Ptr ipv4Setting = settings->setting(Setting::Ipv4).dynamicCast<Ipv4Setting>();
     ipv4Setting->setMethod(NetworkManager::Ipv4Setting::Automatic);
+
+    // Optional password setting. Can be skipped if you do not need encryption.
+NetworkManager::WirelessSecuritySetting::Ptr wifiSecurity = settings->setting(NetworkManager::Setting::WirelessSecurity).dynamicCast<NetworkManager::WirelessSecuritySetting>();
+wifiSecurity->setKeyMgmt(NetworkManager::WirelessSecuritySetting::WpaPsk);
+wifiSecurity->setPsk("12345678");
+    wifiSecurity->setInitialized(true);
+    wirelessSetting->setSecurity("802-11-wireless-security");
 
     // We try to add and activate our new wireless connection
     QDBusPendingReply <QDBusObjectPath, QDBusObjectPath > reply = NetworkManager::addAndActivateConnection(settings->toMap(), wifiDevice->uni(), accessPointPath);
