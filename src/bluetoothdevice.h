@@ -32,6 +32,9 @@ namespace NetworkManager
 
 class BluetoothDevicePrivate;
 
+/**
+ * A bluetooth device interface
+ */
 class NETWORKMANAGERQT_EXPORT BluetoothDevice: public ModemDevice
 {
     Q_OBJECT

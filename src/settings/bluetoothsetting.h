@@ -30,6 +30,10 @@ namespace NetworkManager
 {
 
 class BluetoothSettingPrivate;
+
+/**
+ * Represents bluetooth setting
+ */
 class NETWORKMANAGERQT_EXPORT BluetoothSetting : public Setting
 {
 public:

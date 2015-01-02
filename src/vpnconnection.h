@@ -37,7 +37,7 @@ class Device;
 class VpnConnectionPrivate;
 
 /**
- * An active connection
+ * An active VPN connection
  */
 class NETWORKMANAGERQT_EXPORT VpnConnection : public ActiveConnection
 {

@@ -29,6 +29,9 @@ namespace NetworkManager
 
 class BridgeDevicePrivate;
 
+/**
+ * A bridge device interface
+ */
 class NETWORKMANAGERQT_EXPORT BridgeDevice : public Device
 {
     Q_OBJECT

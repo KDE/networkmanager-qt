@@ -29,6 +29,9 @@ namespace NetworkManager
 
 class MacVlanDevicePrivate;
 
+/**
+ * A macvlan device interface
+ */
 class NETWORKMANAGERQT_EXPORT MacVlanDevice : public Device
 {
     Q_OBJECT

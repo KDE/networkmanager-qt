@@ -31,6 +31,10 @@ namespace NetworkManager
 {
 
 class InfinibandSettingPrivate;
+
+/**
+ * Represents infiniband setting
+ */
 class NETWORKMANAGERQT_EXPORT InfinibandSetting : public Setting
 {
 public:

@@ -34,6 +34,9 @@ namespace NetworkManager
 
 class AccessPointPrivate;
 
+/**
+ * Represents an access point
+ */
 class NETWORKMANAGERQT_EXPORT AccessPoint : public QObject
 {
     Q_OBJECT

@@ -30,6 +30,9 @@ namespace NetworkManager
 
 class TunDevicePrivate;
 
+/**
+ * A tun device interface
+ */
 class NETWORKMANAGERQT_EXPORT TunDevice : public Device
 {
     Q_OBJECT

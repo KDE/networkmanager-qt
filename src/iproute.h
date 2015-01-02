@@ -31,6 +31,9 @@
 namespace NetworkManager
 {
 
+/**
+ * This class represents IP route
+ */
 class NETWORKMANAGERQT_EXPORT IpRoute : public QNetworkAddressEntry
 {
 public:

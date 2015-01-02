@@ -30,6 +30,10 @@ namespace NetworkManager
 {
 
 class PppoeSettingPrivate;
+
+/**
+ * Represents pppoe setting
+ */
 class NETWORKMANAGERQT_EXPORT PppoeSetting : public Setting
 {
 public:

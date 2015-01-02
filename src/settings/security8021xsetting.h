@@ -28,6 +28,10 @@ namespace NetworkManager
 {
 
 class Security8021xSettingPrivate;
+
+/**
+ * Represents 802.1x wireless security setting
+ */
 class NETWORKMANAGERQT_EXPORT Security8021xSetting : public Setting
 {
 public:

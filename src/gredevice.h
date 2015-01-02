@@ -30,6 +30,9 @@ namespace NetworkManager
 
 class GreDevicePrivate;
 
+/**
+ * A gre device interface
+ */
 class NETWORKMANAGERQT_EXPORT GreDevice : public Device
 {
     Q_OBJECT

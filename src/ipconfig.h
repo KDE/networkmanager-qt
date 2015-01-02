@@ -34,6 +34,9 @@
 namespace NetworkManager
 {
 
+/**
+ * This class represents IP configuration
+ */
 class NETWORKMANAGERQT_EXPORT IpConfig
 {
 public:

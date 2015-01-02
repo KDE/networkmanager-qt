@@ -30,6 +30,10 @@ namespace NetworkManager
 {
 
 class AdslSettingPrivate;
+
+/**
+ * Represents adsl setting
+ */
 class NETWORKMANAGERQT_EXPORT AdslSetting : public Setting
 {
 public:

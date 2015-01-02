@@ -30,6 +30,10 @@ namespace NetworkManager
 {
 
 class PppSettingPrivate;
+
+/**
+ * Represents ppp setting
+ */
 class NETWORKMANAGERQT_EXPORT PppSetting : public Setting
 {
 public:

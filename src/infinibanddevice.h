@@ -29,6 +29,9 @@ namespace NetworkManager
 
 class InfinibandDevicePrivate;
 
+/**
+ * An infiniband device interface
+ */
 class NETWORKMANAGERQT_EXPORT InfinibandDevice : public Device
 {
     Q_OBJECT

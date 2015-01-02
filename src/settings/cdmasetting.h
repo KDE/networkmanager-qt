@@ -30,6 +30,10 @@ namespace NetworkManager
 {
 
 class CdmaSettingPrivate;
+
+/**
+ * Represents cdma setting
+ */
 class NETWORKMANAGERQT_EXPORT CdmaSetting : public Setting
 {
 public:

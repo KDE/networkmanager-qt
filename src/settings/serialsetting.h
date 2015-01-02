@@ -30,6 +30,10 @@ namespace NetworkManager
 {
 
 class SerialSettingPrivate;
+
+/**
+ * Represents serial setting
+ */
 class NETWORKMANAGERQT_EXPORT SerialSetting : public Setting
 {
 public:

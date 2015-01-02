@@ -30,6 +30,10 @@ namespace NetworkManager
 {
 
 class GsmSettingPrivate;
+
+/**
+ * Represents gsm setting
+ */
 class NETWORKMANAGERQT_EXPORT GsmSetting : public Setting
 {
 public:

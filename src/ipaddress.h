@@ -30,6 +30,9 @@
 namespace NetworkManager
 {
 
+/**
+ * This class represents IP address
+ */
 class NETWORKMANAGERQT_EXPORT IpAddress : public QNetworkAddressEntry
 {
 public:

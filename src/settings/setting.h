@@ -34,6 +34,10 @@ namespace NetworkManager
 {
 
 class SettingPrivate;
+
+/**
+ * Base class for all kinds of setting
+ */
 class NETWORKMANAGERQT_EXPORT Setting
 {
 public:

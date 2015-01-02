@@ -29,6 +29,9 @@ namespace NetworkManager
 
 class TeamDevicePrivate;
 
+/**
+ * A team device interface
+ */
 class NETWORKMANAGERQT_EXPORT TeamDevice : public Device
 {
     Q_OBJECT

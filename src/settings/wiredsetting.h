@@ -30,6 +30,10 @@ namespace NetworkManager
 {
 
 class WiredSettingPrivate;
+
+/**
+ * Represents wired setting
+ */
 class NETWORKMANAGERQT_EXPORT WiredSetting : public Setting
 {
 public:

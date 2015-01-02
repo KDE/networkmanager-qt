@@ -29,6 +29,9 @@ namespace NetworkManager
 
 class VlanDevicePrivate;
 
+/**
+ * A vlan device interface
+ */
 class NETWORKMANAGERQT_EXPORT VlanDevice : public Device
 {
     Q_OBJECT

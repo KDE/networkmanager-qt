@@ -30,6 +30,10 @@ namespace NetworkManager
 {
 
 class VpnSettingPrivate;
+
+/**
+ * Represents vpn setting
+ */
 class NETWORKMANAGERQT_EXPORT VpnSetting : public Setting
 {
 public:

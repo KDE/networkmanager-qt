@@ -36,6 +36,9 @@
 namespace NetworkManager
 {
 
+/**
+ * This class manages provides access to connections and notify about new ones
+ */
 class NETWORKMANAGERQT_EXPORT SettingsNotifier : public QObject
 {
     Q_OBJECT

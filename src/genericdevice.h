@@ -30,6 +30,9 @@ namespace NetworkManager
 
 class GenericDevicePrivate;
 
+/**
+ * A generic device interface
+ */
 class NETWORKMANAGERQT_EXPORT GenericDevice : public Device
 {
     Q_OBJECT

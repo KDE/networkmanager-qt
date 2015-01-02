@@ -38,6 +38,10 @@ namespace NetworkManager
 {
 
 class BondSettingPrivate;
+
+/**
+ * Represents bond setting
+ */
 class NETWORKMANAGERQT_EXPORT BondSetting : public Setting
 {
 public:

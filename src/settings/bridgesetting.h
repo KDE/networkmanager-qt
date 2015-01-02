@@ -30,6 +30,10 @@ namespace NetworkManager
 {
 
 class BridgeSettingPrivate;
+
+/**
+ * Represents bridge setting
+ */
 class NETWORKMANAGERQT_EXPORT BridgeSetting : public Setting
 {
 public:

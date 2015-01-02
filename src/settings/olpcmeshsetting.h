@@ -30,6 +30,10 @@ namespace NetworkManager
 {
 
 class OlpcMeshSettingPrivate;
+
+/**
+ * Represents olpc mesh setting
+ */
 class NETWORKMANAGERQT_EXPORT OlpcMeshSetting : public Setting
 {
 public:

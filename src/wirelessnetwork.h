@@ -34,6 +34,11 @@ namespace NetworkManager
 
 class WirelessDevice;
 class WirelessNetworkPrivate;
+
+/**
+ * This class represents a wireless network, which aggregates all
+ * access points with the same SSID
+ */
 class NETWORKMANAGERQT_EXPORT WirelessNetwork : public QObject
 {
     Q_OBJECT

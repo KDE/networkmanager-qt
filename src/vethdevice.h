@@ -30,6 +30,9 @@ namespace NetworkManager
 
 class VethDevicePrivate;
 
+/**
+ * A veth device interface
+ */
 class NETWORKMANAGERQT_EXPORT VethDevice : public Device
 {
     Q_OBJECT

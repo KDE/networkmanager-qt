@@ -30,6 +30,10 @@ namespace NetworkManager
 {
 
 class WirelessSecuritySettingPrivate;
+
+/**
+ * Represents wireless security setting
+ */
 class NETWORKMANAGERQT_EXPORT WirelessSecuritySetting : public Setting
 {
 public:

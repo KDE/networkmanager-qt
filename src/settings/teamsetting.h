@@ -31,6 +31,9 @@ namespace NetworkManager
 
 class TeamSettingPrivate;
 
+/**
+ * Represents team setting
+ */
 class NETWORKMANAGERQT_EXPORT TeamSetting : public Setting
 {
 public:

@@ -32,6 +32,10 @@ namespace NetworkManager
 {
 
 class Ipv4SettingPrivate;
+
+/**
+ * Represents ipv4 setting
+ */
 class NETWORKMANAGERQT_EXPORT Ipv4Setting : public Setting
 {
 public:

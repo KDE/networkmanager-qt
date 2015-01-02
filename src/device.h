@@ -42,6 +42,9 @@ class DevicePrivate;
 class DeviceStateReason;
 class DeviceStateReasonPrivate;
 
+/**
+ * This class represents a common device interface
+ */
 class NETWORKMANAGERQT_EXPORT Device : public QObject
 {
     Q_OBJECT

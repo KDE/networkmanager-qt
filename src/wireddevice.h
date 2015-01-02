@@ -32,6 +32,9 @@ namespace NetworkManager
 
 class WiredDevicePrivate;
 
+/**
+ * A wired device interface
+ */
 class NETWORKMANAGERQT_EXPORT WiredDevice : public Device
 {
     Q_OBJECT

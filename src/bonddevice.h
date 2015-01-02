@@ -29,6 +29,9 @@ namespace NetworkManager
 
 class BondDevicePrivate;
 
+/**
+ * A bond device interface
+ */
 class NETWORKMANAGERQT_EXPORT BondDevice : public Device
 {
     Q_OBJECT

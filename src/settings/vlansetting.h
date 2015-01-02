@@ -30,6 +30,10 @@ namespace NetworkManager
 {
 
 class VlanSettingPrivate;
+
+/**
+ * Represents vlan setting
+ */
 class NETWORKMANAGERQT_EXPORT VlanSetting : public Setting
 {
 public:

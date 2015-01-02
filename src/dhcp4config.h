@@ -33,6 +33,9 @@ namespace NetworkManager
 {
 class Dhcp4ConfigPrivate;
 
+/**
+ * This class represents dhcp4 configuration
+ */
 class NETWORKMANAGERQT_EXPORT Dhcp4Config: public QObject
 {
     Q_OBJECT

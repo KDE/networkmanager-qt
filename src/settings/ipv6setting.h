@@ -32,6 +32,10 @@ namespace NetworkManager
 {
 
 class Ipv6SettingPrivate;
+
+/**
+ * Represents ipv6 setting
+ */
 class NETWORKMANAGERQT_EXPORT Ipv6Setting : public Setting
 {
 public:

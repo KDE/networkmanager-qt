@@ -31,6 +31,10 @@ namespace NetworkManager
 {
 
 class WirelessSettingPrivate;
+
+/**
+ * Represents wireless setting
+ */
 class NETWORKMANAGERQT_EXPORT WirelessSetting : public Setting
 {
 public:

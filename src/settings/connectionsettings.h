@@ -35,6 +35,10 @@ namespace NetworkManager
 {
 
 class ConnectionSettingsPrivate;
+
+/**
+ * Represents collection of all connection settings
+ */
 class NETWORKMANAGERQT_EXPORT ConnectionSettings
 {
     Q_ENUMS(ConnectionType)

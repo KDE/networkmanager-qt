@@ -29,6 +29,9 @@ namespace NetworkManager
 
 class AdslDevicePrivate;
 
+/**
+ * An adsl device interface
+ */
 class NETWORKMANAGERQT_EXPORT AdslDevice : public Device
 {
     Q_OBJECT
