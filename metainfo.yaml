@@ -4,7 +4,7 @@ tier: 1
 type: integration
 platforms:
     - name: Linux
-    - note: Functional only with running NetworkManager
+      note: Functional only with running NetworkManager
 portingAid: false
 deprecated: false
 release: true
