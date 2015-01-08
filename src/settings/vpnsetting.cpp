@@ -121,7 +121,9 @@ void NetworkManager::VpnSetting::secretsFromMap(const QVariantMap &secrets)
 QVariantMap NetworkManager::VpnSetting::secretsToMap() const
 {
     QVariantMap secretsMap;
-    secretsMap.insert(QLatin1String(NM_SETTING_VPN_SECRETS), QVariant::fromValue<NMStringMap>(secrets()));
+    if (!secrets().isEmpty()) {
+        secretsMap.insert(QLatin1String(NM_SETTING_VPN_SECRETS), QVariant::fromValue<NMStringMap>(secrets()));
+    }
 
     // qCDebug(NMQT) << secretsMap;
     return secretsMap;
