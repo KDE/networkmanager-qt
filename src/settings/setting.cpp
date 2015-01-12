@@ -26,7 +26,6 @@
 #include <nm-setting-bridge.h>
 #include <nm-setting-cdma.h>
 #include <nm-setting-connection.h>
-#include <nm-setting-generic.h>
 #include <nm-setting-wired.h>
 #include <nm-setting-ip4-config.h>
 #include <nm-setting-ip6-config.h>
@@ -39,6 +38,7 @@
 #include <nm-setting-serial.h>
 #if NM_CHECK_VERSION(0, 9, 10)
 #include <nm-setting-team.h>
+#include <nm-setting-generic.h>
 #endif
 #include <nm-setting-vlan.h>
 #include <nm-setting-vpn.h>
