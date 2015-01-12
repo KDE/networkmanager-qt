@@ -26,6 +26,7 @@
 #include <nm-setting-bridge.h>
 #include <nm-setting-cdma.h>
 #include <nm-setting-connection.h>
+#include <nm-setting-generic.h>
 #include <nm-setting-wired.h>
 #include <nm-setting-ip4-config.h>
 #include <nm-setting-ip6-config.h>
@@ -136,6 +137,9 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     case Team:
         typeString = QLatin1String(NM_SETTING_TEAM_SETTING_NAME);
         break;
+    case NetworkManager::Setting::Generic:
+        typeString = QLatin1String(NM_SETTING_GENERIC_SETTING_NAME);
+        break;
 #endif
     default:
         break;
@@ -187,6 +191,8 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
 #if NM_CHECK_VERSION(0, 9, 10)
     } else if (typeString == QLatin1String(NM_SETTING_TEAM_SETTING_NAME)) {
         type = Team;
+    } else if (typeString == QLatin1String(NM_SETTING_GENERIC_SETTING_NAME)) {
+        type = Generic;
 #endif
     }
 

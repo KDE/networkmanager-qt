@@ -112,6 +112,7 @@ if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 0.9.10.0 OR ${NETWORKMANAGER_VERSION
     set(NetworkManagerQt_SETTINGS_SRCS
         ${NetworkManagerQt_SETTINGS_SRCS}
         settings/teamsetting.cpp
+        settings/genericsetting.cpp
         )
 
     set(DBUS_INTERFACE_SRCS
@@ -196,6 +197,7 @@ ecm_generate_headers(NetworkManagerQt_SETTINGS_HEADERS
   CdmaSetting
   ConnectionSettings
   GsmSetting
+  GenericSetting
   InfinibandSetting
   Ipv4Setting
   Ipv6Setting

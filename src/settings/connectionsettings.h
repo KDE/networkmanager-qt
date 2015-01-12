@@ -62,7 +62,8 @@ public:
         Wired,
         Wireless,
 #if NM_CHECK_VERSION(0, 9, 10)
-        Team
+        Team,
+        Generic
 #endif
     };
 

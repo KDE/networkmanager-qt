@@ -33,6 +33,7 @@
 #include "bridgesetting.h"
 #include "bridgeportsetting.h"
 #include "gsmsetting.h"
+#include "genericsetting.h"
 #include "cdmasetting.h"
 #include "infinibandsetting.h"
 #include "ipv4setting.h"
@@ -51,6 +52,7 @@
 #include <nm-setting-cdma.h>
 #include <nm-setting-connection.h>
 #include <nm-setting-gsm.h>
+#include <nm-setting-generic.h>
 #include <nm-setting-infiniband.h>
 #include <nm-setting-olpc-mesh.h>
 #include <nm-setting-pppoe.h>
@@ -179,6 +181,11 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabili
         addSetting(Setting::Ptr(new Ipv4Setting()));
         addSetting(Setting::Ptr(new Ipv6Setting()));
         break;
+    case ConnectionSettings::Generic:
+        addSetting(Setting::Ptr(new GenericSetting()));
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+        break;
 #endif
     case ConnectionSettings::Unknown:
     default:
@@ -281,6 +288,11 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
         addSetting(connectionSettings->setting(Setting::Ipv4));
         addSetting(connectionSettings->setting(Setting::Ipv6));
         break;
+    case ConnectionSettings::Generic:
+        addSetting(connectionSettings->setting(Setting::Generic));
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        break;
 #endif
     case ConnectionSettings::Unknown:
     default:
@@ -321,8 +333,10 @@ NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSet
     } else if (typeString == QLatin1String(NM_SETTING_WIRELESS_SETTING_NAME)) {
         type = Wireless;
 #if NM_CHECK_VERSION(0, 9, 10)
-    }  else if (typeString == QLatin1String(NM_SETTING_TEAM_SETTING_NAME)) {
+    } else if (typeString == QLatin1String(NM_SETTING_TEAM_SETTING_NAME)) {
         type = Team;
+    } else if (typeString == QLatin1String(NM_SETTING_GENERIC_SETTING_NAME)) {
+        type = Generic;
 #endif
     }
 
@@ -379,6 +393,9 @@ QString NetworkManager::ConnectionSettings::typeAsString(NetworkManager::Connect
 #if NM_CHECK_VERSION(0, 9, 10)
     case Team:
         typeString = QLatin1String(NM_SETTING_TEAM_SETTING_NAME);
+        break;
+    case Generic:
+        typeString = QLatin1String(NM_SETTING_GENERIC_SETTING_NAME);
         break;
 #endif
     default:
