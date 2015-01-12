@@ -1,5 +1,5 @@
 /*
-    Copyright 2012-2013  Jan Grulich <jgrulich@redhat.com>
+    Copyright 2012-2015 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -25,8 +25,7 @@
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class TemplateSettingPrivate
 {
 public:
@@ -34,7 +33,7 @@ public:
 
     QString name;
 };
-}
+
 }
 
 #endif // NETWORKMANAGERQT_TEMPLATE_SETTING_P_H

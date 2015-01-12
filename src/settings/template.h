@@ -1,5 +1,5 @@
 /*
-    Copyright 2012-2013  Jan Grulich <jgrulich@redhat.com>
+    Copyright 2012-2015 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -22,31 +22,32 @@
 #define NETWORKMANAGERQT_TEMPLATE_SETTING_H
 
 #include <networkmanagerqt_export.h>
-#include "generictypes.h"
 #include "setting.h"
 
 #include <QtCore/QString>
 
 namespace NetworkManager
 {
-namespace Settings
-{
+
 class TemplateSettingPrivate;
 
+/**
+ * Represents generic setting
+ */
 class NETWORKMANAGERQT_EXPORT TemplateSetting : public Setting
 {
 public:
+    typedef QSharedPointer<TemplateSetting> Ptr;
+    typedef QList<Ptr> List;
     TemplateSetting();
-    explicit TemplateSetting(TemplateSetting *);
+    explicit TemplateSetting(const Ptr &other);
     ~TemplateSetting();
 
-    QString name() const;
+    QString name() const Q_DECL_OVERRIDE;
 
-    void fromMap(const QVariantMap &setting);
+    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
-    QVariantMap toMap() const;
-
-    void printSetting();
+    QVariantMap toMap() const Q_DECL_OVERRIDE;
 
 protected:
     TemplateSettingPrivate *d_ptr;
@@ -54,7 +55,9 @@ protected:
 private:
     Q_DECLARE_PRIVATE(TemplateSetting)
 };
-}
+
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const TemplateSetting &setting);
+
 }
 
 #endif // NETWORKMANAGERQT_TEMPLATE_SETTING_H

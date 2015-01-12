@@ -1,5 +1,5 @@
 /*
-    Copyright 2012-2013  Jan Grulich <jgrulich@redhat.com>
+    Copyright 2012-2015 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -24,13 +24,11 @@
 // TODO: Uncomment and replace the template with the setting that you want to implement
 //#include <nm-setting-template.h>
 
-#include <QtCore/QDebug>
-
-NetworkManager::Settings::TemplateSettingPrivate::TemplateSettingPrivate()
-    : name(QString("template"))
+NetworkManager::TemplateSettingPrivate::TemplateSettingPrivate()
+//     : name(NM_SETTING_TEMPLATE_SETTING_NAME)
 { }
 
-NetworkManager::Settings::TemplateSetting::TemplateSetting():
+NetworkManager::TemplateSetting::TemplateSetting():
 /* TODO: Uncomment and replace the template with the setting that you want to implement
  *       This setting must also be added into the enum in base class
  */
@@ -38,8 +36,8 @@ NetworkManager::Settings::TemplateSetting::TemplateSetting():
     d_ptr(new TemplateSettingPrivate())
 { }
 
-NetworkManager::Settings::TemplateSetting::TemplateSetting(TemplateSetting *setting)
-    : Setting(setting)
+NetworkManager::TemplateSetting::TemplateSetting(const Ptr &other)
+    : Setting(other)
     , d_ptr(new TemplateSettingPrivate())
 {
     /*
@@ -48,19 +46,19 @@ NetworkManager::Settings::TemplateSetting::TemplateSetting(TemplateSetting *sett
      */
 }
 
-NetworkManager::Settings::TemplateSetting::~TemplateSetting()
+NetworkManager::TemplateSetting::~TemplateSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::Settings::TemplateSetting::name() const
+QString NetworkManager::TemplateSetting::name() const
 {
     Q_D(const TemplateSetting);
 
     return d->name;
 }
 
-void NetworkManager::Settings::TemplateSetting::fromMap(const QVariantMap &setting)
+void NetworkManager::TemplateSetting::fromMap(const QVariantMap &setting)
 {
     /*
      * if (setting.contains(QLatin1String(NM_SETTING_TEMPLATE_FOO))) {
@@ -70,7 +68,7 @@ void NetworkManager::Settings::TemplateSetting::fromMap(const QVariantMap &setti
      */
 }
 
-QVariantMap NetworkManager::Settings::TemplateSetting::toMap() const
+QVariantMap NetworkManager::TemplateSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -84,12 +82,10 @@ QVariantMap NetworkManager::Settings::TemplateSetting::toMap() const
     return setting;
 }
 
-void NetworkManager::Settings::TemplateSetting::printSetting()
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::TemplateSetting &setting)
 {
-    NetworkManager::Settings::Setting::printSetting();
+    dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
+    dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
-    /*
-     * qCDebug(NMQT) << "FOO - " << foo();
-     *
-     */
+    return dbg.maybeSpace();
 }
