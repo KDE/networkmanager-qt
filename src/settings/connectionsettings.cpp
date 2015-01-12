@@ -33,7 +33,6 @@
 #include "bridgesetting.h"
 #include "bridgeportsetting.h"
 #include "gsmsetting.h"
-#include "genericsetting.h"
 #include "cdmasetting.h"
 #include "infinibandsetting.h"
 #include "ipv4setting.h"
@@ -52,7 +51,6 @@
 #include <nm-setting-cdma.h>
 #include <nm-setting-connection.h>
 #include <nm-setting-gsm.h>
-#include <nm-setting-generic.h>
 #include <nm-setting-infiniband.h>
 #include <nm-setting-olpc-mesh.h>
 #include <nm-setting-pppoe.h>
@@ -64,7 +62,9 @@
 
 #if NM_CHECK_VERSION(0, 9, 10)
 #include "teamsetting.h"
+#include "genericsetting.h"
 #include <nm-setting-team.h>
+#include <nm-setting-generic.h>
 #endif
 
 #include <QtCore/QUuid>
