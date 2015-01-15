@@ -85,8 +85,8 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     , m_isWwanEnabled(false)
     , m_isWwanHardwareEnabled(false)
 {
-    QLoggingCategory::setFilterRules(QStringLiteral("libnm-qt.debug = true"));
-    QLoggingCategory::setFilterRules(QStringLiteral("libnm-qt.warning = true"));
+    QLoggingCategory::setFilterRules(QStringLiteral("networkmanager-qt.debug = true"));
+    QLoggingCategory::setFilterRules(QStringLiteral("networkmanager-qt.warning = true"));
 
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceAdded,
             this, &NetworkManagerPrivate::onDeviceAdded);
