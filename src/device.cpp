@@ -31,7 +31,7 @@
 
 #include <QDBusObjectPath>
 
-Q_LOGGING_CATEGORY(NMQT, "libnm-qt")
+Q_LOGGING_CATEGORY(NMQT, "networkmanager-qt")
 
 namespace NetworkManager
 {
