@@ -67,7 +67,7 @@ void NetworkManager::VethDevicePrivate::propertyChanged(const QString &property,
 
     if (property == QLatin1String("Peer")) {
         peer = value.toString();
-        emit q->peerChanged(peer);
+        Q_EMIT q->peerChanged(peer);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

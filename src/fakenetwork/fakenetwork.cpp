@@ -56,7 +56,7 @@ FakeNetwork::FakeNetwork(QObject *parent)
 
 FakeNetwork::~FakeNetwork()
 {
-    foreach (const QDBusObjectPath & devicePath, m_devices.keys()) {
+    Q_FOREACH (const QDBusObjectPath & devicePath, m_devices.keys()) {
         QDBusConnection::sessionBus().unregisterObject(devicePath.path());
         Q_EMIT DeviceRemoved(devicePath);
     }
@@ -403,7 +403,7 @@ void FakeNetwork::onConnectionAdded(const QDBusObjectPath &connection)
         NetworkManager::ConnectionSettings::ConnectionType type = NetworkManager::ConnectionSettings::typeFromString(settings.value(QLatin1Literal("connection")).value(QLatin1Literal("type")).toString());
         if (!m_devices.isEmpty()) {
             Device *selectedDevice = 0;
-            foreach (Device * device, m_devices.values()) {
+            Q_FOREACH (Device * device, m_devices.values()) {
                 if (type == NetworkManager::ConnectionSettings::Wired && device->deviceType() == NetworkManager::Device::Ethernet) {
                     selectedDevice = device;
                     device->addAvailableConnection(connection);
@@ -429,7 +429,7 @@ void FakeNetwork::onConnectionAdded(const QDBusObjectPath &connection)
 
 void FakeNetwork::onConnectionRemoved(const QDBusObjectPath &connection)
 {
-    foreach (Device * device, m_devices.values()) {
+    Q_FOREACH (Device * device, m_devices.values()) {
         if (device && device->availableConnections().contains(connection)) {
             device->removeAvailableConnection(connection);
 

@@ -90,7 +90,7 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
     //convert ipaddresses into object
     UIntListList addresses = iface.addresses();
     QList<NetworkManager::IpAddress> addressObjects;
-    foreach (const UIntList & addressList, addresses) {
+    Q_FOREACH (const UIntList & addressList, addresses) {
         if (addressList.count() == 3) {
             NetworkManager::IpAddress address;
             address.setIp(QHostAddress(ntohl(addressList[0])));
@@ -102,7 +102,7 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
     //convert routes into objects
     UIntListList routes = iface.routes();
     QList<NetworkManager::IpRoute> routeObjects;
-    foreach (const UIntList & routeList, routes) {
+    Q_FOREACH (const UIntList & routeList, routes) {
         if (routeList.count() == 4) {
             NetworkManager::IpRoute route;
             route.setIp(QHostAddress(ntohl(routeList[0])));
@@ -114,7 +114,7 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
     }
     // nameservers' IP addresses are always in network byte order
     QList<QHostAddress> nameservers;
-    foreach (uint nameserver, iface.nameservers()) {
+    Q_FOREACH (uint nameserver, iface.nameservers()) {
         nameservers << QHostAddress(ntohl(nameserver));
     }
 
@@ -142,7 +142,7 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
 
     IpV6DBusAddressList addresses = iface.addresses();
     QList<NetworkManager::IpAddress> addressObjects;
-    foreach (const IpV6DBusAddress & address, addresses) {
+    Q_FOREACH (const IpV6DBusAddress & address, addresses) {
         Q_IPV6ADDR addr;
         Q_IPV6ADDR gateway;
         for (int i = 0; i < 16; i++) {
@@ -160,7 +160,7 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
 
     IpV6DBusRouteList routes = iface.routes();
     QList<NetworkManager::IpRoute> routeObjects;
-    foreach (const IpV6DBusRoute & route, routes) {
+    Q_FOREACH (const IpV6DBusRoute & route, routes) {
         Q_IPV6ADDR dest;
         Q_IPV6ADDR nexthop;
         for (int i = 0; i < 16; i++) {
@@ -178,7 +178,7 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
     }
 
     QList<QHostAddress> nameservers;
-    foreach (const QByteArray & nameserver, iface.nameservers()) {
+    Q_FOREACH (const QByteArray & nameserver, iface.nameservers()) {
         Q_IPV6ADDR address;
         for (int i = 0; i < 16; i++) {
             address[i] = static_cast<quint8>(nameserver[i]);

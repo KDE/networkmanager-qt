@@ -51,7 +51,7 @@ int main()
 
     // List device configuration, not including vpn connections, which do not
     // have a real device tied to them.
-    foreach (NetworkManager::Device::Ptr dev, list) {
+    Q_FOREACH (NetworkManager::Device::Ptr dev, list) {
         qout << "\n=====\n";
         qout << dev->uni() << "\n";
         qout << "type: " << typeAsString(dev->type()) << "\n";
@@ -117,7 +117,7 @@ int main()
 
         qout << "available connections: ";
 
-        foreach (NetworkManager::Connection::Ptr con, connections) {
+        Q_FOREACH (NetworkManager::Connection::Ptr con, connections) {
             qout << "con";
             NetworkManager::ConnectionSettings::Ptr settings = con->settings();
             qout << "\"" << settings->id() << "\" ";

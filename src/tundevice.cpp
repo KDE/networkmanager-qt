@@ -100,22 +100,22 @@ void NetworkManager::TunDevicePrivate::propertyChanged(const QString &property, 
 
     if (property == QLatin1String("Owner")) {
         owner = value.toLongLong();
-        emit q->ownerChanged(owner);
+        Q_EMIT q->ownerChanged(owner);
     } else if (property == QLatin1String("Group")) {
         group = value.toLongLong();
-        emit q->groupChanged(group);
+        Q_EMIT q->groupChanged(group);
     } else if (property == QLatin1String("Mode")) {
         mode = value.toString();
-        emit q->modeChanged(mode);
+        Q_EMIT q->modeChanged(mode);
     } else if (property == QLatin1String("MultiQueue")) {
         multiQueue = value.toBool();
-        emit q->multiQueueChanged(multiQueue);
+        Q_EMIT q->multiQueueChanged(multiQueue);
     } else if (property == QLatin1String("NoPi")) {
         noPi = value.toBool();
-        emit q->noPiChanged(noPi);
+        Q_EMIT q->noPiChanged(noPi);
     } else if (property == QLatin1String("VnetHdr")) {
         vnetHdr = value.toBool();
-        emit q->vnetHdrChanged(vnetHdr);
+        Q_EMIT q->vnetHdrChanged(vnetHdr);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

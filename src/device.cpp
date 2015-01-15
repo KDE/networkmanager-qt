@@ -113,7 +113,7 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
     firmwareVersion = deviceIface.firmwareVersion();
     autoconnect = deviceIface.autoconnect();
     reason = NetworkManager::DevicePrivate::convertReason(deviceIface.stateReason().reason);
-    foreach (const QDBusObjectPath & availableConnection, deviceIface.availableConnections()) {
+    Q_FOREACH (const QDBusObjectPath & availableConnection, deviceIface.availableConnections()) {
         availableConnections << availableConnection.path();
     }
 #if NM_CHECK_VERSION(0, 9, 10)
@@ -204,33 +204,33 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
     Q_Q(Device);
 
     if (property == QLatin1String("ActiveConnection")) {
-        // FIXME workaround, because NM doesn't emit correct value
+        // FIXME workaround, because NM doesn't Q_EMIT correct value
         // d->activeConnection = value.value<QDBusObjectPath>.path();
         activeConnection = deviceIface.activeConnection().path();
-        emit q->activeConnectionChanged();
+        Q_EMIT q->activeConnectionChanged();
     } else if (property == QLatin1String("Autoconnect")) {
         autoconnect = value.toBool();
-        emit q->autoconnectChanged();
+        Q_EMIT q->autoconnectChanged();
     } else if (property == QLatin1String("AvailableConnections")) {
         QStringList newAvailableConnections;
         QList<QDBusObjectPath> availableConnectionsTmp = qdbus_cast< QList<QDBusObjectPath> >(value);
-        foreach (const QDBusObjectPath & availableConnection, availableConnectionsTmp) {
+        Q_FOREACH (const QDBusObjectPath & availableConnection, availableConnectionsTmp) {
             newAvailableConnections << availableConnection.path();
             if (!availableConnections.contains(availableConnection.path())) {
                 availableConnections << availableConnection.path();
-                emit q->availableConnectionAppeared(availableConnection.path());
+                Q_EMIT q->availableConnectionAppeared(availableConnection.path());
             }
         }
-        foreach (const QString & availableConnection, availableConnections) {
+        Q_FOREACH (const QString & availableConnection, availableConnections) {
             if (!newAvailableConnections.contains(availableConnection)) {
                 availableConnections.removeOne(availableConnection);
-                emit q->availableConnectionDisappeared(availableConnection);
+                Q_EMIT q->availableConnectionDisappeared(availableConnection);
             }
         }
-        emit q->availableConnectionChanged();
+        Q_EMIT q->availableConnectionChanged();
     } else if (property == QLatin1String("Capabilities")) {
         capabilities = NetworkManager::DevicePrivate::convertCapabilities(value.toUInt());
-        emit q->capabilitiesChanged();
+        Q_EMIT q->capabilitiesChanged();
     } else if (property == QLatin1String("DeviceType")) {
         deviceType = static_cast<Device::Type>(value.toUInt());
     } else if (property == QLatin1String("Dhcp4Config")) {
@@ -242,7 +242,7 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
             dhcp4Config.clear();
             dhcp4ConfigPath = dhcp4ConfigPathTmp.path();
         }
-        emit q->dhcp4ConfigChanged();
+        Q_EMIT q->dhcp4ConfigChanged();
     } else if (property == QLatin1String("Dhcp6Config")) {
         QDBusObjectPath dhcp6ConfigPathTmp = value.value<QDBusObjectPath>();
         if (dhcp6ConfigPathTmp.path().isNull()) {
@@ -252,25 +252,25 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
             dhcp6Config.clear();
             dhcp6ConfigPath = dhcp6ConfigPathTmp.path();
         }
-        emit q->dhcp6ConfigChanged();
+        Q_EMIT q->dhcp6ConfigChanged();
     } else if (property == QLatin1String("Driver")) {
         driver = value.toString();
-        emit q->driverChanged();
+        Q_EMIT q->driverChanged();
     } else if (property == QLatin1String("DriverVersion")) {
         driverVersion = value.toString();
-        emit q->driverVersionChanged();
+        Q_EMIT q->driverVersionChanged();
     } else if (property == QLatin1String("FirmwareMissing")) {
         firmwareMissing = value.toBool();
-        emit q->firmwareMissingChanged();
+        Q_EMIT q->firmwareMissingChanged();
     } else if (property == QLatin1String("FirmwareVersion")) {
         firmwareVersion = value.toString();
-        emit q->firmwareVersionChanged();
+        Q_EMIT q->firmwareVersionChanged();
     } else if (property == QLatin1String("Interface")) {
         interfaceName = value.toString();
-        emit q->interfaceNameChanged();
+        Q_EMIT q->interfaceNameChanged();
     } else if (property == QLatin1String("Ip4Address")) {
         ipV4Address = QHostAddress(ntohl(value.toUInt()));
-        emit q->ipV4AddressChanged();
+        Q_EMIT q->ipV4AddressChanged();
     } else if (property == QLatin1String("Ip4Config")) {
         QDBusObjectPath ip4ConfigObjectPathTmp = value.value<QDBusObjectPath>();
         if (ip4ConfigObjectPathTmp.path().isNull() || ip4ConfigObjectPathTmp.path() == QLatin1String("/")) {
@@ -279,7 +279,7 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
             ipV4ConfigPath = ip4ConfigObjectPathTmp.path();
         }
         ipV4Config = IpConfig();
-        emit q->ipV4ConfigChanged();
+        Q_EMIT q->ipV4ConfigChanged();
     } else if (property == QLatin1String("Ip6Config")) {
         QDBusObjectPath ip6ConfigObjectPathTmp = value.value<QDBusObjectPath>();
         if (ip6ConfigObjectPathTmp.path().isNull() || ip6ConfigObjectPathTmp.path() == QLatin1String("/")) {
@@ -288,18 +288,18 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
             ipV6ConfigPath = ip6ConfigObjectPathTmp.path();
         }
         ipV6Config = IpConfig();
-        emit q->ipV6ConfigChanged();
+        Q_EMIT q->ipV6ConfigChanged();
     } else if (property == QLatin1String("IpInterface")) {
 #if !NM_CHECK_VERSION(0, 9, 10)
-        // FIXME workaround, because NM doesn't emit correct value
+        // FIXME workaround, because NM doesn't Q_EMIT correct value
         ipInterface = deviceIface.ipInterface();
 #else
         ipInterface = value.toString();
 #endif
-        emit q->ipInterfaceChanged();
+        Q_EMIT q->ipInterfaceChanged();
     } else if (property == QLatin1String("Managed")) {
         managed = value.toBool();
-        emit q->managedChanged();
+        Q_EMIT q->managedChanged();
     } else if (property == QLatin1String("State")) {
         connectionState = NetworkManager::DevicePrivate::convertState(value.toUInt());
         // FIXME NetworkManager 0.9.8 (maybe greater) doesn't
@@ -307,22 +307,22 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
         // This is fixed in NM 73d128bbd17120225bb4986e3f05566f10fab581
         if (connectionState == NetworkManager::Device::Disconnected && activeConnection != QLatin1String("/")) {
             activeConnection = QLatin1Char('/');
-            emit q->activeConnectionChanged();
+            Q_EMIT q->activeConnectionChanged();
         }
-        emit q->connectionStateChanged();
+        Q_EMIT q->connectionStateChanged();
     } else if (property == QLatin1String("StateReason")) { // just extracting the reason
         reason = NetworkManager::DevicePrivate::convertReason(qdbus_cast<DeviceDBusStateReason>(value).reason);
-        emit q->stateReasonChanged();
+        Q_EMIT q->stateReasonChanged();
     } else if (property == QLatin1String("Udi")) {
         udi = value.toString();
-        emit q->udiChanged();
+        Q_EMIT q->udiChanged();
 #if NM_CHECK_VERSION(0, 9, 10)
     } else if (property == QLatin1String("PhysicalPortId")) {
         physicalPortId = value.toString();
-        emit q->physicalPortIdChanged();
+        Q_EMIT q->physicalPortIdChanged();
     } else if (property == QLatin1String("Mtu")) {
         mtu = value.toUInt();
-        emit q->mtuChanged();
+        Q_EMIT q->mtuChanged();
 #endif
     } else {
         qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
@@ -382,7 +382,7 @@ NetworkManager::Connection::List NetworkManager::Device::availableConnections()
     Q_D(const Device);
 
     NetworkManager::Connection::List list;
-    foreach (const QString & availableConnection, d->availableConnections) {
+    Q_FOREACH (const QString & availableConnection, d->availableConnections) {
         NetworkManager::Connection::Ptr connection = NetworkManager::findConnection(availableConnection);
         if (connection) {
             list << connection;
@@ -537,7 +537,7 @@ void NetworkManager::DevicePrivate::deviceStateChanged(uint newState, uint oldSt
     connectionState = NetworkManager::DevicePrivate::convertState(newState);
     reason = NetworkManager::DevicePrivate::convertReason(reason);
 
-    emit q->stateChanged(connectionState, NetworkManager::DevicePrivate::convertState(oldState), NetworkManager::DevicePrivate::convertReason(reason));
+    Q_EMIT q->stateChanged(connectionState, NetworkManager::DevicePrivate::convertState(oldState), NetworkManager::DevicePrivate::convertReason(reason));
 }
 
 void NetworkManager::DevicePrivate::propertiesChanged(const QVariantMap &properties)
@@ -551,7 +551,7 @@ void NetworkManager::DevicePrivate::propertiesChanged(const QVariantMap &propert
     }
 
     // FIXME workaround, we need to get a path to updated IPv[46]Config,
-    // because NM doesn't emit the updated value when the device is activated
+    // because NM doesn't Q_EMIT the updated value when the device is activated
     // BUG: https://bugzilla.gnome.org/show_bug.cgi?id=725657
     if (properties.contains(QLatin1String("State")) && connectionState == NetworkManager::Device::Activated) {
         propertyChanged(QLatin1String("Ip4Config"), QVariant::fromValue<QDBusObjectPath>(deviceIface.ip4Config()));

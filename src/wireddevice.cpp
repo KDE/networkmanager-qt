@@ -92,16 +92,16 @@ void NetworkManager::WiredDevicePrivate::propertyChanged(const QString &property
 
     if (property == QLatin1String("Carrier")) {
         carrier = value.toBool();
-        emit q->carrierChanged(carrier);
+        Q_EMIT q->carrierChanged(carrier);
     } else if (property == QLatin1String("HwAddress")) {
         hardwareAddress = value.toString();
-        emit q->hardwareAddressChanged(hardwareAddress);
+        Q_EMIT q->hardwareAddressChanged(hardwareAddress);
     } else if (property == QLatin1String("PermHwAddress")) {
         permanentHardwareAddress = value.toString();
-        emit q->permanentHardwareAddressChanged(permanentHardwareAddress);
+        Q_EMIT q->permanentHardwareAddressChanged(permanentHardwareAddress);
     } else if (property == QLatin1String("Speed")) {
         bitrate = value.toUInt() * 1000;
-        emit q->bitRateChanged(bitrate);
+        Q_EMIT q->bitRateChanged(bitrate);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

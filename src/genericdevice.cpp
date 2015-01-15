@@ -72,10 +72,10 @@ void NetworkManager::GenericDevicePrivate::propertyChanged(const QString &proper
 
     if (property == QLatin1String("HwAddress")) {
         hwAddress = value.toString();
-        emit q->hardwareAddressChanged(hwAddress);
+        Q_EMIT q->hardwareAddressChanged(hwAddress);
     } else if (property == QLatin1String("TypeDescription")) {
         typeDescription = value.toString();
-        emit q->permanentHardwareAddressChanged(typeDescription);
+        Q_EMIT q->permanentHardwareAddressChanged(typeDescription);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

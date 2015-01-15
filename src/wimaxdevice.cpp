@@ -45,7 +45,7 @@ NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString &path, Wima
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
 #if NM_CHECK_VERSION(0, 9, 10)
     QList <QDBusObjectPath> nsps = wimaxIface.nsps();
-    foreach (const QDBusObjectPath & op, nsps) {
+    Q_FOREACH (const QDBusObjectPath & op, nsps) {
         nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
         //qCDebug(NMQT) << "  " << op.path();
     }
@@ -54,7 +54,7 @@ NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString &path, Wima
     if (nspPathList.isValid()) {
         //qCDebug(NMQT) << "Got device list";
         QList <QDBusObjectPath> nsps = nspPathList.value();
-        foreach (const QDBusObjectPath & op, nsps) {
+        Q_FOREACH (const QDBusObjectPath & op, nsps) {
             nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
             //qCDebug(NMQT) << "  " << op.path();
         }
@@ -152,7 +152,7 @@ void NetworkManager::WimaxDevicePrivate::nspAdded(const QDBusObjectPath &nspPath
     Q_Q(WimaxDevice);
     if (!nspMap.contains(nspPath.path())) {
         nspMap.insert(nspPath.path(), NetworkManager::WimaxNsp::Ptr());
-        emit q->nspAppeared(nspPath.path());
+        Q_EMIT q->nspAppeared(nspPath.path());
     }
 }
 
@@ -163,7 +163,7 @@ void NetworkManager::WimaxDevicePrivate::nspRemoved(const QDBusObjectPath &nspPa
     if (!nspMap.contains(nspPath.path())) {
         qCDebug(NMQT) << "Access point list lookup failed for " << nspPath.path();
     }
-    emit q->nspDisappeared(nspPath.path());
+    Q_EMIT q->nspDisappeared(nspPath.path());
     nspMap.remove(nspPath.path());
 }
 
@@ -173,25 +173,25 @@ void NetworkManager::WimaxDevicePrivate::propertyChanged(const QString &property
 
     if (property == QLatin1String("ActiveNsp")) {
         activeNsp = qdbus_cast<QDBusObjectPath>(value).path();
-        emit q->activeNspChanged(activeNsp);
+        Q_EMIT q->activeNspChanged(activeNsp);
     } else if (property == QLatin1String("HwAddress")) {
         hardwareAddress = value.toString();
-        emit q->hardwareAddressChanged(hardwareAddress);
+        Q_EMIT q->hardwareAddressChanged(hardwareAddress);
     } else if (property == QLatin1String("Bsid")) {
         bsid = value.toString();
-        emit q->bsidChanged(bsid);
+        Q_EMIT q->bsidChanged(bsid);
     } else if (property == QLatin1String("CenterFrequency")) {
         centerFrequency = value.toUInt();
-        emit q->centerFrequencyChanged(centerFrequency);
+        Q_EMIT q->centerFrequencyChanged(centerFrequency);
     } else if (property == QLatin1String("Cinr")) {
         cinr = value.toInt();
-        emit q->cinrChanged(cinr);
+        Q_EMIT q->cinrChanged(cinr);
     } else if (property == QLatin1String("Rssi")) {
         rssi = value.toInt();
-        emit q->rssiChanged(rssi);
+        Q_EMIT q->rssiChanged(rssi);
     } else if (property == QLatin1String("TxPower")) {
         txPower = value.toInt();
-        emit q->txPowerChanged(txPower);
+        Q_EMIT q->txPowerChanged(txPower);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

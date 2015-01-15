@@ -129,34 +129,34 @@ void NetworkManager::GreDevicePrivate::propertyChanged(const QString &property, 
 
     if (property == QLatin1String("InputFlags")) {
         inputFlags = static_cast<ushort>(value.toUInt());
-        emit q->inputFlagsChanged(inputFlags);
+        Q_EMIT q->inputFlagsChanged(inputFlags);
     } else if (property == QLatin1String("OutputFlags")) {
         outputFlags = static_cast<ushort>(value.toUInt());
-        emit q->outputFlagsChanged(outputFlags);
+        Q_EMIT q->outputFlagsChanged(outputFlags);
     } else if (property == QLatin1String("InputKey")) {
         inputKey = value.toUInt();
-        emit q->inputKeyChanged(inputKey);
+        Q_EMIT q->inputKeyChanged(inputKey);
     } else if (property == QLatin1String("OutputKey")) {
         outputKey = value.toUInt();
-        emit q->outputKeyChanged(outputKey);
+        Q_EMIT q->outputKeyChanged(outputKey);
     } else if (property == QLatin1String("Local")) {
         localEnd = value.toString();
-        emit q->localEndChanged(localEnd);
+        Q_EMIT q->localEndChanged(localEnd);
     } else if (property == QLatin1String("Remote")) {
         remoteEnd = value.toString();
-        emit q->remoteEndChanged(remoteEnd);
+        Q_EMIT q->remoteEndChanged(remoteEnd);
     } else if (property == QLatin1String("Parent")) {
         parent = value.toString();
-        emit q->parentChanged(parent);
+        Q_EMIT q->parentChanged(parent);
     } else if (property == QLatin1String("PathMtuDiscovery")) {
         pathMtuDiscovery = value.toBool();
-        emit q->pathMtuDiscoveryChanged(pathMtuDiscovery);
+        Q_EMIT q->pathMtuDiscoveryChanged(pathMtuDiscovery);
     } else if (property == QLatin1String("Tos")) {
         tos = static_cast<uchar>(value.toUInt());
-        emit q->tosChanged(tos);
+        Q_EMIT q->tosChanged(tos);
     } else if (property == QLatin1String("Ttl")) {
         ttl = static_cast<uchar>(value.toUInt());
-        emit q->ttlChanged(ttl);
+        Q_EMIT q->ttlChanged(ttl);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

@@ -96,7 +96,7 @@ void NetworkManager::VpnPlugin::setConfig(const QVariantMap &configuration)
 
     QDBusPendingReply<QString> reply = d->iface.SetConfig(configuration);
 
-    emit configChanged(configuration);
+    Q_EMIT configChanged(configuration);
 }
 
 void NetworkManager::VpnPlugin::setFailure(const QString &reason)
@@ -106,7 +106,7 @@ void NetworkManager::VpnPlugin::setFailure(const QString &reason)
     QDBusPendingReply<QString> reply = d->iface.SetFailure(reason);
 
     //TODO
-    //emit failureChanged(reason);
+    //Q_EMIT failureChanged(reason);
 }
 
 void NetworkManager::VpnPlugin::setIp4Config(const QVariantMap &config)
@@ -115,7 +115,7 @@ void NetworkManager::VpnPlugin::setIp4Config(const QVariantMap &config)
 
     QDBusPendingReply<> reply = d->iface.SetIp4Config(config);
 
-    emit ip4ConfigChanged(config);
+    Q_EMIT ip4ConfigChanged(config);
 }
 
 void NetworkManager::VpnPlugin::setIp6Config(const QVariantMap &config)
@@ -124,7 +124,7 @@ void NetworkManager::VpnPlugin::setIp6Config(const QVariantMap &config)
 
     QDBusPendingReply<> reply = d->iface.SetIp6Config(config);
 
-    emit ip6ConfigChanged(config);
+    Q_EMIT ip6ConfigChanged(config);
 }
 
 void NetworkManager::VpnPlugin::onStateChanged(uint state)
@@ -133,5 +133,5 @@ void NetworkManager::VpnPlugin::onStateChanged(uint state)
 
     d->state = (VpnConnection::State) state;
 
-    emit stateChanged(d->state);
+    Q_EMIT stateChanged(d->state);
 }

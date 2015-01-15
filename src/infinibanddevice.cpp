@@ -76,10 +76,10 @@ void NetworkManager::InfinibandDevicePrivate::propertyChanged(const QString &pro
 
     if (property == QLatin1String("Carrier")) {
         carrier = value.toBool();
-        emit q->carrierChanged(carrier);
+        Q_EMIT q->carrierChanged(carrier);
     } else if (property == QLatin1String("HwAddress")) {
         hwAddress = value.toString();
-        emit q->hwAddressChanged(hwAddress);
+        Q_EMIT q->hwAddressChanged(hwAddress);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

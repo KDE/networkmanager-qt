@@ -60,7 +60,7 @@ void NetworkManager::BluetoothDevicePrivate::propertyChanged(const QString &prop
 
     if (property == QLatin1String("Name")) {
         name = value.toString();
-        emit q->nameChanged(name);
+        Q_EMIT q->nameChanged(name);
     } else if (property == QLatin1String("HwAddress")) {
         hardwareAddress = value.toString();
     } else if (property == QLatin1String("BtCapabilities")) {

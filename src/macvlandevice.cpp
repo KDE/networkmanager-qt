@@ -79,13 +79,13 @@ void NetworkManager::MacVlanDevicePrivate::propertyChanged(const QString &proper
 
     if (property == QLatin1String("Mode")) {
         mode = value.toString();
-        emit q->modeChanged(mode);
+        Q_EMIT q->modeChanged(mode);
     } else if (property == QLatin1String("NoPromisc")) {
         noPromisc = value.toBool();
-        emit q->noPromiscChanged(noPromisc);
+        Q_EMIT q->noPromiscChanged(noPromisc);
     } else if (property == QLatin1String("Parent")) {
         parent = value.toString();
-        emit q->parentChanged(parent);
+        Q_EMIT q->parentChanged(parent);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

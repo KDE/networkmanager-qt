@@ -163,7 +163,7 @@ void NetworkManager::ConnectionPrivate::onConnectionUpdated()
     } else {
         updateSettings();
     }
-    emit q->updated();
+    Q_EMIT q->updated();
 }
 
 void NetworkManager::ConnectionPrivate::onConnectionRemoved()
@@ -171,7 +171,7 @@ void NetworkManager::ConnectionPrivate::onConnectionRemoved()
     Q_Q(Connection);
     QString tmpPath = path;
     updateSettings();
-    emit q->removed(tmpPath);
+    Q_EMIT q->removed(tmpPath);
 }
 #if NM_CHECK_VERSION(0, 9, 10)
 void NetworkManager::ConnectionPrivate::onPropertiesChanged(const QVariantMap &properties)
@@ -182,7 +182,7 @@ void NetworkManager::ConnectionPrivate::onPropertiesChanged(const QVariantMap &p
         const QString property = it.key();
         if (property == QLatin1String("Unsaved")) {
             unsaved = it->toBool();
-            emit q->unsavedChanged(unsaved);
+            Q_EMIT q->unsavedChanged(unsaved);
         } else {
             qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }

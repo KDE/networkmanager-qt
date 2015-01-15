@@ -155,9 +155,9 @@ void NetworkManager::NetworkManagerPrivate::init()
 #if NM_CHECK_VERSION(0, 9, 10)
         QList <QDBusObjectPath> devices = iface.devices();
         qCDebug(NMQT) << "Device list";
-        foreach (const QDBusObjectPath & op, devices) {
+        Q_FOREACH (const QDBusObjectPath & op, devices) {
             networkInterfaceMap.insert(op.path(), Device::Ptr());
-            emit deviceAdded(op.path());
+            Q_EMIT deviceAdded(op.path());
             qCDebug(NMQT) << "  " << op.path();
         }
 #else
@@ -165,9 +165,9 @@ void NetworkManager::NetworkManagerPrivate::init()
         if (deviceList.isValid()) {
             qCDebug(NMQT) << "Device list";
             QList <QDBusObjectPath> devices = deviceList.value();
-            foreach (const QDBusObjectPath & op, devices) {
+            Q_FOREACH (const QDBusObjectPath & op, devices) {
                 networkInterfaceMap.insert(op.path(), Device::Ptr());
-                emit deviceAdded(op.path());
+                Q_EMIT deviceAdded(op.path());
                 qCDebug(NMQT) << "  " << op.path();
             }
         } else {
@@ -250,7 +250,7 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::fin
             if (activeConnection->connection()) {
                 m_activeConnections[uni] = activeConnection;
                 if (!contains) {
-                    emit activeConnectionAdded(uni);
+                    Q_EMIT activeConnectionAdded(uni);
                 }
             } else {
                 activeConnection.clear();
@@ -594,14 +594,14 @@ void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath 
     if (!networkInterfaceMap.contains(objpath.path())) {
         networkInterfaceMap.insert(objpath.path(), Device::Ptr());
     }
-    emit deviceAdded(objpath.path());
+    Q_EMIT deviceAdded(objpath.path());
 }
 
 void NetworkManager::NetworkManagerPrivate::onDeviceRemoved(const QDBusObjectPath &objpath)
 {
     // qCDebug(NMQT);
     networkInterfaceMap.remove(objpath.path());
-    emit deviceRemoved(objpath.path());
+    Q_EMIT deviceRemoved(objpath.path());
 }
 
 void NetworkManager::NetworkManagerPrivate::connectivityChanged(uint connectivity)
@@ -609,7 +609,7 @@ void NetworkManager::NetworkManagerPrivate::connectivityChanged(uint connectivit
     NetworkManager::Connectivity newConnectivity = convertConnectivity(connectivity);
     if (m_connectivity != newConnectivity) {
         m_connectivity = newConnectivity;
-        emit Notifier::connectivityChanged(newConnectivity);
+        Q_EMIT Notifier::connectivityChanged(newConnectivity);
     }
 }
 
@@ -618,7 +618,7 @@ void NetworkManager::NetworkManagerPrivate::stateChanged(uint state)
     NetworkManager::Status newStatus = convertNMState(state);
     if (nmState != newStatus) {
         nmState = newStatus;
-        emit Notifier::statusChanged(newStatus);
+        Q_EMIT Notifier::statusChanged(newStatus);
     }
 }
 
@@ -634,55 +634,55 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
             if (activePaths.isEmpty()) {
                 QMap<QString, ActiveConnection::Ptr>::const_iterator it = m_activeConnections.constBegin();
                 while (it != m_activeConnections.constEnd()) {
-                    emit activeConnectionRemoved(it.key());
+                    Q_EMIT activeConnectionRemoved(it.key());
                     ++it;
                 }
                 m_activeConnections.clear();
             } else {
                 QStringList knownConnections = m_activeConnections.keys();
-                foreach (const QDBusObjectPath & ac, activePaths) {
+                Q_FOREACH (const QDBusObjectPath & ac, activePaths) {
                     if (!m_activeConnections.contains(ac.path())) {
                         m_activeConnections.insert(ac.path(), NetworkManager::ActiveConnection::Ptr());
-                        emit activeConnectionAdded(ac.path());
+                        Q_EMIT activeConnectionAdded(ac.path());
                     } else {
                         knownConnections.removeOne(ac.path());
                     }
                     // qCDebug(NMQT) << "  " << ac.path();
                 }
-                foreach (const QString & path, knownConnections) {
+                Q_FOREACH (const QString & path, knownConnections) {
                     m_activeConnections.remove(path);
-                    emit activeConnectionRemoved(path);
+                    Q_EMIT activeConnectionRemoved(path);
                 }
             }
-            emit activeConnectionsChanged();
+            Q_EMIT activeConnectionsChanged();
         } else if (property == QLatin1String("NetworkingEnabled")) {
             m_isNetworkingEnabled = it->toBool();
             qCDebug(NMQT) << property << m_isNetworkingEnabled;
-            emit networkingEnabledChanged(m_isNetworkingEnabled);
+            Q_EMIT networkingEnabledChanged(m_isNetworkingEnabled);
         } else if (property == QLatin1String("WirelessHardwareEnabled")) {
             m_isWirelessHardwareEnabled = it->toBool();
             qCDebug(NMQT) << property << m_isWirelessHardwareEnabled;
-            emit wirelessHardwareEnabledChanged(m_isWirelessHardwareEnabled);
+            Q_EMIT wirelessHardwareEnabledChanged(m_isWirelessHardwareEnabled);
         } else if (property == QLatin1String("WirelessEnabled")) {
             m_isWirelessEnabled = it->toBool();
             qCDebug(NMQT) << property << m_isWirelessEnabled;
-            emit wirelessEnabledChanged(m_isWirelessEnabled);
+            Q_EMIT wirelessEnabledChanged(m_isWirelessEnabled);
         } else if (property == QLatin1String("WwanHardwareEnabled")) {
             m_isWwanHardwareEnabled = it->toBool();
             qCDebug(NMQT) << property << m_isWwanHardwareEnabled;
-            emit wwanHardwareEnabledChanged(m_isWwanHardwareEnabled);
+            Q_EMIT wwanHardwareEnabledChanged(m_isWwanHardwareEnabled);
         } else if (property == QLatin1String("WwanEnabled")) {
             m_isWwanEnabled = it->toBool();
             qCDebug(NMQT) << property << m_isWwanEnabled;
-            emit wwanEnabledChanged(m_isWwanEnabled);
+            Q_EMIT wwanEnabledChanged(m_isWwanEnabled);
         } else if (property == QLatin1String("WimaxHardwareEnabled")) {
             m_isWimaxHardwareEnabled = it->toBool();
             qCDebug(NMQT) << property << m_isWimaxHardwareEnabled;
-            emit wimaxHardwareEnabledChanged(m_isWimaxHardwareEnabled);
+            Q_EMIT wimaxHardwareEnabledChanged(m_isWimaxHardwareEnabled);
         } else if (property == QLatin1String("WimaxEnabled")) {
             m_isWimaxEnabled = it->toBool();
             qCDebug(NMQT) << property << m_isWimaxEnabled;
-            emit wimaxEnabledChanged(m_isWimaxEnabled);
+            Q_EMIT wimaxEnabledChanged(m_isWimaxEnabled);
         } else if (property == QLatin1String("Version")) {
             m_version = it->toString();
             parseVersion(m_version);
@@ -691,12 +691,12 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
         } else if (property == QLatin1String("Connectivity")) {
             connectivityChanged(it->toUInt());
         } else if (property == QLatin1String("PrimaryConnection")) {
-            emit primaryConnectionChanged(it->value<QDBusObjectPath>().path());
+            Q_EMIT primaryConnectionChanged(it->value<QDBusObjectPath>().path());
         } else if (property == QLatin1String("ActivatingConnection")) {
-            emit activatingConnectionChanged(it->value<QDBusObjectPath>().path());
+            Q_EMIT activatingConnectionChanged(it->value<QDBusObjectPath>().path());
 #if NM_CHECK_VERSION(0, 9, 10)
         } else if (property == QLatin1String("Startup")) {
-            emit isStartingUpChanged();
+            Q_EMIT isStartingUpChanged();
 #endif
         } else {
             qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
@@ -763,7 +763,7 @@ NetworkManager::Status NetworkManager::NetworkManagerPrivate::convertNMState(uin
 void NetworkManager::NetworkManagerPrivate::daemonRegistered()
 {
     init();
-    emit serviceAppeared();
+    Q_EMIT serviceAppeared();
 }
 
 void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
@@ -771,22 +771,22 @@ void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
     stateChanged(NM_STATE_UNKNOWN);
     QMap<QString, Device::Ptr>::const_iterator i = networkInterfaceMap.constBegin();
     while (i != networkInterfaceMap.constEnd()) {
-        emit deviceRemoved(i.key());
+        Q_EMIT deviceRemoved(i.key());
         ++i;
     }
     networkInterfaceMap.clear();
 
     QMap<QString, ActiveConnection::Ptr>::const_iterator it = m_activeConnections.constBegin();
     while (it != m_activeConnections.constEnd()) {
-        emit activeConnectionRemoved(it.key());
+        Q_EMIT activeConnectionRemoved(it.key());
         ++it;
     }
     m_activeConnections.clear();
 
     qobject_cast<SettingsPrivate *>(settingsNotifier())->daemonUnregistered();
 
-    emit activeConnectionsChanged();
-    emit serviceDisappeared();
+    Q_EMIT activeConnectionsChanged();
+    Q_EMIT serviceDisappeared();
 }
 
 NetworkManager::ActiveConnection::List NetworkManager::NetworkManagerPrivate::activeConnections()

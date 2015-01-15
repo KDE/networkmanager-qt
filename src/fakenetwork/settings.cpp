@@ -33,7 +33,7 @@ Settings::Settings(QObject *parent)
 
 Settings::~Settings()
 {
-    foreach (const QDBusObjectPath & connection, m_connections.keys()) {
+    Q_FOREACH (const QDBusObjectPath & connection, m_connections.keys()) {
         QDBusConnection::sessionBus().unregisterObject(connection.path());
         Q_EMIT ConnectionRemoved(connection);
     }

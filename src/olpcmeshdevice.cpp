@@ -78,13 +78,13 @@ void NetworkManager::OlpcMeshDevicePrivate::propertyChanged(const QString &prope
 
     if (property == QLatin1String("ActiveChannel")) {
         activeChannel = value.toUInt();
-        emit q->activeChannelChanged(activeChannel);
+        Q_EMIT q->activeChannelChanged(activeChannel);
     } else if (property == QLatin1String("HwAddress")) {
         hardwareAddress = value.toString();
-        emit q->hardwareAddressChanged(hardwareAddress);
+        Q_EMIT q->hardwareAddressChanged(hardwareAddress);
     } else if (property == QLatin1String("Companion")) {
         companion = qdbus_cast<QDBusObjectPath>(value).path();
-        emit q->companionChanged(NetworkManager::findNetworkInterface(companion));
+        Q_EMIT q->companionChanged(NetworkManager::findNetworkInterface(companion));
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

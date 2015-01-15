@@ -48,7 +48,7 @@ int main()
     WirelessDevice::Ptr wifiDevice;
 
     // We have to find some wireless device
-    foreach (Device::Ptr dev, deviceList) {
+    Q_FOREACH (Device::Ptr dev, deviceList) {
         if (dev->type() == Device::Wifi) {
             wifiDevice = qobject_cast<WirelessDevice *>(dev);
             break;
@@ -65,7 +65,7 @@ int main()
     QString accessPointPath;
 
     // Check for available accesspoint
-    foreach (const QString & ap, accessPointList) {
+    Q_FOREACH (const QString & ap, accessPointList) {
         AccessPoint accessPoint(ap);
         // For simplification we use APs only with Wep security or without any security
         if (accessPoint.wpaFlags().testFlag(AccessPoint::PairWep40) ||

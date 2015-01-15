@@ -66,7 +66,7 @@ void NetworkManager::AdslDevicePrivate::propertyChanged(const QString &property,
 
     if (property == QLatin1String("Carrier")) {
         carrier = value.toBool();
-        emit q->carrierChanged(carrier);
+        Q_EMIT q->carrierChanged(carrier);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

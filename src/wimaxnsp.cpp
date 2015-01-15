@@ -109,13 +109,13 @@ void NetworkManager::WimaxNspPrivate::propertiesChanged(const QVariantMap &prope
         const QString property = it.key();
         if (property == QLatin1String("Name")) {
             name = it->toString();
-            emit q->nameChanged(name);
+            Q_EMIT q->nameChanged(name);
         } else if (property == QLatin1String("NetworkType")) {
             networkType = convertNetworkType(it->toUInt());
-            emit q->networkTypeChanged(networkType);
+            Q_EMIT q->networkTypeChanged(networkType);
         } else if (property == QLatin1String("SignalQuality")) {
             signalQuality = it->toUInt();
-            emit q->signalQualityChanged(signalQuality);
+            Q_EMIT q->signalQualityChanged(signalQuality);
         } else {
             qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }

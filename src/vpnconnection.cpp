@@ -65,7 +65,7 @@ NetworkManager::VpnConnection::~VpnConnection()
 QString NetworkManager::VpnConnection::banner() const
 {
     Q_D(const VpnConnection);
-    //return d->banner; // FIXME NM doesn't emit the Banner property change
+    //return d->banner; // FIXME NM doesn't Q_EMIT the Banner property change
     return d->iface.banner();
 }
 
@@ -84,12 +84,12 @@ void NetworkManager::VpnConnectionPrivate::propertiesChanged(const QVariantMap &
         const QString property = it.key();
         if (property == QLatin1String("Banner")) {
             banner = it->toString();
-            emit q->bannerChanged(banner);
+            Q_EMIT q->bannerChanged(banner);
         } else if (property == QLatin1String("VpnState")) {
             state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(it->toUInt());
             NetworkManager::VpnConnection::StateChangeReason reason = NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(properties.key("Reason").toUInt());
             // Do not notify about changed VpnState twice, because there is also signal VpnStateChanged() from NetworkManager
-            // emit stateChanged(d->state, reason);
+            // Q_EMIT stateChanged(d->state, reason);
         } else {
             qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
@@ -104,7 +104,7 @@ void NetworkManager::VpnConnectionPrivate::vpnStateChanged(uint newState, uint r
 
     state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(newState);
     NetworkManager::VpnConnection::StateChangeReason stateChangeReason = NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(reason);
-    emit q->stateChanged(state, stateChangeReason);
+    Q_EMIT q->stateChanged(state, stateChangeReason);
 }
 
 NetworkManager::VpnConnection::operator VpnConnection *()

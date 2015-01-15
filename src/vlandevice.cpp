@@ -83,13 +83,13 @@ void NetworkManager::VlanDevicePrivate::propertyChanged(const QString &property,
 
     if (property == QLatin1String("Carrier")) {
         carrier = value.toBool();
-        emit q->carrierChanged(carrier);
+        Q_EMIT q->carrierChanged(carrier);
     } else if (property == QLatin1String("HwAddress")) {
         hwAddress = value.toString();
-        emit q->hwAddressChanged(hwAddress);
+        Q_EMIT q->hwAddressChanged(hwAddress);
     } else if (property == QLatin1String("VlanId")) {
         vlanId = value.toUInt();
-        emit q->vlanIdChanged(vlanId);
+        Q_EMIT q->vlanIdChanged(vlanId);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

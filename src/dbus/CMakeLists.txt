@@ -63,9 +63,9 @@ set(FILES_TO_BUILD
 
 QT5_ADD_DBUS_INTERFACES( FILES_TO_BUILD ${INTERFACE_INTROSPECTION_XML_FILES} )
 qt5_add_dbus_adaptor( FILES_TO_BUILD introspection/nm-secret-agent.xml "secretagent.h" "NetworkManager::SecretAgent")
-foreach(adaptor ${ADAPTER_INTROSPECTION_XML_FILES})
+Q_FOREACH(adaptor ${ADAPTER_INTROSPECTION_XML_FILES})
     qt5_add_dbus_adaptor( FILES_TO_BUILD ${adaptor} "generictypes.h")
-endforeach(adaptor ${ADAPTER_INTROSPECTION_XML_FILES})
+endQ_FOREACH(adaptor ${ADAPTER_INTROSPECTION_XML_FILES})
 
 #message(status "before patch in ${CMAKE_CURRENT_BUILD_DIR}")
 #EXECUTE_PROCESS(COMMAND patch -p1 INPUT_FILE hand_edits.diff WORKING_DIRECTORY .})

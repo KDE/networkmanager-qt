@@ -35,7 +35,7 @@ NetworkManager::BondDevicePrivate::BondDevicePrivate(const QString &path, BondDe
     carrier = iface.carrier();
     hwAddress = iface.hwAddress();
     QStringList list;
-    foreach (const QDBusObjectPath & op, iface.slaves()) {
+    Q_FOREACH (const QDBusObjectPath & op, iface.slaves()) {
         list << op.path();
     }
     slaves = list;
@@ -88,17 +88,17 @@ void NetworkManager::BondDevicePrivate::propertyChanged(const QString &property,
 
     if (property == QLatin1String("Carrier")) {
         carrier = value.toBool();
-        emit q->carrierChanged(carrier);
+        Q_EMIT q->carrierChanged(carrier);
     } else if (property == QLatin1String("HwAddress")) {
         hwAddress = value.toString();
-        emit q->hwAddressChanged(hwAddress);
+        Q_EMIT q->hwAddressChanged(hwAddress);
     } else if (property == QLatin1String("Slaves")) {
         QStringList list;
-        foreach (const QDBusObjectPath & op, value.value<QList<QDBusObjectPath> >()) {
+        Q_FOREACH (const QDBusObjectPath & op, value.value<QList<QDBusObjectPath> >()) {
             list << op.path();
         }
         slaves = list;
-        emit q->slavesChanged(slaves);
+        Q_EMIT q->slavesChanged(slaves);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

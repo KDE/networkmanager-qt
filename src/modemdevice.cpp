@@ -92,7 +92,7 @@ void NetworkManager::ModemDevicePrivate::propertyChanged(const QString &property
 
     if (property == QLatin1String("CurrentCapabilities")) {
         currentCapabilities = convertModemCapabilities(value.toUInt());
-        emit q->currentCapabilitiesChanged(currentCapabilities);
+        Q_EMIT q->currentCapabilitiesChanged(currentCapabilities);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

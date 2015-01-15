@@ -65,10 +65,10 @@ void NetworkManager::SettingsPrivate::init()
 #if NM_CHECK_VERSION(0, 9, 10)
     QList<QDBusObjectPath> connectionList = iface.connections();
     qCDebug(NMQT) << "Connections list";
-    foreach (const QDBusObjectPath & connection, connectionList) {
+    Q_FOREACH (const QDBusObjectPath & connection, connectionList) {
         if (!connections.contains(connection.path())) {
             connections.insert(connection.path(), Connection::Ptr());
-            emit connectionAdded(connection.path());
+            Q_EMIT connectionAdded(connection.path());
             qCDebug(NMQT) << " " << connection.path();
         }
     }
@@ -77,10 +77,10 @@ void NetworkManager::SettingsPrivate::init()
     reply.waitForFinished();
     qCDebug(NMQT) << "Connections list";
     if (reply.isValid()) {
-        foreach (const QDBusObjectPath & connection, reply.value()) {
+        Q_FOREACH (const QDBusObjectPath & connection, reply.value()) {
             if (!connections.contains(connection.path())) {
                 connections.insert(connection.path(), Connection::Ptr());
-                emit connectionAdded(connection.path());
+                Q_EMIT connectionAdded(connection.path());
                 qCDebug(NMQT) << " " << connection.path();
             }
         }
@@ -179,10 +179,10 @@ void NetworkManager::SettingsPrivate::propertiesChanged(const QVariantMap &prope
         const QString property = it.key();
         if (property == QLatin1String("CanModify")) {
             m_canModify = it->toBool();
-            emit canModifyChanged(m_canModify);
+            Q_EMIT canModifyChanged(m_canModify);
         } else if (property == QLatin1String("Hostname")) {
             m_hostname = it->toString();
-            emit hostnameChanged(m_hostname);
+            Q_EMIT hostnameChanged(m_hostname);
 #if NM_CHECK_VERSION(0, 9, 10)
         } else if (property == QLatin1String("Connections")) {
             // TODO some action??
@@ -201,7 +201,7 @@ void NetworkManager::SettingsPrivate::onConnectionAdded(const QDBusObjectPath &p
         return;
     }
     connections.insert(id, Connection::Ptr());
-    emit connectionAdded(id);
+    Q_EMIT connectionAdded(id);
 }
 
 NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findRegisteredConnection(const QString &path)
@@ -218,7 +218,7 @@ NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findRegisteredC
             connect(ret.data(), SIGNAL(removed(QString)), this, SLOT(onConnectionRemoved(QString)));
 #endif
             if (!contains) {
-                emit connectionAdded(path);
+                Q_EMIT connectionAdded(path);
             }
         }
     }
@@ -230,13 +230,13 @@ void NetworkManager::SettingsPrivate::onConnectionRemoved(const QDBusObjectPath 
 {
     const QString connectionPath = path.path();
     connections.remove(connectionPath);
-    emit connectionRemoved(connectionPath);
+    Q_EMIT connectionRemoved(connectionPath);
 }
 #else
 void NetworkManager::SettingsPrivate::onConnectionRemoved(const QString &path)
 {
     connections.remove(path);
-    emit connectionRemoved(path);
+    Q_EMIT connectionRemoved(path);
 }
 #endif
 

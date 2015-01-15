@@ -466,7 +466,7 @@ void NetworkManager::WirelessSecuritySetting::fromMap(const QVariantMap &map)
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PROTO))) {
         const QStringList strList = map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PROTO)).toStringList();
         QList<WpaProtocolVersion> list;
-        foreach (const QString & str, strList) {
+        Q_FOREACH (const QString & str, strList) {
             if (str == "wpa") {
                 list.push_back(Wpa);
             } else if (str == "rsn") {
@@ -479,7 +479,7 @@ void NetworkManager::WirelessSecuritySetting::fromMap(const QVariantMap &map)
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PAIRWISE))) {
         const QStringList strList = map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PAIRWISE)).toStringList();
         QList<WpaEncryptionCapabilities> list;
-        foreach (const QString & str, strList) {
+        Q_FOREACH (const QString & str, strList) {
             if (str == "wep40") {
                 list.push_back(Wep40);
             } else if (str == "wep104") {
@@ -496,7 +496,7 @@ void NetworkManager::WirelessSecuritySetting::fromMap(const QVariantMap &map)
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_GROUP))) {
         const QStringList strList = map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_GROUP)).toStringList();
         QList<WpaEncryptionCapabilities> list;
-        foreach (const QString & str, strList) {
+        Q_FOREACH (const QString & str, strList) {
             if (str == "wep40") {
                 list.push_back(Wep40);
             } else if (str == "wep104") {
@@ -593,7 +593,7 @@ QVariantMap NetworkManager::WirelessSecuritySetting::toMap() const
 
     if (!proto().isEmpty()) {
         QStringList strList;
-        foreach (const WpaProtocolVersion & version, proto()) {
+        Q_FOREACH (const WpaProtocolVersion & version, proto()) {
             if (version == Wpa) {
                 strList << "wpa";
             } else if (version == Rsn) {
@@ -605,7 +605,7 @@ QVariantMap NetworkManager::WirelessSecuritySetting::toMap() const
 
     if (!pairwise().isEmpty()) {
         QStringList strList;
-        foreach (const WpaEncryptionCapabilities & capability, pairwise()) {
+        Q_FOREACH (const WpaEncryptionCapabilities & capability, pairwise()) {
             if (capability == Wep40) {
                 strList << "wep40";
             } else if (capability == Wep104) {
@@ -621,7 +621,7 @@ QVariantMap NetworkManager::WirelessSecuritySetting::toMap() const
 
     if (!group().isEmpty()) {
         QStringList strList;
-        foreach (const WpaEncryptionCapabilities & capability, group()) {
+        Q_FOREACH (const WpaEncryptionCapabilities & capability, group()) {
             if (capability == Wep40) {
                 strList << "wep40";
             } else if (capability == Wep104) {

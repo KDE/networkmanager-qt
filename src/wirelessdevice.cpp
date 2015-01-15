@@ -62,7 +62,7 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
 #if NM_CHECK_VERSION(0, 9, 10)
     QList <QDBusObjectPath> aps = d->wirelessIface.accessPoints();
     // qCDebug(NMQT) << "AccessPoint list";
-    foreach (const QDBusObjectPath & op, aps) {
+    Q_FOREACH (const QDBusObjectPath & op, aps) {
         // qCDebug(NMQT) << "  " << op.path();
         d->accessPointAdded(op);
     }
@@ -72,7 +72,7 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
     if (apPathList.isValid()) {
         //qCDebug(NMQT) << "Got device list";
         QList <QDBusObjectPath> aps = apPathList.value();
-        foreach (const QDBusObjectPath & op, aps) {
+        Q_FOREACH (const QDBusObjectPath & op, aps) {
             // qCDebug(NMQT) << "  " << op.path();
             d->accessPointAdded(op);
         }
@@ -188,14 +188,14 @@ void NetworkManager::WirelessDevicePrivate::accessPointAdded(const QDBusObjectPa
     if (!apMap.contains(accessPoint.path())) {
         NetworkManager::AccessPoint::Ptr accessPointPtr(new NetworkManager::AccessPoint(accessPoint.path()), &QObject::deleteLater);
         apMap.insert(accessPoint.path(), accessPointPtr);
-        emit q->accessPointAppeared(accessPoint.path());
+        Q_EMIT q->accessPointAppeared(accessPoint.path());
 
         const QString ssid = accessPointPtr->ssid();
         if (!ssid.isEmpty() && !networks.contains(ssid)) {
             NetworkManager::WirelessNetwork::Ptr wifiNetwork(new NetworkManager::WirelessNetwork(accessPointPtr, q), &QObject::deleteLater);
             networks.insert(ssid, wifiNetwork);
             connect(wifiNetwork.data(), &WirelessNetwork::disappeared, this, &WirelessDevicePrivate::removeNetwork);
-            emit q->networkAppeared(ssid);
+            Q_EMIT q->networkAppeared(ssid);
         }
     }
 }
@@ -207,7 +207,7 @@ void NetworkManager::WirelessDevicePrivate::accessPointRemoved(const QDBusObject
     if (!apMap.contains(accessPoint.path())) {
         qCDebug(NMQT) << "Access point list lookup failed for " << accessPoint.path();
     }
-    emit q->accessPointDisappeared(accessPoint.path());
+    Q_EMIT q->accessPointDisappeared(accessPoint.path());
     apMap.remove(accessPoint.path());
 
 }
@@ -218,7 +218,7 @@ void NetworkManager::WirelessDevicePrivate::removeNetwork(const QString &network
 
     if (networks.contains(network)) {
         networks.remove(network);
-        emit q->networkDisappeared(network);
+        Q_EMIT q->networkDisappeared(network);
     }
 }
 
@@ -229,22 +229,22 @@ void NetworkManager::WirelessDevicePrivate::propertyChanged(const QString &prope
     if (property == QLatin1String("ActiveAccessPoint")) {
         QDBusObjectPath activeAccessPointTmp = qdbus_cast<QDBusObjectPath>(value);
         activeAccessPoint = q->findAccessPoint(activeAccessPointTmp.path());
-        emit q->activeAccessPointChanged(activeAccessPointTmp.path());
+        Q_EMIT q->activeAccessPointChanged(activeAccessPointTmp.path());
     } else if (property == QLatin1String("HwAddress")) {
         hardwareAddress = value.toString();
-        emit q->hardwareAddressChanged(hardwareAddress);
+        Q_EMIT q->hardwareAddressChanged(hardwareAddress);
     } else if (property == QLatin1String("PermHwAddress")) {
         permanentHardwareAddress = value.toString();
-        emit q->permanentHardwareAddressChanged(permanentHardwareAddress);
+        Q_EMIT q->permanentHardwareAddressChanged(permanentHardwareAddress);
     } else if (property == QLatin1String("Bitrate")) {
         bitRate = value.toUInt();
-        emit q->bitRateChanged(bitRate);
+        Q_EMIT q->bitRateChanged(bitRate);
     } else if (property == QLatin1String("Mode")) {
         mode = q->convertOperationMode(value.toUInt());
-        emit q->modeChanged(mode);
+        Q_EMIT q->modeChanged(mode);
     } else if (property == QLatin1String("WirelessCapabilities")) {
         wirelessCapabilities = q->convertCapabilities(value.toUInt());
-        emit q->wirelessCapabilitiesChanged(wirelessCapabilities);
+        Q_EMIT q->wirelessCapabilitiesChanged(wirelessCapabilities);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

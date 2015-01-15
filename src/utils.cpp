@@ -66,7 +66,7 @@ QByteArray NetworkManager::macAddressFromString(const QString &s)
         ba.resize(6);
         int i = 0;
 
-        foreach (const QString & macPart, macStringList) {
+        Q_FOREACH (const QString & macPart, macStringList) {
             ba[i++] = macPart.toUInt(0, 16);
         }
     }
@@ -351,7 +351,7 @@ NetworkManager::WirelessSecurityType NetworkManager::findBestWirelessSecurity(Ne
     // Static WEP users.
     types << NetworkManager::Wpa2Eap << NetworkManager::Wpa2Psk << NetworkManager::WpaEap << NetworkManager::WpaPsk << NetworkManager::StaticWep << NetworkManager::DynamicWep << NetworkManager::Leap << NetworkManager::NoneSecurity;
 
-    foreach (NetworkManager::WirelessSecurityType type, types) {
+    Q_FOREACH (NetworkManager::WirelessSecurityType type, types) {
         if (NetworkManager::securityIsValid(type, interfaceCaps, haveAp, adHoc, apCaps, apWpa, apRsn)) {
             return type;
         }

@@ -183,30 +183,30 @@ void NetworkManager::AccessPointPrivate::propertiesChanged(const QVariantMap &pr
         const QString property = it.key();
         if (property == QLatin1String("Flags")) {
             capabilities = convertCapabilities(it->toUInt());
-            emit q->capabilitiesChanged(capabilities);
+            Q_EMIT q->capabilitiesChanged(capabilities);
         } else if (property == QLatin1String("WpaFlags")) {
             wpaFlags = convertWpaFlags(it->toUInt());
-            emit q->wpaFlagsChanged(wpaFlags);
+            Q_EMIT q->wpaFlagsChanged(wpaFlags);
         } else if (property == QLatin1String("RsnFlags")) {
             rsnFlags = convertWpaFlags(it->toUInt());
-            emit q->rsnFlagsChanged(rsnFlags);
+            Q_EMIT q->rsnFlagsChanged(rsnFlags);
         } else if (property == QLatin1String("Ssid")) {
             rawSsid = it->toByteArray();
             ssid = QString::fromUtf8(rawSsid);
-            emit q->ssidChanged(ssid);
+            Q_EMIT q->ssidChanged(ssid);
         } else if (property == QLatin1String("Frequency")) {
             frequency = it->toUInt();
-            emit q->frequencyChanged(frequency);
+            Q_EMIT q->frequencyChanged(frequency);
         } else if (property == QLatin1String("HwAddress")) {
             hardwareAddress = it->toString();
         } else if (property == QLatin1String("Mode")) {
             mode = q->convertOperationMode(it->toUInt());
         } else if (property == QLatin1String("MaxBitrate")) {
             maxBitRate = it->toUInt();
-            emit q->bitRateChanged(maxBitRate);
+            Q_EMIT q->bitRateChanged(maxBitRate);
         } else if (property == QLatin1String("Strength")) {
             signalStrength = it->toInt();
-            emit q->signalStrengthChanged(signalStrength);
+            Q_EMIT q->signalStrengthChanged(signalStrength);
         } else {
             qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }

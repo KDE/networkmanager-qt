@@ -85,7 +85,7 @@ void NetworkManager::Dhcp4ConfigPrivate::dhcp4PropertiesChanged(const QVariantMa
         const QString property = it.key();
         if (property == QLatin1String("Options")) {
             options = it.value().toMap();
-            emit q->optionsChanged(options);
+            Q_EMIT q->optionsChanged(options);
         } else {
             qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
