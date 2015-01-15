@@ -22,7 +22,12 @@
 
 #include "settings/connectionsettings.h"
 
+#include <nm-version.h>
+#if NM_CHECK_VERSION(1, 0, 0)
+#include <libnm/NetworkManager.h>
+#else
 #include <nm-setting-connection.h>
+#endif
 
 #include <QTest>
 

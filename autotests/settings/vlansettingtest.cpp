@@ -22,7 +22,12 @@
 
 #include "settings/vlansetting.h"
 
+#include <nm-version.h>
+#if NM_CHECK_VERSION(1, 0, 0)
+#include <libnm/NetworkManager.h>
+#else
 #include <nm-setting-vlan.h>
+#endif
 
 #include <QTest>
 
@@ -59,7 +64,11 @@ void VlanSettingTest::testSetting()
 
     QVariantMap map;
 
+#if NM_CHECK_VERSION(1, 0, 0)
+    map.insert(QLatin1String("interface-name"), interfaceName);
+#else
     map.insert(QLatin1String(NM_SETTING_VLAN_INTERFACE_NAME), interfaceName);
+#endif
     map.insert(QLatin1String(NM_SETTING_VLAN_PARENT), parent);
     map.insert(QLatin1String(NM_SETTING_VLAN_ID), id);
     map.insert(QLatin1String(NM_SETTING_VLAN_FLAGS), flags);

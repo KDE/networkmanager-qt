@@ -25,7 +25,12 @@
 #include <networkmanagerqt_export.h>
 #include "setting.h"
 
+#include <nm-version.h>
+#if NM_CHECK_VERSION(1, 0, 0)
+#include <libnm/NetworkManager.h>
+#else
 #include <NetworkManager.h>
+#endif
 
 #include <QtCore/QString>
 #include <QtCore/QDateTime>
@@ -103,6 +108,11 @@ public:
 
     void setAutoconnect(bool autoconnect);
     bool autoconnect() const;
+
+#if NM_CHECK_VERSION(1, 0, 0)
+    void setAutoconnectPriority(int priority);
+    int autoconnectPriority() const;
+#endif
 
     void setTimestamp(const QDateTime &timestamp);
     QDateTime timestamp() const;

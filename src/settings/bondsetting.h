@@ -53,6 +53,7 @@ public:
 
     QString name() const Q_DECL_OVERRIDE;
 
+    // Deprecated in favor of connection.interface-name in NM 1.0.0
     void setInterfaceName(const QString &name);
     QString interfaceName() const;
 

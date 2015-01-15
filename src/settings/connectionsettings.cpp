@@ -44,6 +44,9 @@
 #include "vpnsetting.h"
 #include "wimaxsetting.h"
 
+#if NM_CHECK_VERSION(1, 0, 0)
+#include <libnm/NetworkManager.h>
+#else
 #include <nm-setting-adsl.h>
 #include <nm-setting-bond.h>
 #include <nm-setting-bluetooth.h>
@@ -61,10 +64,15 @@
 #include <nm-setting-wireless.h>
 
 #if NM_CHECK_VERSION(0, 9, 10)
-#include "teamsetting.h"
-#include "genericsetting.h"
 #include <nm-setting-team.h>
 #include <nm-setting-generic.h>
+#endif
+
+#endif
+
+#if NM_CHECK_VERSION(0, 9, 10)
+#include "teamsetting.h"
+#include "genericsetting.h"
 #endif
 
 #include <QtCore/QUuid>
@@ -433,6 +441,9 @@ NetworkManager::ConnectionSettings::ConnectionSettings(const NetworkManager::Con
     setConnectionType(other->connectionType());
     setPermissions(other->permissions());
     setAutoconnect(other->autoconnect());
+#if NM_CHECK_VERSION(1, 0, 0)
+    setAutoconnectPriority(other->autoconnectPriority());
+#endif
     setTimestamp(other->timestamp());
     setReadOnly(other->readOnly());
     setZone(other->zone());
@@ -481,6 +492,12 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT))) {
         setAutoconnect(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT)).toBool());
     }
+
+#if NM_CHECK_VERSION(1, 0, 0)
+    if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_PRIORITY))) {
+        setAutoconnectPriority(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_PRIORITY)).toInt());
+    }
+#endif
 
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP))) {
         const int timestamp = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP)).toInt();
@@ -564,6 +581,12 @@ NMVariantMapMap NetworkManager::ConnectionSettings::toMap() const
     if (!autoconnect()) {
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT), autoconnect());
     }
+
+#if NM_CHECK_VERSION(1, 0, 0)
+    if (autoconnectPriority()) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_PRIORITY), autoconnectPriority());
+    }
+#endif
 
     if (timestamp().isValid()) {
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP), timestamp().toTime_t());
@@ -706,6 +729,22 @@ bool NetworkManager::ConnectionSettings::autoconnect() const
 
     return d->autoconnect;
 }
+
+#if NM_CHECK_VERSION(1, 0, 0)
+void NetworkManager::ConnectionSettings::setAutoconnectPriority(int priority)
+{
+    Q_D(ConnectionSettings);
+
+    d->autoconnectPriority = priority;
+}
+
+int NetworkManager::ConnectionSettings::autoconnectPriority() const
+{
+    Q_D(const ConnectionSettings);
+
+    return d->autoconnectPriority;
+}
+#endif
 
 void NetworkManager::ConnectionSettings::setTimestamp(const QDateTime &timestamp)
 {
@@ -850,6 +889,9 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
     dbg.nospace() << NM_SETTING_CONNECTION_TYPE << ": " << setting.typeAsString(setting.connectionType()) << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_PERMISSIONS << ": " << setting.permissions() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_AUTOCONNECT << ": " << setting.autoconnect() << '\n';
+#if NM_CHECK_VERSION(1, 0, 0)
+    dbg.nospace() << NM_SETTING_CONNECTION_AUTOCONNECT_PRIORITY << ": " << setting.autoconnectPriority() << '\n';
+#endif
     dbg.nospace() << NM_SETTING_CONNECTION_TIMESTAMP << ": " << setting.timestamp().toTime_t() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_READ_ONLY << ": " << setting.readOnly() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_ZONE << ": " << setting.zone() << '\n';

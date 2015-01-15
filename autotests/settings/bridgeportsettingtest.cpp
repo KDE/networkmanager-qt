@@ -22,7 +22,12 @@
 
 #include "settings/bridgeportsetting.h"
 
+#include <nm-version.h>
+#if NM_CHECK_VERSION(1, 0, 0)
+#include <libnm/NetworkManager.h>
+#else
 #include <nm-setting-bridge-port.h>
+#endif
 
 #include <QTest>
 

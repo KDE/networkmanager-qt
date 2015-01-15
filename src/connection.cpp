@@ -23,6 +23,10 @@
 
 #include "connection_p.h"
 
+#include <nm-version.h>
+#if NM_CHECK_VERSION(1, 0, 0)
+#include <libnm/NetworkManager.h>
+#else
 #include <NetworkManager.h>
 #include <nm-setting-cdma.h>
 #include <nm-setting-connection.h>
@@ -34,6 +38,7 @@
 #include <nm-setting-wireless.h>
 #include <nm-setting-wimax.h>
 #include <nm-setting-olpc-mesh.h>
+#endif
 
 #include <QDBusConnection>
 #include <QDBusPendingReply>

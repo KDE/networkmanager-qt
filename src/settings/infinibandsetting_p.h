@@ -22,7 +22,6 @@
 #define NETWORKMANAGERQT_INFINIBAND_SETTING_P_H
 
 #include <QtCore/QString>
-#include <NetworkManager.h>
 
 namespace NetworkManager
 {

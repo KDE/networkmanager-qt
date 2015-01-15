@@ -20,8 +20,11 @@
 
 #include "setting.h"
 
+#include <nm-version.h>
+#if NM_CHECK_VERSION(1, 0, 0)
+#include <libnm/NetworkManager.h>
+#else
 #include <NetworkManager.h>
-
 #include <nm-setting-bond.h>
 #include <nm-setting-bridge.h>
 #include <nm-setting-cdma.h>
@@ -45,6 +48,7 @@
 #include <nm-setting-wireless.h>
 #include <nm-setting-wireless-security.h>
 #include <nm-setting-wimax.h>
+#endif
 
 #include <QtCore/QDebug>
 

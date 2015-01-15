@@ -23,7 +23,12 @@
 #include "generictypes.h"
 #include "settings/wiredsetting.h"
 
+#include <nm-version.h>
+#if NM_CHECK_VERSION(1, 0, 0)
+#include <libnm/NetworkManager.h>
+#else
 #include <nm-setting-wired.h>
+#endif
 
 #include <QTest>
 

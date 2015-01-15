@@ -24,7 +24,13 @@
 #include "settings/ipv4setting.h"
 
 #include <arpa/inet.h>
+
+#include <nm-version.h>
+#if NM_CHECK_VERSION(1, 0, 0)
+#include <libnm/NetworkManager.h>
+#else
 #include <nm-setting-ip4-config.h>
+#endif
 
 #include <QTest>
 
@@ -98,18 +104,18 @@ void IPv4SettingTest::testSetting()
 
     QVariantMap map;
 
-    map.insert(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD), method);
-    map.insert(QLatin1String(NM_SETTING_IP4_CONFIG_DNS), QVariant::fromValue(dns));
-    map.insert(QLatin1String(NM_SETTING_IP4_CONFIG_DNS_SEARCH), dnsSearch);
-    map.insert(QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES), QVariant::fromValue(addresses));
-    map.insert(QLatin1String(NM_SETTING_IP4_CONFIG_ROUTES), QVariant::fromValue(routes));
-    map.insert(QLatin1String(NM_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES), ignoreAutoRoutes);
-    map.insert(QLatin1String(NM_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS), ignoreAutoDns);
-    map.insert(QLatin1String(NM_SETTING_IP4_CONFIG_DHCP_CLIENT_ID), dhcpClientId);
-    map.insert(QLatin1String(NM_SETTING_IP4_CONFIG_DHCP_SEND_HOSTNAME), dhcpSendHostname);
-    map.insert(QLatin1String(NM_SETTING_IP4_CONFIG_DHCP_HOSTNAME), dhcpHostname);
-    map.insert(QLatin1String(NM_SETTING_IP4_CONFIG_NEVER_DEFAULT), neverDefault);
-    map.insert(QLatin1String(NM_SETTING_IP4_CONFIG_MAY_FAIL), mayFail);
+    map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD), method);
+    map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS), QVariant::fromValue(dns));
+    map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS_SEARCH), dnsSearch);
+    map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES), QVariant::fromValue(addresses));
+    map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES), QVariant::fromValue(routes));
+    map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES), ignoreAutoRoutes);
+    map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS), ignoreAutoDns);
+    map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_CLIENT_ID), dhcpClientId);
+    map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_SEND_HOSTNAME), dhcpSendHostname);
+    map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_HOSTNAME), dhcpHostname);
+    map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_NEVER_DEFAULT), neverDefault);
+    map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_MAY_FAIL), mayFail);
 
     NetworkManager::Ipv4Setting setting;
     setting.fromMap(map);
@@ -119,20 +125,20 @@ void IPv4SettingTest::testSetting()
     // Will fail if set some default values, because they are skipped in toMap() method
     QVariantMap::const_iterator it = map.constBegin();
     while (it != map.constEnd()) {
-        if (it.key() != QLatin1String(NM_SETTING_IP4_CONFIG_DNS) &&
-                it.key() != QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES) &&
-                it.key() != QLatin1String(NM_SETTING_IP4_CONFIG_ROUTES)) {
+        if (it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS) &&
+                it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES) &&
+                it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)) {
             QCOMPARE(it.value(), map1.value(it.key()));
         }
         ++it;
     }
 
-    QCOMPARE(map.value(QLatin1String(NM_SETTING_IP4_CONFIG_DNS)).value<UIntList>(),
-             map1.value(QLatin1String(NM_SETTING_IP4_CONFIG_DNS)).value<UIntList>());
-    QCOMPARE(map.value(QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES)).value<UIntListList>(),
-             map.value(QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES)).value<UIntListList>());
-    QCOMPARE(map.value(QLatin1String(NM_SETTING_IP4_CONFIG_ROUTES)).value<UIntListList>(),
-             map.value(QLatin1String(NM_SETTING_IP4_CONFIG_ROUTES)).value<UIntListList>());
+    QCOMPARE(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<UIntList>(),
+             map1.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<UIntList>());
+    QCOMPARE(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).value<UIntListList>(),
+             map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).value<UIntListList>());
+    QCOMPARE(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).value<UIntListList>(),
+             map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).value<UIntListList>());
 }
 
 QTEST_MAIN(IPv4SettingTest)

@@ -21,7 +21,9 @@
 #include "olpcmeshsetting.h"
 #include "olpcmeshsetting_p.h"
 
+#if !NM_CHECK_VERSION(1, 0, 0)
 #include <nm-setting-olpc-mesh.h>
+#endif
 
 #include <QtCore/QDebug>
 

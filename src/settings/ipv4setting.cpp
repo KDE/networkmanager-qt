@@ -25,12 +25,15 @@
 #include "generictypes.h"
 
 #include <arpa/inet.h>
+
+#if !NM_CHECK_VERSION(1, 0, 0)
 #include <nm-setting-ip4-config.h>
+#endif
 
 #include <QtCore/QDebug>
 
 NetworkManager::Ipv4SettingPrivate::Ipv4SettingPrivate()
-    : name(NM_SETTING_IP4_CONFIG_SETTING_NAME)
+    : name(NMQT_SETTING_IP4_CONFIG_SETTING_NAME)
     , method(NetworkManager::Ipv4Setting::Automatic)
     , ignoreAutoRoutes(false)
     , ignoreAutoDns(false)
@@ -244,32 +247,32 @@ bool NetworkManager::Ipv4Setting::mayFail() const
 
 void NetworkManager::Ipv4Setting::fromMap(const QVariantMap &setting)
 {
-    if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD))) {
-        const QString methodType = setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD)).toString();
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD))) {
+        const QString methodType = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD)).toString();
 
-        if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_AUTO)) {
+        if (methodType.toLower() == QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD_AUTO)) {
             setMethod(Automatic);
-        } else if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_LINK_LOCAL)) {
+        } else if (methodType.toLower() == QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD_LINK_LOCAL)) {
             setMethod(LinkLocal);
-        } else if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_MANUAL)) {
+        } else if (methodType.toLower() == QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD_MANUAL)) {
             setMethod(Manual);
-        } else if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_SHARED)) {
+        } else if (methodType.toLower() == QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD_SHARED)) {
             setMethod(Shared);
-        } else if (methodType.toLower() == QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_DISABLED)) {
+        } else if (methodType.toLower() == QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD_DISABLED)) {
             setMethod(Disabled);
         } else {
             setMethod(Automatic);
         }
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_DNS))) {
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS))) {
         QList<QHostAddress> dbusDns;
         QList<uint> temp;
-        if (setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_DNS)).canConvert<QDBusArgument>()) {
-            QDBusArgument dnsArg = setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_DNS)).value<QDBusArgument>();
+        if (setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).canConvert<QDBusArgument>()) {
+            QDBusArgument dnsArg = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<QDBusArgument>();
             temp = qdbus_cast<QList<uint> >(dnsArg);
         } else {
-            temp = setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_DNS)).value<QList<uint> >();
+            temp = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<QList<uint> >();
         }
 
         foreach (const uint utmp, temp) {
@@ -280,18 +283,18 @@ void NetworkManager::Ipv4Setting::fromMap(const QVariantMap &setting)
         setDns(dbusDns);
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_DNS_SEARCH))) {
-        setDnsSearch(setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_DNS_SEARCH)).toStringList());
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS_SEARCH))) {
+        setDnsSearch(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS_SEARCH)).toStringList());
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES))) {
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES))) {
         QList<NetworkManager::IpAddress> addresses;
         QList<QList<uint> > temp;
-        if (setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES)).canConvert< QDBusArgument>()) {
-            QDBusArgument addressArg = setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES)).value<QDBusArgument>();
+        if (setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).canConvert< QDBusArgument>()) {
+            QDBusArgument addressArg = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).value<QDBusArgument>();
             temp = qdbus_cast<QList<QList<uint> > >(addressArg);
         } else {
-            temp = setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES)).value<QList<QList<uint> > >();
+            temp = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).value<QList<QList<uint> > >();
         }
 
         foreach (const QList<uint> &uintList, temp) {
@@ -313,14 +316,14 @@ void NetworkManager::Ipv4Setting::fromMap(const QVariantMap &setting)
         setAddresses(addresses);
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_ROUTES))) {
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES))) {
         QList<NetworkManager::IpRoute> routes;
         QList<QList<uint> > temp;
-        if (setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_ROUTES)).canConvert< QDBusArgument>()) {
-            QDBusArgument routeArg = setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_ROUTES)).value<QDBusArgument>();
+        if (setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).canConvert< QDBusArgument>()) {
+            QDBusArgument routeArg = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).value<QDBusArgument>();
             temp = qdbus_cast<QList<QList<uint> > >(routeArg);
         } else {
-            temp = setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_ROUTES)).value<QList<QList<uint> > >();
+            temp = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).value<QList<QList<uint> > >();
         }
 
         foreach (const QList<uint> &uintList, temp) {
@@ -344,32 +347,32 @@ void NetworkManager::Ipv4Setting::fromMap(const QVariantMap &setting)
         }
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES))) {
-        setIgnoreAutoRoutes(setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES)).toBool());
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES))) {
+        setIgnoreAutoRoutes(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES)).toBool());
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS))) {
-        setIgnoreAutoDns(setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS)).toBool());
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS))) {
+        setIgnoreAutoDns(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS)).toBool());
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_DHCP_CLIENT_ID))) {
-        setDhcpClientId(setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_DHCP_CLIENT_ID)).toString());
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_CLIENT_ID))) {
+        setDhcpClientId(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_CLIENT_ID)).toString());
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_DHCP_SEND_HOSTNAME))) {
-        setDhcpSendHostname(setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_DHCP_SEND_HOSTNAME)).toBool());
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_SEND_HOSTNAME))) {
+        setDhcpSendHostname(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_SEND_HOSTNAME)).toBool());
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_DHCP_HOSTNAME))) {
-        setDhcpHostname(setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_DHCP_HOSTNAME)).toString());
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_HOSTNAME))) {
+        setDhcpHostname(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_HOSTNAME)).toString());
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_NEVER_DEFAULT))) {
-        setNeverDefault(setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_NEVER_DEFAULT)).toBool());
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_NEVER_DEFAULT))) {
+        setNeverDefault(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_NEVER_DEFAULT)).toBool());
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_IP4_CONFIG_MAY_FAIL))) {
-        setMayFail(setting.value(QLatin1String(NM_SETTING_IP4_CONFIG_MAY_FAIL)).toBool());
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_MAY_FAIL))) {
+        setMayFail(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_MAY_FAIL)).toBool());
     }
 }
 
@@ -378,15 +381,15 @@ QVariantMap NetworkManager::Ipv4Setting::toMap() const
     QVariantMap setting;
 
     if (method() == Automatic) {
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD), QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_AUTO));
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD), QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD_AUTO));
     } else if (method() == LinkLocal) {
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD), QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_LINK_LOCAL));
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD), QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD_LINK_LOCAL));
     } else if (method() == Manual) {
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD), QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_MANUAL));
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD), QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD_MANUAL));
     } else if (method() == Shared) {
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD), QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_SHARED));
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD), QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD_SHARED));
     } else if (method() == Disabled) {
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_METHOD), QLatin1String(NM_SETTING_IP4_CONFIG_METHOD_DISABLED));
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD), QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD_DISABLED));
     }
 
     if (!dns().isEmpty()) {
@@ -395,11 +398,11 @@ QVariantMap NetworkManager::Ipv4Setting::toMap() const
             dbusDns << htonl(dns.toIPv4Address());
         }
 
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_DNS), QVariant::fromValue(dbusDns));
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS), QVariant::fromValue(dbusDns));
     }
 
     if (!dnsSearch().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_DNS_SEARCH), dnsSearch());
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS_SEARCH), dnsSearch());
     }
 
     if (!addresses().isEmpty()) {
@@ -412,7 +415,7 @@ QVariantMap NetworkManager::Ipv4Setting::toMap() const
             dbusAddresses << dbusAddress;
         }
 
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_ADDRESSES), QVariant::fromValue(dbusAddresses));
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES), QVariant::fromValue(dbusAddresses));
     }
 
     if (!routes().isEmpty()) {
@@ -426,35 +429,35 @@ QVariantMap NetworkManager::Ipv4Setting::toMap() const
             dbusRoutes << dbusRoute;
         }
 
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_ROUTES), QVariant::fromValue(dbusRoutes));
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES), QVariant::fromValue(dbusRoutes));
     }
 
     if (ignoreAutoRoutes()) {
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES), ignoreAutoRoutes());
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES), ignoreAutoRoutes());
     }
 
     if (ignoreAutoDns()) {
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS), ignoreAutoDns());
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS), ignoreAutoDns());
     }
 
     if (!dhcpClientId().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_DHCP_CLIENT_ID), dhcpClientId());
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_CLIENT_ID), dhcpClientId());
     }
 
     if (!dhcpSendHostname()) {
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_DHCP_SEND_HOSTNAME), dhcpSendHostname());
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_SEND_HOSTNAME), dhcpSendHostname());
     }
 
     if (!dhcpHostname().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_DHCP_HOSTNAME), dhcpHostname());
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_HOSTNAME), dhcpHostname());
     }
 
     if (neverDefault()) {
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_NEVER_DEFAULT), neverDefault());
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_NEVER_DEFAULT), neverDefault());
     }
 
     if (!mayFail()) {
-        setting.insert(QLatin1String(NM_SETTING_IP4_CONFIG_MAY_FAIL), mayFail());
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_MAY_FAIL), mayFail());
     }
 
     return setting;
@@ -465,27 +468,27 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv4Setting
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
-    dbg.nospace() << NM_SETTING_IP4_CONFIG_METHOD << ": " << setting.method() << '\n';
-    dbg.nospace() << NM_SETTING_IP4_CONFIG_DNS << ":\n";
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_METHOD << ": " << setting.method() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_DNS << ":\n";
     foreach (const QHostAddress & address, setting.dns()) {
         dbg.nospace() << address.toString() << '\n';
     }
-    dbg.nospace() << NM_SETTING_IP4_CONFIG_DNS_SEARCH << ": " << setting.dnsSearch() << '\n';
-    dbg.nospace() << NM_SETTING_IP4_CONFIG_ADDRESSES << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_DNS_SEARCH << ": " << setting.dnsSearch() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_ADDRESSES << '\n';
     foreach (const NetworkManager::IpAddress & address, setting.addresses()) {
         dbg.nospace() << address.ip() << ": " << address.gateway() << ": " << address.netmask() << '\n';
     }
-    dbg.nospace() << NM_SETTING_IP4_CONFIG_ROUTES << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_ROUTES << '\n';
     foreach (const NetworkManager::IpRoute & route, setting.routes()) {
         dbg.nospace() << route.ip() << ": " << route.netmask() << ": " << route.nextHop() << ": " << route.metric() << '\n';
     }
-    dbg.nospace() << NM_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES << ": " << setting.ignoreAutoRoutes() << '\n';
-    dbg.nospace() << NM_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS << ": " << setting.ignoreAutoDns() << '\n';
-    dbg.nospace() << NM_SETTING_IP4_CONFIG_DHCP_CLIENT_ID << ": " << setting.dhcpClientId() << '\n';
-    dbg.nospace() << NM_SETTING_IP4_CONFIG_DHCP_SEND_HOSTNAME << ": " << setting.dhcpSendHostname() << '\n';
-    dbg.nospace() << NM_SETTING_IP4_CONFIG_DHCP_HOSTNAME << ": " << setting.dhcpHostname() << '\n';
-    dbg.nospace() << NM_SETTING_IP4_CONFIG_NEVER_DEFAULT << ": " << setting.neverDefault() << '\n';
-    dbg.nospace() << NM_SETTING_IP4_CONFIG_MAY_FAIL << ": " << setting.mayFail() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES << ": " << setting.ignoreAutoRoutes() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS << ": " << setting.ignoreAutoDns() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_DHCP_CLIENT_ID << ": " << setting.dhcpClientId() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_DHCP_SEND_HOSTNAME << ": " << setting.dhcpSendHostname() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_DHCP_HOSTNAME << ": " << setting.dhcpHostname() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_NEVER_DEFAULT << ": " << setting.neverDefault() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_MAY_FAIL << ": " << setting.mayFail() << '\n';
 
     return dbg.maybeSpace();
 }

@@ -21,7 +21,9 @@
 #include "security8021xsetting.h"
 #include "security8021xsetting_p.h"
 
+#if !NM_CHECK_VERSION(1, 0, 0)
 #include <nm-setting-8021x.h>
+#endif
 
 #include <QtCore/QDebug>
 

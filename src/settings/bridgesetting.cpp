@@ -21,7 +21,9 @@
 #include "bridgesetting.h"
 #include "bridgesetting_p.h"
 
+#if !NM_CHECK_VERSION(1, 0, 0)
 #include <nm-setting-bridge.h>
+#endif
 
 #include <QtCore/QDebug>
 
@@ -165,10 +167,15 @@ quint32 NetworkManager::BridgeSetting::agingTime() const
 
 void NetworkManager::BridgeSetting::fromMap(const QVariantMap &setting)
 {
+#if NM_CHECK_VERSION(1, 0, 0)
+    if (setting.contains(QLatin1String("interface-name"))) {
+        setInterfaceName(setting.value(QLatin1String("interface-name")).toString());
+    }
+#else
     if (setting.contains(QLatin1String(NM_SETTING_BRIDGE_INTERFACE_NAME))) {
         setInterfaceName(setting.value(QLatin1String(NM_SETTING_BRIDGE_INTERFACE_NAME)).toString());
     }
-
+#endif
     if (setting.contains(QLatin1String(NM_SETTING_BRIDGE_STP))) {
         setStp(setting.value(QLatin1String(NM_SETTING_BRIDGE_STP)).toBool());
     }
@@ -198,10 +205,15 @@ QVariantMap NetworkManager::BridgeSetting::toMap() const
 {
     QVariantMap setting;
 
+#if NM_CHECK_VERSION(1, 0, 0)
+    if (!interfaceName().isEmpty()) {
+        setting.insert(QLatin1String("interface-name"), interfaceName());
+    }
+#else
     if (!interfaceName().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_BRIDGE_INTERFACE_NAME), interfaceName());
     }
-
+#endif
     if (!stp()) {
         setting.insert(QLatin1String(NM_SETTING_BRIDGE_STP), stp());
     }
@@ -234,7 +246,11 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::BridgeSetti
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
+#if NM_CHECK_VERSION(1, 0, 0)
+    dbg.nospace() << "interface-name" << ": " << setting.interfaceName() << '\n';
+#else
     dbg.nospace() << NM_SETTING_BRIDGE_INTERFACE_NAME << ": " << setting.interfaceName() << '\n';
+#endif
     dbg.nospace() << NM_SETTING_BRIDGE_STP << ": " << setting.stp() << '\n';
     dbg.nospace() << NM_SETTING_BRIDGE_PRIORITY << ": " << setting.priority() << '\n';
     dbg.nospace() << NM_SETTING_BRIDGE_FORWARD_DELAY << ": " << setting.forwardDelay() << '\n';

@@ -60,6 +60,9 @@ public:
 #if NM_CHECK_VERSION(0, 9, 10)
     quint32 gatewayPingTimeout;
 #endif
+#if NM_CHECK_VERSION(1, 0, 0)
+    int autoconnectPriority;
+#endif
     Setting::List settings;
 
     ConnectionSettings *q_ptr;

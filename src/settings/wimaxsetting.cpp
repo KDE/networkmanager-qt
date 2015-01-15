@@ -22,7 +22,9 @@
 #include "wimaxsetting.h"
 #include "wimaxsetting_p.h"
 
+#if !NM_CHECK_VERSION(1, 0, 0)
 #include <nm-setting-wimax.h>
+#endif
 
 #include <QtCore/QDebug>
 

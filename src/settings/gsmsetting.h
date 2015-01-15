@@ -65,6 +65,7 @@ public:
     void setNetworkId(const QString &id);
     QString networkId() const;
 
+    // Deprecated since NM 1.0.0
     void setNetworkType(NetworkType type);
     NetworkType networkType() const;
 
@@ -74,6 +75,7 @@ public:
     void setPinFlags(SecretFlags flags);
     SecretFlags pinFlags() const;
 
+    // Deprecated since NM 1.0.0
     void setAllowedBand(quint32 band);
     quint32 allowedBand() const;
 

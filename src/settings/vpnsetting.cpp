@@ -22,7 +22,9 @@
 #include "vpnsetting_p.h"
 #include "nmdebug.h"
 
+#if !NM_CHECK_VERSION(1, 0, 0)
 #include <nm-setting-vpn.h>
+#endif
 
 NetworkManager::VpnSettingPrivate::VpnSettingPrivate()
     : name(NM_SETTING_VPN_SETTING_NAME)

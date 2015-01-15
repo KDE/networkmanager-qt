@@ -25,7 +25,6 @@
 #include "setting.h"
 
 #include <QtCore/QString>
-#include <NetworkManager.h>
 
 namespace NetworkManager
 {

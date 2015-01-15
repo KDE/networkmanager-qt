@@ -1,9 +1,18 @@
 # add_subdirectory(dbus)
 
+if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 1.0.0 OR ${NETWORKMANAGER_VERSION} VERSION_GREATER 1.0.0)
+include_directories(
+   ${NM-CORE_INCLUDE_DIRS}
+)
+else()
 include_directories(
    ${NETWORKMANAGER_INCLUDE_DIRS}
    ${NM-UTIL_INCLUDE_DIRS}
    ${NM-GLIB_INCLUDE_DIRS}
+)
+endif()
+
+include_directories(
    ${CMAKE_CURRENT_SOURCE_DIR}/dbus
    ${CMAKE_CURRENT_SOURCE_DIR}/settings
 )

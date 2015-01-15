@@ -21,7 +21,9 @@
 #include "bluetoothsetting.h"
 #include "bluetoothsetting_p.h"
 
+#if !NM_CHECK_VERSION(1, 0, 0)
 #include <nm-setting-bluetooth.h>
+#endif
 
 #include <QtCore/QDebug>
 

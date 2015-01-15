@@ -26,7 +26,12 @@
 
 #include "macros.h"
 
+#include <nm-version.h>
+#if NM_CHECK_VERSION(1, 0, 0)
+#include <libnm/NetworkManager.h>
+#else
 #include <NetworkManager.h>
+#endif
 
 #include "activeconnection.h"
 #include "adsldevice.h"

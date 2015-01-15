@@ -23,7 +23,11 @@
 #include "manager_p.h"
 #include "nmdebug.h"
 
+#include <nm-version.h>
+#if NM_CHECK_VERSION(1, 0, 0)
+#include <libnm/NetworkManager.h>
 #include <NetworkManager.h>
+#endif
 
 #include <QDBusArgument>
 #include <QDBusConnection>

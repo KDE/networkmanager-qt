@@ -23,7 +23,12 @@
 #include "wirelessdevice.h"
 #include "wirelessdevice_p.h"
 
+#include <nm-version.h>
+#if NM_CHECK_VERSION(1, 0, 0)
+#include <libnm/NetworkManager.h>
+#else
 #include <libnm-glib/nm-device-wifi.h>
+#endif
 
 #include "accesspoint.h"
 #include "manager_p.h"

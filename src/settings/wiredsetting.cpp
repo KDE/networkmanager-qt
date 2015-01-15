@@ -21,7 +21,9 @@
 #include "wiredsetting.h"
 #include "wiredsetting_p.h"
 
+#if !NM_CHECK_VERSION(1, 0, 0)
 #include <nm-setting-wired.h>
+#endif
 
 #include <QtCore/QDebug>
 

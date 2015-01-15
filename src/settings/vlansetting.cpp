@@ -21,7 +21,9 @@
 #include "vlansetting.h"
 #include "vlansetting_p.h"
 
+#if !NM_CHECK_VERSION(1, 0, 0)
 #include <nm-setting-vlan.h>
+#endif
 
 #include <QtCore/QDebug>
 
@@ -146,9 +148,15 @@ QStringList NetworkManager::VlanSetting::egressPriorityMap() const
 
 void NetworkManager::VlanSetting::fromMap(const QVariantMap &setting)
 {
+#if NM_CHECK_VERSION(1, 0, 0)
+    if (setting.contains(QLatin1String("interface-name"))) {
+        setInterfaceName(setting.value(QLatin1String("interface-name")).toString());
+    }
+#else
     if (setting.contains(QLatin1String(NM_SETTING_VLAN_INTERFACE_NAME))) {
         setInterfaceName(setting.value(QLatin1String(NM_SETTING_VLAN_INTERFACE_NAME)).toString());
     }
+#endif
 
     if (setting.contains(QLatin1String(NM_SETTING_VLAN_PARENT))) {
         setParent(setting.value(QLatin1String(NM_SETTING_VLAN_PARENT)).toString());
@@ -175,9 +183,15 @@ QVariantMap NetworkManager::VlanSetting::toMap() const
 {
     QVariantMap setting;
 
+#if NM_CHECK_VERSION(1, 0, 0)
+    if (!interfaceName().isEmpty()) {
+        setting.insert(QLatin1String("interface-name"), interfaceName());
+    }
+#else
     if (!interfaceName().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_VLAN_INTERFACE_NAME), interfaceName());
     }
+#endif
 
     if (!parent().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_VLAN_PARENT), parent());
@@ -207,7 +221,11 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::VlanSetting
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
+#if NM_CHECK_VERSION(1, 0, 0)
+    dbg.nospace() << "interface-name" << ": " << setting.interfaceName() << '\n';
+#else
     dbg.nospace() << NM_SETTING_VLAN_INTERFACE_NAME << ": " << setting.interfaceName() << '\n';
+#endif
     dbg.nospace() << NM_SETTING_VLAN_PARENT << ": " << setting.parent() << '\n';
     dbg.nospace() << NM_SETTING_VLAN_ID << ": " << setting.id() << '\n';
     dbg.nospace() << NM_SETTING_VLAN_FLAGS << ": " << setting.flags() << '\n';

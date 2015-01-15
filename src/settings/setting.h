@@ -25,6 +25,11 @@
 
 #include "generictypes.h"
 
+#include <nm-version.h>
+#if NM_CHECK_VERSION(1, 0, 0)
+#include <libnm/NetworkManager.h>
+#endif
+
 #include <QtCore/QVariantMap>
 #include <QtCore/QStringList>
 #include <QtCore/QFlags>

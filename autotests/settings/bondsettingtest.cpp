@@ -22,7 +22,12 @@
 
 #include "settings/bondsetting.h"
 
+#include <nm-version.h>
+#if NM_CHECK_VERSION(1, 0, 0)
+#include <libnm/NetworkManager.h>
+#else
 #include <nm-setting-bond.h>
+#endif
 
 #include <QTest>
 
@@ -46,7 +51,11 @@ void BondSettingTest::testSetting()
 
     QVariantMap map;
 
+#if NM_CHECK_VERSION(1, 0, 0)
+    map.insert(QLatin1String("interface-name"), interfaceName);
+#else
     map.insert(QLatin1String(NM_SETTING_BOND_INTERFACE_NAME), interfaceName);
+#endif
     map.insert(QLatin1String(NM_SETTING_BOND_OPTIONS), QVariant::fromValue<NMStringMap>(options));
 
     NetworkManager::BondSetting setting;
@@ -54,8 +63,11 @@ void BondSettingTest::testSetting()
 
     QVariantMap map1 = setting.toMap();
 
+#if NM_CHECK_VERSION(1, 0, 0)
+    QCOMPARE(map.value(QLatin1String("interface-name")), map1.value(QLatin1String("interface-name")));
+#else
     QCOMPARE(map.value(QLatin1String(NM_SETTING_BOND_INTERFACE_NAME)), map1.value(QLatin1String(NM_SETTING_BOND_INTERFACE_NAME)));
-
+#endif
     NMStringMap stringMap1 = map.value(QLatin1String(NM_SETTING_BOND_OPTIONS)).value<NMStringMap>();
     NMStringMap stringMap2 = map1.value(QLatin1String(NM_SETTING_BOND_OPTIONS)).value<NMStringMap>();
 
