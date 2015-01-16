@@ -426,29 +426,27 @@ bool NetworkManager::wpaPskIsValid(const QString &psk)
 
 NetworkManager::WirelessSecurityType NetworkManager::securityTypeFromConnectionSetting(const NetworkManager::ConnectionSettings::Ptr &settings)
 {
-    NetworkManager::WirelessSetting::Ptr wifiSetting = settings->setting(Setting::Wireless).dynamicCast<WirelessSetting>();
-    if (!wifiSetting->security().isEmpty()) {
-        NetworkManager::WirelessSecuritySetting::Ptr wifiSecuritySetting = settings->setting(Setting::WirelessSecurity).dynamicCast<WirelessSecuritySetting>();
-        if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::Wep) {
-            return StaticWep;
-        } else if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::Ieee8021x) {
-            if (wifiSecuritySetting->authAlg() == WirelessSecuritySetting::Leap) {
-                return Leap;
-            } else {
-                return DynamicWep;
-            }
-        } else if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::WpaPsk) {
-            if (wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Rsn) && !wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Wpa)) {
-                return Wpa2Psk;
-            }
-            return WpaPsk;
-        } else if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::WpaEap) {
-            if (wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Rsn) && !wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Wpa)) {
-                return Wpa2Eap;
-            }
-            return WpaEap;
+    NetworkManager::WirelessSecuritySetting::Ptr wifiSecuritySetting = settings->setting(Setting::WirelessSecurity).dynamicCast<WirelessSecuritySetting>();
+    if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::Wep) {
+        return StaticWep;
+    } else if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::Ieee8021x) {
+        if (wifiSecuritySetting->authAlg() == WirelessSecuritySetting::Leap) {
+            return Leap;
+        } else {
+            return DynamicWep;
         }
+    } else if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::WpaPsk) {
+        if (wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Rsn) && !wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Wpa)) {
+            return Wpa2Psk;
+        }
+        return WpaPsk;
+    } else if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::WpaEap) {
+        if (wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Rsn) && !wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Wpa)) {
+            return Wpa2Eap;
+        }
+        return WpaEap;
     }
+
     return NoneSecurity;
 }
 
