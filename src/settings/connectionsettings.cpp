@@ -83,6 +83,7 @@ NetworkManager::ConnectionSettingsPrivate::ConnectionSettingsPrivate(ConnectionS
     , type(ConnectionSettings::Wired)
     , autoconnect(true)
     , readOnly(false)
+    , autoconnectPriority(0)
     , q_ptr(q)
 { }
 
