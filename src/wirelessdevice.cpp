@@ -245,6 +245,8 @@ void NetworkManager::WirelessDevicePrivate::propertyChanged(const QString &prope
     } else if (property == QLatin1String("WirelessCapabilities")) {
         wirelessCapabilities = q->convertCapabilities(value.toUInt());
         Q_EMIT q->wirelessCapabilitiesChanged(wirelessCapabilities);
+    } else if (property == QLatin1String("AccessPoints")) {
+        // TODO use this instead AccessPointAdded/Removed signals?
     } else {
         DevicePrivate::propertyChanged(property, value);
     }
