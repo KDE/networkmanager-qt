@@ -64,7 +64,7 @@ public:
     void setHwAddress(const QString &hwAddress);
     void setMode(uint mode);
     void setPermHwAddress(const QString &permHwAddress);
-    void setState(uint state);
+    void setState(uint state) Q_DECL_OVERRIDE;
     void setWirelessCapabilities(uint capabilities);
 
 public Q_SLOTS:
