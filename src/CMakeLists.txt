@@ -148,6 +148,12 @@ set_target_properties(KF5NetworkManagerQt PROPERTIES VERSION ${NETWORKMANAGERQT_
                                                    EXPORT_NAME NetworkManagerQt
 )
 
+if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 1.0.0 OR ${NETWORKMANAGER_VERSION} VERSION_GREATER 1.0.0)
+    target_include_directories(KF5NetworkManagerQt PUBLIC ${NM-CORE_INCLUDE_DIRS})
+else()
+    target_include_directories(KF5NetworkManagerQt PUBLIC ${NETWORKMANAGER_INCLUDE_DIRS} ${NM-UTIL_INCLUDE_DIRS} ${NM-GLIB_INCLUDE_DIRS})
+endif()
+
 ########### static lib for tests  ###############
 add_library(KF5NetworkManagerQt_static STATIC ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
 set_target_properties(KF5NetworkManagerQt_static PROPERTIES COMPILE_FLAGS -DNMQT_STATIC=1)
