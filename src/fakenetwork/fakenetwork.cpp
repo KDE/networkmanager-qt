@@ -210,7 +210,7 @@ QDBusObjectPath FakeNetwork::ActivateConnection(const QDBusObjectPath &connectio
 
     QVariantMap map;
     map.insert(QLatin1Literal("ActiveConnections"), QVariant::fromValue<QList<QDBusObjectPath> >(m_activeConnections.keys()));
-    map.insert(QLatin1Literal("ActivatingConnection"), newActiveConnectionPath);
+    map.insert(QLatin1Literal("ActivatingConnection"), QVariant::fromValue(QDBusObjectPath(newActiveConnectionPath)));
     Q_EMIT PropertiesChanged(map);
 
     newActiveConnection->addDevice(device);
@@ -284,9 +284,9 @@ void FakeNetwork::updateConnectingState()
         m_activatingConnection = QDBusObjectPath("/");
         m_state = 70;
         QVariantMap networkMap;
-        networkMap.insert(QLatin1Literal("ActivatingConnection"), m_activatingConnection.path());
+        networkMap.insert(QLatin1Literal("ActivatingConnection"), QVariant::fromValue(m_activatingConnection));
         networkMap.insert(QLatin1Literal("Connectivity"), NetworkManager::Connectivity::Full);
-        networkMap.insert(QLatin1Literal("PrimaryConnection"), m_primaryConnection.path());
+        networkMap.insert(QLatin1Literal("PrimaryConnection"), QVariant::fromValue(m_primaryConnection));
         networkMap.insert(QLatin1Literal("State"), m_state);
 
         QDBusMessage message = QDBusMessage::createSignal(QLatin1Literal("/org/kde/fakenetwork"), QLatin1Literal("org.kde.fakenetwork"), QLatin1Literal("PropertiesChanged"));
@@ -338,7 +338,7 @@ void FakeNetwork::DeactivateConnection(const QDBusObjectPath &active_connection)
         m_state = 20;
         QVariantMap networkMap;
         networkMap.insert(QLatin1Literal("Connectivity"), m_connectivity);
-        networkMap.insert(QLatin1Literal("PrimaryConnection"), m_primaryConnection.path());
+        networkMap.insert(QLatin1Literal("PrimaryConnection"), QVariant::fromValue(m_primaryConnection));
         networkMap.insert(QLatin1Literal("State"), m_state);
 
         message = QDBusMessage::createSignal(QLatin1Literal("/org/kde/fakenetwork"), QLatin1Literal("org.kde.fakenetwork"), QLatin1Literal("PropertiesChanged"));
