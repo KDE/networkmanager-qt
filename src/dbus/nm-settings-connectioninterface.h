@@ -70,6 +70,12 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QLatin1String("GetSettings"), argumentList);
     }
 
+    inline QDBusPendingReply<> ClearSecrets()
+    {
+        QList<QVariant> argumentList;
+        return asyncCallWithArgumentList(QLatin1String("ClearSecrets"), argumentList);
+    }
+
     inline QDBusPendingReply<> Save()
     {
         QList<QVariant> argumentList;

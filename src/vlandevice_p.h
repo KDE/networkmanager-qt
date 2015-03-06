@@ -39,6 +39,9 @@ public:
     OrgFreedesktopNetworkManagerDeviceVlanInterface iface;
     bool carrier;
     QString hwAddress;
+#if NM_CHECK_VERSION(1, 0, 0)
+    QString parent;
+#endif
     uint vlanId;
 
     Q_DECLARE_PUBLIC(VlanDevice)

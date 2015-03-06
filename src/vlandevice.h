@@ -56,6 +56,13 @@ public:
      * Hardware address of the device
      */
     QString hwAddress() const;
+#if NM_CHECK_VERSION(1, 0, 0)
+    /**
+     * The parent device of this VLAN device
+     * @since 5.8.0
+     */
+    NetworkManager::Device::Ptr parent() const;
+#endif
     /**
      * The VLAN ID of this VLAN interface
      */
@@ -70,6 +77,12 @@ Q_SIGNALS:
      * Emmited when the hardware address of this device has changed
      */
     void hwAddressChanged(const QString &address);
+#if NM_CHECK_VERSION(1, 0, 0)
+    /**
+     * Emmited when the parent device of this device has changed
+     */
+    void parentChanged(const QString &path);
+#endif
     /**
      * Emmited when the VLAN ID of this device has changed
      */

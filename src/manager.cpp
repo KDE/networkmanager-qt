@@ -460,14 +460,26 @@ void NetworkManager::NetworkManagerPrivate::setLogging(NetworkManager::LogLevel 
     case NetworkManager::Debug:
         logLevel = QLatin1String("DEBUG");
         break;
+#if NM_CHECK_VERSION(0, 9, 10)
+    case NetworkManager::Trace:
+        logLevel = QLatin1String("TRACE");
+        break;
+#endif
     }
     if (!domains.testFlag(NoChange)) {
         if (domains.testFlag(NetworkManager::None)) {
             logDomains << QLatin1String("NONE");
         }
+#if NM_CHECK_VERSION(0, 9, 10)
+        if (domains.testFlag(NetworkManager::Hardware)) {
+            logDomains << QLatin1String("PLATFORM");
+        }
+#else
         if (domains.testFlag(NetworkManager::Hardware)) {
             logDomains << QLatin1String("HW");
         }
+#endif
+
         if (domains.testFlag(NetworkManager::RFKill)) {
             logDomains << QLatin1String("RFKILL");
         }
@@ -552,6 +564,29 @@ void NetworkManager::NetworkManagerPrivate::setLogging(NetworkManager::LogLevel 
         if (domains.testFlag(NetworkManager::Vlan)) {
             logDomains << QLatin1String("VLAN");
         }
+#if NM_CHECK_VERSION(0, 9, 10)
+        if (domains.testFlag(NetworkManager::Agents)) {
+            logDomains << QLatin1String("AGENTS");
+        }
+        if (domains.testFlag(NetworkManager::Settings)) {
+            logDomains << QLatin1String("SETTINGS");
+        }
+        if (domains.testFlag(NetworkManager::DbusProps)) {
+            logDomains << QLatin1String("DBUS_PROPS");
+        }
+        if (domains.testFlag(NetworkManager::Team)) {
+            logDomains << QLatin1String("TEAM");
+        }
+        if (domains.testFlag(NetworkManager::ConCheck)) {
+            logDomains << QLatin1String("CONCHECK");
+        }
+        if (domains.testFlag(NetworkManager::Dcb)) {
+            logDomains << QLatin1String("DCB");
+        }
+        if (domains.testFlag(NetworkManager::Dispatch)) {
+            logDomains << QLatin1String("DISPATCH");
+        }
+#endif
     }
     iface.SetLogging(logLevel, logDomains.join(QLatin1String(",")));
 }
@@ -573,13 +608,20 @@ QDBusPendingReply<uint> NetworkManager::NetworkManagerPrivate::checkConnectivity
 
 NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::primaryConnection()
 {
-    return findRegisteredActiveConnection(iface.primaryConnection().path());
+    return findRegisteredActiveConnection(m_primaryConnection);
 }
 
 NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::activatingConnection()
 {
-    return findRegisteredActiveConnection(iface.activatingConnection().path());
+    return findRegisteredActiveConnection(m_activatingConnection);
 }
+
+#if NM_CHECK_VERSION(1, 0, 0)
+NetworkManager::ConnectionSettings::ConnectionType NetworkManager::NetworkManagerPrivate::primaryConnectionType()
+{
+    return m_primaryConnectionType;
+}
+#endif
 
 #if NM_CHECK_VERSION(0, 9, 10)
 bool NetworkManager::NetworkManagerPrivate::isStartingUp() const
@@ -691,9 +733,16 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
         } else if (property == QLatin1String("Connectivity")) {
             connectivityChanged(it->toUInt());
         } else if (property == QLatin1String("PrimaryConnection")) {
-            Q_EMIT primaryConnectionChanged(it->value<QDBusObjectPath>().path());
+            m_primaryConnection = it->value<QDBusObjectPath>().path();
+            Q_EMIT primaryConnectionChanged(m_primaryConnection);
         } else if (property == QLatin1String("ActivatingConnection")) {
-            Q_EMIT activatingConnectionChanged(it->value<QDBusObjectPath>().path());
+            m_activatingConnection = it->value<QDBusObjectPath>().path();
+            Q_EMIT activatingConnectionChanged(m_activatingConnection);
+#if NM_CHECK_VERSION(1, 0, 0)
+        } else if (property == QLatin1String("PrimaryConnectionType")) {
+            m_primaryConnectionType = NetworkManager::ConnectionSettings::typeFromString(it->toString());
+            Q_EMIT primaryConnectionTypeChanged(m_primaryConnectionType);
+#endif
 #if NM_CHECK_VERSION(0, 9, 10)
         } else if (property == QLatin1String("Startup")) {
             Q_EMIT isStartingUpChanged();
@@ -994,6 +1043,13 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::activatingConnection()
 {
     return globalNetworkManager->activatingConnection();
 }
+
+#if NM_CHECK_VERSION(1, 0, 0)
+NetworkManager::ConnectionSettings::ConnectionType NetworkManager::primaryConnectionType()
+{
+    return globalNetworkManager->primaryConnectionType();
+}
+#endif
 
 #if NM_CHECK_VERSION(0, 9, 10)
 bool NetworkManager::isStartingUp()

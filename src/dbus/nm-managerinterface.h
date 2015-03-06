@@ -44,6 +44,12 @@ public:
 
     ~OrgFreedesktopNetworkManagerInterface();
 
+    Q_PROPERTY(QString PrimaryConnectionType READ primaryConnectionType)
+    inline QString primaryConnectionType() const
+    {
+        return qvariant_cast< QString >(property("PrimaryConnectionType"));
+    }
+
     Q_PROPERTY(QDBusObjectPath ActivatingConnection READ activatingConnection)
     inline QDBusObjectPath activatingConnection() const
     {

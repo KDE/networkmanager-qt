@@ -71,16 +71,6 @@
           The path of the active connection object representing this active connection.
         </tp:docstring>
       </arg>
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.NetworkManager.Error.UnknownConnection"/>
-        <tp:error name="org.freedesktop.NetworkManager.Error.UnknownDevice"/>
-        <tp:error name="org.freedesktop.NetworkManager.Error.ConnectionActivating">
-          <tp:docstring>Another connection is already activating or the same connection is already active.  FIXME: check if the error name is correct.  FIXME: split into 2 errors?</tp:docstring>
-        </tp:error>
-        <tp:error name="org.freedesktop.NetworkManager.Error.ConnectionInvalid">
-          <tp:docstring>The connection is invalid for this device.</tp:docstring>
-        </tp:error>
-      </tp:possible-errors>
     </method>
 
     <method name="AddAndActivateConnection">
@@ -124,13 +114,6 @@
           The path of the active connection object representing this active connection.
         </tp:docstring>
       </arg>
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.NetworkManager.Error.UnknownConnection"/>
-        <tp:error name="org.freedesktop.NetworkManager.Error.UnknownDevice"/>
-        <tp:error name="org.freedesktop.NetworkManager.Error.ConnectionInvalid">
-          <tp:docstring>The connection is invalid for this device.</tp:docstring>
-        </tp:error>
-      </tp:possible-errors>
     </method>
 
     <method name="DeactivateConnection">
@@ -217,20 +200,21 @@
       </tp:docstring>
       <arg name="level" type="s" direction="in">
         <tp:docstring>
-          One of [ERR, WARN, INFO, DEBUG].
+          One of [ERR, WARN, INFO, DEBUG, TRACE].
         </tp:docstring>
       </arg>
       <arg name="domains" type="s" direction="in">
         <tp:docstring>
           A combination of logging domains separated by commas (','), or "NONE"
           to disable logging.  Each domain enables logging for operations
-          related to that domain.  Available domains are: [HW, RFKILL, ETHER,
+          related to that domain.  Available domains are: [PLATFORM, RFKILL, ETHER,
           WIFI, BT, MB, DHCP4, DHCP6, PPP, WIFI_SCAN, IP4, IP6, AUTOIP4, DNS,
           VPN, SHARING, SUPPLICANT, AGENTS, SETTINGS, SUSPEND, CORE, DEVICE,
-          OLPC, WIMAX, INFINIBAND, FIREWALL, ADSL, BOND, VLAN].  In addition to
-          these domains, the following special domains can be used: [NONE, ALL,
-          DEFAULT, DHCP, IP].  You can also specify that some domains should
-          log at a different level from the default by appending a colon (':')
+          OLPC, WIMAX, INFINIBAND, FIREWALL, ADSL, BOND, VLAN, BRIDGE, DBUS_PROPS,
+          TEAM, CONCHECK, DCB, DISPATCH].
+          In addition to these domains, the following special domains can be used:
+          [NONE, ALL, DEFAULT, DHCP, IP].  You can also specify that some domains
+          should log at a different level from the default by appending a colon (':')
           and a log level (eg, 'WIFI:DEBUG').  If an empty string is given, the
           log level is changed but the current set of log domains remains
           unchanged.
@@ -245,7 +229,7 @@
       </tp:docstring>
       <arg name="level" type="s" direction="out">
         <tp:docstring>
-          One of [ERR, WARN, INFO, DEBUG].
+          One of [ERR, WARN, INFO, DEBUG, TRACE].
         </tp:docstring>
       </arg>
       <arg name="domains" type="s" direction="out">
@@ -332,12 +316,6 @@
       </tp:docstring>
     </property>
 
-    <property name="Version" type="s" access="read">
-      <tp:docstring>
-        NetworkManager version.
-      </tp:docstring>
-    </property>
-
     <property name="PrimaryConnection" type="o" access="read">
       <tp:docstring>
         The object path of the "primary" active connection being used
@@ -346,6 +324,14 @@
         indicates the connection that has the default route. If there
         is a VPN active with the default route, then this indicates
         the connection that contains the route to the VPN endpoint.
+      </tp:docstring>
+    </property>
+
+    <property name="PrimaryConnectionType" type="s" access="read">
+      <tp:docstring>
+        The connection type of the "primary" active connection being
+        used to access the network. This is the same as the Type
+        property on the object indicated by PrimaryConnection.
       </tp:docstring>
     </property>
 

@@ -128,6 +128,15 @@ public:
      */
     QDBusPendingReply<> save();
 #endif
+
+#if NM_CHECK_VERSION(1, 0, 0)
+    /**
+     * Clear the secrets belonging to this network connection profile.
+     * @since 5.8.0
+     */
+    QDBusPendingReply<> clearSecrets();
+#endif
+
     /**
      * Removes the connection from NetworkManager database,
      * this operation does not ask for confirmation but

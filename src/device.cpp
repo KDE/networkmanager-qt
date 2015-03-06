@@ -507,6 +507,14 @@ QDBusPendingReply<> NetworkManager::Device::disconnectInterface()
     return d->deviceIface.Disconnect();
 }
 
+#if NM_CHECK_VERSION(1, 0, 0)
+QDBusPendingReply<> NetworkManager::Device::deleteInterface()
+{
+    Q_D(Device);
+    return d->deviceIface.Delete();
+}
+#endif
+
 NetworkManager::Device::State NetworkManager::Device::state() const
 {
     Q_D(const Device);

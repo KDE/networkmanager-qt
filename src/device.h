@@ -225,6 +225,15 @@ public:
      * activating further connections without user intervention.
      */
     QDBusPendingReply<> disconnectInterface();
+#if NM_CHECK_VERSION(1, 0, 0)
+    /**
+     * Deletes a software device from NetworkManager and removes the interface from the system.
+     * The method returns an error when called for a hardware device.
+     *
+     * @since 5.8.0
+     */
+    QDBusPendingReply<> deleteInterface();
+#endif
     /**
      * returns the current IPv4 address without the prefix
      * \sa ipV4Config()

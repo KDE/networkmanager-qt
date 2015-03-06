@@ -186,6 +186,11 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QLatin1String("Disconnect"), argumentList);
     }
 
+    inline QDBusPendingReply<> Delete()
+    {
+        QList<QVariant> argumentList;
+        return asyncCallWithArgumentList(QLatin1String("Delete"), argumentList);
+    }
 Q_SIGNALS: // SIGNALS
     void StateChanged(uint new_state, uint old_state, uint reason);
 };

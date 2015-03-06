@@ -55,12 +55,25 @@ enum Status {
     Connected /**< the system is currently connected to a network */
 };
 
-enum LogLevel {Error, Warning, Info, Debug};
+enum LogLevel {
+    Error,
+    Warning,
+    Info,
+    Debug,
+#if NM_CHECK_VERSION(0, 9, 10)
+    Trace};
+#else
+    };
+#endif
 
 Q_FLAGS(LogDomains)
 enum LogDomain {NoChange, None, Hardware, RFKill, Ethernet, WiFi, Bluetooth, MobileBroadBand, DHCP4, DHCP6, PPP, WiFiScan, IPv4, IPv6,
                 AutoIPv4, DNS, VPN, Sharing, Supplicant, UserSet, SysSet, Suspend, Core, Devices, OLPC, Wimax, Infiniband, Firewall, Adsl, Bond, Vlan
-               };
+#if NM_CHECK_VERSION(0, 9, 10)
+                , Agents, Settings, Bridge, DbusProps, Team, ConCheck, Dcb, Dispatch };
+#else
+                };
+#endif
 Q_DECLARE_FLAGS(LogDomains, LogDomain)
 
 /**
@@ -164,6 +177,15 @@ Q_SIGNALS:
      * @since 0.9.9.0
      */
     void activatingConnectionChanged(const QString &uni);
+#if NM_CHECK_VERSION(1, 0, 0)
+    /**
+     * Emitted when the primary connection type changes.
+     * @param connection type of the new primary connection
+     * @since 5.8.0
+     */
+    void primaryConnectionTypeChanged(NetworkManager::ConnectionSettings::ConnectionType type);
+#endif
+
 #if NM_CHECK_VERSION(0, 9, 10)
     /**
      * Emitted when NM has started/finished its startup sequence
@@ -329,6 +351,16 @@ NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr primaryConnection();
  * @since 0.9.9.0
  */
 NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr activatingConnection();
+
+#if NM_CHECK_VERSION(1, 0, 0)
+/**
+ * @return The connection type of the "primary" active connection being
+ * used to access the network. This is the same as the Type
+ * property on the object indicated by PrimaryConnection.
+ * @since 5.8.0
+ */
+NETWORKMANAGERQT_EXPORT NetworkManager::ConnectionSettings::ConnectionType primaryConnectionType();
+#endif
 
 #if NM_CHECK_VERSION(0, 9, 10)
 /**

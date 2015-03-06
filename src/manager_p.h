@@ -59,8 +59,12 @@ public:
     bool m_isWirelessHardwareEnabled;
     bool m_isWwanEnabled;
     bool m_isWwanHardwareEnabled;
+    QString m_activatingConnection;
+    QString m_primaryConnection;
+#if NM_CHECK_VERSION(1, 0, 0)
+    NetworkManager::ConnectionSettings::ConnectionType m_primaryConnectionType;
+#endif
     QString m_version;
-
     // to store NetworkManager's version.
     int m_x;
     int m_y;
@@ -105,6 +109,9 @@ public:
     QDBusPendingReply<uint> checkConnectivity();
     ActiveConnection::Ptr primaryConnection();
     ActiveConnection::Ptr activatingConnection();
+#if NM_CHECK_VERSION(1, 0, 0)
+    NetworkManager::ConnectionSettings::ConnectionType primaryConnectionType();
+#endif
 #if NM_CHECK_VERSION(0, 9, 10)
     bool isStartingUp() const;
 #endif

@@ -55,6 +55,12 @@ public:
         return qvariant_cast< QString >(property("HwAddress"));
     }
 
+    Q_PROPERTY(QDBusObjectPath Parent READ parent)
+    inline QDBusObjectPath parent() const
+    {
+        return qvariant_cast< QDBusObjectPath >(property("Parent"));
+    }
+
     Q_PROPERTY(uint VlanId READ vlanId)
     inline uint vlanId() const
     {

@@ -142,6 +142,15 @@ QDBusPendingReply<> NetworkManager::Connection::save()
     return d->iface.Save();
 }
 #endif
+
+#if NM_CHECK_VERSION(1, 0, 0)
+QDBusPendingReply<> NetworkManager::Connection::clearSecrets()
+{
+    Q_D(Connection);
+    return d->iface.ClearSecrets();
+}
+#endif
+
 QDBusPendingReply<> NetworkManager::Connection::remove()
 {
     Q_D(Connection);
