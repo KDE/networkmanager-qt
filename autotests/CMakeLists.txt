@@ -11,7 +11,6 @@ endif()
 
 include_directories (
     ${CMAKE_SOURCE_DIR}/src/settings
-    ${CMAKE_SOURCE_DIR}/src/fakenetwork
 )
 
 include(ECMAddTests)
