@@ -140,6 +140,8 @@ generate_export_header(KF5NetworkManagerQt BASE_NAME NetworkManagerQt)
 add_library(KF5::NetworkManagerQt ALIAS KF5NetworkManagerQt)
 
 target_include_directories(KF5NetworkManagerQt INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/NetworkManagerQt>")
+# for examples to build
+target_include_directories(KF5NetworkManagerQt PUBLIC "$<BUILD_INTERFACE:${NetworkManagerQt_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}/settings;${CMAKE_CURRENT_BINARY_DIR}>")
 
 target_link_libraries(KF5NetworkManagerQt PUBLIC Qt5::Core Qt5::Network Qt5::DBus)
 
@@ -161,7 +163,7 @@ set_target_properties(KF5NetworkManagerQt_static PROPERTIES COMPILE_FLAGS -DNMQT
 target_link_libraries(KF5NetworkManagerQt_static PUBLIC Qt5::Core Qt5::Network Qt5::DBus)
 target_include_directories(KF5NetworkManagerQt_static PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..;${CMAKE_CURRENT_BINARY_DIR}/..>")
 
-ecm_generate_headers(NetworkManagerQt_HEADERS
+ecm_generate_headers(NetworkManagerQt_CamelCase_HEADERS
   HEADER_NAMES
   AccessPoint
   ActiveConnection
@@ -200,9 +202,10 @@ ecm_generate_headers(NetworkManagerQt_HEADERS
   WirelessNetwork
 
   REQUIRED_HEADERS NetworkManagerQt_HEADERS
+  PREFIX NetworkManagerQt
 )
 
-ecm_generate_headers(NetworkManagerQt_SETTINGS_HEADERS
+ecm_generate_headers(NetworkManagerQt_SETTINGS_CamelCase_HEADERS
   HEADER_NAMES
   AdslSetting
   BluetoothSetting
@@ -232,15 +235,22 @@ ecm_generate_headers(NetworkManagerQt_SETTINGS_HEADERS
 
   RELATIVE settings
   REQUIRED_HEADERS NetworkManagerQt_SETTINGS_HEADERS
+  PREFIX NetworkManagerQt
 )
 
 install(TARGETS KF5NetworkManagerQt EXPORT KF5NetworkManagerQtTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
+  ${NetworkManagerQt_CamelCase_HEADERS}
+  ${NetworkManagerQt_SETTINGS_CamelCase_HEADERS}
+  DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/NetworkManagerQt/NetworkManagerQt COMPONENT Devel
+)
+
+install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/networkmanagerqt_export.h
   ${NetworkManagerQt_HEADERS}
   ${NetworkManagerQt_SETTINGS_HEADERS}
-  DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/NetworkManagerQt COMPONENT Devel
+  DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/NetworkManagerQt/networkmanagerqt COMPONENT Devel
 )
 
 include(ECMGeneratePriFile)
