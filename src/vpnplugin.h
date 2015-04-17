@@ -21,7 +21,7 @@
 #ifndef NETWORKMANAGERQT_VPNPLUGIN_H
 #define NETWORKMANAGERQT_VPNPLUGIN_H
 
-#include <networkmanagerqt_export.h>
+#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "generictypes.h"
 #include "vpnconnection.h"
 

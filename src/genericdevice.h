@@ -21,7 +21,7 @@
 #ifndef NETWORKMANAGERQT_GENERICDEVICE_H
 #define NETWORKMANAGERQT_GENERICDEVICE_H
 
-#include <networkmanagerqt_export.h>
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include "device.h"
 

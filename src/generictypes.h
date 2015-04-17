@@ -23,7 +23,7 @@
 #ifndef GENERIC_TYPES_H
 #define GENERIC_TYPES_H
 
-#include <networkmanagerqt_export.h>
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QtCore/QVariantMap>
 #include <QDBusArgument>

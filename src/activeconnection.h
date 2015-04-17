@@ -27,7 +27,7 @@
 #include <QDBusObjectPath>
 #include <QSharedPointer>
 
-#include <networkmanagerqt_export.h>
+#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "connection.h"
 #include "dhcp4config.h"
 #include "dhcp6config.h"

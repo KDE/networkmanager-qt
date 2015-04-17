@@ -21,7 +21,7 @@
 #ifndef NETWORKMANAGERQT_SETTING_H
 #define NETWORKMANAGERQT_SETTING_H
 
-#include <networkmanagerqt_export.h>
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include "generictypes.h"
 

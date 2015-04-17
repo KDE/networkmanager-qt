@@ -25,7 +25,7 @@
 #include <QStringList>
 #include <QHostAddress>
 
-#include <networkmanagerqt_export.h>
+#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "wirelessdevice.h"
 #include "wirelesssecuritysetting.h"
 #include "wirelesssetting.h"

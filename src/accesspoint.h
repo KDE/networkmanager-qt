@@ -23,7 +23,7 @@
 #ifndef NETWORKMANAGERQT_ACCESSPOINT_H
 #define NETWORKMANAGERQT_ACCESSPOINT_H
 
-#include <networkmanagerqt_export.h>
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QObject>
 #include <QSharedPointer>

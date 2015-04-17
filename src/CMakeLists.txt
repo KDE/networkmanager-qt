@@ -136,7 +136,7 @@ if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 0.9.10.0 OR ${NETWORKMANAGER_VERSION
 endif()
 
 add_library(KF5NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
-generate_export_header(KF5NetworkManagerQt BASE_NAME NetworkManagerQt)
+generate_export_header(KF5NetworkManagerQt EXPORT_FILE_NAME ${NetworkManagerQt_BINARY_DIR}/networkmanagerqt/networkmanagerqt_export.h BASE_NAME NetworkManagerQt)
 add_library(KF5::NetworkManagerQt ALIAS KF5NetworkManagerQt)
 
 target_include_directories(KF5NetworkManagerQt INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/NetworkManagerQt>")
@@ -247,7 +247,7 @@ install(FILES
 )
 
 install(FILES
-  ${CMAKE_CURRENT_BINARY_DIR}/networkmanagerqt_export.h
+  ${NetworkManagerQt_BINARY_DIR}/networkmanagerqt/networkmanagerqt_export.h
   ${NetworkManagerQt_HEADERS}
   ${NetworkManagerQt_SETTINGS_HEADERS}
   DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/NetworkManagerQt/networkmanagerqt COMPONENT Devel

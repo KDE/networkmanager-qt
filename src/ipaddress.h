@@ -22,7 +22,7 @@
 #ifndef NETWORKMANAGERQT_IPADDRESS_H
 #define NETWORKMANAGERQT_IPADDRESS_H
 
-#include <networkmanagerqt_export.h>
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QtCore/QStringList>
 #include <QNetworkAddressEntry>

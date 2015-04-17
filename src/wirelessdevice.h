@@ -24,7 +24,7 @@
 #ifndef NETWORKMANAGERQT_WIRELESSDEVICE_H
 #define NETWORKMANAGERQT_WIRELESSDEVICE_H
 
-#include <networkmanagerqt_export.h>
+#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "device.h"
 #include "accesspoint.h"
 #include "wirelessnetwork.h"

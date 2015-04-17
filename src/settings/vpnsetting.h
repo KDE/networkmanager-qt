@@ -21,7 +21,7 @@
 #ifndef NETWORKMANAGERQT_VPN_SETTING_H
 #define NETWORKMANAGERQT_VPN_SETTING_H
 
-#include <networkmanagerqt_export.h>
+#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
 
 #include <QtCore/QString>

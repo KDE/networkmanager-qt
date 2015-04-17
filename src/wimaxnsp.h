@@ -23,7 +23,7 @@
 #ifndef NETWORKMANAGERQT_WIMAXNSP_H
 #define NETWORKMANAGERQT_WIMAXNSP_H
 
-#include <networkmanagerqt_export.h>
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QSharedPointer>
 #include <QVariantMap>

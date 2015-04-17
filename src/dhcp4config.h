@@ -24,7 +24,7 @@
 
 #include "generictypes.h"
 
-#include <networkmanagerqt_export.h>
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QtCore/QStringList>
 #include <QSharedPointer>
