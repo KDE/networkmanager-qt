@@ -132,13 +132,17 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabili
     case ConnectionSettings::Cdma:
         addSetting(Setting::Ptr(new CdmaSetting()));
         addSetting(Setting::Ptr(new Ipv4Setting()));
-        //addSetting(Setting::Ptr(new Ipv6Setting()));
+#if NM_CHECK_VERSION(1, 0, 0)
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+#endif
         addSetting(Setting::Ptr(new PppSetting()));
         break;
     case ConnectionSettings::Gsm:
         addSetting(Setting::Ptr(new GsmSetting()));
         addSetting(Setting::Ptr(new Ipv4Setting()));
-        //addSetting(Setting::Ptr(new Ipv6Setting()));
+#if NM_CHECK_VERSION(1, 0, 0)
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+#endif
         addSetting(Setting::Ptr(new PppSetting()));
         break;
     case ConnectionSettings::Infiniband:
@@ -224,7 +228,9 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
     case ConnectionSettings::Bluetooth:
         addSetting(connectionSettings->setting(Setting::Bluetooth));
         addSetting(connectionSettings->setting(Setting::Ipv4));
-        //addSetting(connectionSettings->setting(Setting::Ipv6));
+#if NM_CHECK_VERSION(1, 0, 0)
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+#endif
         if (q->setting(Setting::Gsm) && q->setting(Setting::Ppp) && q->setting(Setting::Serial)) {
             addSetting(connectionSettings->setting(Setting::Gsm));
             addSetting(connectionSettings->setting(Setting::Ppp));
@@ -239,13 +245,17 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
     case ConnectionSettings::Cdma:
         addSetting(connectionSettings->setting(Setting::Cdma));
         addSetting(connectionSettings->setting(Setting::Ipv4));
-        //addSetting(connectionSettings->setting(Setting::Ipv6));
+#if NM_CHECK_VERSION(1, 0, 0)
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+#endif
         addSetting(connectionSettings->setting(Setting::Ppp));
         break;
     case ConnectionSettings::Gsm:
         addSetting(connectionSettings->setting(Setting::Gsm));
         addSetting(connectionSettings->setting(Setting::Ipv4));
-        //addSetting(connectionSettings->setting(Setting::Ipv6));
+#if NM_CHECK_VERSION(1, 0, 0)
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+#endif
         addSetting(connectionSettings->setting(Setting::Ppp));
         break;
     case ConnectionSettings::Infiniband:
