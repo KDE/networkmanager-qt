@@ -50,8 +50,10 @@ public:
     Q_PROPERTY(QDBusObjectPath PrimaryConnection READ primaryConnection)
     Q_PROPERTY(uint State READ state)
     Q_PROPERTY(QString Version READ version)
+#if !NM_CHECK_VERSION(1, 2, 0)
     Q_PROPERTY(bool WimaxEnabled READ wimaxEnabled WRITE setWimaxEnabled)
     Q_PROPERTY(bool WimaxHardwareEnabled READ wimaxHardwareEnabled)
+#endif
     Q_PROPERTY(bool WirelessEnabled READ wirelessEnabled WRITE setWirelessEnabled)
     Q_PROPERTY(bool WirelessHardwareEnabled READ wirelessHardwareEnabled)
     Q_PROPERTY(bool WwanEnabled READ wwanEnabled WRITE setWwanEnabled)
@@ -65,10 +67,12 @@ public:
     QDBusObjectPath primaryConnection() const;
     uint state() const;
     QString version() const;
+#if !NM_CHECK_VERSION(1, 2, 0)
     bool wimaxEnabled() const;
     void setWimaxEnabled(bool enabled);
     bool wimaxHardwareEnabled() const;
     void setWimaxHardwareEnabled(bool enabled);
+#endif
     bool wirelessEnabled() const;
     void setWirelessEnabled(bool enabled);
     bool wirelessHardwareEnabled() const;
@@ -110,8 +114,10 @@ private:
     QDBusObjectPath m_primaryConnection;
     uint m_state;
     QString m_version;
+#if !NM_CHECK_VERSION(1, 2, 0)
     bool m_wimaxEnabled;
     bool m_wimaxHardwareEnabled;
+#endif
     bool m_wirelessEnabled;
     bool m_wirelessHardwareEnabled;
     bool m_wwanEnabled;

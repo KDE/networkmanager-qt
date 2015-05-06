@@ -41,8 +41,6 @@ set(NetworkManagerQt_PART_SRCS
     vlandevice.cpp
     vpnconnection.cpp
     vpnplugin.cpp
-    wimaxdevice.cpp
-    wimaxnsp.cpp
     wireddevice.cpp
     wirelessdevice.cpp
     wirelessnetwork.cpp
@@ -50,11 +48,6 @@ set(NetworkManagerQt_PART_SRCS
 )
 
 set(NetworkManagerQt_SETTINGS_SRCS
-    settings/wiredsetting.cpp
-    settings/olpcmeshsetting.cpp
-    settings/wirelesssetting.cpp
-    settings/wirelesssecuritysetting.cpp
-    settings/security8021xsetting.cpp
     settings/adslsetting.cpp
     settings/bluetoothsetting.cpp
     settings/bondsetting.cpp
@@ -66,14 +59,19 @@ set(NetworkManagerQt_SETTINGS_SRCS
     settings/ipv4setting.cpp
     settings/ipv6setting.cpp
     settings/infinibandsetting.cpp
+    settings/olpcmeshsetting.cpp
     settings/pppsetting.cpp
     settings/pppoesetting.cpp
     settings/setting.cpp
     settings/serialsetting.cpp
+    settings/security8021xsetting.cpp
     #settings/template.cpp
     settings/vlansetting.cpp
     settings/vpnsetting.cpp
     settings/wimaxsetting.cpp
+    settings/wiredsetting.cpp
+    settings/wirelesssetting.cpp
+    settings/wirelesssecuritysetting.cpp
 )
 
 set(DBUS_INTERFACE_SRCS
@@ -90,7 +88,6 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-device-olpc-meshinterface.cpp
    dbus/nm-device-vlaninterface.cpp
    dbus/nm-device-wifiinterface.cpp
-   dbus/nm-device-wimaxinterface.cpp
    dbus/nm-deviceinterface.cpp
    dbus/nm-dhcp4-configinterface.cpp
    dbus/nm-dhcp6-configinterface.cpp
@@ -104,8 +101,21 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-settingsinterface.cpp
    dbus/nm-vpn-connectioninterface.cpp
    dbus/nm-vpn-plugininterface.cpp
-   dbus/nm-wimax-nspinterface.cpp
 )
+
+if (${NETWORKMANAGER_VERSION} VERSION_LESS 1.2.0)
+    set(NetworkManagerQt_PART_SRCS
+        ${NetworkManagerQt_PART_SRCS}
+        wimaxdevice.cpp
+        wimaxnsp.cpp
+        )
+
+    set(DBUS_INTERFACE_SRCS
+        ${DBUS_INTERFACE_SRCS}
+        dbus/nm-device-wimaxinterface.cpp
+        dbus/nm-wimax-nspinterface.cpp
+        )
+endif()
 
 if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 0.9.10.0 OR ${NETWORKMANAGER_VERSION} VERSION_GREATER 0.9.10.0)
     set(NetworkManagerQt_PART_SRCS
