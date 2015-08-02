@@ -31,7 +31,12 @@
 
 #include <QDBusObjectPath>
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 4, 0)
+// logging category for this framework, default: log stuff >= warning
+Q_LOGGING_CATEGORY(NMQT, "networkmanager-qt", QtWarningMsg)
+#else
 Q_LOGGING_CATEGORY(NMQT, "networkmanager-qt")
+#endif
 
 namespace NetworkManager
 {
