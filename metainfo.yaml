@@ -1,4 +1,4 @@
-maintainer: grulich, lvsouza, lukas
+maintainer: grulich
 description: Qt wrapper for NetworkManager API
 tier: 1
 type: integration
