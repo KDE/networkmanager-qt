@@ -134,6 +134,7 @@ void NetworkManager::NetworkManagerPrivate::init()
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
     qDBusRegisterMetaType<DeviceDBusStateReason>();
     qDBusRegisterMetaType<NMVariantMapMap>();
+    qDBusRegisterMetaType<NMVariantMapList>();
     qDBusRegisterMetaType<NMStringMap>();
 
     m_version = iface.version();
@@ -640,6 +641,13 @@ bool NetworkManager::NetworkManagerPrivate::isStartingUp() const
 }
 #endif
 
+#if NM_CHECK_VERSION(1, 0, 6)
+NetworkManager::Device::MeteredStatus NetworkManager::NetworkManagerPrivate::metered() const
+{
+    return m_metered;
+}
+#endif
+
 void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath &objpath)
 {
     // qCDebug(NMQT);
@@ -758,6 +766,11 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
 #if NM_CHECK_VERSION(0, 9, 10)
         } else if (property == QLatin1String("Startup")) {
             Q_EMIT isStartingUpChanged();
+#endif
+#if NM_CHECK_VERSION(1, 0, 6)
+        } else if (property == QLatin1String("Metered")) {
+            m_metered = (NetworkManager::Device::MeteredStatus)it->toUInt();
+            Q_EMIT meteredChanged(m_metered);
 #endif
         } else {
             qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
@@ -1071,6 +1084,13 @@ NetworkManager::ConnectionSettings::ConnectionType NetworkManager::primaryConnec
 bool NetworkManager::isStartingUp()
 {
     return globalNetworkManager->isStartingUp();
+}
+#endif
+
+#if NM_CHECK_VERSION(1, 0, 6)
+NetworkManager::Device::MeteredStatus NetworkManager::metered()
+{
+    return globalNetworkManager->metered();
 }
 #endif
 

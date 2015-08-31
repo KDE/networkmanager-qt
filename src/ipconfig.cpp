@@ -53,6 +53,9 @@ public:
     QList<QHostAddress> nameservers;
     QStringList domains;
     IpRoutes routes;
+#if NM_CHECK_VERSION(1, 2, 0)
+    QStringList dnsOptions;
+#endif
 };
 
 }
@@ -87,6 +90,41 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
 #endif
     // TODO - watch propertiesChanged signal
 
+#if NM_CHECK_VERSION(1, 0, 0)
+    NMVariantMapList addresses = iface.addressData();
+    QList<NetworkManager::IpAddress> addressObjects;
+    Q_FOREACH (const QVariantMap &addressList, addresses) {
+        if (addressList.contains(QLatin1String("address")) &&
+            addressList.contains(QLatin1String("prefix"))) {
+            NetworkManager::IpAddress address;
+            address.setIp(QHostAddress(addressList.value(QLatin1String("address")).toString()));
+            address.setPrefixLength(addressList.value(QLatin1String("prefix")).toUInt());
+            if (addressList.contains(QLatin1String("gateway"))) {
+                address.setGateway(QHostAddress(addressList.value(QLatin1String("gateway")).toString()));
+            }
+            addressObjects << address;
+        }
+    }
+
+    NMVariantMapList routes = iface.routeData();
+    QList<NetworkManager::IpRoute> routeObjects;
+    Q_FOREACH (const QVariantMap &routeList, routes) {
+        if (routeList.contains(QLatin1String("address")) &&
+            routeList.contains(QLatin1String("prefix"))) {
+            NetworkManager::IpRoute route;
+            route.setIp(QHostAddress(routeList.value(QLatin1String("address")).toString()));
+            route.setPrefixLength(routeList.value(QLatin1String("prefix")).toUInt());
+            if (routeList.contains(QLatin1String("next-hop"))) {
+                route.setNextHop(QHostAddress(routeList.value(QLatin1String("next-hop")).toString()));
+            }
+
+            if (routeList.contains(QLatin1String("metric"))) {
+                route.setMetric(routeList.value(QLatin1String("metric")).toUInt());
+            }
+            routeObjects << route;
+        }
+    }
+#else
     //convert ipaddresses into object
     UIntListList addresses = iface.addresses();
     QList<NetworkManager::IpAddress> addressObjects;
@@ -112,6 +150,7 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
             routeObjects << route;
         }
     }
+#endif
     // nameservers' IP addresses are always in network byte order
     QList<QHostAddress> nameservers;
     Q_FOREACH (uint nameserver, iface.nameservers()) {
@@ -119,13 +158,16 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
     }
 
     d->addresses = addressObjects;
+    d->routes = routeObjects;
+    d->nameservers = nameservers;
 #if NM_CHECK_VERSION(0, 9, 10)
     d->gateway = iface.gateway();
     d->searches = iface.searches();
 #endif
-    d->nameservers = nameservers;
     d->domains = iface.domains();
-    d->routes = routeObjects;
+#if NM_CHECK_VERSION(1, 2, 0)
+    d->dnsOptions = iface.dnsOptions();
+#endif
 }
 
 void NetworkManager::IpConfig::setIPv6Path(const QString &path)
@@ -140,6 +182,41 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
 #endif
     // TODO - watch propertiesChanged signal
 
+#if NM_CHECK_VERSION(1, 0, 0)
+    NMVariantMapList addresses = iface.addressData();
+    QList<NetworkManager::IpAddress> addressObjects;
+    Q_FOREACH (const QVariantMap &addressList, addresses) {
+        if (addressList.contains(QLatin1String("address")) &&
+            addressList.contains(QLatin1String("prefix"))) {
+            NetworkManager::IpAddress address;
+            address.setIp(QHostAddress(addressList.value(QLatin1String("address")).toString()));
+            address.setPrefixLength(addressList.value(QLatin1String("prefix")).toUInt());
+            if (addressList.contains(QLatin1String("gateway"))) {
+                address.setGateway(QHostAddress(addressList.value(QLatin1String("gateway")).toString()));
+            }
+            addressObjects << address;
+        }
+    }
+
+    NMVariantMapList routes = iface.routeData();
+    QList<NetworkManager::IpRoute> routeObjects;
+    Q_FOREACH (const QVariantMap &routeList, routes) {
+        if (routeList.contains(QLatin1String("address")) &&
+            routeList.contains(QLatin1String("prefix"))) {
+            NetworkManager::IpRoute route;
+            route.setIp(QHostAddress(routeList.value(QLatin1String("address")).toString()));
+            route.setPrefixLength(routeList.value(QLatin1String("prefix")).toUInt());
+            if (routeList.contains(QLatin1String("next-hop"))) {
+                route.setNextHop(QHostAddress(routeList.value(QLatin1String("next-hop")).toString()));
+            }
+
+            if (routeList.contains(QLatin1String("metric"))) {
+                route.setMetric(routeList.value(QLatin1String("metric")).toUInt());
+            }
+            routeObjects << route;
+        }
+    }
+#else
     IpV6DBusAddressList addresses = iface.addresses();
     QList<NetworkManager::IpAddress> addressObjects;
     Q_FOREACH (const IpV6DBusAddress & address, addresses) {
@@ -176,6 +253,7 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
         routeEntry.setMetric(route.metric);
         routeObjects << routeEntry;
     }
+#endif
 
     QList<QHostAddress> nameservers;
     Q_FOREACH (const QByteArray & nameserver, iface.nameservers()) {
@@ -187,13 +265,16 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
     }
 
     d->addresses = addressObjects;
+    d->routes = routeObjects;
+    d->nameservers = nameservers;
 #if NM_CHECK_VERSION(0, 9, 10)
     d->gateway = iface.gateway();
     d->searches = iface.searches();
 #endif
-    d->nameservers = nameservers;
     d->domains = iface.domains();
-    d->routes = routeObjects;
+#if NM_CHECK_VERSION(1, 2, 0)
+    d->dnsOptions = iface.dnsOptions();
+#endif
 }
 
 NetworkManager::IpConfig::~IpConfig()
@@ -232,6 +313,13 @@ QList<NetworkManager::IpRoute> NetworkManager::IpConfig::routes() const
 QStringList NetworkManager::IpConfig::searches() const
 {
     return d->searches;
+}
+#endif
+
+#if NM_CHECK_VERSION(1, 2, 0)
+QStringList NetworkManager::IpConfig::dnsOptions() const
+{
+    return d->dnsOptions;
 }
 #endif
 

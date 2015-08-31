@@ -48,6 +48,10 @@ public:
     AccessPoint::OperationMode mode;
     int signalStrength;
 
+#if NM_CHECK_VERSION(1, 0, 6)
+    int lastSeen;
+#endif
+
     NetworkManager::AccessPoint::Capabilities convertCapabilities(int caps);
     NetworkManager::AccessPoint::WpaFlags convertWpaFlags(uint theirFlags);
 

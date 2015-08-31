@@ -64,6 +64,12 @@ class NETWORKMANAGERQT_EXPORT Device : public QObject
 #if NM_CHECK_VERSION(0, 9, 10)
     Q_PROPERTY(uint mtu READ mtu)
 #endif
+#if NM_CHECK_VERSION(1, 2, 0)
+    Q_PROPERTY(bool nmPluginMissing READ nmPluginMissing)
+#endif
+#if NM_CHECK_VERSION(1, 0, 6)
+    Q_PROPERTY(MeteredStatus meteredStatus READ meteredStatus)
+#endif
     Q_PROPERTY(QString udi READ udi)
     Q_PROPERTY(bool firmwareMissing READ firmwareMissing)
     Q_PROPERTY(bool autoconnect READ autoconnect WRITE setAutoconnect)
@@ -120,8 +126,22 @@ public:
 #if NM_CHECK_VERSION(0, 9, 10)
                              DcbFcoeFailed = 55, TeamdControlFailed = 56, ModemFailed = 57, ModemAvailable = 58, SimPinIncorrect = 59,
 #endif
+#if NM_CHECK_VERSION(1, 0, 4)
+                             NewActivation = 60, ParentChanged = 61, ParentManagedChanged = 62,
+#endif
                              Reserved = 65536
                            };
+
+#if NM_CHECK_VERSION(1, 0, 6)
+    enum MeteredStatus {
+        UnknownStatus = 0,  /**< The device metered status is unknown. */
+        Yes = 1,  /**< The device is metered and the value was statically set. */
+        No = 2,  /**< The device is not metered and the value was statically set. */
+        GuessYes = 3,  /**< The device is metered and the value was guessed. */
+        GuessNo = 4  /**< The device is not metered and the value was guessed. */
+    };
+#endif
+
     /**
      * Possible device capabilities
      */
@@ -342,6 +362,24 @@ public:
      */
     uint mtu() const;
 #endif
+
+#if NM_CHECK_VERSION(1, 2, 0)
+    /**
+     * @return If TRUE, indicates the NetworkManager plugin for the device is likely
+     * missing or misconfigured.
+     * @since 5.14.0
+     */
+    bool nmPluginMissing() const;
+#endif
+#if NM_CHECK_VERSION(1, 0 ,6)
+    /**
+     * @return Whether the amount of traffic flowing through the device is
+     * subject to limitations, for example set by service providers.
+     * @since 5.14.0
+     */
+    MeteredStatus metered() const;
+#endif
+
     /**
      * If true, indicates the device is allowed to autoconnect.
      * If false, manual intervention is required before the device
@@ -488,6 +526,23 @@ Q_SIGNALS:
      */
     void mtuChanged();
 #endif
+#if NM_CHECK_VERSION(1, 2, 0)
+    /**
+     * Emitted when NmPluginMissing property has changed
+     * @since 5.14.0
+     * @see nmPluginMissing
+     */
+    void nmPluginMissingChanged(bool nmPluginMissing);
+#endif
+#if NM_CHECK_VERSION(1, 0, 6)
+    /**
+     * Emitted when metered property has changed
+     * @since 5.14.0
+     * @see metered
+     */
+    void meteredChanged(MeteredStatus metered);
+#endif
+
     /**
      * Emitted when the connection state of this network has changed.
      */

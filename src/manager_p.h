@@ -66,6 +66,9 @@ public:
 #if NM_CHECK_VERSION(1, 0, 0)
     NetworkManager::ConnectionSettings::ConnectionType m_primaryConnectionType;
 #endif
+#if NM_CHECK_VERSION(1, 0, 6)
+    NetworkManager::Device::MeteredStatus m_metered;
+#endif
     QString m_version;
     // to store NetworkManager's version.
     int m_x;
@@ -120,6 +123,9 @@ public:
 #endif
 #if NM_CHECK_VERSION(0, 9, 10)
     bool isStartingUp() const;
+#endif
+#if NM_CHECK_VERSION(1, 0, 6)
+    NetworkManager::Device::MeteredStatus metered() const;
 #endif
 protected Q_SLOTS:
     void init();

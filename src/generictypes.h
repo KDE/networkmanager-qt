@@ -25,6 +25,8 @@
 
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
+#include <nm-version.h>
+
 #include <QtCore/QVariantMap>
 #include <QDBusArgument>
 
@@ -36,6 +38,9 @@ Q_DECLARE_METATYPE(UIntList)
 
 typedef QMap<QString, QVariantMap> NMVariantMapMap;
 Q_DECLARE_METATYPE(NMVariantMapMap)
+
+typedef QList<QVariantMap> NMVariantMapList;
+Q_DECLARE_METATYPE(NMVariantMapList)
 
 typedef QMap<QString, QString> NMStringMap;
 typedef QMapIterator<QString, QString> NMStringMapIterator;

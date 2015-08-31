@@ -117,6 +117,15 @@ public:
      */
     QStringList searches() const;
 #endif
+
+#if NM_CHECK_VERSION(1, 2, 0)
+    /**
+     * Returns a list of DNS options that modify the behaviour of the DNS resolver.
+     * @since 5.14.0
+     */
+    QStringList dnsOptions() const;
+#endif
+
     /**
      * Makes a copy of the IpConfig object @p other.
      */

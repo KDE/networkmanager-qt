@@ -71,6 +71,12 @@ public:
         return qvariant_cast< uint >(property("Capabilities"));
     }
 
+    Q_PROPERTY(bool NmPluginMissing READ nmPluginMissing)
+    inline bool nmPluginMissing() const
+    {
+        return qvariant_cast< bool >(property("NmPluginMissing"));
+    }
+
     Q_PROPERTY(uint DeviceType READ deviceType)
     inline uint deviceType() const
     {
@@ -153,6 +159,12 @@ public:
     inline uint mtu() const
     {
         return qvariant_cast< uint >(property("Mtu"));
+    }
+
+    Q_PROPERTY(uint Metered READ metered)
+    inline uint metered() const
+    {
+        return qvariant_cast< uint >(property("Metered"));
     }
 
     Q_PROPERTY(QString PhysicalPortId READ physicalPortId)

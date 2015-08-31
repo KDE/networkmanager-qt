@@ -50,6 +50,12 @@ public:
         return qvariant_cast< UIntListList >(property("Addresses"));
     }
 
+    Q_PROPERTY(NMVariantMapList AddressData READ addressData)
+    inline NMVariantMapList addressData() const
+    {
+        return qvariant_cast< NMVariantMapList >(property("AddressData"));
+    }
+
     Q_PROPERTY(QStringList Domains READ domains)
     inline QStringList domains() const
     {
@@ -74,6 +80,12 @@ public:
         return qvariant_cast< UIntListList >(property("Routes"));
     }
 
+    Q_PROPERTY(NMVariantMapList RouteData READ routeData)
+    inline NMVariantMapList routeData() const
+    {
+        return qvariant_cast< NMVariantMapList >(property("RouteData"));
+    }
+
     Q_PROPERTY(QStringList Searches READ searches)
     inline QStringList searches() const
     {
@@ -84,6 +96,12 @@ public:
     inline UIntList winsServers() const
     {
         return qvariant_cast< UIntList >(property("WinsServers"));
+    }
+
+    Q_PROPERTY(QStringList DnsOptions READ dnsOptions)
+    inline QStringList dnsOptions() const
+    {
+        return qvariant_cast< QStringList >(property("DnsOptions"));
     }
 
 public Q_SLOTS: // METHODS

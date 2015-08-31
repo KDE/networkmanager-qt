@@ -197,6 +197,15 @@ Q_SIGNALS:
      */
     void isStartingUpChanged();
 #endif
+
+#if NM_CHECK_VERSION(1, 0, 6)
+    /**
+     * Emitted when metered property has changed
+     * @since 5.14.0
+     * @see metered
+     */
+    void meteredChanged(NetworkManager::Device::MeteredStatus metered);
+#endif
 };
 
 /**
@@ -378,6 +387,14 @@ NETWORKMANAGERQT_EXPORT NetworkManager::ConnectionSettings::ConnectionType prima
   * @since 0.9.9.0
   */
 NETWORKMANAGERQT_EXPORT bool isStartingUp();
+#endif
+
+#if NM_CHECK_VERSION(1, 0, 6)
+    /**
+     * @return Indicates whether the connectivity is metered.
+     * @since 5.14.0
+     */
+NETWORKMANAGERQT_EXPORT NetworkManager::Device::MeteredStatus metered();
 #endif
 
 /**

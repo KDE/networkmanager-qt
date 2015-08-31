@@ -62,6 +62,12 @@ public:
         return qvariant_cast< QList<QDBusObjectPath> >(property("ActiveConnections"));
     }
 
+    Q_PROPERTY(uint Metered READ metered)
+    inline uint metered() const
+    {
+        return qvariant_cast< uint >(property("Metered"));
+    }
+
     Q_PROPERTY(uint Connectivity READ connectivity)
     inline uint connectivity() const
     {

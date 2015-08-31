@@ -98,6 +98,12 @@ public:
         return qvariant_cast< uint >(property("WpaFlags"));
     }
 
+    Q_PROPERTY(int LastSeen READ lastSeen)
+    inline int lastSeen() const
+    {
+        return qvariant_cast< int >(property("LastSeen"));
+    }
+
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
     void PropertiesChanged(const QVariantMap &properties);

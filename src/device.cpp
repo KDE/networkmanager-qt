@@ -125,6 +125,13 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
     physicalPortId = deviceIface.physicalPortId();
     mtu = deviceIface.mtu();
 #endif
+#if NM_CHECK_VERSION(1, 2, 0)
+    nmPluginMissing = deviceIface.nmPluginMissing();
+#endif
+#if NM_CHECK_VERSION(1, 0, 6)
+    metered = NetworkManager::DevicePrivate::convertMeteredStatus(deviceIface.metered());
+#endif
+
     QDBusObjectPath ip4ConfigObjectPath = deviceIface.ip4Config();
     if (!ip4ConfigObjectPath.path().isNull() || ip4ConfigObjectPath.path() != QLatin1String("/")) {
         ipV4ConfigPath = ip4ConfigObjectPath.path();
@@ -166,6 +173,14 @@ void NetworkManager::DevicePrivate::init()
 
     QObject::connect(&deviceIface, &OrgFreedesktopNetworkManagerDeviceInterface::StateChanged, this, &DevicePrivate::deviceStateChanged);
 }
+
+#if NM_CHECK_VERSION(1, 0, 6)
+NetworkManager::Device::MeteredStatus NetworkManager::DevicePrivate::convertMeteredStatus(uint metered)
+{
+    NetworkManager::Device::MeteredStatus ourMeteredStatus = (NetworkManager::Device::MeteredStatus) metered;
+    return ourMeteredStatus;
+}
+#endif
 
 NetworkManager::Device::Capabilities NetworkManager::DevicePrivate::convertCapabilities(uint theirCaps)
 {
@@ -328,6 +343,16 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
     } else if (property == QLatin1String("Mtu")) {
         mtu = value.toUInt();
         Q_EMIT q->mtuChanged();
+#endif
+#if NM_CHECK_VERSION(1, 2, 0)
+    } else if (property == QLatin1String("NmPluginMissing")) {
+        nmPluginMissing = value.toBool();
+        Q_EMIT q->nmPluginMissingChanged(nmPluginMissing);
+    } else if (property == QLatin1String("Metered")) {
+#endif
+#if NM_CHECK_VERSION(1, 0, 6)
+        metered = NetworkManager::DevicePrivate::convertMeteredStatus(value.toUInt());
+        Q_EMIT q->meteredChanged(metered);
 #endif
     } else {
         qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
@@ -503,6 +528,23 @@ uint NetworkManager::Device::mtu() const
 {
     Q_D(const Device);
     return d->mtu;
+}
+#endif
+
+#if NM_CHECK_VERSION(1, 2, 0)
+bool NetworkManager::Device::nmPluginMissing() const
+{
+    Q_D(const Device);
+    return d->nmPluginMissing;
+
+}
+#endif
+
+#if NM_CHECK_VERSION(1, 0, 6)
+NetworkManager::Device::MeteredStatus NetworkManager::Device::metered() const
+{
+    Q_D(const Device);
+    return d->metered;
 }
 #endif
 
