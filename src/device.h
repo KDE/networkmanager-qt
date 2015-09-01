@@ -68,7 +68,7 @@ class NETWORKMANAGERQT_EXPORT Device : public QObject
     Q_PROPERTY(bool nmPluginMissing READ nmPluginMissing)
 #endif
 #if NM_CHECK_VERSION(1, 0, 6)
-    Q_PROPERTY(MeteredStatus meteredStatus READ meteredStatus)
+    Q_PROPERTY(MeteredStatus meteredStatus READ metered)
 #endif
     Q_PROPERTY(QString udi READ udi)
     Q_PROPERTY(bool firmwareMissing READ firmwareMissing)
