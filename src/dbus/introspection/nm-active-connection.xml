@@ -103,13 +103,6 @@
         The path to the master device if the connection is a slave.
       </tp:docstring>
     </property>
-    <property name="LastSeen" type="i" access="read">
-      <tp:docstring>
-        The timestamp (in CLOCK_BOOTTIME seconds) for the last time the access
-        point was found in scan results.  A value of -1 means the access point
-        has never been found in scan results.
-      </tp:docstring>
-    </property>
 
     <signal name="PropertiesChanged">
         <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
