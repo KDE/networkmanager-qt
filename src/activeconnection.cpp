@@ -113,6 +113,7 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject 
         Q_EMIT stateChanged(d->state);
     }
 
+#if NM_CHECK_VERSION(0, 9, 10)
     QDBusObjectPath ip4ConfigObjectPath = d->iface.ip4Config();
     if (!ip4ConfigObjectPath.path().isNull() && ip4ConfigObjectPath.path() != d->ipV4ConfigPath) {
         d->ipV4ConfigPath = ip4ConfigObjectPath.path();
@@ -136,6 +137,7 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject 
         d->dhcp6ConfigPath = dhcp6ConfigObjectPath.path();
         Q_EMIT dhcp6ConfigChanged();
     }
+#endif
 }
 
 NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, QObject *parent)
@@ -154,6 +156,7 @@ NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, 
         Q_EMIT stateChanged(d->state);
     }
 
+#if NM_CHECK_VERSION(0, 9, 10)
     QDBusObjectPath ip4ConfigObjectPath = d->iface.ip4Config();
     if (!ip4ConfigObjectPath.path().isNull() && ip4ConfigObjectPath.path() != d->ipV4ConfigPath) {
         d->ipV4ConfigPath = ip4ConfigObjectPath.path();
@@ -177,6 +180,7 @@ NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, 
         d->dhcp6ConfigPath = dhcp6ConfigObjectPath.path();
         Q_EMIT dhcp6ConfigChanged();
     }
+#endif
 }
 
 NetworkManager::ActiveConnection::~ActiveConnection()
