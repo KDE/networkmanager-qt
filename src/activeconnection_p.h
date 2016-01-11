@@ -60,6 +60,12 @@ public:
 
     Q_DECLARE_PUBLIC(ActiveConnection)
     ActiveConnection *q_ptr;
+
+    /*
+     * Workaround: Re-check connection state before we watch changes in case it gets changed too quickly
+     * BUG:352326
+     */
+    void recheckProperties();
 private Q_SLOTS:
     void propertiesChanged(const QVariantMap &properties);
 };

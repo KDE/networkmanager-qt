@@ -108,36 +108,7 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject 
      * Workaround: Re-check connection state before we watch changes in case it gets changed too quickly
      * BUG:352326
      */
-    if (d->state != NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(d->iface.state())) {
-        d->state = NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(d->iface.state());
-        Q_EMIT stateChanged(d->state);
-    }
-
-#if NM_CHECK_VERSION(0, 9, 10)
-    QDBusObjectPath ip4ConfigObjectPath = d->iface.ip4Config();
-    if (!ip4ConfigObjectPath.path().isNull() && ip4ConfigObjectPath.path() != d->ipV4ConfigPath) {
-        d->ipV4ConfigPath = ip4ConfigObjectPath.path();
-        Q_EMIT ipV4ConfigChanged();
-    }
-
-    QDBusObjectPath ip6ConfigObjectPath = d->iface.ip6Config();
-    if (!ip6ConfigObjectPath.path().isNull() && ip6ConfigObjectPath.path() != d->ipV6ConfigPath) {
-        d->ipV6ConfigPath = ip6ConfigObjectPath.path();
-        Q_EMIT ipV6ConfigChanged();
-    }
-
-    QDBusObjectPath dhcp4ConfigObjectPath = d->iface.dhcp4Config();
-    if (!dhcp4ConfigObjectPath.path().isNull() && dhcp4ConfigObjectPath.path() != d->dhcp4ConfigPath) {
-        d->dhcp4ConfigPath = dhcp4ConfigObjectPath.path();
-        Q_EMIT dhcp4ConfigChanged();
-    }
-
-    QDBusObjectPath dhcp6ConfigObjectPath = d->iface.dhcp6Config();
-    if (!dhcp6ConfigObjectPath.path().isNull() && dhcp6ConfigObjectPath.path() != d->dhcp6ConfigPath) {
-        d->dhcp6ConfigPath = dhcp6ConfigObjectPath.path();
-        Q_EMIT dhcp6ConfigChanged();
-    }
-#endif
+    d->recheckProperties();
 }
 
 NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, QObject *parent)
@@ -151,36 +122,7 @@ NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, 
      * Workaround: Re-check connection state before we watch changes in case it gets changed too quickly
      * BUG:352326
      */
-    if (d->state != NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(d->iface.state())) {
-        d->state = NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(d->iface.state());
-        Q_EMIT stateChanged(d->state);
-    }
-
-#if NM_CHECK_VERSION(0, 9, 10)
-    QDBusObjectPath ip4ConfigObjectPath = d->iface.ip4Config();
-    if (!ip4ConfigObjectPath.path().isNull() && ip4ConfigObjectPath.path() != d->ipV4ConfigPath) {
-        d->ipV4ConfigPath = ip4ConfigObjectPath.path();
-        Q_EMIT ipV4ConfigChanged();
-    }
-
-    QDBusObjectPath ip6ConfigObjectPath = d->iface.ip6Config();
-    if (!ip6ConfigObjectPath.path().isNull() && ip6ConfigObjectPath.path() != d->ipV6ConfigPath) {
-        d->ipV6ConfigPath = ip6ConfigObjectPath.path();
-        Q_EMIT ipV6ConfigChanged();
-    }
-
-    QDBusObjectPath dhcp4ConfigObjectPath = d->iface.dhcp4Config();
-    if (!dhcp4ConfigObjectPath.path().isNull() && dhcp4ConfigObjectPath.path() != d->dhcp4ConfigPath) {
-        d->dhcp4ConfigPath = dhcp4ConfigObjectPath.path();
-        Q_EMIT dhcp4ConfigChanged();
-    }
-
-    QDBusObjectPath dhcp6ConfigObjectPath = d->iface.dhcp6Config();
-    if (!dhcp6ConfigObjectPath.path().isNull() && dhcp6ConfigObjectPath.path() != d->dhcp6ConfigPath) {
-        d->dhcp6ConfigPath = dhcp6ConfigObjectPath.path();
-        Q_EMIT dhcp6ConfigChanged();
-    }
-#endif
+    d->recheckProperties();
 }
 
 NetworkManager::ActiveConnection::~ActiveConnection()
@@ -302,6 +244,77 @@ QStringList NetworkManager::ActiveConnection::devices() const
 {
     Q_D(const ActiveConnection);
     return d->devices;
+}
+
+void NetworkManager::ActiveConnectionPrivate::recheckProperties()
+{
+    Q_Q(ActiveConnection);
+
+    /*
+     * Workaround: Re-check connection state before we watch changes in case it gets changed too quickly
+     * BUG:352326
+     */
+    QStringList properties;
+    const QDBusObjectPath ip4ConfigObjectPath = iface.ip4Config();
+    const QDBusObjectPath ip6ConfigObjectPath = iface.ip6Config();
+    const QDBusObjectPath dhcp4ConfigObjectPath = iface.dhcp4Config();
+    const QDBusObjectPath dhcp6ConfigObjectPath = iface.dhcp6Config();
+
+    if (state != NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(iface.state())) {
+        properties << QLatin1String("State");
+    }
+
+#if NM_CHECK_VERSION(0, 9, 10)
+    if (!ip4ConfigObjectPath.path().isNull() && ip4ConfigObjectPath.path() != ipV4ConfigPath) {
+        properties << QLatin1String("Ip4Config");
+    }
+
+    if (!ip6ConfigObjectPath.path().isNull() && ip6ConfigObjectPath.path() != ipV6ConfigPath) {
+        properties << QLatin1String("Ip6Config");
+    }
+
+    if (!dhcp4ConfigObjectPath.path().isNull() && dhcp4ConfigObjectPath.path() != dhcp4ConfigPath) {
+        properties << QLatin1String("Dhcp4Config");
+    }
+
+    if (!dhcp6ConfigObjectPath.path().isNull() && dhcp6ConfigObjectPath.path() != dhcp6ConfigPath) {
+        properties << QLatin1String("Dhcp6Config");
+    }
+#endif
+
+    Q_FOREACH (const QString &property, properties) {
+        QDBusMessage message = QDBusMessage::createMethodCall(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE,
+                            NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH,
+                            NetworkManager::NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                            QLatin1String("Get"));
+        message << iface.staticInterfaceName() << property;
+
+        QDBusPendingCall pendingCall = QDBusConnection::systemBus().asyncCall(message);
+        QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(pendingCall, this);
+
+        connect(watcher, &QDBusPendingCallWatcher::finished, [watcher, q, this, property] () {
+            watcher->deleteLater();
+            if (property == QLatin1String("State")) {
+                state = NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(iface.state());
+                Q_EMIT q->stateChanged(state);
+            }
+#if NM_CHECK_VERSION(0, 9, 10)
+            if (property == QLatin1String("Ip4Config")) {
+                ipV4ConfigPath = iface.ip4Config().path();
+                Q_EMIT q->ipV4ConfigChanged();
+            } else if (property == QLatin1String("Ip6Config")) {
+                ipV6ConfigPath = iface.ip6Config().path();
+                Q_EMIT q->ipV6ConfigChanged();
+            } else if (property == QLatin1String("Dhcp4Config")) {
+                dhcp4ConfigPath = iface.dhcp4Config().path();
+                Q_EMIT q->dhcp4ConfigChanged();
+            } else if (property == QLatin1String("Dhcp6Config")) {
+                dhcp6ConfigPath = iface.dhcp6Config().path();
+                Q_EMIT q->dhcp6ConfigChanged();
+            }
+#endif
+        });
+    }
 }
 
 void NetworkManager::ActiveConnectionPrivate::propertiesChanged(const QVariantMap &properties)
