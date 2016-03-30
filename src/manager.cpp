@@ -51,6 +51,12 @@
 #if !NM_CHECK_VERSION(1, 2, 0)
 #include "wimaxdevice.h"
 #endif
+#if NM_CHECK_VERSION(0, 9, 10)
+#include "gredevice.h"
+#include "macvlandevice.h"
+#include "tundevice.h"
+#include "vethdevice.h"
+#endif
 
 #include "nmdebug.h"
 
@@ -309,6 +315,18 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
 #if NM_CHECK_VERSION(0, 9, 10)
     case Device::Generic:
         createdInterface = Device::Ptr(new NetworkManager::GenericDevice(uni), &QObject::deleteLater);
+        break;
+    case Device::Gre:
+        createdInterface = Device::Ptr(new NetworkManager::GreDevice(uni), &QObject::deleteLater);
+        break;
+    case Device::MacVlan:
+        createdInterface = Device::Ptr(new NetworkManager::MacVlanDevice(uni), &QObject::deleteLater);
+        break;
+    case Device::Tun:
+        createdInterface = Device::Ptr(new NetworkManager::TunDevice(uni), &QObject::deleteLater);
+        break;
+    case Device::Veth:
+        createdInterface = Device::Ptr(new NetworkManager::VethDevice(uni), &QObject::deleteLater);
         break;
 #endif
     default:
