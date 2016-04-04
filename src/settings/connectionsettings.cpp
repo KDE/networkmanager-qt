@@ -84,6 +84,9 @@ NetworkManager::ConnectionSettingsPrivate::ConnectionSettingsPrivate(ConnectionS
     , type(ConnectionSettings::Wired)
     , autoconnect(true)
     , readOnly(false)
+#if NM_CHECK_VERSION(0, 9, 10)
+    , gatewayPingTimeout(0)
+#endif
 #if NM_CHECK_VERSION(1, 0, 0)
     , autoconnectPriority(0)
 #endif
