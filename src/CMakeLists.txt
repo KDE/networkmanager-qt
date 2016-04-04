@@ -145,6 +145,13 @@ if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 0.9.10.0 OR ${NETWORKMANAGER_VERSION
         )
 endif()
 
+if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 1.1.92 OR ${NETWORKMANAGER_VERSION} VERSION_GREATER 1.1.92)
+    set(NetworkManagerQt_SETTINGS_SRCS
+        ${NetworkManagerQt_SETTINGS_SRCS}
+        settings/tunsetting.cpp
+        )
+endif()
+
 add_library(KF5NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
 generate_export_header(KF5NetworkManagerQt EXPORT_FILE_NAME ${NetworkManagerQt_BINARY_DIR}/networkmanagerqt/networkmanagerqt_export.h BASE_NAME NetworkManagerQt)
 add_library(KF5::NetworkManagerQt ALIAS KF5NetworkManagerQt)
@@ -236,6 +243,7 @@ ecm_generate_headers(NetworkManagerQt_SETTINGS_CamelCase_HEADERS
   SerialSetting
   Setting
   TeamSetting
+  TunSetting
   VlanSetting
   VpnSetting
   WimaxSetting

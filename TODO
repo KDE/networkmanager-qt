@@ -65,7 +65,6 @@
     - sim-id
     - sim-operator-id
   - team-port setting
-  - tun setting
   - vpn setting
     - persistent
   - vxlan setting

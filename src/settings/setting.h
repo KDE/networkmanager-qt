@@ -49,8 +49,8 @@ public:
     typedef QSharedPointer<Setting> Ptr;
     typedef QList<Ptr> List;
     enum SettingType {Adsl, Cdma, Gsm, Infiniband, Ipv4, Ipv6, Ppp, Pppoe, Security8021x, Serial,
-                      Vpn, Wired, Wireless, WirelessSecurity, Bluetooth, OlpcMesh, Vlan, Wimax, Bond, Bridge, BridgePort, Team, Generic
-                     };
+                      Vpn, Wired, Wireless, WirelessSecurity, Bluetooth, OlpcMesh, Vlan, Wimax, Bond, Bridge, BridgePort, Team, Generic,
+                      Tun };
     enum SecretFlagType {None = 0, AgentOwned = 0x01, NotSaved = 0x02, NotRequired = 0x04};
     Q_DECLARE_FLAGS(SecretFlags, SecretFlagType)
 

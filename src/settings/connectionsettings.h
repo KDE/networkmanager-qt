@@ -68,7 +68,10 @@ public:
         Wireless,
 #if NM_CHECK_VERSION(0, 9, 10)
         Team,
-        Generic
+        Generic,
+#endif
+#if NM_CHECK_VERSION(1, 1, 92)
+        Tun
 #endif
     };
 

@@ -40,6 +40,7 @@
 #include "pppsetting.h"
 #include "pppoesetting.h"
 #include "serialsetting.h"
+#include "tunsetting.h"
 #include "vlansetting.h"
 #include "vpnsetting.h"
 #include "wimaxsetting.h"
@@ -202,6 +203,13 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabili
         addSetting(Setting::Ptr(new Ipv6Setting()));
         break;
 #endif
+#if NM_CHECK_VERSION(1, 1, 92)
+    case ConnectionSettings::Tun:
+        addSetting(Setting::Ptr(new TunSetting()));
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+        break;
+#endif
     case ConnectionSettings::Unknown:
     default:
         break;
@@ -315,6 +323,13 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
         addSetting(connectionSettings->setting(Setting::Ipv6));
         break;
 #endif
+#if NM_CHECK_VERSION(1, 1, 92)
+    case ConnectionSettings::Tun:
+        addSetting(connectionSettings->setting(Setting::Tun));
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        break;
+#endif
     case ConnectionSettings::Unknown:
     default:
         break;
@@ -358,6 +373,10 @@ NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSet
         type = Team;
     } else if (typeString == QLatin1String(NM_SETTING_GENERIC_SETTING_NAME)) {
         type = Generic;
+#endif
+#if NM_CHECK_VERSION(1, 1, 92)
+    } else if (typeString == QLatin1String(NM_SETTING_TUN_SETTING_NAME)) {
+        type = Tun;
 #endif
     }
 
@@ -417,6 +436,11 @@ QString NetworkManager::ConnectionSettings::typeAsString(NetworkManager::Connect
         break;
     case Generic:
         typeString = QLatin1String(NM_SETTING_GENERIC_SETTING_NAME);
+        break;
+#endif
+#if NM_CHECK_VERSION(1, 1, 92)
+    case Tun:
+        typeString = QLatin1String(NM_SETTING_TUN_SETTING_NAME);
         break;
 #endif
     default:
@@ -984,6 +1008,11 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
 #if NM_CHECK_VERSION(0, 9, 10)
         case Setting::Team:
             dbg.nospace() << *(settingPtr.staticCast<NetworkManager::TeamSetting>().data());
+            break;
+#endif
+#if NM_CHECK_VERSION(1, 1, 92)
+        case Setting::Tun:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::TunSetting>().data());
             break;
 #endif
         default:
