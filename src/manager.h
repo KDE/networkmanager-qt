@@ -116,12 +116,12 @@ Q_SIGNALS:
      * This signal is emitted when the status of the wireless changed
      */
     void wwanEnabledChanged(bool);
-#if !NM_CHECK_VERSION(1, 2, 0)
+
     /**
      * This signal is emitted when teh status of the wimax changed
      */
     void wimaxEnabledChanged(bool);
-#endif
+
     /**
      * This signal is emitted when the status of the wireless changed
      */
@@ -130,12 +130,12 @@ Q_SIGNALS:
      * This signal is emitted when the status of the wireless changed
      */
     void wwanHardwareEnabledChanged(bool);
-#if !NM_CHECK_VERSION(1, 2, 0)
+
     /**
      * This signal is emitted when the status of the wimax hardware changed
      */
     void wimaxHardwareEnabledChanged(bool);
-#endif
+
     /**
      * This signal is emitted when the status of overall networking changed
      */
@@ -281,7 +281,6 @@ NETWORKMANAGERQT_EXPORT bool isWwanEnabled();
  */
 NETWORKMANAGERQT_EXPORT bool isWwanHardwareEnabled();
 
-#if !NM_CHECK_VERSION(1, 2, 0)
 /**
  * Retrieves the activation status of wimax networking in the system.
  *
@@ -295,7 +294,6 @@ NETWORKMANAGERQT_EXPORT bool isWimaxEnabled();
  * @return true if wimax HW networking is enabled, false otherwise
  */
 NETWORKMANAGERQT_EXPORT bool isWimaxHardwareEnabled();
-#endif
 
 /**
  * Activate a connection using the supplied device.
@@ -414,9 +412,7 @@ NETWORKMANAGERQT_EXPORT void setNetworkingEnabled(bool enabled);
 // implemented in Notifier
 NETWORKMANAGERQT_EXPORT void setWirelessEnabled(bool enabled);
 NETWORKMANAGERQT_EXPORT void setWwanEnabled(bool enabled);
-#if !NM_CHECK_VERSION(1, 2, 0)
 NETWORKMANAGERQT_EXPORT void setWimaxEnabled(bool enabled);
-#endif
 NETWORKMANAGERQT_EXPORT void sleep(bool sleep);
 NETWORKMANAGERQT_EXPORT void setLogging(LogLevel, LogDomains);
 NETWORKMANAGERQT_EXPORT NMStringMap permissions();

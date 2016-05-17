@@ -41,6 +41,8 @@ set(NetworkManagerQt_PART_SRCS
     vlandevice.cpp
     vpnconnection.cpp
     vpnplugin.cpp
+    wimaxdevice.cpp
+    wimaxnsp.cpp
     wireddevice.cpp
     wirelessdevice.cpp
     wirelessnetwork.cpp
@@ -88,6 +90,7 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-device-olpc-meshinterface.cpp
    dbus/nm-device-vlaninterface.cpp
    dbus/nm-device-wifiinterface.cpp
+   dbus/nm-device-wimaxinterface.cpp
    dbus/nm-deviceinterface.cpp
    dbus/nm-dhcp4-configinterface.cpp
    dbus/nm-dhcp6-configinterface.cpp
@@ -101,21 +104,8 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-settingsinterface.cpp
    dbus/nm-vpn-connectioninterface.cpp
    dbus/nm-vpn-plugininterface.cpp
+   dbus/nm-wimax-nspinterface.cpp
 )
-
-if (${NETWORKMANAGER_VERSION} VERSION_LESS 1.2.0)
-    set(NetworkManagerQt_PART_SRCS
-        ${NetworkManagerQt_PART_SRCS}
-        wimaxdevice.cpp
-        wimaxnsp.cpp
-        )
-
-    set(DBUS_INTERFACE_SRCS
-        ${DBUS_INTERFACE_SRCS}
-        dbus/nm-device-wimaxinterface.cpp
-        dbus/nm-wimax-nspinterface.cpp
-        )
-endif()
 
 if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 0.9.10.0 OR ${NETWORKMANAGER_VERSION} VERSION_GREATER 0.9.10.0)
     set(NetworkManagerQt_PART_SRCS

@@ -53,10 +53,8 @@ public:
     NetworkManager::Status nmState;
     Connectivity m_connectivity;
     bool m_isNetworkingEnabled;
-#if !NM_CHECK_VERSION(1, 2, 0)
     bool m_isWimaxEnabled;
     bool m_isWimaxHardwareEnabled;
-#endif
     bool m_isWirelessEnabled;
     bool m_isWirelessHardwareEnabled;
     bool m_isWwanEnabled;
@@ -95,10 +93,8 @@ public:
     bool isWirelessHardwareEnabled() const;
     bool isWwanEnabled() const;
     bool isWwanHardwareEnabled() const;
-#if !NM_CHECK_VERSION(1, 2, 0)
     bool isWimaxEnabled() const;
     bool isWimaxHardwareEnabled() const;
-#endif
     QDBusPendingReply<QDBusObjectPath> activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter);
     QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter);
     QDBusPendingReply<> deactivateConnection(const QString &activeConnection);
@@ -108,9 +104,7 @@ public:
     void setNetworkingEnabled(bool enabled);
     void setWirelessEnabled(bool enabled);
     void setWwanEnabled(bool enabled);
-#if !NM_CHECK_VERSION(1, 2, 0)
     void setWimaxEnabled(bool enabled);
-#endif
     void sleep(bool sleep);
     void setLogging(NetworkManager::LogLevel, NetworkManager::LogDomains);
     NMStringMap permissions();

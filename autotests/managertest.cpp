@@ -115,7 +115,6 @@ void ManagerTest::testManager()
     QVERIFY(wirelessHwEnabledChanged.at(0).at(0).toBool() == false);
     QCOMPARE(NetworkManager::isWirelessHardwareEnabled(), false);
 
-#if !NM_CHECK_VERSION(1, 2, 0)
     QSignalSpy wimaxEnabledChanged(NetworkManager::notifier(), SIGNAL(wimaxEnabledChanged(bool)));
     QCOMPARE(NetworkManager::isWimaxEnabled(), true);
     fakeNetwork->setWimaxEnabled(false);
@@ -131,7 +130,6 @@ void ManagerTest::testManager()
     QCOMPARE(wimaxHwEnabledChanged.count(), 1);
     QVERIFY(wimaxHwEnabledChanged.at(0).at(0).toBool() == false);
     QCOMPARE(NetworkManager::isWimaxHardwareEnabled(), false);
-#endif
 
     QSignalSpy wwanEnabledChanged(NetworkManager::notifier(), SIGNAL(wwanEnabledChanged(bool)));
     QCOMPARE(NetworkManager::isWwanEnabled(), true);
@@ -144,10 +142,8 @@ void ManagerTest::testManager()
     // We make it here, so we can set all values back for futher testing
     fakeNetwork->setWirelessEnabled(true);
     fakeNetwork->setWirelessHardwareEnabled(true);
-#if !NM_CHECK_VERSION(1, 2, 0)
     fakeNetwork->setWimaxEnabled(true);
     fakeNetwork->setWimaxHardwareEnabled(true);
-#endif
     fakeNetwork->setWwanEnabled(true);
 }
 

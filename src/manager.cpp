@@ -48,9 +48,7 @@
 #include "vlandevice.h"
 #include "wireddevice.h"
 #include "wirelessdevice.h"
-#if !NM_CHECK_VERSION(1, 2, 0)
 #include "wimaxdevice.h"
-#endif
 #if NM_CHECK_VERSION(0, 9, 10)
 #include "gredevice.h"
 #include "macvlandevice.h"
@@ -86,10 +84,8 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     , nmState(NetworkManager::Unknown)
     , m_connectivity(NetworkManager::UnknownConnectivity)
     , m_isNetworkingEnabled(false)
-#if !NM_CHECK_VERSION(1, 2, 0)
     , m_isWimaxEnabled(false)
     , m_isWimaxHardwareEnabled(false)
-#endif
     , m_isWirelessEnabled(false)
     , m_isWirelessHardwareEnabled(false)
     , m_isWwanEnabled(false)
@@ -289,11 +285,9 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
     case Device::Bluetooth:
         createdInterface = Device::Ptr(new NetworkManager::BluetoothDevice(uni), &QObject::deleteLater);
         break;
-#if !NM_CHECK_VERSION(1, 2, 0)
     case Device::Wimax:
         createdInterface = Device::Ptr(new NetworkManager::WimaxDevice(uni), &QObject::deleteLater);
         break;
-#endif
     case Device::OlpcMesh:
         createdInterface = Device::Ptr(new NetworkManager::OlpcMeshDevice(uni), &QObject::deleteLater);
         break;
@@ -400,7 +394,6 @@ bool NetworkManager::NetworkManagerPrivate::isWwanHardwareEnabled() const
     return m_isWwanHardwareEnabled;
 }
 
-#if !NM_CHECK_VERSION(1, 2, 0)
 bool NetworkManager::NetworkManagerPrivate::isWimaxEnabled() const
 {
     return m_isWimaxEnabled;
@@ -410,7 +403,6 @@ bool NetworkManager::NetworkManagerPrivate::isWimaxHardwareEnabled() const
 {
     return m_isWimaxHardwareEnabled;
 }
-#endif
 
 QDBusPendingReply<QDBusObjectPath> NetworkManager::NetworkManagerPrivate::activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter)
 {
@@ -460,12 +452,10 @@ void NetworkManager::NetworkManagerPrivate::setWwanEnabled(bool enabled)
     iface.setWwanEnabled(enabled);
 }
 
-#if !NM_CHECK_VERSION(1, 2, 0)
 void NetworkManager::NetworkManagerPrivate::setWimaxEnabled(bool enabled)
 {
     iface.setWimaxEnabled(enabled);
 }
-#endif
 
 void NetworkManager::NetworkManagerPrivate::sleep(bool sleep)
 {
@@ -753,7 +743,6 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
             m_isWwanEnabled = it->toBool();
             qCDebug(NMQT) << property << m_isWwanEnabled;
             Q_EMIT wwanEnabledChanged(m_isWwanEnabled);
-#if !NM_CHECK_VERSION(1, 2, 0)
         } else if (property == QLatin1String("WimaxHardwareEnabled")) {
             m_isWimaxHardwareEnabled = it->toBool();
             qCDebug(NMQT) << property << m_isWimaxHardwareEnabled;
@@ -762,7 +751,6 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
             m_isWimaxEnabled = it->toBool();
             qCDebug(NMQT) << property << m_isWimaxEnabled;
             Q_EMIT wimaxEnabledChanged(m_isWimaxEnabled);
-#endif
         } else if (property == QLatin1String("Version")) {
             m_version = it->toString();
             parseVersion(m_version);
@@ -1015,7 +1003,6 @@ void NetworkManager::setWwanEnabled(bool enabled)
     globalNetworkManager->setWwanEnabled(enabled);
 }
 
-#if !NM_CHECK_VERSION(1, 2, 0)
 bool NetworkManager::isWimaxEnabled()
 {
     return globalNetworkManager->isWimaxEnabled();
@@ -1030,7 +1017,6 @@ void NetworkManager::setWimaxEnabled(bool enabled)
 {
     globalNetworkManager->setWimaxEnabled(enabled);
 }
-#endif
 
 void NetworkManager::sleep(bool sleep)
 {
@@ -1053,9 +1039,7 @@ NetworkManager::Device::Types NetworkManager::supportedInterfaceTypes()
                NetworkManager::Device::Ethernet |
                NetworkManager::Device::Wifi |
                NetworkManager::Device::Modem |
-#if !NM_CHECK_VERSION(1, 2, 0)
                NetworkManager::Device::Wimax |
-#endif
                NetworkManager::Device::Bluetooth |
                NetworkManager::Device::OlpcMesh |
                NetworkManager::Device::InfiniBand |

@@ -36,10 +36,8 @@ FakeNetwork::FakeNetwork(QObject *parent)
     , m_primaryConnection(QDBusObjectPath("/"))
     , m_state(20)
     , m_version(QLatin1Literal("0.9.10.0"))
-#if !NM_CHECK_VERSION(1, 2, 0)
     , m_wimaxEnabled(true)
     , m_wimaxHardwareEnabled(true)
-#endif
     , m_wirelessEnabled(true)
     , m_wirelessHardwareEnabled(true)
     , m_wwanEnabled(true)
@@ -110,7 +108,6 @@ QString FakeNetwork::version() const
     return m_version;
 }
 
-#if !NM_CHECK_VERSION(1, 2, 0)
 bool FakeNetwork::wimaxEnabled() const
 {
     return m_wimaxEnabled;
@@ -138,7 +135,6 @@ void FakeNetwork::setWimaxHardwareEnabled(bool enabled)
     map.insert(QLatin1Literal("WimaxHardwareEnabled"), m_wimaxHardwareEnabled);
     Q_EMIT PropertiesChanged(map);
 }
-#endif
 
 bool FakeNetwork::wirelessEnabled() const
 {
