@@ -15,3 +15,7 @@ libraries:
  - qmake: NetworkManagerQt
    cmake: "KF5NetworkManagerQt"
 cmakename: KF5NetworkManagerQt
+
+public_lib: true
+group: Frameworks
+subgroup: Tier 1
