@@ -25,6 +25,11 @@
 #include <nm-setting-wireless.h>
 #endif
 
+//define the deprecated&dropped values
+#if NM_CHECK_VERSION(1, 0, 0)
+#define NM_SETTING_WIRELESS_SEC "security"
+#endif
+
 #include <QtCore/QDebug>
 
 NetworkManager::WirelessSettingPrivate::WirelessSettingPrivate()
@@ -333,15 +338,9 @@ void NetworkManager::WirelessSetting::fromMap(const QVariantMap &setting)
         setSeenBssids(setting.value(QLatin1String(NM_SETTING_WIRELESS_SEEN_BSSIDS)).toStringList());
     }
 
-#if NM_CHECK_VERSION(1, 0, 0)
-    if (setting.contains(QLatin1String("security"))) {
-        setSecurity(setting.value(QLatin1String("security")).toString());
-    }
-#else
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_SEC))) {
         setSecurity(setting.value(QLatin1String(NM_SETTING_WIRELESS_SEC)).toString());
     }
-#endif
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_HIDDEN))) {
         setHidden(setting.value(QLatin1String(NM_SETTING_WIRELESS_HIDDEN)).toBool());
@@ -408,15 +407,9 @@ QVariantMap NetworkManager::WirelessSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SEEN_BSSIDS), seenBssids());
     }
 
-#if NM_CHECK_VERSION(1, 0, 0)
-    if (!security().isEmpty()) {
-        setting.insert(QLatin1String("security"), security());
-    }
-#else
     if (!security().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SEC), security());
     }
-#endif
 
     if (hidden()) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_HIDDEN), hidden());
@@ -442,11 +435,7 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WirelessSet
     dbg.nospace() << NM_SETTING_WIRELESS_MAC_ADDRESS_BLACKLIST << ": " << setting.macAddressBlacklist() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_MTU << ": " << setting.mtu() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_SEEN_BSSIDS << ": " << setting.seenBssids() << '\n';
-#if NM_CHECK_VERSION(1, 0, 0)
-    dbg.nospace() << "security" << ": " << setting.security() << '\n';
-#else
     dbg.nospace() << NM_SETTING_WIRELESS_SEC << ": " << setting.security() << '\n';
-#endif
     dbg.nospace() << NM_SETTING_WIRELESS_HIDDEN << ": " << setting.hidden() << '\n';
 
     return dbg.maybeSpace();

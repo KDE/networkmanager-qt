@@ -54,9 +54,7 @@ public:
 private Q_SLOTS:
     void onConnectionUpdated();
     void onConnectionRemoved();
-#if NM_CHECK_VERSION(0, 9, 10)
     void onPropertiesChanged(const QVariantMap &properties);
-#endif
 };
 
 }

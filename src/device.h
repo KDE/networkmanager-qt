@@ -61,15 +61,9 @@ class NETWORKMANAGERQT_EXPORT Device : public QObject
     Q_PROPERTY(QVariant genericCapabilities READ capabilitiesV)
     Q_PROPERTY(QHostAddress ipV4Address READ ipV4Address)
     Q_PROPERTY(bool managed READ managed)
-#if NM_CHECK_VERSION(0, 9, 10)
     Q_PROPERTY(uint mtu READ mtu)
-#endif
-#if NM_CHECK_VERSION(1, 2, 0)
     Q_PROPERTY(bool nmPluginMissing READ nmPluginMissing)
-#endif
-#if NM_CHECK_VERSION(1, 0, 6)
     Q_PROPERTY(MeteredStatus metered READ metered)
-#endif
     Q_PROPERTY(QString udi READ udi)
     Q_PROPERTY(bool firmwareMissing READ firmwareMissing)
     Q_PROPERTY(bool autoconnect READ autoconnect WRITE setAutoconnect)
@@ -105,6 +99,7 @@ public:
 
     /**
      * Enums describing the reason for a connection state change
+     * @note StateChangeReasons NewActivation, ParentChanged, ParentManagedChanged are available in runtime NM >= 1.0.4
      */
     enum StateChangeReason { UnknownReason = 0, NoReason = 1 , NowManagedReason = 2, NowUnmanagedReason = 3,
                              ConfigFailedReason = 4, ConfigUnavailableReason = 5,
@@ -123,16 +118,11 @@ public:
                              ConnectionAssumedReason = 41, SupplicantAvailableReason = 42, ModemNotFoundReason = 43, BluetoothFailedReason = 44,
                              GsmSimNotInserted = 45, GsmSimPinRequired = 46, GsmSimPukRequired = 47, GsmSimWrong = 48 , InfiniBandMode = 49,
                              DependencyFailed = 50, Br2684Failed = 51, ModemManagerUnavailable = 52, SsidNotFound = 53, SecondaryConnectionFailed = 54,
-#if NM_CHECK_VERSION(0, 9, 10)
                              DcbFcoeFailed = 55, TeamdControlFailed = 56, ModemFailed = 57, ModemAvailable = 58, SimPinIncorrect = 59,
-#endif
-#if NM_CHECK_VERSION(1, 0, 4)
                              NewActivation = 60, ParentChanged = 61, ParentManagedChanged = 62,
-#endif
                              Reserved = 65536
                            };
 
-#if NM_CHECK_VERSION(1, 0, 6)
     enum MeteredStatus {
         UnknownStatus = 0,  /**< The device metered status is unknown. */
         Yes = 1,  /**< The device is metered and the value was statically set. */
@@ -140,7 +130,6 @@ public:
         GuessYes = 3,  /**< The device is metered and the value was guessed. */
         GuessNo = 4  /**< The device is not metered and the value was guessed. */
     };
-#endif
 
     /**
      * Possible device capabilities
@@ -169,14 +158,12 @@ public:
         Vlan = NM_DEVICE_TYPE_VLAN, /**< Vlan virtual device */
         Adsl = NM_DEVICE_TYPE_ADSL, /**< ADSL modem device */
         Bridge = NM_DEVICE_TYPE_BRIDGE, /**< Bridge virtual device */
-#if NM_CHECK_VERSION(0, 9, 10)
         Generic = NM_DEVICE_TYPE_GENERIC, /**< Generic device @since 0.9.9.0 */
         Team = NM_DEVICE_TYPE_TEAM, /**< Team master device @since 0.9.9.0 */
         Gre, /**< Gre virtual device @since 0.9.9.0 */
         MacVlan, /**< MacVlan virtual device @since 0.9.9.0 */
         Tun, /**< Tun virtual device @since 0.9.9.0 */
         Veth, /**< Veth virtual device @since 0.9.9.0 */
-#endif
     };
     Q_DECLARE_FLAGS(Types, Type)
 
@@ -245,15 +232,15 @@ public:
      * activating further connections without user intervention.
      */
     QDBusPendingReply<> disconnectInterface();
-#if NM_CHECK_VERSION(1, 0, 0)
     /**
      * Deletes a software device from NetworkManager and removes the interface from the system.
      * The method returns an error when called for a hardware device.
      *
      * @since 5.8.0
+     *
+     * @note this is a noop in runtime NM < 1.0.0
      */
     QDBusPendingReply<> deleteInterface();
-#endif
     /**
      * returns the current IPv4 address without the prefix
      * \sa ipV4Config()
@@ -346,7 +333,6 @@ public:
      */
     QString udi() const;
 
-#if NM_CHECK_VERSION(0, 9, 10)
     /**
      * @return If non-empty, an (opaque) indicator of the physical network
      * port associated with the device. This can be used to recognize
@@ -359,26 +345,26 @@ public:
     /**
      * The device MTU (maximum transmission unit)
      * @since 0.9.9.0
+     *
+     * @note always returns 0 in runtime NM < 1.0.6
      */
     uint mtu() const;
-#endif
 
-#if NM_CHECK_VERSION(1, 2, 0)
     /**
      * @return If TRUE, indicates the NetworkManager plugin for the device is likely
      * missing or misconfigured.
      * @since 5.14.0
+     * @note always returns false in runtime NM < 1.2.0
      */
     bool nmPluginMissing() const;
-#endif
-#if NM_CHECK_VERSION(1, 0 ,6)
+
     /**
      * @return Whether the amount of traffic flowing through the device is
      * subject to limitations, for example set by service providers.
      * @since 5.14.0
+     * @note always returns UnknownStatus in runtime NM < 1.0.6
      */
     MeteredStatus metered() const;
-#endif
 
     /**
      * If true, indicates the device is allowed to autoconnect.
@@ -512,7 +498,7 @@ Q_SIGNALS:
      * Emitted when the managed state of this network has changed.
      */
     void managedChanged();
-#if NM_CHECK_VERSION(0, 9, 10)
+
     /**
      * Emitted when the physical port ID changes.
      * @see physicalPortId()
@@ -525,23 +511,22 @@ Q_SIGNALS:
      * @since 0.9.9.0
      */
     void mtuChanged();
-#endif
-#if NM_CHECK_VERSION(1, 2, 0)
+
     /**
      * Emitted when NmPluginMissing property has changed
      * @since 5.14.0
      * @see nmPluginMissing
+     * @note never emmited in runtime NM < 1.2.0
      */
     void nmPluginMissingChanged(bool nmPluginMissing);
-#endif
-#if NM_CHECK_VERSION(1, 0, 6)
+
     /**
      * Emitted when metered property has changed
      * @since 5.14.0
      * @see metered
+     * @note never emmited in runtime NM < 1.0.6
      */
     void meteredChanged(MeteredStatus metered);
-#endif
 
     /**
      * Emitted when the connection state of this network has changed.

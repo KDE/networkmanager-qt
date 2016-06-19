@@ -85,6 +85,7 @@ public:
     void setSeenBssids(const QStringList &list);
     QStringList seenBssids() const;
 
+    /// @deprecated since NM 1.0.0
     void setSecurity(const QString &security);
     QString security() const;
 

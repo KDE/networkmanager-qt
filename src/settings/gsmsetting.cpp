@@ -25,6 +25,12 @@
 #include <nm-setting-gsm.h>
 #endif
 
+//define the deprecated&dropped values
+#if NM_CHECK_VERSION(1, 0, 0)
+#define NM_SETTING_GSM_NETWORK_TYPE "network-type"
+#define NM_SETTING_GSM_ALLOWED_BANDS "allowed-bands"
+#endif
+
 #include <QtCore/QDebug>
 
 NetworkManager::GsmSettingPrivate::GsmSettingPrivate()
@@ -292,15 +298,9 @@ void NetworkManager::GsmSetting::fromMap(const QVariantMap &setting)
         setNetworkId(setting.value(QLatin1String(NM_SETTING_GSM_NETWORK_ID)).toString());
     }
 
-#if NM_CHECK_VERSION(1, 0, 0)
-    if (setting.contains(QLatin1String("network-type"))) {
-        setNetworkType((NetworkType)setting.value(QLatin1String("network-type")).toInt());
-    }
-#else
     if (setting.contains(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE))) {
         setNetworkType((NetworkType)setting.value(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE)).toInt());
     }
-#endif
 
     // Secrets
     if (setting.contains(QLatin1String(NM_SETTING_GSM_PIN))) {
@@ -311,15 +311,9 @@ void NetworkManager::GsmSetting::fromMap(const QVariantMap &setting)
         setPinFlags((SecretFlags)setting.value(QLatin1String(NM_SETTING_GSM_PIN_FLAGS)).toInt());
     }
 
-#if NM_CHECK_VERSION(1, 0, 0)
-    if (setting.contains(QLatin1String("allowed-bands"))) {
-        setAllowedBand(setting.value(QLatin1String("allowed-bands")).toUInt());
-    }
-#else
     if (setting.contains(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS))) {
         setAllowedBand(setting.value(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS)).toUInt());
     }
-#endif
     if (setting.contains(QLatin1String(NM_SETTING_GSM_HOME_ONLY))) {
         setHomeOnly(setting.value(QLatin1String(NM_SETTING_GSM_HOME_ONLY)).toBool());
     }
@@ -352,15 +346,9 @@ QVariantMap NetworkManager::GsmSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_GSM_NETWORK_ID), networkId());
     }
 
-#if NM_CHECK_VERSION(1, 0, 0)
-    if (networkType() != -1) {
-        setting.insert(QLatin1String("network-type"), networkType());
-    }
-#else
     if (networkType() != -1) {
         setting.insert(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE), networkType());
     }
-#endif
     // Secrets
     if (!pin().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_GSM_PIN), pin());
@@ -368,15 +356,9 @@ QVariantMap NetworkManager::GsmSetting::toMap() const
 
     setting.insert(QLatin1String(NM_SETTING_GSM_PIN_FLAGS), (int)pinFlags());
 
-#if NM_CHECK_VERSION(1, 0, 0)
-    if (allowedBand() != 1) {
-        setting.insert(QLatin1String("allowed-bands"), allowedBand());
-    }
-#else
     if (allowedBand() != 1) {
         setting.insert(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS), allowedBand());
     }
-#endif
     if (homeOnly()) {
         setting.insert(QLatin1String(NM_SETTING_GSM_HOME_ONLY), homeOnly());
     }
@@ -395,13 +377,8 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::GsmSetting 
     dbg.nospace() << NM_SETTING_GSM_PASSWORD_FLAGS << ": " << setting.passwordFlags() << '\n';
     dbg.nospace() << NM_SETTING_GSM_APN << ": " << setting.apn() << '\n';
     dbg.nospace() << NM_SETTING_GSM_NETWORK_ID << ": " << setting.networkId() << '\n';
-#if NM_CHECK_VERSION(1, 0, 0)
-    dbg.nospace() << "network-type" << ": " << setting.networkType() << '\n';
-    dbg.nospace() << "allowed-bands" << ": " << setting.allowedBand() << '\n';
-#else
     dbg.nospace() << NM_SETTING_GSM_NETWORK_TYPE << ": " << setting.networkType() << '\n';
     dbg.nospace() << NM_SETTING_GSM_ALLOWED_BANDS << ": " << setting.allowedBand() << '\n';
-#endif
     dbg.nospace() << NM_SETTING_GSM_PIN << ": " << setting.pin() << '\n';
     dbg.nospace() << NM_SETTING_GSM_PIN_FLAGS << ": " << setting.pinFlags() << '\n';
     dbg.nospace() << NM_SETTING_GSM_HOME_ONLY << ": " << setting.homeOnly() << '\n';

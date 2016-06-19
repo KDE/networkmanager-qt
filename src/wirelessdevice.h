@@ -60,6 +60,7 @@ public:
     };
     /**
      * Capabilities (currently all encryption/authentication related) of the device
+     * @note FreqValid, Freq2Ghz, Freq5Ghz are available in runtime NM >= 1.0.2
      */
     enum Capability {
         NoCapability = 0x0, /**< Null capability */
@@ -71,11 +72,9 @@ public:
         Rsn = 0x20, /**< RSN authethication protocol */
         ApCap = 0x40, /**< The device supports Access Point mode. */
         AdhocCap = 0x80, /**< The device supports Ad-Hoc mode. */
-#if NM_CHECK_VERSION(1, 0, 2)
         FreqValid = 0x100, /**< The device properly reports information about supported frequencies */
         Freq2Ghz = 0x200, /**< The device supports 2.4Ghz frequencies */
         Freq5Ghz = 0x400 /**< The device supports 5Ghz frequencies */
-#endif
 
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)

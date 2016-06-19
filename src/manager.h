@@ -60,20 +60,18 @@ enum LogLevel {
     Warning,
     Info,
     Debug,
-#if NM_CHECK_VERSION(0, 9, 10)
-    Trace};
-#else
+    Trace/**< = Debug in runtime NM < 0.9.10*/
     };
-#endif
 
 Q_FLAGS(LogDomains)
+/**
+ * @note flags Agents, Settings, Bridge, DbusProps, Team, ConCheck, Dcb, Dispatch are not
+ * usabel in runtime NM < 0.9.10
+ */
 enum LogDomain {NoChange, None, Hardware, RFKill, Ethernet, WiFi, Bluetooth, MobileBroadBand, DHCP4, DHCP6, PPP, WiFiScan, IPv4, IPv6,
-                AutoIPv4, DNS, VPN, Sharing, Supplicant, UserSet, SysSet, Suspend, Core, Devices, OLPC, Wimax, Infiniband, Firewall, Adsl, Bond, Vlan
-#if NM_CHECK_VERSION(0, 9, 10)
-                , Agents, Settings, Bridge, DbusProps, Team, ConCheck, Dcb, Dispatch };
-#else
+                AutoIPv4, DNS, VPN, Sharing, Supplicant, UserSet, SysSet, Suspend, Core, Devices, OLPC, Wimax/*TODO: mark it deprecated somehow?*/, Infiniband, Firewall, Adsl, Bond, Vlan
+                , Agents, Settings, Bridge, DbusProps, Team, ConCheck, Dcb, Dispatch
                 };
-#endif
 Q_DECLARE_FLAGS(LogDomains, LogDomain)
 
 /**
@@ -116,12 +114,13 @@ Q_SIGNALS:
      * This signal is emitted when the status of the wireless changed
      */
     void wwanEnabledChanged(bool);
-
     /**
-     * This signal is emitted when teh status of the wimax changed
+     * This signal is emitted when the status of the wimax changed
+     *
+     * @deprecated Wimax support was removed from NetworkManager 1.2
+     * (never emitted in runtime NM >= 1.2.0).
      */
     void wimaxEnabledChanged(bool);
-
     /**
      * This signal is emitted when the status of the wireless changed
      */
@@ -130,12 +129,13 @@ Q_SIGNALS:
      * This signal is emitted when the status of the wireless changed
      */
     void wwanHardwareEnabledChanged(bool);
-
     /**
      * This signal is emitted when the status of the wimax hardware changed
+     *
+     * @deprecated Wimax support was removed from NetworkManager 1.2
+     * (never emitted in runtime NM >= 1.2.0).
      */
     void wimaxHardwareEnabledChanged(bool);
-
     /**
      * This signal is emitted when the status of overall networking changed
      */
@@ -181,31 +181,28 @@ Q_SIGNALS:
      * @since 0.9.9.0
      */
     void activatingConnectionChanged(const QString &uni);
-#if NM_CHECK_VERSION(1, 0, 0)
     /**
      * Emitted when the primary connection type changes.
      * @param connection type of the new primary connection
      * @since 5.8.0
+     * @note never emitted in runtime NM < 1.0.0
      */
     void primaryConnectionTypeChanged(NetworkManager::ConnectionSettings::ConnectionType type);
-#endif
 
-#if NM_CHECK_VERSION(0, 9, 10)
     /**
      * Emitted when NM has started/finished its startup sequence
      * @since 0.9.9.0
+     * @note never emitted in runtime NM < 0.9.10
      */
     void isStartingUpChanged();
-#endif
 
-#if NM_CHECK_VERSION(1, 0, 6)
     /**
      * Emitted when metered property has changed
      * @since 5.14.0
      * @see metered
+     * @note never emitted in runtime NM < 1.0.6
      */
     void meteredChanged(NetworkManager::Device::MeteredStatus metered);
-#endif
 };
 
 /**
@@ -222,6 +219,11 @@ NETWORKMANAGERQT_EXPORT int compareVersion(const QString &version);
  * returns 1, -1 or 0 if NetworkManager's version is greater, less or equal to x.y.z.
  */
 NETWORKMANAGERQT_EXPORT int compareVersion(const int x, const int y, const int z);
+/**
+ * Checks if NetworkManager version is at least x.y.z
+ * @return true if NetworkManager's version is greater or equal, false otherwise
+ **/
+NETWORKMANAGERQT_EXPORT bool checkVersion(const int x, const int y, const int z);
 /**
  * Get the manager connection state
  */
@@ -285,6 +287,9 @@ NETWORKMANAGERQT_EXPORT bool isWwanHardwareEnabled();
  * Retrieves the activation status of wimax networking in the system.
  *
  * @return true if this wimax networking is enabled, false otherwise
+ *
+ * @deprecated Wimax support was removed from NetworkManager 1.2
+ * (always returns false in runtime NM >= 1.2.0).
  */
 NETWORKMANAGERQT_EXPORT bool isWimaxEnabled();
 /**
@@ -292,6 +297,9 @@ NETWORKMANAGERQT_EXPORT bool isWimaxEnabled();
  * controlled by a physical switch so there is no way to set this in software.
  *
  * @return true if wimax HW networking is enabled, false otherwise
+ *
+ * @deprecated Wimax support was removed from NetworkManager 1.2
+ * (always returns false in runtime NM >= 1.2.0).
  */
 NETWORKMANAGERQT_EXPORT bool isWimaxHardwareEnabled();
 
@@ -367,33 +375,30 @@ NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr primaryConnection();
  */
 NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr activatingConnection();
 
-#if NM_CHECK_VERSION(1, 0, 0)
 /**
  * @return The connection type of the "primary" active connection being
  * used to access the network. This is the same as the Type
  * property on the object indicated by PrimaryConnection.
  * @since 5.8.0
+ * @note always returns NetworkManager::ConnectionSettings::Unknown in runtime NM < 1.0.0
  */
 NETWORKMANAGERQT_EXPORT NetworkManager::ConnectionSettings::ConnectionType primaryConnectionType();
-#endif
 
-#if NM_CHECK_VERSION(0, 9, 10)
 /**
   * Indicates whether NM is still starting up; this becomes @p false
   * when NM has finished attempting to activate every connection
   * that it might be able to activate at startup.
   * @since 0.9.9.0
+  * @note always returns false in runtime NM < 0.9.10
   */
 NETWORKMANAGERQT_EXPORT bool isStartingUp();
-#endif
 
-#if NM_CHECK_VERSION(1, 0, 6)
-    /**
-     * @return Indicates whether the connectivity is metered.
-     * @since 5.14.0
-     */
+/**
+ * @return Indicates whether the connectivity is metered.
+ * @since 5.14.0
+ * @note always returns NetworkManager::Device::UnknownStatus in runtime NM < 1.0.6
+ */
 NETWORKMANAGERQT_EXPORT NetworkManager::Device::MeteredStatus metered();
-#endif
 
 /**
  * Find an ActiveConnection object for an active connection id
@@ -412,6 +417,10 @@ NETWORKMANAGERQT_EXPORT void setNetworkingEnabled(bool enabled);
 // implemented in Notifier
 NETWORKMANAGERQT_EXPORT void setWirelessEnabled(bool enabled);
 NETWORKMANAGERQT_EXPORT void setWwanEnabled(bool enabled);
+/**
+ * @deprecated Wimax support was removed from NetworkManager 1.2
+ * (it is a noop in runtime NM >= 1.2.0).
+ */
 NETWORKMANAGERQT_EXPORT void setWimaxEnabled(bool enabled);
 NETWORKMANAGERQT_EXPORT void sleep(bool sleep);
 NETWORKMANAGERQT_EXPORT void setLogging(LogLevel, LogDomains);

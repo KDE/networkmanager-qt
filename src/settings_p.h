@@ -44,14 +44,10 @@ public:
     QString hostname() const;
     bool canModify() const;
     QDBusPendingReply<QDBusObjectPath> addConnection(const NMVariantMapMap &);
-#if NM_CHECK_VERSION(0, 9, 10)
     QDBusPendingReply<QDBusObjectPath> addConnectionUnsaved(const NMVariantMapMap &);
     QDBusPendingReply<bool, QStringList> loadConnections(const QStringList &filenames);
-#endif
     void saveHostname(const QString &);
-#if NM_CHECK_VERSION(0, 9, 10)
     QDBusPendingReply<bool> reloadConnections();
-#endif
     Connection::Ptr findRegisteredConnection(const QString &);
 
     OrgFreedesktopNetworkManagerSettingsInterface iface;
@@ -60,11 +56,8 @@ public:
     QString m_hostname;
 protected Q_SLOTS:
     void onConnectionAdded(const QDBusObjectPath &);
-#if NM_CHECK_VERSION(0, 9, 10)
     void onConnectionRemoved(const QDBusObjectPath &);
-#else
     void onConnectionRemoved(const QString &);
-#endif
     void propertiesChanged(const QVariantMap &properties);
     void initNotifier();
 protected:

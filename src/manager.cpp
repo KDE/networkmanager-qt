@@ -49,12 +49,10 @@
 #include "wireddevice.h"
 #include "wirelessdevice.h"
 #include "wimaxdevice.h"
-#if NM_CHECK_VERSION(0, 9, 10)
 #include "gredevice.h"
 #include "macvlandevice.h"
 #include "tundevice.h"
 #include "vethdevice.h"
-#endif
 
 #include "nmdebug.h"
 
@@ -90,6 +88,7 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     , m_isWirelessHardwareEnabled(false)
     , m_isWwanEnabled(false)
     , m_isWwanHardwareEnabled(false)
+    , m_supportedInterfaceTypes(NetworkManager::Device::UnknownType)
 {
     QLoggingCategory::setFilterRules(QStringLiteral("networkmanager-qt.debug = true"));
     QLoggingCategory::setFilterRules(QStringLiteral("networkmanager-qt.warning = true"));
@@ -141,6 +140,21 @@ void NetworkManager::NetworkManagerPrivate::init()
 
     m_version = iface.version();
     parseVersion(m_version);
+    m_supportedInterfaceTypes =  static_cast<NetworkManager::Device::Types>(
+               NetworkManager::Device::Ethernet |
+               NetworkManager::Device::Wifi |
+               NetworkManager::Device::Modem |
+               (checkVersion(1, 2, 0) ? 0 : NetworkManager::Device::Wimax) |
+               NetworkManager::Device::Bluetooth |
+               NetworkManager::Device::OlpcMesh |
+               NetworkManager::Device::InfiniBand |
+               NetworkManager::Device::Bond |
+               NetworkManager::Device::Vlan |
+               NetworkManager::Device::Adsl |
+               NetworkManager::Device::Bridge |
+               NetworkManager::Device::Generic |
+               NetworkManager::Device::Team
+           );
 
     // Get all Manager's properties async
     QDBusMessage message = QDBusMessage::createMethodCall(DBUS_SERVICE,
@@ -156,10 +170,9 @@ void NetworkManager::NetworkManagerPrivate::init()
             this,
             SLOT(propertiesChanged(QVariantMap)));
 
-    qobject_cast<SettingsPrivate *>(settingsNotifier())->init();
+    QTimer::singleShot(0, [this] { qobject_cast<SettingsPrivate *>(settingsNotifier())->init(); });
 
     if (iface.isValid()) {
-#if NM_CHECK_VERSION(0, 9, 10)
         QList <QDBusObjectPath> devices = iface.devices();
         qCDebug(NMQT) << "Device list";
         Q_FOREACH (const QDBusObjectPath & op, devices) {
@@ -167,20 +180,6 @@ void NetworkManager::NetworkManagerPrivate::init()
             Q_EMIT deviceAdded(op.path());
             qCDebug(NMQT) << "  " << op.path();
         }
-#else
-        QDBusReply< QList <QDBusObjectPath> > deviceList = iface.GetDevices();
-        if (deviceList.isValid()) {
-            qCDebug(NMQT) << "Device list";
-            QList <QDBusObjectPath> devices = deviceList.value();
-            Q_FOREACH (const QDBusObjectPath & op, devices) {
-                networkInterfaceMap.insert(op.path(), Device::Ptr());
-                Q_EMIT deviceAdded(op.path());
-                qCDebug(NMQT) << "  " << op.path();
-            }
-        } else {
-            qCDebug(NMQT) << "Error getting device list: " << deviceList.error().name() << ": " << deviceList.error().message();
-        }
-#endif
     }
 }
 
@@ -229,6 +228,16 @@ int NetworkManager::NetworkManagerPrivate::compareVersion(const int x, const int
         return -1;
     }
     return 0;
+}
+
+bool NetworkManager::NetworkManagerPrivate::checkVersion(const int x, const int y, const int z) const
+{
+    return 0 <= compareVersion(x, y, z);
+}
+
+NetworkManager::Device::Types NetworkManager::NetworkManagerPrivate::supportedInterfaceTypes() const
+{
+    return m_supportedInterfaceTypes;
 }
 
 NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::findRegisteredNetworkInterface(const QString &uni)
@@ -306,7 +315,7 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
     case Device::Bridge:
         createdInterface = Device::Ptr(new NetworkManager::BridgeDevice(uni), &QObject::deleteLater);
         break;
-#if NM_CHECK_VERSION(0, 9, 10)
+    //No need to check checkVersion, because we can't get Generic, Gre, MacVlan, Tun & Veth values in incompatible runtime
     case Device::Generic:
         createdInterface = Device::Ptr(new NetworkManager::GenericDevice(uni), &QObject::deleteLater);
         break;
@@ -322,7 +331,6 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
     case Device::Veth:
         createdInterface = Device::Ptr(new NetworkManager::VethDevice(uni), &QObject::deleteLater);
         break;
-#endif
     default:
         createdInterface = device;
         if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
@@ -396,12 +404,12 @@ bool NetworkManager::NetworkManagerPrivate::isWwanHardwareEnabled() const
 
 bool NetworkManager::NetworkManagerPrivate::isWimaxEnabled() const
 {
-    return m_isWimaxEnabled;
+    return checkVersion(1, 2, 0) ? m_isWimaxEnabled : false;
 }
 
 bool NetworkManager::NetworkManagerPrivate::isWimaxHardwareEnabled() const
 {
-    return m_isWimaxHardwareEnabled;
+    return checkVersion(1, 2, 0) ? m_isWimaxHardwareEnabled : false;
 }
 
 QDBusPendingReply<QDBusObjectPath> NetworkManager::NetworkManagerPrivate::activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter)
@@ -454,7 +462,8 @@ void NetworkManager::NetworkManagerPrivate::setWwanEnabled(bool enabled)
 
 void NetworkManager::NetworkManagerPrivate::setWimaxEnabled(bool enabled)
 {
-    iface.setWimaxEnabled(enabled);
+    if (!checkVersion(1, 2, 0))
+        iface.setWimaxEnabled(enabled);
 }
 
 void NetworkManager::NetworkManagerPrivate::sleep(bool sleep)
@@ -479,26 +488,17 @@ void NetworkManager::NetworkManagerPrivate::setLogging(NetworkManager::LogLevel 
     case NetworkManager::Debug:
         logLevel = QLatin1String("DEBUG");
         break;
-#if NM_CHECK_VERSION(0, 9, 10)
     case NetworkManager::Trace:
         logLevel = QLatin1String("TRACE");
         break;
-#endif
     }
     if (!domains.testFlag(NoChange)) {
         if (domains.testFlag(NetworkManager::None)) {
             logDomains << QLatin1String("NONE");
         }
-#if NM_CHECK_VERSION(0, 9, 10)
         if (domains.testFlag(NetworkManager::Hardware)) {
             logDomains << QLatin1String("PLATFORM");
         }
-#else
-        if (domains.testFlag(NetworkManager::Hardware)) {
-            logDomains << QLatin1String("HW");
-        }
-#endif
-
         if (domains.testFlag(NetworkManager::RFKill)) {
             logDomains << QLatin1String("RFKILL");
         }
@@ -583,7 +583,6 @@ void NetworkManager::NetworkManagerPrivate::setLogging(NetworkManager::LogLevel 
         if (domains.testFlag(NetworkManager::Vlan)) {
             logDomains << QLatin1String("VLAN");
         }
-#if NM_CHECK_VERSION(0, 9, 10)
         if (domains.testFlag(NetworkManager::Agents)) {
             logDomains << QLatin1String("AGENTS");
         }
@@ -605,7 +604,6 @@ void NetworkManager::NetworkManagerPrivate::setLogging(NetworkManager::LogLevel 
         if (domains.testFlag(NetworkManager::Dispatch)) {
             logDomains << QLatin1String("DISPATCH");
         }
-#endif
     }
     iface.SetLogging(logLevel, logDomains.join(QLatin1String(",")));
 }
@@ -635,26 +633,20 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::act
     return findRegisteredActiveConnection(m_activatingConnection);
 }
 
-#if NM_CHECK_VERSION(1, 0, 0)
 NetworkManager::ConnectionSettings::ConnectionType NetworkManager::NetworkManagerPrivate::primaryConnectionType()
 {
-    return m_primaryConnectionType;
+    return checkVersion(1, 0, 0) ? m_primaryConnectionType : NetworkManager::ConnectionSettings::Unknown;
 }
-#endif
 
-#if NM_CHECK_VERSION(0, 9, 10)
 bool NetworkManager::NetworkManagerPrivate::isStartingUp() const
 {
     return iface.startup();
 }
-#endif
 
-#if NM_CHECK_VERSION(1, 0, 6)
 NetworkManager::Device::MeteredStatus NetworkManager::NetworkManagerPrivate::metered() const
 {
-    return m_metered;
+    return checkVersion(1, 0, 6) ? m_metered : NetworkManager::Device::UnknownStatus;
 }
-#endif
 
 void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath &objpath)
 {
@@ -764,20 +756,14 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
         } else if (property == QLatin1String("ActivatingConnection")) {
             m_activatingConnection = it->value<QDBusObjectPath>().path();
             Q_EMIT activatingConnectionChanged(m_activatingConnection);
-#if NM_CHECK_VERSION(1, 0, 0)
         } else if (property == QLatin1String("PrimaryConnectionType")) {
             m_primaryConnectionType = NetworkManager::ConnectionSettings::typeFromString(it->toString());
             Q_EMIT primaryConnectionTypeChanged(m_primaryConnectionType);
-#endif
-#if NM_CHECK_VERSION(0, 9, 10)
         } else if (property == QLatin1String("Startup")) {
             Q_EMIT isStartingUpChanged();
-#endif
-#if NM_CHECK_VERSION(1, 0, 6)
         } else if (property == QLatin1String("Metered")) {
             m_metered = (NetworkManager::Device::MeteredStatus)it->toUInt();
             Q_EMIT meteredChanged(m_metered);
-#endif
         } else {
             qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
@@ -908,6 +894,11 @@ int NetworkManager::compareVersion(const int x, const int y, const int z)
     return globalNetworkManager->compareVersion(x, y, z);
 }
 
+bool NetworkManager::checkVersion(const int x, const int y, const int z)
+{
+    return globalNetworkManager->checkVersion(x, y, z);
+}
+
 NetworkManager::Status NetworkManager::status()
 {
     return globalNetworkManager->status();
@@ -1035,24 +1026,7 @@ NMStringMap NetworkManager::permissions()
 
 NetworkManager::Device::Types NetworkManager::supportedInterfaceTypes()
 {
-    return (NetworkManager::Device::Types)(
-               NetworkManager::Device::Ethernet |
-               NetworkManager::Device::Wifi |
-               NetworkManager::Device::Modem |
-               NetworkManager::Device::Wimax |
-               NetworkManager::Device::Bluetooth |
-               NetworkManager::Device::OlpcMesh |
-               NetworkManager::Device::InfiniBand |
-               NetworkManager::Device::Bond |
-               NetworkManager::Device::Vlan |
-               NetworkManager::Device::Adsl |
-               NetworkManager::Device::Bridge
-#if NM_CHECK_VERSION(0, 9, 10)
-               |
-               NetworkManager::Device::Generic |
-               NetworkManager::Device::Team
-#endif
-           );
+    return globalNetworkManager->supportedInterfaceTypes();
 }
 
 NetworkManager::Connectivity NetworkManager::connectivity()
@@ -1075,26 +1049,20 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::activatingConnection()
     return globalNetworkManager->activatingConnection();
 }
 
-#if NM_CHECK_VERSION(1, 0, 0)
 NetworkManager::ConnectionSettings::ConnectionType NetworkManager::primaryConnectionType()
 {
     return globalNetworkManager->primaryConnectionType();
 }
-#endif
 
-#if NM_CHECK_VERSION(0, 9, 10)
 bool NetworkManager::isStartingUp()
 {
     return globalNetworkManager->isStartingUp();
 }
-#endif
 
-#if NM_CHECK_VERSION(1, 0, 6)
 NetworkManager::Device::MeteredStatus NetworkManager::metered()
 {
     return globalNetworkManager->metered();
 }
-#endif
 
 NetworkManager::Notifier *NetworkManager::notifier()
 {

@@ -73,10 +73,8 @@ NetworkManager::Connection::Connection(const QString &path, QObject *parent)
 
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Updated, d, &ConnectionPrivate::onConnectionUpdated);
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Removed, d, &ConnectionPrivate::onConnectionRemoved);
-#if NM_CHECK_VERSION(0, 9, 10)
     d->unsaved = d->iface.unsaved();
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::PropertiesChanged, d, &ConnectionPrivate::onPropertiesChanged);
-#endif
 }
 
 NetworkManager::Connection::~Connection()
@@ -101,13 +99,13 @@ QString NetworkManager::Connection::name() const
     Q_D(const Connection);
     return d->id;
 }
-#if NM_CHECK_VERSION(0, 9, 10)
+
 bool NetworkManager::Connection::isUnsaved() const
 {
     Q_D(const Connection);
     return d->unsaved;
 }
-#endif
+
 NetworkManager::ConnectionSettings::Ptr NetworkManager::Connection::settings()
 {
     Q_D(Connection);
@@ -129,7 +127,7 @@ QDBusPendingReply<> NetworkManager::Connection::update(const NMVariantMapMap &se
     Q_D(Connection);
     return d->iface.Update(settings);
 }
-#if NM_CHECK_VERSION(0, 9, 10)
+
 QDBusPendingReply<> NetworkManager::Connection::updateUnsaved(const NMVariantMapMap &settings)
 {
     Q_D(Connection);
@@ -141,15 +139,12 @@ QDBusPendingReply<> NetworkManager::Connection::save()
     Q_D(Connection);
     return d->iface.Save();
 }
-#endif
 
-#if NM_CHECK_VERSION(1, 0, 0)
 QDBusPendingReply<> NetworkManager::Connection::clearSecrets()
 {
     Q_D(Connection);
     return d->iface.ClearSecrets();
 }
-#endif
 
 QDBusPendingReply<> NetworkManager::Connection::remove()
 {
@@ -182,7 +177,7 @@ void NetworkManager::ConnectionPrivate::onConnectionRemoved()
     updateSettings();
     Q_EMIT q->removed(tmpPath);
 }
-#if NM_CHECK_VERSION(0, 9, 10)
+
 void NetworkManager::ConnectionPrivate::onPropertiesChanged(const QVariantMap &properties)
 {
     Q_Q(Connection);
@@ -198,7 +193,7 @@ void NetworkManager::ConnectionPrivate::onPropertiesChanged(const QVariantMap &p
         ++it;
     }
 }
-#endif
+
 void NetworkManager::ConnectionPrivate::updateSettings(const NMVariantMapMap &newSettings)
 {
     settings = newSettings;

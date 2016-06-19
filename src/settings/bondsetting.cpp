@@ -25,6 +25,11 @@
 #include <nm-setting-bond.h>
 #endif
 
+//define the deprecated&dropped values
+#if NM_CHECK_VERSION(1, 0, 0)
+#define NM_SETTING_BOND_INTERFACE_NAME "interface-name"
+#endif
+
 #include <QtCore/QDebug>
 
 NetworkManager::BondSettingPrivate::BondSettingPrivate()
@@ -93,15 +98,9 @@ NMStringMap NetworkManager::BondSetting::options() const
 
 void NetworkManager::BondSetting::fromMap(const QVariantMap &setting)
 {
-#if NM_CHECK_VERSION(1, 0, 0)
-    if (setting.contains(QLatin1String("interface-name"))) {
-        setInterfaceName(setting.value(QLatin1String("interface-name")).toString());
-    }
-#else
     if (setting.contains(QLatin1String(NM_SETTING_BOND_INTERFACE_NAME))) {
         setInterfaceName(setting.value(QLatin1String(NM_SETTING_BOND_INTERFACE_NAME)).toString());
     }
-#endif
 
     if (setting.contains(QLatin1String(NM_SETTING_BOND_OPTIONS))) {
         setOptions(qdbus_cast<NMStringMap>(setting.value(QLatin1String(NM_SETTING_BOND_OPTIONS))));
@@ -111,15 +110,9 @@ void NetworkManager::BondSetting::fromMap(const QVariantMap &setting)
 QVariantMap NetworkManager::BondSetting::toMap() const
 {
     QVariantMap setting;
-#if NM_CHECK_VERSION(1, 0, 0)
-    if (!interfaceName().isEmpty()) {
-        setting.insert(QLatin1String("interface-name"), interfaceName());
-    }
-#else
     if (!interfaceName().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_BOND_INTERFACE_NAME), interfaceName());
     }
-#endif
     if (!options().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_BOND_OPTIONS), QVariant::fromValue<NMStringMap>(options()));
     }
@@ -132,11 +125,7 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::BondSetting
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
-#if NM_CHECK_VERSION(1, 0, 0)
-    dbg.nospace() << "interface-name" << ": " << setting.interfaceName() << '\n';
-#else
     dbg.nospace() << NM_SETTING_BOND_INTERFACE_NAME << ": " << setting.interfaceName() << '\n';
-#endif
     dbg.nospace() << NM_SETTING_BOND_OPTIONS << ": " << setting.options() << '\n';
 
     return dbg.maybeSpace();

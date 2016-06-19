@@ -90,14 +90,13 @@ public:
      */
     QStringList domains() const;
 
-#if NM_CHECK_VERSION(0, 9, 10)
     /**
      * Returns the gateway in use
      *
      * @since 0.9.9.0
      */
     QString gateway() const;
-#endif
+
     /**
      * Returns a list of nameservers related to this configuration.
      */
@@ -109,22 +108,19 @@ public:
      */
     IpRoutes routes() const;
 
-#if NM_CHECK_VERSION(0, 9, 10)
     /**
      * Returns a list of DNS searches.
      *
      * @since 0.9.9.0
      */
     QStringList searches() const;
-#endif
 
-#if NM_CHECK_VERSION(1, 2, 0)
     /**
      * Returns a list of DNS options that modify the behaviour of the DNS resolver.
      * @since 5.14.0
+     * @note always returns default constructed QStringList in runtime NM < 1.2.0
      */
     QStringList dnsOptions() const;
-#endif
 
     /**
      * Makes a copy of the IpConfig object @p other.

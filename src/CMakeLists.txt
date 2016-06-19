@@ -47,6 +47,14 @@ set(NetworkManagerQt_PART_SRCS
     wirelessdevice.cpp
     wirelessnetwork.cpp
     generictypes.cpp
+    genericdevice.cpp
+    gredevice.cpp
+    macvlandevice.cpp
+    teamdevice.cpp
+    tundevice.cpp
+    vethdevice.cpp
+    wimaxdevice.cpp
+    wimaxnsp.cpp
 )
 
 set(NetworkManagerQt_SETTINGS_SRCS
@@ -74,6 +82,9 @@ set(NetworkManagerQt_SETTINGS_SRCS
     settings/wiredsetting.cpp
     settings/wirelesssetting.cpp
     settings/wirelesssecuritysetting.cpp
+    settings/teamsetting.cpp
+    settings/genericsetting.cpp
+    settings/tunsetting.cpp
 )
 
 set(DBUS_INTERFACE_SRCS
@@ -104,43 +115,15 @@ set(DBUS_INTERFACE_SRCS
    dbus/nm-settingsinterface.cpp
    dbus/nm-vpn-connectioninterface.cpp
    dbus/nm-vpn-plugininterface.cpp
+   dbus/nm-device-genericinterface.cpp
+   dbus/nm-device-greinterface.cpp
+   dbus/nm-device-macvlaninterface.cpp
+   dbus/nm-device-teaminterface.cpp
+   dbus/nm-device-tuninterface.cpp
+   dbus/nm-device-vethinterface.cpp
+   dbus/nm-device-wimaxinterface.cpp
    dbus/nm-wimax-nspinterface.cpp
 )
-
-if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 0.9.10.0 OR ${NETWORKMANAGER_VERSION} VERSION_GREATER 0.9.10.0)
-    set(NetworkManagerQt_PART_SRCS
-        ${NetworkManagerQt_PART_SRCS}
-        genericdevice.cpp
-        gredevice.cpp
-        macvlandevice.cpp
-        teamdevice.cpp
-        tundevice.cpp
-        vethdevice.cpp
-        )
-
-    set(NetworkManagerQt_SETTINGS_SRCS
-        ${NetworkManagerQt_SETTINGS_SRCS}
-        settings/teamsetting.cpp
-        settings/genericsetting.cpp
-        )
-
-    set(DBUS_INTERFACE_SRCS
-        ${DBUS_INTERFACE_SRCS}
-        dbus/nm-device-genericinterface.cpp
-        dbus/nm-device-greinterface.cpp
-        dbus/nm-device-macvlaninterface.cpp
-        dbus/nm-device-teaminterface.cpp
-        dbus/nm-device-tuninterface.cpp
-        dbus/nm-device-vethinterface.cpp
-        )
-endif()
-
-if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 1.1.92 OR ${NETWORKMANAGER_VERSION} VERSION_GREATER 1.1.92)
-    set(NetworkManagerQt_SETTINGS_SRCS
-        ${NetworkManagerQt_SETTINGS_SRCS}
-        settings/tunsetting.cpp
-        )
-endif()
 
 add_library(KF5NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
 generate_export_header(KF5NetworkManagerQt EXPORT_FILE_NAME ${NetworkManagerQt_BINARY_DIR}/networkmanagerqt/networkmanagerqt_export.h BASE_NAME NetworkManagerQt)

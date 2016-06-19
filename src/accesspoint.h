@@ -120,14 +120,13 @@ public:
      * @return The current signal quality of the access point, in percent.
      */
     int signalStrength() const;
-#if NM_CHECK_VERSION(1, 0 , 6)
     /**
      * @return The timestamp (in CLOCK_BOOTTIME seconds) for the last time the access point
      * was found in scan results. A value of -1 means the access point has never been found in scan results.
      * @since 5.14.0
+     * @note always returns -1 in runtime NM < 1.0.6
      */
     int lastSeen() const;
-#endif
 
     /**
      * Helper method to convert wire representation of operation @p mode to enum
@@ -183,7 +182,6 @@ Q_SIGNALS:
      */
     void frequencyChanged(uint frequency);
 
-#if NM_CHECK_VERSION(1, 0, 6)
     /**
      * This signal is emitted when the timestamp for the last time the access point was found
      * in scan results changes
@@ -191,9 +189,9 @@ Q_SIGNALS:
      * @param lastSeen the timestamp for the last time the access point was found in scan results.
      * @since 5.14.0
      * @see lastSeen
+     * @note never emitted in runtime NM < 1.0.6
      */
     void lastSeenChanged(int lastSeen);
-#endif
 
 private:
     Q_DECLARE_PRIVATE(AccessPoint)

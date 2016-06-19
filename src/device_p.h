@@ -66,17 +66,11 @@ public:
     bool autoconnect;
     Device::StateChangeReason reason;
     QString physicalPortId;
-#if NM_CHECK_VERSION(0, 9, 10)
     uint mtu;
-#endif
-#if NM_CHECK_VERSION(1, 2, 0)
     bool nmPluginMissing;
-#endif
-#if NM_CHECK_VERSION(1, 0, 6)
     Device::MeteredStatus metered;
 
     static NetworkManager::Device::MeteredStatus convertMeteredStatus(uint);
-#endif
     static NetworkManager::Device::Capabilities convertCapabilities(uint);
     static NetworkManager::Device::State convertState(uint);
     static NetworkManager::Device::StateChangeReason convertReason(uint);

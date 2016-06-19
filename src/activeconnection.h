@@ -90,7 +90,6 @@ public:
      * Whether this connection has the default IPv6 route
      */
     bool default6() const;
-#if NM_CHECK_VERSION(0, 9, 10)
     /**
       * The Ip4Config object describing the configuration of the
       * connection. Only valid when the connection is in the
@@ -117,7 +116,6 @@ public:
      * state
      */
     Dhcp6Config::Ptr dhcp6Config() const;
-#endif
     /**
      * The Id of the connection
      */
@@ -164,7 +162,6 @@ Q_SIGNALS:
      * The state of the default IPv6 route changed
      */
     void default6Changed(bool isDefault);
-#if NM_CHECK_VERSION(0, 9, 10)
     /**
      * Emitted when the DHCP configuration for IPv4 of this network has changed.
      */
@@ -181,7 +178,6 @@ Q_SIGNALS:
      * Emitted when the IPv6 configuration of this network has changed.
      */
     void ipV6ConfigChanged();
-#endif
     /**
      * The @p id changed
      */

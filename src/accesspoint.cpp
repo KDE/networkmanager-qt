@@ -39,9 +39,7 @@ NetworkManager::AccessPointPrivate::AccessPointPrivate(const QString &path, Acce
     , maxBitRate(0)
     , mode(AccessPoint::Unknown)
     , signalStrength(0)
-#if NM_CHECK_VERSION(1, 0, 6)
     , lastSeen(-1)
-#endif
     , q_ptr(q)
 {
     uni = path;
@@ -56,9 +54,9 @@ NetworkManager::AccessPointPrivate::AccessPointPrivate(const QString &path, Acce
         hardwareAddress = iface.hwAddress();
         maxBitRate = iface.maxBitrate();
         mode = q->convertOperationMode(iface.mode());
-#if NM_CHECK_VERSION(1, 0, 6)
-        lastSeen = iface.lastSeen();
-#endif
+        if (NetworkManager::checkVersion(1, 0, 6)) {
+            lastSeen = iface.lastSeen();
+        }
     }
 }
 
@@ -156,13 +154,11 @@ int NetworkManager::AccessPoint::signalStrength() const
     return d->signalStrength;
 }
 
-#if NM_CHECK_VERSION(1, 0, 6)
 int NetworkManager::AccessPoint::lastSeen() const
 {
     Q_D(const AccessPoint);
     return d->lastSeen;
 }
-#endif
 
 NetworkManager::AccessPoint::OperationMode NetworkManager::AccessPoint::convertOperationMode(uint mode)
 {
@@ -221,11 +217,9 @@ void NetworkManager::AccessPointPrivate::propertiesChanged(const QVariantMap &pr
         } else if (property == QLatin1String("Strength")) {
             signalStrength = it->toInt();
             Q_EMIT q->signalStrengthChanged(signalStrength);
-#if NM_CHECK_VERSION(1, 0, 6)
         } else if (property == QLatin1String("LastSeen")) {
             lastSeen = it->toInt();
             Q_EMIT q->lastSeenChanged(lastSeen);
-#endif
         } else {
             qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }

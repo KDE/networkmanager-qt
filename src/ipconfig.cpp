@@ -46,16 +46,12 @@ public:
     Private()
     {}
     IpAddresses addresses;
-#if NM_CHECK_VERSION(0, 9, 10)
     QString gateway;
     QStringList searches;
-#endif
     QList<QHostAddress> nameservers;
     QStringList domains;
     IpRoutes routes;
-#if NM_CHECK_VERSION(1, 2, 0)
     QStringList dnsOptions;
-#endif
 };
 
 }
@@ -90,67 +86,65 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
 #endif
     // TODO - watch propertiesChanged signal
 
-#if NM_CHECK_VERSION(1, 0, 0)
-    NMVariantMapList addresses = iface.addressData();
     QList<NetworkManager::IpAddress> addressObjects;
-    Q_FOREACH (const QVariantMap &addressList, addresses) {
-        if (addressList.contains(QLatin1String("address")) &&
-            addressList.contains(QLatin1String("prefix"))) {
-            NetworkManager::IpAddress address;
-            address.setIp(QHostAddress(addressList.value(QLatin1String("address")).toString()));
-            address.setPrefixLength(addressList.value(QLatin1String("prefix")).toUInt());
-            if (addressList.contains(QLatin1String("gateway"))) {
-                address.setGateway(QHostAddress(addressList.value(QLatin1String("gateway")).toString()));
-            }
-            addressObjects << address;
-        }
-    }
-
-    NMVariantMapList routes = iface.routeData();
     QList<NetworkManager::IpRoute> routeObjects;
-    Q_FOREACH (const QVariantMap &routeList, routes) {
-        if (routeList.contains(QLatin1String("address")) &&
-            routeList.contains(QLatin1String("prefix"))) {
-            NetworkManager::IpRoute route;
-            route.setIp(QHostAddress(routeList.value(QLatin1String("address")).toString()));
-            route.setPrefixLength(routeList.value(QLatin1String("prefix")).toUInt());
-            if (routeList.contains(QLatin1String("next-hop"))) {
-                route.setNextHop(QHostAddress(routeList.value(QLatin1String("next-hop")).toString()));
+    if (NetworkManager::checkVersion(1, 0, 0)) {
+        NMVariantMapList addresses = iface.addressData();
+        Q_FOREACH (const QVariantMap &addressList, addresses) {
+            if (addressList.contains(QLatin1String("address")) &&
+                addressList.contains(QLatin1String("prefix"))) {
+                NetworkManager::IpAddress address;
+                address.setIp(QHostAddress(addressList.value(QLatin1String("address")).toString()));
+                address.setPrefixLength(addressList.value(QLatin1String("prefix")).toUInt());
+                if (addressList.contains(QLatin1String("gateway"))) {
+                    address.setGateway(QHostAddress(addressList.value(QLatin1String("gateway")).toString()));
+                }
+                addressObjects << address;
             }
+        }
 
-            if (routeList.contains(QLatin1String("metric"))) {
-                route.setMetric(routeList.value(QLatin1String("metric")).toUInt());
+        NMVariantMapList routes = iface.routeData();
+        Q_FOREACH (const QVariantMap &routeList, routes) {
+            if (routeList.contains(QLatin1String("address")) &&
+                routeList.contains(QLatin1String("prefix"))) {
+                NetworkManager::IpRoute route;
+                route.setIp(QHostAddress(routeList.value(QLatin1String("address")).toString()));
+                route.setPrefixLength(routeList.value(QLatin1String("prefix")).toUInt());
+                if (routeList.contains(QLatin1String("next-hop"))) {
+                    route.setNextHop(QHostAddress(routeList.value(QLatin1String("next-hop")).toString()));
+                }
+
+                if (routeList.contains(QLatin1String("metric"))) {
+                    route.setMetric(routeList.value(QLatin1String("metric")).toUInt());
+                }
+                routeObjects << route;
             }
-            routeObjects << route;
+        }
+    } else {
+        //convert ipaddresses into object
+        UIntListList addresses = iface.addresses();
+        Q_FOREACH (const UIntList & addressList, addresses) {
+            if (addressList.count() == 3) {
+                NetworkManager::IpAddress address;
+                address.setIp(QHostAddress(ntohl(addressList[0])));
+                address.setPrefixLength(addressList[1]);
+                address.setGateway(QHostAddress(ntohl(addressList[2])));
+                addressObjects << address;
+            }
+        }
+        //convert routes into objects
+        UIntListList routes = iface.routes();
+        Q_FOREACH (const UIntList & routeList, routes) {
+            if (routeList.count() == 4) {
+                NetworkManager::IpRoute route;
+                route.setIp(QHostAddress(ntohl(routeList[0])));
+                route.setPrefixLength(routeList[1]);
+                route.setNextHop(QHostAddress(ntohl(routeList[2])));
+                route.setMetric(ntohl(routeList[3]));
+                routeObjects << route;
+            }
         }
     }
-#else
-    //convert ipaddresses into object
-    UIntListList addresses = iface.addresses();
-    QList<NetworkManager::IpAddress> addressObjects;
-    Q_FOREACH (const UIntList & addressList, addresses) {
-        if (addressList.count() == 3) {
-            NetworkManager::IpAddress address;
-            address.setIp(QHostAddress(ntohl(addressList[0])));
-            address.setPrefixLength(addressList[1]);
-            address.setGateway(QHostAddress(ntohl(addressList[2])));
-            addressObjects << address;
-        }
-    }
-    //convert routes into objects
-    UIntListList routes = iface.routes();
-    QList<NetworkManager::IpRoute> routeObjects;
-    Q_FOREACH (const UIntList & routeList, routes) {
-        if (routeList.count() == 4) {
-            NetworkManager::IpRoute route;
-            route.setIp(QHostAddress(ntohl(routeList[0])));
-            route.setPrefixLength(routeList[1]);
-            route.setNextHop(QHostAddress(ntohl(routeList[2])));
-            route.setMetric(ntohl(routeList[3]));
-            routeObjects << route;
-        }
-    }
-#endif
     // nameservers' IP addresses are always in network byte order
     QList<QHostAddress> nameservers;
     Q_FOREACH (uint nameserver, iface.nameservers()) {
@@ -160,14 +154,12 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
     d->addresses = addressObjects;
     d->routes = routeObjects;
     d->nameservers = nameservers;
-#if NM_CHECK_VERSION(0, 9, 10)
     d->gateway = iface.gateway();
     d->searches = iface.searches();
-#endif
     d->domains = iface.domains();
-#if NM_CHECK_VERSION(1, 2, 0)
-    d->dnsOptions = iface.dnsOptions();
-#endif
+    if (NetworkManager::checkVersion(1, 2, 0)) {
+        d->dnsOptions = iface.dnsOptions();
+    }
 }
 
 void NetworkManager::IpConfig::setIPv6Path(const QString &path)
@@ -182,78 +174,76 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
 #endif
     // TODO - watch propertiesChanged signal
 
-#if NM_CHECK_VERSION(1, 0, 0)
-    NMVariantMapList addresses = iface.addressData();
     QList<NetworkManager::IpAddress> addressObjects;
-    Q_FOREACH (const QVariantMap &addressList, addresses) {
-        if (addressList.contains(QLatin1String("address")) &&
-            addressList.contains(QLatin1String("prefix"))) {
-            NetworkManager::IpAddress address;
-            address.setIp(QHostAddress(addressList.value(QLatin1String("address")).toString()));
-            address.setPrefixLength(addressList.value(QLatin1String("prefix")).toUInt());
-            if (addressList.contains(QLatin1String("gateway"))) {
-                address.setGateway(QHostAddress(addressList.value(QLatin1String("gateway")).toString()));
-            }
-            addressObjects << address;
-        }
-    }
-
-    NMVariantMapList routes = iface.routeData();
     QList<NetworkManager::IpRoute> routeObjects;
-    Q_FOREACH (const QVariantMap &routeList, routes) {
-        if (routeList.contains(QLatin1String("address")) &&
-            routeList.contains(QLatin1String("prefix"))) {
-            NetworkManager::IpRoute route;
-            route.setIp(QHostAddress(routeList.value(QLatin1String("address")).toString()));
-            route.setPrefixLength(routeList.value(QLatin1String("prefix")).toUInt());
-            if (routeList.contains(QLatin1String("next-hop"))) {
-                route.setNextHop(QHostAddress(routeList.value(QLatin1String("next-hop")).toString()));
+    if (NetworkManager::checkVersion(1, 0, 0)) {
+        NMVariantMapList addresses = iface.addressData();
+        Q_FOREACH (const QVariantMap &addressList, addresses) {
+            if (addressList.contains(QLatin1String("address")) &&
+                addressList.contains(QLatin1String("prefix"))) {
+                NetworkManager::IpAddress address;
+                address.setIp(QHostAddress(addressList.value(QLatin1String("address")).toString()));
+                address.setPrefixLength(addressList.value(QLatin1String("prefix")).toUInt());
+                if (addressList.contains(QLatin1String("gateway"))) {
+                    address.setGateway(QHostAddress(addressList.value(QLatin1String("gateway")).toString()));
+                }
+                addressObjects << address;
             }
+        }
 
-            if (routeList.contains(QLatin1String("metric"))) {
-                route.setMetric(routeList.value(QLatin1String("metric")).toUInt());
+        NMVariantMapList routes = iface.routeData();
+        Q_FOREACH (const QVariantMap &routeList, routes) {
+            if (routeList.contains(QLatin1String("address")) &&
+                routeList.contains(QLatin1String("prefix"))) {
+                NetworkManager::IpRoute route;
+                route.setIp(QHostAddress(routeList.value(QLatin1String("address")).toString()));
+                route.setPrefixLength(routeList.value(QLatin1String("prefix")).toUInt());
+                if (routeList.contains(QLatin1String("next-hop"))) {
+                    route.setNextHop(QHostAddress(routeList.value(QLatin1String("next-hop")).toString()));
+                }
+
+                if (routeList.contains(QLatin1String("metric"))) {
+                    route.setMetric(routeList.value(QLatin1String("metric")).toUInt());
+                }
+                routeObjects << route;
             }
-            routeObjects << route;
         }
-    }
-#else
-    IpV6DBusAddressList addresses = iface.addresses();
-    QList<NetworkManager::IpAddress> addressObjects;
-    Q_FOREACH (const IpV6DBusAddress & address, addresses) {
-        Q_IPV6ADDR addr;
-        Q_IPV6ADDR gateway;
-        for (int i = 0; i < 16; i++) {
-            addr[i] = address.address[i];
+    } else {
+        IpV6DBusAddressList addresses = iface.addresses();
+        Q_FOREACH (const IpV6DBusAddress & address, addresses) {
+            Q_IPV6ADDR addr;
+            Q_IPV6ADDR gateway;
+            for (int i = 0; i < 16; i++) {
+                addr[i] = address.address[i];
+            }
+            for (int i = 0; i < 16; i++) {
+                gateway[i] = address.gateway[i];
+            }
+            NetworkManager::IpAddress addressEntry;
+            addressEntry.setIp(QHostAddress(addr));
+            addressEntry.setPrefixLength(address.prefix);
+            addressEntry.setGateway(QHostAddress(gateway));
+            addressObjects << addressEntry;
         }
-        for (int i = 0; i < 16; i++) {
-            gateway[i] = address.gateway[i];
-        }
-        NetworkManager::IpAddress addressEntry;
-        addressEntry.setIp(QHostAddress(addr));
-        addressEntry.setPrefixLength(address.prefix);
-        addressEntry.setGateway(QHostAddress(gateway));
-        addressObjects << addressEntry;
-    }
 
-    IpV6DBusRouteList routes = iface.routes();
-    QList<NetworkManager::IpRoute> routeObjects;
-    Q_FOREACH (const IpV6DBusRoute & route, routes) {
-        Q_IPV6ADDR dest;
-        Q_IPV6ADDR nexthop;
-        for (int i = 0; i < 16; i++) {
-            dest[i] = route.destination[i];
+        IpV6DBusRouteList routes = iface.routes();
+        Q_FOREACH (const IpV6DBusRoute & route, routes) {
+            Q_IPV6ADDR dest;
+            Q_IPV6ADDR nexthop;
+            for (int i = 0; i < 16; i++) {
+                dest[i] = route.destination[i];
+            }
+            for (int i = 0; i < 16; i++) {
+                nexthop[i] = route.nexthop[i];
+            }
+            NetworkManager::IpRoute routeEntry;
+            routeEntry.setIp(QHostAddress(dest));
+            routeEntry.setPrefixLength(route.prefix);
+            routeEntry.setNextHop(QHostAddress(nexthop));
+            routeEntry.setMetric(route.metric);
+            routeObjects << routeEntry;
         }
-        for (int i = 0; i < 16; i++) {
-            nexthop[i] = route.nexthop[i];
-        }
-        NetworkManager::IpRoute routeEntry;
-        routeEntry.setIp(QHostAddress(dest));
-        routeEntry.setPrefixLength(route.prefix);
-        routeEntry.setNextHop(QHostAddress(nexthop));
-        routeEntry.setMetric(route.metric);
-        routeObjects << routeEntry;
     }
-#endif
 
     QList<QHostAddress> nameservers;
     Q_FOREACH (const QByteArray & nameserver, iface.nameservers()) {
@@ -267,14 +257,12 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
     d->addresses = addressObjects;
     d->routes = routeObjects;
     d->nameservers = nameservers;
-#if NM_CHECK_VERSION(0, 9, 10)
     d->gateway = iface.gateway();
     d->searches = iface.searches();
-#endif
     d->domains = iface.domains();
-#if NM_CHECK_VERSION(1, 2, 0)
-    d->dnsOptions = iface.dnsOptions();
-#endif
+    if (NetworkManager::checkVersion(1, 2, 0)) {
+        d->dnsOptions = iface.dnsOptions();
+    }
 }
 
 NetworkManager::IpConfig::~IpConfig()
@@ -287,12 +275,10 @@ NetworkManager::IpAddresses NetworkManager::IpConfig::addresses() const
     return d->addresses;
 }
 
-#if NM_CHECK_VERSION(0, 9, 10)
 QString NetworkManager::IpConfig::gateway() const
 {
     return d->gateway;
 }
-#endif
 
 QList<QHostAddress> NetworkManager::IpConfig::nameservers() const
 {
@@ -309,19 +295,15 @@ QList<NetworkManager::IpRoute> NetworkManager::IpConfig::routes() const
     return d->routes;
 }
 
-#if NM_CHECK_VERSION(0, 9, 10)
 QStringList NetworkManager::IpConfig::searches() const
 {
     return d->searches;
 }
-#endif
 
-#if NM_CHECK_VERSION(1, 2, 0)
 QStringList NetworkManager::IpConfig::dnsOptions() const
 {
     return d->dnsOptions;
 }
-#endif
 
 NetworkManager::IpConfig &NetworkManager::IpConfig::operator=(const IpConfig &other)
 {

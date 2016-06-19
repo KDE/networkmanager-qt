@@ -30,10 +30,8 @@
 NetworkManager::InfinibandSettingPrivate::InfinibandSettingPrivate()
     : name(NM_SETTING_INFINIBAND_SETTING_NAME)
     , mtu(0)
-#if NM_CHECK_VERSION(0, 9, 10)
     , transportMode(InfinibandSetting::Unknown)
     , pKey(-1)
-#endif
 { }
 
 NetworkManager::InfinibandSetting::InfinibandSetting()
@@ -48,10 +46,8 @@ NetworkManager::InfinibandSetting::InfinibandSetting(const NetworkManager::Infin
     setMacAddress(other->macAddress());
     setMtu(other->mtu());
     setTransportMode(other->transportMode());
-#if NM_CHECK_VERSION(0, 9, 10)
     setPKey(other->pKey());
     setParent(other->parent());
-#endif
 }
 
 NetworkManager::InfinibandSetting::~InfinibandSetting()
@@ -108,7 +104,6 @@ NetworkManager::InfinibandSetting::TransportMode NetworkManager::InfinibandSetti
     return d->transportMode;
 }
 
-#if NM_CHECK_VERSION(0, 9, 10)
 void NetworkManager::InfinibandSetting::setPKey(qint32 key)
 {
     Q_D(InfinibandSetting);
@@ -136,7 +131,6 @@ QString NetworkManager::InfinibandSetting::parent() const
 
     return d->parent;
 }
-#endif
 
 void NetworkManager::InfinibandSetting::fromMap(const QVariantMap &setting)
 {
@@ -158,7 +152,6 @@ void NetworkManager::InfinibandSetting::fromMap(const QVariantMap &setting)
         }
     }
 
-#if NM_CHECK_VERSION(0, 9, 10)
     if (setting.contains(QLatin1String(NM_SETTING_INFINIBAND_P_KEY))) {
         setPKey(setting.value(QLatin1String(NM_SETTING_INFINIBAND_P_KEY)).toInt());
     }
@@ -166,7 +159,6 @@ void NetworkManager::InfinibandSetting::fromMap(const QVariantMap &setting)
     if (setting.contains(QLatin1String(NM_SETTING_INFINIBAND_PARENT))) {
         setParent(setting.value(QLatin1String(NM_SETTING_INFINIBAND_PARENT)).toString());
     }
-#endif
 }
 
 QVariantMap NetworkManager::InfinibandSetting::toMap() const
@@ -189,7 +181,6 @@ QVariantMap NetworkManager::InfinibandSetting::toMap() const
         }
     }
 
-#if NM_CHECK_VERSION(0, 9, 10)
     if (pKey() != -1) {
         setting.insert(QLatin1String(NM_SETTING_INFINIBAND_P_KEY), pKey());
     }
@@ -197,7 +188,6 @@ QVariantMap NetworkManager::InfinibandSetting::toMap() const
     if (!parent().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_INFINIBAND_PARENT), parent());
     }
-#endif
 
     return setting;
 }
@@ -210,10 +200,8 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::InfinibandS
     dbg.nospace() << NM_SETTING_INFINIBAND_MAC_ADDRESS << ": " << setting.macAddress() << '\n';
     dbg.nospace() << NM_SETTING_INFINIBAND_MTU << ": " << setting.mtu() << '\n';
     dbg.nospace() << NM_SETTING_INFINIBAND_TRANSPORT_MODE << ": " << setting.transportMode() << '\n';
-#if NM_CHECK_VERSION(0, 9, 10)
     dbg.nospace() << NM_SETTING_INFINIBAND_P_KEY << ": " << setting.pKey() << '\n';
     dbg.nospace() << NM_SETTING_INFINIBAND_PARENT << ": " << setting.parent() << '\n';
-#endif
 
     return dbg.maybeSpace();
 }

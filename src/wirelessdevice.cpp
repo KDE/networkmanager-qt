@@ -59,27 +59,12 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
 
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
 
-#if NM_CHECK_VERSION(0, 9, 10)
     QList <QDBusObjectPath> aps = d->wirelessIface.accessPoints();
     // qCDebug(NMQT) << "AccessPoint list";
     Q_FOREACH (const QDBusObjectPath & op, aps) {
         // qCDebug(NMQT) << "  " << op.path();
         d->accessPointAdded(op);
     }
-#else
-    QDBusReply< QList <QDBusObjectPath> > apPathList = d->wirelessIface.GetAccessPoints();
-    // qCDebug(NMQT) << "AccessPoint list";
-    if (apPathList.isValid()) {
-        //qCDebug(NMQT) << "Got device list";
-        QList <QDBusObjectPath> aps = apPathList.value();
-        Q_FOREACH (const QDBusObjectPath & op, aps) {
-            // qCDebug(NMQT) << "  " << op.path();
-            d->accessPointAdded(op);
-        }
-    } else {
-        qCDebug(NMQT) << "Error getting access point list: " << apPathList.error().name() << ": " << apPathList.error().message();
-    }
-#endif
 
     connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::PropertiesChanged, d, &WirelessDevicePrivate::propertiesChanged);
     connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::AccessPointAdded, d, &WirelessDevicePrivate::accessPointAdded);

@@ -45,9 +45,7 @@ public:
     QString name;
     QString id;
     QString uuid;
-#if NM_CHECK_VERSION(0, 9, 10)
     QString interfaceName;
-#endif
     NetworkManager::ConnectionSettings::ConnectionType type;
     QHash<QString, QString> permissions;
     bool autoconnect;
@@ -57,12 +55,8 @@ public:
     QString master;
     QString slaveType;
     QStringList secondaries;
-#if NM_CHECK_VERSION(0, 9, 10)
     quint32 gatewayPingTimeout;
-#endif
-#if NM_CHECK_VERSION(1, 0, 0)
     int autoconnectPriority;
-#endif
     Setting::List settings;
 
     ConnectionSettings *q_ptr;

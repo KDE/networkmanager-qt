@@ -54,6 +54,7 @@ public:
     Connectivity m_connectivity;
     bool m_isNetworkingEnabled;
     bool m_isWimaxEnabled;
+    //TODO: mark it deprecated somehow?
     bool m_isWimaxHardwareEnabled;
     bool m_isWirelessEnabled;
     bool m_isWirelessHardwareEnabled;
@@ -61,12 +62,8 @@ public:
     bool m_isWwanHardwareEnabled;
     QString m_activatingConnection;
     QString m_primaryConnection;
-#if NM_CHECK_VERSION(1, 0, 0)
     NetworkManager::ConnectionSettings::ConnectionType m_primaryConnectionType;
-#endif
-#if NM_CHECK_VERSION(1, 0, 6)
     NetworkManager::Device::MeteredStatus m_metered;
-#endif
     QString m_version;
     // to store NetworkManager's version.
     int m_x;
@@ -75,6 +72,9 @@ public:
     void parseVersion(const QString &version);
     int compareVersion(const QString &version);
     int compareVersion(const int x, const int y, const int z) const;
+    bool checkVersion(const int x, const int y, const int z) const;
+    NetworkManager::Device::Types m_supportedInterfaceTypes;
+    NetworkManager::Device::Types supportedInterfaceTypes() const;
 
     QMap<QString, ActiveConnection::Ptr> m_activeConnections;
     ActiveConnection::Ptr findRegisteredActiveConnection(const QString &);
@@ -94,6 +94,7 @@ public:
     bool isWwanEnabled() const;
     bool isWwanHardwareEnabled() const;
     bool isWimaxEnabled() const;
+    //TODO: mark it deprecated somehow?
     bool isWimaxHardwareEnabled() const;
     QDBusPendingReply<QDBusObjectPath> activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter);
     QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter);
@@ -104,6 +105,7 @@ public:
     void setNetworkingEnabled(bool enabled);
     void setWirelessEnabled(bool enabled);
     void setWwanEnabled(bool enabled);
+    //TODO: mark it deprecated somehow?
     void setWimaxEnabled(bool enabled);
     void sleep(bool sleep);
     void setLogging(NetworkManager::LogLevel, NetworkManager::LogDomains);
@@ -112,15 +114,9 @@ public:
     QDBusPendingReply<uint> checkConnectivity();
     ActiveConnection::Ptr primaryConnection();
     ActiveConnection::Ptr activatingConnection();
-#if NM_CHECK_VERSION(1, 0, 0)
     NetworkManager::ConnectionSettings::ConnectionType primaryConnectionType();
-#endif
-#if NM_CHECK_VERSION(0, 9, 10)
     bool isStartingUp() const;
-#endif
-#if NM_CHECK_VERSION(1, 0, 6)
     NetworkManager::Device::MeteredStatus metered() const;
-#endif
 protected Q_SLOTS:
     void init();
     void onDeviceAdded(const QDBusObjectPath &state);

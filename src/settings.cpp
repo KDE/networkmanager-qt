@@ -46,10 +46,8 @@ NetworkManager::SettingsPrivate::SettingsPrivate()
             this, &SettingsPrivate::propertiesChanged);
     connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::NewConnection,
             this, &SettingsPrivate::onConnectionAdded);
-#if NM_CHECK_VERSION(0, 9, 10)
     connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::ConnectionRemoved,
-            this, &SettingsPrivate::onConnectionRemoved);
-#endif
+            this, static_cast<void (SettingsPrivate::*)(const QDBusObjectPath &)>(&SettingsPrivate::onConnectionRemoved));
     init();
     // This class is a friend of NetworkManagerPrivate thus initted there too
     // because of the init chain we must follow,
@@ -62,7 +60,6 @@ NetworkManager::SettingsPrivate::SettingsPrivate()
 
 void NetworkManager::SettingsPrivate::init()
 {
-#if NM_CHECK_VERSION(0, 9, 10)
     QList<QDBusObjectPath> connectionList = iface.connections();
     qCDebug(NMQT) << "Connections list";
     Q_FOREACH (const QDBusObjectPath & connection, connectionList) {
@@ -72,20 +69,6 @@ void NetworkManager::SettingsPrivate::init()
             qCDebug(NMQT) << " " << connection.path();
         }
     }
-#else
-    QDBusPendingReply<QList<QDBusObjectPath> > reply = iface.ListConnections();
-    reply.waitForFinished();
-    qCDebug(NMQT) << "Connections list";
-    if (reply.isValid()) {
-        Q_FOREACH (const QDBusObjectPath & connection, reply.value()) {
-            if (!connections.contains(connection.path())) {
-                connections.insert(connection.path(), Connection::Ptr());
-                Q_EMIT connectionAdded(connection.path());
-                qCDebug(NMQT) << " " << connection.path();
-            }
-        }
-    }
-#endif
 
     // Get all Setting's properties async
     QDBusMessage message = QDBusMessage::createMethodCall(NetworkManagerPrivate::DBUS_SERVICE,
@@ -145,7 +128,6 @@ QDBusPendingReply<QDBusObjectPath> NetworkManager::SettingsPrivate::addConnectio
     return iface.AddConnection(connection);
 }
 
-#if NM_CHECK_VERSION(0, 9, 10)
 QDBusPendingReply<QDBusObjectPath> NetworkManager::SettingsPrivate::addConnectionUnsaved(const NMVariantMapMap &connection)
 {
     return iface.AddConnectionUnsaved(connection);
@@ -160,7 +142,6 @@ QDBusPendingReply<bool> NetworkManager::SettingsPrivate::reloadConnections()
 {
     return iface.ReloadConnections();
 }
-#endif
 
 void NetworkManager::SettingsPrivate::initNotifier()
 {
@@ -183,10 +164,9 @@ void NetworkManager::SettingsPrivate::propertiesChanged(const QVariantMap &prope
         } else if (property == QLatin1String("Hostname")) {
             m_hostname = it->toString();
             Q_EMIT hostnameChanged(m_hostname);
-#if NM_CHECK_VERSION(0, 9, 10)
         } else if (property == QLatin1String("Connections")) {
+            //will never get here in runtime NM < 0.9.10
             // TODO some action??
-#endif
         } else {
             qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
@@ -214,9 +194,7 @@ NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findRegisteredC
         } else {
             ret = Connection::Ptr(new Connection(path), &QObject::deleteLater);
             connections[path] = ret;
-#if !NM_CHECK_VERSION(0, 9, 10)
             connect(ret.data(), SIGNAL(removed(QString)), this, SLOT(onConnectionRemoved(QString)));
-#endif
             if (!contains) {
                 Q_EMIT connectionAdded(path);
             }
@@ -225,20 +203,16 @@ NetworkManager::Connection::Ptr NetworkManager::SettingsPrivate::findRegisteredC
     return ret;
 }
 
-#if NM_CHECK_VERSION(0, 9, 10)
 void NetworkManager::SettingsPrivate::onConnectionRemoved(const QDBusObjectPath &path)
 {
-    const QString connectionPath = path.path();
-    connections.remove(connectionPath);
-    Q_EMIT connectionRemoved(connectionPath);
+    onConnectionRemoved(path.path());
 }
-#else
+
 void NetworkManager::SettingsPrivate::onConnectionRemoved(const QString &path)
 {
     connections.remove(path);
     Q_EMIT connectionRemoved(path);
 }
-#endif
 
 void NetworkManager::SettingsPrivate::daemonUnregistered()
 {
@@ -265,7 +239,6 @@ QDBusPendingReply<QDBusObjectPath> NetworkManager::addConnection(const NMVariant
     return globalSettings->addConnection(connection);
 }
 
-#if NM_CHECK_VERSION(0, 9, 10)
 QDBusPendingReply<QDBusObjectPath> NetworkManager::addConnectionUnsaved(const NMVariantMapMap &connection)
 {
     return globalSettings->addConnectionUnsaved(connection);
@@ -280,7 +253,6 @@ QDBusPendingReply< bool > NetworkManager::reloadConnections()
 {
     return globalSettings->reloadConnections();
 }
-#endif
 
 void NetworkManager::saveHostname(const QString &hostname)
 {

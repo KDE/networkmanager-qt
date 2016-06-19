@@ -33,9 +33,9 @@ NetworkManager::VlanDevicePrivate::VlanDevicePrivate(const QString &path, VlanDe
 {
     carrier = iface.carrier();
     hwAddress = iface.hwAddress();
-#if NM_CHECK_VERSION(1, 0, 0)
-    parent = iface.parent().path();
-#endif
+    if (NetworkManager::checkVersion(1, 0, 0)) {
+        parent = iface.parent().path();
+    }
     vlanId = iface.vlanId();
 }
 
@@ -73,14 +73,16 @@ QString NetworkManager::VlanDevice::hwAddress() const
     return d->hwAddress;
 }
 
-#if NM_CHECK_VERSION(1, 0, 0)
 NetworkManager::Device::Ptr NetworkManager::VlanDevice::parent() const
 {
-    Q_D(const VlanDevice);
+    if (NetworkManager::checkVersion(1, 0, 0)) {
+        Q_D(const VlanDevice);
 
-    return NetworkManager::findNetworkInterface(d->parent);
+        return NetworkManager::findNetworkInterface(d->parent);
+    } else {
+        return NetworkManager::Device::Ptr(Q_NULLPTR);
+    }
 }
-#endif
 
 uint NetworkManager::VlanDevice::vlanId() const
 {
@@ -99,11 +101,9 @@ void NetworkManager::VlanDevicePrivate::propertyChanged(const QString &property,
     } else if (property == QLatin1String("HwAddress")) {
         hwAddress = value.toString();
         Q_EMIT q->hwAddressChanged(hwAddress);
-#if NM_CHECK_VERSION(1, 0, 0)
     } else if (property == QLatin1String("Parent")) {
         parent = value.value<QDBusObjectPath>().path();
         Q_EMIT q->parentChanged(parent);
-#endif
     } else if (property == QLatin1String("VlanId")) {
         vlanId = value.toUInt();
         Q_EMIT q->vlanIdChanged(vlanId);

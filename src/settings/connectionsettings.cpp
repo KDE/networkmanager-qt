@@ -63,20 +63,25 @@
 #include <nm-setting-wimax.h>
 #include <nm-setting-wired.h>
 #include <nm-setting-wireless.h>
-
-#if NM_CHECK_VERSION(0, 9, 10)
 #include <nm-setting-team.h>
 #include <nm-setting-generic.h>
-#endif
+
+#define NM_SETTING_CONNECTION_AUTOCONNECT_PRIORITY "autoconnect-priority"
 
 #endif
 
-#if NM_CHECK_VERSION(0, 9, 10)
+#if !NM_CHECK_VERSION(1, 2, 0)
+#define NM_SETTING_TUN_SETTING_NAME "tun"
+#endif
+
 #include "teamsetting.h"
 #include "genericsetting.h"
-#endif
 
 #include <QtCore/QUuid>
+
+namespace NetworkManager {
+    extern int checkVersion(const int x, const int y, const int z);
+}
 
 NetworkManager::ConnectionSettingsPrivate::ConnectionSettingsPrivate(ConnectionSettings *q)
     : name(NM_SETTING_CONNECTION_SETTING_NAME)
@@ -84,12 +89,8 @@ NetworkManager::ConnectionSettingsPrivate::ConnectionSettingsPrivate(ConnectionS
     , type(ConnectionSettings::Wired)
     , autoconnect(true)
     , readOnly(false)
-#if NM_CHECK_VERSION(0, 9, 10)
     , gatewayPingTimeout(0)
-#endif
-#if NM_CHECK_VERSION(1, 0, 0)
     , autoconnectPriority(0)
-#endif
     , q_ptr(q)
 { }
 
@@ -136,17 +137,17 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabili
     case ConnectionSettings::Cdma:
         addSetting(Setting::Ptr(new CdmaSetting()));
         addSetting(Setting::Ptr(new Ipv4Setting()));
-#if NM_CHECK_VERSION(1, 0, 0)
-        addSetting(Setting::Ptr(new Ipv6Setting()));
-#endif
+        if (NetworkManager::checkVersion(1, 0, 0)) {
+            addSetting(Setting::Ptr(new Ipv6Setting()));
+        }
         addSetting(Setting::Ptr(new PppSetting()));
         break;
     case ConnectionSettings::Gsm:
         addSetting(Setting::Ptr(new GsmSetting()));
         addSetting(Setting::Ptr(new Ipv4Setting()));
-#if NM_CHECK_VERSION(1, 0, 0)
-        addSetting(Setting::Ptr(new Ipv6Setting()));
-#endif
+        if (NetworkManager::checkVersion(1, 0, 0)) {
+            addSetting(Setting::Ptr(new Ipv6Setting()));
+        }
         addSetting(Setting::Ptr(new PppSetting()));
         break;
     case ConnectionSettings::Infiniband:
@@ -194,7 +195,6 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabili
         addSetting(Setting::Ptr(new WirelessSetting()));
         addSetting(Setting::Ptr(new WirelessSecuritySetting()));
         break;
-#if NM_CHECK_VERSION(0, 9, 10)
     case ConnectionSettings::Team:
         addSetting(Setting::Ptr(new TeamSetting()));
         addSetting(Setting::Ptr(new Ipv4Setting()));
@@ -205,14 +205,11 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabili
         addSetting(Setting::Ptr(new Ipv4Setting()));
         addSetting(Setting::Ptr(new Ipv6Setting()));
         break;
-#endif
-#if NM_CHECK_VERSION(1, 1, 92)
     case ConnectionSettings::Tun:
         addSetting(Setting::Ptr(new TunSetting()));
         addSetting(Setting::Ptr(new Ipv4Setting()));
         addSetting(Setting::Ptr(new Ipv6Setting()));
         break;
-#endif
     case ConnectionSettings::Unknown:
     default:
         break;
@@ -239,9 +236,9 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
     case ConnectionSettings::Bluetooth:
         addSetting(connectionSettings->setting(Setting::Bluetooth));
         addSetting(connectionSettings->setting(Setting::Ipv4));
-#if NM_CHECK_VERSION(1, 0, 0)
-        addSetting(connectionSettings->setting(Setting::Ipv6));
-#endif
+        if (NetworkManager::checkVersion(1, 0, 0)) {
+            addSetting(connectionSettings->setting(Setting::Ipv6));
+        }
         if (q->setting(Setting::Gsm) && q->setting(Setting::Ppp) && q->setting(Setting::Serial)) {
             addSetting(connectionSettings->setting(Setting::Gsm));
             addSetting(connectionSettings->setting(Setting::Ppp));
@@ -256,17 +253,17 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
     case ConnectionSettings::Cdma:
         addSetting(connectionSettings->setting(Setting::Cdma));
         addSetting(connectionSettings->setting(Setting::Ipv4));
-#if NM_CHECK_VERSION(1, 0, 0)
-        addSetting(connectionSettings->setting(Setting::Ipv6));
-#endif
+        if (NetworkManager::checkVersion(1, 0, 0)) {
+            addSetting(connectionSettings->setting(Setting::Ipv6));
+        }
         addSetting(connectionSettings->setting(Setting::Ppp));
         break;
     case ConnectionSettings::Gsm:
         addSetting(connectionSettings->setting(Setting::Gsm));
         addSetting(connectionSettings->setting(Setting::Ipv4));
-#if NM_CHECK_VERSION(1, 0, 0)
-        addSetting(connectionSettings->setting(Setting::Ipv6));
-#endif
+        if (NetworkManager::checkVersion(1, 0, 0)) {
+            addSetting(connectionSettings->setting(Setting::Ipv6));
+        }
         addSetting(connectionSettings->setting(Setting::Ppp));
         break;
     case ConnectionSettings::Infiniband:
@@ -314,7 +311,6 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
         addSetting(connectionSettings->setting(Setting::Wireless));
         addSetting(connectionSettings->setting(Setting::WirelessSecurity));
         break;
-#if NM_CHECK_VERSION(0, 9, 10)
     case ConnectionSettings::Team:
         addSetting(connectionSettings->setting(Setting::Team));
         addSetting(connectionSettings->setting(Setting::Ipv4));
@@ -325,14 +321,11 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
         addSetting(connectionSettings->setting(Setting::Ipv4));
         addSetting(connectionSettings->setting(Setting::Ipv6));
         break;
-#endif
-#if NM_CHECK_VERSION(1, 1, 92)
     case ConnectionSettings::Tun:
         addSetting(connectionSettings->setting(Setting::Tun));
         addSetting(connectionSettings->setting(Setting::Ipv4));
         addSetting(connectionSettings->setting(Setting::Ipv6));
         break;
-#endif
     case ConnectionSettings::Unknown:
     default:
         break;
@@ -371,16 +364,12 @@ NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSet
         type = Wired;
     } else if (typeString == QLatin1String(NM_SETTING_WIRELESS_SETTING_NAME)) {
         type = Wireless;
-#if NM_CHECK_VERSION(0, 9, 10)
     } else if (typeString == QLatin1String(NM_SETTING_TEAM_SETTING_NAME)) {
         type = Team;
     } else if (typeString == QLatin1String(NM_SETTING_GENERIC_SETTING_NAME)) {
         type = Generic;
-#endif
-#if NM_CHECK_VERSION(1, 1, 92)
     } else if (typeString == QLatin1String(NM_SETTING_TUN_SETTING_NAME)) {
         type = Tun;
-#endif
     }
 
     return type;
@@ -433,19 +422,15 @@ QString NetworkManager::ConnectionSettings::typeAsString(NetworkManager::Connect
     case Wireless:
         typeString = QLatin1String(NM_SETTING_WIRELESS_SETTING_NAME);
         break;
-#if NM_CHECK_VERSION(0, 9, 10)
     case Team:
         typeString = QLatin1String(NM_SETTING_TEAM_SETTING_NAME);
         break;
     case Generic:
         typeString = QLatin1String(NM_SETTING_GENERIC_SETTING_NAME);
         break;
-#endif
-#if NM_CHECK_VERSION(1, 1, 92)
     case Tun:
         typeString = QLatin1String(NM_SETTING_TUN_SETTING_NAME);
         break;
-#endif
     default:
         break;
     };
@@ -475,23 +460,17 @@ NetworkManager::ConnectionSettings::ConnectionSettings(const NetworkManager::Con
 
     setId(other->id());
     setUuid(other->uuid());
-#if NM_CHECK_VERSION(0, 9, 10)
     setInterfaceName(other->interfaceName());
-#endif
     setConnectionType(other->connectionType());
     setPermissions(other->permissions());
     setAutoconnect(other->autoconnect());
-#if NM_CHECK_VERSION(1, 0, 0)
     setAutoconnectPriority(other->autoconnectPriority());
-#endif
     setTimestamp(other->timestamp());
     setReadOnly(other->readOnly());
     setZone(other->zone());
     setMaster(other->master());
     setSlaveType(other->slaveType());
-#if NM_CHECK_VERSION(0, 9, 10)
     setGatewayPingTimeout(other->gatewayPingTimeout());
-#endif
     d->initSettings(other);
 }
 
@@ -516,11 +495,9 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
     setUuid(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_UUID)).toString());
     setConnectionType(typeFromString(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_TYPE)).toString()));
 
-#if NM_CHECK_VERSION(0, 9, 10)
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_INTERFACE_NAME))) {
         setInterfaceName(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_INTERFACE_NAME)).toString());
     }
-#endif
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS))) {
         QStringList permissions = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS)).toStringList();
         Q_FOREACH (const QString & permission, permissions) {
@@ -533,11 +510,9 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
         setAutoconnect(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT)).toBool());
     }
 
-#if NM_CHECK_VERSION(1, 0, 0)
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_PRIORITY))) {
         setAutoconnectPriority(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_PRIORITY)).toInt());
     }
-#endif
 
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP))) {
         const int timestamp = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP)).toInt();
@@ -566,11 +541,9 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
         setSecondaries(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_SECONDARIES)).toStringList());
     }
 
-#if NM_CHECK_VERSION(0, 9, 10)
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_GATEWAY_PING_TIMEOUT))) {
         setGatewayPingTimeout(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_GATEWAY_PING_TIMEOUT)).toUInt());
     }
-#endif
 
     Q_FOREACH (const Setting::Ptr & setting, settings()) {
         if (map.contains(setting->name())) {
@@ -599,11 +572,9 @@ NMVariantMapMap NetworkManager::ConnectionSettings::toMap() const
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_TYPE), typeAsString(connectionType()));
     }
 
-#if NM_CHECK_VERSION(0, 9, 10)
     if (!interfaceName().isEmpty()) {
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_INTERFACE_NAME), interfaceName());
     }
-#endif
 
     if (!permissions().isEmpty()) {
         QStringList perm;
@@ -622,11 +593,9 @@ NMVariantMapMap NetworkManager::ConnectionSettings::toMap() const
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT), autoconnect());
     }
 
-#if NM_CHECK_VERSION(1, 0, 0)
     if (autoconnectPriority()) {
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_PRIORITY), autoconnectPriority());
     }
-#endif
 
     if (timestamp().isValid()) {
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP), timestamp().toTime_t());
@@ -652,11 +621,9 @@ NMVariantMapMap NetworkManager::ConnectionSettings::toMap() const
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_SECONDARIES), secondaries());
     }
 
-#if NM_CHECK_VERSION(0, 9, 10)
     if (gatewayPingTimeout()) {
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_GATEWAY_PING_TIMEOUT), gatewayPingTimeout());
     }
-#endif
 
     result.insert(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME), connectionSetting);
 
@@ -704,7 +671,6 @@ QString NetworkManager::ConnectionSettings::uuid() const
     return d->uuid;
 }
 
-#if NM_CHECK_VERSION(0, 9, 10)
 void NetworkManager::ConnectionSettings::setInterfaceName(const QString &interfaceName)
 {
     Q_D(ConnectionSettings);
@@ -718,7 +684,6 @@ QString NetworkManager::ConnectionSettings::interfaceName() const
 
     return d->interfaceName;
 }
-#endif
 
 void NetworkManager::ConnectionSettings::setConnectionType(NetworkManager::ConnectionSettings::ConnectionType type, NMBluetoothCapabilities bt_cap)
 {
@@ -770,7 +735,6 @@ bool NetworkManager::ConnectionSettings::autoconnect() const
     return d->autoconnect;
 }
 
-#if NM_CHECK_VERSION(1, 0, 0)
 void NetworkManager::ConnectionSettings::setAutoconnectPriority(int priority)
 {
     Q_D(ConnectionSettings);
@@ -784,7 +748,6 @@ int NetworkManager::ConnectionSettings::autoconnectPriority() const
 
     return d->autoconnectPriority;
 }
-#endif
 
 void NetworkManager::ConnectionSettings::setTimestamp(const QDateTime &timestamp)
 {
@@ -877,7 +840,6 @@ QStringList NetworkManager::ConnectionSettings::secondaries() const
     return d->secondaries;
 }
 
-#if NM_CHECK_VERSION(0, 9, 10)
 void NetworkManager::ConnectionSettings::setGatewayPingTimeout(quint32 timeout)
 {
     Q_D(ConnectionSettings);
@@ -891,7 +853,6 @@ quint32 NetworkManager::ConnectionSettings::gatewayPingTimeout() const
 
     return d->gatewayPingTimeout;
 }
-#endif
 
 NetworkManager::Setting::Ptr NetworkManager::ConnectionSettings::setting(Setting::SettingType type) const
 {
@@ -923,24 +884,18 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
 
     dbg.nospace() << NM_SETTING_CONNECTION_ID << ": " << setting.id() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_UUID << ": " << setting.uuid() << '\n';
-#if NM_CHECK_VERSION(0, 9, 10)
     dbg.nospace() << NM_SETTING_CONNECTION_INTERFACE_NAME << ": " << setting.interfaceName() << '\n';
-#endif
     dbg.nospace() << NM_SETTING_CONNECTION_TYPE << ": " << setting.typeAsString(setting.connectionType()) << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_PERMISSIONS << ": " << setting.permissions() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_AUTOCONNECT << ": " << setting.autoconnect() << '\n';
-#if NM_CHECK_VERSION(1, 0, 0)
     dbg.nospace() << NM_SETTING_CONNECTION_AUTOCONNECT_PRIORITY << ": " << setting.autoconnectPriority() << '\n';
-#endif
     dbg.nospace() << NM_SETTING_CONNECTION_TIMESTAMP << ": " << setting.timestamp().toTime_t() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_READ_ONLY << ": " << setting.readOnly() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_ZONE << ": " << setting.zone() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_MASTER << ": " << setting.master() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_SLAVE_TYPE << ": " << setting.slaveType() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_SECONDARIES << ": " << setting.secondaries() << '\n';
-#if NM_CHECK_VERSION(0, 9, 10)
     dbg.nospace() << NM_SETTING_CONNECTION_GATEWAY_PING_TIMEOUT << ": " << setting.gatewayPingTimeout() << '\n';
-#endif
     dbg.nospace() << "===================\n";
     Q_FOREACH (const Setting::Ptr & settingPtr, setting.settings()) {
         dbg.nospace() << settingPtr->typeAsString(settingPtr->type()).toUpper() << " SETTINGS\n";
@@ -1008,16 +963,12 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
         case Setting::WirelessSecurity:
             dbg.nospace() << *(settingPtr.staticCast<NetworkManager::WirelessSecuritySetting>().data());
             break;
-#if NM_CHECK_VERSION(0, 9, 10)
         case Setting::Team:
             dbg.nospace() << *(settingPtr.staticCast<NetworkManager::TeamSetting>().data());
             break;
-#endif
-#if NM_CHECK_VERSION(1, 1, 92)
         case Setting::Tun:
             dbg.nospace() << *(settingPtr.staticCast<NetworkManager::TunSetting>().data());
             break;
-#endif
         default:
             dbg.nospace() << *settingPtr.data();
         }

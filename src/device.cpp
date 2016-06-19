@@ -101,9 +101,7 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
     , designSpeed(0)
     , dhcp4Config(0)
     , dhcp6Config(0)
-#if NM_CHECK_VERSION(0, 9, 10)
     , mtu(0)
-#endif
     , q_ptr(q)
 {
     activeConnection = deviceIface.activeConnection().path();
@@ -121,16 +119,12 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
     Q_FOREACH (const QDBusObjectPath & availableConnection, deviceIface.availableConnections()) {
         availableConnections << availableConnection.path();
     }
-#if NM_CHECK_VERSION(0, 9, 10)
     physicalPortId = deviceIface.physicalPortId();
     mtu = deviceIface.mtu();
-#endif
-#if NM_CHECK_VERSION(1, 2, 0)
-    nmPluginMissing = deviceIface.nmPluginMissing();
-#endif
-#if NM_CHECK_VERSION(1, 0, 6)
-    metered = NetworkManager::DevicePrivate::convertMeteredStatus(deviceIface.metered());
-#endif
+    nmPluginMissing = NetworkManager::checkVersion(1, 2, 0) ? deviceIface.nmPluginMissing() : false;
+    metered = NetworkManager::checkVersion(1, 0, 6)
+        ? NetworkManager::DevicePrivate::convertMeteredStatus(deviceIface.metered())
+        : NetworkManager::Device::UnknownStatus;
 
     QDBusObjectPath ip4ConfigObjectPath = deviceIface.ip4Config();
     if (!ip4ConfigObjectPath.path().isNull() || ip4ConfigObjectPath.path() != QLatin1String("/")) {
@@ -174,13 +168,11 @@ void NetworkManager::DevicePrivate::init()
     QObject::connect(&deviceIface, &OrgFreedesktopNetworkManagerDeviceInterface::StateChanged, this, &DevicePrivate::deviceStateChanged);
 }
 
-#if NM_CHECK_VERSION(1, 0, 6)
 NetworkManager::Device::MeteredStatus NetworkManager::DevicePrivate::convertMeteredStatus(uint metered)
 {
     NetworkManager::Device::MeteredStatus ourMeteredStatus = (NetworkManager::Device::MeteredStatus) metered;
     return ourMeteredStatus;
 }
-#endif
 
 NetworkManager::Device::Capabilities NetworkManager::DevicePrivate::convertCapabilities(uint theirCaps)
 {
@@ -310,12 +302,7 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
         ipV6Config = IpConfig();
         Q_EMIT q->ipV6ConfigChanged();
     } else if (property == QLatin1String("IpInterface")) {
-#if !NM_CHECK_VERSION(0, 9, 10)
-        // FIXME workaround, because NM doesn't Q_EMIT correct value
-        ipInterface = deviceIface.ipInterface();
-#else
         ipInterface = value.toString();
-#endif
         Q_EMIT q->ipInterfaceChanged();
     } else if (property == QLatin1String("Managed")) {
         managed = value.toBool();
@@ -336,24 +323,18 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
     } else if (property == QLatin1String("Udi")) {
         udi = value.toString();
         Q_EMIT q->udiChanged();
-#if NM_CHECK_VERSION(0, 9, 10)
     } else if (property == QLatin1String("PhysicalPortId")) {
         physicalPortId = value.toString();
         Q_EMIT q->physicalPortIdChanged();
     } else if (property == QLatin1String("Mtu")) {
-        mtu = value.toUInt();
-        Q_EMIT q->mtuChanged();
-#endif
-#if NM_CHECK_VERSION(1, 2, 0)
+            mtu = value.toUInt();
+            Q_EMIT q->mtuChanged();
     } else if (property == QLatin1String("NmPluginMissing")) {
         nmPluginMissing = value.toBool();
         Q_EMIT q->nmPluginMissingChanged(nmPluginMissing);
     } else if (property == QLatin1String("Metered")) {
-#endif
-#if NM_CHECK_VERSION(1, 0, 6)
         metered = NetworkManager::DevicePrivate::convertMeteredStatus(value.toUInt());
         Q_EMIT q->meteredChanged(metered);
-#endif
     } else {
         qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
     }
@@ -446,13 +427,11 @@ QString NetworkManager::Device::udi() const
     return d->udi;
 }
 
-#if NM_CHECK_VERSION(0, 9, 10)
 QString NetworkManager::Device::physicalPortId() const
 {
     Q_D(const Device);
     return d->physicalPortId;
 }
-#endif
 
 QHostAddress NetworkManager::Device::ipV4Address() const
 {
@@ -523,30 +502,24 @@ bool NetworkManager::Device::managed() const
     return d->managed;
 }
 
-#if NM_CHECK_VERSION(0, 9, 10)
 uint NetworkManager::Device::mtu() const
 {
     Q_D(const Device);
     return d->mtu;
 }
-#endif
 
-#if NM_CHECK_VERSION(1, 2, 0)
 bool NetworkManager::Device::nmPluginMissing() const
 {
     Q_D(const Device);
     return d->nmPluginMissing;
 
 }
-#endif
 
-#if NM_CHECK_VERSION(1, 0, 6)
 NetworkManager::Device::MeteredStatus NetworkManager::Device::metered() const
 {
     Q_D(const Device);
     return d->metered;
 }
-#endif
 
 QDBusPendingReply<> NetworkManager::Device::disconnectInterface()
 {
@@ -554,13 +527,15 @@ QDBusPendingReply<> NetworkManager::Device::disconnectInterface()
     return d->deviceIface.Disconnect();
 }
 
-#if NM_CHECK_VERSION(1, 0, 0)
 QDBusPendingReply<> NetworkManager::Device::deleteInterface()
 {
-    Q_D(Device);
-    return d->deviceIface.Delete();
+    if (NetworkManager::checkVersion(1, 0, 0)) {
+        Q_D(Device);
+        return d->deviceIface.Delete();
+    } else {
+        return QDBusPendingReply<>();
+    }
 }
-#endif
 
 NetworkManager::Device::State NetworkManager::Device::state() const
 {

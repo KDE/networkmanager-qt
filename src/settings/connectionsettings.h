@@ -66,13 +66,9 @@ public:
         Wimax,
         Wired,
         Wireless,
-#if NM_CHECK_VERSION(0, 9, 10)
         Team,
         Generic,
-#endif
-#if NM_CHECK_VERSION(1, 1, 92)
         Tun
-#endif
     };
 
     static ConnectionType typeFromString(const QString &typeString);
@@ -97,10 +93,8 @@ public:
     void setUuid(const QString &uuid);
     QString uuid() const;
 
-#if NM_CHECK_VERSION(0, 9, 10)
     void setInterfaceName(const QString &interfaceName);
     QString interfaceName() const;
-#endif
 
     void setConnectionType(ConnectionType type, NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
     ConnectionType connectionType() const;
@@ -112,10 +106,8 @@ public:
     void setAutoconnect(bool autoconnect);
     bool autoconnect() const;
 
-#if NM_CHECK_VERSION(1, 0, 0)
     void setAutoconnectPriority(int priority);
     int autoconnectPriority() const;
-#endif
 
     void setTimestamp(const QDateTime &timestamp);
     QDateTime timestamp() const;
@@ -137,10 +129,8 @@ public:
     void setSecondaries(const QStringList &secondaries);
     QStringList secondaries() const;
 
-#if NM_CHECK_VERSION(0, 9, 10)
     void setGatewayPingTimeout(quint32 timeout);
     quint32 gatewayPingTimeout() const;
-#endif
 
     Setting::Ptr setting(Setting::SettingType type) const;
     Setting::Ptr setting(const QString &type) const;
