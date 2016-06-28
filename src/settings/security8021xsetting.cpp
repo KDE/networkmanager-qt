@@ -891,7 +891,19 @@ QVariantMap NetworkManager::Security8021xSetting::toMap() const
 
     if (!version.isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPVER), version);
-        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPLABEL), "1");
+    }
+
+    QString peapLabel;
+    switch (phase1PeapLabel()) {
+        case PeapLabelForce:
+            peapLabel = '1';
+            break;
+        case PeapLabelUnknown:
+            break;
+    }
+
+    if (!peapLabel.isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_802_1X_PHASE1_PEAPLABEL), peapLabel);
     }
 
     QString provisioning;
