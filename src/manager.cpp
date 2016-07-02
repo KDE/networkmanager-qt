@@ -404,12 +404,12 @@ bool NetworkManager::NetworkManagerPrivate::isWwanHardwareEnabled() const
 
 bool NetworkManager::NetworkManagerPrivate::isWimaxEnabled() const
 {
-    return checkVersion(1, 2, 0) ? m_isWimaxEnabled : false;
+    return checkVersion(1, 2, 0) ? false : m_isWimaxEnabled;
 }
 
 bool NetworkManager::NetworkManagerPrivate::isWimaxHardwareEnabled() const
 {
-    return checkVersion(1, 2, 0) ? m_isWimaxHardwareEnabled : false;
+    return checkVersion(1, 2, 0) ? false : m_isWimaxHardwareEnabled;
 }
 
 QDBusPendingReply<QDBusObjectPath> NetworkManager::NetworkManagerPrivate::activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter)
