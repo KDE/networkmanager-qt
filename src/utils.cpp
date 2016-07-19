@@ -436,15 +436,15 @@ NetworkManager::WirelessSecurityType NetworkManager::securityTypeFromConnectionS
             return DynamicWep;
         }
     } else if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::WpaPsk) {
-        if (wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Rsn) && !wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Wpa)) {
-            return Wpa2Psk;
+        if (wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Wpa) && !wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Rsn)) {
+            return WpaPsk;
         }
-        return WpaPsk;
+        return Wpa2Psk;
     } else if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::WpaEap) {
-        if (wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Rsn) && !wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Wpa)) {
-            return Wpa2Eap;
+        if (wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Wpa) && !wifiSecuritySetting->proto().contains(WirelessSecuritySetting::Rsn)) {
+            return WpaEap;
         }
-        return WpaEap;
+        return Wpa2Eap;
     }
 
     return NoneSecurity;
