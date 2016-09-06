@@ -56,6 +56,7 @@ public:
     Q_DECLARE_PUBLIC(AccessPoint)
     AccessPoint *q_ptr;
 private Q_SLOTS:
+    void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
     void propertiesChanged(const QVariantMap &properties);
 };
 

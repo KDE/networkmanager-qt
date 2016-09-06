@@ -97,9 +97,13 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
             this, &NetworkManagerPrivate::onDeviceAdded);
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceRemoved,
             this, &NetworkManagerPrivate::onDeviceRemoved);
+#if NM_CHECK_VERSION(1, 4, 0)
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_DAEMON_PATH, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"), this, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+#else
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::PropertiesChanged,
             this, &NetworkManagerPrivate::propertiesChanged);
-
+#endif
     connect(&watcher, &QDBusServiceWatcher::serviceRegistered,
             this, &NetworkManagerPrivate::daemonRegistered);
     connect(&watcher, &QDBusServiceWatcher::serviceUnregistered,
@@ -679,6 +683,14 @@ void NetworkManager::NetworkManagerPrivate::stateChanged(uint state)
     if (nmState != newStatus) {
         nmState = newStatus;
         Q_EMIT Notifier::statusChanged(newStatus);
+    }
+}
+
+void NetworkManager::NetworkManagerPrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
+{
+    Q_UNUSED(invalidatedProperties);
+    if (interfaceName == QLatin1String("org.freedesktop.NetworkManager")) {
+        propertiesChanged(properties);
     }
 }
 

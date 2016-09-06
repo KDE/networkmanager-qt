@@ -42,7 +42,12 @@ NetworkManager::GenericDevice::GenericDevice(const QString &path, QObject *paren
     : Device(*new NetworkManager::GenericDevicePrivate(path, this), parent)
 {
     Q_D(GenericDevice);
+#if NM_CHECK_VERSION(1, 4, 0)
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+#else
     connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceGenericInterface::PropertiesChanged, d, &GenericDevicePrivate::propertiesChanged);
+#endif
 }
 
 NetworkManager::GenericDevice::~GenericDevice()

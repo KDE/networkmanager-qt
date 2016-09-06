@@ -42,7 +42,12 @@ NetworkManager::BluetoothDevice::BluetoothDevice(const QString &path, QObject *p
     : ModemDevice(*new BluetoothDevicePrivate(path, this), parent)
 {
     Q_D(BluetoothDevice);
+#if NM_CHECK_VERSION(1, 4, 0)
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+#else
     connect(&d->btIface, &OrgFreedesktopNetworkManagerDeviceBluetoothInterface::PropertiesChanged, d, &BluetoothDevicePrivate::propertiesChanged);
+#endif
 }
 
 NetworkManager::BluetoothDevice::~BluetoothDevice()

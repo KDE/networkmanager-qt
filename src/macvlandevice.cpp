@@ -43,7 +43,12 @@ NetworkManager::MacVlanDevice::MacVlanDevice(const QString &path, QObject *paren
     Device(*new MacVlanDevicePrivate(path, this), parent)
 {
     Q_D(MacVlanDevice);
+#if NM_CHECK_VERSION(1, 4, 0)
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+#else
     connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceMacvlanInterface::PropertiesChanged, d, &MacVlanDevicePrivate::propertiesChanged);
+#endif
 }
 
 NetworkManager::MacVlanDevice::~MacVlanDevice()

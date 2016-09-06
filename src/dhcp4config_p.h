@@ -41,6 +41,7 @@ public:
     Q_DECLARE_PUBLIC(Dhcp4Config)
     Dhcp4Config *q_ptr;
 protected Q_SLOTS:
+    void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
     void dhcp4PropertiesChanged(const QVariantMap &);
 };
 

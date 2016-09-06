@@ -79,7 +79,12 @@ NetworkManager::AccessPoint::AccessPoint(const QString &path, QObject *parent)
     , d_ptr(new AccessPointPrivate(path, this))
 {
     Q_D(AccessPoint);
+#if NM_CHECK_VERSION(1, 4, 0)
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+#else
     QObject::connect(&d->iface, &OrgFreedesktopNetworkManagerAccessPointInterface::PropertiesChanged, d, &AccessPointPrivate::propertiesChanged);
+#endif
 }
 
 NetworkManager::AccessPoint::~AccessPoint()
@@ -180,6 +185,14 @@ NetworkManager::AccessPoint::OperationMode NetworkManager::AccessPoint::convertO
         qCDebug(NMQT) << Q_FUNC_INFO << "Unhandled mode" << mode;
     }
     return ourMode;
+}
+
+void NetworkManager::AccessPointPrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
+{
+    Q_UNUSED(invalidatedProperties);
+    if (interfaceName == QLatin1String("org.freedesktop.NetworkManager.AccessPoint")) {
+        propertiesChanged(properties);
+    }
 }
 
 void NetworkManager::AccessPointPrivate::propertiesChanged(const QVariantMap &properties)

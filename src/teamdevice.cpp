@@ -47,7 +47,12 @@ NetworkManager::TeamDevice::TeamDevice(const QString &path, QObject *parent)
     : Device(*new TeamDevicePrivate(path, this), parent)
 {
     Q_D(TeamDevice);
+#if NM_CHECK_VERSION(1, 4, 0)
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+#else
     connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceTeamInterface::PropertiesChanged, d, &TeamDevicePrivate::propertiesChanged);
+#endif
 }
 
 NetworkManager::TeamDevice::~TeamDevice()

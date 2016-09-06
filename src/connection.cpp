@@ -74,7 +74,12 @@ NetworkManager::Connection::Connection(const QString &path, QObject *parent)
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Updated, d, &ConnectionPrivate::onConnectionUpdated);
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Removed, d, &ConnectionPrivate::onConnectionRemoved);
     d->unsaved = d->iface.unsaved();
+#if NM_CHECK_VERSION(1, 4, 0)
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+#else
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::PropertiesChanged, d, &ConnectionPrivate::onPropertiesChanged);
+#endif
 }
 
 NetworkManager::Connection::~Connection()
@@ -176,6 +181,14 @@ void NetworkManager::ConnectionPrivate::onConnectionRemoved()
     QString tmpPath = path;
     updateSettings();
     Q_EMIT q->removed(tmpPath);
+}
+
+void NetworkManager::ConnectionPrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
+{
+    Q_UNUSED(invalidatedProperties);
+    if (interfaceName == QLatin1String("org.freedesktop.NetworkManager.Settings.Connection")) {
+        onPropertiesChanged(properties);
+    }
 }
 
 void NetworkManager::ConnectionPrivate::onPropertiesChanged(const QVariantMap &properties)

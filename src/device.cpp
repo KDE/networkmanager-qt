@@ -215,6 +215,7 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
 {
     Q_Q(Device);
 
+    // qCDebug(NMQT) << property  << " - " << value;
     if (property == QLatin1String("ActiveConnection")) {
         // FIXME workaround, because NM doesn't Q_EMIT correct value
         // d->activeConnection = value.value<QDBusObjectPath>.path();
@@ -568,6 +569,14 @@ void NetworkManager::DevicePrivate::deviceStateChanged(uint newState, uint oldSt
     reason = NetworkManager::DevicePrivate::convertReason(reason);
 
     Q_EMIT q->stateChanged(connectionState, NetworkManager::DevicePrivate::convertState(oldState), NetworkManager::DevicePrivate::convertReason(reason));
+}
+
+void NetworkManager::DevicePrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
+{
+    Q_UNUSED(invalidatedProperties);
+    if (interfaceName.contains(QLatin1String("org.freedesktop.NetworkManager.Device"))) {
+        propertiesChanged(properties);
+    }
 }
 
 void NetworkManager::DevicePrivate::propertiesChanged(const QVariantMap &properties)

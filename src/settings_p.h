@@ -58,6 +58,7 @@ protected Q_SLOTS:
     void onConnectionAdded(const QDBusObjectPath &);
     void onConnectionRemoved(const QDBusObjectPath &);
     void onConnectionRemoved(const QString &);
+    void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
     void propertiesChanged(const QVariantMap &properties);
     void initNotifier();
 protected:

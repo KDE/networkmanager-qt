@@ -50,7 +50,12 @@ NetworkManager::WiredDevice::WiredDevice(const QString &path, QObject *parent)
     : Device(*new NetworkManager::WiredDevicePrivate(path, this), parent)
 {
     Q_D(WiredDevice);
+#if NM_CHECK_VERSION(1, 4, 0)
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+#else
     connect(&d->wiredIface, &OrgFreedesktopNetworkManagerDeviceWiredInterface::PropertiesChanged, d, &WiredDevicePrivate::propertiesChanged);
+#endif
 }
 
 NetworkManager::WiredDevice::~WiredDevice()

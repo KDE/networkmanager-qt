@@ -93,8 +93,12 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject 
 {
     Q_D(ActiveConnection);
 
+#if NM_CHECK_VERSION(1, 4, 0)
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+#else
     connect(&d->iface, &OrgFreedesktopNetworkManagerConnectionActiveInterface::PropertiesChanged, d, &ActiveConnectionPrivate::propertiesChanged);
-
+#endif
     /*
      * Workaround: Re-check connection state before we watch changes in case it gets changed too quickly
      * BUG:352326
@@ -107,7 +111,12 @@ NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, 
 {
     Q_D(ActiveConnection);
 
+#if NM_CHECK_VERSION(1, 4, 0)
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+#else
     connect(&d->iface, &OrgFreedesktopNetworkManagerConnectionActiveInterface::PropertiesChanged, d, &ActiveConnectionPrivate::propertiesChanged);
+#endif
 
     /*
      * Workaround: Re-check connection state before we watch changes in case it gets changed too quickly
@@ -302,11 +311,20 @@ void NetworkManager::ActiveConnectionPrivate::recheckProperties()
     }
 }
 
+void NetworkManager::ActiveConnectionPrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
+{
+    Q_UNUSED(invalidatedProperties);
+
+    if (interfaceName == QLatin1String("org.freedesktop.NetworkManager.Connection.Active")) {
+        propertiesChanged(properties);
+    }
+}
+
 void NetworkManager::ActiveConnectionPrivate::propertiesChanged(const QVariantMap &properties)
 {
     Q_Q(ActiveConnection);
 
-    // qCDebug(NMQT) << Q_FUNC_INFO << properties;
+    qCDebug(NMQT) << Q_FUNC_INFO << properties;
 
     QVariantMap::const_iterator it = properties.constBegin();
     while (it != properties.constEnd()) {

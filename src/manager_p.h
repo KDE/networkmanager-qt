@@ -121,6 +121,7 @@ protected Q_SLOTS:
     void init();
     void onDeviceAdded(const QDBusObjectPath &state);
     void onDeviceRemoved(const QDBusObjectPath &state);
+    void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
     void propertiesChanged(const QVariantMap &changedProperties);
     void daemonRegistered();
     void daemonUnregistered();

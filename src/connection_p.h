@@ -54,6 +54,7 @@ public:
 private Q_SLOTS:
     void onConnectionUpdated();
     void onConnectionRemoved();
+    void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
     void onPropertiesChanged(const QVariantMap &properties);
 };
 

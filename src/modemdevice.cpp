@@ -54,7 +54,12 @@ NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
 {
     Q_D(ModemDevice);
     d->initModemProperties();
+#if NM_CHECK_VERSION(1, 4, 0)
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+#else
     QObject::connect(&d->modemIface, &OrgFreedesktopNetworkManagerDeviceModemInterface::PropertiesChanged, d, &ModemDevicePrivate::propertiesChanged);
+#endif
 }
 
 NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd, QObject *parent)
@@ -62,7 +67,12 @@ NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd,
 {
     Q_D(ModemDevice);
     d->initModemProperties();
+#if NM_CHECK_VERSION(1, 4, 0)
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+#else
     QObject::connect(&d->modemIface, &OrgFreedesktopNetworkManagerDeviceModemInterface::PropertiesChanged, d, &ModemDevicePrivate::propertiesChanged);
+#endif
 }
 
 NetworkManager::ModemDevice::~ModemDevice()

@@ -42,8 +42,13 @@ NetworkManager::SettingsPrivate::SettingsPrivate()
 #endif
     , m_canModify(true)
 {
+#if NM_CHECK_VERSION(1, 4, 0)
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"), this, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+#else
     connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::PropertiesChanged,
             this, &SettingsPrivate::propertiesChanged);
+#endif
     connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::NewConnection,
             this, &SettingsPrivate::onConnectionAdded);
     connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::ConnectionRemoved,
@@ -151,6 +156,14 @@ void NetworkManager::SettingsPrivate::initNotifier()
 void NetworkManager::SettingsPrivate::saveHostname(const QString &hostname)
 {
     iface.SaveHostname(hostname);
+}
+
+void NetworkManager::SettingsPrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
+{
+    Q_UNUSED(invalidatedProperties);
+    if (interfaceName == QLatin1String("org.freedesktop.NetworkManager.Settings")) {
+        propertiesChanged(properties);
+    }
 }
 
 void NetworkManager::SettingsPrivate::propertiesChanged(const QVariantMap &properties)

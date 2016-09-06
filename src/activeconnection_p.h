@@ -64,8 +64,10 @@ public:
      * BUG:352326
      */
     void recheckProperties();
-private Q_SLOTS:
+public:
     void propertiesChanged(const QVariantMap &properties);
+private Q_SLOTS:
+    void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
 };
 
 }

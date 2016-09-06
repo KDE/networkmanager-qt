@@ -86,6 +86,7 @@ public:
 
 public Q_SLOTS:
     void deviceStateChanged(uint, uint, uint);
+    void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
     void propertiesChanged(const QVariantMap &properties);
 };
 

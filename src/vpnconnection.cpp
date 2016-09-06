@@ -54,7 +54,12 @@ NetworkManager::VpnConnection::VpnConnection(const QString &path, QObject *paren
     : ActiveConnection(*new VpnConnectionPrivate(path, this), parent)
 {
     Q_D(VpnConnection);
+#if NM_CHECK_VERSION(1, 4, 0)
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+#else
     connect(&d->iface, &OrgFreedesktopNetworkManagerVPNConnectionInterface::PropertiesChanged, d, &VpnConnectionPrivate::propertiesChanged);
+#endif
     connect(&d->iface, &OrgFreedesktopNetworkManagerVPNConnectionInterface::VpnStateChanged, d, &VpnConnectionPrivate::vpnStateChanged);
 }
 
@@ -73,6 +78,17 @@ NetworkManager::VpnConnection::State NetworkManager::VpnConnection::state() cons
 {
     Q_D(const VpnConnection);
     return d->state;
+}
+
+void NetworkManager::VpnConnectionPrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
+{
+    Q_UNUSED(invalidatedProperties);
+
+    if (interfaceName == QLatin1String("org.freedesktop.NetworkManager.VPN.Connection")) {
+        propertiesChanged(properties);
+    } else {
+        ActiveConnectionPrivate::propertiesChanged(properties);
+    }
 }
 
 void NetworkManager::VpnConnectionPrivate::propertiesChanged(const QVariantMap &properties)
