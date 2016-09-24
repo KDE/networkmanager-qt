@@ -102,10 +102,10 @@ void NetworkManager::VpnConnectionPrivate::propertiesChanged(const QVariantMap &
             banner = it->toString();
             Q_EMIT q->bannerChanged(banner);
         } else if (property == QLatin1String("VpnState")) {
-            state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(it->toUInt());
-            NetworkManager::VpnConnection::StateChangeReason reason = NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(properties.key("Reason").toUInt());
             // Do not notify about changed VpnState twice, because there is also signal VpnStateChanged() from NetworkManager
-            // Q_EMIT stateChanged(d->state, reason);
+            //state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(it->toUInt());
+            //NetworkManager::VpnConnection::StateChangeReason reason = NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(properties.key("Reason").toUInt());
+            //Q_EMIT stateChanged(d->state, reason);
         } else {
             qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
