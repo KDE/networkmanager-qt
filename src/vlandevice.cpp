@@ -31,12 +31,6 @@ NetworkManager::VlanDevicePrivate::VlanDevicePrivate(const QString &path, VlanDe
 #endif
     , carrier(false)
 {
-    carrier = iface.carrier();
-    hwAddress = iface.hwAddress();
-    if (NetworkManager::checkVersion(1, 0, 0)) {
-        parent = iface.parent().path();
-    }
-    vlanId = iface.vlanId();
 }
 
 NetworkManager::VlanDevice::~VlanDevice()
@@ -47,6 +41,12 @@ NetworkManager::VlanDevice::VlanDevice(const QString &path, QObject *parent)
     : Device(*new VlanDevicePrivate(path, this), parent)
 {
     Q_D(VlanDevice);
+
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));

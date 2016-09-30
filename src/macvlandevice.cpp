@@ -30,9 +30,6 @@ NetworkManager::MacVlanDevicePrivate::MacVlanDevicePrivate(const QString &path, 
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
 {
-    mode = iface.mode();
-    noPromisc = iface.noPromisc();
-    parent = iface.parent().path();
 }
 
 NetworkManager::MacVlanDevicePrivate::~MacVlanDevicePrivate()
@@ -43,6 +40,12 @@ NetworkManager::MacVlanDevice::MacVlanDevice(const QString &path, QObject *paren
     Device(*new MacVlanDevicePrivate(path, this), parent)
 {
     Q_D(MacVlanDevice);
+
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));

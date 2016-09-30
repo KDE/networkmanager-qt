@@ -161,18 +161,10 @@ void NetworkManager::NetworkManagerPrivate::init()
            );
 
     // Get all Manager's properties async
-    QDBusMessage message = QDBusMessage::createMethodCall(DBUS_SERVICE,
-                           DBUS_DAEMON_PATH,
-                           FDO_DBUS_PROPERTIES,
-                           QLatin1String("GetAll"));
-    message << iface.staticInterfaceName();
-#ifdef NMQT_STATIC
-    QDBusConnection::sessionBus().callWithCallback(message,
-#else
-    QDBusConnection::systemBus().callWithCallback(message,
-#endif
-            this,
-            SLOT(propertiesChanged(QVariantMap)));
+    QVariantMap initialProperties = retrieveInitialProperties(iface.staticInterfaceName(), DBUS_DAEMON_PATH);
+    if (!initialProperties.isEmpty()) {
+        propertiesChanged(initialProperties);
+    }
 
     QTimer::singleShot(0, [this] { qobject_cast<SettingsPrivate *>(settingsNotifier())->init(); });
 
@@ -242,6 +234,30 @@ bool NetworkManager::NetworkManagerPrivate::checkVersion(const int x, const int 
 NetworkManager::Device::Types NetworkManager::NetworkManagerPrivate::supportedInterfaceTypes() const
 {
     return m_supportedInterfaceTypes;
+}
+
+QVariantMap NetworkManager::NetworkManagerPrivate::retrieveInitialProperties(const QString &interfaceName, const QString &path)
+{
+    QDBusMessage message = QDBusMessage::createMethodCall(DBUS_SERVICE,
+                                                          path,
+                                                          FDO_DBUS_PROPERTIES,
+                                                          QLatin1String("GetAll"));
+    message << interfaceName;
+#ifdef NMQT_STATIC
+    QDBusMessage resultMessage = QDBusConnection::sessionBus().call(message);
+#else
+    QDBusMessage resultMessage = QDBusConnection::systemBus().call(message);
+#endif
+    if (resultMessage.type() == QDBusMessage::ReplyMessage) {
+        QVariantMap result;
+        QDBusArgument dbusArgument = resultMessage.arguments().at(0).value<QDBusArgument>();
+        while (!dbusArgument.atEnd()) {
+            dbusArgument >> result;
+        }
+        return result;
+    }
+
+    return QVariantMap();
 }
 
 NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::findRegisteredNetworkInterface(const QString &uni)

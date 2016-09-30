@@ -30,8 +30,6 @@ NetworkManager::GenericDevicePrivate::GenericDevicePrivate(const QString &path, 
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
 {
-    hwAddress = iface.hwAddress();
-    typeDescription = iface.typeDescription();
 }
 
 NetworkManager::GenericDevicePrivate::~GenericDevicePrivate()
@@ -42,6 +40,12 @@ NetworkManager::GenericDevice::GenericDevice(const QString &path, QObject *paren
     : Device(*new NetworkManager::GenericDevicePrivate(path, this), parent)
 {
     Q_D(GenericDevice);
+
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));

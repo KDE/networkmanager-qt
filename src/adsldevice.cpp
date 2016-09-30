@@ -30,7 +30,6 @@ NetworkManager::AdslDevicePrivate::AdslDevicePrivate(const QString &path, AdslDe
 #endif
     , carrier(false)
 {
-    carrier = iface.carrier();
 }
 
 NetworkManager::AdslDevice::~AdslDevice()
@@ -41,6 +40,12 @@ NetworkManager::AdslDevice::AdslDevice(const QString &path, QObject *parent)
     : Device(*new AdslDevicePrivate(path, this), parent)
 {
     Q_D(AdslDevice);
+
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));

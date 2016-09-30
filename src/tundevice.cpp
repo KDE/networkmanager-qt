@@ -30,12 +30,6 @@ NetworkManager::TunDevicePrivate::TunDevicePrivate(const QString &path, TunDevic
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
 {
-    owner = iface.owner();
-    group = iface.group();
-    mode = iface.mode();
-    multiQueue = iface.multiQueue();
-    noPi = iface.noPi();
-    vnetHdr = iface.vnetHdr();
 }
 
 NetworkManager::TunDevicePrivate::~TunDevicePrivate()
@@ -46,6 +40,12 @@ NetworkManager::TunDevice::TunDevice(const QString &path, QObject *parent)
     : Device(*new TunDevicePrivate(path, this), parent)
 {
     Q_D(TunDevice);
+
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));

@@ -34,14 +34,6 @@ NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString &path, Wima
     , wimaxIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
 {
-    hardwareAddress = wimaxIface.hwAddress();
-    centerFrequency = wimaxIface.centerFrequency();
-    activeNsp = wimaxIface.activeNsp().path();
-    bsid = wimaxIface.bsid();
-    cinr = wimaxIface.cinr();
-    rssi = wimaxIface.rssi();
-    txPower = wimaxIface.txPower();
-
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
     QList <QDBusObjectPath> nsps = wimaxIface.nsps();
     Q_FOREACH (const QDBusObjectPath & op, nsps) {
@@ -54,6 +46,12 @@ NetworkManager::WimaxDevice::WimaxDevice(const QString &path, QObject *parent)
     : Device(*new WimaxDevicePrivate(path, this), parent)
 {
     Q_D(WimaxDevice);
+
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->wimaxIface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));

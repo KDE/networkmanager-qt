@@ -46,9 +46,16 @@ public:
 
     Q_DECLARE_PUBLIC(VpnConnection)
     VpnConnection *q_ptr;
+
+protected:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
+
 private Q_SLOTS:
     void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
-    void propertiesChanged(const QVariantMap &properties);
     void vpnStateChanged(uint new_state, uint reason);
 };
 

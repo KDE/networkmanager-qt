@@ -32,8 +32,6 @@ NetworkManager::InfinibandDevicePrivate::InfinibandDevicePrivate(const QString &
 #endif
     , carrier(false)
 {
-    carrier = iface.carrier();
-    hwAddress = iface.hwAddress();
 }
 
 NetworkManager::InfinibandDevice::~InfinibandDevice()
@@ -44,6 +42,12 @@ NetworkManager::InfinibandDevice::InfinibandDevice(const QString &path, QObject 
     : Device(*new InfinibandDevicePrivate(path, this), parent)
 {
     Q_D(InfinibandDevice);
+
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));

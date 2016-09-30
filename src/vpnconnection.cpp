@@ -36,8 +36,6 @@ NetworkManager::VpnConnectionPrivate::VpnConnectionPrivate(const QString &path, 
 #endif
     , q_ptr(q)
 {
-    banner = iface.banner();
-    state = convertVpnConnectionState(iface.vpnState());
 }
 
 NetworkManager::VpnConnection::State NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(uint state)
@@ -54,6 +52,23 @@ NetworkManager::VpnConnection::VpnConnection(const QString &path, QObject *paren
     : ActiveConnection(*new VpnConnectionPrivate(path, this), parent)
 {
     Q_D(VpnConnection);
+
+    // We need to get ActiveConnection's properties, because by default every ActiveConnection
+    // is basically a VpnConnection
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(OrgFreedesktopNetworkManagerConnectionActiveInterface::staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
+
+    // Try to retrieve VPN specific properties if this is a VPN connection
+    if (vpn()) {
+        // Get all VpnConnection's properties at once
+        QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
+        if (!initialProperties.isEmpty()) {
+            d->propertiesChanged(initialProperties);
+        }
+    }
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
@@ -91,25 +106,20 @@ void NetworkManager::VpnConnectionPrivate::dbusPropertiesChanged(const QString &
     }
 }
 
-void NetworkManager::VpnConnectionPrivate::propertiesChanged(const QVariantMap &properties)
+void NetworkManager::VpnConnectionPrivate::propertyChanged(const QString &property, const QVariant &value)
 {
     Q_Q(VpnConnection);
 
-    QVariantMap::const_iterator it = properties.constBegin();
-    while (it != properties.constEnd()) {
-        const QString property = it.key();
-        if (property == QLatin1String("Banner")) {
-            banner = it->toString();
-            Q_EMIT q->bannerChanged(banner);
-        } else if (property == QLatin1String("VpnState")) {
-            // Do not notify about changed VpnState twice, because there is also signal VpnStateChanged() from NetworkManager
-            //state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(it->toUInt());
-            //NetworkManager::VpnConnection::StateChangeReason reason = NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(properties.key("Reason").toUInt());
-            //Q_EMIT stateChanged(d->state, reason);
-        } else {
-            qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
-        }
-        ++it;
+    if (property == QLatin1String("Banner")) {
+        banner = value.toString();
+        Q_EMIT q->bannerChanged(banner);
+    } else if (property == QLatin1String("VpnState")) {
+        //Do not notify about changed VpnState twice, because there is also signal VpnStateChanged() from NetworkManager
+        //state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(value.toUInt());
+        //NetworkManager::VpnConnection::StateChangeReason reason = NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(properties.key("Reason").toUInt());
+        //Q_EMIT stateChanged(d->state, reason);
+    } else {
+        ActiveConnectionPrivate::propertyChanged(property, value);
     }
 }
 

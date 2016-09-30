@@ -75,19 +75,11 @@ void NetworkManager::SettingsPrivate::init()
         }
     }
 
-    // Get all Setting's properties async
-    QDBusMessage message = QDBusMessage::createMethodCall(NetworkManagerPrivate::DBUS_SERVICE,
-                           NetworkManagerPrivate::DBUS_SETTINGS_PATH,
-                           NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                           QStringLiteral("GetAll"));
-    message << iface.staticInterfaceName();
-#ifdef NMQT_STATIC
-    QDBusConnection::sessionBus().callWithCallback(message,
-#else
-    QDBusConnection::systemBus().callWithCallback(message,
-#endif
-            this,
-            SLOT(propertiesChanged(QVariantMap)));
+    // Get all Setting's properties at once
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(iface.staticInterfaceName(), NetworkManagerPrivate::DBUS_SETTINGS_PATH);
+    if (!initialProperties.isEmpty()) {
+        propertiesChanged(initialProperties);
+    }
 }
 
 NetworkManager::Connection::List NetworkManager::SettingsPrivate::listConnections()

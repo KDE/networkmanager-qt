@@ -104,47 +104,6 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
     , mtu(0)
     , q_ptr(q)
 {
-    activeConnection = deviceIface.activeConnection().path();
-    driver = deviceIface.driver();
-    interfaceName = deviceIface.interface();
-    ipInterface = deviceIface.ipInterface();
-    ipV4Address = QHostAddress(ntohl(deviceIface.ip4Address()));
-    managed = deviceIface.managed();
-    udi = deviceIface.udi();
-    firmwareMissing = deviceIface.firmwareMissing();
-    driverVersion = deviceIface.driverVersion();
-    firmwareVersion = deviceIface.firmwareVersion();
-    autoconnect = deviceIface.autoconnect();
-    reason = NetworkManager::DevicePrivate::convertReason(deviceIface.stateReason().reason);
-    Q_FOREACH (const QDBusObjectPath & availableConnection, deviceIface.availableConnections()) {
-        availableConnections << availableConnection.path();
-    }
-    physicalPortId = deviceIface.physicalPortId();
-    mtu = deviceIface.mtu();
-    nmPluginMissing = NetworkManager::checkVersion(1, 2, 0) ? deviceIface.nmPluginMissing() : false;
-    metered = NetworkManager::checkVersion(1, 0, 6)
-        ? NetworkManager::DevicePrivate::convertMeteredStatus(deviceIface.metered())
-        : NetworkManager::Device::UnknownStatus;
-
-    QDBusObjectPath ip4ConfigObjectPath = deviceIface.ip4Config();
-    if (!ip4ConfigObjectPath.path().isNull() || ip4ConfigObjectPath.path() != QLatin1String("/")) {
-        ipV4ConfigPath = ip4ConfigObjectPath.path();
-    }
-
-    QDBusObjectPath ip6ConfigObjectPath = deviceIface.ip6Config();
-    if (!ip6ConfigObjectPath.path().isNull() || ip6ConfigObjectPath.path() != QLatin1String("/")) {
-        ipV6ConfigPath = ip6ConfigObjectPath.path();
-    }
-
-    QDBusObjectPath dhcp4ConfigObjectPath = deviceIface.dhcp4Config();
-    if (!dhcp4ConfigObjectPath.path().isNull() && dhcp4ConfigObjectPath.path() != QLatin1String("/")) {
-        dhcp4ConfigPath = dhcp4ConfigObjectPath.path();
-    }
-
-    QDBusObjectPath dhcp6ConfigObjectPath = deviceIface.dhcp6Config();
-    if (!dhcp6ConfigObjectPath.path().isNull() && dhcp6ConfigObjectPath.path() != QLatin1String("/")) {
-        dhcp6ConfigPath = dhcp6ConfigObjectPath.path();
-    }
 }
 
 NetworkManager::DevicePrivate::~DevicePrivate()
@@ -161,9 +120,16 @@ void NetworkManager::DevicePrivate::init()
     qDBusRegisterMetaType<IpV6DBusRoute>();
     qDBusRegisterMetaType<IpV6DBusRouteList>();
     qDBusRegisterMetaType<DeviceDBusStateReason>();
-    capabilities = convertCapabilities(deviceIface.capabilities());
-    connectionState = convertState(deviceIface.state());
+
+    // This needs to be initialized as soon as possible, because based on this property
+    // we initialize the device type
     deviceType = static_cast<Device::Type>(deviceIface.deviceType());
+
+    // Get all Device's properties at once
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(deviceIface.staticInterfaceName(), uni);
+    if (!initialProperties.isEmpty()) {
+        propertiesChanged(initialProperties);
+    }
 
     QObject::connect(&deviceIface, &OrgFreedesktopNetworkManagerDeviceInterface::StateChanged, this, &DevicePrivate::deviceStateChanged);
 }

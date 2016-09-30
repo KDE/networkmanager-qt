@@ -46,6 +46,9 @@ public:
     static const QString DBUS_SETTINGS_PATH;
     static const QString FDO_DBUS_PROPERTIES;
 
+    // Functions useful also for other classes
+    static QVariantMap retrieveInitialProperties(const QString &interfaceName, const QString &path);
+
     NetworkManagerPrivate();
     ~NetworkManagerPrivate();
     QDBusServiceWatcher watcher;

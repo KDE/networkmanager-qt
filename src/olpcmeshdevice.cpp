@@ -33,15 +33,18 @@ NetworkManager::OlpcMeshDevicePrivate::OlpcMeshDevicePrivate(const QString &path
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
 {
-    hardwareAddress = iface.hwAddress();
-    activeChannel = iface.activeChannel();
-    companion = iface.companion().path();
 }
 
 NetworkManager::OlpcMeshDevice::OlpcMeshDevice(const QString &path, QObject *parent)
     : Device(*new OlpcMeshDevicePrivate(path, this), parent)
 {
     Q_D(OlpcMeshDevice);
+
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));

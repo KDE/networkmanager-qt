@@ -51,12 +51,6 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
 {
     Q_D(WirelessDevice);
 
-    d->hardwareAddress = d->wirelessIface.hwAddress();
-    d->permanentHardwareAddress = d->wirelessIface.permHwAddress();
-    d->mode = convertOperationMode(d->wirelessIface.mode());
-    d->bitRate = d->wirelessIface.bitrate();
-    d->wirelessCapabilities = convertCapabilities(d->wirelessIface.wirelessCapabilities());
-
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
 
     QList <QDBusObjectPath> aps = d->wirelessIface.accessPoints();
@@ -64,6 +58,12 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
     Q_FOREACH (const QDBusObjectPath & op, aps) {
         // qCDebug(NMQT) << "  " << op.path();
         d->accessPointAdded(op);
+    }
+
+    // Get all WirelessDevices's properties at once
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->wirelessIface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
     }
 
 #if NM_CHECK_VERSION(1, 4, 0)
@@ -74,8 +74,6 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
 #endif
     connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::AccessPointAdded, d, &WirelessDevicePrivate::accessPointAdded);
     connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::AccessPointRemoved, d, &WirelessDevicePrivate::accessPointRemoved);
-
-    d->activeAccessPoint = findAccessPoint(d->wirelessIface.activeAccessPoint().path());
 }
 
 NetworkManager::WirelessDevice::~WirelessDevice()

@@ -43,17 +43,16 @@ NetworkManager::ModemDevicePrivate::ModemDevicePrivate(const QString &path, Mode
 {
 }
 
-void NetworkManager::ModemDevicePrivate::initModemProperties()
-{
-    modemCapabilities = convertModemCapabilities(modemIface.modemCapabilities());
-    currentCapabilities = convertModemCapabilities(modemIface.currentCapabilities());
-}
-
 NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
     : Device(*new ModemDevicePrivate(path, this), parent)
 {
     Q_D(ModemDevice);
-    d->initModemProperties();
+
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->modemIface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
@@ -66,7 +65,7 @@ NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd,
     : Device(dd, parent)
 {
     Q_D(ModemDevice);
-    d->initModemProperties();
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
@@ -103,6 +102,8 @@ void NetworkManager::ModemDevicePrivate::propertyChanged(const QString &property
     if (property == QLatin1String("CurrentCapabilities")) {
         currentCapabilities = convertModemCapabilities(value.toUInt());
         Q_EMIT q->currentCapabilitiesChanged(currentCapabilities);
+    } else if (property == QLatin1String("ModemCapabilities")) {
+        modemCapabilities = convertModemCapabilities(value.toUInt());
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

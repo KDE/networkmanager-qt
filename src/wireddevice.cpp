@@ -36,10 +36,6 @@ NetworkManager::WiredDevicePrivate::WiredDevicePrivate(const QString &path, Wire
     , bitrate(0)
     , carrier(false)
 {
-    hardwareAddress = wiredIface.hwAddress();
-    permanentHardwareAddress = wiredIface.permHwAddress();
-    bitrate = wiredIface.speed() * 1000;
-    carrier = wiredIface.carrier();
 }
 
 NetworkManager::WiredDevicePrivate::~WiredDevicePrivate()
@@ -50,6 +46,13 @@ NetworkManager::WiredDevice::WiredDevice(const QString &path, QObject *parent)
     : Device(*new NetworkManager::WiredDevicePrivate(path, this), parent)
 {
     Q_D(WiredDevice);
+
+    // Get all WiredDevices's properties at once
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->wiredIface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));

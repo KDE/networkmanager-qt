@@ -31,16 +31,6 @@ NetworkManager::GreDevicePrivate::GreDevicePrivate(const QString &path, GreDevic
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
 {
-    inputFlags = iface.inputFlags();
-    outputFlags = iface.outputFlags();
-    inputKey = iface.inputKey();
-    outputKey = iface.outputKey();
-    localEnd = iface.local();
-    remoteEnd = iface.remote();
-    parent = iface.parent().path();
-    pathMtuDiscovery = iface.pathMtuDiscovery();
-    tos = iface.tos();
-    ttl = iface.ttl();
 }
 
 NetworkManager::GreDevicePrivate::~GreDevicePrivate()
@@ -51,6 +41,12 @@ NetworkManager::GreDevice::GreDevice(const QString &path, QObject *parent):
     Device(*new GreDevicePrivate(path, this), parent)
 {
     Q_D(GreDevice);
+
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));

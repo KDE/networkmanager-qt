@@ -43,21 +43,6 @@ NetworkManager::AccessPointPrivate::AccessPointPrivate(const QString &path, Acce
     , q_ptr(q)
 {
     uni = path;
-    if (iface.isValid()) {
-        capabilities = convertCapabilities(iface.flags());
-        wpaFlags = convertWpaFlags(iface.wpaFlags());
-        rsnFlags = convertWpaFlags(iface.rsnFlags());
-        signalStrength = iface.strength();
-        rawSsid = iface.ssid();
-        ssid = QString::fromUtf8(rawSsid);
-        frequency = iface.frequency();
-        hardwareAddress = iface.hwAddress();
-        maxBitRate = iface.maxBitrate();
-        mode = q->convertOperationMode(iface.mode());
-        if (NetworkManager::checkVersion(1, 0, 6)) {
-            lastSeen = iface.lastSeen();
-        }
-    }
 }
 
 NetworkManager::AccessPoint::Capabilities NetworkManager::AccessPointPrivate::convertCapabilities(int caps)
@@ -79,6 +64,13 @@ NetworkManager::AccessPoint::AccessPoint(const QString &path, QObject *parent)
     , d_ptr(new AccessPointPrivate(path, this))
 {
     Q_D(AccessPoint);
+
+    // Get all AccessPoint's properties at once
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));

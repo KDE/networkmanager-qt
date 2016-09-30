@@ -38,45 +38,12 @@ NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &
     : iface(NetworkManagerPrivate::DBUS_SERVICE, dbusPath, QDBusConnection::sessionBus())
 #else
     : iface(NetworkManagerPrivate::DBUS_SERVICE, dbusPath, QDBusConnection::systemBus())
-
 #endif
     , dhcp4Config(0)
     , dhcp6Config(0)
     , q_ptr(q)
 {
-    connection = NetworkManager::findConnection(iface.connection().path());
     path = dbusPath;
-    default4 = iface.default4();
-    default6 = iface.default6();
-    specificObject = iface.specificObject().path();
-    state = NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(iface.state());
-    vpn = iface.vpn();
-    uuid = iface.uuid();
-    master = iface.master().path();
-    Q_FOREACH (const QDBusObjectPath & devicePath, iface.devices()) {
-        devices.append(devicePath.path());
-    }
-    id = iface.id();
-    type = iface.type();
-    QDBusObjectPath ip4ConfigObjectPath = iface.ip4Config();
-    if (!ip4ConfigObjectPath.path().isNull() || ip4ConfigObjectPath.path() != QLatin1String("/")) {
-        ipV4ConfigPath = ip4ConfigObjectPath.path();
-    }
-
-    QDBusObjectPath ip6ConfigObjectPath = iface.ip6Config();
-    if (!ip6ConfigObjectPath.path().isNull() || ip6ConfigObjectPath.path() != QLatin1String("/")) {
-        ipV6ConfigPath = ip6ConfigObjectPath.path();
-    }
-
-    QDBusObjectPath dhcp4ConfigObjectPath = iface.dhcp4Config();
-    if (!dhcp4ConfigObjectPath.path().isNull() && dhcp4ConfigObjectPath.path() != QLatin1String("/")) {
-        dhcp4ConfigPath = dhcp4ConfigObjectPath.path();
-    }
-
-    QDBusObjectPath dhcp6ConfigObjectPath = iface.dhcp6Config();
-    if (!dhcp6ConfigObjectPath.path().isNull() && dhcp6ConfigObjectPath.path() != QLatin1String("/")) {
-        dhcp6ConfigPath = dhcp6ConfigObjectPath.path();
-    }
 }
 
 NetworkManager::ActiveConnectionPrivate::~ActiveConnectionPrivate()
@@ -92,6 +59,12 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject 
     : QObject(parent), d_ptr(new ActiveConnectionPrivate(path, this))
 {
     Q_D(ActiveConnection);
+
+    // Get all ActiveConnection's at once
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
 
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
@@ -322,100 +295,107 @@ void NetworkManager::ActiveConnectionPrivate::dbusPropertiesChanged(const QStrin
 
 void NetworkManager::ActiveConnectionPrivate::propertiesChanged(const QVariantMap &properties)
 {
-    Q_Q(ActiveConnection);
-
-    qCDebug(NMQT) << Q_FUNC_INFO << properties;
+    // qCDebug(NMQT) << Q_FUNC_INFO << properties;
 
     QVariantMap::const_iterator it = properties.constBegin();
     while (it != properties.constEnd()) {
-        const QString property = it.key();
-        if (property == QLatin1String("Connection")) {
-            connection = NetworkManager::findConnection(qdbus_cast<QDBusObjectPath>(*it).path());
-            Q_EMIT q->connectionChanged(connection);
-            const QString tmpId = connection->settings()->id();
-            const QString tmpType = connection->settings()->typeAsString(connection->settings()->connectionType());
-            if (tmpId != id) {
-                id = tmpId;
-                Q_EMIT q->idChanged(id);
-            }
-
-            if (tmpType != type) {
-                Q_EMIT q->typeChanged(NetworkManager::ConnectionSettings::typeFromString(type));
-            }
-        } else if (property == QLatin1String("Default")) {
-            default4 = it->toBool();
-            Q_EMIT q->default4Changed(default4);
-        } else if (property == QLatin1String("Default6")) {
-            default6 = it->toBool();
-            Q_EMIT q->default6Changed(default6);
-        } else if (property == QLatin1String("Dhcp4Config")) {
-            QDBusObjectPath dhcp4ConfigPathTmp = (*it).value<QDBusObjectPath>();
-            if (dhcp4ConfigPathTmp.path().isNull()) {
-                dhcp4Config.clear();
-                dhcp4ConfigPath.clear();
-            } else if (!dhcp4Config || dhcp4Config->path() != dhcp4ConfigPathTmp.path()) {
-                dhcp4Config.clear();
-                dhcp4ConfigPath = dhcp4ConfigPathTmp.path();
-            }
-            Q_EMIT q->dhcp4ConfigChanged();
-        } else if (property == QLatin1String("Dhcp6Config")) {
-            QDBusObjectPath dhcp6ConfigPathTmp = (*it).value<QDBusObjectPath>();
-            if (dhcp6ConfigPathTmp.path().isNull()) {
-                dhcp6Config.clear();
-                dhcp6ConfigPath.clear();
-            } else if (!dhcp6Config || dhcp6Config->path() != dhcp6ConfigPathTmp.path()) {
-                dhcp6Config.clear();
-                dhcp6ConfigPath = dhcp6ConfigPathTmp.path();
-            }
-            Q_EMIT q->dhcp6ConfigChanged();
-        } else if (property == QLatin1String("Ip4Config")) {
-            QDBusObjectPath ip4ConfigObjectPathTmp = (*it).value<QDBusObjectPath>();
-            if (ip4ConfigObjectPathTmp.path().isNull() || ip4ConfigObjectPathTmp.path() == QLatin1String("/")) {
-                ipV4ConfigPath.clear();
-            } else {
-                ipV4ConfigPath = ip4ConfigObjectPathTmp.path();
-            }
-            ipV4Config = IpConfig();
-            Q_EMIT q->ipV4ConfigChanged();
-        } else if (property == QLatin1String("Ip6Config")) {
-            QDBusObjectPath ip6ConfigObjectPathTmp = (*it).value<QDBusObjectPath>();
-            if (ip6ConfigObjectPathTmp.path().isNull() || ip6ConfigObjectPathTmp.path() == QLatin1String("/")) {
-                ipV6ConfigPath.clear();
-            } else {
-                ipV6ConfigPath = ip6ConfigObjectPathTmp.path();
-            }
-            ipV6Config = IpConfig();
-            Q_EMIT q->ipV6ConfigChanged();
-        } else if (property == QLatin1String("Id")) {
-            id = it->toString();
-            Q_EMIT q->idChanged(id);
-        } else if (property == QLatin1String("Type")) {
-            type = it->toString();
-            Q_EMIT q->typeChanged(NetworkManager::ConnectionSettings::typeFromString(type));
-        }  else if (property == QLatin1String("Master")) {
-            master = qdbus_cast<QDBusObjectPath>(*it).path();
-            Q_EMIT q->masterChanged(master);
-        } else if (property == QLatin1String("SpecificObject")) {
-            specificObject = qdbus_cast<QDBusObjectPath>(*it).path();
-            Q_EMIT q->specificObjectChanged(specificObject);
-        } else if (property == QLatin1String("State")) {
-            state = NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(it->toUInt());
-            Q_EMIT q->stateChanged(state);
-        } else if (property == QLatin1String("Vpn")) {
-            vpn = it->toBool();
-            Q_EMIT q->vpnChanged(vpn);
-        } else if (property == QLatin1String("Uuid")) {
-            uuid = it->toString();
-            Q_EMIT q->uuidChanged(uuid);
-        } else if (property == QLatin1String("Devices")) {
-            devices.clear();
-            Q_FOREACH (const QDBusObjectPath & path, it->value<QList<QDBusObjectPath> >()) {
-                devices.append(path.path());
-            }
-            Q_EMIT q->devicesChanged();
-        } else {
-            qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
-        }
+        propertyChanged(it.key(), it.value());
         ++it;
+    }
+}
+
+void NetworkManager::ActiveConnectionPrivate::propertyChanged(const QString &property, const QVariant &value)
+{
+    Q_Q(ActiveConnection);
+
+    // qCDebug(NMQT) << property  << " - " << value;
+
+    if (property == QLatin1String("Connection")) {
+        connection = NetworkManager::findConnection(qdbus_cast<QDBusObjectPath>(value).path());
+        Q_EMIT q->connectionChanged(connection);
+        const QString tmpId = connection->settings()->id();
+        const QString tmpType = connection->settings()->typeAsString(connection->settings()->connectionType());
+        if (tmpId != id) {
+            id = tmpId;
+            Q_EMIT q->idChanged(id);
+        }
+
+        if (tmpType != type) {
+            Q_EMIT q->typeChanged(NetworkManager::ConnectionSettings::typeFromString(type));
+        }
+    } else if (property == QLatin1String("Default")) {
+        default4 = value.toBool();
+        Q_EMIT q->default4Changed(default4);
+    } else if (property == QLatin1String("Default6")) {
+        default6 = value.toBool();
+        Q_EMIT q->default6Changed(default6);
+    } else if (property == QLatin1String("Dhcp4Config")) {
+        QDBusObjectPath dhcp4ConfigPathTmp = (value).value<QDBusObjectPath>();
+        if (dhcp4ConfigPathTmp.path().isNull()) {
+            dhcp4Config.clear();
+            dhcp4ConfigPath.clear();
+        } else if (!dhcp4Config || dhcp4Config->path() != dhcp4ConfigPathTmp.path()) {
+            dhcp4Config.clear();
+            dhcp4ConfigPath = dhcp4ConfigPathTmp.path();
+        }
+        Q_EMIT q->dhcp4ConfigChanged();
+    } else if (property == QLatin1String("Dhcp6Config")) {
+        QDBusObjectPath dhcp6ConfigPathTmp = (value).value<QDBusObjectPath>();
+        if (dhcp6ConfigPathTmp.path().isNull()) {
+            dhcp6Config.clear();
+            dhcp6ConfigPath.clear();
+        } else if (!dhcp6Config || dhcp6Config->path() != dhcp6ConfigPathTmp.path()) {
+            dhcp6Config.clear();
+            dhcp6ConfigPath = dhcp6ConfigPathTmp.path();
+        }
+        Q_EMIT q->dhcp6ConfigChanged();
+    } else if (property == QLatin1String("Ip4Config")) {
+        QDBusObjectPath ip4ConfigObjectPathTmp = (value).value<QDBusObjectPath>();
+        if (ip4ConfigObjectPathTmp.path().isNull() || ip4ConfigObjectPathTmp.path() == QLatin1String("/")) {
+            ipV4ConfigPath.clear();
+        } else {
+            ipV4ConfigPath = ip4ConfigObjectPathTmp.path();
+        }
+        ipV4Config = IpConfig();
+        Q_EMIT q->ipV4ConfigChanged();
+    } else if (property == QLatin1String("Ip6Config")) {
+        QDBusObjectPath ip6ConfigObjectPathTmp = (value).value<QDBusObjectPath>();
+        if (ip6ConfigObjectPathTmp.path().isNull() || ip6ConfigObjectPathTmp.path() == QLatin1String("/")) {
+            ipV6ConfigPath.clear();
+        } else {
+            ipV6ConfigPath = ip6ConfigObjectPathTmp.path();
+        }
+        ipV6Config = IpConfig();
+        Q_EMIT q->ipV6ConfigChanged();
+    } else if (property == QLatin1String("Id")) {
+        id = value.toString();
+        Q_EMIT q->idChanged(id);
+    } else if (property == QLatin1String("Type")) {
+        type = value.toString();
+        Q_EMIT q->typeChanged(NetworkManager::ConnectionSettings::typeFromString(type));
+    }  else if (property == QLatin1String("Master")) {
+        master = qdbus_cast<QDBusObjectPath>(value).path();
+        Q_EMIT q->masterChanged(master);
+    } else if (property == QLatin1String("SpecificObject")) {
+        specificObject = qdbus_cast<QDBusObjectPath>(value).path();
+        Q_EMIT q->specificObjectChanged(specificObject);
+    } else if (property == QLatin1String("State")) {
+        state = NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(value.toUInt());
+        Q_EMIT q->stateChanged(state);
+    } else if (property == QLatin1String("Vpn")) {
+        vpn = value.toBool();
+        Q_EMIT q->vpnChanged(vpn);
+    } else if (property == QLatin1String("Uuid")) {
+        uuid = value.toString();
+        Q_EMIT q->uuidChanged(uuid);
+    } else if (property == QLatin1String("Devices")) {
+        devices.clear();
+        Q_FOREACH (const QDBusObjectPath & path, qdbus_cast< QList<QDBusObjectPath> >(value)) {
+            qCDebug(NMQT) << "Device append " << path.path();
+            devices.append(path.path());
+        }
+        Q_EMIT q->devicesChanged();
+    } else {
+        qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
     }
 }

@@ -32,7 +32,6 @@ NetworkManager::VethDevicePrivate::VethDevicePrivate(const QString &path, VethDe
     , iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
 {
-    peer = iface.peer().path();
 }
 
 NetworkManager::VethDevicePrivate::~VethDevicePrivate()
@@ -43,6 +42,12 @@ NetworkManager::VethDevice::VethDevice(const QString &path, QObject *parent)
     : Device(*new VethDevicePrivate(path, this), parent)
 {
     Q_D(VethDevice);
+
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));

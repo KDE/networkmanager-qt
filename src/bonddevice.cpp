@@ -32,13 +32,6 @@ NetworkManager::BondDevicePrivate::BondDevicePrivate(const QString &path, BondDe
 #endif
     , carrier(false)
 {
-    carrier = iface.carrier();
-    hwAddress = iface.hwAddress();
-    QStringList list;
-    Q_FOREACH (const QDBusObjectPath & op, iface.slaves()) {
-        list << op.path();
-    }
-    slaves = list;
 }
 
 NetworkManager::BondDevice::~BondDevice()
@@ -49,6 +42,12 @@ NetworkManager::BondDevice::BondDevice(const QString &path, QObject *parent):
     Device(*new BondDevicePrivate(path, this), parent)
 {
     Q_D(BondDevice);
+
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
+
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
@@ -99,7 +98,7 @@ void NetworkManager::BondDevicePrivate::propertyChanged(const QString &property,
         Q_EMIT q->hwAddressChanged(hwAddress);
     } else if (property == QLatin1String("Slaves")) {
         QStringList list;
-        Q_FOREACH (const QDBusObjectPath & op, value.value<QList<QDBusObjectPath> >()) {
+        Q_FOREACH (const QDBusObjectPath & op, qdbus_cast< QList<QDBusObjectPath> >(value)) {
             list << op.path();
         }
         slaves = list;

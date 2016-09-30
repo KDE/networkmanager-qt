@@ -65,7 +65,15 @@ public:
      */
     void recheckProperties();
 public:
+    /**
+     * When subclassing make sure to call the parent class method
+     * if the property was not useful to your new class
+     */
+    virtual void propertyChanged(const QString &property, const QVariant &value);
+
+public Q_SLOTS:
     void propertiesChanged(const QVariantMap &properties);
+
 private Q_SLOTS:
     void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
 };
