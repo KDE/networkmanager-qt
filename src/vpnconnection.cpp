@@ -115,7 +115,7 @@ void NetworkManager::VpnConnectionPrivate::propertyChanged(const QString &proper
         Q_EMIT q->bannerChanged(banner);
     } else if (property == QLatin1String("VpnState")) {
         //Do not notify about changed VpnState twice, because there is also signal VpnStateChanged() from NetworkManager
-        //state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(value.toUInt());
+        state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(value.toUInt());
         //NetworkManager::VpnConnection::StateChangeReason reason = NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(properties.key("Reason").toUInt());
         //Q_EMIT stateChanged(d->state, reason);
     } else {
