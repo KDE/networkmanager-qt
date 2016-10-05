@@ -53,10 +53,16 @@ NetworkManager::WiredDevice::WiredDevice(const QString &path, QObject *parent)
         d->propertiesChanged(initialProperties);
     }
 
+#ifndef NMQT_STATIC
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
 #else
+    connect(&d->wiredIface, &OrgFreedesktopNetworkManagerDeviceWiredInterface::PropertiesChanged, d, &WiredDevicePrivate::propertiesChanged);
+#endif
+#endif
+    
+#ifdef NMQT_STATIC
     connect(&d->wiredIface, &OrgFreedesktopNetworkManagerDeviceWiredInterface::PropertiesChanged, d, &WiredDevicePrivate::propertiesChanged);
 #endif
 }

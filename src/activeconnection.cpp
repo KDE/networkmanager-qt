@@ -66,12 +66,19 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject 
         d->propertiesChanged(initialProperties);
     }
 
+#ifndef NMQT_STATIC
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
 #else
     connect(&d->iface, &OrgFreedesktopNetworkManagerConnectionActiveInterface::PropertiesChanged, d, &ActiveConnectionPrivate::propertiesChanged);
 #endif
+#endif
+    
+#ifdef NMQT_STATIC
+    connect(&d->iface, &OrgFreedesktopNetworkManagerConnectionActiveInterface::PropertiesChanged, d, &ActiveConnectionPrivate::propertiesChanged);
+#endif
+    
     /*
      * Workaround: Re-check connection state before we watch changes in case it gets changed too quickly
      * BUG:352326

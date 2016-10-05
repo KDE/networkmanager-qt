@@ -97,6 +97,9 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
             this, &NetworkManagerPrivate::onDeviceAdded);
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceRemoved,
             this, &NetworkManagerPrivate::onDeviceRemoved);
+
+
+#ifndef NMQT_STATIC
 #if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_DAEMON_PATH, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), this, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
@@ -104,6 +107,13 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::PropertiesChanged,
             this, &NetworkManagerPrivate::propertiesChanged);
 #endif
+#endif
+
+#ifdef NMQT_STATIC
+    connect(&iface, &OrgFreedesktopNetworkManagerInterface::PropertiesChanged,
+            this, &NetworkManagerPrivate::propertiesChanged);
+#endif
+   
     connect(&watcher, &QDBusServiceWatcher::serviceRegistered,
             this, &NetworkManagerPrivate::daemonRegistered);
     connect(&watcher, &QDBusServiceWatcher::serviceUnregistered,
