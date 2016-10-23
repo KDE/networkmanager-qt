@@ -43,6 +43,9 @@
  */
 namespace NetworkManager
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+    Q_NAMESPACE
+#endif
 
 enum Status {
     Unknown, /**< the networking system is not active or unable to report its status - proceed with caution */
