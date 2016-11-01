@@ -245,5 +245,5 @@ install(FILES
 )
 
 include(ECMGeneratePriFile)
-ecm_generate_pri_file(BASE_NAME NetworkManagerQt LIB_NAME KF5NetworkManagerQt DEPS "core" FILENAME_VAR PRI_FILENAME)
+ecm_generate_pri_file(BASE_NAME NetworkManagerQt LIB_NAME KF5NetworkManagerQt DEPS "core" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF5}/NetworkManagerQt)
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
