@@ -90,9 +90,6 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     , m_isWwanHardwareEnabled(false)
     , m_supportedInterfaceTypes(NetworkManager::Device::UnknownType)
 {
-    QLoggingCategory::setFilterRules(QStringLiteral("networkmanager-qt.debug = true"));
-    QLoggingCategory::setFilterRules(QStringLiteral("networkmanager-qt.warning = true"));
-
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceAdded,
             this, &NetworkManagerPrivate::onDeviceAdded);
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceRemoved,
