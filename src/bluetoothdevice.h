@@ -42,7 +42,6 @@ class NETWORKMANAGERQT_EXPORT BluetoothDevice: public ModemDevice
     Q_PROPERTY(uint bluetoothCapabilities READ bluetoothCapabilities)
     Q_PROPERTY(QString hardwareAddress READ hardwareAddress)
     Q_PROPERTY(QString name READ name)
-    Q_FLAGS(Capabilities)
 
 public:
     typedef QSharedPointer<BluetoothDevice> Ptr;
@@ -56,6 +55,7 @@ public:
         Pan = 0x2  /**< Personal Area Network profile */
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
+    Q_FLAG(Capabilities)
     /**
      * Creates a new BluetoothDevice object.
      */

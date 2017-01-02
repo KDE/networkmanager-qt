@@ -66,7 +66,6 @@ enum LogLevel {
     Trace/**< = Debug in runtime NM < 0.9.10*/
     };
 
-Q_FLAGS(LogDomains)
 /**
  * @note flags Agents, Settings, Bridge, DbusProps, Team, ConCheck, Dcb, Dispatch are not
  * usabel in runtime NM < 0.9.10
@@ -76,6 +75,7 @@ enum LogDomain {NoChange, None, Hardware, RFKill, Ethernet, WiFi, Bluetooth, Mob
                 , Agents, Settings, Bridge, DbusProps, Team, ConCheck, Dcb, Dispatch
                 };
 Q_DECLARE_FLAGS(LogDomains, LogDomain)
+Q_FLAGS(LogDomain)
 
 /**
  * Describes the network connectivity state.

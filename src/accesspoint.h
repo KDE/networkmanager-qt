@@ -42,7 +42,6 @@ class AccessPointPrivate;
 class NETWORKMANAGERQT_EXPORT AccessPoint : public QObject
 {
     Q_OBJECT
-    Q_FLAGS(Capabilities WpaFlags)
 public:
     typedef QSharedPointer<AccessPoint> Ptr;
     typedef QList<Ptr> List;
@@ -70,7 +69,9 @@ public:
                    KeyMgmtPsk = 0x100, KeyMgmt8021x = 0x200
                  };
     Q_DECLARE_FLAGS(Capabilities, Capability)
+    Q_FLAG(Capabilities)
     Q_DECLARE_FLAGS(WpaFlags, WpaFlag)
+    Q_FLAG(WpaFlags)
     explicit AccessPoint(const QString &path, QObject *parent = 0);
     virtual ~AccessPoint();
 

@@ -48,9 +48,6 @@ class DeviceStateReasonPrivate;
 class NETWORKMANAGERQT_EXPORT Device : public QObject
 {
     Q_OBJECT
-    Q_ENUMS(State Capability Type)
-    Q_FLAGS(Capabilities)
-    Q_FLAGS(Types)
 
     Q_PROPERTY(QString uni READ uni)
     Q_PROPERTY(QString interfaceName READ interfaceName)
@@ -96,6 +93,7 @@ public:
         Deactivating = 110, /**< The device's network connection is being torn down */
         Failed = 120 /**< The device is in a failure state following an attempt to activate it */
     };
+    Q_ENUM(State)
 
     /**
      * Enums describing the reason for a connection state change
@@ -138,7 +136,9 @@ public:
         IsManageable = 0x1, /**< denotes that the device can be controlled by this API */
         SupportsCarrierDetect = 0x2 /**< the device informs us when it is plugged in to the medium */
     };
+    Q_ENUM(Capability)
     Q_DECLARE_FLAGS(Capabilities, Capability)
+    Q_FLAG(Capabilities)
 
     /**
      * Device type
@@ -165,7 +165,9 @@ public:
         Tun, /**< Tun virtual device @since 0.9.9.0 */
         Veth, /**< Veth virtual device @since 0.9.9.0 */
     };
+    Q_ENUM(Type)
     Q_DECLARE_FLAGS(Types, Type)
+    Q_FLAG(Types)
 
     /**
      * Creates a new device object.

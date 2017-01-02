@@ -43,7 +43,6 @@ class WirelessDevicePrivate;
 class NETWORKMANAGERQT_EXPORT WirelessDevice : public Device
 {
     Q_OBJECT
-    Q_ENUMS(OperationMode DeviceInterface)
 
 public:
     typedef QSharedPointer<WirelessDevice> Ptr;
@@ -58,6 +57,7 @@ public:
         Infra, /**< a station in an infrastructure wireless network */
         ApMode /**< access point in an infrastructure network */
     };
+    Q_ENUM(OperationMode)
     /**
      * Capabilities (currently all encryption/authentication related) of the device
      * @note FreqValid, Freq2Ghz, Freq5Ghz are available in runtime NM >= 1.0.2
