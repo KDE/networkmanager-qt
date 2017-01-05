@@ -41,6 +41,7 @@ NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &
 #endif
     , dhcp4Config(0)
     , dhcp6Config(0)
+    , state(ActiveConnection::Unknown)
     , q_ptr(q)
 {
     path = dbusPath;
