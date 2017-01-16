@@ -50,7 +50,7 @@ class NETWORKMANAGERQT_EXPORT GreDevice : public Device
 public:
     typedef QSharedPointer<GreDevice> Ptr;
     typedef QList<Ptr> List;
-    explicit GreDevice(const QString &path, QObject *parent = 0);
+    explicit GreDevice(const QString &path, QObject *parent = nullptr);
     virtual ~GreDevice();
 
     virtual Type type() const Q_DECL_OVERRIDE;

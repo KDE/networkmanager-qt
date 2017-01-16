@@ -42,7 +42,7 @@ class NETWORKMANAGERQT_EXPORT BondDevice : public Device
 public:
     typedef QSharedPointer<BondDevice> Ptr;
     typedef QList<Ptr> List;
-    explicit BondDevice(const QString &path, QObject *parent = 0);
+    explicit BondDevice(const QString &path, QObject *parent = nullptr);
     virtual ~BondDevice();
 
     virtual Type type() const Q_DECL_OVERRIDE;

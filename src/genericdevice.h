@@ -42,7 +42,7 @@ class NETWORKMANAGERQT_EXPORT GenericDevice : public Device
 public:
     typedef QSharedPointer<GenericDevice> Ptr;
     typedef QList<Ptr> List;
-    explicit GenericDevice(const QString &path, QObject *parent = 0);
+    explicit GenericDevice(const QString &path, QObject *parent = nullptr);
     virtual ~GenericDevice();
     /**
      * Return the type

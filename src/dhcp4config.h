@@ -43,7 +43,7 @@ public:
     typedef QSharedPointer<Dhcp4Config> Ptr;
     typedef QList<Ptr> List;
 
-    explicit Dhcp4Config(const QString &path, QObject *owner = 0);
+    explicit Dhcp4Config(const QString &path, QObject *owner = nullptr);
     ~Dhcp4Config();
 
     QString path() const;

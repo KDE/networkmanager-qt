@@ -139,6 +139,6 @@ NetworkManager::VpnConnection::operator VpnConnection *()
     if (d->vpn) {
         return this;
     } else {
-        return 0;
+        return nullptr;
     }
 }

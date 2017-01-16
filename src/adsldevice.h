@@ -39,7 +39,7 @@ class NETWORKMANAGERQT_EXPORT AdslDevice : public Device
 public:
     typedef QSharedPointer<AdslDevice> Ptr;
     typedef QList<Ptr> List;
-    explicit AdslDevice(const QString &path, QObject *parent = 0);
+    explicit AdslDevice(const QString &path, QObject *parent = nullptr);
     virtual ~AdslDevice();
 
     virtual Type type() const Q_DECL_OVERRIDE;

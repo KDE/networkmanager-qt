@@ -39,7 +39,7 @@ public:
     }
 #endif
 public:
-    OrgFreedesktopNetworkManagerDeviceBluetoothInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
+    OrgFreedesktopNetworkManagerDeviceBluetoothInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceBluetoothInterface();
 

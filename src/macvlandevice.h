@@ -42,7 +42,7 @@ class NETWORKMANAGERQT_EXPORT MacVlanDevice : public Device
 public:
     typedef QSharedPointer<MacVlanDevice> Ptr;
     typedef QList<Ptr> List;
-    explicit MacVlanDevice(const QString &path, QObject *parent = 0);
+    explicit MacVlanDevice(const QString &path, QObject *parent = nullptr);
     virtual ~MacVlanDevice();
 
     virtual Type type() const Q_DECL_OVERRIDE;

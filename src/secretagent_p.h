@@ -33,7 +33,7 @@ class SecretAgentPrivate
 {
     Q_DECLARE_PUBLIC(SecretAgent)
 public:
-    explicit SecretAgentPrivate(const QString &, SecretAgent *parent = 0);
+    explicit SecretAgentPrivate(const QString &, SecretAgent *parent = nullptr);
     virtual ~SecretAgentPrivate();
 private Q_SLOTS:
     void registerAgent();

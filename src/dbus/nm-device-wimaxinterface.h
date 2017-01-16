@@ -39,7 +39,7 @@ public:
     }
 #endif
 public:
-    OrgFreedesktopNetworkManagerDeviceWiMaxInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
+    OrgFreedesktopNetworkManagerDeviceWiMaxInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceWiMaxInterface();
 

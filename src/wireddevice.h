@@ -46,7 +46,7 @@ class NETWORKMANAGERQT_EXPORT WiredDevice : public Device
 public:
     typedef QSharedPointer<WiredDevice> Ptr;
     typedef QList<Ptr> List;
-    explicit WiredDevice(const QString &path, QObject *parent = 0);
+    explicit WiredDevice(const QString &path, QObject *parent = nullptr);
     virtual ~WiredDevice();
     /**
      * Return the type

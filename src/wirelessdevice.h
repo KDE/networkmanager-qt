@@ -83,7 +83,7 @@ public:
      *
      * @param path the DBus path of the devise
      */
-    explicit WirelessDevice(const QString &path, QObject *parent = 0);
+    explicit WirelessDevice(const QString &path, QObject *parent = nullptr);
     /**
      * Destroys a WirelessDevice object.
      */

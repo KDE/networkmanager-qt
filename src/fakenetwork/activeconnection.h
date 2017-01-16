@@ -35,7 +35,7 @@ class ActiveConnection : public QObject
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Connection.Active")
 public:
-    explicit ActiveConnection(QObject *parent = 0);
+    explicit ActiveConnection(QObject *parent = nullptr);
     virtual ~ActiveConnection();
 
     Q_PROPERTY(QDBusObjectPath Connection READ connection)

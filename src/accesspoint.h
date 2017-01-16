@@ -72,7 +72,7 @@ public:
     Q_FLAG(Capabilities)
     Q_DECLARE_FLAGS(WpaFlags, WpaFlag)
     Q_FLAG(WpaFlags)
-    explicit AccessPoint(const QString &path, QObject *parent = 0);
+    explicit AccessPoint(const QString &path, QObject *parent = nullptr);
     virtual ~AccessPoint();
 
     /**

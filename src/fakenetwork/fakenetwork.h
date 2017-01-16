@@ -39,7 +39,7 @@ class FakeNetwork : public QObject
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork")
 public:
-    explicit FakeNetwork(QObject *parent = 0);
+    explicit FakeNetwork(QObject *parent = nullptr);
     virtual ~FakeNetwork();
 
     Q_PROPERTY(QDBusObjectPath ActivatingConnection READ activatingConnection)

@@ -402,7 +402,7 @@ void FakeNetwork::onConnectionAdded(const QDBusObjectPath &connection)
         NMVariantMapMap settings = newConnection->GetSettings();
         NetworkManager::ConnectionSettings::ConnectionType type = NetworkManager::ConnectionSettings::typeFromString(settings.value(QLatin1Literal("connection")).value(QLatin1Literal("type")).toString());
         if (!m_devices.isEmpty()) {
-            Device *selectedDevice = 0;
+            Device *selectedDevice = nullptr;
             Q_FOREACH (Device * device, m_devices.values()) {
                 if (type == NetworkManager::ConnectionSettings::Wired && device->deviceType() == NetworkManager::Device::Ethernet) {
                     selectedDevice = device;

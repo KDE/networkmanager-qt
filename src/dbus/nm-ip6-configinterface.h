@@ -39,7 +39,7 @@ public:
     }
 #endif
 public:
-    OrgFreedesktopNetworkManagerIP6ConfigInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
+    OrgFreedesktopNetworkManagerIP6ConfigInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerIP6ConfigInterface();
 

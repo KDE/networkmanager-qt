@@ -39,7 +39,7 @@ public:
     }
 #endif
 public:
-    OrgFreedesktopNetworkManagerDeviceTunInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
+    OrgFreedesktopNetworkManagerDeviceTunInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceTunInterface();
 

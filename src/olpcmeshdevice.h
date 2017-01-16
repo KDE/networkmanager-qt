@@ -48,7 +48,7 @@ public:
      *
      * @param path the DBus path of the device
      */
-    explicit OlpcMeshDevice(const QString &path, QObject *parent = 0);
+    explicit OlpcMeshDevice(const QString &path, QObject *parent = nullptr);
     /**
      * Destroys a OlpcMeshDevice object.
      */

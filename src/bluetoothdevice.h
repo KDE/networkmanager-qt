@@ -59,7 +59,7 @@ public:
     /**
      * Creates a new BluetoothDevice object.
      */
-    explicit BluetoothDevice(const QString &path, QObject *parent = 0);
+    explicit BluetoothDevice(const QString &path, QObject *parent = nullptr);
     /**
      * Destroys a BluetoothDevice object.
      */

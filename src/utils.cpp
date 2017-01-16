@@ -67,7 +67,7 @@ QByteArray NetworkManager::macAddressFromString(const QString &s)
         int i = 0;
 
         Q_FOREACH (const QString & macPart, macStringList) {
-            ba[i++] = macPart.toUInt(0, 16);
+            ba[i++] = macPart.toUInt(nullptr, 16);
         }
     }
     return ba;

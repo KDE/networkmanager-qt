@@ -42,7 +42,7 @@ class NETWORKMANAGERQT_EXPORT BridgeDevice : public Device
 public:
     typedef QSharedPointer<BridgeDevice> Ptr;
     typedef QList<Ptr> List;
-    explicit BridgeDevice(const QString &path, QObject *parent = 0);
+    explicit BridgeDevice(const QString &path, QObject *parent = nullptr);
     virtual ~BridgeDevice();
 
     virtual Type type() const Q_DECL_OVERRIDE;

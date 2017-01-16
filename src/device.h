@@ -174,7 +174,7 @@ public:
      *
      * @param path UNI of the device
      */
-    explicit Device(const QString &path, QObject *parent = 0);
+    explicit Device(const QString &path, QObject *parent = nullptr);
     Device(DevicePrivate &dd, QObject *parent);
     /**
      * Destroys a device object.

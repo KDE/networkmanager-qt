@@ -41,7 +41,7 @@ class NETWORKMANAGERQT_EXPORT InfinibandDevice : public Device
 public:
     typedef QSharedPointer<InfinibandDevice> Ptr;
     typedef QList<Ptr> List;
-    explicit InfinibandDevice(const QString &path, QObject *parent = 0);
+    explicit InfinibandDevice(const QString &path, QObject *parent = nullptr);
     virtual ~InfinibandDevice();
 
     virtual Type type() const Q_DECL_OVERRIDE;

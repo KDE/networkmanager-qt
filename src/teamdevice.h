@@ -43,7 +43,7 @@ public:
     typedef QSharedPointer<TeamDevice> Ptr;
     typedef QList<Ptr> List;
 
-    explicit TeamDevice(const QString &path, QObject *parent = 0);
+    explicit TeamDevice(const QString &path, QObject *parent = nullptr);
     virtual ~TeamDevice();
 
     virtual Type type() const Q_DECL_OVERRIDE;

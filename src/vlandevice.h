@@ -43,7 +43,7 @@ public:
     typedef QSharedPointer<VlanDevice> Ptr;
     typedef QList<Ptr> List;
 
-    explicit VlanDevice(const QString &path, QObject *parent = 0);
+    explicit VlanDevice(const QString &path, QObject *parent = nullptr);
     virtual ~VlanDevice();
 
     virtual Type type() const Q_DECL_OVERRIDE;

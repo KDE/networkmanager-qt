@@ -39,8 +39,8 @@ NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &
 #else
     : iface(NetworkManagerPrivate::DBUS_SERVICE, dbusPath, QDBusConnection::systemBus())
 #endif
-    , dhcp4Config(0)
-    , dhcp6Config(0)
+    , dhcp4Config(nullptr)
+    , dhcp6Config(nullptr)
     , state(ActiveConnection::Unknown)
     , q_ptr(q)
 {

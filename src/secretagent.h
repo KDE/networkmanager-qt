@@ -67,7 +67,7 @@ public:
     /**
      * Registers a SecretAgent with the \p id on NetworkManager
      */
-    explicit SecretAgent(const QString &id, QObject *parent = 0);
+    explicit SecretAgent(const QString &id, QObject *parent = nullptr);
     virtual ~SecretAgent();
 
     /**

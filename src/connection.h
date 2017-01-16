@@ -51,7 +51,7 @@ public:
     /**
      * Constructs a connection object for the given path
      */
-    explicit Connection(const QString &path, QObject *parent = 0);
+    explicit Connection(const QString &path, QObject *parent = nullptr);
     ~Connection();
 
     /**

@@ -51,7 +51,7 @@ public:
      *
      * @param path the DBus path of the device
      */
-    explicit WimaxDevice(const QString &path, QObject *parent = 0);
+    explicit WimaxDevice(const QString &path, QObject *parent = nullptr);
     /**
      * Destroys a WimaxDevice object.
      */

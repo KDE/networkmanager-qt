@@ -39,7 +39,7 @@ class NETWORKMANAGERQT_EXPORT VpnPlugin : public QObject
 public:
     enum FailureType {LoginFailed, ConnectFailed, BadIpConfig};
 
-    explicit VpnPlugin(const QString &path, QObject *parent = 0);
+    explicit VpnPlugin(const QString &path, QObject *parent = nullptr);
     virtual ~VpnPlugin();
 
 Q_SIGNALS:

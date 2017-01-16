@@ -99,8 +99,8 @@ NetworkManager::DevicePrivate::DevicePrivate(const QString &path, NetworkManager
 #endif
     , uni(path)
     , designSpeed(0)
-    , dhcp4Config(0)
-    , dhcp6Config(0)
+    , dhcp4Config(nullptr)
+    , dhcp6Config(nullptr)
     , mtu(0)
     , q_ptr(q)
 {

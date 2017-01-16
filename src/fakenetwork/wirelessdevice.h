@@ -37,7 +37,7 @@ class WirelessDevice : public Device
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Device.Wireless")
 public:
-    explicit WirelessDevice(QObject *parent = 0);
+    explicit WirelessDevice(QObject *parent = nullptr);
     virtual ~WirelessDevice();
 
     Q_PROPERTY(QList<QDBusObjectPath> AccessPoints READ accessPoints)
