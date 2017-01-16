@@ -85,7 +85,7 @@ NetworkManager::Device::Ptr NetworkManager::VlanDevice::parent() const
 
         return NetworkManager::findNetworkInterface(d->parent);
     } else {
-        return NetworkManager::Device::Ptr(Q_NULLPTR);
+        return NetworkManager::Device::Ptr(nullptr);
     }
 }
 
