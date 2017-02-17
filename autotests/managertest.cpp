@@ -68,6 +68,26 @@ void ManagerTest::testDevices()
     QVERIFY(NetworkManager::networkInterfaces().isEmpty());
     QCOMPARE(removeDeviceSpy.at(0).at(0).toString(), addedDevicePath);
 
+    addDeviceSpy.clear();
+
+    fakeNetwork->addDevice(device);
+    QVERIFY(addDeviceSpy.wait());
+    QCOMPARE(NetworkManager::networkInterfaces().count(), 1);
+    QCOMPARE(NetworkManager::networkInterfaces().first()->uni(), addDeviceSpy.at(0).at(0).toString());
+
+    addDeviceSpy.clear();
+    removeDeviceSpy.clear();
+
+    fakeNetwork->unregisterService();
+    QTRY_COMPARE(removeDeviceSpy.count(), 1);
+
+    fakeNetwork->registerService();
+    QTRY_COMPARE(addDeviceSpy.count(), 1);
+
+    // Make sure deviceAdded is emitted only once
+    addDeviceSpy.wait(100);
+    QCOMPARE(addDeviceSpy.count(), 1);
+
     delete device;
 }
 

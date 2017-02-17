@@ -80,6 +80,8 @@ public:
     /* Not part of DBus interface */
     void addDevice(Device *device);
     void removeDevice(Device *device);
+    void registerService();
+    void unregisterService();
 
 private Q_SLOTS:
     void onConnectionAdded(const QDBusObjectPath &connection);

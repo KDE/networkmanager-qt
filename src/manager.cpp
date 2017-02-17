@@ -680,8 +680,8 @@ void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath 
     // qCDebug(NMQT);
     if (!networkInterfaceMap.contains(objpath.path())) {
         networkInterfaceMap.insert(objpath.path(), Device::Ptr());
+        Q_EMIT deviceAdded(objpath.path());
     }
-    Q_EMIT deviceAdded(objpath.path());
 }
 
 void NetworkManager::NetworkManagerPrivate::onDeviceRemoved(const QDBusObjectPath &objpath)

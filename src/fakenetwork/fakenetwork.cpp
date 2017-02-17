@@ -46,26 +46,16 @@ FakeNetwork::FakeNetwork(QObject *parent)
     , m_deviceCounter(0)
     , m_settings(new Settings(this))
 {
-    QDBusConnection::sessionBus().registerService(QLatin1Literal("org.kde.fakenetwork"));
-    QDBusConnection::sessionBus().registerObject(QLatin1Literal("/org/kde/fakenetwork"), this, QDBusConnection::ExportScriptableContents);
-    QDBusConnection::sessionBus().registerObject(QLatin1Literal("/org/kde/fakenetwork/Settings"), m_settings, QDBusConnection::ExportScriptableContents);
-
+    registerService();
     connect(m_settings, &Settings::connectionAdded, this, &FakeNetwork::onConnectionAdded);
     connect(m_settings, &Settings::connectionRemoved, this, &FakeNetwork::onConnectionRemoved);
 }
 
 FakeNetwork::~FakeNetwork()
 {
-    Q_FOREACH (const QDBusObjectPath & devicePath, m_devices.keys()) {
-        QDBusConnection::sessionBus().unregisterObject(devicePath.path());
-        Q_EMIT DeviceRemoved(devicePath);
-    }
+    unregisterService();
     qDeleteAll(m_devices);
-
     delete m_settings;
-    QDBusConnection::sessionBus().unregisterObject(QLatin1Literal("/org/kde/fakenetwork/Settings"));
-    QDBusConnection::sessionBus().unregisterObject(QLatin1Literal("/org/kde/fakenetwork"));
-    QDBusConnection::sessionBus().unregisterService(QLatin1Literal("org.kde.fakenetwork"));
 }
 
 QDBusObjectPath FakeNetwork::activatingConnection() const
@@ -197,6 +187,30 @@ void FakeNetwork::removeDevice(Device *device)
     m_devices.remove(QDBusObjectPath(device->devicePath()));
     QDBusConnection::sessionBus().unregisterObject(device->devicePath());
     Q_EMIT DeviceRemoved(QDBusObjectPath(device->devicePath()));
+}
+
+void FakeNetwork::registerService()
+{
+    QDBusConnection::sessionBus().registerService(QLatin1Literal("org.kde.fakenetwork"));
+    QDBusConnection::sessionBus().registerObject(QLatin1Literal("/org/kde/fakenetwork"), this, QDBusConnection::ExportScriptableContents);
+    QDBusConnection::sessionBus().registerObject(QLatin1Literal("/org/kde/fakenetwork/Settings"), m_settings, QDBusConnection::ExportScriptableContents);
+
+    Q_FOREACH (const QDBusObjectPath & devicePath, m_devices.keys()) {
+        QDBusConnection::sessionBus().registerObject(devicePath.path(), m_devices.value(devicePath), QDBusConnection::ExportScriptableContents);
+        Q_EMIT DeviceAdded(devicePath);
+    }
+}
+
+void FakeNetwork::unregisterService()
+{
+    Q_FOREACH (const QDBusObjectPath & devicePath, m_devices.keys()) {
+        QDBusConnection::sessionBus().unregisterObject(devicePath.path());
+        Q_EMIT DeviceRemoved(devicePath);
+    }
+
+    QDBusConnection::sessionBus().unregisterObject(QLatin1Literal("/org/kde/fakenetwork/Settings"));
+    QDBusConnection::sessionBus().unregisterObject(QLatin1Literal("/org/kde/fakenetwork"));
+    QDBusConnection::sessionBus().unregisterService(QLatin1Literal("org.kde.fakenetwork"));
 }
 
 QDBusObjectPath FakeNetwork::ActivateConnection(const QDBusObjectPath &connection, const QDBusObjectPath &device, const QDBusObjectPath &specific_object)
