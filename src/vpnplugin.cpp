@@ -22,7 +22,7 @@
 #include "vpnconnection.h"
 
 #include "manager_p.h"
-#include "nm-vpn-plugininterface.h"
+#include "vpnplugininterface.h"
 
 class NetworkManager::VpnPluginPrivate
 {

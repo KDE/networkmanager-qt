@@ -24,7 +24,7 @@
 #define NETWORKMANAGERQT_ACCESSPOINT_P_H
 
 #include "accesspoint.h"
-#include "dbus/nm-access-pointinterface.h"
+#include "dbus/accesspointinterface.h"
 
 namespace NetworkManager
 {

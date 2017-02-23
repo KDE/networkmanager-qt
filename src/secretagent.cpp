@@ -32,8 +32,8 @@
 #include <QDBusArgument>
 #include <QDBusConnection>
 
-#include "nm-secret-agentadaptor.h"
-#include "nm-agent-managerinterface.h"
+#include "agentmanagerinterface.h"
+#include "secretagentadaptor.h"
 
 NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id, NetworkManager::SecretAgent *parent)
     : q_ptr(parent)

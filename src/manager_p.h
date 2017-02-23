@@ -25,7 +25,7 @@
 #include <QDBusServiceWatcher>
 #include <QMap>
 
-#include "dbus/nm-managerinterface.h"
+#include "dbus/networkmanagerinterface.h"
 #include "device.h"
 #include "activeconnection.h"
 

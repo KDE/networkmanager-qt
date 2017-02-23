@@ -21,7 +21,7 @@
 #define NETWORKMANAGERQT_BLUETOOTH_DEVICE_P_H
 
 #include "modemdevice_p.h"
-#include "dbus/nm-device-btinterface.h"
+#include "dbus/bluetoothdeviceinterface.h"
 
 namespace NetworkManager
 {

@@ -22,7 +22,7 @@
 #define NETWORKMANAGERQT_WIMAXDEVICE_P_H
 
 #include "device_p.h"
-#include "dbus/nm-device-wimaxinterface.h"
+#include "wimaxdeviceinterface.h"
 
 namespace NetworkManager
 {

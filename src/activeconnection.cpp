@@ -31,7 +31,6 @@
 #include <QDBusObjectPath>
 
 #include "manager_p.h"
-#include "nm-active-connectioninterface.h"
 
 NetworkManager::ActiveConnectionPrivate::ActiveConnectionPrivate(const QString &dbusPath, ActiveConnection *q)
 #ifdef NMQT_STATIC
@@ -75,11 +74,11 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject 
     connect(&d->iface, &OrgFreedesktopNetworkManagerConnectionActiveInterface::PropertiesChanged, d, &ActiveConnectionPrivate::propertiesChanged);
 #endif
 #endif
-    
+
 #ifdef NMQT_STATIC
     connect(&d->iface, &OrgFreedesktopNetworkManagerConnectionActiveInterface::PropertiesChanged, d, &ActiveConnectionPrivate::propertiesChanged);
 #endif
-    
+
     /*
      * Workaround: Re-check connection state before we watch changes in case it gets changed too quickly
      * BUG:352326

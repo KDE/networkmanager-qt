@@ -23,7 +23,7 @@
 
 #include "bonddevice.h"
 #include "device_p.h"
-#include "dbus/nm-device-bondinterface.h"
+#include "dbus/bonddeviceinterface.h"
 
 namespace NetworkManager
 {

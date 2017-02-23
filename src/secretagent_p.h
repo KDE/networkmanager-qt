@@ -21,8 +21,8 @@
 #ifndef NETWORKMANAGERQT_SECRETAGENT_P_H
 #define NETWORKMANAGERQT_SECRETAGENT_P_H
 
-#include "nm-agent-managerinterface.h"
-#include "nm-secret-agentadaptor.h"
+#include "agentmanagerinterface.h"
+#include "secretagentadaptor.h"
 
 #include <QObject>
 

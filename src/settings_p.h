@@ -25,7 +25,7 @@
 #include <QObject>
 #include <QDBusObjectPath>
 
-#include "dbus/nm-settingsinterface.h"
+#include "dbus/settingsinterface.h"
 #include "settings.h"
 
 class QDBusPendingCallWatcher;

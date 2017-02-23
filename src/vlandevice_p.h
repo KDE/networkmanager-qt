@@ -24,7 +24,7 @@
 #include "device_p.h"
 #include "vlandevice.h"
 #include "manager_p.h"
-#include "nm-device-vlaninterface.h"
+#include "vlandeviceinterface.h"
 
 namespace NetworkManager
 {

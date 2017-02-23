@@ -26,8 +26,8 @@
 
 #include <arpa/inet.h>
 
-#include "dbus/nm-ip4-configinterface.h"
-#include "dbus/nm-ip6-configinterface.h"
+#include "dbus/ip4configinterface.h"
+#include "dbus/ip6configinterface.h"
 
 namespace NetworkManager
 {

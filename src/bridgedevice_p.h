@@ -25,7 +25,7 @@
 #include "device_p.h"
 #include "manager.h"
 
-#include "nm-device-bridgeinterface.h"
+#include "bridgedeviceinterface.h"
 
 namespace NetworkManager
 {

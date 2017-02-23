@@ -23,7 +23,7 @@
 #define NETWORKMANAGERQT_DHCP4CONFIG_P_H
 
 #include "dhcp4config.h"
-#include "dbus/nm-dhcp4-configinterface.h"
+#include "dbus/dhcp4configinterface.h"
 
 namespace NetworkManager
 {

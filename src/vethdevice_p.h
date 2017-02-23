@@ -24,7 +24,7 @@
 #include "vethdevice.h"
 #include "device_p.h"
 
-#include "nm-device-vethinterface.h"
+#include "vethdeviceinterface.h"
 
 namespace NetworkManager
 {

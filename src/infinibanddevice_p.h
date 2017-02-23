@@ -24,7 +24,7 @@
 #include "device_p.h"
 #include "infinibanddevice.h"
 #include "manager_p.h"
-#include "nm-device-infinibandinterface.h"
+#include "infinibanddeviceinterface.h"
 
 namespace NetworkManager
 {

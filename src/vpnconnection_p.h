@@ -26,7 +26,7 @@
 #include "manager_p.h"
 #include "vpnconnection.h"
 
-#include "nm-vpn-connectioninterface.h"
+#include "vpnconnectioninterface.h"
 
 namespace NetworkManager
 {

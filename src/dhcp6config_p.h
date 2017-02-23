@@ -23,7 +23,7 @@
 #define NETWORKMANAGERQT_DHCP6CONFIG_P_H
 
 #include "dhcp6config.h"
-#include "dbus/nm-dhcp6-configinterface.h"
+#include "dbus/dhcp6configinterface.h"
 
 namespace NetworkManager
 {

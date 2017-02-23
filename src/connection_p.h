@@ -26,7 +26,7 @@
 #include "connection.h"
 #include "device.h"
 #include "manager_p.h"
-#include "nm-settings-connectioninterface.h"
+#include "connectioninterface.h"
 #include "generictypes.h"
 
 class QDBusPendingCallWatcher;

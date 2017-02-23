@@ -22,7 +22,7 @@
 #define NETWORKMANAGERQT_WIMAXNSP_P_H
 
 #include "wimaxnsp.h"
-#include "dbus/nm-wimax-nspinterface.h"
+#include "dbus/wimaxnspinterface.h"
 
 namespace NetworkManager
 {

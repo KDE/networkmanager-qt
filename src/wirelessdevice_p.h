@@ -23,7 +23,7 @@
 #define NETWORKMANAGERQT_WIRELESSDEVICE_P_H
 
 #include "device_p.h"
-#include "dbus/nm-device-wifiinterface.h"
+#include "dbus/wirelessdeviceinterface.h"
 
 namespace NetworkManager
 {

@@ -22,7 +22,7 @@
 #define NETWORKMANAGERQT_WIREDDEVICE_P_H
 
 #include "device_p.h"
-#include "dbus/nm-device-ethernetinterface.h"
+#include "dbus/wireddeviceinterface.h"
 
 namespace NetworkManager
 {

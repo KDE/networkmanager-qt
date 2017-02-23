@@ -22,7 +22,7 @@
 #define NETWORKMANAGERQT_MODEMDEVICE_P_H
 
 #include "device_p.h"
-#include "dbus/nm-device-modeminterface.h"
+#include "dbus/modemdeviceinterface.h"
 
 namespace NetworkManager
 {

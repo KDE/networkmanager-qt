@@ -22,7 +22,7 @@
 #define NETWORKMANAGERQT_ACTIVECONNECTION_P_H
 
 #include "activeconnection.h"
-#include "nm-active-connectioninterface.h"
+#include "activeconnectioninterface.h"
 
 namespace NetworkManager
 {
