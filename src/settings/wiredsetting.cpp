@@ -324,23 +324,23 @@ QVariantMap NetworkManager::WiredSetting::toMap() const
         break;
     }
 
-    if (speed()) {
-        setting.insert(QLatin1String(NM_SETTING_WIRED_SPEED), speed());
-    }
-
-    switch (duplexType()) {
-    case Half:
-        setting.insert(QLatin1String(NM_SETTING_WIRED_DUPLEX), "half");
-        break;
-    case Full:
-        setting.insert(QLatin1String(NM_SETTING_WIRED_DUPLEX), "full");
-        break;
-    case UnknownDuplexType:
-        break;
-    }
-
-    if (!autoNegotiate()) {
+    // When autonegotiation is set we have to avoid setting speed and duplex, while
+    // when autonegotiation is disabled, we have to specify both
+    if (autoNegotiate()) {
         setting.insert(QLatin1String(NM_SETTING_WIRED_AUTO_NEGOTIATE), autoNegotiate());
+    } else {
+        setting.insert(QLatin1String(NM_SETTING_WIRED_SPEED), speed());
+
+        switch (duplexType()) {
+        case Half:
+            setting.insert(QLatin1String(NM_SETTING_WIRED_DUPLEX), "half");
+            break;
+        case Full:
+            setting.insert(QLatin1String(NM_SETTING_WIRED_DUPLEX), "full");
+            break;
+        case UnknownDuplexType:
+            break;
+        }
     }
 
     if (!macAddress().isEmpty()) {
