@@ -32,7 +32,7 @@ NetworkManager::WiredSettingPrivate::WiredSettingPrivate()
     , port(NetworkManager::WiredSetting::UnknownPort)
     , speed(0)
     , duplex(NetworkManager::WiredSetting::UnknownDuplexType)
-    , autoNegotiate(true)
+    , autoNegotiate(false)
     , mtu(0)
     , s390NetType(NetworkManager::WiredSetting::Undefined)
 { }
