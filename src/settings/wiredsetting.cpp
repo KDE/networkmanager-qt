@@ -329,6 +329,7 @@ QVariantMap NetworkManager::WiredSetting::toMap() const
     if (autoNegotiate()) {
         setting.insert(QLatin1String(NM_SETTING_WIRED_AUTO_NEGOTIATE), autoNegotiate());
     } else {
+        setting.insert(QLatin1String(NM_SETTING_WIRED_AUTO_NEGOTIATE), autoNegotiate());
         setting.insert(QLatin1String(NM_SETTING_WIRED_SPEED), speed());
 
         switch (duplexType()) {
