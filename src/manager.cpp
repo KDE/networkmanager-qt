@@ -26,12 +26,14 @@
 
 #include "macros.h"
 
+#undef signals
 #include <nm-version.h>
 #if NM_CHECK_VERSION(1, 0, 0)
 #include <libnm/NetworkManager.h>
 #else
 #include <NetworkManager.h>
 #endif
+#define signals Q_SIGNALS
 
 #include "activeconnection.h"
 #include "adsldevice.h"
@@ -110,7 +112,7 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::PropertiesChanged,
             this, &NetworkManagerPrivate::propertiesChanged);
 #endif
-   
+
     connect(&watcher, &QDBusServiceWatcher::serviceRegistered,
             this, &NetworkManagerPrivate::daemonRegistered);
     connect(&watcher, &QDBusServiceWatcher::serviceUnregistered,

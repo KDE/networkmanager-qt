@@ -45,6 +45,7 @@
 #include "vpnsetting.h"
 #include "wimaxsetting.h"
 
+#undef signals
 #if NM_CHECK_VERSION(1, 0, 0)
 #include <libnm/NetworkManager.h>
 #else
@@ -65,6 +66,7 @@
 #include <nm-setting-wireless.h>
 #include <nm-setting-team.h>
 #include <nm-setting-generic.h>
+#define signals Q_SIGNALS
 
 #define NM_SETTING_CONNECTION_AUTOCONNECT_PRIORITY "autoconnect-priority"
 

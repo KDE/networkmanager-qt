@@ -23,12 +23,14 @@
 #include "wirelessdevice.h"
 #include "wirelessdevice_p.h"
 
+#undef signals
 #include <nm-version.h>
 #if NM_CHECK_VERSION(1, 0, 0)
 #include <libnm/NetworkManager.h>
 #else
 #include <libnm-glib/nm-device-wifi.h>
 #endif
+#define signals Q_SIGNALS
 
 #include "accesspoint.h"
 #include "manager_p.h"
@@ -74,11 +76,11 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
     connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::PropertiesChanged, d, &WirelessDevicePrivate::propertiesChanged);
 #endif
 #endif
-    
+
 #ifdef NMQT_STATIC
     connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::PropertiesChanged, d, &WirelessDevicePrivate::propertiesChanged);
 #endif
-    
+
     connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::AccessPointAdded, d, &WirelessDevicePrivate::accessPointAdded);
     connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::AccessPointRemoved, d, &WirelessDevicePrivate::accessPointRemoved);
 }
