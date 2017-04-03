@@ -215,8 +215,14 @@ void FakeNetwork::unregisterService()
 
 QDBusObjectPath FakeNetwork::ActivateConnection(const QDBusObjectPath &connection, const QDBusObjectPath &device, const QDBusObjectPath &specific_object)
 {
-    ActiveConnection *newActiveConnection = new ActiveConnection(this);
     QString newActiveConnectionPath = QString("/org/kde/fakenetwork/ActiveConnection/") + QString::number(m_activeConnectionsCounter++);
+    ActiveConnection *newActiveConnection = new ActiveConnection(this);
+    newActiveConnection->addDevice(device);
+    newActiveConnection->setActiveConnectionPath(newActiveConnectionPath);
+    newActiveConnection->setConnection(connection);
+    newActiveConnection->setSpecificObject(specific_object);
+    newActiveConnection->setState(NetworkManager::ActiveConnection::Activating);
+
     m_activeConnections.insert(QDBusObjectPath(newActiveConnectionPath), newActiveConnection);
     QDBusConnection::sessionBus().registerObject(newActiveConnectionPath, newActiveConnection, QDBusConnection::ExportScriptableContents);
 
@@ -226,24 +232,6 @@ QDBusObjectPath FakeNetwork::ActivateConnection(const QDBusObjectPath &connectio
     map.insert(QLatin1Literal("ActiveConnections"), QVariant::fromValue<QList<QDBusObjectPath> >(m_activeConnections.keys()));
     map.insert(QLatin1Literal("ActivatingConnection"), QVariant::fromValue(QDBusObjectPath(newActiveConnectionPath)));
     Q_EMIT PropertiesChanged(map);
-
-    newActiveConnection->addDevice(device);
-    newActiveConnection->setActiveConnectionPath(newActiveConnectionPath);
-    newActiveConnection->setConnection(connection);
-    newActiveConnection->setSpecificObject(specific_object);
-    newActiveConnection->setState(NetworkManager::ActiveConnection::Activating);
-
-    map.clear();
-    const QList<QDBusObjectPath> deviceList { device };
-    map.insert(QLatin1Literal("Devices"), QVariant::fromValue<QList<QDBusObjectPath> >(deviceList));
-    map.insert(QLatin1Literal("Connection"), QVariant::fromValue<QDBusObjectPath>(connection));
-    if (!specific_object.path().isEmpty()) {
-        map.insert(QLatin1Literal("SpecificObject"), QVariant::fromValue<QDBusObjectPath>(connection));
-    }
-    map.insert(QLatin1Literal("State"), NetworkManager::ActiveConnection::Activating);
-    QDBusMessage message = QDBusMessage::createSignal(newActiveConnectionPath, QLatin1Literal("org.kde.fakenetwork.Connection.Active"), QLatin1Literal("PropertiesChanged"));
-    message << map;
-    QDBusConnection::sessionBus().send(message);
 
     Device *usedDevice = static_cast<Device *>(QDBusConnection::sessionBus().objectRegisteredAt(device.path()));
     if (usedDevice) {
