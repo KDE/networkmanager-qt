@@ -20,6 +20,7 @@
 
 #include "wiredsetting.h"
 #include "wiredsetting_p.h"
+#include "manager.h"
 
 #if !NM_CHECK_VERSION(1, 0, 0)
 #include <nm-setting-wired.h>
@@ -32,10 +33,16 @@ NetworkManager::WiredSettingPrivate::WiredSettingPrivate()
     , port(NetworkManager::WiredSetting::UnknownPort)
     , speed(0)
     , duplex(NetworkManager::WiredSetting::UnknownDuplexType)
-    , autoNegotiate(false)
+    // , autonegotiate(false)
     , mtu(0)
     , s390NetType(NetworkManager::WiredSetting::Undefined)
-{ }
+{
+    if (NetworkManager::checkVersion(1, 6, 0)) {
+        autoNegotiate = false;
+    } else {
+        autoNegotiate = true;
+    }
+}
 
 NetworkManager::WiredSetting::WiredSetting()
     : Setting(Setting::Wired)
