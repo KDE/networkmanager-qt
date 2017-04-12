@@ -51,7 +51,9 @@ void SettingsTest::testConnections()
     NetworkManager::WiredSetting::Ptr wiredSetting = connectionSettings->setting(NetworkManager::Setting::Wired).dynamicCast<NetworkManager::WiredSetting>();
     wiredSetting->setInitialized(true);
     // Something needs to be set to not use default values, when using default values we get an empty map
+    wiredSetting->setAutoNegotiate(false);
     wiredSetting->setSpeed(100);
+    wiredSetting->setDuplexType(NetworkManager::WiredSetting::Full);
 
     NetworkManager::addConnection(connectionSettings->toMap());
     connect(NetworkManager::settingsNotifier(), &NetworkManager::SettingsNotifier::connectionAdded, this, &SettingsTest::testConnectionAdded);
@@ -83,13 +85,17 @@ void SettingsTest::testConnectionAdded(const QString &connection)
     NetworkManager::Ipv6Setting::Ptr ipv6Setting = connectionSettings->setting(NetworkManager::Setting::Ipv6).dynamicCast<NetworkManager::Ipv6Setting>();
     QCOMPARE(ipv6Setting->method(), NetworkManager::Ipv6Setting::Automatic);
     NetworkManager::WiredSetting::Ptr wiredSetting = connectionSettings->setting(NetworkManager::Setting::Wired).dynamicCast<NetworkManager::WiredSetting>();
+    QVERIFY(wiredSetting->autoNegotiate() == false);
     QVERIFY(wiredSetting->speed() == 100);
+    QVERIFY(wiredSetting->duplexType() == NetworkManager::WiredSetting::Full);
     wiredSetting->setSpeed(10);
+    wiredSetting->setDuplexType(NetworkManager::WiredSetting::Half);
 
     addedConnection->update(connectionSettings->toMap());
     QSignalSpy connectionUpdatedSpy(addedConnection.data(), SIGNAL(updated()));
     QVERIFY(connectionUpdatedSpy.wait());
     QVERIFY(wiredSetting->speed() == 10);
+    QVERIFY(wiredSetting->duplexType() == NetworkManager::WiredSetting::Half);
 }
 
 QTEST_MAIN(SettingsTest)
