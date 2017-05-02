@@ -895,13 +895,15 @@ void NetworkManager::NetworkManagerPrivate::daemonUnregistered()
 NetworkManager::ActiveConnection::List NetworkManager::NetworkManagerPrivate::activeConnections()
 {
     NetworkManager::ActiveConnection::List list;
-    QMap<QString, ActiveConnection::Ptr>::const_iterator it = m_activeConnections.constBegin();
-    while (it != m_activeConnections.constEnd()) {
-        NetworkManager::ActiveConnection::Ptr activeConnection = findRegisteredActiveConnection(it.key());
+
+    // We do not use const_iterator here because
+    // findRegisteredActiveConnection() changes m_activeConnections.
+    foreach (const QString &key, m_activeConnections.keys()) {
+        NetworkManager::ActiveConnection::Ptr activeConnection = findRegisteredActiveConnection(key);
+
         if (activeConnection) {
             list << activeConnection;
         }
-        ++it;
     }
     return list;
 }
