@@ -32,9 +32,9 @@ NetworkManager::AccessPointPrivate::AccessPointPrivate(const QString &path, Acce
 #else
     : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
-    , capabilities(nullptr)
-    , wpaFlags(nullptr)
-    , rsnFlags(nullptr)
+    , capabilities(AccessPoint::None)
+    , wpaFlags()
+    , rsnFlags()
     , frequency(0)
     , maxBitRate(0)
     , mode(AccessPoint::Unknown)
