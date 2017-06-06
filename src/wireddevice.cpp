@@ -61,7 +61,7 @@ NetworkManager::WiredDevice::WiredDevice(const QString &path, QObject *parent)
     connect(&d->wiredIface, &OrgFreedesktopNetworkManagerDeviceWiredInterface::PropertiesChanged, d, &WiredDevicePrivate::propertiesChanged);
 #endif
 #endif
-    
+
 #ifdef NMQT_STATIC
     connect(&d->wiredIface, &OrgFreedesktopNetworkManagerDeviceWiredInterface::PropertiesChanged, d, &WiredDevicePrivate::propertiesChanged);
 #endif
@@ -100,6 +100,12 @@ bool NetworkManager::WiredDevice::carrier() const
     return d->carrier;
 }
 
+QStringList NetworkManager::WiredDevice::s390SubChannels() const
+{
+    Q_D(const NetworkManager::WiredDevice);
+    return d->s390SubChannels;
+}
+
 void NetworkManager::WiredDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
     Q_Q(NetworkManager::WiredDevice);
@@ -116,6 +122,9 @@ void NetworkManager::WiredDevicePrivate::propertyChanged(const QString &property
     } else if (property == QLatin1String("Speed")) {
         bitrate = value.toUInt() * 1000;
         Q_EMIT q->bitRateChanged(bitrate);
+    } else if (property == QLatin1String("S390Subchannels")) {
+        s390SubChannels = value.toStringList();
+        Q_EMIT q->s390SubChannelsChanged(s390SubChannels);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

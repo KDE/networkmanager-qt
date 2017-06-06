@@ -36,6 +36,7 @@ public:
     OrgFreedesktopNetworkManagerDeviceWiredInterface wiredIface;
     QString hardwareAddress;
     QString permanentHardwareAddress;
+    QStringList s390SubChannels;
     int bitrate;
     bool carrier;
 

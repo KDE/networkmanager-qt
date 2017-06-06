@@ -68,6 +68,10 @@ public:
      * Indicates whether the physical carrier is found (e.g. whether a cable is plugged in or not)
      */
     bool carrier() const;
+    /**
+     * Array of S/390 subchannels for S/390 or z/Architecture devices
+     */
+    QStringList s390SubChannels() const;
 
 Q_SIGNALS:
     /**
@@ -86,6 +90,10 @@ Q_SIGNALS:
      * Emmited when the permanent hardware address of this device has changed
      */
     void permanentHardwareAddressChanged(const QString &permHwAddress);
+    /*
+     * Emitted when the array of s390SubChannels has changed
+     */
+    void s390SubChannelsChanged(const QStringList &channels);
 
 private:
     Q_DECLARE_PRIVATE(WiredDevice)
