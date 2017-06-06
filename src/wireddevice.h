@@ -75,19 +75,19 @@ public:
 
 Q_SIGNALS:
     /**
-     * Emmited when the design speed of the device has changed
+     * Emitted when the design speed of the device has changed
      */
     void bitRateChanged(int bitRate);
     /**
-     * Emmited when the carrier of this device has changed
+     * Emitted when the carrier of this device has changed
      */
     void carrierChanged(bool plugged);
     /**
-     * Emmited when the hardware address of this device has changed
+     * Emitted when the hardware address of this device has changed
      */
     void hardwareAddressChanged(const QString &hwAddress);
     /**
-     * Emmited when the permanent hardware address of this device has changed
+     * Emitted when the permanent hardware address of this device has changed
      */
     void permanentHardwareAddressChanged(const QString &permHwAddress);
     /*

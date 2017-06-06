@@ -518,7 +518,7 @@ Q_SIGNALS:
      * Emitted when NmPluginMissing property has changed
      * @since 5.14.0
      * @see nmPluginMissing
-     * @note never emmited in runtime NM < 1.2.0
+     * @note never Emitted in runtime NM < 1.2.0
      */
     void nmPluginMissingChanged(bool nmPluginMissing);
 
@@ -526,7 +526,7 @@ Q_SIGNALS:
      * Emitted when metered property has changed
      * @since 5.14.0
      * @see metered
-     * @note never emmited in runtime NM < 1.0.6
+     * @note never Emitted in runtime NM < 1.0.6
      */
     void meteredChanged(MeteredStatus metered);
 

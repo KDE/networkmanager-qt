@@ -69,20 +69,20 @@ public:
 
 Q_SIGNALS:
     /**
-     * Emmited when the carrier of this device has changed
+     * Emitted when the carrier of this device has changed
      */
     void carrierChanged(bool plugged);
     /**
-     * Emmited when the hardware address of this device has changed
+     * Emitted when the hardware address of this device has changed
      */
     void hwAddressChanged(const QString &address);
     /**
-     * Emmited when the parent device of this device has changed
+     * Emitted when the parent device of this device has changed
      * @note never emitted in runtime NM < 1.0.0
      */
     void parentChanged(const QString &path);
     /**
-     * Emmited when the VLAN ID of this device has changed
+     * Emitted when the VLAN ID of this device has changed
      */
     void vlanIdChanged(uint id);
 

@@ -59,11 +59,11 @@ public:
 
 Q_SIGNALS:
     /**
-     * Emmited when the hardware address of this device has changed
+     * Emitted when the hardware address of this device has changed
      */
     void hardwareAddressChanged(const QString &hwAddress);
     /**
-     * Emmited when the type description this device has changed
+     * Emitted when the type description this device has changed
      */
     void permanentHardwareAddressChanged(const QString &permHwAddress);
 

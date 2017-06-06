@@ -57,11 +57,11 @@ public:
 
 Q_SIGNALS:
     /**
-     * Emmited when the carrier of this device has changed
+     * Emitted when the carrier of this device has changed
      */
     void carrierChanged(bool plugged);
     /**
-     * Emmited when the hardware address of this device has changed
+     * Emitted when the hardware address of this device has changed
      */
     void hwAddressChanged(const QString &address);
 
