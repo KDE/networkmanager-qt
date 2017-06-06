@@ -137,6 +137,7 @@ public:
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
     void PropertiesChanged(const QVariantMap &properties);
+    void StateChanged(uint state, uint reason);
 };
 
 #endif
