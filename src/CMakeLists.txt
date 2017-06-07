@@ -171,6 +171,7 @@ ecm_generate_headers(NetworkManagerQt_CamelCase_HEADERS
   BridgeDevice
   Connection
   Device
+  DeviceStatistics
   Dhcp4Config
   Dhcp6Config
   GenericDevice
