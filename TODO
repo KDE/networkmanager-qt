@@ -1,45 +1,42 @@
-== NetworkManager 1.0/1.2 ==
+== NetworkManager 1.0/1.2/1.4/1.6/1.8 ==
 
 * New interfaces:
-  - org.freedesktop.NetworkManager.Device.IPTunnel
+  - org.freedesktop.NetworkManager.DnsManager
   - org.freedesktop.NetworkManager.Device.Vxlan
+  - org.freedesktop.NetworkManager.Device.MacSec
+  - org.freedesktop.NetworkManager.Device.Dummy
 
 * New properties/slots/signals:
   - org.freedesktop.NetworkManager
-    - GetAllDevices ( ) → ao
-        The list of both realized and un-realized network devices. Un-realized devices are software devices which do not yet have backing resources,
-        but for which backing resources can be created if the device is activated.
-    - GlobalDnsConfiguration - a{sv} - (readwrite)
-        Dictionary of global DNS settings where the key is one of "searches", "options" and "domains". The values for the "searches" and "options"
-        keys are string arrays describing the list of search domains and resolver options, respectively. The value of the "domains" key is a second-level
-        dictionary, where each key is a domain name, and each key's value is a third-level dictionary with the keys "servers" and "options". "servers" is
-        a string array of DNS servers, "options" is a string array of domain-specific options.
-  - org.freedesktop.NetworkManager.Device.Wired
-    - S390Subchannels - as - (read)
-        Array of S/390 subchannels for S/390 or z/Architecture devices.
+    -------------------------------
+    - Methods:
+        - GetAllDevices()
+        - Reload()
+        - CheckpointCreate()
+        - CheckpointDestroy()
+        - CheckpointRollback(ú)
+    - Properties:
+        - GlobalDnsConfiguration
+
   - org.freedesktop.NetworkManager.Device
-    - LldpNeighbors - aa{sv} - (read)
-        Array of LLDP neighbors; each element is a dictionary mapping LLDP TLV names to variant boxed values.
-    - Real - b - (read)
-        True if the device exists, or False for placeholder devices that do not yet exist but could be automatically
-        created by NetworkManager if one of their AvailableConnections was activated.
-    - Reapply ( a{sa{sv}}: connection, t: version_id, u: flags ) → nothing
-        Attempts to update the configuration of a device without deactivating it. NetworkManager has the concept of connections,
-        which are profiles that contain the configuration for a networking device. Those connections are exposed via D-Bus as individual
-        objects that can be created, modified and deleted. When activating such a settings-connection on a device, the settings-connection
-        is cloned to become an applied-connection and used to configure the device (see GetAppliedConnection). Subsequent modification of
-        the settings-connection don't propagate automatically to the device's applied-connection (with exception of the firewall-zone and
-        the metered property). For the changes to take effect, you can either re-activate the settings-connection, or call Reapply. The Reapply
-        call allows you to directly update the applied-connection and reconfigure the device. Reapply can also be useful if the currently
-        applied-connection is equal to the connection that is about to be reapplied. This allows to reconfigure the device and revert external
-        changes like removing or adding an IP address (which NetworkManager doesn't revert automatically because it is assumed that the user made
-        these changes intentionally outside of NetworkManager). Reapply can make the applied-connection different from the settings-connection,
-        just like updating the settings-connection can make them different.
-    - GetAppliedConnection ( u: flags ) → a{sa{sv}}
-        Get the currently applied connection on the device. This is a snapshot of the last activated connection on the device, that is the configuration
-        that is currently applied on the device. Usually this is the same as GetSettings of the referenced settings connection. However, it can differ if
-        the settings connection was subsequently modified or the applied connection was modified by Reapply. The applied connection is set when activating
-        a device or when calling Reapply.
+    -------------------------------------
+    - Methods:
+        - Reapply()
+        - GetAppliedConnection()
+    - Properties:
+        - LldpNeighbors
+        - Real
+
+  - org.freedesktop.NetworkManager.IP4Config
+    ----------------------------------------
+    - Properties:
+        - DnsPriority
+        - WinServers
+
+  - org.freedesktop.NetworkManager.IP6Config
+    ----------------------------------------
+    - Properties:
+        - DnsPriority
 
 * New settings and settings properties:
   - bridge setting
