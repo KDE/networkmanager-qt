@@ -50,7 +50,7 @@ NetworkManager::IpTunnelDevice::IpTunnelDevice(const QString &path, QObject *par
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
 #else
-    QObject::connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceIpTunnelInterface::PropertiesChanged, d, &IpTunnelDevicePrivate::propertiesChanged);
+    QObject::connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceIPTunnelInterface::PropertiesChanged, d, &IpTunnelDevicePrivate::propertiesChanged);
 #endif
 }
 
