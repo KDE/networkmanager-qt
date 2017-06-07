@@ -38,6 +38,7 @@ class NETWORKMANAGERQT_EXPORT VlanDevice : public Device
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
     Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
     Q_PROPERTY(uint vlanId READ vlanId NOTIFY vlanIdChanged)
+    Q_PROPERTY(NetworkManager::Device::Ptr parent READ parent NOTIFY parentChanged)
 
 public:
     typedef QSharedPointer<VlanDevice> Ptr;
