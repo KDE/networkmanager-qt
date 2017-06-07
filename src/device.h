@@ -144,26 +144,30 @@ public:
      * Device type
      */
     enum Type {
-        UnknownType = NM_DEVICE_TYPE_UNKNOWN, /**< Unknown device type */
-        Ethernet = NM_DEVICE_TYPE_ETHERNET, /**< Ieee8023 wired ethernet */
-        Wifi = NM_DEVICE_TYPE_WIFI, /**< the Ieee80211 family of wireless networks */
-        Unused1 = NM_DEVICE_TYPE_UNUSED1, /**< Currently unused */
-        Unused2 = NM_DEVICE_TYPE_UNUSED2, /**< Currently unused */
-        Bluetooth = NM_DEVICE_TYPE_BT, /**< network bluetooth device (usually a cell phone) */
-        OlpcMesh = NM_DEVICE_TYPE_OLPC_MESH, /**< OLPC Mesh networking device */
-        Wimax = NM_DEVICE_TYPE_WIMAX, /**< WiMax WWAN technology */
-        Modem = NM_DEVICE_TYPE_MODEM, /**< POTS, GSM, CDMA or LTE modems */
+        UnknownType = NM_DEVICE_TYPE_UNKNOWN,   /**< Unknown device type */
+        Ethernet = NM_DEVICE_TYPE_ETHERNET,     /**< Ieee8023 wired ethernet */
+        Wifi = NM_DEVICE_TYPE_WIFI,             /**< the Ieee80211 family of wireless networks */
+        Unused1 = NM_DEVICE_TYPE_UNUSED1,       /**< Currently unused */
+        Unused2 = NM_DEVICE_TYPE_UNUSED2,       /**< Currently unused */
+        Bluetooth = NM_DEVICE_TYPE_BT,          /**< network bluetooth device (usually a cell phone) */
+        OlpcMesh = NM_DEVICE_TYPE_OLPC_MESH,    /**< OLPC Mesh networking device */
+        Wimax = NM_DEVICE_TYPE_WIMAX,           /**< WiMax WWAN technology */
+        Modem = NM_DEVICE_TYPE_MODEM,           /**< POTS, GSM, CDMA or LTE modems */
         InfiniBand = NM_DEVICE_TYPE_INFINIBAND, /**< Infiniband network device */
-        Bond = NM_DEVICE_TYPE_BOND, /**< Bond virtual device */
-        Vlan = NM_DEVICE_TYPE_VLAN, /**< Vlan virtual device */
-        Adsl = NM_DEVICE_TYPE_ADSL, /**< ADSL modem device */
-        Bridge = NM_DEVICE_TYPE_BRIDGE, /**< Bridge virtual device */
-        Generic = NM_DEVICE_TYPE_GENERIC, /**< Generic device @since 0.9.9.0 */
-        Team = NM_DEVICE_TYPE_TEAM, /**< Team master device @since 0.9.9.0 */
-        Gre, /**< Gre virtual device @since 0.9.9.0 */
-        MacVlan, /**< MacVlan virtual device @since 0.9.9.0 */
-        Tun, /**< Tun virtual device @since 0.9.9.0 */
-        Veth, /**< Veth virtual device @since 0.9.9.0 */
+        Bond = NM_DEVICE_TYPE_BOND,             /**< Bond virtual device */
+        Vlan = NM_DEVICE_TYPE_VLAN,             /**< Vlan virtual device */
+        Adsl = NM_DEVICE_TYPE_ADSL,             /**< ADSL modem device */
+        Bridge = NM_DEVICE_TYPE_BRIDGE,         /**< Bridge virtual device */
+        Generic = NM_DEVICE_TYPE_GENERIC,       /**< Generic device @since 1.0.0 */
+        Team = NM_DEVICE_TYPE_TEAM,             /**< Team master device @since 1.0.0 */
+        Gre,                                    /**< Gre virtual device @since 1.2.0, @deprecated use IpTunnel instead*/
+        MacVlan,                                /**< MacVlan virtual device @since 1.2.0 */
+        Tun,                                    /**< Tun virtual device @since 1.2.0 */
+        Veth,                                   /**< Veth virtual device @since 1.2.0 */
+        IpTunnel,                               /**< IP Tunneling Device @since 1.2.0 */
+        VxLan,                                  /**< Vxlan Device @since 1.2.0 */
+        MacSec,                                 /**< MacSec Device @since 1.6.0 */
+        Dummy                                   /**< Dummy Device @since 1.8.0 */
     };
     Q_ENUM(Type)
     Q_DECLARE_FLAGS(Types, Type)

@@ -74,6 +74,7 @@ public:
     static NetworkManager::Device::Capabilities convertCapabilities(uint);
     static NetworkManager::Device::State convertState(uint);
     static NetworkManager::Device::StateChangeReason convertReason(uint);
+    static NetworkManager::Device::Type convertType(uint);
 
     Q_DECLARE_PUBLIC(Device)
     Device *q_ptr;

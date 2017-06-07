@@ -166,7 +166,10 @@ void NetworkManager::NetworkManagerPrivate::init()
                NetworkManager::Device::Adsl |
                NetworkManager::Device::Bridge |
                NetworkManager::Device::Generic |
-               NetworkManager::Device::Team
+               NetworkManager::Device::Team |
+               NetworkManager::Device::MacVlan |
+               NetworkManager::Device::Tun |
+               NetworkManager::Device::Veth
            );
 
     // Get all Manager's properties async

@@ -123,7 +123,7 @@ void NetworkManager::DevicePrivate::init()
 
     // This needs to be initialized as soon as possible, because based on this property
     // we initialize the device type
-    deviceType = static_cast<Device::Type>(deviceIface.deviceType());
+    deviceType = convertType(deviceIface.deviceType());
 
     // Get all Device's properties at once
     QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(deviceIface.staticInterfaceName(), uni);
@@ -157,6 +157,40 @@ NetworkManager::Device::StateChangeReason NetworkManager::DevicePrivate::convert
 {
     NetworkManager::Device::StateChangeReason ourReason = (NetworkManager::Device::StateChangeReason)theirReason;
     return ourReason;
+}
+
+NetworkManager::Device::Type NetworkManager::DevicePrivate::convertType(uint type)
+{
+    // These are identical to NM enums
+    if (type <= NM_DEVICE_TYPE_TEAM) {
+        return (NetworkManager::Device::Type)type;
+    }
+
+    switch (type) {
+    case 16:
+        // NM_DEVICE_TYPE_TUN
+        return NetworkManager::Device::Tun;
+    case 17:
+        // NM_DEVICE_TYPE_IP_TUNNEL
+        return NetworkManager::Device::IpTunnel;
+    case 18:
+        // NM_DEVICE_TYPE_MACVLAN
+        return NetworkManager::Device::MacVlan;
+    case 19:
+        // NM_DEVICE_TYPE_VXLAN
+        return NetworkManager::Device::VxLan;
+    case 20:
+        // NM_DEVICE_TYPE_VETH
+        return NetworkManager::Device::Veth;
+    case 21:
+        // NM_DEVICE_TYPE_MACSEC
+        return NetworkManager::Device::MacSec;
+    case 22:
+        // NM_DEVICE_TYPE_DUMMY
+        return NetworkManager::Device::Dummy;
+    }
+
+    return NetworkManager::Device::UnknownType;
 }
 
 NetworkManager::Device::Device(const QString &path, QObject *parent)
