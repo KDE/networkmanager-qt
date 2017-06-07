@@ -85,6 +85,12 @@ QStringList NetworkManager::TeamDevice::slaves() const
     return d->slaves;
 }
 
+QString NetworkManager::TeamDevice::config() const
+{
+    Q_D(const TeamDevice);
+    return d->config;
+}
+
 void NetworkManager::TeamDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
     Q_Q(TeamDevice);
@@ -102,6 +108,9 @@ void NetworkManager::TeamDevicePrivate::propertyChanged(const QString &property,
         }
         slaves = list;
         Q_EMIT q->slavesChanged(slaves);
+    } else if (property == QLatin1String("Config")) {
+        config = value.toString();
+        Q_EMIT q->configChanged(config);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

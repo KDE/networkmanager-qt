@@ -62,6 +62,12 @@ public:
      */
     QStringList slaves() const;
 
+    /**
+     * The JSON configuration currently applied on the device.
+     * @note always returns empty configuration in runtime NM < 1.4.0
+     */
+    QString config() const;
+
 Q_SIGNALS:
     /**
      * Emitted when the carrier of this device has changed
@@ -76,6 +82,12 @@ Q_SIGNALS:
      * Emitted when the list of devices slaved to this device has changed
      */
     void slavesChanged(const QStringList &slaves);
+
+    /**
+     * Emitted when the JSON confugration which is currently applied has changed
+     * @note never emitted in runtime NM < 1.4.0
+     */
+    void configChanged(const QString &config);
 
 private:
     Q_DECLARE_PRIVATE(TeamDevice)

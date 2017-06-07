@@ -40,6 +40,7 @@ public:
 
     OrgFreedesktopNetworkManagerDeviceTeamInterface iface;
     bool carrier;
+    QString config;
     QString hwAddress;
     QStringList slaves;
 
