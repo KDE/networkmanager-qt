@@ -30,6 +30,7 @@ set(NetworkManagerQt_PART_SRCS
     connection.cpp
     dhcp4config.cpp
     dhcp6config.cpp
+    devicestatistics.cpp
     infinibanddevice.cpp
     ipaddress.cpp
     iproute.cpp

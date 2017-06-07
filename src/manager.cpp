@@ -41,6 +41,7 @@
 #include "bonddevice.h"
 #include "bridgedevice.h"
 #include "infinibanddevice.h"
+#include "iptunneldevice.h"
 #include "genericdevice.h"
 #include "modemdevice.h"
 #include "olpcmeshdevice.h"

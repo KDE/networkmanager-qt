@@ -34,6 +34,7 @@
 #include "dhcp4config.h"
 #include "dhcp6config.h"
 #include "activeconnection.h"
+#include "devicestatistics.h"
 
 namespace NetworkManager
 {
@@ -65,9 +66,8 @@ class NETWORKMANAGERQT_EXPORT Device : public QObject
     Q_PROPERTY(bool firmwareMissing READ firmwareMissing)
     Q_PROPERTY(bool autoconnect READ autoconnect WRITE setAutoconnect)
     Q_PROPERTY(DeviceStateReason stateReason READ stateReason)
-
-    //Q_PROPERTY(Solid::Control::IPv4Config ipV4Config READ ipV4Config WRITE setIpV4Config)
     Q_PROPERTY(State state READ state)
+    Q_PROPERTY(NetworkManager::DeviceStatistics::Ptr deviceStatistics READ deviceStatistics)
 
 public:
     typedef QSharedPointer<Device> Ptr;
@@ -379,6 +379,12 @@ public:
      * a connection using the device, or setting this property to @p true.
      */
     void setAutoconnect(bool autoconnect);
+
+    /**
+     * Returns Device Statistics interface
+     * @note always returns empty pointer in runtime NM < 1.4.0
+     */
+    DeviceStatistics::Ptr deviceStatistics() const;
 
     /**
       * Retrieves a specialized interface to interact with the device corresponding

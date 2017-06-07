@@ -408,7 +408,6 @@ void NetworkManager::ActiveConnectionPrivate::propertyChanged(const QString &pro
     } else if (property == QLatin1String("Devices")) {
         devices.clear();
         Q_FOREACH (const QDBusObjectPath & path, qdbus_cast< QList<QDBusObjectPath> >(value)) {
-            qCDebug(NMQT) << "Device append " << path.path();
             devices.append(path.path());
         }
         Q_EMIT q->devicesChanged();

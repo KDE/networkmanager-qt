@@ -125,6 +125,8 @@ void NetworkManager::DevicePrivate::init()
     // we initialize the device type
     deviceType = convertType(deviceIface.deviceType());
 
+    deviceStatistics = DeviceStatistics::Ptr(new NetworkManager::DeviceStatistics(uni), &QObject::deleteLater);
+
     // Get all Device's properties at once
     QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(deviceIface.staticInterfaceName(), uni);
     if (!initialProperties.isEmpty()) {
@@ -562,6 +564,12 @@ QVariant NetworkManager::Device::capabilitiesV() const
     return QVariant(d->capabilities);
 }
 
+NetworkManager::DeviceStatistics::Ptr NetworkManager::Device::deviceStatistics() const
+{
+    Q_D(const Device);
+    return d->deviceStatistics;
+}
+
 void NetworkManager::DevicePrivate::deviceStateChanged(uint newState, uint oldState, uint reason)
 {
     Q_Q(Device);
@@ -574,7 +582,7 @@ void NetworkManager::DevicePrivate::deviceStateChanged(uint newState, uint oldSt
 void NetworkManager::DevicePrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
 {
     Q_UNUSED(invalidatedProperties);
-    if (interfaceName.contains(QLatin1String("org.freedesktop.NetworkManager.Device"))) {
+    if (interfaceName.contains(QLatin1String("org.freedesktop.NetworkManager.Device")) && interfaceName != QLatin1String("org.freedesktop.NetworkManager.Device.Statistics")) {
         propertiesChanged(properties);
     }
 }

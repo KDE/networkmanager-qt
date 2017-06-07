@@ -69,6 +69,7 @@ public:
     uint mtu;
     bool nmPluginMissing;
     Device::MeteredStatus metered;
+    DeviceStatistics::Ptr deviceStatistics;
 
     static NetworkManager::Device::MeteredStatus convertMeteredStatus(uint);
     static NetworkManager::Device::Capabilities convertCapabilities(uint);
