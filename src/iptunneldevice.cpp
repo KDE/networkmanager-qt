@@ -1,6 +1,5 @@
 /*
-    Copyright 2013 Lukáš Tinkl <ltinkl@redhat.com>
-    Copyright 2014 Jan Grulich <jgrulich@redhat.com>
+    Copyright 2017 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
