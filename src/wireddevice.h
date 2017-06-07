@@ -42,6 +42,7 @@ class NETWORKMANAGERQT_EXPORT WiredDevice : public Device
     Q_PROPERTY(QString permanentHardwareAddress READ permanentHardwareAddress)
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
     Q_PROPERTY(int bitRate READ bitRate NOTIFY bitRateChanged)
+    Q_PROPERTY(QStringList s390SubChannels READ s390SubChannels NOTIFY s390SubChannelsChanged)
 
 public:
     typedef QSharedPointer<WiredDevice> Ptr;

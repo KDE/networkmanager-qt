@@ -38,6 +38,7 @@ class NETWORKMANAGERQT_EXPORT TeamDevice : public Device
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
     Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
     Q_PROPERTY(QStringList slaves READ slaves NOTIFY slavesChanged)
+    Q_PROPERTY(QString config READ config NOTIFY configChanged)
 
 public:
     typedef QSharedPointer<TeamDevice> Ptr;
