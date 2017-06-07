@@ -51,6 +51,7 @@ set(NetworkManagerQt_PART_SRCS
     generictypes.cpp
     genericdevice.cpp
     gredevice.cpp
+    iptunneldevice.cpp
     macvlandevice.cpp
     teamdevice.cpp
     tundevice.cpp

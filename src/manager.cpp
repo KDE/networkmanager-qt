@@ -169,7 +169,8 @@ void NetworkManager::NetworkManagerPrivate::init()
                NetworkManager::Device::Team |
                NetworkManager::Device::MacVlan |
                NetworkManager::Device::Tun |
-               NetworkManager::Device::Veth
+               NetworkManager::Device::Veth |
+               NetworkManager::Device::IpTunnel
            );
 
     // Get all Manager's properties async
@@ -363,6 +364,8 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
     case Device::Veth:
         createdInterface = Device::Ptr(new NetworkManager::VethDevice(uni), &QObject::deleteLater);
         break;
+    case Device::IpTunnel:
+        createdInterface = Device::Ptr(new NetworkManager::IpTunnelDevice(uni), &QObject::deleteLater);
     default:
         createdInterface = device;
         if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
