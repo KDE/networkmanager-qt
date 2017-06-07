@@ -99,6 +99,12 @@ bool NetworkManager::TunDevice::vnetHdr() const
     return d->vnetHdr;
 }
 
+QString NetworkManager::TunDevice::hwAddress() const
+{
+    Q_D(const TunDevice);
+    return d->hwAddress;
+}
+
 void NetworkManager::TunDevicePrivate::propertyChanged(const QString &property, const QVariant &value)
 {
     Q_Q(TunDevice);
@@ -121,6 +127,9 @@ void NetworkManager::TunDevicePrivate::propertyChanged(const QString &property, 
     } else if (property == QLatin1String("VnetHdr")) {
         vnetHdr = value.toBool();
         Q_EMIT q->vnetHdrChanged(vnetHdr);
+    } else if (property == QLatin1String("HwAddress")) {
+        hwAddress = value.toString();
+        Q_EMIT q->hwAddressChanged(hwAddress);
     } else {
         DevicePrivate::propertyChanged(property, value);
     }

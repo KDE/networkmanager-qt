@@ -42,6 +42,7 @@ public:
     bool multiQueue;
     bool noPi;
     bool vnetHdr;
+    QString hwAddress;
 
     Q_DECLARE_PUBLIC(TunDevice)
 protected:
