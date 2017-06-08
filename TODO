@@ -14,7 +14,7 @@
         - Reload()
         - CheckpointCreate()
         - CheckpointDestroy()
-        - CheckpointRollback(ú)
+        - CheckpointRollback()
     - Properties:
         - GlobalDnsConfiguration
 
@@ -39,34 +39,81 @@
         - DnsPriority
 
 * New settings and settings properties:
-  - bridge setting
-    - mac-address
-    - multicast-snooping
-  - connection setting
-    - lldp
   - dcb setting
+    -----------------
+    - completely
+
+  - dummy setting
+    -----------------
+    - completely
+
   - ip-tunnel setting
+    -----------------
+    - completely
+
+  - macsec setting
+    -----------------
+    - completely
+
+  - proxy setting
+    -----------------
+    - completely
+
+  - team-port setting
+    -----------------
+    - completely
+
+  - user setting
+    -----------------
+    - completely
+
+  - vxlan setting
+    -----------------
+    - completely
+
   - ipv4 setting
+    -----------------
     - address-data
     - dad-timeout
     - dhcp-fqdn
     - dns-options
+    - dns-priority
+    - route-data
+    - route-metric
+
   - ipv6 setting
+    -----------------
+    - addr-gen-mode
     - address-data
     - dad-timeout
+    - dhcp-timeout
     - dhcp-fqdn
     - dns-options
     - route-data
     - route-metrics
+    - token
+
   - gsm setting
+    ------------------
+    - device-id
     - sim-id
     - sim-operator-id
-  - team-port setting
+
   - vpn setting
+    ------------------
+    - timeout
     - persistent
-  - vxlan setting
+
   - wired setting
+    -----------------
+    - assigned-mac-address
+    - generate-mac-address-mask
     - wake-on-lan
     - wake-on-lan-password
+
   - 802-11-wireless setting
+    -----------------------
+    - assigned-mac-address
+    - generate-mac-address-mask
+    - mac-address-randomization
     - powersave
