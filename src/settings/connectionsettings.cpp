@@ -83,6 +83,10 @@
 #define NM_SETTING_CONNECTION_STABLE_ID "stable-id"
 #endif
 
+#if !NM_CHECK_VERSION(1, 6, 0)
+#define NM_SETTING_CONNECTION_AUTOCONNECT_RETRIES "autoconnect-retries"
+#endif
+
 #include "teamsetting.h"
 #include "genericsetting.h"
 
