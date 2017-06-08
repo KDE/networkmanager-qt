@@ -40,15 +40,19 @@ void BridgeSettingTest::testSetting_data()
     QTest::addColumn<quint16>("helloTime");
     QTest::addColumn<quint16>("maxAge");
     QTest::addColumn<quint32>("ageintTime");
+    QTest::addColumn<bool>("multicastSnooping");
+    QTest::addColumn<QByteArray>("macAddress");
 
     QTest::newRow("setting1")
-            << QString("eth0")          // interfaceName
-            << false                    // stp
-            << (quint16) 10             // priority
-            << (quint16) 5              // forwardDelay
-            << (quint16) 5              // helloTime
-            << (quint16) 10             // maxAge
-            << (quint32) 10000;         // ageintTime
+            << QString("eth0")                      // interfaceName
+            << false                                // stp
+            << (quint16) 10                         // priority
+            << (quint16) 5                          // forwardDelay
+            << (quint16) 5                          // helloTime
+            << (quint16) 10                         // maxAge
+            << (quint32) 10000                      // ageintTime
+            << false                                // multicastSnooping
+            << QByteArray("54:EE:75:53:E9:E4");     // macAddress
 }
 
 void BridgeSettingTest::testSetting()
@@ -60,6 +64,8 @@ void BridgeSettingTest::testSetting()
     QFETCH(quint16, helloTime);
     QFETCH(quint16, maxAge);
     QFETCH(quint32, ageintTime);
+    QFETCH(bool, multicastSnooping);
+    QFETCH(QByteArray, macAddress);
 
     QVariantMap map;
 
@@ -74,6 +80,8 @@ void BridgeSettingTest::testSetting()
     map.insert(QLatin1String(NM_SETTING_BRIDGE_HELLO_TIME), helloTime);
     map.insert(QLatin1String(NM_SETTING_BRIDGE_MAX_AGE), maxAge);
     map.insert(QLatin1String(NM_SETTING_BRIDGE_AGEING_TIME), ageintTime);
+    map.insert(QLatin1String(NM_SETTING_BRIDGE_MULTICAST_SNOOPING), multicastSnooping);
+    map.insert(QLatin1String(NM_SETTING_BRIDGE_MAC_ADDRESS), macAddress);
 
     NetworkManager::BridgeSetting setting;
     setting.fromMap(map);
