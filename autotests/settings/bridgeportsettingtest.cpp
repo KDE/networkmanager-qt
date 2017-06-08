@@ -25,8 +25,13 @@
 #include <nm-version.h>
 #if NM_CHECK_VERSION(1, 0, 0)
 #include <libnm/NetworkManager.h>
+#define NM_SETTING_BRIDGE_MAC_ADDRESS "mac-address"
 #else
 #include <nm-setting-bridge-port.h>
+#endif
+
+#if !NM_CHECK_VERSION(1, 2, 0)
+#define NM_SETTING_BRIDGE_MULTICAST_SNOOPING "multicast-snooping"
 #endif
 
 #include <QTest>
