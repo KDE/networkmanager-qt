@@ -917,6 +917,7 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
             break;
         case Setting::BridgePort:
             dbg.nospace() << *(settingPtr.staticCast<NetworkManager::BridgePortSetting>().data());
+            break;
         case Setting::Cdma:
             dbg.nospace() << *(settingPtr.staticCast<NetworkManager::CdmaSetting>().data());
             break;
