@@ -367,6 +367,7 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
         break;
     case Device::IpTunnel:
         createdInterface = Device::Ptr(new NetworkManager::IpTunnelDevice(uni), &QObject::deleteLater);
+        break;
     default:
         createdInterface = device;
         if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
