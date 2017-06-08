@@ -181,6 +181,7 @@ ecm_generate_headers(NetworkManagerQt_CamelCase_HEADERS
   IpAddress
   IpConfig
   IpRoute
+  IpTunnelDevice
   MacVlanDevice
   Manager
   ModemDevice
