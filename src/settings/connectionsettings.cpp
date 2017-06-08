@@ -69,11 +69,18 @@
 #define signals Q_SIGNALS
 
 #define NM_SETTING_CONNECTION_AUTOCONNECT_PRIORITY "autoconnect-priority"
+#define NM_SETTING_CONNECTION_AUTOCONNECT_SLAVES "autoconnect-slaves"
+#define NM_SETTING_CONNECTION_METERED "metered"
 
 #endif
 
 #if !NM_CHECK_VERSION(1, 2, 0)
 #define NM_SETTING_TUN_SETTING_NAME "tun"
+#define NM_SETTING_CONNECTION_LLDP "lldp"
+#endif
+
+#if !NM_CHECK_VERSION(1, 4, 0)
+#define NM_SETTING_CONNECTION_STABLE_ID "stable-id"
 #endif
 
 #include "teamsetting.h"
@@ -93,6 +100,10 @@ NetworkManager::ConnectionSettingsPrivate::ConnectionSettingsPrivate(ConnectionS
     , readOnly(false)
     , gatewayPingTimeout(0)
     , autoconnectPriority(0)
+    , autoconnectRetries(-1)
+    , autoconnectSlaves(ConnectionSettings::SlavesDefault)
+    , lldp(ConnectionSettings::LldpDefault)
+    , metered(ConnectionSettings::MeteredUnknown)
     , q_ptr(q)
 { }
 
@@ -473,6 +484,12 @@ NetworkManager::ConnectionSettings::ConnectionSettings(const NetworkManager::Con
     setMaster(other->master());
     setSlaveType(other->slaveType());
     setGatewayPingTimeout(other->gatewayPingTimeout());
+    setAutoconnectRetries(other->autoconnectRetries());
+    setAutoconnectSlaves(other->autoconnectSlaves());
+    setLldp(other->lldp());
+    setMetered(other->metered());
+    setStableId(other->stableId());
+
     d->initSettings(other);
 }
 
@@ -545,6 +562,26 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
 
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_GATEWAY_PING_TIMEOUT))) {
         setGatewayPingTimeout(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_GATEWAY_PING_TIMEOUT)).toUInt());
+    }
+
+    if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_RETRIES))) {
+        setAutoconnectRetries(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_RETRIES)).toInt());
+    }
+
+    if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_SLAVES))) {
+        setAutoconnectSlaves((NetworkManager::ConnectionSettings::AutoconnectSlaves)connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_SLAVES)).toInt());
+    }
+
+    if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_LLDP))) {
+        setLldp((NetworkManager::ConnectionSettings::Lldp)connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_LLDP)).toInt());
+    }
+
+    if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_METERED))) {
+        setMetered((NetworkManager::ConnectionSettings::Metered)connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_METERED)).toInt());
+    }
+
+    if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_STABLE_ID))) {
+        setStableId(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_STABLE_ID)).toString());
     }
 
     Q_FOREACH (const Setting::Ptr & setting, settings()) {
@@ -625,6 +662,18 @@ NMVariantMapMap NetworkManager::ConnectionSettings::toMap() const
 
     if (gatewayPingTimeout()) {
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_GATEWAY_PING_TIMEOUT), gatewayPingTimeout());
+    }
+
+    if (autoconnectRetries() >= 0) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_RETRIES), autoconnectRetries());
+    }
+
+    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_SLAVES), autoconnectSlaves());
+    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_LLDP), lldp());
+    connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_METERED), metered());
+
+    if (!stableId().isEmpty()) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_STABLE_ID), stableId());
     }
 
     result.insert(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME), connectionSetting);
@@ -856,6 +905,76 @@ quint32 NetworkManager::ConnectionSettings::gatewayPingTimeout() const
     return d->gatewayPingTimeout;
 }
 
+int NetworkManager::ConnectionSettings::autoconnectRetries() const
+{
+    Q_D(const ConnectionSettings);
+
+    return d->autoconnectRetries;
+}
+
+void NetworkManager::ConnectionSettings::setAutoconnectRetries(int retries)
+{
+    Q_D(ConnectionSettings);
+
+    d->autoconnectRetries = retries;
+}
+
+NetworkManager::ConnectionSettings::AutoconnectSlaves NetworkManager::ConnectionSettings::autoconnectSlaves() const
+{
+    Q_D(const ConnectionSettings);
+
+    return d->autoconnectSlaves;
+}
+
+void NetworkManager::ConnectionSettings::setAutoconnectSlaves(NetworkManager::ConnectionSettings::AutoconnectSlaves autoconnectSlaves)
+{
+    Q_D(ConnectionSettings);
+
+    d->autoconnectSlaves = autoconnectSlaves;
+}
+
+NetworkManager::ConnectionSettings::Lldp NetworkManager::ConnectionSettings::lldp() const
+{
+    Q_D(const ConnectionSettings);
+
+    return d->lldp;
+}
+
+void NetworkManager::ConnectionSettings::setLldp(NetworkManager::ConnectionSettings::Lldp lldp)
+{
+    Q_D(ConnectionSettings);
+
+    d->lldp = lldp;
+}
+
+NetworkManager::ConnectionSettings::Metered NetworkManager::ConnectionSettings::metered() const
+{
+    Q_D(const ConnectionSettings);
+
+    return d->metered;
+}
+
+void NetworkManager::ConnectionSettings::setMetered(NetworkManager::ConnectionSettings::Metered metered)
+{
+    Q_D(ConnectionSettings);
+
+    d->metered = metered;
+}
+
+QString NetworkManager::ConnectionSettings::stableId() const
+{
+    Q_D(const ConnectionSettings);
+
+    return d->stableId;
+}
+
+void NetworkManager::ConnectionSettings::setStableId(const QString &stableId)
+{
+    Q_D(ConnectionSettings);
+
+    d->stableId = stableId;
+}
+
 NetworkManager::Setting::Ptr NetworkManager::ConnectionSettings::setting(Setting::SettingType type) const
 {
     Q_FOREACH (const Setting::Ptr & setting, settings()) {
@@ -898,6 +1017,11 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
     dbg.nospace() << NM_SETTING_CONNECTION_SLAVE_TYPE << ": " << setting.slaveType() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_SECONDARIES << ": " << setting.secondaries() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_GATEWAY_PING_TIMEOUT << ": " << setting.gatewayPingTimeout() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_AUTOCONNECT_RETRIES << ": " << setting.autoconnectRetries() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_AUTOCONNECT_SLAVES << ": " << setting.autoconnectSlaves() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_LLDP << ": " << setting.lldp() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_METERED << ": " << setting.metered() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_STABLE_ID << ": " << setting.stableId() << '\n';
     dbg.nospace() << "===================\n";
     Q_FOREACH (const Setting::Ptr & settingPtr, setting.settings()) {
         dbg.nospace() << settingPtr->typeAsString(settingPtr->type()).toUpper() << " SETTINGS\n";

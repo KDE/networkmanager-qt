@@ -73,6 +73,29 @@ public:
         Tun
     };
 
+    enum AutoconnectSlaves {
+        SlavesDefault = -1,
+        DoNotConnectSlaves = 0,
+        ConnectAllSlaves = 1
+    };
+
+    enum Lldp {
+        LldpDefault = -1,
+        LldpDisable = 0,
+        LldpEnableRx = 1,
+    };
+
+    // FIXME same enum as in device.h, unfortunately it's not possible to use that one
+    // maybe in future move all enums into one header so they can be used across all classes
+    enum Metered {
+        MeteredUnknown = 0,
+        MeteredYes = 1,
+        MeteredNo = 2,
+        MeteredGuessYes = 3,
+        MeteredGuessNo = 4
+    };
+
+
     static ConnectionType typeFromString(const QString &typeString);
     static QString typeAsString(const ConnectionType type);
     static QString createNewUuid();
@@ -133,6 +156,21 @@ public:
 
     void setGatewayPingTimeout(quint32 timeout);
     quint32 gatewayPingTimeout() const;
+
+    void setAutoconnectRetries(int retries);
+    int autoconnectRetries() const;
+
+    void setAutoconnectSlaves(AutoconnectSlaves autoconnectSlaves);
+    AutoconnectSlaves autoconnectSlaves() const;
+
+    void setLldp(Lldp lldp);
+    Lldp lldp() const;
+
+    void setMetered(Metered metered);
+    Metered metered() const;
+
+    void setStableId(const QString &stableId);
+    QString stableId() const;
 
     Setting::Ptr setting(Setting::SettingType type) const;
     Setting::Ptr setting(const QString &type) const;

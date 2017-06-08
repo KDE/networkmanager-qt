@@ -57,6 +57,11 @@ public:
     QStringList secondaries;
     quint32 gatewayPingTimeout;
     int autoconnectPriority;
+    int autoconnectRetries;
+    NetworkManager::ConnectionSettings::AutoconnectSlaves autoconnectSlaves;
+    NetworkManager::ConnectionSettings::Lldp lldp;
+    NetworkManager::ConnectionSettings::Metered metered;
+    QString stableId;
     Setting::List settings;
 
     ConnectionSettings *q_ptr;
