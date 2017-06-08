@@ -23,14 +23,20 @@
 
 #if !NM_CHECK_VERSION(1, 0, 0)
 #include <nm-setting-bridge.h>
+#define NM_SETTING_BRIDGE_MAC_ADDRESS "mac-address"
 #else
 #define NM_SETTING_BRIDGE_INTERFACE_NAME "interface-name"
+#endif
+
+#if !NM_CHECK_VERSION(1, 2, 0)
+#define NM_SETTING_BRIDGE_MULTICAST_SNOOPING "multicast-snooping"
 #endif
 
 #include <QtCore/QDebug>
 
 NetworkManager::BridgeSettingPrivate::BridgeSettingPrivate()
     : name(NM_SETTING_BRIDGE_SETTING_NAME)
+    , multicastSnooping(true)
     , stp(true)
     , priority(128)
     , forwardDelay(15)
@@ -55,6 +61,8 @@ NetworkManager::BridgeSetting::BridgeSetting(const Ptr &other)
     setHelloTime(other->helloTime());
     setMaxAge(other->maxAge());
     setAgingTime(other->agingTime());
+    setMulticastSnooping(other->multicastSnooping());
+    setMacAddress(other->macAddress());
 }
 
 NetworkManager::BridgeSetting::~BridgeSetting()
@@ -167,6 +175,34 @@ quint32 NetworkManager::BridgeSetting::agingTime() const
     return d->agingTime;
 }
 
+void NetworkManager::BridgeSetting::setMulticastSnooping(bool snooping)
+{
+    Q_D(BridgeSetting);
+
+    d->multicastSnooping = snooping;
+}
+
+bool NetworkManager::BridgeSetting::multicastSnooping() const
+{
+    Q_D(const BridgeSetting);
+
+    return d->multicastSnooping;
+}
+
+void NetworkManager::BridgeSetting::setMacAddress(const QByteArray& address)
+{
+    Q_D(BridgeSetting);
+
+    d->macAddress = address;
+}
+
+QByteArray NetworkManager::BridgeSetting::macAddress() const
+{
+    Q_D(const BridgeSetting);
+
+    return d->macAddress;
+}
+
 void NetworkManager::BridgeSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_BRIDGE_INTERFACE_NAME))) {
@@ -194,6 +230,14 @@ void NetworkManager::BridgeSetting::fromMap(const QVariantMap &setting)
 
     if (setting.contains(QLatin1String(NM_SETTING_BRIDGE_AGEING_TIME))) {
         setAgingTime(setting.value(QLatin1String(NM_SETTING_BRIDGE_AGEING_TIME)).toUInt());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_BRIDGE_MULTICAST_SNOOPING))) {
+        setMulticastSnooping(setting.value(QLatin1String(NM_SETTING_BRIDGE_MULTICAST_SNOOPING)).toBool());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_BRIDGE_MAC_ADDRESS))) {
+        setMacAddress(setting.value(QLatin1String(NM_SETTING_BRIDGE_MAC_ADDRESS)).toByteArray());
     }
 }
 
@@ -228,6 +272,14 @@ QVariantMap NetworkManager::BridgeSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_BRIDGE_AGEING_TIME), agingTime());
     }
 
+    if (!multicastSnooping()) {
+        setting.insert(QLatin1String(NM_SETTING_BRIDGE_MULTICAST_SNOOPING), multicastSnooping());
+    }
+
+    if (!macAddress().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_BRIDGE_MAC_ADDRESS), macAddress());
+    }
+
     return setting;
 }
 
@@ -243,6 +295,8 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::BridgeSetti
     dbg.nospace() << NM_SETTING_BRIDGE_HELLO_TIME << ": " << setting.helloTime() << '\n';
     dbg.nospace() << NM_SETTING_BRIDGE_MAX_AGE << ": " << setting.maxAge() << '\n';
     dbg.nospace() << NM_SETTING_BRIDGE_AGEING_TIME << ": " << setting.agingTime() << '\n';
+    dbg.nospace() << NM_SETTING_BRIDGE_MULTICAST_SNOOPING << ": " << setting.multicastSnooping() << '\n';
+    dbg.nospace() << NM_SETTING_BRIDGE_MAC_ADDRESS << ": " << setting.macAddress() << '\n';
 
     return dbg.maybeSpace();
 }

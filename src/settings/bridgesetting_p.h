@@ -33,12 +33,14 @@ public:
 
     QString name;
     QString interfaceName;
+    bool multicastSnooping;
     bool stp;
     quint32 priority;
     quint32 forwardDelay;
     quint32 helloTime;
     quint32 maxAge;
     quint32 agingTime;
+    QByteArray macAddress;
 };
 
 }

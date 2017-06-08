@@ -67,6 +67,12 @@ public:
     void setAgingTime(quint32 time);
     quint32 agingTime() const;
 
+    void setMulticastSnooping(bool snooping);
+    bool multicastSnooping() const;
+
+    void setMacAddress(const QByteArray &address);
+    QByteArray macAddress() const;
+
     void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
     QVariantMap toMap() const Q_DECL_OVERRIDE;
