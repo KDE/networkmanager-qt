@@ -82,6 +82,15 @@ public:
     void setHomeOnly(bool homeOnly);
     bool homeOnly() const;
 
+    void setDeviceId(const QString &id);
+    QString deviceId() const;
+
+    void setSimId(const QString &id);
+    QString simId() const;
+
+    void setSimOperatorId(const QString &id);
+    QString simOperatorId() const;
+
     void secretsFromMap(const QVariantMap &secrets) Q_DECL_OVERRIDE;
 
     QVariantMap secretsToMap() const Q_DECL_OVERRIDE;

@@ -93,12 +93,6 @@
     - route-metrics
     - token
 
-  - gsm setting
-    ------------------
-    - device-id
-    - sim-id
-    - sim-operator-id
-
   - vpn setting
     ------------------
     - timeout

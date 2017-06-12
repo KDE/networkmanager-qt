@@ -31,6 +31,12 @@
 #define NM_SETTING_GSM_ALLOWED_BANDS "allowed-bands"
 #endif
 
+#if !NM_CHECK_VERSION(1, 2, 0)
+#define NM_SETTING_GSM_DEVICE_ID "device-id"
+#define NM_SETTING_GSM_SIM_ID "sim-id"
+#define NM_SETTING_GSM_SIM_OPERATOR_ID "sim-operator-id"
+#endif
+
 #include <QtCore/QDebug>
 
 NetworkManager::GsmSettingPrivate::GsmSettingPrivate()
@@ -62,6 +68,9 @@ NetworkManager::GsmSetting::GsmSetting(const Ptr &other)
     setPinFlags(other->pinFlags());
     setAllowedBand(other->allowedBand());
     setHomeOnly(other->homeOnly());
+    setDeviceId(other->deviceId());
+    setSimId(other->simId());
+    setSimOperatorId(other->simOperatorId());
 }
 
 NetworkManager::GsmSetting::~GsmSetting()
@@ -230,6 +239,48 @@ bool NetworkManager::GsmSetting::homeOnly() const
     return d->homeOnly;
 }
 
+void NetworkManager::GsmSetting::setDeviceId(const QString &id)
+{
+    Q_D(GsmSetting);
+
+    d->deviceId = id;
+}
+
+QString NetworkManager::GsmSetting::deviceId() const
+{
+    Q_D(const GsmSetting);
+
+    return d->deviceId;
+}
+
+void NetworkManager::GsmSetting::setSimId(const QString &id)
+{
+    Q_D(GsmSetting);
+
+    d->simId = id;
+}
+
+QString NetworkManager::GsmSetting::simId() const
+{
+    Q_D(const GsmSetting);
+
+    return d->simId;
+}
+
+void NetworkManager::GsmSetting::setSimOperatorId(const QString &id)
+{
+    Q_D(GsmSetting);
+
+    d->simOperatorId = id;
+}
+
+QString NetworkManager::GsmSetting::simOperatorId() const
+{
+    Q_D(const GsmSetting);
+
+    return d->simOperatorId;
+}
+
 void NetworkManager::GsmSetting::secretsFromMap(const QVariantMap &secrets)
 {
     if (secrets.contains(QLatin1String(NM_SETTING_GSM_PASSWORD))) {
@@ -314,8 +365,21 @@ void NetworkManager::GsmSetting::fromMap(const QVariantMap &setting)
     if (setting.contains(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS))) {
         setAllowedBand(setting.value(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS)).toUInt());
     }
+
     if (setting.contains(QLatin1String(NM_SETTING_GSM_HOME_ONLY))) {
         setHomeOnly(setting.value(QLatin1String(NM_SETTING_GSM_HOME_ONLY)).toBool());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_GSM_DEVICE_ID))) {
+        setDeviceId(setting.value(QLatin1String(NM_SETTING_GSM_DEVICE_ID)).toString());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_GSM_SIM_ID))) {
+        setSimId(setting.value(QLatin1String(NM_SETTING_GSM_SIM_ID)).toString());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_GSM_SIM_OPERATOR_ID))) {
+        setSimOperatorId(setting.value(QLatin1String(NM_SETTING_GSM_SIM_OPERATOR_ID)).toString());
     }
 }
 
@@ -363,6 +427,18 @@ QVariantMap NetworkManager::GsmSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_GSM_HOME_ONLY), homeOnly());
     }
 
+    if (!deviceId().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_GSM_DEVICE_ID), deviceId());
+    }
+
+    if (!simId().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_GSM_SIM_ID), simId());
+    }
+
+    if (!simOperatorId().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_GSM_SIM_OPERATOR_ID), simOperatorId());
+    }
+
     return setting;
 }
 
@@ -382,6 +458,9 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::GsmSetting 
     dbg.nospace() << NM_SETTING_GSM_PIN << ": " << setting.pin() << '\n';
     dbg.nospace() << NM_SETTING_GSM_PIN_FLAGS << ": " << setting.pinFlags() << '\n';
     dbg.nospace() << NM_SETTING_GSM_HOME_ONLY << ": " << setting.homeOnly() << '\n';
+    dbg.nospace() << NM_SETTING_GSM_DEVICE_ID << ": " << setting.deviceId() << '\n';
+    dbg.nospace() << NM_SETTING_GSM_SIM_ID << ": " << setting.simId() << '\n';
+    dbg.nospace() << NM_SETTING_GSM_SIM_OPERATOR_ID << ": " << setting.simOperatorId() << '\n';
 
     return dbg.maybeSpace();
 }

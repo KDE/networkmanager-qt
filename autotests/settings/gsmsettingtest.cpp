@@ -29,6 +29,12 @@
 #include <nm-setting-gsm.h>
 #endif
 
+#if !NM_CHECK_VERSION(1, 2, 0)
+#define NM_SETTING_GSM_DEVICE_ID "device-id"
+#define NM_SETTING_GSM_SIM_ID "sim-id"
+#define NM_SETTING_GSM_SIM_OPERATOR_ID "sim-operator-id"
+#endif
+
 #include <QTest>
 
 void GsmSettingTest::testSetting_data()
@@ -44,6 +50,9 @@ void GsmSettingTest::testSetting_data()
     QTest::addColumn<qint32>("pinFlags");
     QTest::addColumn<quint32>("allowedBand");
     QTest::addColumn<bool>("homeOnly");
+    QTest::addColumn<QString>("deviceId");
+    QTest::addColumn<QString>("simId");
+    QTest::addColumn<QString>("simOperatorId");
 
     QTest::newRow("setting1")
             << QString("0123456789")    // number
@@ -56,7 +65,10 @@ void GsmSettingTest::testSetting_data()
             << QString("1010")          // pin
             << (qint32) 4               // pinFlags
             << (quint32) 0              // allowedBand
-            << true;                    // homeOnly
+            << true                     // homeOnly
+            << QString("someDeviceId")  // deviceId
+            << QString("someSimId")     // simId
+            << QString("someSimOperatorId"); // simOperatorId
 }
 
 void GsmSettingTest::testSetting()
@@ -72,6 +84,9 @@ void GsmSettingTest::testSetting()
     QFETCH(qint32, pinFlags);
     QFETCH(quint32, allowedBand);
     QFETCH(bool, homeOnly);
+    QFETCH(QString, deviceId);
+    QFETCH(QString, simId);
+    QFETCH(QString, simOperatorId);
 
     QVariantMap map;
 
@@ -91,6 +106,9 @@ void GsmSettingTest::testSetting()
     map.insert(QLatin1String(NM_SETTING_GSM_PIN), pin);
     map.insert(QLatin1String(NM_SETTING_GSM_PIN_FLAGS), pinFlags);
     map.insert(QLatin1String(NM_SETTING_GSM_HOME_ONLY), homeOnly);
+    map.insert(QLatin1String(NM_SETTING_GSM_DEVICE_ID), deviceId);
+    map.insert(QLatin1String(NM_SETTING_GSM_SIM_ID), simId);
+    map.insert(QLatin1String(NM_SETTING_GSM_SIM_OPERATOR_ID), simOperatorId);
 
     NetworkManager::GsmSetting setting;
     setting.fromMap(map);

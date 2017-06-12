@@ -43,6 +43,9 @@ public:
     NetworkManager::Setting::SecretFlags pinFlags;
     quint32 allowedBand;
     bool homeOnly;
+    QString deviceId;
+    QString simId;
+    QString simOperatorId;
 };
 
 }
