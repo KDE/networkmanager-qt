@@ -93,13 +93,6 @@
     - route-metrics
     - token
 
-  - wired setting
-    -----------------
-    - assigned-mac-address
-    - generate-mac-address-mask
-    - wake-on-lan
-    - wake-on-lan-password
-
   - 802-11-wireless setting
     -----------------------
     - assigned-mac-address

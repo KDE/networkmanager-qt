@@ -26,6 +26,10 @@
 #include <nm-setting-wired.h>
 #endif
 
+#if !NM_CHECK_VERSION(1, 4, 0)
+#define NM_SETTING_WIRED_GENERATE_MAC_ADDRESS_MASK "generate-mac-address-mask"
+#endif
+
 #include <QtCore/QDebug>
 
 NetworkManager::WiredSettingPrivate::WiredSettingPrivate()
@@ -33,9 +37,9 @@ NetworkManager::WiredSettingPrivate::WiredSettingPrivate()
     , port(NetworkManager::WiredSetting::UnknownPort)
     , speed(0)
     , duplex(NetworkManager::WiredSetting::UnknownDuplexType)
-    // , autonegotiate(false)
     , mtu(0)
     , s390NetType(NetworkManager::WiredSetting::Undefined)
+    , wakeOnLan(NetworkManager::WiredSetting::WakeOnLanDefault)
 {
     if (NetworkManager::checkVersion(1, 6, 0)) {
         autoNegotiate = false;
@@ -57,6 +61,7 @@ NetworkManager::WiredSetting::WiredSetting(const WiredSetting::Ptr &other)
     setSpeed(other->speed());
     setDuplexType(other->duplexType());
     setAutoNegotiate(other->autoNegotiate());
+    setGenerateMacAddressMask(other->generateMacAddressMask());
     setMacAddress(other->macAddress());
     setClonedMacAddress(other->clonedMacAddress());
     setMacAddressBlacklist(other->macAddressBlacklist());
@@ -64,6 +69,8 @@ NetworkManager::WiredSetting::WiredSetting(const WiredSetting::Ptr &other)
     setS390Subchannels(other->s390Subchannels());
     setS390NetType(other->s390NetType());
     setS390Options(other->s390Options());
+    setWakeOnLan(other->wakeOnLan());
+    setWakeOnLanPassword(other->wakeOnLanPassword());
 }
 
 NetworkManager::WiredSetting::~WiredSetting()
@@ -132,6 +139,20 @@ bool NetworkManager::WiredSetting::autoNegotiate() const
     Q_D(const WiredSetting);
 
     return d->autoNegotiate;
+}
+
+QString NetworkManager::WiredSetting::generateMacAddressMask() const
+{
+    Q_D(const WiredSetting);
+
+    return d->generateMacAddressMask;
+}
+
+void NetworkManager::WiredSetting::setGenerateMacAddressMask(const QString& mask)
+{
+    Q_D(WiredSetting);
+
+    d->generateMacAddressMask = mask;
 }
 
 void NetworkManager::WiredSetting::setMacAddress(const QByteArray &address)
@@ -232,6 +253,34 @@ QMap<QString, QString> NetworkManager::WiredSetting::s390Options() const
     return d->s390Options;
 }
 
+NetworkManager::WiredSetting::WakeOnLanFlags NetworkManager::WiredSetting::wakeOnLan() const
+{
+    Q_D(const WiredSetting);
+
+    return d->wakeOnLan;
+}
+
+void NetworkManager::WiredSetting::setWakeOnLan(NetworkManager::WiredSetting::WakeOnLanFlags wol)
+{
+    Q_D(WiredSetting);
+
+    d->wakeOnLan = wol;
+}
+
+QString NetworkManager::WiredSetting::wakeOnLanPassword() const
+{
+    Q_D(const WiredSetting);
+
+    return d->wakeOnLanPassword;
+}
+
+void NetworkManager::WiredSetting::setWakeOnLanPassword(const QString& password)
+{
+    Q_D(WiredSetting);
+
+    d->wakeOnLanPassword = password;
+}
+
 void NetworkManager::WiredSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_PORT))) {
@@ -264,6 +313,10 @@ void NetworkManager::WiredSetting::fromMap(const QVariantMap &setting)
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_AUTO_NEGOTIATE))) {
         setAutoNegotiate(setting.value(QLatin1String(NM_SETTING_WIRED_AUTO_NEGOTIATE)).toBool());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_GENERATE_MAC_ADDRESS_MASK))) {
+        setGenerateMacAddressMask(setting.value(QLatin1String(NM_SETTING_WIRED_GENERATE_MAC_ADDRESS_MASK)).toString());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS))) {
@@ -308,6 +361,14 @@ void NetworkManager::WiredSetting::fromMap(const QVariantMap &setting)
         }
         setS390Options(tmp);
     }
+
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_WAKE_ON_LAN))) {
+        setWakeOnLan((NetworkManager::WiredSetting::WakeOnLanFlags)setting.value(QLatin1String(NM_SETTING_WIRED_WAKE_ON_LAN)).toUInt());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_WAKE_ON_LAN_PASSWORD))) {
+        setWakeOnLanPassword(setting.value(QLatin1String(NM_SETTING_WIRED_WAKE_ON_LAN_PASSWORD)).toString());
+    }
 }
 
 QVariantMap NetworkManager::WiredSetting::toMap() const
@@ -351,6 +412,10 @@ QVariantMap NetworkManager::WiredSetting::toMap() const
         }
     }
 
+    if (!generateMacAddressMask().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRED_GENERATE_MAC_ADDRESS_MASK), generateMacAddressMask());
+    }
+
     if (!macAddress().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS), macAddress());
     }
@@ -385,6 +450,12 @@ QVariantMap NetworkManager::WiredSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS), QVariant::fromValue(s390Options()));
     }
 
+    setting.insert(QLatin1String(NM_SETTING_WIRED_WAKE_ON_LAN), (uint)wakeOnLan());
+
+    if (!wakeOnLanPassword().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRED_WAKE_ON_LAN_PASSWORD), wakeOnLanPassword());
+    }
+
     return setting;
 }
 
@@ -397,6 +468,7 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WiredSettin
     dbg.nospace() << NM_SETTING_WIRED_SPEED << ": " << setting.speed() << '\n';
     dbg.nospace() << NM_SETTING_WIRED_DUPLEX << ": " << setting.duplexType() << '\n';
     dbg.nospace() << NM_SETTING_WIRED_AUTO_NEGOTIATE << ": " << setting.autoNegotiate() << '\n';
+    dbg.nospace() << NM_SETTING_WIRED_GENERATE_MAC_ADDRESS_MASK << ": " << setting.generateMacAddressMask() << '\n';
     dbg.nospace() << NM_SETTING_WIRED_MAC_ADDRESS << ": " << setting.macAddress() << '\n';
     dbg.nospace() << NM_SETTING_WIRED_CLONED_MAC_ADDRESS << ": " << setting.clonedMacAddress() << '\n';
     dbg.nospace() << NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST << ": " << setting.macAddressBlacklist() << '\n';
@@ -404,6 +476,8 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WiredSettin
     dbg.nospace() << NM_SETTING_WIRED_S390_SUBCHANNELS << ": " << setting.s390Subchannels() << '\n';
     dbg.nospace() << NM_SETTING_WIRED_S390_NETTYPE << ": " << setting.s390NetType() << '\n';
     dbg.nospace() << NM_SETTING_WIRED_S390_OPTIONS << ": " << setting.s390Options() << '\n';
+    dbg.nospace() << NM_SETTING_WIRED_WAKE_ON_LAN << ": " << setting.wakeOnLan() << '\n';
+    dbg.nospace() << NM_SETTING_WIRED_WAKE_ON_LAN_PASSWORD << ": " << setting.wakeOnLanPassword() << '\n';
 
     return dbg.maybeSpace();
 }

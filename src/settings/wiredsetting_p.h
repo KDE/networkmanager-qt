@@ -44,6 +44,9 @@ public:
     QStringList s390Subchannels;
     NetworkManager::WiredSetting::S390Nettype s390NetType;
     QMap<QString, QString> s390Options;
+    QString generateMacAddressMask;
+    NetworkManager::WiredSetting::WakeOnLanFlags wakeOnLan;
+    QString wakeOnLanPassword;
 };
 
 }

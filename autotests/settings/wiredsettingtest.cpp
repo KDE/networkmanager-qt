@@ -38,6 +38,7 @@ void WiredSettingTest::testSetting_data()
     QTest::addColumn<quint32>("speed");
     QTest::addColumn<QString>("duplex");
     QTest::addColumn<bool>("autoNegotiate");
+    QTest::addColumn<QString>("generateMacAddressMask");
     QTest::addColumn<QByteArray>("macAddress");
     QTest::addColumn<QByteArray>("clonedMacAddress");
     QTest::addColumn<QStringList>("macAddressBlacklist");
@@ -45,6 +46,8 @@ void WiredSettingTest::testSetting_data()
     QTest::addColumn<QStringList>("s390Subchannels");
     QTest::addColumn<QString>("s390NetType");
     QTest::addColumn<NMStringMap>("s390Options");
+    QTest::addColumn<uint>("wakeOnLan");
+    QTest::addColumn<QString>("wakeOnLanPassword");
 
     QStringList macAddressBlacklist;
     macAddressBlacklist << "00:08:C7:1B:8C:02";
@@ -58,17 +61,20 @@ void WiredSettingTest::testSetting_data()
     s390Options.insert("portno", "0");
 
     QTest::newRow("setting1")
-            << QString("tp")                    // port
-            << (quint32) 100                    // speed
-            << QString("full")                  // duplex
-            << false                            // autoNegotiate
-            << QByteArray("00-B0-D0-86-BB-F7")  // macAddress
-            << QByteArray("00-14-22-01-23-4")   // clonedMacAddress
-            << macAddressBlacklist              // macAddressBlacklist
-            << (quint32) 200                    // mtu
-            << s390Subchannels                  // s390Subchannels
-            << QString("qeth")                  // s390NetType
-            << s390Options;                     // s390Options
+            << QString("tp")                                  // port
+            << (quint32) 100                                  // speed
+            << QString("full")                                // duplex
+            << false                                          // autoNegotiate
+            << QString("FE:FF:FF:00:00:00 68:F7:28:00:00:00") // generateMacAddressMask
+            << QByteArray("00-B0-D0-86-BB-F7")                // macAddress
+            << QByteArray("00-14-22-01-23-4")                 // clonedMacAddress
+            << macAddressBlacklist                            // macAddressBlacklist
+            << (quint32) 200                                  // mtu
+            << s390Subchannels                                // s390Subchannels
+            << QString("qeth")                                // s390NetType
+            << s390Options                                    // s390Options
+            << (uint)(NetworkManager::WiredSetting::WakeOnLanMulticast | NetworkManager::WiredSetting::WakeOnLanMagic) // wakeOnLan
+            << QString("password");                           // wakeOnLanPassword
 }
 
 void WiredSettingTest::testSetting()
@@ -77,6 +83,7 @@ void WiredSettingTest::testSetting()
     QFETCH(quint32, speed);
     QFETCH(QString, duplex);
     QFETCH(bool, autoNegotiate);
+    QFETCH(QString, generateMacAddressMask);
     QFETCH(QByteArray, macAddress);
     QFETCH(QByteArray, clonedMacAddress);
     QFETCH(QStringList, macAddressBlacklist);
@@ -84,6 +91,8 @@ void WiredSettingTest::testSetting()
     QFETCH(QStringList, s390Subchannels);
     QFETCH(QString, s390NetType);
     QFETCH(NMStringMap, s390Options);
+    QFETCH(uint, wakeOnLan);
+    QFETCH(QString, wakeOnLanPassword);
 
     QVariantMap map;
 
@@ -91,6 +100,7 @@ void WiredSettingTest::testSetting()
     map.insert(QLatin1String(NM_SETTING_WIRED_SPEED), speed);
     map.insert(QLatin1String(NM_SETTING_WIRED_DUPLEX), duplex);
     map.insert(QLatin1String(NM_SETTING_WIRED_AUTO_NEGOTIATE), autoNegotiate);
+    map.insert(QLatin1String(NM_SETTING_WIRED_GENERATE_MAC_ADDRESS_MASK), generateMacAddressMask);
     map.insert(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS), macAddress);
     map.insert(QLatin1String(NM_SETTING_WIRED_CLONED_MAC_ADDRESS), clonedMacAddress);
     map.insert(QLatin1String(NM_SETTING_WIRED_MAC_ADDRESS_BLACKLIST), macAddressBlacklist);
@@ -98,6 +108,8 @@ void WiredSettingTest::testSetting()
     map.insert(QLatin1String(NM_SETTING_WIRED_S390_SUBCHANNELS), s390Subchannels);
     map.insert(QLatin1String(NM_SETTING_WIRED_S390_NETTYPE), s390NetType);
     map.insert(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS), QVariant::fromValue(s390Options));
+    map.insert(QLatin1String(NM_SETTING_WIRED_WAKE_ON_LAN), wakeOnLan);
+    map.insert(QLatin1String(NM_SETTING_WIRED_WAKE_ON_LAN_PASSWORD), wakeOnLanPassword);
 
     NetworkManager::WiredSetting setting;
     setting.fromMap(map);

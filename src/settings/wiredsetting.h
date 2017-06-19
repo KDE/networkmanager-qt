@@ -39,9 +39,40 @@ class NETWORKMANAGERQT_EXPORT WiredSetting : public Setting
 public:
     typedef QSharedPointer<WiredSetting> Ptr;
     typedef QList<Ptr> List;
-    enum PortType {UnknownPort = 0, Tp, Aui, Bnc, Mii};
-    enum DuplexType {UnknownDuplexType = 0, Half, Full};
-    enum S390Nettype {Undefined = 0, Qeth, Lcs, Ctc};
+    enum PortType {
+        UnknownPort = 0,
+        Tp,
+        Aui,
+        Bnc,
+        Mii
+    };
+
+    enum DuplexType {
+        UnknownDuplexType = 0,
+        Half,
+        Full
+    };
+
+    enum S390Nettype {
+        Undefined = 0,
+        Qeth,
+        Lcs,
+        Ctc
+    };
+
+    enum WakeOnLanFlag {
+        WakeOnLanPhy = 1 << 1,
+        WakeOnLanUnicast = 1 << 2,
+        WakeOnLanMulticast = 1 << 3,
+        WakeOnLanBroadcast = 1 << 4,
+        WakeOnLanArp = 1 << 5,
+        WakeOnLanMagic = 1 << 6,
+        /* Special values */
+        WakeOnLanDefault = 1 << 0,
+        WakeOnLanIgnore = 1 << 15
+    };
+    Q_DECLARE_FLAGS(WakeOnLanFlags, WakeOnLanFlag)
+    Q_FLAGS(WakeOnLanFlag)
 
     WiredSetting();
     explicit WiredSetting(const Ptr &other);
@@ -60,6 +91,9 @@ public:
 
     void setAutoNegotiate(bool autoNegotiate);
     bool autoNegotiate() const;
+
+    QString generateMacAddressMask() const;
+    void setGenerateMacAddressMask(const QString& mask);
 
     void setMacAddress(const QByteArray &address);
     QByteArray macAddress() const;
@@ -82,6 +116,12 @@ public:
     void setS390Options(const QMap<QString, QString> &options);
     QMap<QString, QString> s390Options() const;
 
+    WakeOnLanFlags wakeOnLan() const;
+    void setWakeOnLan(WakeOnLanFlags wol);
+
+    QString wakeOnLanPassword() const;
+    void setWakeOnLanPassword(const QString& password);
+
     void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
 
     QVariantMap toMap() const Q_DECL_OVERRIDE;
@@ -94,6 +134,8 @@ private:
 };
 
 NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const WiredSetting &setting);
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(WiredSetting::WakeOnLanFlags)
 
 }
 
