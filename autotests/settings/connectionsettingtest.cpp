@@ -29,6 +29,9 @@
 #include <nm-setting-connection.h>
 #define NM_SETTING_CONNECTION_AUTOCONNECT_PRIORITY "autoconnect-priority"
 #define NM_SETTING_CONNECTION_AUTOCONNECT_SLAVES "autoconnect-slaves"
+#endif
+
+#if !NM_CHECK_VERSION(1, 0, 6)
 #define NM_SETTING_CONNECTION_METERED "metered"
 #endif
 

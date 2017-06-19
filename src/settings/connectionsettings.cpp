@@ -70,8 +70,11 @@
 
 #define NM_SETTING_CONNECTION_AUTOCONNECT_PRIORITY "autoconnect-priority"
 #define NM_SETTING_CONNECTION_AUTOCONNECT_SLAVES "autoconnect-slaves"
-#define NM_SETTING_CONNECTION_METERED "metered"
 
+#endif
+
+#if !NM_CHECK_VERSION(1, 0, 6)
+#define NM_SETTING_CONNECTION_METERED "metered"
 #endif
 
 #if !NM_CHECK_VERSION(1, 2, 0)
