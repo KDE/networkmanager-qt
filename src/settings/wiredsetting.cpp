@@ -26,6 +26,11 @@
 #include <nm-setting-wired.h>
 #endif
 
+#if !NM_CHECK_VERSION(1, 0, 6)
+#define NM_SETTING_WIRED_WAKE_ON_LAN "wake-on-lan"
+#define NM_SETTING_WIRED_WAKE_ON_LAN_PASSWORD "wake-on-lan-password"
+#endif
+
 #if !NM_CHECK_VERSION(1, 4, 0)
 #define NM_SETTING_WIRED_GENERATE_MAC_ADDRESS_MASK "generate-mac-address-mask"
 #endif
