@@ -29,6 +29,10 @@
 #include <nm-setting-bond.h>
 #endif
 
+#if !NM_CHECK_VERSION(1, 2, 0)
+#define NM_SETTING_BRIDGE_MULTICAST_SNOOPING "multicast-snooping"
+#endif
+
 #include <QTest>
 
 void BondSettingTest::testSetting_data()
