@@ -30,6 +30,10 @@
 #include <nm-setting-wired.h>
 #endif
 
+#if !NM_CHECK_VERSION(1, 4, 0)
+#define NM_SETTING_WIRED_GENERATE_MAC_ADDRESS_MASK "generate-mac-address-mask"
+#endif
+
 #include <QTest>
 
 void WiredSettingTest::testSetting_data()
