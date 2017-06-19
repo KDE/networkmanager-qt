@@ -26,8 +26,15 @@
 #include <nm-setting-vpn.h>
 #endif
 
+#if !NM_CHECK_VERSION(1, 2, 0)
+#define NM_SETTING_VPN_PERSISTENT "persistent"
+#define NM_SETTING_VPN_TIMEOUT "timeout"
+#endif
+
 NetworkManager::VpnSettingPrivate::VpnSettingPrivate()
     : name(NM_SETTING_VPN_SETTING_NAME)
+    , persistent(false)
+    , timeout(0)
 { }
 
 NetworkManager::VpnSetting::VpnSetting()
@@ -43,6 +50,8 @@ NetworkManager::VpnSetting::VpnSetting(const Ptr &other)
     setUsername(other->username());
     setData(other->data());
     setSecrets(other->secrets());
+    setPersistent(other->persistent());
+    setTimeout(other->timeout());
 }
 
 NetworkManager::VpnSetting::~VpnSetting()
@@ -55,6 +64,34 @@ QString NetworkManager::VpnSetting::name() const
     Q_D(const VpnSetting);
 
     return d->name;
+}
+
+bool NetworkManager::VpnSetting::persistent() const
+{
+    Q_D(const VpnSetting);
+
+    return d->persistent;
+}
+
+void NetworkManager::VpnSetting::setPersistent(bool persistent)
+{
+    Q_D(VpnSetting);
+
+    d->persistent = persistent;
+}
+
+uint NetworkManager::VpnSetting::timeout() const
+{
+    Q_D(const VpnSetting);
+
+    return d->timeout;
+}
+
+void NetworkManager::VpnSetting::setTimeout(uint timeout)
+{
+    Q_D(VpnSetting);
+
+    d->timeout = timeout;
 }
 
 void NetworkManager::VpnSetting::setServiceType(const QString &type)
@@ -148,6 +185,14 @@ void NetworkManager::VpnSetting::fromMap(const QVariantMap &setting)
     if (setting.contains(QLatin1String(NM_SETTING_VPN_SECRETS))) {
         setSecrets(qdbus_cast<NMStringMap>(setting.value(QLatin1String(NM_SETTING_VPN_SECRETS))));
     }
+
+    if (setting.contains(QLatin1String(NM_SETTING_VPN_PERSISTENT))) {
+        setPersistent(setting.value(QLatin1String(NM_SETTING_VPN_PERSISTENT)).toBool());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_VPN_TIMEOUT))) {
+        setTimeout(setting.value(QLatin1String(NM_SETTING_VPN_TIMEOUT)).toUInt());
+    }
 }
 
 QVariantMap NetworkManager::VpnSetting::toMap() const
@@ -169,6 +214,9 @@ QVariantMap NetworkManager::VpnSetting::toMap() const
     if (!secrets().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_VPN_SECRETS), QVariant::fromValue<NMStringMap>(secrets()));
     }
+
+    setting.insert(QLatin1String(NM_SETTING_VPN_PERSISTENT), persistent());
+    setting.insert(QLatin1String(NM_SETTING_VPN_TIMEOUT), timeout());
 
     return setting;
 }
@@ -214,6 +262,8 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::VpnSetting 
     dbg.nospace() << NM_SETTING_VPN_USER_NAME << ": " << setting.username() << '\n';
     dbg.nospace() << NM_SETTING_VPN_DATA << ": " << setting.data() << '\n';
     dbg.nospace() << NM_SETTING_VPN_SECRETS << ": " << setting.secrets() << '\n';
+    dbg.nospace() << NM_SETTING_VPN_PERSISTENT << ": " << setting.persistent() << '\n';
+    dbg.nospace() << NM_SETTING_VPN_TIMEOUT << ": " << setting.timeout() << '\n';
 
     return dbg.maybeSpace();
 }

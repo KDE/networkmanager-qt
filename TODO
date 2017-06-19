@@ -93,11 +93,6 @@
     - route-metrics
     - token
 
-  - vpn setting
-    ------------------
-    - timeout
-    - persistent
-
   - wired setting
     -----------------
     - assigned-mac-address

@@ -45,8 +45,14 @@ public:
 
     QString name() const Q_DECL_OVERRIDE;
 
+    bool persistent() const;
+    void setPersistent(bool persistent);
+
     void setServiceType(const QString &type);
     QString serviceType() const;
+
+    uint timeout() const;
+    void setTimeout(uint timeout);
 
     void setUsername(const QString &username);
     QString username() const;

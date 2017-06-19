@@ -22,6 +22,7 @@ NETWORKMANAGERQT_AUTOTESTS(
     pppoesettingtest
     serialsettingtest
     vlansettingtest
+    vpnsettingtest
     wimaxsettingtest
     wiredsettingtest
     wirelesssettingtest

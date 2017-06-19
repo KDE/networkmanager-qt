@@ -1,5 +1,5 @@
 /*
-    Copyright 2012-2013  Jan Grulich <jgrulich@redhat.com>
+    Copyright 2017 Jan Grulich <jgrulich@redhat.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -18,30 +18,20 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NETWORKMANAGERQT_VPN_SETTING_P_H
-#define NETWORKMANAGERQT_VPN_SETTING_P_H
+#ifndef NETWORKMANAGERQT_VPNSETTING_TEST_H
+#define NETWORKMANAGERQT_VPNSETTING_TEST_H
 
-#include "generictypes.h"
+#include <QObject>
 
-#include <QtCore/QString>
-
-namespace NetworkManager
+class VpnSettingTest : public QObject
 {
+    Q_OBJECT
 
-class VpnSettingPrivate
-{
-public:
-    VpnSettingPrivate();
-
-    QString name;
-    QString serviceType;
-    QString username;
-    NMStringMap data;
-    NMStringMap secrets;
-    bool persistent;
-    uint timeout;
+private Q_SLOTS:
+    void testSetting_data();
+    void testSetting();
 };
 
-}
+#endif // NETWORKMANAGERQT_VPNSETTING_TEST_H
 
-#endif // NETWORKMANAGERQT_VPN_SETTING_P_H
+
