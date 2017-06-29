@@ -40,8 +40,25 @@ class NETWORKMANAGERQT_EXPORT WirelessSetting : public Setting
 public:
     typedef QSharedPointer<WirelessSetting> Ptr;
     typedef QList<Ptr> List;
-    enum NetworkMode {Infrastructure, Adhoc, Ap};
-    enum FrequencyBand {Automatic, A, Bg};
+
+    enum NetworkMode {
+        Infrastructure,
+        Adhoc,
+        Ap
+    };
+
+    enum FrequencyBand {
+        Automatic,
+        A,
+        Bg
+    };
+
+    enum PowerSave {
+        PowerSaveDefault = NM_SETTING_WIRELESS_POWERSAVE_DEFAULT,
+        PowerSaveIgnore = NM_SETTING_WIRELESS_POWERSAVE_IGNORE,
+        PowerSaveDisable = NM_SETTING_WIRELESS_POWERSAVE_DISABLE,
+        PowerSaveEnable = NM_SETTING_WIRELESS_POWERSAVE_ENABLE
+    };
 
     WirelessSetting();
     explicit WirelessSetting(const Ptr &setting);
@@ -76,14 +93,23 @@ public:
     void setClonedMacAddress(const QByteArray &address);
     QByteArray clonedMacAddress() const;
 
+    void setGenerateMacAddressMask(const QString &macAddressMask);
+    QString generateMacAddressMask() const;
+
     void setMacAddressBlacklist(const QStringList &list);
     QStringList macAddressBlacklist() const;
+
+    void setMacAddressRandomization(MacAddressRandomization randomization);
+    MacAddressRandomization macAddressRandomization() const;
 
     void setMtu(quint32 mtu);
     quint32 mtu() const;
 
     void setSeenBssids(const QStringList &list);
     QStringList seenBssids() const;
+
+    void setPowerSave(PowerSave powersave);
+    PowerSave powerSave() const;
 
     /// @deprecated since NM 1.0.0
     void setSecurity(const QString &security);

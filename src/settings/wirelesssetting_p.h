@@ -46,6 +46,9 @@ public:
     QStringList seenBssids;
     QString security;
     bool hidden;
+    QString generateMacAddressMask;
+    NetworkManager::Setting::MacAddressRandomization macAddressRandomization;
+    NetworkManager::WirelessSetting::PowerSave powersave;
 };
 
 }

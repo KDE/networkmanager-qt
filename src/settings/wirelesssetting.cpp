@@ -30,17 +30,28 @@
 #define NM_SETTING_WIRELESS_SEC "security"
 #endif
 
+#if !NM_CHECK_VERSION(1, 2, 0)
+#define NM_SETTING_WIRELESS_MAC_ADDRESS_RANDOMIZATION "mac-address-randomization"
+#define NM_SETTING_WIRELESS_POWERSAVE "powersave"
+#endif
+
+#if !NM_CHECK_VERSION(1, 4, 0)
+#define NM_SETTING_WIRELESS_GENERATE_MAC_ADDRESS_MASK "generate-mac-address-mask"
+#endif
+
 #include <QtCore/QDebug>
 
 NetworkManager::WirelessSettingPrivate::WirelessSettingPrivate()
     : name(NM_SETTING_WIRELESS_SETTING_NAME)
     , mode(NetworkManager::WirelessSetting::Infrastructure)
-    , band(WirelessSetting::Automatic)
+    , band(NetworkManager::WirelessSetting::Automatic)
     , channel(0)
     , rate(0)
     , txPower(0)
     , mtu(0)
     , hidden(false)
+    , macAddressRandomization(NetworkManager::Setting::MacAddressRandomizationDefault)
+    , powersave(NetworkManager::WirelessSetting::PowerSaveDefault)
 { }
 
 NetworkManager::WirelessSetting::WirelessSetting()
@@ -60,10 +71,13 @@ NetworkManager::WirelessSetting::WirelessSetting(const Ptr &setting)
     setRate(setting->rate());
     setTxPower(setting->txPower());
     setMacAddress(setting->macAddress());
+    setGenerateMacAddressMask(setting->generateMacAddressMask());
     setClonedMacAddress(setting->clonedMacAddress());
     setMacAddressBlacklist(setting->macAddressBlacklist());
+    setMacAddressRandomization(setting->macAddressRandomization());
     setMtu(setting->mtu());
     setSeenBssids(setting->seenBssids());
+    setPowerSave(setting->powerSave());
     setSecurity(setting->security());
     setHidden(setting->hidden());
 }
@@ -206,6 +220,20 @@ QByteArray NetworkManager::WirelessSetting::clonedMacAddress() const
     return d->clonedMacAddress;
 }
 
+void NetworkManager::WirelessSetting::setGenerateMacAddressMask(const QString& macAddressMask)
+{
+    Q_D(WirelessSetting);
+
+    d->generateMacAddressMask = macAddressMask;
+}
+
+QString NetworkManager::WirelessSetting::generateMacAddressMask() const
+{
+    Q_D(const WirelessSetting);
+
+    return d->generateMacAddressMask;
+}
+
 void NetworkManager::WirelessSetting::setMacAddressBlacklist(const QStringList &list)
 {
     Q_D(WirelessSetting);
@@ -218,6 +246,20 @@ QStringList NetworkManager::WirelessSetting::macAddressBlacklist() const
     Q_D(const WirelessSetting);
 
     return d->macAddressBlacklist;
+}
+
+void NetworkManager::WirelessSetting::setMacAddressRandomization(NetworkManager::Setting::MacAddressRandomization randomization)
+{
+    Q_D(WirelessSetting);
+
+    d->macAddressRandomization = randomization;
+}
+
+NetworkManager::Setting::MacAddressRandomization NetworkManager::WirelessSetting::macAddressRandomization() const
+{
+    Q_D(const WirelessSetting);
+
+    return d->macAddressRandomization;
 }
 
 void NetworkManager::WirelessSetting::setMtu(quint32 mtu)
@@ -246,6 +288,20 @@ QStringList NetworkManager::WirelessSetting::seenBssids() const
     Q_D(const WirelessSetting);
 
     return d->seenBssids;
+}
+
+void NetworkManager::WirelessSetting::setPowerSave(NetworkManager::WirelessSetting::PowerSave powersave)
+{
+    Q_D(WirelessSetting);
+
+    d->powersave = powersave;
+}
+
+NetworkManager::WirelessSetting::PowerSave NetworkManager::WirelessSetting::powerSave() const
+{
+    Q_D(const WirelessSetting);
+
+    return d->powersave;
 }
 
 void NetworkManager::WirelessSetting::setSecurity(const QString &security)
@@ -322,6 +378,10 @@ void NetworkManager::WirelessSetting::fromMap(const QVariantMap &setting)
         setMacAddress(setting.value(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS)).toByteArray());
     }
 
+    if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_GENERATE_MAC_ADDRESS_MASK))) {
+        setGenerateMacAddressMask(setting.value(QLatin1String(NM_SETTING_WIRELESS_GENERATE_MAC_ADDRESS_MASK)).toString());
+    }
+
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS))) {
         setClonedMacAddress(setting.value(QLatin1String(NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS)).toByteArray());
     }
@@ -330,12 +390,20 @@ void NetworkManager::WirelessSetting::fromMap(const QVariantMap &setting)
         setMacAddressBlacklist(setting.value(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_BLACKLIST)).toStringList());
     }
 
+    if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_RANDOMIZATION))) {
+        setMacAddressRandomization(static_cast<Setting::MacAddressRandomization>(setting.value(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_RANDOMIZATION)).toUInt()));
+    }
+
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_MTU))) {
         setMtu(setting.value(QLatin1String(NM_SETTING_WIRELESS_MTU)).toUInt());
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_SEEN_BSSIDS))) {
         setSeenBssids(setting.value(QLatin1String(NM_SETTING_WIRELESS_SEEN_BSSIDS)).toStringList());
+    }
+
+    if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_POWERSAVE))) {
+        setPowerSave(static_cast<WirelessSetting::PowerSave>(setting.value(QLatin1String(NM_SETTING_WIRELESS_POWERSAVE)).toUInt()));
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_SEC))) {
@@ -391,6 +459,10 @@ QVariantMap NetworkManager::WirelessSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS), macAddress());
     }
 
+    if (!generateMacAddressMask().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_GENERATE_MAC_ADDRESS_MASK), generateMacAddressMask());
+    }
+
     if (!clonedMacAddress().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS), clonedMacAddress());
     }
@@ -399,6 +471,8 @@ QVariantMap NetworkManager::WirelessSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_BLACKLIST), macAddressBlacklist());
     }
 
+    setting.insert(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_RANDOMIZATION), macAddressRandomization());
+
     if (mtu()) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_MTU), mtu());
     }
@@ -406,6 +480,8 @@ QVariantMap NetworkManager::WirelessSetting::toMap() const
     if (!seenBssids().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SEEN_BSSIDS), seenBssids());
     }
+
+    setting.insert(QLatin1String(NM_SETTING_WIRELESS_POWERSAVE), powerSave());
 
     if (!security().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SEC), security());
@@ -432,9 +508,12 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WirelessSet
     dbg.nospace() << NM_SETTING_WIRELESS_TX_POWER << ": " << setting.txPower() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_MAC_ADDRESS << ": " << setting.macAddress() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS << ": " << setting.clonedMacAddress() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_GENERATE_MAC_ADDRESS_MASK << ": " << setting.generateMacAddressMask() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_MAC_ADDRESS_BLACKLIST << ": " << setting.macAddressBlacklist() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_MAC_ADDRESS_RANDOMIZATION << ": " << setting.macAddressRandomization() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_MTU << ": " << setting.mtu() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_SEEN_BSSIDS << ": " << setting.seenBssids() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_POWERSAVE << ": " << setting.powerSave() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_SEC << ": " << setting.security() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_HIDDEN << ": " << setting.hidden() << '\n';
 
