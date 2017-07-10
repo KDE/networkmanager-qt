@@ -54,10 +54,10 @@ public:
     };
 
     enum PowerSave {
-        PowerSaveDefault = NM_SETTING_WIRELESS_POWERSAVE_DEFAULT,
-        PowerSaveIgnore = NM_SETTING_WIRELESS_POWERSAVE_IGNORE,
-        PowerSaveDisable = NM_SETTING_WIRELESS_POWERSAVE_DISABLE,
-        PowerSaveEnable = NM_SETTING_WIRELESS_POWERSAVE_ENABLE
+        PowerSaveDefault = 0,
+        PowerSaveIgnore = 1,
+        PowerSaveDisable = 2,
+        PowerSaveEnable = 3
     };
 
     WirelessSetting();
