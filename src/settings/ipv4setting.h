@@ -108,6 +108,9 @@ public:
     void setRoutes(const QList<NetworkManager::IpRoute> &ipv4routes);
     QList<NetworkManager::IpRoute> routes() const;
 
+    void setRouteMetric(int metric);
+    int routeMetric() const;
+
     void setIgnoreAutoRoutes(bool ignore);
     bool ignoreAutoRoutes() const;
 

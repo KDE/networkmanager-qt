@@ -35,6 +35,7 @@
 NetworkManager::Ipv4SettingPrivate::Ipv4SettingPrivate()
     : name(NMQT_SETTING_IP4_CONFIG_SETTING_NAME)
     , method(NetworkManager::Ipv4Setting::Automatic)
+    , routeMetric(-1)
     , ignoreAutoRoutes(false)
     , ignoreAutoDns(false)
     , dhcpSendHostname(true)
@@ -56,6 +57,7 @@ NetworkManager::Ipv4Setting::Ipv4Setting(const Ptr &other)
     setDnsSearch(other->dnsSearch());
     setAddresses(other->addresses());
     setRoutes(other->routes());
+    setRouteMetric(other->routeMetric());
     setIgnoreAutoRoutes(other->ignoreAutoRoutes());
     setIgnoreAutoDns(other->ignoreAutoDns());
     setDhcpClientId(other->dhcpClientId());
@@ -145,6 +147,20 @@ QList< NetworkManager::IpRoute > NetworkManager::Ipv4Setting::routes() const
     Q_D(const Ipv4Setting);
 
     return d->routes;
+}
+
+void NetworkManager::Ipv4Setting::setRouteMetric(int metric)
+{
+    Q_D(Ipv4Setting);
+
+    d->routeMetric = metric;
+}
+
+int NetworkManager::Ipv4Setting::routeMetric() const
+{
+    Q_D(const Ipv4Setting);
+
+    return d->routeMetric;
 }
 
 void NetworkManager::Ipv4Setting::setIgnoreAutoRoutes(bool ignore)
@@ -347,6 +363,10 @@ void NetworkManager::Ipv4Setting::fromMap(const QVariantMap &setting)
         }
     }
 
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_METRIC))) {
+        setRouteMetric(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_METRIC)).toInt());
+    }
+
     if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES))) {
         setIgnoreAutoRoutes(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES)).toBool());
     }
@@ -432,6 +452,10 @@ QVariantMap NetworkManager::Ipv4Setting::toMap() const
         setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES), QVariant::fromValue(dbusRoutes));
     }
 
+    if(routeMetric() > 0){
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_METRIC), routeMetric());
+    }
+
     if (ignoreAutoRoutes()) {
         setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES), ignoreAutoRoutes());
     }
@@ -482,6 +506,7 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv4Setting
     Q_FOREACH (const NetworkManager::IpRoute & route, setting.routes()) {
         dbg.nospace() << route.ip() << ": " << route.netmask() << ": " << route.nextHop() << ": " << route.metric() << '\n';
     }
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_ROUTE_METRIC << ":" << setting.routeMetric() << '\n';
     dbg.nospace() << NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES << ": " << setting.ignoreAutoRoutes() << '\n';
     dbg.nospace() << NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS << ": " << setting.ignoreAutoDns() << '\n';
     dbg.nospace() << NMQT_SETTING_IP4_CONFIG_DHCP_CLIENT_ID << ": " << setting.dhcpClientId() << '\n';
