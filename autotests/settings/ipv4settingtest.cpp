@@ -41,7 +41,7 @@ void IPv4SettingTest::testSetting_data()
     QTest::addColumn<QStringList>("dnsSearch");
     QTest::addColumn<UIntListList>("addresses");
     QTest::addColumn<UIntListList>("routes");
-    QTest::addColumn<uint>("routeMetric");
+    QTest::addColumn<int>("routeMetric");
     QTest::addColumn<bool>("ignoreAutoRoutes");
     QTest::addColumn<bool>("ignoreAutoDns");
     QTest::addColumn<QString>("dhcpClientId");
