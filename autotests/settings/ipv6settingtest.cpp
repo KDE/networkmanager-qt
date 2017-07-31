@@ -46,6 +46,7 @@ void IPv6SettingTest::testSetting_data()
     QTest::addColumn<QStringList>("dnsSearch");
     QTest::addColumn<IpV6DBusAddressList>("addresses");
     QTest::addColumn<IpV6DBusRouteList>("routes");
+    QTest::addColumn<int>("routeMetric");
     QTest::addColumn<bool>("ignoreAutoRoutes");
     QTest::addColumn<bool>("ignoreAutoDns");
     QTest::addColumn<bool>("neverDefault");
@@ -81,6 +82,7 @@ void IPv6SettingTest::testSetting_data()
             << dnsSearch             // dnsSearch
             << addresses             // addresses
             << routes                // routes
+            << 100                   // routeMetric
             << true                  // ignoreAutoRoutes
             << true                  // ignoreAutoDns
             << true                  // neverDefault
@@ -95,6 +97,7 @@ void IPv6SettingTest::testSetting()
     QFETCH(QStringList, dnsSearch);
     QFETCH(IpV6DBusAddressList, addresses);
     QFETCH(IpV6DBusRouteList, routes);
+    QFETCH(int, routeMetric);
     QFETCH(bool, ignoreAutoRoutes);
     QFETCH(bool, ignoreAutoDns);
     QFETCH(bool, neverDefault);
@@ -108,6 +111,7 @@ void IPv6SettingTest::testSetting()
     map.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS_SEARCH), dnsSearch);
     map.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESSES), QVariant::fromValue(addresses));
     map.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTES), QVariant::fromValue(routes));
+    map.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_METRIC), routeMetric);
     map.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_IGNORE_AUTO_ROUTES), ignoreAutoRoutes);
     map.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_IGNORE_AUTO_DNS), ignoreAutoDns);
     map.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_NEVER_DEFAULT), neverDefault);

@@ -79,7 +79,6 @@
     - dns-options
     - dns-priority
     - route-data
-    - route-metric
 
   - ipv6 setting
     -----------------
@@ -90,5 +89,4 @@
     - dhcp-fqdn
     - dns-options
     - route-data
-    - route-metrics
     - token

@@ -40,6 +40,7 @@ public:
     QStringList dnsSearch;
     QList<NetworkManager::IpAddress> addresses;
     QList<NetworkManager::IpRoute> routes;
+    int routeMetric;
     bool ignoreAutoRoutes;
     bool ignoreAutoDns;
     bool neverDefault;

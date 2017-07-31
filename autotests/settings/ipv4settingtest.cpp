@@ -41,6 +41,7 @@ void IPv4SettingTest::testSetting_data()
     QTest::addColumn<QStringList>("dnsSearch");
     QTest::addColumn<UIntListList>("addresses");
     QTest::addColumn<UIntListList>("routes");
+    QTest::addColumn<int>("routeMetric");
     QTest::addColumn<bool>("ignoreAutoRoutes");
     QTest::addColumn<bool>("ignoreAutoDns");
     QTest::addColumn<QString>("dhcpClientId");
@@ -78,6 +79,7 @@ void IPv4SettingTest::testSetting_data()
             << dnsSearch             // dnsSearch
             << addresses             // addresses
             << routes                // routes
+            << 100                   // routeMetric
             << true                  // ignoreAutoRoutes
             << true                  // ignoreAutoDns
             << QString("home-test")  // dhcpClientId
@@ -94,6 +96,7 @@ void IPv4SettingTest::testSetting()
     QFETCH(QStringList, dnsSearch);
     QFETCH(UIntListList, addresses);
     QFETCH(UIntListList, routes);
+    QFETCH(int, routeMetric);
     QFETCH(bool, ignoreAutoRoutes);
     QFETCH(bool, ignoreAutoDns);
     QFETCH(QString, dhcpClientId);
@@ -109,6 +112,7 @@ void IPv4SettingTest::testSetting()
     map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS_SEARCH), dnsSearch);
     map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES), QVariant::fromValue(addresses));
     map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES), QVariant::fromValue(routes));
+    map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_METRIC), routeMetric);
     map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_ROUTES), ignoreAutoRoutes);
     map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_IGNORE_AUTO_DNS), ignoreAutoDns);
     map.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_CLIENT_ID), dhcpClientId);
