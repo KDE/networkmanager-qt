@@ -38,6 +38,7 @@ void Security8021xSettingTest::testSetting_data()
     QTest::addColumn<QString>("anonymousIdentity");
     QTest::addColumn<QString>("pacFile");
     QTest::addColumn<QByteArray>("caCert");
+    QTest::addColumn<QString>("domainSuffixMatch");
     QTest::addColumn<QString>("caPath");
     QTest::addColumn<QString>("subjectMatch");
     QTest::addColumn<QStringList>("altSubjectMatches");
@@ -78,6 +79,7 @@ void Security8021xSettingTest::testSetting_data()
             << QString("anonymousIdentity")                     // anonymousIdentity
             << QString("file://path/to/pac/file")               // pacFile
             << QByteArray("file://path/to/ca/cert")             // caCert
+            << QString("example.com")                           // domainSuffixMatch
             << QString("file://path/to/ca/cert")                // caPath
             << QString("subjectMatch")                          // subjectMatch
             << altSubjectMatches                                // altSubjectMatches
@@ -114,6 +116,7 @@ void Security8021xSettingTest::testSetting()
     QFETCH(QString, anonymousIdentity);
     QFETCH(QString, pacFile);
     QFETCH(QByteArray, caCert);
+    QFETCH(QString, domainSuffixMatch);
     QFETCH(QString, caPath);
     QFETCH(QString, subjectMatch);
     QFETCH(QStringList, altSubjectMatches);
@@ -149,6 +152,7 @@ void Security8021xSettingTest::testSetting()
     map.insert(QLatin1String(NM_SETTING_802_1X_ANONYMOUS_IDENTITY), anonymousIdentity);
     map.insert(QLatin1String(NM_SETTING_802_1X_PAC_FILE), pacFile);
     map.insert(QLatin1String(NM_SETTING_802_1X_CA_CERT), caCert);
+    map.insert(QLatin1String(NM_SETTING_802_1X_DOMAIN_SUFFIX_MATCH), domainSuffixMatch);
     map.insert(QLatin1String(NM_SETTING_802_1X_CA_PATH), caPath);
     map.insert(QLatin1String(NM_SETTING_802_1X_SUBJECT_MATCH), subjectMatch);
     map.insert(QLatin1String(NM_SETTING_802_1X_ALTSUBJECT_MATCHES), altSubjectMatches);

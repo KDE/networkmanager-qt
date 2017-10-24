@@ -53,6 +53,7 @@ NetworkManager::Security8021xSetting::Security8021xSetting(const Ptr &other)
 {
     setEapMethods(other->eapMethods());
     setIdentity(other->identity());
+    setDomainSuffixMatch(other->domainSuffixMatch());
     setAnonymousIdentity(other->anonymousIdentity());
     setPacFile(other->pacFile());
     setCaCertificate(other->caCertificate());
@@ -134,6 +135,20 @@ QString NetworkManager::Security8021xSetting::anonymousIdentity() const
     Q_D(const Security8021xSetting);
 
     return d->anonymousIdentity;
+}
+
+void NetworkManager::Security8021xSetting::setDomainSuffixMatch(const QString &domain)
+{
+    Q_D(Security8021xSetting);
+
+    d->domainSuffixMatch = domain;
+}
+
+QString NetworkManager::Security8021xSetting::domainSuffixMatch() const
+{
+    Q_D(const Security8021xSetting);
+
+    return d->domainSuffixMatch;
 }
 
 void NetworkManager::Security8021xSetting::setPacFile(const QString &filePath)
@@ -650,6 +665,10 @@ void NetworkManager::Security8021xSetting::fromMap(const QVariantMap &setting)
         setAnonymousIdentity(setting.value(QLatin1String(NM_SETTING_802_1X_ANONYMOUS_IDENTITY)).toString());
     }
 
+    if (setting.contains(QLatin1String(NM_SETTING_802_1X_DOMAIN_SUFFIX_MATCH))) {
+        setDomainSuffixMatch(setting.value(QLatin1String(NM_SETTING_802_1X_DOMAIN_SUFFIX_MATCH)).toString());
+    }
+
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_PAC_FILE))) {
         setPacFile(setting.value(QLatin1String(NM_SETTING_802_1X_PAC_FILE)).toString());
     }
@@ -851,6 +870,10 @@ QVariantMap NetworkManager::Security8021xSetting::toMap() const
 
     if (!anonymousIdentity().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_802_1X_ANONYMOUS_IDENTITY), anonymousIdentity());
+    }
+
+    if (!domainSuffixMatch().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_802_1X_DOMAIN_SUFFIX_MATCH), domainSuffixMatch());
     }
 
     if (!pacFile().isEmpty()) {
@@ -1073,6 +1096,7 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Security802
     dbg.nospace() << NM_SETTING_802_1X_PAC_FILE << ": " << setting.pacFile() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_CA_CERT << ": " << setting.caCertificate() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_CA_PATH << ": " << setting.caPath() << '\n';
+    dbg.nospace() << NM_SETTING_802_1X_DOMAIN_SUFFIX_MATCH << ": " << setting.domainSuffixMatch() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_SUBJECT_MATCH << ": " << setting.subjectMatch() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_ALTSUBJECT_MATCHES << ": " << setting.altSubjectMatches() << '\n';
     dbg.nospace() << NM_SETTING_802_1X_CLIENT_CERT << ": " << setting.clientCertificate() << '\n';

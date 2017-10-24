@@ -35,6 +35,7 @@ public:
     QList<Security8021xSetting::EapMethod> eap;
     QString identity;
     QString anonymousIdentity;
+    QString domainSuffixMatch;
     QString pacFile;
     QByteArray caCert;
     QString caPath;

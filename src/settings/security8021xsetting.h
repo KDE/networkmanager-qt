@@ -63,6 +63,9 @@ public:
     void setAnonymousIdentity(const QString &identity);
     QString anonymousIdentity() const;
 
+    void setDomainSuffixMatch(const QString &domainSuffixMatch);
+    QString domainSuffixMatch() const;
+
     /**
      * Set UTF-8 encoded file path containing PAC for EAP-FAST.
      *
