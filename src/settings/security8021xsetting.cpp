@@ -25,6 +25,10 @@
 #include <nm-setting-8021x.h>
 #endif
 
+#if !NM_CHECK_VERSION(1, 2, 0)
+#define NM_SETTING_802_1X_DOMAIN_SUFFIX_MATCH "domain-suffix-match"
+#endif
+
 #include <QtCore/QDebug>
 
 NetworkManager::Security8021xSettingPrivate::Security8021xSettingPrivate()
