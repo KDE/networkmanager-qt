@@ -180,7 +180,7 @@ void NetworkManager::NetworkManagerPrivate::init()
         propertiesChanged(initialProperties);
     }
 
-    QTimer::singleShot(0, [this] { qobject_cast<SettingsPrivate *>(settingsNotifier())->init(); });
+    QTimer::singleShot(0, [] { qobject_cast<SettingsPrivate *>(settingsNotifier())->init(); });
 
     if (iface.isValid()) {
         QList <QDBusObjectPath> devices = iface.devices();
@@ -207,7 +207,7 @@ int NetworkManager::NetworkManagerPrivate::compareVersion(const QString &version
 {
     int x, y, z;
 
-    QStringList sl = version.split('.');
+    const auto sl = version.splitRef('.');
 
     if (sl.size() > 2) {
         x = sl[0].toInt();
