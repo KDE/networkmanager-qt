@@ -277,9 +277,10 @@ QVariantMap NetworkManager::NetworkManagerPrivate::retrieveInitialProperties(con
 NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::findRegisteredNetworkInterface(const QString &uni)
 {
     NetworkManager::Device::Ptr networkInterface;
-    if (networkInterfaceMap.contains(uni)) {
-        if (networkInterfaceMap.value(uni)) {
-            networkInterface = networkInterfaceMap.value(uni);
+    auto it = networkInterfaceMap.constFind(uni);
+    if (it != networkInterfaceMap.constEnd()) {
+        if (*it) {
+            networkInterface = *it;
         } else {
             networkInterface = createNetworkInterface(uni);
             networkInterfaceMap[uni] = networkInterface;
@@ -292,9 +293,10 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::fin
 {
     NetworkManager::ActiveConnection::Ptr activeConnection;
     if (!uni.isEmpty() && uni != QLatin1String("/")) {
-        const bool contains = m_activeConnections.contains(uni);
-        if (contains && m_activeConnections.value(uni)) {
-            activeConnection = m_activeConnections.value(uni);
+        const auto it = m_activeConnections.constFind(uni);
+        const bool contains = it != m_activeConnections.constEnd();
+        if (contains && *it) {
+            activeConnection = *it;
         } else {
             activeConnection = NetworkManager::ActiveConnection::Ptr(new NetworkManager::VpnConnection(uni), &QObject::deleteLater);
             if (activeConnection->connection()) {
