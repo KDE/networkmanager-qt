@@ -569,7 +569,8 @@ QStringList NetworkManager::Security8021xSetting::needSecrets(bool requestNew) c
             !privateKeyPasswordFlags().testFlag(NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD);
     } else if ((eapMethods().contains(EapMethodTtls) || eapMethods().contains(EapMethodPeap) ||
-                eapMethods().contains(EapMethodLeap) || eapMethods().contains(EapMethodFast)) &&
+                eapMethods().contains(EapMethodLeap) || eapMethods().contains(EapMethodFast) ||
+                eapMethods().contains(EapMethodPwd)) &&
                (password().isEmpty() || requestNew) && !passwordFlags().testFlag(NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD);
         secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW);
@@ -655,6 +656,8 @@ void NetworkManager::Security8021xSetting::fromMap(const QVariantMap &setting)
                 eapMethods << EapMethodSim;
             } else if (method == "fast") {
                 eapMethods << EapMethodFast;
+            } else if (method == "pwd") {
+                eapMethods << EapMethodPwd;
             }
         }
 
@@ -862,6 +865,8 @@ QVariantMap NetworkManager::Security8021xSetting::toMap() const
                 methods << "sim";
             } else if (method == EapMethodFast) {
                 methods << "fast";
+            } else if (method == EapMethodPwd) {
+                methods << "pwd";
             }
         }
 

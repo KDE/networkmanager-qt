@@ -37,7 +37,7 @@ class NETWORKMANAGERQT_EXPORT Security8021xSetting : public Setting
 public:
     typedef QSharedPointer<Security8021xSetting> Ptr;
     typedef QList<Ptr> List;
-    enum EapMethod {EapMethodUnknown = 0, EapMethodLeap, EapMethodMd5, EapMethodTls, EapMethodPeap, EapMethodTtls, EapMethodSim, EapMethodFast};
+    enum EapMethod {EapMethodUnknown = 0, EapMethodLeap, EapMethodMd5, EapMethodTls, EapMethodPeap, EapMethodTtls, EapMethodSim, EapMethodFast, EapMethodPwd};
     enum PeapVersion {PeapVersionUnknown = -1, PeapVersionZero, PeapVersionOne};
     enum PeapLabel {PeapLabelUnknown = 0, PeapLabelForce};
     enum FastProvisioning {FastProvisioningUnknown = -1, FastProvisioningDisabled, FastProvisioningAllowUnauthenticated, FastProvisioningAllowAuthenticated, FastProvisioningAllowBoth};
