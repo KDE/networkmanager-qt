@@ -50,7 +50,7 @@ public:
     explicit TunDevice(const QString &path, QObject *parent = nullptr);
     virtual ~TunDevice();
 
-    virtual Type type() const Q_DECL_OVERRIDE;
+    Type type() const Q_DECL_OVERRIDE;
 
     /**
      * The uid of the tunnel owner, or -1 if it has no owner.

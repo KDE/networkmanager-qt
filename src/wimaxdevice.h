@@ -59,7 +59,7 @@ public:
     /**
      * Return the type
      */
-    virtual Type type() const Q_DECL_OVERRIDE;
+    Type type() const Q_DECL_OVERRIDE;
     /**
      * List of network service providers currently visible to the hardware
      */

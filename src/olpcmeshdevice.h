@@ -56,7 +56,7 @@ public:
     /**
      * Return the type
      */
-    virtual Type type() const Q_DECL_OVERRIDE;
+    Type type() const Q_DECL_OVERRIDE;
     /**
      * Currently active channel.
      */

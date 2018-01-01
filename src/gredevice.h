@@ -54,7 +54,7 @@ public:
     explicit GreDevice(const QString &path, QObject *parent = nullptr);
     virtual ~GreDevice();
 
-    virtual Type type() const Q_DECL_OVERRIDE;
+    Type type() const Q_DECL_OVERRIDE;
 
     ushort inputFlags() const;
     ushort outputFlags() const;

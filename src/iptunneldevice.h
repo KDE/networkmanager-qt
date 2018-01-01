@@ -53,7 +53,7 @@ public:
     explicit IpTunnelDevice(const QString &path, QObject *parent = nullptr);
     virtual ~IpTunnelDevice();
 
-    virtual Type type() const Q_DECL_OVERRIDE;
+    Type type() const Q_DECL_OVERRIDE;
 
     /**
      * How many additional levels of encapsulation are permitted to be prepended to packets.

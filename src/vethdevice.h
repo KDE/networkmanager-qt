@@ -45,7 +45,7 @@ public:
     explicit VethDevice(const QString &path, QObject *parent = nullptr);
     virtual ~VethDevice();
 
-    virtual Type type() const Q_DECL_OVERRIDE;
+    Type type() const Q_DECL_OVERRIDE;
 
     QString peer() const;
 

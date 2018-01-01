@@ -45,7 +45,7 @@ public:
     explicit BridgeDevice(const QString &path, QObject *parent = nullptr);
     virtual ~BridgeDevice();
 
-    virtual Type type() const Q_DECL_OVERRIDE;
+    Type type() const Q_DECL_OVERRIDE;
 
     /**
      * Indicates whether the physical carrier is found

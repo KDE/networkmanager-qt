@@ -52,7 +52,7 @@ public:
     /**
      * Return the type
      */
-    virtual Type type() const Q_DECL_OVERRIDE;
+    Type type() const Q_DECL_OVERRIDE;
     /**
      * Active hardware address of the device
      */
