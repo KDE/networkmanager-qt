@@ -47,11 +47,12 @@ NetworkManager::AccessPointPrivate::AccessPointPrivate(const QString &path, Acce
 
 NetworkManager::AccessPoint::Capabilities NetworkManager::AccessPointPrivate::convertCapabilities(int caps)
 {
-    switch (caps) {
-    case NM_802_11_AP_FLAGS_NONE: return AccessPoint::None;
-    case NM_802_11_AP_FLAGS_PRIVACY: return AccessPoint::Privacy;
+    NetworkManager::AccessPoint::Capabilities capFlags;
+    if (caps & NM_802_11_AP_FLAGS_PRIVACY) {
+        capFlags |= AccessPoint::Privacy;
     }
-    return AccessPoint::None;
+
+    return capFlags;
 }
 
 NetworkManager::AccessPoint::WpaFlags NetworkManager::AccessPointPrivate::convertWpaFlags(uint theirFlags)
