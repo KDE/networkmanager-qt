@@ -120,6 +120,7 @@ public:
                              NewActivation = 60, ParentChanged = 61, ParentManagedChanged = 62,
                              Reserved = 65536
                            };
+    Q_ENUM(StateChangeReason)
 
     enum MeteredStatus {
         UnknownStatus = 0,  /**< The device metered status is unknown. */
@@ -128,6 +129,7 @@ public:
         GuessYes = 3,  /**< The device is metered and the value was guessed. */
         GuessNo = 4  /**< The device is not metered and the value was guessed. */
     };
+    Q_ENUM(MeteredStatus)
 
     /**
      * Possible device capabilities
@@ -584,4 +586,3 @@ private:
 }
 
 #endif
-
