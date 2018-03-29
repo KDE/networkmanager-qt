@@ -21,10 +21,6 @@
 #include "serialsetting.h"
 #include "serialsetting_p.h"
 
-#if !NM_CHECK_VERSION(1, 0, 0)
-#include <nm-setting-serial.h>
-#endif
-
 #include <QtCore/QDebug>
 
 NetworkManager::SerialSettingPrivate::SerialSettingPrivate()

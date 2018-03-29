@@ -21,15 +21,8 @@
 #include "gsmsetting.h"
 #include "gsmsetting_p.h"
 
-#if !NM_CHECK_VERSION(1, 0, 0)
-#include <nm-setting-gsm.h>
-#endif
-
-//define the deprecated&dropped values
-#if NM_CHECK_VERSION(1, 0, 0)
 #define NM_SETTING_GSM_NETWORK_TYPE "network-type"
 #define NM_SETTING_GSM_ALLOWED_BANDS "allowed-bands"
-#endif
 
 #if !NM_CHECK_VERSION(1, 2, 0)
 #define NM_SETTING_GSM_DEVICE_ID "device-id"

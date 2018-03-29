@@ -22,12 +22,7 @@
 
 #include "settings/security8021xsetting.h"
 
-#include <nm-version.h>
-#if NM_CHECK_VERSION(1, 0, 0)
 #include <libnm/NetworkManager.h>
-#else
-#include <nm-setting-8021x.h>
-#endif
 
 #if !NM_CHECK_VERSION(1, 2, 0)
 #define NM_SETTING_802_1X_DOMAIN_SUFFIX_MATCH "domain-suffix-match"

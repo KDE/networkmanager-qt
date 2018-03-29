@@ -26,10 +26,7 @@
 #include "generictypes.h"
 
 #undef signals
-#include <nm-version.h>
-#if NM_CHECK_VERSION(1, 0, 0)
 #include <libnm/NetworkManager.h>
-#endif
 #define signals Q_SIGNALS
 
 #include <QtCore/QVariantMap>

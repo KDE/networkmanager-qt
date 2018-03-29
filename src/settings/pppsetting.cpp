@@ -21,10 +21,6 @@
 #include "pppsetting.h"
 #include "pppsetting_p.h"
 
-#if !NM_CHECK_VERSION(1, 0, 0)
-#include <nm-setting-ppp.h>
-#endif
-
 #include <QtCore/QDebug>
 
 NetworkManager::PppSettingPrivate::PppSettingPrivate()

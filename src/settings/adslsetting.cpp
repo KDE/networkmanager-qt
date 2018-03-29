@@ -22,10 +22,6 @@
 #include "adslsetting_p.h"
 #include <manager.h>
 
-#if !NM_CHECK_VERSION(1, 0, 0)
-#include <nm-setting-adsl.h>
-#endif
-
 #include <QtCore/QDebug>
 
 NetworkManager::AdslSettingPrivate::AdslSettingPrivate()

@@ -25,8 +25,6 @@
 
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
-#include <nm-version.h>
-
 #include <QtCore/QVariantMap>
 #include <QDBusArgument>
 

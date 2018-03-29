@@ -22,12 +22,7 @@
 
 #include "settings/vpnsetting.h"
 
-#include <nm-version.h>
-#if NM_CHECK_VERSION(1, 0, 0)
 #include <libnm/NetworkManager.h>
-#else
-#include <nm-setting-vpn.h>
-#endif
 
 #if !NM_CHECK_VERSION(1, 2, 0)
 #define NM_SETTING_VPN_PERSISTENT "persistent"

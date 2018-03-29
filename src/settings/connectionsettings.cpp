@@ -46,32 +46,7 @@
 #include "wimaxsetting.h"
 
 #undef signals
-#if NM_CHECK_VERSION(1, 0, 0)
 #include <libnm/NetworkManager.h>
-#else
-#include <nm-setting-adsl.h>
-#include <nm-setting-bond.h>
-#include <nm-setting-bluetooth.h>
-#include <nm-setting-bridge.h>
-#include <nm-setting-cdma.h>
-#include <nm-setting-connection.h>
-#include <nm-setting-gsm.h>
-#include <nm-setting-infiniband.h>
-#include <nm-setting-olpc-mesh.h>
-#include <nm-setting-pppoe.h>
-#include <nm-setting-vlan.h>
-#include <nm-setting-vpn.h>
-#include <nm-setting-wimax.h>
-#include <nm-setting-wired.h>
-#include <nm-setting-wireless.h>
-#include <nm-setting-team.h>
-#include <nm-setting-generic.h>
-#define signals Q_SIGNALS
-
-#define NM_SETTING_CONNECTION_AUTOCONNECT_PRIORITY "autoconnect-priority"
-#define NM_SETTING_CONNECTION_AUTOCONNECT_SLAVES "autoconnect-slaves"
-
-#endif
 
 #if !NM_CHECK_VERSION(1, 0, 6)
 #define NM_SETTING_CONNECTION_METERED "metered"

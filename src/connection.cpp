@@ -24,22 +24,7 @@
 #include "connection_p.h"
 
 #undef signals
-#include <nm-version.h>
-#if NM_CHECK_VERSION(1, 0, 0)
 #include <libnm/NetworkManager.h>
-#else
-#include <NetworkManager.h>
-#include <nm-setting-cdma.h>
-#include <nm-setting-connection.h>
-#include <nm-setting-gsm.h>
-#include <nm-setting-bluetooth.h>
-#include <nm-setting-pppoe.h>
-#include <nm-setting-vpn.h>
-#include <nm-setting-wired.h>
-#include <nm-setting-wireless.h>
-#include <nm-setting-wimax.h>
-#include <nm-setting-olpc-mesh.h>
-#endif
 #define signals Q_SIGNALS
 
 #include <QDBusConnection>

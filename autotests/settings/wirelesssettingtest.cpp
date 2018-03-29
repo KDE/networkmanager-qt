@@ -22,12 +22,7 @@
 
 #include "settings/wirelesssetting.h"
 
-#include <nm-version.h>
-#if NM_CHECK_VERSION(1, 0, 0)
 #include <libnm/NetworkManager.h>
-#else
-#include <nm-setting-wireless.h>
-#endif
 
 #if !NM_CHECK_VERSION(1, 2, 0)
 #define NM_SETTING_WIRELESS_MAC_ADDRESS_RANDOMIZATION "mac-address-randomization"
@@ -124,11 +119,8 @@ void WirelessSettingTest::testSetting()
     map.insert(QLatin1String(NM_SETTING_WIRELESS_MTU), mtu);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_SEEN_BSSIDS), seenBssids);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_POWERSAVE), powerSave);
-#if NM_CHECK_VERSION(1, 0, 0)
     map.insert(QLatin1String("security"), security);
-#else
-    map.insert(QLatin1String(NM_SETTING_WIRELESS_SEC), security);
-#endif
+
     map.insert(QLatin1String(NM_SETTING_WIRELESS_HIDDEN), hidden);
 
     NetworkManager::WirelessSetting setting;

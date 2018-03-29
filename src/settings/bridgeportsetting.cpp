@@ -21,10 +21,6 @@
 #include "bridgeportsetting.h"
 #include "bridgeportsetting_p.h"
 
-#if !NM_CHECK_VERSION(1, 0, 0)
-#include <nm-setting-bridge-port.h>
-#endif
-
 #include <QtCore/QDebug>
 
 NetworkManager::BridgePortSettingPrivate::BridgePortSettingPrivate()

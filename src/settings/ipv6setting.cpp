@@ -28,10 +28,6 @@
 
 #include <arpa/inet.h>
 
-#if !NM_CHECK_VERSION(1, 0, 0)
-#include <nm-setting-ip6-config.h>
-#endif
-
 NetworkManager::Ipv6SettingPrivate::Ipv6SettingPrivate()
     : name(NMQT_SETTING_IP6_CONFIG_SETTING_NAME)
     , method(NetworkManager::Ipv6Setting::Automatic)

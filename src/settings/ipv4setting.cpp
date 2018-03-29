@@ -26,16 +26,12 @@
 
 #include <arpa/inet.h>
 
-#if !NM_CHECK_VERSION(1, 0, 0)
-#include <nm-setting-ip4-config.h>
-#endif
-
 #include <QtCore/QDebug>
 
 NetworkManager::Ipv4SettingPrivate::Ipv4SettingPrivate()
     : name(NMQT_SETTING_IP4_CONFIG_SETTING_NAME)
     , method(NetworkManager::Ipv4Setting::Automatic)
-    , routeMetric(-1) 
+    , routeMetric(-1)
     , ignoreAutoRoutes(false)
     , ignoreAutoDns(false)
     , dhcpSendHostname(true)

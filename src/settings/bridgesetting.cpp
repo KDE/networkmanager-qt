@@ -21,12 +21,7 @@
 #include "bridgesetting.h"
 #include "bridgesetting_p.h"
 
-#if !NM_CHECK_VERSION(1, 0, 0)
-#include <nm-setting-bridge.h>
-#define NM_SETTING_BRIDGE_MAC_ADDRESS "mac-address"
-#else
 #define NM_SETTING_BRIDGE_INTERFACE_NAME "interface-name"
-#endif
 
 #if !NM_CHECK_VERSION(1, 2, 0)
 #define NM_SETTING_BRIDGE_MULTICAST_SNOOPING "multicast-snooping"

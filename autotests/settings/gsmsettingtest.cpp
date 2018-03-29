@@ -22,12 +22,7 @@
 
 #include "settings/gsmsetting.h"
 
-#include <nm-version.h>
-#if NM_CHECK_VERSION(1, 0, 0)
 #include <libnm/NetworkManager.h>
-#else
-#include <nm-setting-gsm.h>
-#endif
 
 #if !NM_CHECK_VERSION(1, 2, 0)
 #define NM_SETTING_GSM_DEVICE_ID "device-id"
@@ -96,13 +91,8 @@ void GsmSettingTest::testSetting()
     map.insert(QLatin1String(NM_SETTING_GSM_PASSWORD_FLAGS), passwordFlags);
     map.insert(QLatin1String(NM_SETTING_GSM_APN), apn);
     map.insert(QLatin1String(NM_SETTING_GSM_NETWORK_ID), networkId);
-#if NM_CHECK_VERSION(1, 0, 0)
     map.insert(QLatin1String("network-type"), networkType);
     map.insert(QLatin1String("allowed-bands"), allowedBand);
-#else
-    map.insert(QLatin1String(NM_SETTING_GSM_NETWORK_TYPE), networkType);
-    map.insert(QLatin1String(NM_SETTING_GSM_ALLOWED_BANDS), allowedBand);
-#endif
     map.insert(QLatin1String(NM_SETTING_GSM_PIN), pin);
     map.insert(QLatin1String(NM_SETTING_GSM_PIN_FLAGS), pinFlags);
     map.insert(QLatin1String(NM_SETTING_GSM_HOME_ONLY), homeOnly);

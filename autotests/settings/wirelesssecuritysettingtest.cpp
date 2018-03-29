@@ -20,12 +20,7 @@
 
 #include "wirelesssecuritysettingtest.h"
 
-#include <nm-version.h>
-#if NM_CHECK_VERSION(1, 0, 0)
 #include <libnm/NetworkManager.h>
-#else
-#include <nm-setting-wireless-security.h>
-#endif
 
 #include "settings/wirelesssecuritysetting.h"
 

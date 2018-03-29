@@ -22,12 +22,7 @@
 
 #include "settings/bridgesetting.h"
 
-#include <nm-version.h>
-#if NM_CHECK_VERSION(1, 0, 0)
 #include <libnm/NetworkManager.h>
-#else
-#include <nm-setting-bridge.h>
-#endif
 
 #if !NM_CHECK_VERSION(1, 2, 0)
 #define NM_SETTING_BRIDGE_MULTICAST_SNOOPING "multicast-snooping"
@@ -73,11 +68,7 @@ void BridgeSettingTest::testSetting()
 
     QVariantMap map;
 
-#if NM_CHECK_VERSION(1, 0, 0)
     map.insert(QLatin1String("interface-name"), interfaceName);
-#else
-    map.insert(QLatin1String(NM_SETTING_BRIDGE_INTERFACE_NAME), interfaceName);
-#endif
     map.insert(QLatin1String(NM_SETTING_BRIDGE_STP), stp);
     map.insert(QLatin1String(NM_SETTING_BRIDGE_PRIORITY), priority);
     map.insert(QLatin1String(NM_SETTING_BRIDGE_FORWARD_DELAY), forwardDelay);

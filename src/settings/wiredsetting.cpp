@@ -22,10 +22,6 @@
 #include "wiredsetting_p.h"
 #include "manager.h"
 
-#if !NM_CHECK_VERSION(1, 0, 0)
-#include <nm-setting-wired.h>
-#endif
-
 #if !NM_CHECK_VERSION(1, 0, 6)
 #define NM_SETTING_WIRED_WAKE_ON_LAN "wake-on-lan"
 #define NM_SETTING_WIRED_WAKE_ON_LAN_PASSWORD "wake-on-lan-password"

@@ -22,12 +22,7 @@
 
 #include "settings/tunsetting.h"
 
-#include <nm-version.h>
-#if NM_CHECK_VERSION(1, 0, 0)
 #include <libnm/NetworkManager.h>
-#else
-#include <nm-setting-tun.h>
-#endif
 
 #include <QTest>
 

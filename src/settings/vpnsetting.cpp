@@ -22,10 +22,6 @@
 #include "vpnsetting_p.h"
 #include "nmdebug.h"
 
-#if !NM_CHECK_VERSION(1, 0, 0)
-#include <nm-setting-vpn.h>
-#endif
-
 #if !NM_CHECK_VERSION(1, 2, 0)
 #define NM_SETTING_VPN_PERSISTENT "persistent"
 #define NM_SETTING_VPN_TIMEOUT "timeout"

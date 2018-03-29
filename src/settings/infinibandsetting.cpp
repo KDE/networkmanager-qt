@@ -21,10 +21,6 @@
 #include "infinibandsetting.h"
 #include "infinibandsetting_p.h"
 
-#if !NM_CHECK_VERSION(1, 0, 0)
-#include <nm-setting-infiniband.h>
-#endif
-
 #include <QtCore/QDebug>
 
 NetworkManager::InfinibandSettingPrivate::InfinibandSettingPrivate()

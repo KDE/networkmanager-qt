@@ -21,10 +21,6 @@
 #include "wirelesssecuritysetting.h"
 #include "wirelesssecuritysetting_p.h"
 
-#if !NM_CHECK_VERSION(1, 0, 0)
-#include <nm-setting-wireless-security.h>
-#endif
-
 #include <QtCore/QDebug>
 
 NetworkManager::WirelessSecuritySettingPrivate::WirelessSecuritySettingPrivate()

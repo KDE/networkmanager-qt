@@ -21,14 +21,8 @@
 #include "vlansetting.h"
 #include "vlansetting_p.h"
 
-#if !NM_CHECK_VERSION(1, 0, 0)
-#include <nm-setting-vlan.h>
-#endif
-
 //define the deprecated&dropped values
-#if NM_CHECK_VERSION(1, 0, 0)
 #define NM_SETTING_VLAN_INTERFACE_NAME "interface-name"
-#endif
 
 #include <QtCore/QDebug>
 

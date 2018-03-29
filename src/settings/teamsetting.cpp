@@ -22,14 +22,7 @@
 #include "teamsetting_p.h"
 #include "manager.h"
 
-#if !NM_CHECK_VERSION(1, 0, 0)
-#include <nm-setting-team.h>
-#endif
-
-//define the deprecated&dropped values
-#if NM_CHECK_VERSION(1, 0, 0)
 #define NM_SETTING_TEAM_INTERFACE_NAME "interface-name"
-#endif
 
 #include <QtCore/QDebug>
 

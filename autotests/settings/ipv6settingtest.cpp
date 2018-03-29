@@ -26,12 +26,7 @@
 
 #include <arpa/inet.h>
 
-#include <nm-version.h>
-#if NM_CHECK_VERSION(1, 0, 0)
 #include <libnm/NetworkManager.h>
-#else
-#include <nm-setting-ip6-config.h>
-#endif
 
 #include <QHostAddress>
 #include <QTest>
