@@ -124,7 +124,7 @@ add_library(KF5NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${NetworkMa
 generate_export_header(KF5NetworkManagerQt EXPORT_FILE_NAME ${NetworkManagerQt_BINARY_DIR}/networkmanagerqt/networkmanagerqt_export.h BASE_NAME NetworkManagerQt)
 add_library(KF5::NetworkManagerQt ALIAS KF5NetworkManagerQt)
 
-target_include_directories(KF5NetworkManagerQt INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/NetworkManagerQt>")
+target_include_directories(KF5NetworkManagerQt INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/NetworkManagerQt;${NETWORKMANAGER_INCLUDE_DIRS}>")
 # for examples to build
 target_include_directories(KF5NetworkManagerQt PUBLIC "$<BUILD_INTERFACE:${NetworkManagerQt_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}/settings;${CMAKE_CURRENT_BINARY_DIR}>")
 
