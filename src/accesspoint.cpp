@@ -227,7 +227,7 @@ void NetworkManager::AccessPointPrivate::propertiesChanged(const QVariantMap &pr
             lastSeen = it->toInt();
             Q_EMIT q->lastSeenChanged(lastSeen);
         } else {
-            qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
+            qCDebug(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
         ++it;
     }

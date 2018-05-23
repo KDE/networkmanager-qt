@@ -807,7 +807,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
             m_metered = (NetworkManager::Device::MeteredStatus)it->toUInt();
             Q_EMIT meteredChanged(m_metered);
         } else {
-            qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
+            qCDebug(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
         ++it;
     }

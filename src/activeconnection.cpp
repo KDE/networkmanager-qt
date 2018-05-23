@@ -412,6 +412,6 @@ void NetworkManager::ActiveConnectionPrivate::propertyChanged(const QString &pro
         }
         Q_EMIT q->devicesChanged();
     } else {
-        qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
+        qCDebug(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
     }
 }
