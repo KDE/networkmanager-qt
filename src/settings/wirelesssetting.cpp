@@ -21,8 +21,11 @@
 #include "wirelesssetting.h"
 #include "wirelesssetting_p.h"
 
+#include "utils.h"
+
 //define the deprecated&dropped values
 #define NM_SETTING_WIRELESS_SEC "security"
+#define NM_SETTING_WIRELESS_ASSIGNED_MAC_ADDRESS "assigned-mac-address"
 
 #if !NM_CHECK_VERSION(1, 2, 0)
 #define NM_SETTING_WIRELESS_MAC_ADDRESS_RANDOMIZATION "mac-address-randomization"
@@ -74,6 +77,7 @@ NetworkManager::WirelessSetting::WirelessSetting(const Ptr &setting)
     setPowerSave(setting->powerSave());
     setSecurity(setting->security());
     setHidden(setting->hidden());
+    setAssignedMacAddress(setting->assignedMacAddress());
 }
 
 NetworkManager::WirelessSetting::~WirelessSetting()
@@ -186,6 +190,20 @@ quint32 NetworkManager::WirelessSetting::txPower() const
     return d->txPower;
 }
 
+void NetworkManager::WirelessSetting::setAssignedMacAddress(const QString &assignedMacAddress)
+{
+    Q_D(WirelessSetting);
+
+    d->assignedMacAddress = assignedMacAddress;
+}
+
+QString NetworkManager::WirelessSetting::assignedMacAddress() const
+{
+    Q_D(const WirelessSetting);
+
+    return d->assignedMacAddress;
+}
+
 void NetworkManager::WirelessSetting::setMacAddress(const QByteArray &address)
 {
     Q_D(WirelessSetting);
@@ -204,14 +222,14 @@ void NetworkManager::WirelessSetting::setClonedMacAddress(const QByteArray &addr
 {
     Q_D(WirelessSetting);
 
-    d->clonedMacAddress = address;
+    d->assignedMacAddress = NetworkManager::macAddressAsString(address);
 }
 
 QByteArray NetworkManager::WirelessSetting::clonedMacAddress() const
 {
     Q_D(const WirelessSetting);
 
-    return d->clonedMacAddress;
+    return NetworkManager::macAddressFromString(d->assignedMacAddress.toUtf8());
 }
 
 void NetworkManager::WirelessSetting::setGenerateMacAddressMask(const QString& macAddressMask)
@@ -368,6 +386,10 @@ void NetworkManager::WirelessSetting::fromMap(const QVariantMap &setting)
         setTxPower(setting.value(QLatin1String(NM_SETTING_WIRELESS_TX_POWER)).toUInt());
     }
 
+    if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_ASSIGNED_MAC_ADDRESS))) {
+        setAssignedMacAddress(setting.value(QLatin1String(NM_SETTING_WIRELESS_ASSIGNED_MAC_ADDRESS)).toString());
+    }
+
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS))) {
         setMacAddress(setting.value(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS)).toByteArray());
     }
@@ -449,16 +471,16 @@ QVariantMap NetworkManager::WirelessSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_TX_POWER), txPower());
     }
 
+    if (!assignedMacAddress().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_ASSIGNED_MAC_ADDRESS), assignedMacAddress());
+    }
+
     if (!macAddress().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS), macAddress());
     }
 
     if (!generateMacAddressMask().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_GENERATE_MAC_ADDRESS_MASK), generateMacAddressMask());
-    }
-
-    if (!clonedMacAddress().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS), clonedMacAddress());
     }
 
     if (!macAddressBlacklist().isEmpty()) {
@@ -500,8 +522,8 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WirelessSet
     dbg.nospace() << NM_SETTING_WIRELESS_BSSID << ": " << setting.bssid() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_RATE << ": " << setting.rate() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_TX_POWER << ": " << setting.txPower() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_ASSIGNED_MAC_ADDRESS << ": " << setting.assignedMacAddress() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_MAC_ADDRESS << ": " << setting.macAddress() << '\n';
-    dbg.nospace() << NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS << ": " << setting.clonedMacAddress() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_GENERATE_MAC_ADDRESS_MASK << ": " << setting.generateMacAddressMask() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_MAC_ADDRESS_BLACKLIST << ": " << setting.macAddressBlacklist() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_MAC_ADDRESS_RANDOMIZATION << ": " << setting.macAddressRandomization() << '\n';

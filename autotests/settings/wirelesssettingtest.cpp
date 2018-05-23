@@ -24,6 +24,8 @@
 
 #include <libnm/NetworkManager.h>
 
+#define NM_SETTING_WIRELESS_ASSIGNED_MAC_ADDRESS "assigned-mac-address"
+
 #if !NM_CHECK_VERSION(1, 2, 0)
 #define NM_SETTING_WIRELESS_MAC_ADDRESS_RANDOMIZATION "mac-address-randomization"
 #define NM_SETTING_WIRELESS_POWERSAVE "powersave"
@@ -46,7 +48,6 @@ void WirelessSettingTest::testSetting_data()
     QTest::addColumn<quint32>("rate");
     QTest::addColumn<quint32>("txPower");
     QTest::addColumn<QByteArray>("macAddress");
-    QTest::addColumn<QByteArray>("clonedMacAddress");
     QTest::addColumn<QString>("generateMacAddressMask");
     QTest::addColumn<QStringList>("macAddressBlacklist");
     QTest::addColumn<uint>("macAddressRandomization");
@@ -55,6 +56,7 @@ void WirelessSettingTest::testSetting_data()
     QTest::addColumn<uint>("powerSave");
     QTest::addColumn<QString>("security");
     QTest::addColumn<bool>("hidden");
+    QTest::addColumn<QString>("assignedMacAddress");
 
     QStringList macAddressBlacklist;
     macAddressBlacklist << "00:08:C7:1B:8C:02";
@@ -71,7 +73,6 @@ void WirelessSettingTest::testSetting_data()
             << (quint32)2                                     // rate
             << (quint32)3                                     // txPower
             << QByteArray("00-B0-D0-86-BB-F7")                // macAddress
-            << QByteArray("00-14-22-01-23-4")                 // clonedMacAddress
             << QString("FE:FF:FF:00:00:00 68:F7:28:00:00:00") // generateMacAddressMask
             << macAddressBlacklist                            // macAddressBlacklist
             << (uint) 1                                       // macAddressRandomization
@@ -79,7 +80,8 @@ void WirelessSettingTest::testSetting_data()
             << seenBssids                                     // seenBssids
             << (uint) 2                                       // powerSave
             << QString("802-11-wireless-security")            // security
-            << true;                                          // hidden
+            << true                                           // hidden
+            << QString("random");                             // assignedMacAddress
 }
 
 void WirelessSettingTest::testSetting()
@@ -92,7 +94,6 @@ void WirelessSettingTest::testSetting()
     QFETCH(quint32, rate);
     QFETCH(quint32, txPower);
     QFETCH(QByteArray, macAddress);
-    QFETCH(QByteArray, clonedMacAddress);
     QFETCH(QString, generateMacAddressMask);
     QFETCH(QStringList, macAddressBlacklist);
     QFETCH(uint, macAddressRandomization);
@@ -101,6 +102,7 @@ void WirelessSettingTest::testSetting()
     QFETCH(uint, powerSave);
     QFETCH(QString, security);
     QFETCH(bool, hidden);
+    QFETCH(QString, assignedMacAddress);
 
     QVariantMap map;
 
@@ -112,7 +114,6 @@ void WirelessSettingTest::testSetting()
     map.insert(QLatin1String(NM_SETTING_WIRELESS_RATE), rate);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_TX_POWER), txPower);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS), macAddress);
-    map.insert(QLatin1String(NM_SETTING_WIRELESS_CLONED_MAC_ADDRESS), clonedMacAddress);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_GENERATE_MAC_ADDRESS_MASK), generateMacAddressMask);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_BLACKLIST), macAddressBlacklist);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_RANDOMIZATION), macAddressRandomization);
@@ -122,6 +123,7 @@ void WirelessSettingTest::testSetting()
     map.insert(QLatin1String("security"), security);
 
     map.insert(QLatin1String(NM_SETTING_WIRELESS_HIDDEN), hidden);
+    map.insert(QLatin1String(NM_SETTING_WIRELESS_ASSIGNED_MAC_ADDRESS), assignedMacAddress);
 
     NetworkManager::WirelessSetting setting;
     setting.fromMap(map);

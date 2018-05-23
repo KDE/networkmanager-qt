@@ -87,9 +87,13 @@ public:
     void setTxPower(quint32 power);
     quint32 txPower() const;
 
+    void setAssignedMacAddress(const QString &assignedMacAddress);
+    QString assignedMacAddress() const;
+
     void setMacAddress(const QByteArray &address);
     QByteArray macAddress() const;
 
+    /// @deprecated since NM 1.4.0, will internally use assigned-mac-address property
     void setClonedMacAddress(const QByteArray &address);
     QByteArray clonedMacAddress() const;
 

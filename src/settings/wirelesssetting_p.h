@@ -49,6 +49,7 @@ public:
     QString generateMacAddressMask;
     NetworkManager::Setting::MacAddressRandomization macAddressRandomization;
     NetworkManager::WirelessSetting::PowerSave powersave;
+    QString assignedMacAddress;
 };
 
 }
