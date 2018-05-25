@@ -47,7 +47,7 @@ public:
 
     WirelessSecuritySetting();
     explicit WirelessSecuritySetting(const Ptr &other);
-    virtual ~WirelessSecuritySetting();
+    ~WirelessSecuritySetting() override;
 
     QString name() const override;
 

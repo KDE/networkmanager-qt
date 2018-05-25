@@ -50,7 +50,7 @@ public:
 
     Security8021xSetting();
     explicit Security8021xSetting(const Ptr &other);
-    ~Security8021xSetting();
+    ~Security8021xSetting() override;
 
     QString name() const override;
 

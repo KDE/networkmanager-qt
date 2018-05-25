@@ -43,7 +43,7 @@ public:
 
     GsmSetting();
     explicit GsmSetting(const Ptr &other);
-    ~GsmSetting();
+    ~GsmSetting() override;
 
     QString name() const override;
 

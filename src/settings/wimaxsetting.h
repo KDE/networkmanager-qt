@@ -42,7 +42,7 @@ public:
     typedef QList<Ptr> List;
     WimaxSetting();
     explicit WimaxSetting(const Ptr &other);
-    ~WimaxSetting();
+    ~WimaxSetting() override;
 
     QString name() const override;
 

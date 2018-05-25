@@ -44,7 +44,7 @@ public:
 
     VlanSetting();
     explicit VlanSetting(const Ptr &other);
-    ~VlanSetting();
+    ~VlanSetting() override;
 
     QString name() const override;
 

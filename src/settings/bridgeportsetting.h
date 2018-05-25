@@ -41,7 +41,7 @@ public:
     typedef QList<Ptr> List;
     BridgePortSetting();
     explicit BridgePortSetting(const Ptr &other);
-    ~BridgePortSetting();
+    ~BridgePortSetting() override;
 
     QString name() const override;
 

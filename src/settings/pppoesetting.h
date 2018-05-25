@@ -41,7 +41,7 @@ public:
     typedef QList<Ptr> List;
     PppoeSetting();
     explicit PppoeSetting(const Ptr &other);
-    ~PppoeSetting();
+    ~PppoeSetting() override;
 
     QString name() const override;
 

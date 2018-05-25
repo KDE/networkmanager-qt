@@ -43,7 +43,7 @@ public:
 
     SerialSetting();
     explicit SerialSetting(const Ptr &other);
-    ~SerialSetting();
+    ~SerialSetting() override;
 
     QString name() const override;
 

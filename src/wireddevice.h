@@ -48,7 +48,7 @@ public:
     typedef QSharedPointer<WiredDevice> Ptr;
     typedef QList<Ptr> List;
     explicit WiredDevice(const QString &path, QObject *parent = nullptr);
-    virtual ~WiredDevice();
+    ~WiredDevice() override;
     /**
      * Return the type
      */

@@ -41,7 +41,7 @@ public:
     typedef QList<Ptr> List;
     TeamSetting();
     explicit TeamSetting(const Ptr &other);
-    ~TeamSetting();
+    ~TeamSetting() override;
 
     QString name() const override;
 

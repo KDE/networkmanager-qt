@@ -42,7 +42,7 @@ public:
     typedef QSharedPointer<InfinibandDevice> Ptr;
     typedef QList<Ptr> List;
     explicit InfinibandDevice(const QString &path, QObject *parent = nullptr);
-    virtual ~InfinibandDevice();
+    ~InfinibandDevice() override;
 
     Type type() const override;
 

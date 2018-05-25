@@ -69,7 +69,7 @@ public:
 
     Ipv6Setting();
     explicit Ipv6Setting(const Ptr &other);
-    ~Ipv6Setting();
+    ~Ipv6Setting() override;
 
     QString name() const override;
 

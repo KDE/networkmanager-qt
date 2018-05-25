@@ -43,7 +43,7 @@ public:
 
     InfinibandSetting();
     explicit InfinibandSetting(const Ptr &other);
-    ~InfinibandSetting();
+    ~InfinibandSetting() override;
 
     QString name() const override;
 

@@ -55,7 +55,7 @@ public:
     /**
      * Destroys a WimaxDevice object.
      */
-    ~WimaxDevice();
+    ~WimaxDevice() override;
     /**
      * Return the type
      */

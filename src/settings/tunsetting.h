@@ -44,7 +44,7 @@ public:
 
     TunSetting();
     explicit TunSetting(const Ptr &other);
-    ~TunSetting();
+    ~TunSetting() override;
 
     QString name() const override;
 

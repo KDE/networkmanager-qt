@@ -87,7 +87,7 @@ public:
     /**
      * Destroys a WirelessDevice object.
      */
-    ~WirelessDevice();
+    ~WirelessDevice() override;
     /**
      * Return the type
      */

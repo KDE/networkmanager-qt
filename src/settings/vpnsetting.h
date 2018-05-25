@@ -41,7 +41,7 @@ public:
     typedef QList<Ptr> List;
     VpnSetting();
     explicit VpnSetting(const Ptr &other);
-    ~VpnSetting();
+    ~VpnSetting() override;
 
     QString name() const override;
 

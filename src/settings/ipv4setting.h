@@ -67,7 +67,7 @@ public:
 
     Ipv4Setting();
     explicit Ipv4Setting(const Ptr &other);
-    ~Ipv4Setting();
+    ~Ipv4Setting() override;
 
     QString name() const override;
 

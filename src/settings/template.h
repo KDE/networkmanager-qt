@@ -41,7 +41,7 @@ public:
     typedef QList<Ptr> List;
     TemplateSetting();
     explicit TemplateSetting(const Ptr &other);
-    ~TemplateSetting();
+    ~TemplateSetting() override;
 
     QString name() const override;
 

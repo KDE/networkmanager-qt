@@ -41,7 +41,7 @@ public:
     typedef QList<Ptr> List;
     CdmaSetting();
     explicit CdmaSetting(const Ptr &other);
-    ~CdmaSetting();
+    ~CdmaSetting() override;
 
     QString name() const override;
 

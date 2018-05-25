@@ -44,7 +44,7 @@ public:
 
     AdslSetting();
     explicit AdslSetting(const Ptr &other);
-    ~AdslSetting();
+    ~AdslSetting() override;
 
     QString name() const override;
 

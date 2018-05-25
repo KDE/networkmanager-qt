@@ -62,7 +62,7 @@ public:
 
     WirelessSetting();
     explicit WirelessSetting(const Ptr &setting);
-    virtual ~WirelessSetting();
+    ~WirelessSetting() override;
 
     QString name() const override;
 

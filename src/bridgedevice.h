@@ -43,7 +43,7 @@ public:
     typedef QSharedPointer<BridgeDevice> Ptr;
     typedef QList<Ptr> List;
     explicit BridgeDevice(const QString &path, QObject *parent = nullptr);
-    virtual ~BridgeDevice();
+    ~BridgeDevice() override;
 
     Type type() const override;
 

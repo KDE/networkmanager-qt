@@ -43,7 +43,7 @@ public:
 
     BluetoothSetting();
     explicit BluetoothSetting(const Ptr &other);
-    ~BluetoothSetting();
+    ~BluetoothSetting() override;
 
     QString name() const override;
 

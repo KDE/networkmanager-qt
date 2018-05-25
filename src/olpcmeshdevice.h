@@ -52,7 +52,7 @@ public:
     /**
      * Destroys a OlpcMeshDevice object.
      */
-    ~OlpcMeshDevice();
+    ~OlpcMeshDevice() override;
     /**
      * Return the type
      */

@@ -41,7 +41,7 @@ public:
     typedef QList<Ptr> List;
     BridgeSetting();
     explicit BridgeSetting(const Ptr &other);
-    ~BridgeSetting();
+    ~BridgeSetting() override;
 
     QString name() const override;
 

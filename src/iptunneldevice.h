@@ -51,7 +51,7 @@ public:
     typedef QSharedPointer<IpTunnelDevice> Ptr;
     typedef QList<Ptr> List;
     explicit IpTunnelDevice(const QString &path, QObject *parent = nullptr);
-    virtual ~IpTunnelDevice();
+    ~IpTunnelDevice() override;
 
     Type type() const override;
 

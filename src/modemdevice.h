@@ -45,7 +45,7 @@ public:
     Q_DECLARE_FLAGS(Capabilities, Capability)
     explicit ModemDevice(const QString &path, QObject *parent = nullptr);
     explicit ModemDevice(ModemDevicePrivate &dd, QObject *parent = nullptr);
-    virtual ~ModemDevice();
+    ~ModemDevice() override;
     /**
      * Return the type
      */

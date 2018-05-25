@@ -45,7 +45,7 @@ public:
     typedef QList<Ptr> List;
 
     explicit VlanDevice(const QString &path, QObject *parent = nullptr);
-    virtual ~VlanDevice();
+    ~VlanDevice() override;
 
     Type type() const override;
 

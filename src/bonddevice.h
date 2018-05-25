@@ -43,7 +43,7 @@ public:
     typedef QSharedPointer<BondDevice> Ptr;
     typedef QList<Ptr> List;
     explicit BondDevice(const QString &path, QObject *parent = nullptr);
-    virtual ~BondDevice();
+    ~BondDevice() override;
 
     Type type() const override;
 

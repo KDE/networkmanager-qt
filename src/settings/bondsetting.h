@@ -49,7 +49,7 @@ public:
     typedef QList<Ptr> List;
     BondSetting();
     explicit BondSetting(const Ptr &other);
-    ~BondSetting();
+    ~BondSetting() override;
 
     QString name() const override;
 

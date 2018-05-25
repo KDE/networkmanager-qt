@@ -40,7 +40,7 @@ public:
     typedef QSharedPointer<AdslDevice> Ptr;
     typedef QList<Ptr> List;
     explicit AdslDevice(const QString &path, QObject *parent = nullptr);
-    virtual ~AdslDevice();
+    ~AdslDevice() override;
 
     Type type() const override;
     /**

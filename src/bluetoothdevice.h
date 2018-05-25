@@ -63,7 +63,7 @@ public:
     /**
      * Destroys a BluetoothDevice object.
      */
-    virtual ~BluetoothDevice();
+    ~BluetoothDevice() override;
 
     /**
      * Retrieves the capabilities supported by this device.

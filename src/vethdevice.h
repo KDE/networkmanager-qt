@@ -43,7 +43,7 @@ public:
     typedef QList<Ptr> List;
 
     explicit VethDevice(const QString &path, QObject *parent = nullptr);
-    virtual ~VethDevice();
+    ~VethDevice() override;
 
     Type type() const override;
 

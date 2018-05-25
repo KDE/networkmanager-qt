@@ -52,7 +52,7 @@ public:
     typedef QSharedPointer<GreDevice> Ptr;
     typedef QList<Ptr> List;
     explicit GreDevice(const QString &path, QObject *parent = nullptr);
-    virtual ~GreDevice();
+    ~GreDevice() override;
 
     Type type() const override;
 

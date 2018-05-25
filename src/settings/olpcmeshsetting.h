@@ -41,7 +41,7 @@ public:
     typedef QList<Ptr> List;
     OlpcMeshSetting();
     explicit OlpcMeshSetting(const Ptr &other);
-    ~OlpcMeshSetting();
+    ~OlpcMeshSetting() override;
 
     QString name() const override;
 

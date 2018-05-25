@@ -76,7 +76,7 @@ public:
 
     WiredSetting();
     explicit WiredSetting(const Ptr &other);
-    ~WiredSetting();
+    ~WiredSetting() override;
 
     QString name() const override;
 

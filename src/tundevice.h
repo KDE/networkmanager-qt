@@ -48,7 +48,7 @@ public:
     typedef QSharedPointer<TunDevice> Ptr;
     typedef QList<Ptr> List;
     explicit TunDevice(const QString &path, QObject *parent = nullptr);
-    virtual ~TunDevice();
+    ~TunDevice() override;
 
     Type type() const override;
 
