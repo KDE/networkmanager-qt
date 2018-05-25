@@ -43,7 +43,7 @@ public:
     explicit PppoeSetting(const Ptr &other);
     ~PppoeSetting();
 
-    QString name() const Q_DECL_OVERRIDE;
+    QString name() const override;
 
     void setService(const QString &service);
     QString service() const;
@@ -57,15 +57,15 @@ public:
     void setPasswordFlags(Setting::SecretFlags flags);
     Setting::SecretFlags passwordFlags() const;
 
-    QStringList needSecrets(bool requestNew = false) const Q_DECL_OVERRIDE;
+    QStringList needSecrets(bool requestNew = false) const override;
 
-    void secretsFromMap(const QVariantMap &secrets) Q_DECL_OVERRIDE;
+    void secretsFromMap(const QVariantMap &secrets) override;
 
-    QVariantMap secretsToMap() const Q_DECL_OVERRIDE;
+    QVariantMap secretsToMap() const override;
 
-    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
+    void fromMap(const QVariantMap &setting) override;
 
-    QVariantMap toMap() const Q_DECL_OVERRIDE;
+    QVariantMap toMap() const override;
 
 protected:
     PppoeSettingPrivate *d_ptr;

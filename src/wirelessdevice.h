@@ -91,7 +91,7 @@ public:
     /**
      * Return the type
      */
-    Type type() const Q_DECL_OVERRIDE;
+    Type type() const override;
     /**
      * List of wireless networks currently visible to the hardware
      */

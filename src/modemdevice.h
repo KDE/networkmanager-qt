@@ -49,7 +49,7 @@ public:
     /**
      * Return the type
      */
-    Type type() const Q_DECL_OVERRIDE;
+    Type type() const override;
     /**
      * The generic family of access technologies the modem supports. Not all capabilities are
      * available at the same time however; some modems require a firmware reload or other

@@ -46,7 +46,7 @@ public:
     explicit TunSetting(const Ptr &other);
     ~TunSetting();
 
-    QString name() const Q_DECL_OVERRIDE;
+    QString name() const override;
 
     void setGroup(const QString& group);
     QString group() const;
@@ -66,9 +66,9 @@ public:
     void setVnetHdr(bool vnetHdr);
     bool vnetHdr() const;
 
-    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
+    void fromMap(const QVariantMap &setting) override;
 
-    QVariantMap toMap() const Q_DECL_OVERRIDE;
+    QVariantMap toMap() const override;
 
 protected:
     TunSettingPrivate *d_ptr;

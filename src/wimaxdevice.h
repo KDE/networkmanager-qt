@@ -59,7 +59,7 @@ public:
     /**
      * Return the type
      */
-    Type type() const Q_DECL_OVERRIDE;
+    Type type() const override;
     /**
      * List of network service providers currently visible to the hardware
      */

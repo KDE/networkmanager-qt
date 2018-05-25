@@ -57,7 +57,7 @@ protected:
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */
-    void propertyChanged(const QString &property, const QVariant &value) Q_DECL_OVERRIDE;
+    void propertyChanged(const QString &property, const QVariant &value) override;
 };
 
 }

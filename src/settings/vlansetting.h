@@ -46,7 +46,7 @@ public:
     explicit VlanSetting(const Ptr &other);
     ~VlanSetting();
 
-    QString name() const Q_DECL_OVERRIDE;
+    QString name() const override;
 
     /// @deprecated in favor of connection.interface-name in NM 1.0.0
     void setInterfaceName(const QString &name);
@@ -67,9 +67,9 @@ public:
     void setEgressPriorityMap(const QStringList &map);
     QStringList egressPriorityMap() const;
 
-    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
+    void fromMap(const QVariantMap &setting) override;
 
-    QVariantMap toMap() const Q_DECL_OVERRIDE;
+    QVariantMap toMap() const override;
 
 protected:
     VlanSettingPrivate *d_ptr;

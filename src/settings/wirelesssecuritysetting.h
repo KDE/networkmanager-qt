@@ -49,7 +49,7 @@ public:
     explicit WirelessSecuritySetting(const Ptr &other);
     virtual ~WirelessSecuritySetting();
 
-    QString name() const Q_DECL_OVERRIDE;
+    QString name() const override;
 
     void setKeyMgmt(KeyMgmt mgmt);
     KeyMgmt keyMgmt() const;
@@ -102,15 +102,15 @@ public:
     void setLeapPasswordFlags(SecretFlags type);
     SecretFlags leapPasswordFlags() const;
 
-    void secretsFromMap(const QVariantMap &secrets) Q_DECL_OVERRIDE;
+    void secretsFromMap(const QVariantMap &secrets) override;
 
-    QVariantMap secretsToMap() const Q_DECL_OVERRIDE;
+    QVariantMap secretsToMap() const override;
 
-    QStringList needSecrets(bool requestNew = false) const Q_DECL_OVERRIDE;
+    QStringList needSecrets(bool requestNew = false) const override;
 
-    void fromMap(const QVariantMap &map) Q_DECL_OVERRIDE;
+    void fromMap(const QVariantMap &map) override;
 
-    QVariantMap toMap() const Q_DECL_OVERRIDE;
+    QVariantMap toMap() const override;
 
 protected:
     WirelessSecuritySettingPrivate *d_ptr;

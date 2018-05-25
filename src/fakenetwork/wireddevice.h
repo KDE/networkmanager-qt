@@ -54,7 +54,7 @@ public:
     void setHwAddress(const QString &hwAddress);
     void setPermanentHwAddress(const QString &permanentHwAddress);
     void setSpeed(uint speed);
-    void setState(uint state) Q_DECL_OVERRIDE;
+    void setState(uint state) override;
 
 Q_SIGNALS:
     Q_SCRIPTABLE void PropertiesChanged(const QVariantMap &properties);

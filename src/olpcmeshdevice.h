@@ -56,7 +56,7 @@ public:
     /**
      * Return the type
      */
-    Type type() const Q_DECL_OVERRIDE;
+    Type type() const override;
     /**
      * Currently active channel.
      */

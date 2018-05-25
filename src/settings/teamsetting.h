@@ -43,7 +43,7 @@ public:
     explicit TeamSetting(const Ptr &other);
     ~TeamSetting();
 
-    QString name() const Q_DECL_OVERRIDE;
+    QString name() const override;
 
     /// @deprecated in favor of connection.interface-name in NM 1.0.0
     void setInterfaceName(const QString &name);
@@ -52,9 +52,9 @@ public:
     QString config() const;
     void setConfig(const QString &config);
 
-    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
+    void fromMap(const QVariantMap &setting) override;
 
-    QVariantMap toMap() const Q_DECL_OVERRIDE;
+    QVariantMap toMap() const override;
 
 protected:
     TeamSettingPrivate *d_ptr;

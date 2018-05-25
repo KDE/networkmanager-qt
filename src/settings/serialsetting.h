@@ -45,7 +45,7 @@ public:
     explicit SerialSetting(const Ptr &other);
     ~SerialSetting();
 
-    QString name() const Q_DECL_OVERRIDE;
+    QString name() const override;
 
     void setBaud(quint32 speed);
     quint32 baud() const;
@@ -62,9 +62,9 @@ public:
     void setSendDelay(quint64 delay);
     quint64 sendDelay() const;
 
-    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
+    void fromMap(const QVariantMap &setting) override;
 
-    QVariantMap toMap() const Q_DECL_OVERRIDE;
+    QVariantMap toMap() const override;
 
 protected:
     SerialSettingPrivate *d_ptr;

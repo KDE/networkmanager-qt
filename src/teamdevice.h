@@ -47,7 +47,7 @@ public:
     explicit TeamDevice(const QString &path, QObject *parent = nullptr);
     virtual ~TeamDevice();
 
-    Type type() const Q_DECL_OVERRIDE;
+    Type type() const override;
 
     /**
      * Indicates whether the physical carrier is found

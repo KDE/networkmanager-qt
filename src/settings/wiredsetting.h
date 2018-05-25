@@ -78,7 +78,7 @@ public:
     explicit WiredSetting(const Ptr &other);
     ~WiredSetting();
 
-    QString name() const Q_DECL_OVERRIDE;
+    QString name() const override;
 
     void setPort(PortType port);
     PortType port() const;
@@ -122,9 +122,9 @@ public:
     QString wakeOnLanPassword() const;
     void setWakeOnLanPassword(const QString& password);
 
-    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
+    void fromMap(const QVariantMap &setting) override;
 
-    QVariantMap toMap() const Q_DECL_OVERRIDE;
+    QVariantMap toMap() const override;
 
 protected:
     WiredSettingPrivate *d_ptr;

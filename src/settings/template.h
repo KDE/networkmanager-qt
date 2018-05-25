@@ -43,11 +43,11 @@ public:
     explicit TemplateSetting(const Ptr &other);
     ~TemplateSetting();
 
-    QString name() const Q_DECL_OVERRIDE;
+    QString name() const override;
 
-    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
+    void fromMap(const QVariantMap &setting) override;
 
-    QVariantMap toMap() const Q_DECL_OVERRIDE;
+    QVariantMap toMap() const override;
 
 protected:
     TemplateSettingPrivate *d_ptr;

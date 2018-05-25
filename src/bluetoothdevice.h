@@ -85,7 +85,7 @@ public:
      *
      * @return the NetworkManager::Device::Type.  This always returns NetworkManager::Device::Bluetooth
      */
-    Type type() const Q_DECL_OVERRIDE;
+    Type type() const override;
 
 Q_SIGNALS:
     /**

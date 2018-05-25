@@ -43,7 +43,7 @@ public:
     explicit BridgeSetting(const Ptr &other);
     ~BridgeSetting();
 
-    QString name() const Q_DECL_OVERRIDE;
+    QString name() const override;
 
     // Deprecated in favor of connection.interface-name in NM 1.0.0
     void setInterfaceName(const QString &name);
@@ -73,9 +73,9 @@ public:
     void setMacAddress(const QByteArray &address);
     QByteArray macAddress() const;
 
-    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
+    void fromMap(const QVariantMap &setting) override;
 
-    QVariantMap toMap() const Q_DECL_OVERRIDE;
+    QVariantMap toMap() const override;
 
 protected:
     BridgeSettingPrivate *d_ptr;

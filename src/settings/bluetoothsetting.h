@@ -45,7 +45,7 @@ public:
     explicit BluetoothSetting(const Ptr &other);
     ~BluetoothSetting();
 
-    QString name() const Q_DECL_OVERRIDE;
+    QString name() const override;
 
     void setBluetoothAddress(const QByteArray &address);
     QByteArray bluetoothAddress() const;
@@ -53,9 +53,9 @@ public:
     void setProfileType(ProfileType type);
     ProfileType profileType() const;
 
-    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
+    void fromMap(const QVariantMap &setting) override;
 
-    QVariantMap toMap() const Q_DECL_OVERRIDE;
+    QVariantMap toMap() const override;
 
 protected:
     BluetoothSettingPrivate *d_ptr;

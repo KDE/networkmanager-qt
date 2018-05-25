@@ -45,7 +45,7 @@ public:
     explicit BondDevice(const QString &path, QObject *parent = nullptr);
     virtual ~BondDevice();
 
-    Type type() const Q_DECL_OVERRIDE;
+    Type type() const override;
 
     /**
      * Indicates whether the physical carrier is found

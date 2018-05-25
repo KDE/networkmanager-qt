@@ -47,7 +47,7 @@ public:
     /**
      * Return the type
      */
-    Type type() const Q_DECL_OVERRIDE;
+    Type type() const override;
     /**
      * Active hardware address of the device
      */

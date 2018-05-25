@@ -43,7 +43,7 @@ public:
     explicit BridgePortSetting(const Ptr &other);
     ~BridgePortSetting();
 
-    QString name() const Q_DECL_OVERRIDE;
+    QString name() const override;
 
     void setPriority(quint32 priority);
     quint32 priority() const;
@@ -54,9 +54,9 @@ public:
     void setHairpinMode(bool enable);
     bool hairpinMode() const;
 
-    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
+    void fromMap(const QVariantMap &setting) override;
 
-    QVariantMap toMap() const Q_DECL_OVERRIDE;
+    QVariantMap toMap() const override;
 
 protected:
     BridgePortSettingPrivate *d_ptr;

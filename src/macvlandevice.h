@@ -45,7 +45,7 @@ public:
     explicit MacVlanDevice(const QString &path, QObject *parent = nullptr);
     virtual ~MacVlanDevice();
 
-    Type type() const Q_DECL_OVERRIDE;
+    Type type() const override;
 
     QString mode() const;
     bool noPromisc() const;

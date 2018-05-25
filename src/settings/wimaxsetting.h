@@ -44,7 +44,7 @@ public:
     explicit WimaxSetting(const Ptr &other);
     ~WimaxSetting();
 
-    QString name() const Q_DECL_OVERRIDE;
+    QString name() const override;
 
     void setNetworkName(const QString &name);
     QString networkName() const;
@@ -52,9 +52,9 @@ public:
     void setMacAddress(const QByteArray &address);
     QByteArray macAddress() const;
 
-    void fromMap(const QVariantMap &setting) Q_DECL_OVERRIDE;
+    void fromMap(const QVariantMap &setting) override;
 
-    QVariantMap toMap() const Q_DECL_OVERRIDE;
+    QVariantMap toMap() const override;
 
 protected:
     WimaxSettingPrivate *d_ptr;
