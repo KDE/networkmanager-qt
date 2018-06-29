@@ -22,9 +22,6 @@ find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED Core DBus Network)
 
 add_definitions(${QT_DEFINITIONS})
 
-add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
-add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
-
 remove_definitions(-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_FROM_BYTEARRAY)
 
 
