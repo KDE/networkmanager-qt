@@ -71,7 +71,7 @@ uint NetworkManager::DeviceStatistics::refreshRateMs() const
 void NetworkManager::DeviceStatistics::setRefreshRateMs(uint refreshRate)
 {
     Q_D(DeviceStatistics);
-    d->refreshRateMs = refreshRate;
+    d->iface.setRefreshRateMs(refreshRate);
 }
 
 qulonglong NetworkManager::DeviceStatistics::rxBytes() const
