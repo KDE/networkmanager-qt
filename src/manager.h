@@ -30,6 +30,7 @@
 
 #include "device.h"
 #include "activeconnection.h"
+#include "dnsconfiguration.h"
 
 /**
  * This class allows querying the underlying system to discover the available
@@ -204,6 +205,14 @@ Q_SIGNALS:
      * @note never emitted in runtime NM < 1.0.6
      */
     void meteredChanged(NetworkManager::Device::MeteredStatus metered);
+
+    /**
+     * Emitted when the global DNS configuration has changed
+     * @since 5.45.0
+     * @see globalDnsConfiguration
+     * @note never emitted in runtime NM < 1.2.0
+     */
+    void globalDnsConfigurationChanged(const NetworkManager::DnsConfiguration &configuration);
 };
 
 /**
@@ -400,6 +409,19 @@ NETWORKMANAGERQT_EXPORT bool isStartingUp();
  * @note always returns NetworkManager::Device::UnknownStatus in runtime NM < 1.0.6
  */
 NETWORKMANAGERQT_EXPORT NetworkManager::Device::MeteredStatus metered();
+
+/**
+ * @return Gets the global DNS configuration.
+ * @since 5.45.0
+ * @note always returns an empty configuration in runtime NM < 1.2.0
+ */
+NETWORKMANAGERQT_EXPORT NetworkManager::DnsConfiguration globalDnsConfiguration();
+
+/**
+ * @return Sets the global DNS configuration.
+ * @since 5.45.0
+ */
+NETWORKMANAGERQT_EXPORT void setGlobalDnsConfiguration(const NetworkManager::DnsConfiguration &configuration);
 
 /**
  * Find an ActiveConnection object for an active connection id

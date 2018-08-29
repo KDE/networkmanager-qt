@@ -18,6 +18,8 @@ set(NetworkManagerQt_PART_SRCS
     dhcp4config.cpp
     dhcp6config.cpp
     devicestatistics.cpp
+    dnsconfiguration.cpp
+    dnsdomain.cpp
     infinibanddevice.cpp
     ipaddress.cpp
     iproute.cpp
@@ -161,6 +163,8 @@ ecm_generate_headers(NetworkManagerQt_CamelCase_HEADERS
   DeviceStatistics
   Dhcp4Config
   Dhcp6Config
+  DnsConfiguration
+  DnsDomain
   GenericDevice
   GenericTypes
   GreDevice

@@ -86,6 +86,7 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     , m_isWirelessHardwareEnabled(false)
     , m_isWwanEnabled(false)
     , m_isWwanHardwareEnabled(false)
+    , m_globalDnsConfiguration(NetworkManager::DnsConfiguration())
     , m_supportedInterfaceTypes(NetworkManager::Device::UnknownType)
 {
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceAdded,
@@ -682,6 +683,17 @@ NetworkManager::Device::MeteredStatus NetworkManager::NetworkManagerPrivate::met
     return checkVersion(1, 0, 6) ? m_metered : NetworkManager::Device::UnknownStatus;
 }
 
+NetworkManager::DnsConfiguration NetworkManager::NetworkManagerPrivate::globalDnsConfiguration() const
+{
+    return m_globalDnsConfiguration;
+}
+
+void NetworkManager::NetworkManagerPrivate::setGlobalDnsConfiguration(const NetworkManager::DnsConfiguration &configuration)
+{
+    m_globalDnsConfiguration = configuration;
+    iface.setGlobalDnsConfiguration(m_globalDnsConfiguration.toMap());
+}
+
 void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath &objpath)
 {
     // qCDebug(NMQT);
@@ -806,6 +818,9 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
         } else if (property == QLatin1String("Metered")) {
             m_metered = (NetworkManager::Device::MeteredStatus)it->toUInt();
             Q_EMIT meteredChanged(m_metered);
+        } else if (property == QLatin1String("GlobalDnsConfiguration")) {
+            m_globalDnsConfiguration.fromMap(qdbus_cast<QVariantMap>(*it));
+            Q_EMIT globalDnsConfigurationChanged(m_globalDnsConfiguration);
         } else {
             qCDebug(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
@@ -1106,6 +1121,16 @@ bool NetworkManager::isStartingUp()
 NetworkManager::Device::MeteredStatus NetworkManager::metered()
 {
     return globalNetworkManager->metered();
+}
+
+NetworkManager::DnsConfiguration NetworkManager::globalDnsConfiguration()
+{
+    return globalNetworkManager->globalDnsConfiguration();
+}
+
+void NetworkManager::setGlobalDnsConfiguration(const NetworkManager::DnsConfiguration &configuration)
+{
+    globalNetworkManager->setGlobalDnsConfiguration(configuration);
 }
 
 NetworkManager::Notifier *NetworkManager::notifier()

@@ -67,6 +67,7 @@ public:
     QString m_primaryConnection;
     NetworkManager::ConnectionSettings::ConnectionType m_primaryConnectionType;
     NetworkManager::Device::MeteredStatus m_metered;
+    NetworkManager::DnsConfiguration m_globalDnsConfiguration;
     QString m_version;
     // to store NetworkManager's version.
     int m_x;
@@ -120,6 +121,8 @@ public:
     NetworkManager::ConnectionSettings::ConnectionType primaryConnectionType();
     bool isStartingUp() const;
     NetworkManager::Device::MeteredStatus metered() const;
+    NetworkManager::DnsConfiguration globalDnsConfiguration() const;
+    void setGlobalDnsConfiguration(const NetworkManager::DnsConfiguration &configuration);
 protected Q_SLOTS:
     void init();
     void onDeviceAdded(const QDBusObjectPath &state);
