@@ -27,15 +27,6 @@
 #define NM_SETTING_WIRELESS_SEC "security"
 #define NM_SETTING_WIRELESS_ASSIGNED_MAC_ADDRESS "assigned-mac-address"
 
-#if !NM_CHECK_VERSION(1, 2, 0)
-#define NM_SETTING_WIRELESS_MAC_ADDRESS_RANDOMIZATION "mac-address-randomization"
-#define NM_SETTING_WIRELESS_POWERSAVE "powersave"
-#endif
-
-#if !NM_CHECK_VERSION(1, 4, 0)
-#define NM_SETTING_WIRELESS_GENERATE_MAC_ADDRESS_MASK "generate-mac-address-mask"
-#endif
-
 #include <QtCore/QDebug>
 
 NetworkManager::WirelessSettingPrivate::WirelessSettingPrivate()

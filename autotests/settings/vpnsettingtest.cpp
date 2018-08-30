@@ -24,11 +24,6 @@
 
 #include <libnm/NetworkManager.h>
 
-#if !NM_CHECK_VERSION(1, 2, 0)
-#define NM_SETTING_VPN_PERSISTENT "persistent"
-#define NM_SETTING_VPN_TIMEOUT "timeout"
-#endif
-
 #include <QTest>
 
 void VpnSettingTest::testSetting_data()

@@ -48,12 +48,8 @@ NetworkManager::VethDevice::VethDevice(const QString &path, QObject *parent)
         d->propertiesChanged(initialProperties);
     }
 
-#if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-#else
-    connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceVethInterface::PropertiesChanged, d, &VethDevicePrivate::propertiesChanged);
-#endif
 }
 
 NetworkManager::VethDevice::~VethDevice()

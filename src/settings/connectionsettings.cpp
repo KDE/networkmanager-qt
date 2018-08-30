@@ -48,19 +48,6 @@
 #undef signals
 #include <libnm/NetworkManager.h>
 
-#if !NM_CHECK_VERSION(1, 0, 6)
-#define NM_SETTING_CONNECTION_METERED "metered"
-#endif
-
-#if !NM_CHECK_VERSION(1, 2, 0)
-#define NM_SETTING_TUN_SETTING_NAME "tun"
-#define NM_SETTING_CONNECTION_LLDP "lldp"
-#endif
-
-#if !NM_CHECK_VERSION(1, 4, 0)
-#define NM_SETTING_CONNECTION_STABLE_ID "stable-id"
-#endif
-
 #if !NM_CHECK_VERSION(1, 6, 0)
 #define NM_SETTING_CONNECTION_AUTOCONNECT_RETRIES "autoconnect-retries"
 #endif

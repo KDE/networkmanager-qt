@@ -24,12 +24,6 @@
 #define NM_SETTING_GSM_NETWORK_TYPE "network-type"
 #define NM_SETTING_GSM_ALLOWED_BANDS "allowed-bands"
 
-#if !NM_CHECK_VERSION(1, 2, 0)
-#define NM_SETTING_GSM_DEVICE_ID "device-id"
-#define NM_SETTING_GSM_SIM_ID "sim-id"
-#define NM_SETTING_GSM_SIM_OPERATOR_ID "sim-operator-id"
-#endif
-
 #include <QtCore/QDebug>
 
 NetworkManager::GsmSettingPrivate::GsmSettingPrivate()

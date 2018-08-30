@@ -24,10 +24,6 @@
 
 #include <libnm/NetworkManager.h>
 
-#if !NM_CHECK_VERSION(1, 2, 0)
-#define NM_SETTING_802_1X_DOMAIN_SUFFIX_MATCH "domain-suffix-match"
-#endif
-
 #include <QTest>
 
 void Security8021xSettingTest::testSetting_data()

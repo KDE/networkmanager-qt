@@ -96,13 +96,8 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
 
 
 #ifndef NMQT_STATIC
-#if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_DAEMON_PATH, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), this, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-#else
-    connect(&iface, &OrgFreedesktopNetworkManagerInterface::PropertiesChanged,
-            this, &NetworkManagerPrivate::propertiesChanged);
-#endif
 #endif
 
 #ifdef NMQT_STATIC

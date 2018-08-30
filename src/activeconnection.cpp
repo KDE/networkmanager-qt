@@ -67,12 +67,8 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject 
     }
 
 #ifndef NMQT_STATIC
-#if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-#else
-    connect(&d->iface, &OrgFreedesktopNetworkManagerConnectionActiveInterface::PropertiesChanged, d, &ActiveConnectionPrivate::propertiesChanged);
-#endif
 #endif
 
 #ifdef NMQT_STATIC
@@ -94,12 +90,8 @@ NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, 
     Q_D(ActiveConnection);
 
 #ifndef NMQT_STATIC
-#if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-#else
-    connect(&d->iface, &OrgFreedesktopNetworkManagerConnectionActiveInterface::PropertiesChanged, d, &ActiveConnectionPrivate::propertiesChanged);
-#endif
 #endif
 
 #ifdef NMQT_STATIC

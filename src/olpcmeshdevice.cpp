@@ -45,12 +45,8 @@ NetworkManager::OlpcMeshDevice::OlpcMeshDevice(const QString &path, QObject *par
         d->propertiesChanged(initialProperties);
     }
 
-#if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-#else
-    QObject::connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface::PropertiesChanged, d, &OlpcMeshDevicePrivate::propertiesChanged);
-#endif
 }
 
 NetworkManager::OlpcMeshDevice::~OlpcMeshDevice()

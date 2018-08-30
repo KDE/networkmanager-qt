@@ -52,12 +52,8 @@ NetworkManager::WimaxDevice::WimaxDevice(const QString &path, QObject *parent)
         d->propertiesChanged(initialProperties);
     }
 
-#if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-#else
-    connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::PropertiesChanged, d, &WimaxDevicePrivate::propertiesChanged);
-#endif
     connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspAdded, d, &WimaxDevicePrivate::nspAdded);
     connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspRemoved, d, &WimaxDevicePrivate::nspRemoved);
 }

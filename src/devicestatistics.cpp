@@ -48,12 +48,8 @@ NetworkManager::DeviceStatistics::DeviceStatistics(const QString &path, QObject 
         d->propertiesChanged(initialProperties);
     }
 
-#if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-#else
-    QObject::connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceStatisticsInterface::PropertiesChanged, d, &DeviceStatisticsPrivate::propertiesChanged);
-#endif
 }
 
 NetworkManager::DeviceStatistics::~DeviceStatistics()

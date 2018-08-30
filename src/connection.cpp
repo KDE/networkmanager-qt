@@ -61,12 +61,9 @@ NetworkManager::Connection::Connection(const QString &path, QObject *parent)
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Updated, d, &ConnectionPrivate::onConnectionUpdated);
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Removed, d, &ConnectionPrivate::onConnectionRemoved);
     d->unsaved = d->iface.unsaved();
-#if NM_CHECK_VERSION(1, 4, 0)
+
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-#else
-    connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::PropertiesChanged, d, &ConnectionPrivate::onPropertiesChanged);
-#endif
 }
 
 NetworkManager::Connection::~Connection()

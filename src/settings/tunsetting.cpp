@@ -21,17 +21,6 @@
 #include "tunsetting.h"
 #include "tunsetting_p.h"
 
-#if !NM_CHECK_VERSION(1, 1, 92)
-#define NM_SETTING_TUN_SETTING_NAME         "tun"
-
-#define NM_SETTING_TUN_MODE                 "mode"
-#define NM_SETTING_TUN_OWNER                "owner"
-#define NM_SETTING_TUN_GROUP                "group"
-#define NM_SETTING_TUN_PI                   "pi"
-#define NM_SETTING_TUN_VNET_HDR             "vnet-hdr"
-#define NM_SETTING_TUN_MULTI_QUEUE          "multi-queue"
-#endif
-
 #include <QtCore/QDebug>
 
 NetworkManager::TunSettingPrivate::TunSettingPrivate()

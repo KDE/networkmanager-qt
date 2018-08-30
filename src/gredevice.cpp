@@ -47,12 +47,8 @@ NetworkManager::GreDevice::GreDevice(const QString &path, QObject *parent):
         d->propertiesChanged(initialProperties);
     }
 
-#if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-#else
-    QObject::connect(&d->iface, &OrgFreedesktopNetworkManagerDeviceGreInterface::PropertiesChanged, d, &GreDevicePrivate::propertiesChanged);
-#endif
 }
 
 NetworkManager::GreDevice::~GreDevice()

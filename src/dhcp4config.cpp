@@ -44,12 +44,9 @@ NetworkManager::Dhcp4Config::Dhcp4Config(const QString &path, QObject *owner)
 {
     Q_D(Dhcp4Config);
     Q_UNUSED(owner);
-#if NM_CHECK_VERSION(1, 4, 0)
+
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->myPath, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-#else
-    connect(&d->dhcp4Iface, &OrgFreedesktopNetworkManagerDHCP4ConfigInterface::PropertiesChanged, d, &Dhcp4ConfigPrivate::dhcp4PropertiesChanged);
-#endif
     d->options = d->dhcp4Iface.options();
 }
 

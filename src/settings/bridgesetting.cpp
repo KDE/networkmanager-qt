@@ -23,10 +23,6 @@
 
 #define NM_SETTING_BRIDGE_INTERFACE_NAME "interface-name"
 
-#if !NM_CHECK_VERSION(1, 2, 0)
-#define NM_SETTING_BRIDGE_MULTICAST_SNOOPING "multicast-snooping"
-#endif
-
 #include <QtCore/QDebug>
 
 NetworkManager::BridgeSettingPrivate::BridgeSettingPrivate()

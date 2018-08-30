@@ -69,12 +69,8 @@ NetworkManager::VpnConnection::VpnConnection(const QString &path, QObject *paren
         }
     }
 
-#if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-#else
-    connect(&d->iface, &OrgFreedesktopNetworkManagerVPNConnectionInterface::PropertiesChanged, d, &VpnConnectionPrivate::propertiesChanged);
-#endif
     connect(&d->iface, &OrgFreedesktopNetworkManagerVPNConnectionInterface::VpnStateChanged, d, &VpnConnectionPrivate::vpnStateChanged);
 }
 

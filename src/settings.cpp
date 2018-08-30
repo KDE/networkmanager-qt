@@ -42,13 +42,8 @@ NetworkManager::SettingsPrivate::SettingsPrivate()
 #endif
     , m_canModify(true)
 {
-#if NM_CHECK_VERSION(1, 4, 0)
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), this, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-#else
-    connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::PropertiesChanged,
-            this, &SettingsPrivate::propertiesChanged);
-#endif
     connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::NewConnection,
             this, &SettingsPrivate::onConnectionAdded);
     connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::ConnectionRemoved,
