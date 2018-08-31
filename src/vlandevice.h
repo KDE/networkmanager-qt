@@ -60,7 +60,6 @@ public:
     /**
      * The parent device of this VLAN device
      * @since 5.8.0
-     * @note always returns nullptr in runtime NM < 1.0.0
      */
     NetworkManager::Device::Ptr parent() const;
     /**
@@ -79,7 +78,6 @@ Q_SIGNALS:
     void hwAddressChanged(const QString &address);
     /**
      * Emitted when the parent device of this device has changed
-     * @note never emitted in runtime NM < 1.0.0
      */
     void parentChanged(const QString &path);
     /**

@@ -71,7 +71,6 @@ public:
     bool carrier() const;
     /**
      * Array of S/390 subchannels for S/390 or z/Architecture devices
-     * @note always returns empty array in runtime NM < 1.2.0
      */
     QStringList s390SubChannels() const;
 
@@ -94,7 +93,6 @@ Q_SIGNALS:
     void permanentHardwareAddressChanged(const QString &permHwAddress);
     /*
      * Emitted when the array of s390SubChannels has changed
-     * @note never emitted in runtime NM < 1.2.0
      */
     void s390SubChannelsChanged(const QStringList &channels);
 

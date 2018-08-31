@@ -125,7 +125,6 @@ public:
      * @return The timestamp (in CLOCK_BOOTTIME seconds) for the last time the access point
      * was found in scan results. A value of -1 means the access point has never been found in scan results.
      * @since 5.14.0
-     * @note always returns -1 in runtime NM < 1.0.6
      */
     int lastSeen() const;
 
@@ -190,7 +189,6 @@ Q_SIGNALS:
      * @param lastSeen the timestamp for the last time the access point was found in scan results.
      * @since 5.14.0
      * @see lastSeen
-     * @note never emitted in runtime NM < 1.0.6
      */
     void lastSeenChanged(int lastSeen);
 

@@ -246,7 +246,6 @@ public:
      *
      * @since 5.8.0
      *
-     * @note this is a noop in runtime NM < 1.0.0
      */
     QDBusPendingReply<> deleteInterface();
     /**
@@ -354,7 +353,6 @@ public:
      * The device MTU (maximum transmission unit)
      * @since 0.9.9.0
      *
-     * @note always returns 0 in runtime NM < 1.0.6
      */
     uint mtu() const;
 
@@ -362,7 +360,6 @@ public:
      * @return If TRUE, indicates the NetworkManager plugin for the device is likely
      * missing or misconfigured.
      * @since 5.14.0
-     * @note always returns false in runtime NM < 1.2.0
      */
     bool nmPluginMissing() const;
 
@@ -370,7 +367,6 @@ public:
      * @return Whether the amount of traffic flowing through the device is
      * subject to limitations, for example set by service providers.
      * @since 5.14.0
-     * @note always returns UnknownStatus in runtime NM < 1.0.6
      */
     MeteredStatus metered() const;
 
@@ -384,7 +380,6 @@ public:
 
     /**
      * Returns Device Statistics interface
-     * @note always returns empty pointer in runtime NM < 1.4.0
      */
     DeviceStatistics::Ptr deviceStatistics() const;
 
@@ -530,7 +525,6 @@ Q_SIGNALS:
      * Emitted when NmPluginMissing property has changed
      * @since 5.14.0
      * @see nmPluginMissing
-     * @note never Emitted in runtime NM < 1.2.0
      */
     void nmPluginMissingChanged(bool nmPluginMissing);
 
@@ -538,7 +532,6 @@ Q_SIGNALS:
      * Emitted when metered property has changed
      * @since 5.14.0
      * @see metered
-     * @note never Emitted in runtime NM < 1.0.6
      */
     void meteredChanged(MeteredStatus metered);
 

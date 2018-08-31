@@ -128,7 +128,6 @@ public:
     /**
      * Clear the secrets belonging to this network connection profile.
      * @since 5.8.0
-     * @note this is a noop in runtime NM < 1.0.0
      */
     QDBusPendingReply<> clearSecrets();
 

@@ -78,7 +78,6 @@ public:
     bool vnetHdr() const;
     /**
      * Hardware address of the device.
-     * @note returns empty address in runtime NM < 1.2.0
      */
     QString hwAddress() const;
 
@@ -109,7 +108,6 @@ Q_SIGNALS:
     void vnetHdrChanged(bool vnetHdr);
     /**
      * Emitted when the hardware address of the device has changed
-     * @note never emitted in runtime NM < 1.2.0
      */
     void hwAddressChanged(const QString &hwAddress);
 

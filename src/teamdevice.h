@@ -65,7 +65,6 @@ public:
 
     /**
      * The JSON configuration currently applied on the device.
-     * @note always returns empty configuration in runtime NM < 1.4.0
      */
     QString config() const;
 
@@ -86,7 +85,6 @@ Q_SIGNALS:
 
     /**
      * Emitted when the JSON confugration which is currently applied has changed
-     * @note never emitted in runtime NM < 1.4.0
      */
     void configChanged(const QString &config);
 

@@ -116,7 +116,6 @@ public:
     /**
      * Returns a list of DNS options that modify the behaviour of the DNS resolver.
      * @since 5.14.0
-     * @note always returns default constructed QStringList in runtime NM < 1.2.0
      */
     QStringList dnsOptions() const;
 

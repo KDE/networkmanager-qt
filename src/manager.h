@@ -65,10 +65,6 @@ enum LogLevel {
     Trace/**< = Debug in runtime NM < 0.9.10*/
     };
 
-/**
- * @note flags Agents, Settings, Bridge, DbusProps, Team, ConCheck, Dcb, Dispatch are not
- * usabel in runtime NM < 0.9.10
- */
 enum LogDomain {NoChange, None, Hardware, RFKill, Ethernet, WiFi, Bluetooth, MobileBroadBand, DHCP4, DHCP6, PPP, WiFiScan, IPv4, IPv6,
                 AutoIPv4, DNS, VPN, Sharing, Supplicant, UserSet, SysSet, Suspend, Core, Devices, OLPC, Wimax/*TODO: mark it deprecated somehow?*/, Infiniband, Firewall, Adsl, Bond, Vlan
                 , Agents, Settings, Bridge, DbusProps, Team, ConCheck, Dcb, Dispatch
@@ -187,14 +183,12 @@ Q_SIGNALS:
      * Emitted when the primary connection type changes.
      * @param connection type of the new primary connection
      * @since 5.8.0
-     * @note never emitted in runtime NM < 1.0.0
      */
     void primaryConnectionTypeChanged(NetworkManager::ConnectionSettings::ConnectionType type);
 
     /**
      * Emitted when NM has started/finished its startup sequence
      * @since 0.9.9.0
-     * @note never emitted in runtime NM < 0.9.10
      */
     void isStartingUpChanged();
 
@@ -202,7 +196,6 @@ Q_SIGNALS:
      * Emitted when metered property has changed
      * @since 5.14.0
      * @see metered
-     * @note never emitted in runtime NM < 1.0.6
      */
     void meteredChanged(NetworkManager::Device::MeteredStatus metered);
 
@@ -210,7 +203,6 @@ Q_SIGNALS:
      * Emitted when the global DNS configuration has changed
      * @since 5.45.0
      * @see globalDnsConfiguration
-     * @note never emitted in runtime NM < 1.2.0
      */
     void globalDnsConfigurationChanged(const NetworkManager::DnsConfiguration &configuration);
 };
@@ -390,7 +382,6 @@ NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr activatingConnection();
  * used to access the network. This is the same as the Type
  * property on the object indicated by PrimaryConnection.
  * @since 5.8.0
- * @note always returns NetworkManager::ConnectionSettings::Unknown in runtime NM < 1.0.0
  */
 NETWORKMANAGERQT_EXPORT NetworkManager::ConnectionSettings::ConnectionType primaryConnectionType();
 
@@ -399,21 +390,18 @@ NETWORKMANAGERQT_EXPORT NetworkManager::ConnectionSettings::ConnectionType prima
   * when NM has finished attempting to activate every connection
   * that it might be able to activate at startup.
   * @since 0.9.9.0
-  * @note always returns false in runtime NM < 0.9.10
   */
 NETWORKMANAGERQT_EXPORT bool isStartingUp();
 
 /**
  * @return Indicates whether the connectivity is metered.
  * @since 5.14.0
- * @note always returns NetworkManager::Device::UnknownStatus in runtime NM < 1.0.6
  */
 NETWORKMANAGERQT_EXPORT NetworkManager::Device::MeteredStatus metered();
 
 /**
  * @return Gets the global DNS configuration.
  * @since 5.45.0
- * @note always returns an empty configuration in runtime NM < 1.2.0
  */
 NETWORKMANAGERQT_EXPORT NetworkManager::DnsConfiguration globalDnsConfiguration();
 
