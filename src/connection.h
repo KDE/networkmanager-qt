@@ -105,7 +105,7 @@ public:
      * Update the connection with new @p settings and properties (replacing
      * all previous settings and properties) but do not immediately save
      * the connection to disk. Secrets may be part of the update request
-     * and may sent to a Secret Agent for storage, depending on the the
+     * and may sent to a Secret Agent for storage, depending on the
      * flags associated with each secret.
      *
      * Use the save() method to save these changes to disk. Note
