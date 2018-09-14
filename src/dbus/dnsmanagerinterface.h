@@ -40,7 +40,7 @@ public:
 #endif
 
 public:
-    OrgFreedesktopNetworkManagerDnsManagerInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
+    OrgFreedesktopNetworkManagerDnsManagerInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDnsManagerInterface();
 

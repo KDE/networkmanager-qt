@@ -40,7 +40,7 @@ public:
 #endif
 
 public:
-    OrgFreedesktopNetworkManagerCheckpointInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
+    OrgFreedesktopNetworkManagerCheckpointInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerCheckpointInterface();
 

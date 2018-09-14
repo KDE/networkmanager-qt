@@ -40,7 +40,7 @@ public:
 #endif
 
 public:
-    OrgFreedesktopNetworkManagerDeviceVxlanInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
+    OrgFreedesktopNetworkManagerDeviceVxlanInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceVxlanInterface();
 

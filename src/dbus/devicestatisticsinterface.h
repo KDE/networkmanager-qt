@@ -40,7 +40,7 @@ public:
 #endif
 
 public:
-    OrgFreedesktopNetworkManagerDeviceStatisticsInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
+    OrgFreedesktopNetworkManagerDeviceStatisticsInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceStatisticsInterface();
 
