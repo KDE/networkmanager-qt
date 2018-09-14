@@ -1003,7 +1003,7 @@ QVariantMap NetworkManager::Security8021xSetting::toMap() const
     case AuthEapMethodTls:
         authEapMethod = "tls";
         break;
-    case AuthMethodUnknown:
+    case AuthEapMethodUnknown:
         break;
     }
 
