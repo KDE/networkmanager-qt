@@ -1,6 +1,6 @@
 include_directories (
-    ${NETWORKMANAGER_INCLUDE_DIRS}
     ${CMAKE_SOURCE_DIR}/src/settings
+    SYSTEM ${NETWORKMANAGER_INCLUDE_DIRS}
 )
 
 include(ECMAddTests)
