@@ -22,8 +22,6 @@ find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED Core DBus Network)
 
 add_definitions(${QT_DEFINITIONS})
 
-remove_definitions(-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_FROM_BYTEARRAY)
-
 
 include(GenerateExportHeader)
 
