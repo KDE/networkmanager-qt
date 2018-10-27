@@ -54,27 +54,31 @@
 
 #include "nmdebug.h"
 
+#define DBUS_OBJECT_MANAGER  "org.freedesktop.DBus.ObjectManager"
 #define DBUS_PROPERTIES  "org.freedesktop.DBus.Properties"
 
 #ifdef NMQT_STATIC
 const QString NetworkManager::NetworkManagerPrivate::DBUS_SERVICE(QString::fromLatin1("org.kde.fakenetwork"));
 const QString NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH(QString::fromLatin1("/org/kde/fakenetwork"));
+const QString NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_INTERFACE(QString::fromLatin1("org.kde.fakenetwork"));
 const QString NetworkManager::NetworkManagerPrivate::DBUS_SETTINGS_PATH(QString::fromLatin1("/org/kde/fakenetwork/Settings"));
 #else
 const QString NetworkManager::NetworkManagerPrivate::DBUS_SERVICE(QString::fromLatin1(NM_DBUS_SERVICE));
 const QString NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH(QString::fromLatin1(NM_DBUS_PATH));
+const QString NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_INTERFACE(QString::fromLatin1(NM_DBUS_INTERFACE));
 const QString NetworkManager::NetworkManagerPrivate::DBUS_SETTINGS_PATH(QString::fromLatin1(NM_DBUS_PATH_SETTINGS));
 #endif
 const QString NetworkManager::NetworkManagerPrivate::FDO_DBUS_PROPERTIES(QString::fromLatin1(DBUS_PROPERTIES));
+const QString NetworkManager::NetworkManagerPrivate::FDO_DBUS_OBJECT_MANAGER(QString::fromLatin1(DBUS_OBJECT_MANAGER));
 
 Q_GLOBAL_STATIC(NetworkManager::NetworkManagerPrivate, globalNetworkManager)
 
 NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
 #ifdef NMQT_STATIC
-    : watcher(DBUS_SERVICE, QDBusConnection::sessionBus(), QDBusServiceWatcher::WatchForOwnerChange, this)
+    : watcher(DBUS_SERVICE, QDBusConnection::sessionBus(), QDBusServiceWatcher::WatchForUnregistration, this)
     , iface(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE, NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH, QDBusConnection::sessionBus())
 #else
-    : watcher(DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForOwnerChange, this)
+    : watcher(DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForUnregistration, this)
     , iface(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE, NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH, QDBusConnection::systemBus())
 #endif
     , nmState(NetworkManager::Unknown)
@@ -98,15 +102,14 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
 #ifndef NMQT_STATIC
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_DAEMON_PATH, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), this, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-#endif
-
-#ifdef NMQT_STATIC
+#else
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::PropertiesChanged,
             this, &NetworkManagerPrivate::propertiesChanged);
 #endif
 
-    connect(&watcher, &QDBusServiceWatcher::serviceRegistered,
-            this, &NetworkManagerPrivate::daemonRegistered);
+    iface.connection().connect(NetworkManagerPrivate::DBUS_SERVICE, "/org/freedesktop", NetworkManagerPrivate::FDO_DBUS_OBJECT_MANAGER,
+                               QLatin1String("InterfacesAdded"), this, SLOT(dbusInterfacesAdded(QDBusObjectPath,QVariantMap)));
+
     connect(&watcher, &QDBusServiceWatcher::serviceUnregistered,
             this, &NetworkManagerPrivate::daemonUnregistered);
 
@@ -878,8 +881,13 @@ NetworkManager::Status NetworkManager::NetworkManagerPrivate::convertNMState(uin
     return status;
 }
 
-void NetworkManager::NetworkManagerPrivate::daemonRegistered()
+void NetworkManager::NetworkManagerPrivate::interfacesAdded(const QDBusObjectPath &path, const QVariantMap &addedInterfaces)
 {
+    Q_UNUSED(path);
+
+    if(!addedInterfaces.contains(NetworkManagerPrivate::DBUS_DAEMON_INTERFACE))
+        return;
+
     init();
     Q_EMIT serviceAppeared();
 }

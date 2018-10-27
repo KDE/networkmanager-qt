@@ -42,9 +42,11 @@ class NetworkManagerPrivate : public NetworkManager::Notifier
     Q_OBJECT
 public:
     static const QString DBUS_SERVICE;
+    static const QString DBUS_DAEMON_INTERFACE;
     static const QString DBUS_DAEMON_PATH;
     static const QString DBUS_SETTINGS_PATH;
     static const QString FDO_DBUS_PROPERTIES;
+    static const QString FDO_DBUS_OBJECT_MANAGER;
 
     // Functions useful also for other classes
     static QVariantMap retrieveInitialProperties(const QString &interfaceName, const QString &path);
@@ -129,7 +131,7 @@ protected Q_SLOTS:
     void onDeviceRemoved(const QDBusObjectPath &state);
     void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
     void propertiesChanged(const QVariantMap &changedProperties);
-    void daemonRegistered();
+    void interfacesAdded(const QDBusObjectPath &path, const QVariantMap &addedInterfaces);
     void daemonUnregistered();
 private:
     void connectivityChanged(uint connectivity);

@@ -36,12 +36,12 @@ public:
     explicit SecretAgentPrivate(const QString &, SecretAgent *parent = nullptr);
     virtual ~SecretAgentPrivate();
 private Q_SLOTS:
+    void dbusInterfacesAdded(const QDBusObjectPath &path, const QVariantMap &interfaces);
     void registerAgent();
 private:
     SecretAgent *q_ptr;
     SecretAgentAdaptor agent;
     OrgFreedesktopNetworkManagerAgentManagerInterface agentManager;
-    QDBusServiceWatcher watcher;
     QString agentId;
 };
 }

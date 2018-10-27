@@ -40,10 +40,8 @@ NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id, Networ
     , agent(parent)
 #ifdef NMQT_STATIC
     , agentManager(NetworkManagerPrivate::DBUS_SERVICE, QLatin1String(NM_DBUS_PATH_AGENT_MANAGER), QDBusConnection::sessionBus(), parent)
-    , watcher(NetworkManagerPrivate::DBUS_SERVICE, QDBusConnection::sessionBus(), QDBusServiceWatcher::WatchForRegistration, parent)
 #else
     , agentManager(NetworkManagerPrivate::DBUS_SERVICE, QLatin1String(NM_DBUS_PATH_AGENT_MANAGER), QDBusConnection::systemBus(), parent)
-    , watcher(NetworkManagerPrivate::DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForRegistration, parent)
 #endif
     , agentId(id)
 {
@@ -52,7 +50,9 @@ NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id, Networ
     qRegisterMetaType<NMVariantMapMap>("NMVariantMapMap");
     qDBusRegisterMetaType<NMVariantMapMap>();
 
-    watcher.connect(&watcher, SIGNAL(serviceRegistered(QString)), q, SLOT(registerAgent()));
+    agentManager.connection().connect(NetworkManagerPrivate::DBUS_SERVICE, "/org/freedesktop", NetworkManagerPrivate::FDO_DBUS_OBJECT_MANAGER,
+                               QLatin1String("InterfacesAdded"), q, SLOT(dbusInterfacesAdded(QDBusObjectPath,QVariantMap)));
+
     agentManager.connection().registerObject(QLatin1String(NM_DBUS_PATH_SECRET_AGENT), &agent, QDBusConnection::ExportAllSlots);
 
     registerAgent();
@@ -61,6 +61,15 @@ NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id, Networ
 NetworkManager::SecretAgentPrivate::~SecretAgentPrivate()
 {
     agentManager.Unregister();
+}
+
+void NetworkManager::SecretAgentPrivate::dbusInterfacesAdded(const QDBusObjectPath &path, const QVariantMap &interfaces)
+{
+	Q_UNUSED(path);
+	if(!interfaces.contains(QString::fromLatin1(agentManager.staticInterfaceName())))
+		return;
+
+	registerAgent();
 }
 
 void NetworkManager::SecretAgentPrivate::registerAgent()

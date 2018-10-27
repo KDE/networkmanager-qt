@@ -132,6 +132,7 @@ public Q_SLOTS:
 private:
     Q_DECLARE_PRIVATE(SecretAgent)
     Q_PRIVATE_SLOT(d_func(), void registerAgent())
+    Q_PRIVATE_SLOT(d_func(), void dbusInterfacesAdded(const QDBusObjectPath &path, const QVariantMap &interfaces))
 
     SecretAgentPrivate *const d_ptr;
 };
