@@ -78,6 +78,7 @@ set(NetworkManagerQt_SETTINGS_SRCS
     settings/teamsetting.cpp
     settings/genericsetting.cpp
     settings/tunsetting.cpp
+    settings/vxlansetting.cpp
 )
 
 set(DBUS_INTERFACE_SRCS

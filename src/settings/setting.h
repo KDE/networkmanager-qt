@@ -71,7 +71,8 @@ public:
         BridgePort,
         Team,
         Generic,
-        Tun
+        Tun,
+        Vxlan
     };
 
     enum SecretFlagType {

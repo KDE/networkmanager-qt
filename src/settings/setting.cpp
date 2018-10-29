@@ -115,6 +115,9 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     case Team:
         typeString = QLatin1String(NM_SETTING_TEAM_SETTING_NAME);
         break;
+    case Vxlan:
+        typeString = QLatin1String(NM_SETTING_VXLAN_SETTING_NAME);
+        break;
     case NetworkManager::Setting::Generic:
         typeString = QLatin1String(NM_SETTING_GENERIC_SETTING_NAME);
         break;
@@ -167,6 +170,8 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
         type = Bridge;
     } else if (typeString == QLatin1String(NM_SETTING_TEAM_SETTING_NAME)) {
         type = Team;
+    } else if (typeString == QLatin1String(NM_SETTING_VXLAN_SETTING_NAME)) {
+        type = Vxlan;
     } else if (typeString == QLatin1String(NM_SETTING_GENERIC_SETTING_NAME)) {
         type = Generic;
     }
