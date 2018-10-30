@@ -48,6 +48,13 @@
 #define NMQT_SETTING_IP4_CONFIG_METHOD_MANUAL      NM_SETTING_IP4_CONFIG_METHOD_MANUAL
 #define NMQT_SETTING_IP4_CONFIG_METHOD_SHARED      NM_SETTING_IP4_CONFIG_METHOD_SHARED
 #define NMQT_SETTING_IP4_CONFIG_METHOD_DISABLED    NM_SETTING_IP4_CONFIG_METHOD_DISABLED
+#define NMQT_SETTING_IP4_CONFIG_DAD_TIMEOUT        NM_SETTING_IP_CONFIG_DAD_TIMEOUT
+#define NMQT_SETTING_IP4_CONFIG_DHCP_FQDN          NM_SETTING_IP4_CONFIG_DHCP_FQDN
+#define NMQT_SETTING_IP4_CONFIG_DNS_OPTIONS        NM_SETTING_IP_CONFIG_DNS_OPTIONS
+#define NMQT_SETTING_IP4_CONFIG_DNS_PRIORITY       NM_SETTING_IP_CONFIG_DNS_PRIORITY
+#define NMQT_SETTING_IP4_CONFIG_GATEWAY            NM_SETTING_IP_CONFIG_GATEWAY
+#define NMQT_SETTING_IP4_CONFIG_ROUTE_DATA         "route-data"
+#define NMQT_SETTING_IP4_CONFIG_ADDRESS_DATA       "address-data"
 
 
 namespace NetworkManager
@@ -109,6 +116,27 @@ public:
 
     void setMayFail(bool mayFail);
     bool mayFail() const;
+
+    void setDadTimeout(qint32 timeout);
+    qint32 dadTimeout() const;
+
+    void setDhcpFqdn(const QString &fqdn);
+    QString dhcpFqdn() const;
+
+    void setDnsOptions(const QStringList &options);
+    QStringList dnsOptions() const;
+
+    void setDnsPriority(qint32 priority);
+    qint32 dnsPriority() const;
+
+    void setGateway(const QString &gateway);
+    QString gateway() const;
+
+    void setAddressData(const NMVariantMapList &addressData);
+    NMVariantMapList addressData() const;
+
+    void setRouteData(const NMVariantMapList &routeData);
+    NMVariantMapList routeData() const;
 
     void fromMap(const QVariantMap &setting) override;
 

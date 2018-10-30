@@ -23,6 +23,7 @@
 
 #include "../ipconfig.h"
 
+#include <networkmanagerqt/networkmanagerqt_export.h>
 #include <QtCore/QStringList>
 #include <QtNetwork/QHostAddress>
 
@@ -48,6 +49,13 @@ public:
     QString dhcpHostname;
     bool neverDefault;
     bool mayFail;
+    qint32 dadTimeout;
+    QString dhcpFqdn;
+    QStringList dnsOptions;
+    qint32 dnsPriority;
+    QString gateway;
+    NMVariantMapList addressData;
+    NMVariantMapList routeData;
 };
 
 }

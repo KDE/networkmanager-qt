@@ -37,6 +37,8 @@ NetworkManager::Ipv4SettingPrivate::Ipv4SettingPrivate()
     , dhcpSendHostname(true)
     , neverDefault(false)
     , mayFail(true)
+    , dadTimeout(-1)
+    , dnsPriority(0)
 { }
 
 NetworkManager::Ipv4Setting::Ipv4Setting()
@@ -61,6 +63,12 @@ NetworkManager::Ipv4Setting::Ipv4Setting(const Ptr &other)
     setDhcpHostname(other->dhcpHostname());
     setNeverDefault(other->neverDefault());
     setMayFail(other->mayFail());
+    setDadTimeout(other->dadTimeout());
+    setDhcpFqdn(other->dhcpFqdn());
+    setDnsOptions(other->dnsOptions());
+    setDnsPriority(other->dnsPriority());
+    setAddressData(other->addressData());
+    setRouteData(other->routeData());
 }
 
 NetworkManager::Ipv4Setting::~Ipv4Setting()
@@ -257,6 +265,104 @@ bool NetworkManager::Ipv4Setting::mayFail() const
     return d->mayFail;
 }
 
+void NetworkManager::Ipv4Setting::setDadTimeout(qint32 timeout)
+{
+    Q_D(Ipv4Setting);
+
+    d->dadTimeout = timeout;
+}
+
+qint32 NetworkManager::Ipv4Setting::dadTimeout() const
+{
+    Q_D(const Ipv4Setting);
+
+    return d->dadTimeout;
+}
+
+void NetworkManager::Ipv4Setting::setDhcpFqdn(const QString &fqdn)
+{
+    Q_D(Ipv4Setting);
+
+    d->dhcpFqdn = fqdn;
+}
+
+QString NetworkManager::Ipv4Setting::dhcpFqdn() const
+{
+    Q_D(const Ipv4Setting);
+
+    return d->dhcpFqdn;
+}
+
+void NetworkManager::Ipv4Setting::setDnsOptions(const QStringList &options)
+{
+    Q_D(Ipv4Setting);
+
+    d->dnsOptions = options;
+}
+
+QStringList NetworkManager::Ipv4Setting::dnsOptions() const
+{
+    Q_D(const Ipv4Setting);
+
+    return d->dnsOptions;
+}
+
+void NetworkManager::Ipv4Setting::setDnsPriority(qint32 priority)
+{
+    Q_D(Ipv4Setting);
+
+    d->dnsPriority = priority;
+}
+
+qint32 NetworkManager::Ipv4Setting::dnsPriority() const
+{
+    Q_D(const Ipv4Setting);
+
+    return d->dnsPriority;
+}
+
+void NetworkManager::Ipv4Setting::setGateway(const QString &gateway)
+{
+    Q_D(Ipv4Setting);
+
+    d->gateway = gateway;
+}
+
+QString NetworkManager::Ipv4Setting::gateway() const
+{
+    Q_D(const Ipv4Setting);
+
+    return d->gateway;
+}
+
+void NetworkManager::Ipv4Setting::setAddressData(const NMVariantMapList &addressData)
+{
+    Q_D(Ipv4Setting);
+
+    d->addressData = addressData;
+}
+
+NMVariantMapList NetworkManager::Ipv4Setting::addressData() const
+{
+    Q_D(const Ipv4Setting);
+
+    return d->addressData;
+}
+
+void NetworkManager::Ipv4Setting::setRouteData(const NMVariantMapList &routeData)
+{
+    Q_D(Ipv4Setting);
+
+    d->routeData = routeData;
+}
+
+NMVariantMapList NetworkManager::Ipv4Setting::routeData() const
+{
+    Q_D(const Ipv4Setting);
+
+    return d->routeData;
+}
+
 void NetworkManager::Ipv4Setting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_METHOD))) {
@@ -390,6 +496,34 @@ void NetworkManager::Ipv4Setting::fromMap(const QVariantMap &setting)
     if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_MAY_FAIL))) {
         setMayFail(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_MAY_FAIL)).toBool());
     }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_DAD_TIMEOUT))) {
+        setDadTimeout(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DAD_TIMEOUT)).toUInt());
+    }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_FQDN))) {
+        setDhcpFqdn(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_FQDN)).toString());
+    }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS_OPTIONS))) {
+        setDnsOptions(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS_OPTIONS)).toStringList());
+    }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS_PRIORITY))) {
+        setDnsPriority(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS_PRIORITY)).toInt());
+    }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_GATEWAY))) {
+        setGateway(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_GATEWAY)).toString());
+    }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESS_DATA))) {
+        setRouteData(qdbus_cast<NMVariantMapList>(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_DATA))));
+    }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_DATA))) {
+        setAddressData(qdbus_cast<NMVariantMapList>(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESS_DATA))));
+    }
 }
 
 QVariantMap NetworkManager::Ipv4Setting::toMap() const
@@ -480,6 +614,34 @@ QVariantMap NetworkManager::Ipv4Setting::toMap() const
         setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_MAY_FAIL), mayFail());
     }
 
+    if (dadTimeout() >= 0) {
+	setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DAD_TIMEOUT), dadTimeout());
+    }
+
+    if (!dhcpFqdn().isEmpty()) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DHCP_FQDN), dhcpFqdn());
+    }
+
+    if (!dnsOptions().isEmpty()) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS_OPTIONS), dnsOptions());
+    }
+
+    if (dnsPriority() != 0) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS_PRIORITY), dnsPriority());
+    }
+
+    if (!gateway().isEmpty()) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_GATEWAY), gateway());
+    }
+
+    if (!addressData().empty()) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESS_DATA), QVariant::fromValue(addressData()));
+    }
+
+    if (!routeData().empty()) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_DATA), QVariant::fromValue(routeData()));
+    }
+
     return setting;
 }
 
@@ -510,6 +672,25 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv4Setting
     dbg.nospace() << NMQT_SETTING_IP4_CONFIG_DHCP_HOSTNAME << ": " << setting.dhcpHostname() << '\n';
     dbg.nospace() << NMQT_SETTING_IP4_CONFIG_NEVER_DEFAULT << ": " << setting.neverDefault() << '\n';
     dbg.nospace() << NMQT_SETTING_IP4_CONFIG_MAY_FAIL << ": " << setting.mayFail() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_DAD_TIMEOUT << ": " << setting.dadTimeout() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_DHCP_FQDN << ": " << setting.dhcpFqdn() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_DNS_OPTIONS << ": " << setting.dnsOptions() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_DNS_PRIORITY << ": " << setting.dnsPriority() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_GATEWAY << ": " << setting.gateway() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_ADDRESS_DATA << ": " << '\n';
+    Q_FOREACH (const QVariantMap & addressData, setting.addressData()) {
+        QVariantMap::const_iterator i = addressData.constBegin();
+        while (i != addressData.constEnd()) {
+	    dbg.nospace() << i.key() << ": " << i.value() << '\n';
+	}
+    }
+    dbg.nospace() << NMQT_SETTING_IP4_CONFIG_ROUTE_DATA << ": " << '\n';
+    Q_FOREACH (const QVariantMap & routeData, setting.routeData()) {
+        QVariantMap::const_iterator i = routeData.constBegin();
+        while (i != routeData.constEnd()) {
+            dbg.nospace() << i.key() << ": " << i.value() << '\n';
+	}
+    }
 
     return dbg.maybeSpace();
 }
