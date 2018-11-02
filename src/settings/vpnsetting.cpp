@@ -218,7 +218,6 @@ void NetworkManager::VpnSetting::secretsFromStringMap(const NMStringMap &map)
 
     if (map.contains(QLatin1String("VpnSecrets"))) {
         const QStringList list = map.value(QLatin1String("VpnSecrets")).split("%SEP%");
-        NMStringMap map;
         if (list.count() % 2 == 0) {
             for (int i = 0; i < list.count(); i += 2) {
                 if (d->secrets.contains(list[i])) {
