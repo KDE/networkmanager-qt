@@ -90,7 +90,7 @@ void ActiveConnectionTest::testActiveConnection()
     NetworkManager::Device::Ptr device = NetworkManager::networkInterfaces().first();
     QSignalSpy deviceActiveConnectionChangedSpy(device.data(), SIGNAL(activeConnectionChanged()));
     QSignalSpy deviceIpInterfaceChangedSpy(device.data(), SIGNAL(ipInterfaceChanged()));
-    QSignalSpy deviceStateChangedSpy(device.data(), SIGNAL(stateChanged(NetworkManager::Device::State, NetworkManager::Device::State, NetworkManager::Device::StateChangeReason)));
+    QSignalSpy deviceStateChangedSpy(device.data(), SIGNAL(stateChanged(NetworkManager::Device::State,NetworkManager::Device::State,NetworkManager::Device::StateChangeReason)));
 
     NetworkManager::Connection::Ptr connection = device->availableConnections().first();
 
