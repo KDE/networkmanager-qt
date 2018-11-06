@@ -24,7 +24,7 @@
 #include "../ipconfig.h"
 
 #include <networkmanagerqt/networkmanagerqt_export.h>
-#include <QtCore/QStringList>
+#include <QStringList>
 #include <QtNetwork/QHostAddress>
 
 namespace NetworkManager

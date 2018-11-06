@@ -55,7 +55,7 @@
 #include "teamsetting.h"
 #include "genericsetting.h"
 
-#include <QtCore/QUuid>
+#include <QUuid>
 
 namespace NetworkManager {
     extern int checkVersion(const int x, const int y, const int z);

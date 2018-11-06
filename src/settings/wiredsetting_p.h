@@ -21,8 +21,8 @@
 #ifndef NETWORKMANAGERQT_WIRED_SETTING_P_H
 #define NETWORKMANAGERQT_WIRED_SETTING_P_H
 
-#include <QtCore/QStringList>
-#include <QtCore/QMap>
+#include <QStringList>
+#include <QMap>
 
 namespace NetworkManager
 {

@@ -21,7 +21,7 @@
 #ifndef NETWORKMANAGERQT_TEAM_SETTING_P_H
 #define NETWORKMANAGERQT_TEAM_SETTING_P_H
 
-#include <QtCore/QString>
+#include <QString>
 
 namespace NetworkManager
 {

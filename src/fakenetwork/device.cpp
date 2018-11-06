@@ -22,7 +22,7 @@
 #include "device.h"
 
 #include <QDBusConnection>
-#include <QtDBus/QtDBus>
+#include <QtDBus>
 
 Device::Device(QObject *parent)
     : QObject(parent)

@@ -29,7 +29,7 @@
 
 #include <QTest>
 #include <QSignalSpy>
-#include <QtTest/qsignalspy.h>
+#include <qsignalspy.h>
 #include <QDebug>
 
 void SettingsTest::initTestCase()

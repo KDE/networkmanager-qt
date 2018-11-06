@@ -21,7 +21,7 @@
 #include "infinibandsetting.h"
 #include "infinibandsetting_p.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::InfinibandSettingPrivate::InfinibandSettingPrivate()
     : name(NM_SETTING_INFINIBAND_SETTING_NAME)

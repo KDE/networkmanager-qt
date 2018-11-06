@@ -27,7 +27,7 @@
 #define NM_SETTING_WIRELESS_SEC "security"
 #define NM_SETTING_WIRELESS_ASSIGNED_MAC_ADDRESS "assigned-mac-address"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::WirelessSettingPrivate::WirelessSettingPrivate()
     : name(NM_SETTING_WIRELESS_SETTING_NAME)

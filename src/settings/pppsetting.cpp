@@ -21,7 +21,7 @@
 #include "pppsetting.h"
 #include "pppsetting_p.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::PppSettingPrivate::PppSettingPrivate()
     : name(NM_SETTING_PPP_SETTING_NAME)

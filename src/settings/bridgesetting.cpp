@@ -23,7 +23,7 @@
 
 #define NM_SETTING_BRIDGE_INTERFACE_NAME "interface-name"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::BridgeSettingPrivate::BridgeSettingPrivate()
     : name(NM_SETTING_BRIDGE_SETTING_NAME)

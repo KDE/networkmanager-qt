@@ -21,7 +21,7 @@
 #ifndef NETWORKMANAGERQT_OLPCMESH_SETTING_P_H
 #define NETWORKMANAGERQT_OLPCMESH_SETTING_P_H
 
-#include <QtCore/QString>
+#include <QString>
 
 namespace NetworkManager
 {

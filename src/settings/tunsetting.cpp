@@ -21,7 +21,7 @@
 #include "tunsetting.h"
 #include "tunsetting_p.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::TunSettingPrivate::TunSettingPrivate()
     : name(NM_SETTING_TUN_SETTING_NAME)

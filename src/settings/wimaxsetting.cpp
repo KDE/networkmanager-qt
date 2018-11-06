@@ -22,7 +22,7 @@
 #include "wimaxsetting.h"
 #include "wimaxsetting_p.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::WimaxSettingPrivate::WimaxSettingPrivate()
     : name(NM_SETTING_WIMAX_SETTING_NAME)

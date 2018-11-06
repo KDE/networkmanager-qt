@@ -21,7 +21,7 @@
 #include "wirelesssecuritysetting.h"
 #include "wirelesssecuritysetting_p.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::WirelessSecuritySettingPrivate::WirelessSecuritySettingPrivate()
     : name(NM_SETTING_WIRELESS_SECURITY_SETTING_NAME)

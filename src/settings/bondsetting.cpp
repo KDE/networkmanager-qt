@@ -23,7 +23,7 @@
 
 #define NM_SETTING_BOND_INTERFACE_NAME "interface-name"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::BondSettingPrivate::BondSettingPrivate()
     : name(NM_SETTING_BOND_SETTING_NAME)

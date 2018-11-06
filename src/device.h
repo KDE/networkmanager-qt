@@ -25,7 +25,7 @@
 #define NETWORKMANAGERQT_DEVICE_H
 
 #include <QObject>
-#include <QtCore/QtGlobal>
+#include <QtGlobal>
 #include <QSharedPointer>
 
 #include <networkmanagerqt/networkmanagerqt_export.h>

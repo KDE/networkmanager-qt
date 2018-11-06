@@ -25,7 +25,7 @@
 #include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
 
-#include <QtCore/QStringList>
+#include <QStringList>
 #include <QtNetwork/QHostAddress>
 
 #define NMQT_SETTING_IP6_CONFIG_SETTING_NAME       NM_SETTING_IP6_CONFIG_SETTING_NAME

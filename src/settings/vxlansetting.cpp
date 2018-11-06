@@ -21,7 +21,7 @@
 #include "vxlansetting.h"
 #include "vxlansetting_p.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::VxlanSettingPrivate::VxlanSettingPrivate()
     : name(NM_SETTING_VXLAN_SETTING_NAME)

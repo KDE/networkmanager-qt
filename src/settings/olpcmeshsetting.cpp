@@ -21,7 +21,7 @@
 #include "olpcmeshsetting.h"
 #include "olpcmeshsetting_p.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::OlpcMeshSettingPrivate::OlpcMeshSettingPrivate()
     : name(NM_SETTING_OLPC_MESH_SETTING_NAME)

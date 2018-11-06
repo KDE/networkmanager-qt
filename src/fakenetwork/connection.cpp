@@ -20,7 +20,7 @@
 
 #include "connection.h"
 
-#include <QtDBus/QtDBus>
+#include <QtDBus>
 
 Connection::Connection(QObject *parent, const NMVariantMapMap &settings)
     : QObject(parent)

@@ -26,7 +26,7 @@
 
 #include <arpa/inet.h>
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::Ipv4SettingPrivate::Ipv4SettingPrivate()
     : name(NMQT_SETTING_IP4_CONFIG_SETTING_NAME)

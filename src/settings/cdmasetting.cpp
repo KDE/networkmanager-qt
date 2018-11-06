@@ -21,7 +21,7 @@
 #include "cdmasetting.h"
 #include "cdmasetting_p.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::CdmaSettingPrivate::CdmaSettingPrivate():
     name(NM_SETTING_CDMA_SETTING_NAME),

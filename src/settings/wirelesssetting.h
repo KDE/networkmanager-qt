@@ -24,7 +24,7 @@
 #include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
 
-#include <QtCore/QStringList>
+#include <QStringList>
 #include <QSharedPointer>
 
 namespace NetworkManager

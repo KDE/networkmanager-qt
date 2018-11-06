@@ -24,7 +24,7 @@
 #define NM_SETTING_GSM_NETWORK_TYPE "network-type"
 #define NM_SETTING_GSM_ALLOWED_BANDS "allowed-bands"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::GsmSettingPrivate::GsmSettingPrivate()
     : name(NM_SETTING_GSM_SETTING_NAME)

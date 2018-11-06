@@ -24,7 +24,7 @@
 #include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
 
-#include <QtCore/QString>
+#include <QString>
 
 /* Valid options for the 'options' property */
 #define NM_SETTING_BOND_OPTION_MODE          "mode"

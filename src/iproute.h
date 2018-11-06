@@ -25,7 +25,7 @@
 #include <networkmanagerqt/networkmanagerqt_export.h>
 #include "ipaddress.h"
 
-#include <QtCore/QStringList>
+#include <QStringList>
 #include <QNetworkAddressEntry>
 
 namespace NetworkManager

@@ -30,9 +30,9 @@
 #include <NetworkManagerQt/WirelessSecuritySetting>
 #include <NetworkManagerQt/Ipv4Setting>
 
-#include <QtDBus/QDBusMetaType>
-#include <QtCore/QTextStream>
-#include <QtCore/QUuid>
+#include <QDBusMetaType>
+#include <QTextStream>
+#include <QUuid>
 
 using namespace NetworkManager;
 

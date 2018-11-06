@@ -22,7 +22,7 @@
 #include "adslsetting_p.h"
 #include <manager.h>
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::AdslSettingPrivate::AdslSettingPrivate()
     : name(NM_SETTING_ADSL_SETTING_NAME)

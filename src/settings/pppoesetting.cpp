@@ -21,7 +21,7 @@
 #include "pppoesetting.h"
 #include "pppoesetting_p.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::PppoeSettingPrivate::PppoeSettingPrivate()
     : name(NM_SETTING_PPPOE_SETTING_NAME)

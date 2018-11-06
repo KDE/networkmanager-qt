@@ -21,7 +21,7 @@
 #include "bluetoothsetting.h"
 #include "bluetoothsetting_p.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::BluetoothSettingPrivate::BluetoothSettingPrivate()
     : name(NM_SETTING_BLUETOOTH_SETTING_NAME)

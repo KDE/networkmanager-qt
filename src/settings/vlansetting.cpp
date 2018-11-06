@@ -24,7 +24,7 @@
 //define the deprecated&dropped values
 #define NM_SETTING_VLAN_INTERFACE_NAME "interface-name"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::VlanSettingPrivate::VlanSettingPrivate()
     : name(NM_SETTING_VLAN_SETTING_NAME)

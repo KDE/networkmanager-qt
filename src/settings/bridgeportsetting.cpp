@@ -21,7 +21,7 @@
 #include "bridgeportsetting.h"
 #include "bridgeportsetting_p.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::BridgePortSettingPrivate::BridgePortSettingPrivate()
     : name(NM_SETTING_BRIDGE_PORT_SETTING_NAME)

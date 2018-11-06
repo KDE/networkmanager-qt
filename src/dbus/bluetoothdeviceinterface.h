@@ -11,14 +11,14 @@
 #ifndef BLUETOOTHDEVICEINTERFACE_H
 #define BLUETOOTHDEVICEINTERFACE_H
 
-#include <QtCore/QObject>
-#include <QtCore/QByteArray>
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QVariant>
-#include <QtDBus/QtDBus>
+#include <QObject>
+#include <QByteArray>
+#include <QList>
+#include <QMap>
+#include <QString>
+#include <QStringList>
+#include <QVariant>
+#include <QtDBus>
 #include "generictypes.h"
 
 /*

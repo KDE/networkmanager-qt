@@ -29,9 +29,9 @@
 #include <libnm/NetworkManager.h>
 #define signals Q_SIGNALS
 
-#include <QtCore/QVariantMap>
-#include <QtCore/QStringList>
-#include <QtCore/QFlags>
+#include <QVariantMap>
+#include <QStringList>
+#include <QFlags>
 #include <QSharedPointer>
 
 namespace NetworkManager

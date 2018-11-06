@@ -12,8 +12,8 @@
 #ifndef SECRETAGENTADAPTOR_H
 #define SECRETAGENTADAPTOR_H
 
-#include <QtCore/QObject>
-#include <QtDBus/QtDBus>
+#include <QObject>
+#include <QtDBus>
 #include "secretagent.h"
 QT_BEGIN_NAMESPACE
 class QByteArray;

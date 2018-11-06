@@ -23,9 +23,9 @@
 
 #include "setting.h"
 
-#include <QtCore/QHash>
-#include <QtCore/QString>
-#include <QtCore/QDateTime>
+#include <QHash>
+#include <QString>
+#include <QDateTime>
 
 namespace NetworkManager
 {

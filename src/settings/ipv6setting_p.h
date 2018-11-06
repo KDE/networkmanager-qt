@@ -23,7 +23,7 @@
 
 #include "../ipconfig.h"
 
-#include <QtCore/QStringList>
+#include <QStringList>
 #include <QtNetwork/QHostAddress>
 
 namespace NetworkManager

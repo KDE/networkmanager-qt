@@ -22,7 +22,7 @@
 #include "wiredsetting_p.h"
 #include "manager.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::WiredSettingPrivate::WiredSettingPrivate()
     : name(NM_SETTING_WIRED_SETTING_NAME)

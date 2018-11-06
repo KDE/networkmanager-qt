@@ -26,7 +26,7 @@
 #include <networkmanagerqt/networkmanagerqt_export.h>
 #include "accesspoint.h"
 
-#include <QtCore/QObject>
+#include <QObject>
 #include <QSharedPointer>
 
 namespace NetworkManager

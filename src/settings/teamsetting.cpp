@@ -24,7 +24,7 @@
 
 #define NM_SETTING_TEAM_INTERFACE_NAME "interface-name"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::TeamSettingPrivate::TeamSettingPrivate()
     : name(NM_SETTING_TEAM_SETTING_NAME)

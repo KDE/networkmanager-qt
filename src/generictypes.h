@@ -25,7 +25,7 @@
 
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
-#include <QtCore/QVariantMap>
+#include <QVariantMap>
 #include <QDBusArgument>
 
 typedef QList<QList<uint> > UIntListList;

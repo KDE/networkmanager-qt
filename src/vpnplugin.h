@@ -25,8 +25,8 @@
 #include "generictypes.h"
 #include "vpnconnection.h"
 
-#include <QtCore/QObject>
-#include <QtDBus/QDBusObjectPath>
+#include <QObject>
+#include <QDBusObjectPath>
 
 namespace NetworkManager
 {

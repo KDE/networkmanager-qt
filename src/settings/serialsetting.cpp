@@ -21,7 +21,7 @@
 #include "serialsetting.h"
 #include "serialsetting_p.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::SerialSettingPrivate::SerialSettingPrivate()
     : name(NM_SETTING_SERIAL_SETTING_NAME)

@@ -20,7 +20,7 @@
 
 #include "settings.h"
 
-#include <QtDBus/QtDBus>
+#include <QtDBus>
 
 Settings::Settings(QObject *parent)
     : QObject(parent)

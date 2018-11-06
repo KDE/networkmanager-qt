@@ -21,7 +21,7 @@
 #include "security8021xsetting.h"
 #include "security8021xsetting_p.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 NetworkManager::Security8021xSettingPrivate::Security8021xSettingPrivate()
     : name(NM_SETTING_802_1X_SETTING_NAME)

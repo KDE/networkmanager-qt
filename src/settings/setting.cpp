@@ -25,7 +25,7 @@
 #include <libnm/NetworkManager.h>
 #define signals Q_SIGNALS
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 namespace NetworkManager
 {
