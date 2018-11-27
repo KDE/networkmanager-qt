@@ -50,6 +50,24 @@
 #define NMQT_SETTING_IP6_CONFIG_METHOD_LINK_LOCAL  NM_SETTING_IP6_CONFIG_METHOD_LINK_LOCAL
 #define NMQT_SETTING_IP6_CONFIG_METHOD_MANUAL      NM_SETTING_IP6_CONFIG_METHOD_MANUAL
 #define NMQT_SETTING_IP6_CONFIG_METHOD_SHARED      NM_SETTING_IP6_CONFIG_METHOD_SHARED
+#define NMQT_SETTING_IP6_CONFIG_DAD_TIMEOUT        NM_SETTING_IP_CONFIG_DAD_TIMEOUT
+#define NMQT_SETTING_IP6_CONFIG_DHCP_TIMEOUT       NM_SETTING_IP_CONFIG_DHCP_TIMEOUT
+#define NMQT_SETTING_IP6_CONFIG_DHCP_HOSTNAME      NM_SETTING_IP_CONFIG_DHCP_HOSTNAME
+#define NMQT_SETTING_IP6_CONFIG_ADDRESS_GEN_MODE   NM_SETTING_IP6_CONFIG_ADDR_GEN_MODE
+#if NM_CHECK_VERSION(1, 12, 0)
+#define NMQT_SETTING_IP6_CONFIG_DHCP_DUID          NM_SETTING_IP6_CONFIG_DHCP_DUID
+#else
+#define NMQT_SETTING_IP6_CONFIG_DHCP_DUID          "dhcp-duid"
+#endif
+#define NMQT_SETTING_IP6_CONFIG_TOKEN              NM_SETTING_IP6_CONFIG_TOKEN
+#define NMQT_SETTING_IP6_CONFIG_DNS_OPTIONS        NM_SETTING_IP_CONFIG_DNS_OPTIONS
+#define NMQT_SETTING_IP6_CONFIG_ROUTE_DATA         "route-data"
+#define NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA       "address-data"
+#if NM_CHECK_VERSION(1, 10, 0)
+#define NMQT_SETTING_IP6_CONFIG_ROUTE_TABLE        NM_SETTING_IP_CONFIG_ROUTE_TABLE
+#else
+#define NMQT_SETTING_IP6_CONFIG_ROUTE_TABLE        "route-table"
+#endif
 
 namespace NetworkManager
 {
@@ -66,6 +84,7 @@ public:
     typedef QList<Ptr> List;
     enum ConfigMethod {Automatic, Dhcp, LinkLocal, Manual, Ignored};
     enum IPv6Privacy {Unknown = -1, Disabled, PreferPublic, PreferTemporary};
+    enum IPv6AddressGenMode {Eui64, StablePrivacy};
 
     Ipv6Setting();
     explicit Ipv6Setting(const Ptr &other);
@@ -109,6 +128,36 @@ public:
     void fromMap(const QVariantMap &setting) override;
 
     QVariantMap toMap() const override;
+
+    void setDadTimeout(qint32 timeout);
+    qint32 dadTimeout() const;
+
+    void setAddressGenMode(IPv6AddressGenMode mode);
+    IPv6AddressGenMode addressGenMode() const;
+
+    void setDhcpTimeout(qint32 timeout);
+    qint32 dhcpTimeout() const;
+
+    void setDhcpHostname(const QString &hostname);
+    QString dhcpHostname() const;
+
+    void setDhcpDuid(const QString &duid);
+    QString dhcpDuid() const;
+
+    void setToken(const QString &token);
+    QString token() const;
+
+    void setDnsOptions(const QStringList &options);
+    QStringList dnsOptions() const;
+
+    void setAddressData(const NMVariantMapList &addressData);
+    NMVariantMapList addressData() const;
+
+    void setRouteData(const NMVariantMapList &routeData);
+    NMVariantMapList routeData() const;
+
+    void setRouteTable(quint32 routeTable);
+    quint32 routeTable() const;
 
 protected:
     Ipv6SettingPrivate *const d_ptr;

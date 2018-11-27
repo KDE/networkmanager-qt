@@ -37,6 +37,10 @@ NetworkManager::Ipv6SettingPrivate::Ipv6SettingPrivate()
     , neverDefault(false)
     , mayFail(true)
     , privacy(NetworkManager::Ipv6Setting::Unknown)
+    , dadTimeout(-1)
+    , addressGenMode(NetworkManager::Ipv6Setting::StablePrivacy)
+    , dhcpTimeout(0)
+    , routeTable(0)
 { }
 
 NetworkManager::Ipv6Setting::Ipv6Setting()
@@ -58,6 +62,16 @@ NetworkManager::Ipv6Setting::Ipv6Setting(const Ptr &other)
     setIgnoreAutoDns(other->ignoreAutoDns());
     setNeverDefault(other->neverDefault());
     setMayFail(other->mayFail());
+    setDadTimeout(other->dadTimeout());
+    setAddressGenMode(other->addressGenMode());
+    setDhcpTimeout(other->dhcpTimeout());
+    setDhcpHostname(other->dhcpHostname());
+    setDhcpDuid(other->dhcpDuid());
+    setToken(other->token());
+    setDnsOptions(other->dnsOptions());
+    setAddressData(other->addressData());
+    setRouteData(other->routeData());
+    setRouteTable(other->routeTable());
 }
 
 NetworkManager::Ipv6Setting::~Ipv6Setting()
@@ -226,6 +240,146 @@ NetworkManager::Ipv6Setting::IPv6Privacy NetworkManager::Ipv6Setting::privacy() 
     return d->privacy;
 }
 
+void NetworkManager::Ipv6Setting::setDadTimeout(qint32 timeout)
+{
+    Q_D(Ipv6Setting);
+
+    d->dadTimeout = timeout;
+}
+
+qint32 NetworkManager::Ipv6Setting::dadTimeout() const
+{
+    Q_D(const Ipv6Setting);
+
+    return d->dadTimeout;
+}
+
+void NetworkManager::Ipv6Setting::setDhcpTimeout(qint32 timeout)
+{
+    Q_D(Ipv6Setting);
+
+    d->dhcpTimeout = timeout;
+}
+
+qint32 NetworkManager::Ipv6Setting::dhcpTimeout() const
+{
+    Q_D(const Ipv6Setting);
+
+    return d->dhcpTimeout;
+}
+
+void NetworkManager::Ipv6Setting::setDhcpHostname(const QString &hostname)
+{
+    Q_D(Ipv6Setting);
+
+    d->dhcpHostname = hostname;
+}
+
+QString NetworkManager::Ipv6Setting::dhcpHostname() const
+{
+    Q_D(const Ipv6Setting);
+
+    return d->dhcpHostname;
+}
+
+void NetworkManager::Ipv6Setting::setDhcpDuid(const QString &duid)
+{
+    Q_D(Ipv6Setting);
+
+    d->dhcpDuid = duid;
+}
+
+QString NetworkManager::Ipv6Setting::dhcpDuid() const
+{
+    Q_D(const Ipv6Setting);
+
+    return d->dhcpDuid;
+}
+
+void NetworkManager::Ipv6Setting::setDnsOptions(const QStringList &options)
+{
+    Q_D(Ipv6Setting);
+
+    d->dnsOptions = options;
+}
+
+QStringList NetworkManager::Ipv6Setting::dnsOptions() const
+{
+    Q_D(const Ipv6Setting);
+
+    return d->dnsOptions;
+}
+
+void NetworkManager::Ipv6Setting::setAddressData(const NMVariantMapList &addressData)
+{
+    Q_D(Ipv6Setting);
+
+    d->addressData = addressData;
+}
+
+NMVariantMapList NetworkManager::Ipv6Setting::addressData() const
+{
+    Q_D(const Ipv6Setting);
+
+    return d->addressData;
+}
+
+void NetworkManager::Ipv6Setting::setAddressGenMode(IPv6AddressGenMode mode)
+{
+    Q_D(Ipv6Setting);
+
+    d->addressGenMode = mode;
+}
+
+NetworkManager::Ipv6Setting::IPv6AddressGenMode NetworkManager::Ipv6Setting::addressGenMode() const
+{
+    Q_D(const Ipv6Setting);
+
+    return d->addressGenMode;
+}
+
+void NetworkManager::Ipv6Setting::setRouteData(const NMVariantMapList &routeData)
+{
+    Q_D(Ipv6Setting);
+
+    d->routeData = routeData;
+}
+
+NMVariantMapList NetworkManager::Ipv6Setting::routeData() const
+{
+    Q_D(const Ipv6Setting);
+
+    return d->routeData;
+}
+
+void NetworkManager::Ipv6Setting::setToken(const QString &token)
+{
+    Q_D(Ipv6Setting);
+
+    d->token = token;
+}
+
+QString NetworkManager::Ipv6Setting::token() const
+{
+    Q_D(const Ipv6Setting);
+
+    return d->token;
+}
+
+void NetworkManager::Ipv6Setting::setRouteTable(quint32 routeTable)
+{
+    Q_D(Ipv6Setting);
+
+    d->routeTable = routeTable;
+}
+
+quint32 NetworkManager::Ipv6Setting::routeTable() const
+{
+    Q_D(const Ipv6Setting);
+
+    return d->routeTable;
+}
+
 void NetworkManager::Ipv6Setting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_METHOD))) {
@@ -348,6 +502,46 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap &setting)
     if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_IP6_PRIVACY))) {
         setPrivacy((IPv6Privacy)setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_IP6_PRIVACY)).toUInt());
     }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_DAD_TIMEOUT))) {
+        setDadTimeout(setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_DAD_TIMEOUT)).toUInt());
+    }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_DHCP_TIMEOUT))) {
+        setDhcpTimeout(setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_DHCP_TIMEOUT)).toUInt());
+    }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_GEN_MODE))) {
+        setAddressGenMode(static_cast<IPv6AddressGenMode>(setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_GEN_MODE)).toUInt()));
+    }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_DHCP_HOSTNAME))) {
+        setDhcpHostname(setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_DHCP_HOSTNAME)).toString());
+    }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_DHCP_DUID))) {
+        setDhcpDuid(setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_DHCP_DUID)).toString());
+    }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_TOKEN))) {
+        setToken(setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_TOKEN)).toString());
+    }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS_OPTIONS))) {
+        setDnsOptions(setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS_OPTIONS)).toStringList());
+    }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA))) {
+        setRouteData(qdbus_cast<NMVariantMapList>(setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_DATA))));
+    }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_DATA))) {
+        setAddressData(qdbus_cast<NMVariantMapList>(setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA))));
+    }
+
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_TABLE))) {
+        setRouteTable(setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_TABLE)).toUInt());
+    }
 }
 
 QVariantMap NetworkManager::Ipv6Setting::toMap() const
@@ -429,6 +623,44 @@ QVariantMap NetworkManager::Ipv6Setting::toMap() const
         setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_IP6_PRIVACY), privacy());
     }
 
+    if (dadTimeout() >= 0) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_DAD_TIMEOUT), dadTimeout());
+    }
+
+    setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_GEN_MODE), addressGenMode());
+
+    if (dhcpTimeout() > 0) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_DHCP_TIMEOUT), dhcpTimeout());
+    }
+
+    if (!dhcpHostname().isEmpty()) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_DHCP_HOSTNAME), dhcpHostname());
+    }
+
+    if (!dhcpDuid().isEmpty()) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_DHCP_DUID), dhcpDuid());
+    }
+
+    if (!token().isEmpty()) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_TOKEN), token());
+    }
+
+    if (!dnsOptions().isEmpty()) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS_OPTIONS), dnsOptions());
+    }
+
+    if (!addressData().empty()) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA), QVariant::fromValue(addressData()));
+    }
+
+    if (!routeData().empty()) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_DATA), QVariant::fromValue(routeData()));
+    }
+
+    if (routeTable() > 0) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_TABLE), routeTable());
+    }
+
     return setting;
 }
 
@@ -457,6 +689,28 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv6Setting
     dbg.nospace() << NMQT_SETTING_IP6_CONFIG_NEVER_DEFAULT << ": " << setting.neverDefault() << '\n';
     dbg.nospace() << NMQT_SETTING_IP6_CONFIG_MAY_FAIL << ": " << setting.mayFail() << '\n';
     dbg.nospace() << NMQT_SETTING_IP6_CONFIG_IP6_PRIVACY << ": " << setting.privacy() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP6_CONFIG_DAD_TIMEOUT << ": " << setting.dadTimeout() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP6_CONFIG_ADDRESS_GEN_MODE << ": " << setting.addressGenMode() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP6_CONFIG_DHCP_TIMEOUT << ": " << setting.dhcpTimeout() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP6_CONFIG_DHCP_HOSTNAME << ": " << setting.dhcpHostname() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP6_CONFIG_DHCP_DUID << ": " << setting.dhcpDuid() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP6_CONFIG_TOKEN << ": " << setting.token() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP6_CONFIG_DNS_OPTIONS << ": " << setting.dnsOptions() << '\n';
+    dbg.nospace() << NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA << ": " << '\n';
+    Q_FOREACH (const QVariantMap & addressData, setting.addressData()) {
+        QVariantMap::const_iterator i = addressData.constBegin();
+        while (i != addressData.constEnd()) {
+        dbg.nospace() << i.key() << ": " << i.value() << '\n';
+        }
+    }
+    dbg.nospace() << NMQT_SETTING_IP6_CONFIG_ROUTE_DATA << ": " << '\n';
+    Q_FOREACH (const QVariantMap & routeData, setting.routeData()) {
+        QVariantMap::const_iterator i = routeData.constBegin();
+        while (i != routeData.constEnd()) {
+            dbg.nospace() << i.key() << ": " << i.value() << '\n';
+        }
+    }
+    dbg.nospace() << NMQT_SETTING_IP6_CONFIG_ROUTE_TABLE << ": " << setting.routeTable() << '\n';
 
     return dbg.maybeSpace();
 }

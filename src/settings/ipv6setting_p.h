@@ -46,6 +46,16 @@ public:
     bool neverDefault;
     bool mayFail;
     NetworkManager::Ipv6Setting::IPv6Privacy privacy;
+    qint32 dadTimeout;
+    NetworkManager::Ipv6Setting::IPv6AddressGenMode addressGenMode;
+    qint32 dhcpTimeout;
+    QString dhcpHostname;
+    QString dhcpDuid;
+    QString token;
+    QStringList dnsOptions;
+    NMVariantMapList addressData;
+    NMVariantMapList routeData;
+    qint32 routeTable;
 };
 
 }
