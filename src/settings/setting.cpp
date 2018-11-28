@@ -118,6 +118,9 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     case Vxlan:
         typeString = QLatin1String(NM_SETTING_VXLAN_SETTING_NAME);
         break;
+    case IpTunnel:
+        typeString = QLatin1String(NM_SETTING_IP_TUNNEL_SETTING_NAME);
+        break;
     case NetworkManager::Setting::Generic:
         typeString = QLatin1String(NM_SETTING_GENERIC_SETTING_NAME);
         break;
@@ -172,6 +175,8 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
         type = Team;
     } else if (typeString == QLatin1String(NM_SETTING_VXLAN_SETTING_NAME)) {
         type = Vxlan;
+    } else if (typeString == QLatin1String(NM_SETTING_IP_TUNNEL_SETTING_NAME)) {
+        type = IpTunnel;
     } else if (typeString == QLatin1String(NM_SETTING_GENERIC_SETTING_NAME)) {
         type = Generic;
     }

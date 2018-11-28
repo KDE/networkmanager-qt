@@ -59,6 +59,7 @@ set(NetworkManagerQt_SETTINGS_SRCS
     settings/cdmasetting.cpp
     settings/connectionsettings.cpp
     settings/gsmsetting.cpp
+    settings/iptunnelsetting.cpp
     settings/ipv4setting.cpp
     settings/ipv6setting.cpp
     settings/infinibandsetting.cpp
@@ -209,6 +210,7 @@ ecm_generate_headers(NetworkManagerQt_SETTINGS_CamelCase_HEADERS
   GsmSetting
   GenericSetting
   InfinibandSetting
+  IpTunnelSetting
   Ipv4Setting
   Ipv6Setting
   OlpcMeshSetting

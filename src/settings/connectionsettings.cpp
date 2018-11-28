@@ -35,6 +35,7 @@
 #include "gsmsetting.h"
 #include "cdmasetting.h"
 #include "infinibandsetting.h"
+#include "iptunnelsetting.h"
 #include "ipv4setting.h"
 #include "ipv6setting.h"
 #include "pppsetting.h"
@@ -192,6 +193,11 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabili
         addSetting(Setting::Ptr(new Ipv4Setting()));
         addSetting(Setting::Ptr(new Ipv6Setting()));
         break;
+    case ConnectionSettings::IpTunnel:
+        addSetting(Setting::Ptr(new IpTunnelSetting()));
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+        break;
     case ConnectionSettings::Unknown:
     default:
         break;
@@ -308,6 +314,11 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
         addSetting(connectionSettings->setting(Setting::Ipv4));
         addSetting(connectionSettings->setting(Setting::Ipv6));
         break;
+    case ConnectionSettings::IpTunnel:
+        addSetting(connectionSettings->setting(Setting::IpTunnel));
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        break;
     case ConnectionSettings::Unknown:
     default:
         break;
@@ -352,6 +363,8 @@ NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSet
         type = Generic;
     } else if (typeString == QLatin1String(NM_SETTING_TUN_SETTING_NAME)) {
         type = Tun;
+    } else if (typeString == QLatin1String(NM_SETTING_IP_TUNNEL_SETTING_NAME)) {
+        type = IpTunnel;
     }
 
     return type;
@@ -412,6 +425,9 @@ QString NetworkManager::ConnectionSettings::typeAsString(NetworkManager::Connect
         break;
     case Tun:
         typeString = QLatin1String(NM_SETTING_TUN_SETTING_NAME);
+        break;
+    case IpTunnel:
+        typeString = QLatin1String(NM_SETTING_IP_TUNNEL_SETTING_NAME);
         break;
     default:
         break;
@@ -1064,6 +1080,9 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
             break;
         case Setting::Tun:
             dbg.nospace() << *(settingPtr.staticCast<NetworkManager::TunSetting>().data());
+            break;
+        case Setting::IpTunnel:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::IpTunnelSetting>().data());
             break;
         default:
             dbg.nospace() << *settingPtr.data();

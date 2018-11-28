@@ -72,7 +72,8 @@ public:
         Team,
         Generic,
         Tun,
-        Vxlan
+        Vxlan,
+        IpTunnel
     };
 
     enum SecretFlagType {

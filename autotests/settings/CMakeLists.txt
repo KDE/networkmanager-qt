@@ -15,6 +15,7 @@ NETWORKMANAGERQT_AUTOTESTS(
     connectionsettingtest
     gsmsettingtest
     infinibandsettingtest
+    iptunnelsettingtest
     ipv4settingtest
     ipv6settingtest
     olpcmeshsettingtest

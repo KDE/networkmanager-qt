@@ -65,7 +65,8 @@ public:
         Wireless,
         Team,
         Generic,
-        Tun
+        Tun,
+        IpTunnel
     };
 
     enum AutoconnectSlaves {
