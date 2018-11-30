@@ -26,6 +26,13 @@
 
 #include <QTest>
 
+#if !NM_CHECK_VERSION(1, 6, 0)
+#define NM_SETTING_PROXY_BROWSER_ONLY    "browser-only"
+#define NM_SETTING_PROXY_METHOD          "method"
+#define NM_SETTING_PROXY_PAC_SCRIPT      "pac-script"
+#define NM_SETTING_PROXY_PAC_URL         "pac-url"
+#endif
+
 void ProxySettingTest::testSetting_data()
 {
     QTest::addColumn<bool>("browserOnly");

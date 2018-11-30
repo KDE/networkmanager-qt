@@ -23,7 +23,7 @@
 
 #include <QDebug>
 
-#if NM_CHECK_VERSION(1, 12, 0)
+#if !NM_CHECK_VERSION(1, 12, 0)
 #define NM_SETTING_IP_TUNNEL_FLAGS    "flags"
 #endif
 

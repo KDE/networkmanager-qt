@@ -31,7 +31,6 @@
 #define NM_SETTING_PROXY_PAC_URL         "pac-url"
 #endif
 
-
 NetworkManager::ProxySettingPrivate::ProxySettingPrivate()
     : name(NM_SETTING_PROXY_SETTING_NAME)
     , browserOnly(false)

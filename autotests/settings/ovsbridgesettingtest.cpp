@@ -26,6 +26,15 @@
 
 #include <QTest>
 
+#if !NM_CHECK_VERSION(1, 10, 0)
+#define NM_SETTING_OVS_BRIDGE_SETTING_NAME          "ovs-bridge"
+#define NM_SETTING_OVS_BRIDGE_FAIL_MODE             "fail-mode"
+#define NM_SETTING_OVS_BRIDGE_MCAST_SNOOPING_ENABLE "mcast-snooping-enable"
+#define NM_SETTING_OVS_BRIDGE_RSTP_ENABLE           "rstp-enable"
+#define NM_SETTING_OVS_BRIDGE_STP_ENABLE            "stp-enable"
+#endif
+
+
 void OvsBridgeSettingTest::testSetting_data()
 {
     QTest::addColumn<bool>("mcastSnoopingEnable");

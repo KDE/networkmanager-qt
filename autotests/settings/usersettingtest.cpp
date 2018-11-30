@@ -26,6 +26,10 @@
 
 #include <QTest>
 
+#if !NM_CHECK_VERSION(1, 8, 0)
+#define NM_SETTING_USER_DATA            "data"
+#endif
+
 void UserSettingTest::testSetting_data()
 {
     QTest::addColumn<NMStringMap>("data");

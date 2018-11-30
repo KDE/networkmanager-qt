@@ -26,6 +26,10 @@
 
 #include <QTest>
 
+#if !NM_CHECK_VERSION(1, 10, 0)
+#define NM_SETTING_OVS_INTERFACE_TYPE         "type"
+#endif
+
 void OvsInterfaceSettingTest::testSetting_data()
 {
     QTest::addColumn<QString>("type");

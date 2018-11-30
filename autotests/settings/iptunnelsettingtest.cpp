@@ -26,6 +26,10 @@
 
 #include <QTest>
 
+#if !NM_CHECK_VERSION(1, 12, 0)
+#define NM_SETTING_IP_TUNNEL_FLAGS    "flags"
+#endif
+
 void IpTunnelSettingTest::testSetting_data()
 {
     QTest::addColumn<quint32>("mode");
