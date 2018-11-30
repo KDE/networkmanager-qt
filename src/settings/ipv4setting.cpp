@@ -517,11 +517,11 @@ void NetworkManager::Ipv4Setting::fromMap(const QVariantMap &setting)
         setGateway(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_GATEWAY)).toString());
     }
 
-    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESS_DATA))) {
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_DATA))) {
         setRouteData(qdbus_cast<NMVariantMapList>(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_DATA))));
     }
 
-    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_DATA))) {
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESS_DATA))) {
         setAddressData(qdbus_cast<NMVariantMapList>(setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESS_DATA))));
     }
 }

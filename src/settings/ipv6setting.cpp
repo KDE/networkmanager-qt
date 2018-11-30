@@ -531,11 +531,11 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap &setting)
         setDnsOptions(setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS_OPTIONS)).toStringList());
     }
 
-    if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA))) {
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_DATA))) {
         setRouteData(qdbus_cast<NMVariantMapList>(setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_DATA))));
     }
 
-    if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_DATA))) {
+    if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA))) {
         setAddressData(qdbus_cast<NMVariantMapList>(setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA))));
     }
 
