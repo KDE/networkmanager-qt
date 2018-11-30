@@ -21,8 +21,10 @@ NETWORKMANAGERQT_AUTOTESTS(
     olpcmeshsettingtest
     pppsettingtest
     pppoesettingtest
+    proxysettingtest
     serialsettingtest
     tunsettingtest
+    usersettingtest
     vlansettingtest
     vxlansettingtest
     vpnsettingtest

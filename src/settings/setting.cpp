@@ -121,6 +121,12 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     case IpTunnel:
         typeString = QLatin1String(NM_SETTING_IP_TUNNEL_SETTING_NAME);
         break;
+    case Proxy:
+        typeString = QLatin1String(NM_SETTING_PROXY_SETTING_NAME);
+        break;
+    case User:
+        typeString = QLatin1String(NM_SETTING_USER_SETTING_NAME);
+        break;
     case NetworkManager::Setting::Generic:
         typeString = QLatin1String(NM_SETTING_GENERIC_SETTING_NAME);
         break;
@@ -179,6 +185,10 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
         type = IpTunnel;
     } else if (typeString == QLatin1String(NM_SETTING_GENERIC_SETTING_NAME)) {
         type = Generic;
+    } else if (typeString == QLatin1String(NM_SETTING_USER_SETTING_NAME)) {
+        type = User;
+    } else if (typeString == QLatin1String(NM_SETTING_PROXY_SETTING_NAME)) {
+        type = Proxy;
     }
 
     return type;

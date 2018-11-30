@@ -66,6 +66,7 @@ set(NetworkManagerQt_SETTINGS_SRCS
     settings/olpcmeshsetting.cpp
     settings/pppsetting.cpp
     settings/pppoesetting.cpp
+    settings/proxysetting.cpp
     settings/setting.cpp
     settings/serialsetting.cpp
     settings/security8021xsetting.cpp
@@ -79,6 +80,7 @@ set(NetworkManagerQt_SETTINGS_SRCS
     settings/teamsetting.cpp
     settings/genericsetting.cpp
     settings/tunsetting.cpp
+    settings/usersetting.cpp
     settings/vxlansetting.cpp
 )
 
