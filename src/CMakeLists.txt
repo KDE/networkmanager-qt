@@ -64,6 +64,8 @@ set(NetworkManagerQt_SETTINGS_SRCS
     settings/ipv6setting.cpp
     settings/infinibandsetting.cpp
     settings/olpcmeshsetting.cpp
+    settings/ovsbridgesetting.cpp
+    settings/ovsinterfacesetting.cpp
     settings/pppsetting.cpp
     settings/pppoesetting.cpp
     settings/proxysetting.cpp

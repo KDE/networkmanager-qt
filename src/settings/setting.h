@@ -75,7 +75,9 @@ public:
         Vxlan,
         IpTunnel,
         Proxy,
-        User
+        User,
+        OvsBridge,
+        OvsInterface
     };
 
     enum SecretFlagType {

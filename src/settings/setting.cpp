@@ -127,6 +127,12 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     case User:
         typeString = QLatin1String(NM_SETTING_USER_SETTING_NAME);
         break;
+    case OvsInterface:
+        typeString = QLatin1String(NM_SETTING_OVS_INTERFACE_SETTING_NAME);
+        break;
+    case OvsBridge:
+        typeString = QLatin1String(NM_SETTING_OVS_BRIDGE_SETTING_NAME);
+        break;
     case NetworkManager::Setting::Generic:
         typeString = QLatin1String(NM_SETTING_GENERIC_SETTING_NAME);
         break;
@@ -189,6 +195,10 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
         type = User;
     } else if (typeString == QLatin1String(NM_SETTING_PROXY_SETTING_NAME)) {
         type = Proxy;
+    } else if (typeString == QLatin1String(NM_SETTING_OVS_INTERFACE_SETTING_NAME)) {
+        type = OvsInterface;
+    } else if (typeString == QLatin1String(NM_SETTING_OVS_BRIDGE_SETTING_NAME)) {
+        type = OvsBridge;
     }
 
     return type;
