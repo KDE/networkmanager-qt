@@ -24,16 +24,6 @@
 #include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
 
-#if !NM_CHECK_VERSION(1, 12, 0)
-#define NM_IP_TUNNEL_FLAG_NONE                            0x0
-#define NM_IP_TUNNEL_FLAG_IP6_IGN_ENCAP_LIMIT             0x1
-#define NM_IP_TUNNEL_FLAG_IP6_USE_ORIG_TCLASS             0x2
-#define NM_IP_TUNNEL_FLAG_IP6_USE_ORIG_FLOWLABEL          0x4
-#define NM_IP_TUNNEL_FLAG_IP6_MIP6_DEV                    0x8
-#define NM_IP_TUNNEL_FLAG_IP6_RCV_DSCP_COPY               0x10
-#define NM_IP_TUNNEL_FLAG_IP6_USE_ORIG_FWMARK             0x20
-#endif
-
 namespace NetworkManager
 {
 
@@ -61,13 +51,13 @@ public:
     };
 
     enum Flag {
-        None = NM_IP_TUNNEL_FLAG_NONE,
-        Ip6IgnEncapLimit = NM_IP_TUNNEL_FLAG_IP6_IGN_ENCAP_LIMIT,
-        Ip6UseOrigTclass = NM_IP_TUNNEL_FLAG_IP6_USE_ORIG_TCLASS,
-        Ip6UseOrigFlowlabel = NM_IP_TUNNEL_FLAG_IP6_USE_ORIG_FLOWLABEL,
-        Ip6Mip6Dev = NM_IP_TUNNEL_FLAG_IP6_MIP6_DEV,
-        Ip6RcvDscpCopy = NM_IP_TUNNEL_FLAG_IP6_RCV_DSCP_COPY,
-        Ip6UseOrigFwmark = NM_IP_TUNNEL_FLAG_IP6_USE_ORIG_FWMARK
+        None = 0x0,
+        Ip6IgnEncapLimit = 0x1,
+        Ip6UseOrigTclass = 0x2,
+        Ip6UseOrigFlowlabel = 0x4,
+        Ip6Mip6Dev = 0x8,
+        Ip6RcvDscpCopy = 0x10,
+        Ip6UseOrigFwmark = 0x20
     };
     Q_DECLARE_FLAGS(Flags, Flag)
 
