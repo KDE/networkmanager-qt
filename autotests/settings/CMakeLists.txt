@@ -21,6 +21,8 @@ NETWORKMANAGERQT_AUTOTESTS(
     olpcmeshsettingtest
     ovsbridgesettingtest
     ovsinterfacesettingtest
+    ovspatchsettingtest
+    ovsportsettingtest
     pppsettingtest
     pppoesettingtest
     proxysettingtest

@@ -66,6 +66,8 @@ set(NetworkManagerQt_SETTINGS_SRCS
     settings/olpcmeshsetting.cpp
     settings/ovsbridgesetting.cpp
     settings/ovsinterfacesetting.cpp
+    settings/ovspatchsetting.cpp
+    settings/ovsportsetting.cpp
     settings/pppsetting.cpp
     settings/pppoesetting.cpp
     settings/proxysetting.cpp

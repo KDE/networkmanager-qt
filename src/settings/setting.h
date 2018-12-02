@@ -77,7 +77,9 @@ public:
         Proxy,
         User,
         OvsBridge,
-        OvsInterface
+        OvsInterface,
+        OvsPatch,
+        OvsPort
     };
 
     enum SecretFlagType {

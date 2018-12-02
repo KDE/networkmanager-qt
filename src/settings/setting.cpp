@@ -133,6 +133,12 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     case OvsBridge:
         typeString = QLatin1String(NM_SETTING_OVS_BRIDGE_SETTING_NAME);
         break;
+    case OvsPatch:
+        typeString = QLatin1String(NM_SETTING_OVS_PATCH_SETTING_NAME);
+        break;
+    case OvsPort:
+        typeString = QLatin1String(NM_SETTING_OVS_PORT_SETTING_NAME);
+        break;
     case NetworkManager::Setting::Generic:
         typeString = QLatin1String(NM_SETTING_GENERIC_SETTING_NAME);
         break;
@@ -199,6 +205,10 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
         type = OvsInterface;
     } else if (typeString == QLatin1String(NM_SETTING_OVS_BRIDGE_SETTING_NAME)) {
         type = OvsBridge;
+    } else if (typeString == QLatin1String(NM_SETTING_OVS_PATCH_SETTING_NAME)) {
+        type = OvsPatch;
+    } else if (typeString == QLatin1String(NM_SETTING_OVS_PORT_SETTING_NAME)) {
+        type = OvsPort;
     }
 
     return type;
