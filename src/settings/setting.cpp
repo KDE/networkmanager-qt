@@ -27,6 +27,21 @@
 
 #include <QDebug>
 
+#if !NM_CHECK_VERSION(1, 10, 0)
+#define NM_SETTING_OVS_BRIDGE_SETTING_NAME     "ovs-bridge"
+#define NM_SETTING_OVS_INTERFACE_SETTING_NAME  "ovs-interface"
+#define NM_SETTING_OVS_PATCH_SETTING_NAME      "ovs-patch"
+#define NM_SETTING_OVS_PORT_SETTING_NAME       "ovs-port"
+#endif
+
+#if !NM_CHECK_VERSION(1, 8, 0)
+#define NM_SETTING_USER_SETTING_NAME   "user"
+#endif
+
+#if !NM_CHECK_VERSION(1, 6, 0)
+#define NM_SETTING_PROXY_SETTING_NAME  "proxy"
+#endif
+
 namespace NetworkManager
 {
 
