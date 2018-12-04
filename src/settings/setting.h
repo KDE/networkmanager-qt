@@ -79,7 +79,9 @@ public:
         OvsBridge,
         OvsInterface,
         OvsPatch,
-        OvsPort
+        OvsPort,
+        Match,
+        Tc
     };
 
     enum SecretFlagType {

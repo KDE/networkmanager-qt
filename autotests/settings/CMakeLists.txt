@@ -18,6 +18,7 @@ NETWORKMANAGERQT_AUTOTESTS(
     iptunnelsettingtest
     ipv4settingtest
     ipv6settingtest
+    matchsettingtest
     olpcmeshsettingtest
     ovsbridgesettingtest
     ovsinterfacesettingtest
@@ -28,6 +29,7 @@ NETWORKMANAGERQT_AUTOTESTS(
     proxysettingtest
     serialsettingtest
     tunsettingtest
+    tcsettingtest
     usersettingtest
     vlansettingtest
     vxlansettingtest

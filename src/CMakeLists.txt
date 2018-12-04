@@ -63,6 +63,7 @@ set(NetworkManagerQt_SETTINGS_SRCS
     settings/ipv4setting.cpp
     settings/ipv6setting.cpp
     settings/infinibandsetting.cpp
+    settings/matchsetting.cpp
     settings/olpcmeshsetting.cpp
     settings/ovsbridgesetting.cpp
     settings/ovsinterfacesetting.cpp
@@ -82,6 +83,7 @@ set(NetworkManagerQt_SETTINGS_SRCS
     settings/wirelesssetting.cpp
     settings/wirelesssecuritysetting.cpp
     settings/teamsetting.cpp
+    settings/tcsetting.cpp
     settings/genericsetting.cpp
     settings/tunsetting.cpp
     settings/usersetting.cpp

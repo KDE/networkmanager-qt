@@ -27,7 +27,12 @@
 
 #include <QDebug>
 
+#if !NM_CHECK_VERSION(1, 14, 0)
+#define NM_SETTING_MATCH_SETTING_NAME      "match"
+#endif
+
 #if !NM_CHECK_VERSION(1, 10, 0)
+#define NM_SETTING_TC_CONFIG_SETTING_NAME      "tc"
 #define NM_SETTING_OVS_BRIDGE_SETTING_NAME     "ovs-bridge"
 #define NM_SETTING_OVS_INTERFACE_SETTING_NAME  "ovs-interface"
 #define NM_SETTING_OVS_PATCH_SETTING_NAME      "ovs-patch"
@@ -154,6 +159,12 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     case OvsPort:
         typeString = QLatin1String(NM_SETTING_OVS_PORT_SETTING_NAME);
         break;
+    case Match:
+        typeString = QLatin1String(NM_SETTING_MATCH_SETTING_NAME);
+        break;
+    case Tc:
+        typeString = QLatin1String(NM_SETTING_TC_CONFIG_SETTING_NAME);
+        break;
     case NetworkManager::Setting::Generic:
         typeString = QLatin1String(NM_SETTING_GENERIC_SETTING_NAME);
         break;
@@ -224,6 +235,10 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
         type = OvsPatch;
     } else if (typeString == QLatin1String(NM_SETTING_OVS_PORT_SETTING_NAME)) {
         type = OvsPort;
+    } else if (typeString == QLatin1String(NM_SETTING_MATCH_SETTING_NAME)) {
+        type = Match;
+    } else if (typeString == QLatin1String(NM_SETTING_TC_CONFIG_SETTING_NAME)) {
+        type = Tc;
     }
 
     return type;
