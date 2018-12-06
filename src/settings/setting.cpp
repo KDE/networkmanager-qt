@@ -32,11 +32,12 @@
 #endif
 
 #if !NM_CHECK_VERSION(1, 10, 0)
-#define NM_SETTING_TC_CONFIG_SETTING_NAME      "tc"
 #define NM_SETTING_OVS_BRIDGE_SETTING_NAME     "ovs-bridge"
 #define NM_SETTING_OVS_INTERFACE_SETTING_NAME  "ovs-interface"
 #define NM_SETTING_OVS_PATCH_SETTING_NAME      "ovs-patch"
 #define NM_SETTING_OVS_PORT_SETTING_NAME       "ovs-port"
+#define NM_SETTING_TC_CONFIG_SETTING_NAME      "tc"
+#define NM_SETTING_TEAM_PORT_SETTING_NAME      "team-port"
 #endif
 
 #if !NM_CHECK_VERSION(1, 8, 0)
@@ -165,6 +166,9 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     case Tc:
         typeString = QLatin1String(NM_SETTING_TC_CONFIG_SETTING_NAME);
         break;
+    case TeamPort:
+        typeString = QLatin1String(NM_SETTING_TEAM_PORT_SETTING_NAME);
+        break;
     case NetworkManager::Setting::Generic:
         typeString = QLatin1String(NM_SETTING_GENERIC_SETTING_NAME);
         break;
@@ -239,6 +243,8 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
         type = Match;
     } else if (typeString == QLatin1String(NM_SETTING_TC_CONFIG_SETTING_NAME)) {
         type = Tc;
+    } else if (typeString == QLatin1String(NM_SETTING_TEAM_PORT_SETTING_NAME)) {
+        type = TeamPort;
     }
 
     return type;

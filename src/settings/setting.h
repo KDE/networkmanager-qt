@@ -81,7 +81,8 @@ public:
         OvsPatch,
         OvsPort,
         Match,
-        Tc
+        Tc,
+        TeamPort
     };
 
     enum SecretFlagType {

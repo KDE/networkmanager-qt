@@ -28,6 +28,7 @@ NETWORKMANAGERQT_AUTOTESTS(
     pppoesettingtest
     proxysettingtest
     serialsettingtest
+    teamportsettingtest
     tunsettingtest
     tcsettingtest
     usersettingtest

@@ -75,6 +75,7 @@ set(NetworkManagerQt_SETTINGS_SRCS
     settings/setting.cpp
     settings/serialsetting.cpp
     settings/security8021xsetting.cpp
+    settings/teamportsetting.cpp
     #settings/template.cpp
     settings/vlansetting.cpp
     settings/vpnsetting.cpp
