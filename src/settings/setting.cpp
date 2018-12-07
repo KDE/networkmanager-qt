@@ -45,6 +45,7 @@
 #endif
 
 #if !NM_CHECK_VERSION(1, 6, 0)
+#define NM_SETTING_MACSEC_SETTING_NAME "macsec"
 #define NM_SETTING_PROXY_SETTING_NAME  "proxy"
 #endif
 
@@ -169,6 +170,9 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     case TeamPort:
         typeString = QLatin1String(NM_SETTING_TEAM_PORT_SETTING_NAME);
         break;
+    case Macsec:
+        typeString = QLatin1String(NM_SETTING_MACSEC_SETTING_NAME);
+        break;
     case NetworkManager::Setting::Generic:
         typeString = QLatin1String(NM_SETTING_GENERIC_SETTING_NAME);
         break;
@@ -245,6 +249,8 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
         type = Tc;
     } else if (typeString == QLatin1String(NM_SETTING_TEAM_PORT_SETTING_NAME)) {
         type = TeamPort;
+    } else if (typeString == QLatin1String(NM_SETTING_MACSEC_SETTING_NAME)) {
+        type = Macsec;
     }
 
     return type;

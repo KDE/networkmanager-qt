@@ -19,6 +19,7 @@ NETWORKMANAGERQT_AUTOTESTS(
     ipv4settingtest
     ipv6settingtest
     matchsettingtest
+    macsecsettingtest
     olpcmeshsettingtest
     ovsbridgesettingtest
     ovsinterfacesettingtest

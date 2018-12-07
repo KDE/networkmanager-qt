@@ -63,6 +63,7 @@ set(NetworkManagerQt_SETTINGS_SRCS
     settings/ipv4setting.cpp
     settings/ipv6setting.cpp
     settings/infinibandsetting.cpp
+    settings/macsecsetting.cpp
     settings/matchsetting.cpp
     settings/olpcmeshsetting.cpp
     settings/ovsbridgesetting.cpp

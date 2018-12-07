@@ -82,7 +82,8 @@ public:
         OvsPort,
         Match,
         Tc,
-        TeamPort
+        TeamPort,
+        Macsec
     };
 
     enum SecretFlagType {
