@@ -46,7 +46,7 @@ public:
 
     QString name() const override;
 
-    void config(QString config);
+    void config(const QString &config);
     QString config() const;
 
     void lacpKey(qint32 key);

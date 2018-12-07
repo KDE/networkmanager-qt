@@ -74,7 +74,7 @@ QString NetworkManager::TeamPortSetting::name() const
     return d->name;
 }
 
-void NetworkManager::TeamPortSetting::config(QString config)
+void NetworkManager::TeamPortSetting::config(const QString &config)
 {
     Q_D(TeamPortSetting);
 
