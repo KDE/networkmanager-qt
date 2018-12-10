@@ -230,9 +230,9 @@ void IPv6SettingTest::testSetting()
     }
 
     QCOMPARE(qdbus_cast<NMVariantMapList>(map.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA))),
-             qdbus_cast<NMVariantMapList>(map.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA))));
+             qdbus_cast<NMVariantMapList>(map1.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA))));
     QCOMPARE(qdbus_cast<NMVariantMapList>(map.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_DATA))),
-             qdbus_cast<NMVariantMapList>(map.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_DATA))));
+             qdbus_cast<NMVariantMapList>(map1.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_DATA))));
 }
 
 QTEST_MAIN(IPv6SettingTest)

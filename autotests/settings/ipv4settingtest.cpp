@@ -185,13 +185,13 @@ void IPv4SettingTest::testSetting()
     QCOMPARE(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<UIntList>(),
              map1.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<UIntList>());
     QCOMPARE(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).value<UIntListList>(),
-             map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).value<UIntListList>());
+             map1.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).value<UIntListList>());
     QCOMPARE(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).value<UIntListList>(),
-             map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).value<UIntListList>());
+             map1.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).value<UIntListList>());
     QCOMPARE(qdbus_cast<NMVariantMapList>(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESS_DATA))),
-             qdbus_cast<NMVariantMapList>(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESS_DATA))));
+             qdbus_cast<NMVariantMapList>(map1.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESS_DATA))));
     QCOMPARE(qdbus_cast<NMVariantMapList>(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_DATA))),
-             qdbus_cast<NMVariantMapList>(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_DATA))));
+             qdbus_cast<NMVariantMapList>(map1.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_DATA))));
 }
 
 QTEST_MAIN(IPv4SettingTest)
