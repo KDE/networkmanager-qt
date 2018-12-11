@@ -173,6 +173,9 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     case Macsec:
         typeString = QLatin1String(NM_SETTING_MACSEC_SETTING_NAME);
         break;
+    case Dcb:
+        typeString = QLatin1String(NM_SETTING_DCB_SETTING_NAME);
+        break;
     case NetworkManager::Setting::Generic:
         typeString = QLatin1String(NM_SETTING_GENERIC_SETTING_NAME);
         break;
@@ -251,6 +254,8 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
         type = TeamPort;
     } else if (typeString == QLatin1String(NM_SETTING_MACSEC_SETTING_NAME)) {
         type = Macsec;
+    } else if (typeString == QLatin1String(NM_SETTING_DCB_SETTING_NAME)) {
+        type = Dcb;
     }
 
     return type;

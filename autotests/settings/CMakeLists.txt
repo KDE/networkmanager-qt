@@ -13,6 +13,7 @@ NETWORKMANAGERQT_AUTOTESTS(
     bridgeportsettingtest
     cdmasettingtest
     connectionsettingtest
+    dcbsettingtest
     gsmsettingtest
     infinibandsettingtest
     iptunnelsettingtest

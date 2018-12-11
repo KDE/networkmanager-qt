@@ -83,7 +83,8 @@ public:
         Match,
         Tc,
         TeamPort,
-        Macsec
+        Macsec,
+        Dcb
     };
 
     enum SecretFlagType {

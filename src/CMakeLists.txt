@@ -58,6 +58,7 @@ set(NetworkManagerQt_SETTINGS_SRCS
     settings/bridgeportsetting.cpp
     settings/cdmasetting.cpp
     settings/connectionsettings.cpp
+    settings/dcbsetting.cpp
     settings/gsmsetting.cpp
     settings/iptunnelsetting.cpp
     settings/ipv4setting.cpp
