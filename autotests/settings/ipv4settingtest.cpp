@@ -73,7 +73,7 @@ void IPv4SettingTest::testSetting_data()
     routeAddr << 25;
     routeAddr << inet_addr("192.169.1.1");
     routeAddr << 25;
-    addresses << routeAddr;
+    routes << routeAddr;
 
     QStringList dnsOptions;
     dnsOptions << "opt1";
