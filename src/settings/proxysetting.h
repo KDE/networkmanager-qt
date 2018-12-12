@@ -40,8 +40,8 @@ public:
     typedef QSharedPointer<ProxySetting> Ptr;
     typedef QList<Ptr> List;
     enum Mode {
-        None = NM_SETTING_PROXY_METHOD_NONE,
-        Auto = NM_SETTING_PROXY_METHOD_AUTO
+        None = 0,
+        Auto = 1
     };
 
     ProxySetting();
