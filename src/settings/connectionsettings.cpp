@@ -45,12 +45,17 @@
 #include "vlansetting.h"
 #include "vpnsetting.h"
 #include "wimaxsetting.h"
+#include "wireguardsetting.h"
 
 #undef signals
 #include <libnm/NetworkManager.h>
 
 #if !NM_CHECK_VERSION(1, 6, 0)
 #define NM_SETTING_CONNECTION_AUTOCONNECT_RETRIES "autoconnect-retries"
+#endif
+
+#if !NM_CHECK_VERSION(1, 16, 0)
+#define NM_SETTING_WIREGUARD_SETTING_NAME "wireguard"
 #endif
 
 #include "teamsetting.h"
@@ -198,6 +203,11 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabili
         addSetting(Setting::Ptr(new Ipv4Setting()));
         addSetting(Setting::Ptr(new Ipv6Setting()));
         break;
+    case ConnectionSettings::Wireguard:
+        addSetting(Setting::Ptr(new WireguardSetting()));
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+        break;
     case ConnectionSettings::Unknown:
     default:
         break;
@@ -319,6 +329,11 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
         addSetting(connectionSettings->setting(Setting::Ipv4));
         addSetting(connectionSettings->setting(Setting::Ipv6));
         break;
+    case ConnectionSettings::Wireguard:
+        addSetting(connectionSettings->setting(Setting::Wireguard));
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        break;
     case ConnectionSettings::Unknown:
     default:
         break;
@@ -365,6 +380,8 @@ NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSet
         type = Tun;
     } else if (typeString == QLatin1String(NM_SETTING_IP_TUNNEL_SETTING_NAME)) {
         type = IpTunnel;
+    } else if (typeString == QLatin1String(NM_SETTING_WIREGUARD_SETTING_NAME)) {
+        type = Wireguard;
     }
 
     return type;
@@ -428,6 +445,9 @@ QString NetworkManager::ConnectionSettings::typeAsString(NetworkManager::Connect
         break;
     case IpTunnel:
         typeString = QLatin1String(NM_SETTING_IP_TUNNEL_SETTING_NAME);
+        break;
+    case Wireguard:
+        typeString = QLatin1String(NM_SETTING_WIREGUARD_SETTING_NAME);
         break;
     default:
         break;
@@ -1083,6 +1103,9 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
             break;
         case Setting::IpTunnel:
             dbg.nospace() << *(settingPtr.staticCast<NetworkManager::IpTunnelSetting>().data());
+            break;
+        case Setting::Wireguard:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::WireguardSetting>().data());
             break;
         default:
             dbg.nospace() << *settingPtr.data();

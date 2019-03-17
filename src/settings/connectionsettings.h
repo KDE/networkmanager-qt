@@ -66,7 +66,8 @@ public:
         Team,
         Generic,
         Tun,
-        IpTunnel
+        IpTunnel,
+        Wireguard
     };
 
     enum AutoconnectSlaves {

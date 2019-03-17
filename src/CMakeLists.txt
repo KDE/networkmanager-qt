@@ -91,6 +91,7 @@ set(NetworkManagerQt_SETTINGS_SRCS
     settings/tunsetting.cpp
     settings/usersetting.cpp
     settings/vxlansetting.cpp
+    settings/wireguardsetting.cpp
 )
 
 set(DBUS_INTERFACE_SRCS
@@ -236,6 +237,7 @@ ecm_generate_headers(NetworkManagerQt_SETTINGS_CamelCase_HEADERS
   VpnSetting
   WimaxSetting
   WiredSetting
+  WireguardSetting
   WirelessSecuritySetting
   WirelessSetting
 

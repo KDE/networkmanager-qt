@@ -39,6 +39,7 @@ NETWORKMANAGERQT_AUTOTESTS(
     vpnsettingtest
     wimaxsettingtest
     wiredsettingtest
+    wireguardsettingtest
     wirelesssettingtest
     wirelesssecuritysettingtest
 )
