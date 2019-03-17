@@ -91,6 +91,7 @@ public:
 
 Q_SIGNALS:
     Q_SCRIPTABLE void PropertiesChanged(const QVariantMap &properties);
+    Q_SCRIPTABLE void StateChanged(uint state, uint reason);
 
 private:
     QDBusObjectPath m_connection;

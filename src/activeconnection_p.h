@@ -34,6 +34,7 @@ public:
     explicit ActiveConnectionPrivate(const QString &, ActiveConnection *q);
     virtual ~ActiveConnectionPrivate();
     static NetworkManager::ActiveConnection::State convertActiveConnectionState(uint);
+    static NetworkManager::ActiveConnection::Reason convertActiveConnectionReason(uint);
     NetworkManager::Connection::Ptr connection;
     QString path;
     bool default4;
@@ -73,6 +74,7 @@ public:
 
 public Q_SLOTS:
     void propertiesChanged(const QVariantMap &properties);
+    void stateChanged(uint state, uint reason);
 
 private Q_SLOTS:
     void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);

@@ -269,6 +269,10 @@ void FakeNetwork::updateConnectingState()
             QDBusMessage message = QDBusMessage::createSignal(activeConnection->activeConnectionPath(), QLatin1Literal("org.kde.fakenetwork.Connection.Active"), QLatin1Literal("PropertiesChanged"));
             message << activeConnectionMap;
             QDBusConnection::sessionBus().send(message);
+
+            QDBusMessage message2 = QDBusMessage::createSignal(activeConnection->activeConnectionPath(), QLatin1Literal("org.kde.fakenetwork.Connection.Active"), QLatin1Literal("StateChanged"));
+            message2 << (uint)2 << (uint)1; // NM_ACTIVE_CONNECTION_STATE_ACTIVATED << NM_ACTIVE_CONNECTION_STATE_REASON_NONE
+            QDBusConnection::sessionBus().send(message2);
         }
         // TODO: set dhcp4Config, dhcp6Config, ip4Config, ip6Config
         // IP Interface is usually same as interface
@@ -327,6 +331,10 @@ void FakeNetwork::DeactivateConnection(const QDBusObjectPath &active_connection)
         message << activeConnectionMap;
         QDBusConnection::sessionBus().send(message);
 
+        QDBusMessage message2 = QDBusMessage::createSignal(activeConnection->activeConnectionPath(), QLatin1Literal("org.kde.fakenetwork.Connection.Active"), QLatin1Literal("StateChanged"));
+        message2 << (uint)4 << (uint)2; // NM_ACTIVE_CONNECTION_STATE_DEACTIVATED << NM_ACTIVE_CONNECTION_STATE_REASON_USER_DISCONNECTED
+        QDBusConnection::sessionBus().send(message2);
+
         Device *device = m_devices.value(activeConnection->devices().first());
         if (device) {
             m_deactivatedDevice = device->devicePath();
@@ -364,6 +372,10 @@ void FakeNetwork::updateDeactivatingState()
         QDBusMessage message = QDBusMessage::createSignal(activeConnection->activeConnectionPath(), QLatin1Literal("org.kde.fakenetwork.Connection.Active"), QLatin1Literal("PropertiesChanged"));
         message << activeConnectionMap;
         QDBusConnection::sessionBus().send(message);
+
+        QDBusMessage message2 = QDBusMessage::createSignal(activeConnection->activeConnectionPath(), QLatin1Literal("org.kde.fakenetwork.Connection.Active"), QLatin1Literal("StateChanged"));
+        message2 << (uint)3 << (uint)2; // NM_ACTIVE_CONNECTION_STATE_DEACTIVATING << NM_ACTIVE_CONNECTION_STATE_REASON_USER_DISCONNECTED
+        QDBusConnection::sessionBus().send(message2);
 
         removeActiveConnection(QDBusObjectPath(activeConnection->activeConnectionPath()));
     }

@@ -58,6 +58,25 @@ public:
         Deactivating, /**< The connection is being torn down and cleaned up */
         Deactivated /**< The connection is no longer active */
     };
+
+    enum Reason {
+        UknownReason = 0,   /**< The reason for the active connection state change is unknown */
+        None,               /**< No reason was given for the active connection state change */
+        UserDisconnected,   /**< The active connection changed state because the user disconnected it */
+        DeviceDisconnected, /**< The active connection changed state because the device it was using was disconnected */
+        ServiceStopped,     /**< The service providing the VPN connection was stopped */
+        IpConfigInvalid,    /**< The IP config of the active connection was invalid */
+        ConnectTimeout,     /**< The connection attempt to the VPN service timed out */
+        ServiceStartTimeout,/**< A timeout occurred while starting the service providing the VPN connection */
+        ServiceStartFailed, /**< Starting the service providing the VPN connection failed */
+        NoSecrets,          /**< Necessary secrets for the connection were not provided */
+        LoginFailed,        /**< Authentication to the server failed */
+        ConnectionRemoved,  /**< The connection was deleted from settings */
+        DependencyFailed,   /**< Master connection of this connection failed to activate */
+        DeviceRealizeFailed,/**< Could not create the software device link */
+        DeviceRemoved       /**< The device this connection depended on disappeared */
+    };
+
     /**
      * Creates a new ActiveConnection object.
      *
@@ -198,6 +217,11 @@ Q_SIGNALS:
      * The @p state changed
      */
     void stateChanged(NetworkManager::ActiveConnection::State state);
+    /**
+     * The @p state changed because of reason @p reason
+     * (never emitted in runtime NM < 1.8.0)
+     */
+    void stateChangedReason(NetworkManager::ActiveConnection::State state, NetworkManager::ActiveConnection::Reason reason);
     /**
      * The VPN property changed.
      */

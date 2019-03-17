@@ -82,6 +82,7 @@ void ActiveConnectionTest::initTestCase()
 void ActiveConnectionTest::testActiveConnection()
 {
     qRegisterMetaType<NetworkManager::ActiveConnection::State>("NetworkManager::ActiveConnection::State");
+    qRegisterMetaType<NetworkManager::ActiveConnection::Reason>("NetworkManager::ActiveConnection::Reason");
     qRegisterMetaType<NetworkManager::Device::State>("NetworkManager::Device::State");
     qRegisterMetaType<NetworkManager::Device::StateChangeReason>("NetworkManager::Device::StateChangeReason");
     qRegisterMetaType<NetworkManager::Connectivity>("NetworkManager::Connectivity");
@@ -105,6 +106,7 @@ void ActiveConnectionTest::testActiveConnection()
 
     NetworkManager::ActiveConnection::Ptr activeConnection = NetworkManager::findActiveConnection(activeConnectionAddedSpy.at(0).at(0).toString());
     QSignalSpy activeConnectionStateChangedSpy(activeConnection.data(), SIGNAL(stateChanged(NetworkManager::ActiveConnection::State)));
+    QSignalSpy activeConnectionStateChangedReasonSpy(activeConnection.data(), SIGNAL(stateChangedReason(NetworkManager::ActiveConnection::State,NetworkManager::ActiveConnection::Reason)));
 
     QCOMPARE(activeConnection->devices().first(), device->uni());
     QCOMPARE(activeConnection->state(), NetworkManager::ActiveConnection::Activating);
@@ -116,6 +118,7 @@ void ActiveConnectionTest::testActiveConnection()
     QTest::qWait(800);
 
     QCOMPARE(activeConnectionStateChangedSpy.count(), 1);
+    QCOMPARE(activeConnectionStateChangedReasonSpy.count(), 1);
 
     QCOMPARE(deviceStateChangedSpy.count(), 6);
     QCOMPARE(device->ipInterfaceName(), device->interfaceName());

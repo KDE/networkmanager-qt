@@ -55,6 +55,11 @@ NetworkManager::ActiveConnection::State NetworkManager::ActiveConnectionPrivate:
     return (NetworkManager::ActiveConnection::State)state;
 }
 
+NetworkManager::ActiveConnection::Reason NetworkManager::ActiveConnectionPrivate::convertActiveConnectionReason(uint reason)
+{
+    return (NetworkManager::ActiveConnection::Reason)reason;
+}
+
 NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject *parent)
     : QObject(parent), d_ptr(new ActiveConnectionPrivate(path, this))
 {
@@ -69,10 +74,13 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject 
 #ifndef NMQT_STATIC
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("StateChanged"), d, SLOT(stateChanged(uint,uint)));
 #endif
 
 #ifdef NMQT_STATIC
     connect(&d->iface, &OrgFreedesktopNetworkManagerConnectionActiveInterface::PropertiesChanged, d, &ActiveConnectionPrivate::propertiesChanged);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerConnectionActiveInterface::StateChanged, d, &ActiveConnectionPrivate::stateChanged);
 #endif
 
 #ifndef NMQT_STATIC
@@ -92,10 +100,13 @@ NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, 
 #ifndef NMQT_STATIC
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("StateChanged"), d, SLOT(stateChanged(uint,uint)));
 #endif
 
 #ifdef NMQT_STATIC
     connect(&d->iface, &OrgFreedesktopNetworkManagerConnectionActiveInterface::PropertiesChanged, d, &ActiveConnectionPrivate::propertiesChanged);
+    connect(&d->iface, &OrgFreedesktopNetworkManagerConnectionActiveInterface::StateChanged, d, &ActiveConnectionPrivate::stateChanged);
 #endif
 
 #ifndef NMQT_STATIC
@@ -311,6 +322,13 @@ void NetworkManager::ActiveConnectionPrivate::propertiesChanged(const QVariantMa
         propertyChanged(it.key(), it.value());
         ++it;
     }
+}
+
+void NetworkManager::ActiveConnectionPrivate::stateChanged(uint state, uint reason)
+{
+    Q_Q(ActiveConnection);
+
+    Q_EMIT q->stateChangedReason(convertActiveConnectionState(state), convertActiveConnectionReason(reason));
 }
 
 void NetworkManager::ActiveConnectionPrivate::propertyChanged(const QString &property, const QVariant &value)
