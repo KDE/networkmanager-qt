@@ -66,6 +66,12 @@ public:
     SecretFlags privateKeyFlags() const;
     void setPrivateKeyFlags(SecretFlags flags);
 
+    void secretsFromMap(const QVariantMap &secrets) override;
+
+    QVariantMap secretsToMap() const override;
+
+    QStringList needSecrets(bool requestNew = false) const override;
+
     void fromMap(const QVariantMap &setting) override;
 
     QVariantMap toMap() const override;

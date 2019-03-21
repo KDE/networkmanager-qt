@@ -173,6 +173,37 @@ void NetworkManager::WireguardSetting::setPrivateKeyFlags(NetworkManager::Settin
     d->privateKeyFlags = flags;
 }
 
+void NetworkManager::WireguardSetting::secretsFromMap(const QVariantMap &secrets)
+{
+    if (secrets.contains(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY))) {
+        setPrivateKey(secrets.value(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY)).toString());
+    }
+}
+
+QVariantMap NetworkManager::WireguardSetting::secretsToMap() const
+{
+    QVariantMap secrets;
+
+    if (!privateKey().isEmpty()) {
+        secrets.insert(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY), privateKey());
+    }
+
+    return secrets;
+}
+
+QStringList NetworkManager::WireguardSetting::needSecrets(bool requestNew) const
+{
+    QStringList secrets;
+
+    if (!privateKeyFlags().testFlag(Setting::NotRequired)) {
+        if (privateKey().isEmpty() || requestNew) {
+            secrets << QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY);
+        }
+    }
+
+    return secrets;
+}
+
 void NetworkManager::WireguardSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_WIREGUARD_FWMARK))) {
