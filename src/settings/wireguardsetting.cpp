@@ -131,14 +131,14 @@ void NetworkManager::WireguardSetting::setPeerRoutes(bool peerRoutes)
     d->peerRoutes = peerRoutes;
 }
 
-QVariantMap NetworkManager::WireguardSetting::peers() const
+NMVariantMapList NetworkManager::WireguardSetting::peers() const
 {
     Q_D(const WireguardSetting);
 
     return d->peers;
 }
 
-void NetworkManager::WireguardSetting::setPeers(const QVariantMap &peers)
+void NetworkManager::WireguardSetting::setPeers(const NMVariantMapList &peers)
 {
     Q_D(WireguardSetting);
 
@@ -192,7 +192,7 @@ void NetworkManager::WireguardSetting::fromMap(const QVariantMap &setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIREGUARD_PEERS))) {
-        setPeers(setting.value(QLatin1String(NM_SETTING_WIREGUARD_PEERS)).toMap());
+        setPeers(qdbus_cast<NMVariantMapList>(setting.value(QLatin1String(NM_SETTING_WIREGUARD_PEERS))));
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY))) {
@@ -214,7 +214,7 @@ QVariantMap NetworkManager::WireguardSetting::toMap() const
     setting.insert(QLatin1String(NM_SETTING_WIREGUARD_PEER_ROUTES), peerRoutes());
 
     if (!peers().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_WIREGUARD_PEERS), peers());
+        setting.insert(QLatin1String(NM_SETTING_WIREGUARD_PEERS), QVariant::fromValue(peers()));
     }
 
     if (!privateKey().isEmpty()) {

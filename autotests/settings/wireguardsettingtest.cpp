@@ -42,16 +42,25 @@ void WireguardSettingTest::testSetting_data()
     QTest::addColumn<qint32>("listenPort");
     QTest::addColumn<qint32>("mtu");
     QTest::addColumn<bool>("peerRoutes");
-    QTest::addColumn<QVariantMap>("peers");
+    QTest::addColumn<NMVariantMapList>("peers");
     QTest::addColumn<QString>("privateKey");
     QTest::addColumn<quint32>("privateKeyFlags");
+
+    NMVariantMapList peers;
+    QVariantMap map;
+    map.insert("foo", "bar");
+    peers << map;
+
+    QVariantMap map1;
+    map1.insert("foobar", "barfoo");
+    peers << map1;
 
     QTest::newRow("setting1")
             << (qint32) 100                 // fwmark
             << (qint32) 101                 // listenPort
             << (qint32) 102                 // mtu
             << false                        // peerRoutes
-            << QVariantMap {{"foo", "bar"}} // peers
+            << peers                         // peers
             << QString("private-key")       // privateKey
             << (quint32) 2;                 // privateKeyFlags
 }
@@ -62,7 +71,7 @@ void WireguardSettingTest::testSetting()
     QFETCH(qint32, listenPort);
     QFETCH(qint32, mtu);
     QFETCH(bool, peerRoutes);
-    QFETCH(QVariantMap, peers);
+    QFETCH(NMVariantMapList, peers);
     QFETCH(QString, privateKey);
     QFETCH(quint32, privateKeyFlags);
 
@@ -72,7 +81,7 @@ void WireguardSettingTest::testSetting()
     map.insert(QLatin1String(NM_SETTING_WIREGUARD_LISTEN_PORT), listenPort);
     map.insert(QLatin1String(NM_SETTING_WIREGUARD_MTU), mtu);
     map.insert(QLatin1String(NM_SETTING_WIREGUARD_PEER_ROUTES), peerRoutes);
-    map.insert(QLatin1String(NM_SETTING_WIREGUARD_PEERS), peers);
+    map.insert(QLatin1String(NM_SETTING_WIREGUARD_PEERS), QVariant::fromValue(peers));
     map.insert(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY), privateKey);
     map.insert(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY_FLAGS), privateKeyFlags);
 
@@ -90,16 +99,33 @@ void WireguardSettingTest::testSetting()
         ++it;
     }
 
-    QVariantMap list = map.value(QLatin1String(NM_SETTING_WIREGUARD_PEERS)).toMap();
-    QVariantMap list1 = map1.value(QLatin1String(NM_SETTING_WIREGUARD_PEERS)).toMap();
+    NMVariantMapList list = map.value(QLatin1String(NM_SETTING_WIREGUARD_PEERS)).value<NMVariantMapList>();
+    NMVariantMapList list1 = map1.value(QLatin1String(NM_SETTING_WIREGUARD_PEERS)).value<NMVariantMapList>();
 
     QCOMPARE(list.count(), list1.count());
 
-    QVariantMap::const_iterator it2 = list.constBegin();
-    while (it2 != list.constEnd()) {
-        QCOMPARE(it2.value(), list1.value(it2.key()));
-        ++it2;
+    int comparedMaps = 0;
+    for (int i = 0; i < list.size(); ++i) {
+        QVariantMap varMap = list.at(i);
+        for (int j = 0; j < list1.size(); ++j) {
+            QVariantMap varMap1 = list1.at(j);
+            QVariantMap::const_iterator ite = varMap.constBegin();
+            int comparedvals = 0;
+            while (ite != varMap.constEnd()) {
+                QVariantMap::const_iterator val1 = varMap1.constFind(ite.key());
+                if (val1 != varMap1.constEnd()) {
+                    if (varMap.value(ite.key()) == val1.value()) {
+                        ++comparedvals;
+                    }
+                }
+                ++ite;
+            }
+            if (comparedvals == varMap.size()) {
+                comparedMaps++;
+            }
+        }
     }
+    QCOMPARE(comparedMaps, list.count());
 }
 
 QTEST_MAIN(WireguardSettingTest)

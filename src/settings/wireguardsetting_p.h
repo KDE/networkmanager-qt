@@ -37,7 +37,7 @@ public:
     quint32 listenPort;
     quint32 mtu;
     bool peerRoutes;
-    QVariantMap peers;
+    NMVariantMapList peers;
     QString privateKey;
     NetworkManager::Setting::SecretFlags privateKeyFlags;
 };

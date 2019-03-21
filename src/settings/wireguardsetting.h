@@ -57,8 +57,8 @@ public:
     bool peerRoutes() const;
     void setPeerRoutes(bool peerRoutes);
 
-    QVariantMap peers() const;
-    void setPeers(const QVariantMap &peers);
+    NMVariantMapList peers() const;
+    void setPeers(const NMVariantMapList &peers);
 
     QString privateKey() const;
     void setPrivateKey(const QString &key);
