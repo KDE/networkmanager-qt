@@ -79,7 +79,7 @@ void TcSettingTest::testSetting()
         for (int i = 0; i < list.size(); ++i) {
             QVariantMap varMap = list.at(i);
             for (int j = 0; j < list1.size(); ++j) {
-                QVariantMap varMap1 = list1.at(i);
+                QVariantMap varMap1 = list1.at(j);
                 QVariantMap::const_iterator ite = varMap.constBegin();
                 int comparedvals = 0;
                 while (ite != varMap.constEnd()) {
