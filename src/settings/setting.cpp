@@ -27,6 +27,10 @@
 
 #include <QDebug>
 
+#if !NM_CHECK_VERSION(1, 16, 0)
+#define NM_SETTING_WIREGUARD_SETTING_NAME "wireguard"
+#endif
+
 #if !NM_CHECK_VERSION(1, 14, 0)
 #define NM_SETTING_MATCH_SETTING_NAME      "match"
 #endif
@@ -176,6 +180,9 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     case Dcb:
         typeString = QLatin1String(NM_SETTING_DCB_SETTING_NAME);
         break;
+    case NetworkManager::Setting::WireGuard:
+        typeString = QLatin1String(NM_SETTING_WIREGUARD_SETTING_NAME);
+        break;
     case NetworkManager::Setting::Generic:
         typeString = QLatin1String(NM_SETTING_GENERIC_SETTING_NAME);
         break;
@@ -256,6 +263,8 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
         type = Macsec;
     } else if (typeString == QLatin1String(NM_SETTING_DCB_SETTING_NAME)) {
         type = Dcb;
+    } else if (typeString == QLatin1String(NM_SETTING_WIREGUARD_SETTING_NAME)) {
+        type = WireGuard;
     }
 
     return type;
