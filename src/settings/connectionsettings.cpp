@@ -203,8 +203,8 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabili
         addSetting(Setting::Ptr(new Ipv4Setting()));
         addSetting(Setting::Ptr(new Ipv6Setting()));
         break;
-    case ConnectionSettings::Wireguard:
-        addSetting(Setting::Ptr(new WireguardSetting()));
+    case ConnectionSettings::WireGuard:
+        addSetting(Setting::Ptr(new WireGuardSetting()));
         addSetting(Setting::Ptr(new Ipv4Setting()));
         addSetting(Setting::Ptr(new Ipv6Setting()));
         break;
@@ -329,8 +329,8 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
         addSetting(connectionSettings->setting(Setting::Ipv4));
         addSetting(connectionSettings->setting(Setting::Ipv6));
         break;
-    case ConnectionSettings::Wireguard:
-        addSetting(connectionSettings->setting(Setting::Wireguard));
+    case ConnectionSettings::WireGuard:
+        addSetting(connectionSettings->setting(Setting::WireGuard));
         addSetting(connectionSettings->setting(Setting::Ipv4));
         addSetting(connectionSettings->setting(Setting::Ipv6));
         break;
@@ -381,7 +381,7 @@ NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSet
     } else if (typeString == QLatin1String(NM_SETTING_IP_TUNNEL_SETTING_NAME)) {
         type = IpTunnel;
     } else if (typeString == QLatin1String(NM_SETTING_WIREGUARD_SETTING_NAME)) {
-        type = Wireguard;
+        type = WireGuard;
     }
 
     return type;
@@ -446,7 +446,7 @@ QString NetworkManager::ConnectionSettings::typeAsString(NetworkManager::Connect
     case IpTunnel:
         typeString = QLatin1String(NM_SETTING_IP_TUNNEL_SETTING_NAME);
         break;
-    case Wireguard:
+    case WireGuard:
         typeString = QLatin1String(NM_SETTING_WIREGUARD_SETTING_NAME);
         break;
     default:
@@ -1104,8 +1104,8 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
         case Setting::IpTunnel:
             dbg.nospace() << *(settingPtr.staticCast<NetworkManager::IpTunnelSetting>().data());
             break;
-        case Setting::Wireguard:
-            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::WireguardSetting>().data());
+        case Setting::WireGuard:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::WireGuardSetting>().data());
             break;
         default:
             dbg.nospace() << *settingPtr.data();

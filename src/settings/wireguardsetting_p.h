@@ -26,10 +26,10 @@
 namespace NetworkManager
 {
 
-class WireguardSettingPrivate
+class WireGuardSettingPrivate
 {
 public:
-    WireguardSettingPrivate();
+    WireGuardSettingPrivate();
 
     QString name;
 

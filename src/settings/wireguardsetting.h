@@ -29,19 +29,19 @@
 namespace NetworkManager
 {
 
-class WireguardSettingPrivate;
+class WireGuardSettingPrivate;
 
 /**
  * Represents generic setting
  */
-class NETWORKMANAGERQT_EXPORT WireguardSetting : public Setting
+class NETWORKMANAGERQT_EXPORT WireGuardSetting : public Setting
 {
 public:
-    typedef QSharedPointer<WireguardSetting> Ptr;
+    typedef QSharedPointer<WireGuardSetting> Ptr;
     typedef QList<Ptr> List;
-    WireguardSetting();
-    explicit WireguardSetting(const Ptr &other);
-    ~WireguardSetting() override;
+    WireGuardSetting();
+    explicit WireGuardSetting(const Ptr &other);
+    ~WireGuardSetting() override;
 
     QString name() const override;
 
@@ -77,13 +77,13 @@ public:
     QVariantMap toMap() const override;
 
 protected:
-    WireguardSettingPrivate *d_ptr;
+    WireGuardSettingPrivate *d_ptr;
 
 private:
-    Q_DECLARE_PRIVATE(WireguardSetting)
+    Q_DECLARE_PRIVATE(WireGuardSetting)
 };
 
-NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const WireguardSetting &setting);
+NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const WireGuardSetting &setting);
 
 }
 

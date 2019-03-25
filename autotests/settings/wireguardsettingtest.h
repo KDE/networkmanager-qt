@@ -23,7 +23,7 @@
 
 #include <QObject>
 
-class WireguardSettingTest : public QObject
+class WireGuardSettingTest : public QObject
 {
     Q_OBJECT
 

@@ -36,7 +36,7 @@
 #define NM_SETTING_WIREGUARD_PEER_ROUTES       "peer-routes"
 #endif
 
-void WireguardSettingTest::testSetting_data()
+void WireGuardSettingTest::testSetting_data()
 {
     QTest::addColumn<qint32>("fwmark");
     QTest::addColumn<qint32>("listenPort");
@@ -65,7 +65,7 @@ void WireguardSettingTest::testSetting_data()
             << (quint32) 2;                 // privateKeyFlags
 }
 
-void WireguardSettingTest::testSetting()
+void WireGuardSettingTest::testSetting()
 {
     QFETCH(qint32, fwmark);
     QFETCH(qint32, listenPort);
@@ -85,7 +85,7 @@ void WireguardSettingTest::testSetting()
     map.insert(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY), privateKey);
     map.insert(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY_FLAGS), privateKeyFlags);
 
-    NetworkManager::WireguardSetting setting;
+    NetworkManager::WireGuardSetting setting;
     setting.fromMap(map);
 
     QVariantMap map1 = setting.toMap();
@@ -128,5 +128,5 @@ void WireguardSettingTest::testSetting()
     QCOMPARE(comparedMaps, list.count());
 }
 
-QTEST_MAIN(WireguardSettingTest)
+QTEST_MAIN(WireGuardSettingTest)
 

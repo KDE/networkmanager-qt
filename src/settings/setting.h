@@ -85,7 +85,7 @@ public:
         TeamPort,
         Macsec,
         Dcb,
-        Wireguard
+        WireGuard
     };
 
     enum SecretFlagType {

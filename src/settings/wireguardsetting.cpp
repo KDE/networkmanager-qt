@@ -35,7 +35,7 @@
 #define NM_SETTING_WIREGUARD_PEER_ROUTES       "peer-routes"
 #endif
 
-NetworkManager::WireguardSettingPrivate::WireguardSettingPrivate()
+NetworkManager::WireGuardSettingPrivate::WireGuardSettingPrivate()
     : name(NM_SETTING_WIREGUARD_SETTING_NAME)
     , fwmark(0)
     , listenPort(0)
@@ -44,14 +44,14 @@ NetworkManager::WireguardSettingPrivate::WireguardSettingPrivate()
     , privateKeyFlags(NetworkManager::Setting::None)
 { }
 
-NetworkManager::WireguardSetting::WireguardSetting():
-    Setting(Setting::Wireguard),
-    d_ptr(new WireguardSettingPrivate())
+NetworkManager::WireGuardSetting::WireGuardSetting():
+    Setting(Setting::WireGuard),
+    d_ptr(new WireGuardSettingPrivate())
 { }
 
-NetworkManager::WireguardSetting::WireguardSetting(const Ptr &other)
+NetworkManager::WireGuardSetting::WireGuardSetting(const Ptr &other)
     : Setting(other)
-    , d_ptr(new WireguardSettingPrivate())
+    , d_ptr(new WireGuardSettingPrivate())
 {
     setFwmark(other->fwmark());
     setListenPort(other->listenPort());
@@ -62,125 +62,125 @@ NetworkManager::WireguardSetting::WireguardSetting(const Ptr &other)
     setPrivateKeyFlags(other->privateKeyFlags());
 }
 
-NetworkManager::WireguardSetting::~WireguardSetting()
+NetworkManager::WireGuardSetting::~WireGuardSetting()
 {
     delete d_ptr;
 }
 
-QString NetworkManager::WireguardSetting::name() const
+QString NetworkManager::WireGuardSetting::name() const
 {
-    Q_D(const WireguardSetting);
+    Q_D(const WireGuardSetting);
 
     return d->name;
 }
 
-quint32 NetworkManager::WireguardSetting::fwmark() const
+quint32 NetworkManager::WireGuardSetting::fwmark() const
 {
-    Q_D(const WireguardSetting);
+    Q_D(const WireGuardSetting);
 
     return d->fwmark;
 }
 
-void NetworkManager::WireguardSetting::setFwmark(quint32 fwmark)
+void NetworkManager::WireGuardSetting::setFwmark(quint32 fwmark)
 {
-    Q_D(WireguardSetting);
+    Q_D(WireGuardSetting);
 
     d->fwmark = fwmark;
 }
 
-quint32 NetworkManager::WireguardSetting::listenPort() const
+quint32 NetworkManager::WireGuardSetting::listenPort() const
 {
-    Q_D(const WireguardSetting);
+    Q_D(const WireGuardSetting);
 
     return d->listenPort;
 }
 
-void NetworkManager::WireguardSetting::setListenPort(quint32 port)
+void NetworkManager::WireGuardSetting::setListenPort(quint32 port)
 {
-    Q_D(WireguardSetting);
+    Q_D(WireGuardSetting);
 
     d->listenPort = port;
 }
 
-quint32 NetworkManager::WireguardSetting::mtu() const
+quint32 NetworkManager::WireGuardSetting::mtu() const
 {
-    Q_D(const WireguardSetting);
+    Q_D(const WireGuardSetting);
 
     return d->mtu;
 
 }
 
-void NetworkManager::WireguardSetting::setMtu(quint32 mtu)
+void NetworkManager::WireGuardSetting::setMtu(quint32 mtu)
 {
-    Q_D(WireguardSetting);
+    Q_D(WireGuardSetting);
 
     d->mtu = mtu;
 }
 
-bool NetworkManager::WireguardSetting::peerRoutes() const
+bool NetworkManager::WireGuardSetting::peerRoutes() const
 {
-    Q_D(const WireguardSetting);
+    Q_D(const WireGuardSetting);
 
     return d->peerRoutes;
 }
 
-void NetworkManager::WireguardSetting::setPeerRoutes(bool peerRoutes)
+void NetworkManager::WireGuardSetting::setPeerRoutes(bool peerRoutes)
 {
-    Q_D(WireguardSetting);
+    Q_D(WireGuardSetting);
 
     d->peerRoutes = peerRoutes;
 }
 
-NMVariantMapList NetworkManager::WireguardSetting::peers() const
+NMVariantMapList NetworkManager::WireGuardSetting::peers() const
 {
-    Q_D(const WireguardSetting);
+    Q_D(const WireGuardSetting);
 
     return d->peers;
 }
 
-void NetworkManager::WireguardSetting::setPeers(const NMVariantMapList &peers)
+void NetworkManager::WireGuardSetting::setPeers(const NMVariantMapList &peers)
 {
-    Q_D(WireguardSetting);
+    Q_D(WireGuardSetting);
 
     d->peers = peers;
 }
 
-QString NetworkManager::WireguardSetting::privateKey() const
+QString NetworkManager::WireGuardSetting::privateKey() const
 {
-    Q_D(const WireguardSetting);
+    Q_D(const WireGuardSetting);
 
     return d->privateKey;
 }
 
-void NetworkManager::WireguardSetting::setPrivateKey(const QString &key)
+void NetworkManager::WireGuardSetting::setPrivateKey(const QString &key)
 {
-    Q_D(WireguardSetting);
+    Q_D(WireGuardSetting);
 
     d->privateKey = key;
 }
 
-NetworkManager::Setting::SecretFlags NetworkManager::WireguardSetting::privateKeyFlags() const
+NetworkManager::Setting::SecretFlags NetworkManager::WireGuardSetting::privateKeyFlags() const
 {
-    Q_D(const WireguardSetting);
+    Q_D(const WireGuardSetting);
 
     return d->privateKeyFlags;
 }
 
-void NetworkManager::WireguardSetting::setPrivateKeyFlags(NetworkManager::Setting::SecretFlags flags)
+void NetworkManager::WireGuardSetting::setPrivateKeyFlags(NetworkManager::Setting::SecretFlags flags)
 {
-    Q_D(WireguardSetting);
+    Q_D(WireGuardSetting);
 
     d->privateKeyFlags = flags;
 }
 
-void NetworkManager::WireguardSetting::secretsFromMap(const QVariantMap &secrets)
+void NetworkManager::WireGuardSetting::secretsFromMap(const QVariantMap &secrets)
 {
     if (secrets.contains(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY))) {
         setPrivateKey(secrets.value(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY)).toString());
     }
 }
 
-QVariantMap NetworkManager::WireguardSetting::secretsToMap() const
+QVariantMap NetworkManager::WireGuardSetting::secretsToMap() const
 {
     QVariantMap secrets;
 
@@ -191,7 +191,7 @@ QVariantMap NetworkManager::WireguardSetting::secretsToMap() const
     return secrets;
 }
 
-QStringList NetworkManager::WireguardSetting::needSecrets(bool requestNew) const
+QStringList NetworkManager::WireGuardSetting::needSecrets(bool requestNew) const
 {
     QStringList secrets;
 
@@ -204,7 +204,7 @@ QStringList NetworkManager::WireguardSetting::needSecrets(bool requestNew) const
     return secrets;
 }
 
-void NetworkManager::WireguardSetting::fromMap(const QVariantMap &setting)
+void NetworkManager::WireGuardSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_WIREGUARD_FWMARK))) {
         setFwmark(setting.value(QLatin1String(NM_SETTING_WIREGUARD_FWMARK)).toInt());
@@ -235,7 +235,7 @@ void NetworkManager::WireguardSetting::fromMap(const QVariantMap &setting)
     }
 }
 
-QVariantMap NetworkManager::WireguardSetting::toMap() const
+QVariantMap NetworkManager::WireGuardSetting::toMap() const
 {
     QVariantMap setting;
 
@@ -256,7 +256,7 @@ QVariantMap NetworkManager::WireguardSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WireguardSetting &setting)
+QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WireGuardSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
