@@ -50,7 +50,7 @@ NetworkManager::WireGuardSetting::WireGuardSetting():
 { }
 
 NetworkManager::WireGuardSetting::WireGuardSetting(const Ptr &other)
-    : Setting(other)
+    : Setting(Setting::WireGuard)
     , d_ptr(new WireGuardSettingPrivate())
 {
     setFwmark(other->fwmark());
