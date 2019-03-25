@@ -40,7 +40,7 @@ NetworkManager::WirelessSecuritySetting::WirelessSecuritySetting()
 { }
 
 NetworkManager::WirelessSecuritySetting::WirelessSecuritySetting(const Ptr &other)
-    : Setting(Setting::WirelessSecurity)
+    : Setting(other)
     , d_ptr(new WirelessSecuritySettingPrivate())
 {
     setKeyMgmt(other->keyMgmt());

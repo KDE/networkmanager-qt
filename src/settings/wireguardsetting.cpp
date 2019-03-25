@@ -44,13 +44,13 @@ NetworkManager::WireGuardSettingPrivate::WireGuardSettingPrivate()
     , privateKeyFlags(NetworkManager::Setting::None)
 { }
 
-NetworkManager::WireGuardSetting::WireGuardSetting():
-    Setting(Setting::WireGuard),
-    d_ptr(new WireGuardSettingPrivate())
+NetworkManager::WireGuardSetting::WireGuardSetting()
+    : Setting(Setting::WireGuard)
+    , d_ptr(new WireGuardSettingPrivate())
 { }
 
 NetworkManager::WireGuardSetting::WireGuardSetting(const Ptr &other)
-    : Setting(Setting::WireGuard)
+    : Setting(other)
     , d_ptr(new WireGuardSettingPrivate())
 {
     setFwmark(other->fwmark());
