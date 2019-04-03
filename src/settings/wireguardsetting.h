@@ -70,6 +70,14 @@ public:
 
     QVariantMap secretsToMap() const override;
 
+    void secretsFromStringMap(const NMStringMap &map) override;
+
+    NMStringMap secretsToStringMap() const override;
+
+    /*
+     * Required "preshared-key" properties from "peers" property will be returned
+     * as strings in format "peers.public-key.preshared-key".
+     */
     QStringList needSecrets(bool requestNew = false) const override;
 
     void fromMap(const QVariantMap &setting) override;

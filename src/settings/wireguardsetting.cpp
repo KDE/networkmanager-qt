@@ -33,6 +33,10 @@
 #define NM_SETTING_WIREGUARD_PEERS             "peers"
 #define NM_SETTING_WIREGUARD_MTU               "mtu"
 #define NM_SETTING_WIREGUARD_PEER_ROUTES       "peer-routes"
+
+#define NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY        "preshared-key"
+#define NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS  "preshared-key-flags"
+#define NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY           "public-key"
 #endif
 
 NetworkManager::WireGuardSettingPrivate::WireGuardSettingPrivate()
@@ -178,6 +182,24 @@ void NetworkManager::WireGuardSetting::secretsFromMap(const QVariantMap &secrets
     if (secrets.contains(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY))) {
         setPrivateKey(secrets.value(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY)).toString());
     }
+
+    if (secrets.contains(QLatin1String(NM_SETTING_WIREGUARD_PEERS))) {
+        NMVariantMapList listOfPeers = qdbus_cast<NMVariantMapList>(secrets.value(QLatin1String(NM_SETTING_WIREGUARD_PEERS)));
+        NMVariantMapList origPeers = peers();
+
+        for (const QVariantMap &peer : listOfPeers) {
+            if (peer.contains(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY))) {
+                QString presharedKey = peer.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY)).toString();
+                QString publicKey = peer.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY)).toString();
+                for (int i = 0; i < origPeers.size(); i++) {
+                    if (origPeers[i][QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY)].toString() == publicKey) {
+                        origPeers[i].insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY), presharedKey);
+                    }
+                }
+            }
+        }
+        setPeers(origPeers);
+    }
 }
 
 QVariantMap NetworkManager::WireGuardSetting::secretsToMap() const
@@ -188,7 +210,80 @@ QVariantMap NetworkManager::WireGuardSetting::secretsToMap() const
         secrets.insert(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY), privateKey());
     }
 
+    NMVariantMapList peersSecrets;
+
+    for (const QVariantMap &map : peers()) {
+        if (map.contains(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY)) && map.contains(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY))) {
+            QVariantMap newMap;
+            newMap.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY), map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY)));
+            newMap.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY), map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY)));
+
+            peersSecrets << newMap;
+        }
+    }
+
+    if (!peersSecrets.isEmpty()) {
+        secrets.insert(QLatin1String(NM_SETTING_WIREGUARD_PEERS), QVariant::fromValue(peersSecrets));
+    }
+
     return secrets;
+}
+
+void NetworkManager::WireGuardSetting::secretsFromStringMap(const NMStringMap &map)
+{
+    QVariantMap secretsMap;
+    NMVariantMapList peers;
+
+    auto it = map.constBegin();
+    while (it != map.constEnd()) {
+        if (it.key() == QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY)) {
+            secretsMap.insert(it.key(), it.value());
+        }
+
+        if (it.key().startsWith(QLatin1String(NM_SETTING_WIREGUARD_PEERS)) && it.key().endsWith(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY))) {
+            QStringList peerStrList = it.key().split(QLatin1Char('.'));
+
+            QVariantMap peer;
+            peer.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY), peerStrList.at(1));
+            peer.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY), it.value());
+
+            peers << peer;
+        }
+        ++it;
+    }
+
+    if (!peers.isEmpty()) {
+        secretsMap.insert(QLatin1String(NM_SETTING_WIREGUARD_PEERS), QVariant::fromValue(peers));
+    }
+
+    secretsFromMap(secretsMap);
+}
+
+NMStringMap NetworkManager::WireGuardSetting::secretsToStringMap() const
+{
+    NMStringMap ret;
+    QVariantMap secretsMap = secretsToMap();
+
+    auto it = secretsMap.constBegin();
+    while (it != secretsMap.constEnd()) {
+        if (it.key() == QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY)) {
+            ret.insert(it.key(), it.value().toString());
+        }
+
+        if (it.key() == QLatin1String(NM_SETTING_WIREGUARD_PEERS)) {
+            NMVariantMapList listOfPeers = qdbus_cast<NMVariantMapList>(it.value());
+
+            for (const QVariantMap &map : listOfPeers) {
+                const QString str = QStringLiteral("%1.%2.%3").arg(QLatin1String(NM_SETTING_WIREGUARD_PEERS))
+                                                              .arg(map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY)).toString())
+                                                              .arg(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY));
+                ret.insert(str, map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY)).toString());
+            }
+        }
+        ++it;
+    }
+
+    return ret;
 }
 
 QStringList NetworkManager::WireGuardSetting::needSecrets(bool requestNew) const
@@ -198,6 +293,26 @@ QStringList NetworkManager::WireGuardSetting::needSecrets(bool requestNew) const
     if (!privateKeyFlags().testFlag(Setting::NotRequired)) {
         if (privateKey().isEmpty() || requestNew) {
             secrets << QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY);
+        }
+    }
+
+    for (const QVariantMap &map : peers()) {
+        const QString presharedKey = map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY)).toString();
+        SecretFlags preSharedKeyFlags = (SecretFlags) map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS)).toInt();
+
+        if (!presharedKey.isEmpty()) {
+            continue;
+        }
+
+        if (preSharedKeyFlags.testFlag(Setting::NotRequired)) {
+            continue;
+        }
+
+        if (secrets.isEmpty()) {
+            const QString str = QStringLiteral("%1.%2.%3").arg(QLatin1String(NM_SETTING_WIREGUARD_PEERS))
+                                                          .arg(map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY)).toString())
+                                                          .arg(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY));
+            secrets << str;
         }
     }
 
