@@ -308,12 +308,10 @@ QStringList NetworkManager::WireGuardSetting::needSecrets(bool requestNew) const
             continue;
         }
 
-        if (secrets.isEmpty()) {
-            const QString str = QStringLiteral("%1.%2.%3").arg(QLatin1String(NM_SETTING_WIREGUARD_PEERS))
-                                                          .arg(map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY)).toString())
-                                                          .arg(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY));
-            secrets << str;
-        }
+        const QString str = QStringLiteral("%1.%2.%3").arg(QLatin1String(NM_SETTING_WIREGUARD_PEERS))
+                                                      .arg(map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY)).toString())
+                                                      .arg(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY));
+        secrets << str;
     }
 
     return secrets;
