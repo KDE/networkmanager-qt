@@ -358,7 +358,17 @@ QVariantMap NetworkManager::WireGuardSetting::toMap() const
     setting.insert(QLatin1String(NM_SETTING_WIREGUARD_PEER_ROUTES), peerRoutes());
 
     if (!peers().isEmpty()) {
-        setting.insert(QLatin1String(NM_SETTING_WIREGUARD_PEERS), QVariant::fromValue(peers()));
+        // FIXME we seem to have SecretFlags as an int, but NM expects an uint, while this is not
+        // problem for rest of *-flags properties, it's problem for "preshared-key" which NM handless
+        // as GVariant and asks for "u" when getting it's value
+        NMVariantMapList fixedPeers = peers();
+        for (QVariantMap &map : fixedPeers) {
+            if (map.contains(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS))) {
+                map.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS), map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS)).toUInt());
+            }
+        }
+
+        setting.insert(QLatin1String(NM_SETTING_WIREGUARD_PEERS), QVariant::fromValue(fixedPeers));
     }
 
     if (!privateKey().isEmpty()) {

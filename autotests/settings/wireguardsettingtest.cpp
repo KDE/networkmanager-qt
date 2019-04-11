@@ -34,6 +34,10 @@
 #define NM_SETTING_WIREGUARD_PEERS             "peers"
 #define NM_SETTING_WIREGUARD_MTU               "mtu"
 #define NM_SETTING_WIREGUARD_PEER_ROUTES       "peer-routes"
+
+#define NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY        "preshared-key"
+#define NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS  "preshared-key-flags"
+#define NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY           "public-key"
 #endif
 
 void WireGuardSettingTest::testSetting_data()
@@ -48,11 +52,16 @@ void WireGuardSettingTest::testSetting_data()
 
     NMVariantMapList peers;
     QVariantMap map;
-    map.insert("foo", "bar");
+    map.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY), "preshared-key");
+    map.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS), (uint) 2);
+    map.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY), "public-key");
+
     peers << map;
 
     QVariantMap map1;
-    map1.insert("foobar", "barfoo");
+    map1.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY), "preshared-key1");
+    map1.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS), (uint) 3);
+    map1.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY), "public-key1");
     peers << map1;
 
     QTest::newRow("setting1")
