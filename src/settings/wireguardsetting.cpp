@@ -373,8 +373,8 @@ QVariantMap NetworkManager::WireGuardSetting::toMap() const
 
     if (!privateKey().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY), privateKey());
-        setting.insert(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY_FLAGS), (int)privateKeyFlags());
     }
+    setting.insert(QLatin1String(NM_SETTING_WIREGUARD_PRIVATE_KEY_FLAGS), (int)privateKeyFlags());
 
     return setting;
 }
