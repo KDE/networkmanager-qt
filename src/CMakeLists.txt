@@ -48,6 +48,7 @@ set(NetworkManagerQt_PART_SRCS
     vethdevice.cpp
     wimaxdevice.cpp
     wimaxnsp.cpp
+    wireguarddevice.cpp
 )
 
 set(NetworkManagerQt_SETTINGS_SRCS
@@ -134,6 +135,7 @@ set(DBUS_INTERFACE_SRCS
     dbus/wimaxnspinterface.cpp
     dbus/wireddeviceinterface.cpp
     dbus/wirelessdeviceinterface.cpp
+    dbus/wireguarddeviceinterface.cpp
 )
 
 add_library(KF5NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
@@ -205,6 +207,7 @@ ecm_generate_headers(NetworkManagerQt_CamelCase_HEADERS
   WiredDevice
   WirelessDevice
   WirelessNetwork
+  WireGuardDevice
 
   REQUIRED_HEADERS NetworkManagerQt_HEADERS
   PREFIX NetworkManagerQt

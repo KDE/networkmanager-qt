@@ -186,6 +186,30 @@ NetworkManager::Device::Type NetworkManager::DevicePrivate::convertType(uint typ
     case 22:
         // NM_DEVICE_TYPE_DUMMY
         return NetworkManager::Device::Dummy;
+    case 23:
+        // NM_DEVICE_TYPE_PPP
+        return NetworkManager::Device::Ppp;
+    case 24:
+        // NM_DEVICE_TYPE_OVS_INTERFACE
+        return NetworkManager::Device::OvsInterface;
+    case 25:
+        // NM_DEVICE_TYPE_OVS_PORT
+        return NetworkManager::Device::OvsPort;
+    case 26:
+        // NM_DEVICE_TYPE_OVS_BRIDGE
+        return NetworkManager::Device::OvsBridge;
+    case 27:
+        // NM_DEVICE_TYPE_WPAN
+        return NetworkManager::Device::Wpan;
+    case 28:
+        // NM_DEVICE_TYPE_6LOWPAN
+        return NetworkManager::Device::Lowpan;
+    case 29:
+        // NM_DEVICE_TYPE_NM_DEVICE_TYPE_WIREGUARD
+        return NetworkManager::Device::WireGuard;
+    case 30:
+        // NM_DEVICE_TYPE_WIFI_P2P
+        return NetworkManager::Device::WifiP2P;
     }
 
     return NetworkManager::Device::UnknownType;

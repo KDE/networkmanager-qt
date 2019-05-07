@@ -169,7 +169,15 @@ public:
         IpTunnel,                               /**< IP Tunneling Device @since 1.2.0 */
         VxLan,                                  /**< Vxlan Device @since 1.2.0 */
         MacSec,                                 /**< MacSec Device @since 1.6.0 */
-        Dummy                                   /**< Dummy Device @since 1.8.0 */
+        Dummy,                                  /**< Dummy Device @since 1.8.0 */
+        Ppp,                                    /**< Ppp Device @since 1.10 */
+        OvsInterface,                           /**< OvsInterface Device @since 1.10 */
+        OvsPort,                                /**< OvsPort Device @since 1.10 */
+        OvsBridge,                              /**< OvsBridge Device @since 1.10 */
+        Wpan,                                   /**< Wpan Device @since 1.14 */
+        Lowpan,                                 /**< Lowpan Device @since 1.14 */
+        WireGuard,                              /**< WireGuard Device @since 1.14 */
+        WifiP2P                                 /**< WifiP2P Device @since 1.16 */
     };
     Q_ENUM(Type)
     Q_DECLARE_FLAGS(Types, Type)
