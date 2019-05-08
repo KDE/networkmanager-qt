@@ -51,6 +51,7 @@
 #include "macvlandevice.h"
 #include "tundevice.h"
 #include "vethdevice.h"
+#include "wireguarddevice.h"
 
 #include "nmdebug.h"
 
@@ -165,7 +166,8 @@ void NetworkManager::NetworkManagerPrivate::init()
                NetworkManager::Device::MacVlan |
                NetworkManager::Device::Tun |
                NetworkManager::Device::Veth |
-               NetworkManager::Device::IpTunnel
+               NetworkManager::Device::IpTunnel |
+               NetworkManager::Device::WireGuard
            );
 
     // Get all Manager's properties async
@@ -363,6 +365,9 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
         break;
     case Device::IpTunnel:
         createdInterface = Device::Ptr(new NetworkManager::IpTunnelDevice(uni), &QObject::deleteLater);
+        break;
+    case Device::WireGuard:
+        createdInterface = Device::Ptr(new NetworkManager::WireGuardDevice(uni), &QObject::deleteLater);
         break;
     default:
         createdInterface = device;
