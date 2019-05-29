@@ -42,12 +42,10 @@ NetworkManager::DeviceStatistics::DeviceStatistics(const QString &path, QObject 
 {
     Q_D(DeviceStatistics);
 
-    // Get all DeviceStatistics's properties at once
-    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
-    if (!initialProperties.isEmpty()) {
-        d->propertiesChanged(initialProperties);
-    }
+    // Refresh rate by default is 0,
+    // as soon as the refresh rate is changed, we'll get the rest of properties initialised
 
+    // Get all DeviceStatistics's properties at once
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
 }
