@@ -544,6 +544,12 @@ NetworkManager::Device::MeteredStatus NetworkManager::Device::metered() const
     return d->metered;
 }
 
+QDBusPendingReply<> NetworkManager::Device::reapplyConnection(const NMVariantMapMap &connection, qulonglong version_id, uint flags)
+{
+    Q_D(Device);
+    return d->deviceIface.Reapply(connection, version_id, flags);
+}
+
 QDBusPendingReply<> NetworkManager::Device::disconnectInterface()
 {
     Q_D(Device);

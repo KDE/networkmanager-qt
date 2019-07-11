@@ -244,6 +244,10 @@ public:
      */
     QString firmwareVersion() const;
     /**
+     * Reapplies connection settings on the interface.
+     */
+    QDBusPendingReply<> reapplyConnection(const NMVariantMapMap &connection, qulonglong version_id, uint flags);
+    /**
      * Disconnects a device and prevents the device from automatically
      * activating further connections without user intervention.
      */
