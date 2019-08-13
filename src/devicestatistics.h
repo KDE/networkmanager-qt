@@ -27,7 +27,6 @@
 
 #include <QObject>
 #include <QSharedPointer>
-#include <QVariantMap>
 
 namespace NetworkManager
 {

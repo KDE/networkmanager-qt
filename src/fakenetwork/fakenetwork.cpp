@@ -24,6 +24,7 @@
 #include "wirelessdevice.h"
 
 #include <QDBusConnection>
+#include <QTimer>
 
 #include "connectionsettings.h"
 #include "../manager.h"

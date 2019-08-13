@@ -20,7 +20,6 @@
 
 #include "wireddevice.h"
 
-#include <QDBusConnection>
 
 WiredDevice::WiredDevice(QObject *parent)
     : Device(parent)

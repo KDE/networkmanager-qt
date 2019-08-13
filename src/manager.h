@@ -25,8 +25,6 @@
 
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
-#include <QtGlobal>
-#include <QtDBus>
 
 #include "device.h"
 #include "activeconnection.h"

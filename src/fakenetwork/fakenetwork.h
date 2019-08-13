@@ -23,9 +23,7 @@
 
 #include <QObject>
 
-#include <QCoreApplication>
 #include <QDBusObjectPath>
-#include <QDBusPendingReply>
 
 #include "../generictypes.h"
 #include "../device.h"

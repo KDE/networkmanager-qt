@@ -31,7 +31,6 @@
 #include "connection.h"
 
 #include <QString>
-#include <QUuid>
 
 namespace NetworkManager
 {

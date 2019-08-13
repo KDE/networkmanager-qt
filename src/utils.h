@@ -22,7 +22,6 @@
 #define NETWORKMANAGERQT_UTILS_H
 
 #include <QPair>
-#include <QStringList>
 #include <QHostAddress>
 
 #include <networkmanagerqt/networkmanagerqt_export.h>

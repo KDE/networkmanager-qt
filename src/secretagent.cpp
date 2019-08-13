@@ -29,7 +29,6 @@
 
 #define signals Q_SIGNALS
 
-#include <QDBusArgument>
 #include <QDBusConnection>
 
 #include "agentmanagerinterface.h"

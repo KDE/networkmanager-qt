@@ -12,14 +12,11 @@
 #define NETWORKMANAGERINTERFACE_H
 
 #include <QObject>
-#include <QByteArray>
 #include <QList>
-#include <QMap>
 #include <QString>
-#include <QStringList>
 #include <QVariant>
-#include <QtDBus>
 #include "generictypes.h"
+#include <QtDBus>
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager

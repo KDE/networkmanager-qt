@@ -24,7 +24,6 @@
 #include "agentmanagerinterface.h"
 #include "secretagentadaptor.h"
 
-#include <QObject>
 
 namespace NetworkManager
 {

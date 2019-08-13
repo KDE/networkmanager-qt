@@ -26,7 +26,6 @@
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QSharedPointer>
-#include <QVariantMap>
 
 namespace NetworkManager
 {

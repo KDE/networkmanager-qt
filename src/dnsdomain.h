@@ -32,7 +32,6 @@
 #define signals Q_SIGNALS
 
 #include <QStringList>
-#include <QNetworkAddressEntry>
 
 namespace NetworkManager
 {

@@ -31,7 +31,6 @@
 
 #include <QVariantMap>
 #include <QStringList>
-#include <QFlags>
 #include <QSharedPointer>
 
 namespace NetworkManager

@@ -22,7 +22,6 @@
 #ifndef NETWORKMANAGERQT_SETTINGS_P_H
 #define NETWORKMANAGERQT_SETTINGS_P_H
 
-#include <QObject>
 #include <QDBusObjectPath>
 
 #include "dbus/settingsinterface.h"
