@@ -643,7 +643,7 @@ void NetworkManager::NetworkManagerPrivate::setLogging(NetworkManager::LogLevel 
             logDomains << QLatin1String("DISPATCH");
         }
     }
-    iface.SetLogging(logLevel, logDomains.join(QLatin1String(",")));
+    iface.SetLogging(logLevel, logDomains.join(QLatin1Char(',')));
 }
 
 NMStringMap NetworkManager::NetworkManagerPrivate::permissions()

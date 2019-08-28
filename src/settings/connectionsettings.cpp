@@ -525,7 +525,7 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS))) {
         QStringList permissions = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS)).toStringList();
         Q_FOREACH (const QString & permission, permissions) {
-            const QStringList split = permission.split(QLatin1String(":"), QString::KeepEmptyParts);
+            const QStringList split = permission.split(QLatin1Char(':'), QString::KeepEmptyParts);
             addToPermissions(split.at(1), split.at(2));
         }
     }
