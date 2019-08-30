@@ -31,6 +31,7 @@
 #include "manager_p.h"
 
 #include "nmdebug.h"
+#include "utils.h"
 
 NetworkManager::WirelessDevicePrivate::WirelessDevicePrivate(const QString &path, WirelessDevice *q)
     : DevicePrivate(path, q)
@@ -94,6 +95,7 @@ QStringList NetworkManager::WirelessDevice::accessPoints() const
 QDBusPendingReply<> NetworkManager::WirelessDevice::requestScan(const QVariantMap &options)
 {
     Q_D(WirelessDevice);
+    d->lastRequestScanTime = QDateTime::currentDateTime();
     return d->wirelessIface.RequestScan(options);
 }
 
@@ -125,6 +127,18 @@ int NetworkManager::WirelessDevice::bitRate() const
 {
     Q_D(const WirelessDevice);
     return d->bitRate;
+}
+
+QDateTime NetworkManager::WirelessDevice::lastScan() const
+{
+    Q_D(const WirelessDevice);
+    return d->lastScan;
+}
+
+QDateTime NetworkManager::WirelessDevice::lastRequestScanTime() const
+{
+    Q_D(const WirelessDevice);
+    return d->lastRequestScanTime;
 }
 
 NetworkManager::WirelessDevice::Capabilities NetworkManager::WirelessDevice::wirelessCapabilities() const
@@ -233,6 +247,9 @@ void NetworkManager::WirelessDevicePrivate::propertyChanged(const QString &prope
     } else if (property == QLatin1String("WirelessCapabilities")) {
         wirelessCapabilities = q->convertCapabilities(value.toUInt());
         Q_EMIT q->wirelessCapabilitiesChanged(wirelessCapabilities);
+    } else if (property == QLatin1String("LastScan")) {
+        lastScan = NetworkManager::clockBootTimeToDateTime(value.toLongLong());
+        Q_EMIT q->lastScanChanged(lastScan);
     } else if (property == QLatin1String("AccessPoints")) {
         // TODO use this instead AccessPointAdded/Removed signals?
     } else {

@@ -82,6 +82,8 @@ namespace NetworkManager
 
     NETWORKMANAGERQT_EXPORT QList<QPair<int, int> > getBFreqs();
     NETWORKMANAGERQT_EXPORT QList<QPair<int, int> > getAFreqs();
+
+    NETWORKMANAGERQT_EXPORT QDateTime clockBootTimeToDateTime(qlonglong clockBootime);
 }
 
 #endif // NETWORKMANAGERQT_UTILS_H

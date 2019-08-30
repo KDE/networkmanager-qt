@@ -20,6 +20,7 @@
 */
 
 #include "utils.h"
+#include "time.h"
 
 QHostAddress NetworkManager::ipv6AddressAsHostAddress(const QByteArray &address)
 {
@@ -520,4 +521,35 @@ QList<QPair<int, int> > NetworkManager::getAFreqs()
     freqs.append(QPair<int, int>(196, 4980));
 
     return freqs;
+}
+
+QDateTime NetworkManager::clockBootTimeToDateTime(qlonglong clockBootime) {
+
+    clockid_t clk_id = CLOCK_BOOTTIME;
+    struct timespec tp;
+    int r;
+
+    // now is used as a point of reference
+    // with the timespec that contains the number of msec since boot
+    QDateTime now = QDateTime::currentDateTime();
+    r = clock_gettime (clk_id, &tp);
+    if (r == -1 && errno == EINVAL) {
+        clk_id = CLOCK_MONOTONIC;
+        r = clock_gettime (clk_id, &tp);
+    }
+
+    // convert to msecs
+    long now_msecs = tp.tv_sec * 1000 + tp.tv_nsec / 1000000;
+
+    // diff the msecs and construct a QDateTime based on the offset
+    QDateTime res;
+    if (clockBootime > now_msecs) {
+        qlonglong offset = clockBootime - now_msecs;
+        res = QDateTime::fromMSecsSinceEpoch(now.toMSecsSinceEpoch() + offset);
+    } else {
+        qlonglong offset = now_msecs - clockBootime;
+        res = QDateTime::fromMSecsSinceEpoch(now.toMSecsSinceEpoch() - offset);
+    }
+
+    return res;
 }

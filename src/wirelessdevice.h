@@ -129,6 +129,19 @@ public:
      */
     int bitRate() const;
     /**
+     * The LastScan property value, converted to QDateTime
+     * @since 5.62.0
+     * @note will always return invalid QDateTime when runtime NM < 1.12
+     * @return
+     */
+    QDateTime lastScan() const;
+    /**
+     * The time the last RequestScan function was called
+     * @since 5.62.0
+     * @return
+     */
+    QDateTime lastRequestScanTime() const;
+    /**
      * Retrieves the capabilities of this wifi network.
      *
      * @return the flag set describing the capabilities
@@ -210,6 +223,13 @@ Q_SIGNALS:
      * A wireless network disappeared
      */
     void networkDisappeared(const QString &ssid);
+    /**
+     * The LastScan property has changed, meaning a scan has just finished
+     * @since 5.62.0
+     * @note will never be emitted when runtime NM < 1.12
+     * @see lastScanTime
+     */
+    void lastScanChanged(const QDateTime &dateTime);
 
 private:
     Q_DECLARE_PRIVATE(WirelessDevice)
