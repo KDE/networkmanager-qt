@@ -95,7 +95,7 @@ QStringList NetworkManager::WirelessDevice::accessPoints() const
 QDBusPendingReply<> NetworkManager::WirelessDevice::requestScan(const QVariantMap &options)
 {
     Q_D(WirelessDevice);
-    d->lastRequestScanTime = QDateTime::currentDateTime();
+    d->lastRequestScan = QDateTime::currentDateTime();
     return d->wirelessIface.RequestScan(options);
 }
 
@@ -135,10 +135,10 @@ QDateTime NetworkManager::WirelessDevice::lastScan() const
     return d->lastScan;
 }
 
-QDateTime NetworkManager::WirelessDevice::lastRequestScanTime() const
+QDateTime NetworkManager::WirelessDevice::lastRequestScan() const
 {
     Q_D(const WirelessDevice);
-    return d->lastRequestScanTime;
+    return d->lastRequestScan;
 }
 
 NetworkManager::WirelessDevice::Capabilities NetworkManager::WirelessDevice::wirelessCapabilities() const

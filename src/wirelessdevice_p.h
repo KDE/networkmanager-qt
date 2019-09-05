@@ -44,7 +44,7 @@ public:
     uint bitRate;
     WirelessDevice::Capabilities wirelessCapabilities;
     QDateTime lastScan;
-    QDateTime lastRequestScanTime;
+    QDateTime lastRequestScan;
 
     Q_DECLARE_PUBLIC(WirelessDevice)
 protected:

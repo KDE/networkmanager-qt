@@ -140,7 +140,7 @@ public:
      * @since 5.62.0
      * @return
      */
-    QDateTime lastRequestScanTime() const;
+    QDateTime lastRequestScan() const;
     /**
      * Retrieves the capabilities of this wifi network.
      *
