@@ -40,7 +40,7 @@ void SettingsTest::testConnections()
 {
     NetworkManager::ConnectionSettings::Ptr connectionSettings = NetworkManager::ConnectionSettings::Ptr(new NetworkManager::ConnectionSettings(NetworkManager::ConnectionSettings::Wired));
     connectionSettings->setId("Wired connection");
-    connectionSettings->setUuid(QLatin1Literal("39af79a5-b053-4893-9378-7342a5a30d06"));
+    connectionSettings->setUuid(QLatin1String("39af79a5-b053-4893-9378-7342a5a30d06"));
     NetworkManager::Ipv4Setting::Ptr ipv4Setting = connectionSettings->setting(NetworkManager::Setting::Ipv4).dynamicCast<NetworkManager::Ipv4Setting>();
     ipv4Setting->setInitialized(true);
     ipv4Setting->setMethod(NetworkManager::Ipv4Setting::Automatic);
@@ -69,13 +69,13 @@ void SettingsTest::testConnections()
     QCOMPARE(connection->path(), connectionRemovedSpy.at(0).at(0).toString());
 
     // Compare hostname we set in fake network
-    QCOMPARE(NetworkManager::hostname(), QLatin1Literal("fake-hostname"));
+    QCOMPARE(NetworkManager::hostname(), QLatin1String("fake-hostname"));
 }
 
 void SettingsTest::testConnectionAdded(const QString &connection)
 {
     NetworkManager::Connection::Ptr addedConnection = NetworkManager::findConnection(connection);
-    QCOMPARE(addedConnection->uuid(), QLatin1Literal("39af79a5-b053-4893-9378-7342a5a30d06"));
+    QCOMPARE(addedConnection->uuid(), QLatin1String("39af79a5-b053-4893-9378-7342a5a30d06"));
     QCOMPARE(addedConnection->path(), connection);
 
     NetworkManager::ConnectionSettings::Ptr connectionSettings = addedConnection->settings();

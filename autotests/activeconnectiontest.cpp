@@ -43,24 +43,24 @@ void ActiveConnectionTest::initTestCase()
     device->setAutoconnect(true);
     device->setCapabilities(3);
     device->setDeviceType(1);
-    device->setDriver(QLatin1Literal("e1000e"));
-    device->setDriverVersion(QLatin1Literal("2.3.2-k"));
+    device->setDriver(QLatin1String("e1000e"));
+    device->setDriverVersion(QLatin1String("2.3.2-k"));
     device->setFirmwareMissing(false);
-    device->setFirmwareVersion(QLatin1Literal("0.13-3"));
-    device->setInterface(QLatin1Literal("em1"));
+    device->setFirmwareVersion(QLatin1String("0.13-3"));
+    device->setInterface(QLatin1String("em1"));
     device->setManaged(true);
-    device->setUdi(QLatin1Literal("/sys/devices/pci0000:00/0000:00:19.0/net/em1"));
+    device->setUdi(QLatin1String("/sys/devices/pci0000:00/0000:00:19.0/net/em1"));
 
     /* Wired device properties */
     device->setCarrier(true);
-    device->setHwAddress(QLatin1Literal("F0:DE:F1:FB:30:C1"));
-    device->setPermanentHwAddress(QLatin1Literal("F0:DE:F1:FB:30:C1"));
+    device->setHwAddress(QLatin1String("F0:DE:F1:FB:30:C1"));
+    device->setPermanentHwAddress(QLatin1String("F0:DE:F1:FB:30:C1"));
 
     fakeNetwork->addDevice(device);
 
     NetworkManager::ConnectionSettings::Ptr connectionSettings = NetworkManager::ConnectionSettings::Ptr(new NetworkManager::ConnectionSettings(NetworkManager::ConnectionSettings::Wired));
     connectionSettings->setId("Wired connection");
-    connectionSettings->setUuid(QLatin1Literal("39af79a5-b053-4893-9378-7342a5a30d06"));
+    connectionSettings->setUuid(QLatin1String("39af79a5-b053-4893-9378-7342a5a30d06"));
     NetworkManager::Ipv4Setting::Ptr ipv4Setting = connectionSettings->setting(NetworkManager::Setting::Ipv4).dynamicCast<NetworkManager::Ipv4Setting>();
     ipv4Setting->setInitialized(true);
     ipv4Setting->setMethod(NetworkManager::Ipv4Setting::Automatic);

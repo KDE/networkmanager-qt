@@ -75,12 +75,12 @@ uint Device::capabilities() const
 QString Device::deviceInterface() const
 {
     if (m_deviceType == NetworkManager::Device::Ethernet) {
-        return QLatin1Literal("org.kde.fakenetwork.Device.Wired");
+        return QLatin1String("org.kde.fakenetwork.Device.Wired");
     } else if (m_deviceType == NetworkManager::Device::Wifi) {
-        return QLatin1Literal("org.kde.fakenetwork.Device.Wireless");
+        return QLatin1String("org.kde.fakenetwork.Device.Wireless");
     }
 
-    return QLatin1Literal("org.kde.fakenetwork.Device.Wired");
+    return QLatin1String("org.kde.fakenetwork.Device.Wired");
 }
 
 QString Device::devicePath() const
@@ -274,7 +274,7 @@ void Device::setState(uint state)
     m_state = state;
     m_stateReason.state = state;
 
-    QDBusMessage message = QDBusMessage::createSignal(m_devicePath, QLatin1Literal("org.kde.fakenetwork.Device"), QLatin1Literal("StateChanged"));
+    QDBusMessage message = QDBusMessage::createSignal(m_devicePath, QLatin1String("org.kde.fakenetwork.Device"), QLatin1String("StateChanged"));
     message << previousState << state << m_stateReason.reason;
     QDBusConnection::sessionBus().send(message);
 }

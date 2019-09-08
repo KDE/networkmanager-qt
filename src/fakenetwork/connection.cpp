@@ -42,7 +42,7 @@ bool Connection::unsaved() const
 void Connection::Delete()
 {
     // From some reason signal Removed is not send over DBus when using only Q_EMIT
-    QDBusMessage message = QDBusMessage::createSignal(m_connectionPath, QLatin1String("org.kde.fakenetwork.Settings.Connection"), QLatin1Literal("Removed"));
+    QDBusMessage message = QDBusMessage::createSignal(m_connectionPath, QLatin1String("org.kde.fakenetwork.Settings.Connection"), QLatin1String("Removed"));
     QDBusConnection::sessionBus().send(message);
     // Q_EMIT Removed();
 

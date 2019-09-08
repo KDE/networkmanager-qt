@@ -42,7 +42,7 @@ WirelessDevice::~WirelessDevice()
     qDeleteAll(m_accessPoints);
 
     QVariantMap map;
-    map.insert(QLatin1Literal("AvailableConnections"), QVariant::fromValue<QList<QDBusObjectPath> >(QList<QDBusObjectPath>()));
+    map.insert(QLatin1String("AvailableConnections"), QVariant::fromValue<QList<QDBusObjectPath> >(QList<QDBusObjectPath>()));
     Q_EMIT PropertiesChanged(map);
 }
 

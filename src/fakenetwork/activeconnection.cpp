@@ -145,9 +145,9 @@ void ActiveConnection::setConnection(const QDBusObjectPath &connection)
     Connection *usedConnection = static_cast<Connection *>(QDBusConnection::sessionBus().objectRegisteredAt(connection.path()));
     if (usedConnection) {
         NMVariantMapMap settings = usedConnection->GetSettings();
-        setId(settings.value(QLatin1Literal("connection")).value(QLatin1Literal("id")).toString());
-        setUuid(settings.value(QLatin1Literal("connection")).value(QLatin1Literal("uuid")).toString());
-        setType(settings.value(QLatin1Literal("connection")).value(QLatin1Literal("type")).toString());
+        setId(settings.value(QLatin1String("connection")).value(QLatin1String("id")).toString());
+        setUuid(settings.value(QLatin1String("connection")).value(QLatin1String("uuid")).toString());
+        setType(settings.value(QLatin1String("connection")).value(QLatin1String("type")).toString());
     }
 }
 
@@ -205,7 +205,7 @@ void ActiveConnection::setType(const QString &type)
 {
     m_type = type;
 
-    if (type == QLatin1Literal("vpn")) {
+    if (type == QLatin1String("vpn")) {
         m_vpn = true;
     }
 }

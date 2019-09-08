@@ -41,18 +41,18 @@ void ManagerTest::testDevices()
     device->setAutoconnect(true);
     device->setCapabilities(3);
     device->setDeviceType(1);
-    device->setDriver(QLatin1Literal("e1000e"));
-    device->setDriverVersion(QLatin1Literal("2.3.2-k"));
+    device->setDriver(QLatin1String("e1000e"));
+    device->setDriverVersion(QLatin1String("2.3.2-k"));
     device->setFirmwareMissing(false);
-    device->setFirmwareVersion(QLatin1Literal("0.13-3"));
-    device->setInterface(QLatin1Literal("em1"));
+    device->setFirmwareVersion(QLatin1String("0.13-3"));
+    device->setInterface(QLatin1String("em1"));
     device->setManaged(true);
-    device->setUdi(QLatin1Literal("/sys/devices/pci0000:00/0000:00:19.0/net/em1"));
+    device->setUdi(QLatin1String("/sys/devices/pci0000:00/0000:00:19.0/net/em1"));
 
     /* Wired device properties */
     device->setCarrier(true);
-    device->setHwAddress(QLatin1Literal("F0:DE:F1:FB:30:C1"));
-    device->setPermanentHwAddress(QLatin1Literal("F0:DE:F1:FB:30:C1"));
+    device->setHwAddress(QLatin1String("F0:DE:F1:FB:30:C1"));
+    device->setPermanentHwAddress(QLatin1String("F0:DE:F1:FB:30:C1"));
 
     QSignalSpy addDeviceSpy(NetworkManager::notifier(), SIGNAL(deviceAdded(QString)));
     connect(NetworkManager::notifier(), &NetworkManager::Notifier::deviceAdded, this, &ManagerTest::testDeviceAdded);
@@ -98,26 +98,26 @@ void ManagerTest::testDeviceAdded(const QString &dev)
     QCOMPARE(device->autoconnect(), true);
     QCOMPARE(device->capabilities(), 3);
     QCOMPARE(device->type(), NetworkManager::Device::Ethernet);
-    QCOMPARE(device->driver(), QLatin1Literal("e1000e"));
-    QCOMPARE(device->driverVersion(), QLatin1Literal("2.3.2-k"));
+    QCOMPARE(device->driver(), QLatin1String("e1000e"));
+    QCOMPARE(device->driverVersion(), QLatin1String("2.3.2-k"));
     QCOMPARE(device->firmwareMissing(), false);
-    QCOMPARE(device->firmwareVersion(), QLatin1Literal("0.13-3"));
-    QCOMPARE(device->interfaceName(), QLatin1Literal("em1"));
+    QCOMPARE(device->firmwareVersion(), QLatin1String("0.13-3"));
+    QCOMPARE(device->interfaceName(), QLatin1String("em1"));
     QCOMPARE(device->managed(), true);
-    QCOMPARE(device->udi(), QLatin1Literal("/sys/devices/pci0000:00/0000:00:19.0/net/em1"));
+    QCOMPARE(device->udi(), QLatin1String("/sys/devices/pci0000:00/0000:00:19.0/net/em1"));
 
     NetworkManager::WiredDevice::Ptr wiredDevice = device.objectCast<NetworkManager::WiredDevice>();
 
     QCOMPARE(wiredDevice->carrier(), true);
-    QCOMPARE(wiredDevice->hardwareAddress(), QLatin1Literal("F0:DE:F1:FB:30:C1"));
-    QCOMPARE(wiredDevice->permanentHardwareAddress(), QLatin1Literal("F0:DE:F1:FB:30:C1"));
+    QCOMPARE(wiredDevice->hardwareAddress(), QLatin1String("F0:DE:F1:FB:30:C1"));
+    QCOMPARE(wiredDevice->permanentHardwareAddress(), QLatin1String("F0:DE:F1:FB:30:C1"));
 }
 
 void ManagerTest::testManager()
 {
     QCOMPARE(NetworkManager::connectivity(), NetworkManager::NoConnectivity);
 //     QCOMPARE(NetworkManager::status(), NetworkManager::Disconnected);
-    QCOMPARE(NetworkManager::version(), QLatin1Literal("0.9.10.0"));
+    QCOMPARE(NetworkManager::version(), QLatin1String("0.9.10.0"));
 
     QSignalSpy wirelessEnabledChanged(NetworkManager::notifier(), SIGNAL(wirelessEnabledChanged(bool)));
     QCOMPARE(NetworkManager::isWirelessEnabled(), true);

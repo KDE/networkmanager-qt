@@ -25,7 +25,7 @@
 Settings::Settings(QObject *parent)
     : QObject(parent)
     , m_canModify(true)
-    , m_hostname(QLatin1Literal("fake-hostname"))
+    , m_hostname(QLatin1String("fake-hostname"))
     , m_connectionCounter(0)
 {
     qDBusRegisterMetaType<NMVariantMapMap>();
