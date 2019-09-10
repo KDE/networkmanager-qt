@@ -74,7 +74,7 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject 
 #ifndef NMQT_STATIC
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, d->iface.staticInterfaceName(),
                                          QLatin1String("StateChanged"), d, SLOT(stateChanged(uint,uint)));
 #endif
 
@@ -100,7 +100,7 @@ NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, 
 #ifndef NMQT_STATIC
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, d->iface.staticInterfaceName(),
                                          QLatin1String("StateChanged"), d, SLOT(stateChanged(uint,uint)));
 #endif
 
