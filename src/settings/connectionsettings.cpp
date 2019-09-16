@@ -540,9 +540,7 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
 
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP))) {
         const int timestamp = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP)).toInt();
-        QDateTime dateTime;
-        dateTime.setTime_t(timestamp);
-        setTimestamp(dateTime);
+        setTimestamp(QDateTime::fromSecsSinceEpoch(timestamp));
     }
 
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_READ_ONLY))) {
@@ -642,7 +640,7 @@ NMVariantMapMap NetworkManager::ConnectionSettings::toMap() const
     }
 
     if (timestamp().isValid()) {
-        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP), timestamp().toTime_t());
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_TIMESTAMP), timestamp().toSecsSinceEpoch());
     }
 
     if (readOnly()) {
@@ -1015,7 +1013,7 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
     dbg.nospace() << NM_SETTING_CONNECTION_PERMISSIONS << ": " << setting.permissions() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_AUTOCONNECT << ": " << setting.autoconnect() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_AUTOCONNECT_PRIORITY << ": " << setting.autoconnectPriority() << '\n';
-    dbg.nospace() << NM_SETTING_CONNECTION_TIMESTAMP << ": " << setting.timestamp().toTime_t() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_TIMESTAMP << ": " << setting.timestamp().toSecsSinceEpoch() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_READ_ONLY << ": " << setting.readOnly() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_ZONE << ": " << setting.zone() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_MASTER << ": " << setting.master() << '\n';
