@@ -334,6 +334,31 @@ bool NetworkManager::securityIsValid(WirelessSecurityType type, NetworkManager::
             }
         }
         break;
+    case SAE:
+        if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::Rsn)) {
+            return false;
+        }
+        if (haveAp) {
+            if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::IBSSRsn)) {
+                return false;
+            }
+            if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) &&
+                    interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
+                return true;
+            }
+        } else {
+            if (apRsn.testFlag(NetworkManager::AccessPoint::KeyMgmtSAE)) {
+                if (apRsn.testFlag(NetworkManager::AccessPoint::PairTkip) &&
+                        interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
+                    return true;
+                }
+                if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) &&
+                        interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     default:
         good = false;
         break;
@@ -350,7 +375,7 @@ NetworkManager::WirelessSecurityType NetworkManager::findBestWirelessSecurity(Ne
     // Therefore static WEP is before LEAP and Dynamic WEP because there is no way to detect
     // if an AP is capable of Dynamic WEP and showing Dynamic WEP first would confuse
     // Static WEP users.
-    types << NetworkManager::Wpa2Eap << NetworkManager::Wpa2Psk << NetworkManager::WpaEap << NetworkManager::WpaPsk << NetworkManager::StaticWep << NetworkManager::DynamicWep << NetworkManager::Leap << NetworkManager::NoneSecurity;
+    types << NetworkManager::SAE << NetworkManager::Wpa2Eap << NetworkManager::Wpa2Psk << NetworkManager::WpaEap << NetworkManager::WpaPsk << NetworkManager::StaticWep << NetworkManager::DynamicWep << NetworkManager::Leap << NetworkManager::NoneSecurity;
 
     Q_FOREACH (NetworkManager::WirelessSecurityType type, types) {
         if (NetworkManager::securityIsValid(type, interfaceCaps, haveAp, adHoc, apCaps, apWpa, apRsn)) {

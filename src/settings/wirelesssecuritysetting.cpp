@@ -405,7 +405,7 @@ QStringList NetworkManager::WirelessSecuritySetting::needSecrets(bool requestNew
     }
 
     if (keyMgmt() == WpaNone ||
-            keyMgmt() == WpaPsk) {
+            keyMgmt() == WpaPsk || keyMgmt() == SAE) {
         if (!pskFlags().testFlag(Setting::NotRequired)) {
             if (psk().isEmpty() || requestNew) {
                 secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK);
@@ -441,6 +441,8 @@ void NetworkManager::WirelessSecuritySetting::fromMap(const QVariantMap &map)
             setKeyMgmt(WpaPsk);
         } else if (key == "wpa-eap") {
             setKeyMgmt(WpaEap);
+        } else if (key == "sae") {
+            setKeyMgmt(SAE);
         }
     }
 
@@ -571,6 +573,8 @@ QVariantMap NetworkManager::WirelessSecuritySetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT), "wpa-psk");
     } else if (keyMgmt() == WpaEap) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT), "wpa-eap");
+    } else if (keyMgmt() == SAE) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT), "sae");
     }
 
     if (wepTxKeyindex()) {

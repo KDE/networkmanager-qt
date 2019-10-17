@@ -74,8 +74,9 @@ public:
         AdhocCap = 0x80, /**< The device supports Ad-Hoc mode. */
         FreqValid = 0x100, /**< The device properly reports information about supported frequencies */
         Freq2Ghz = 0x200, /**< The device supports 2.4Ghz frequencies */
-        Freq5Ghz = 0x400 /**< The device supports 5Ghz frequencies */
-
+        Freq5Ghz = 0x400, /**< The device supports 5Ghz frequencies */
+        Mesh = 0x1000, /**< The device supports acting as a mesh point */
+        IBSSRsn = 0x2000 /**< device supports WPA2/RSN in an IBSS network */
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
     /**

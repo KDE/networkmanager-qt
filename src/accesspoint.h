@@ -66,7 +66,7 @@ public:
      */
     enum WpaFlag { PairWep40 = 0x1, PairWep104 = 0x2, PairTkip = 0x4, PairCcmp = 0x8,
                    GroupWep40 = 0x10, GroupWep104 = 0x20, GroupTkip = 0x40, GroupCcmp = 0x80,
-                   KeyMgmtPsk = 0x100, KeyMgmt8021x = 0x200
+                   KeyMgmtPsk = 0x100, KeyMgmt8021x = 0x200, KeyMgmtSAE = 0x400
                  };
     Q_DECLARE_FLAGS(Capabilities, Capability)
     Q_FLAG(Capabilities)
