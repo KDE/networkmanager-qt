@@ -22,7 +22,6 @@ find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED Core DBus Network)
 
 add_definitions(${QT_DEFINITIONS})
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050d00)
-add_definitions(-DQT_DEPRECATED_WARNINGS_SINCE=0x060000)
 
 remove_definitions(-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_FROM_BYTEARRAY)
 
