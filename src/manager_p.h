@@ -104,6 +104,7 @@ public:
     bool isWimaxHardwareEnabled() const;
     QDBusPendingReply<QDBusObjectPath> activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter);
     QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter);
+    QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap> addAndActivateConnection2(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter, const QVariantMap &options);
     QDBusPendingReply<> deactivateConnection(const QString &activeConnection);
     ActiveConnection::List activeConnections();
     QStringList activeConnectionsPaths() const;

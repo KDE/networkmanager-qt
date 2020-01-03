@@ -478,6 +478,17 @@ QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::NetworkManag
     return iface.AddAndActivateConnection(connection, interfacePath, QDBusObjectPath(extra_connection_parameter));
 }
 
+QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap> NetworkManager::NetworkManagerPrivate::addAndActivateConnection2(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter, const QVariantMap &options)
+{
+    QString extra_connection_parameter = connectionParameter;
+    if (extra_connection_parameter.isEmpty()) {
+        extra_connection_parameter = QLatin1String("/");
+    }
+    // TODO store error code
+    QDBusObjectPath interfacePath(interfaceUni);
+    return iface.AddAndActivateConnection2(connection, interfacePath, QDBusObjectPath(extra_connection_parameter), options);
+}
+
 QDBusPendingReply<> NetworkManager::NetworkManagerPrivate::deactivateConnection(const QString &activeConnectionPath)
 {
     return iface.DeactivateConnection(QDBusObjectPath(activeConnectionPath));
@@ -1019,6 +1030,15 @@ NetworkManager::Device::Ptr NetworkManager::findDeviceByIpFace(const QString &if
 QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter)
 {
     return globalNetworkManager->addAndActivateConnection(connection, interfaceUni, connectionParameter);
+}
+
+QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap> NetworkManager::addAndActivateConnection2(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter, const QVariantMap &options)
+{
+    if (checkVersion(1, 16, 0)) {
+        return globalNetworkManager->addAndActivateConnection2(connection, interfaceUni, connectionParameter, options);
+    } else {
+        return globalNetworkManager->addAndActivateConnection(connection, interfaceUni, connectionParameter);
+    }
 }
 
 QDBusPendingReply<QDBusObjectPath> NetworkManager::activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter)

@@ -321,6 +321,24 @@ NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath> activateConnection(co
  */
 NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter);
 /**
+ * Adds a new connection using the given details (if any) as a template (automatically filling in missing settings with the capabilities of the given device and specific object), then activate the new connection.
+ * Cannot be used for VPN connections at this time.
+ *
+ * @param connection connection definition to be added and activated
+ * @param interfaceUni unique identifier of the network interface to be activated
+ * @param connectionParameter can be used to specify extra parameters not specific to the NetworkInterface or the connection, eg which AP to use when several present with same ESSID in range (because ESSID does not guarantee that the AP is part of the network you want to join!)
+ * @param options further options for the method call.
+ *
+ * This method extends AddAndActivateConnection to allow passing further
+ * parameters. At this time the following options are supported:
+ *
+ *        * persist: A string value of either "disk" (default), "memory" or "volatile". If "memory" is passed, the connection will not be saved to disk. If "volatile" is passed, the connection will not be saved to disk and will be destroyed when disconnected.
+ *        * bind-activation: Bind the activation lifetime. Set to "dbus-name" to automatically disconnect when the requesting process disappears from the bus. The default of "none" means the connection is kept activated normally.
+ *
+ * NOTE: will call AddAndActivateConnection(connection, interfaceUni, connectionParameter) instead when NetworkManager is older than 1.16, which means that the options property is ignored
+ */
+NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap> addAndActivateConnection2(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter, const QVariantMap &options);
+/**
  * Deactivate this network interface, if active
  *
  * @param activeConnection identifier of the connection to deactivate
