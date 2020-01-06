@@ -19,6 +19,8 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <QRegularExpression>
+
 #include "utils.h"
 #include "time.h"
 
@@ -76,9 +78,9 @@ QByteArray NetworkManager::macAddressFromString(const QString &s)
 
 bool NetworkManager::macAddressIsValid(const QString &macAddress)
 {
-    QRegExp macAddressCheck = QRegExp("([a-fA-F0-9][a-fA-F0-9]:){5}[0-9a-fA-F][0-9a-fA-F]");
+    QRegularExpression macAddressCheck(QStringLiteral("([a-fA-F0-9][a-fA-F0-9]:){5}[0-9a-fA-F][0-9a-fA-F]"));
 
-    return macAddress.contains(macAddressCheck);
+    return macAddressCheck.match(macAddress).hasMatch();
 }
 
 bool NetworkManager::macAddressIsValid(const QByteArray &macAddress)
