@@ -12,8 +12,7 @@ portingAid: false
 deprecated: false
 release: true
 libraries:
- - qmake: NetworkManagerQt
-   cmake: "KF5NetworkManagerQt"
+    - cmake: "KF5NetworkManagerQt"
 cmakename: KF5NetworkManagerQt
 
 public_lib: true
