@@ -138,6 +138,14 @@ set(DBUS_INTERFACE_SRCS
     dbus/wireguarddeviceinterface.cpp
 )
 
+ecm_qt_export_logging_category(
+    IDENTIFIER NMQT
+    CATEGORY_NAME networkmanager-qt
+    DEFAULT_SEVERITY Warning
+    DESCRIPTION "NetworkManagerQt"
+    EXPORT NETWORMANAGERQT
+)
+
 add_library(KF5NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
 generate_export_header(KF5NetworkManagerQt EXPORT_FILE_NAME ${NetworkManagerQt_BINARY_DIR}/networkmanagerqt/networkmanagerqt_export.h BASE_NAME NetworkManagerQt)
 add_library(KF5::NetworkManagerQt ALIAS KF5NetworkManagerQt)
@@ -262,6 +270,12 @@ install(FILES
   ${NetworkManagerQt_HEADERS}
   ${NetworkManagerQt_SETTINGS_HEADERS}
   DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/NetworkManagerQt/networkmanagerqt COMPONENT Devel
+)
+
+ecm_qt_install_logging_categories(
+    EXPORT NETWORMANAGERQT
+    FILE networkmanagerqt.categories
+    DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
 )
 
 if(BUILD_QCH)
