@@ -480,6 +480,8 @@ NetworkManager::WirelessSecurityType NetworkManager::securityTypeFromConnectionS
             return WpaEap;
         }
         return Wpa2Eap;
+    } else if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::SAE) {
+        return SAE;
     }
 
     return NoneSecurity;
