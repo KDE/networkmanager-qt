@@ -86,7 +86,7 @@ public:
     /**
      * Asks the device for a new scan of available wireless networks
      * @param options Options of scan
-     * No documentation for options yet, see http://projects.gnome.org/NetworkManager/developers/api/09/spec.html#org.freedesktop.NetworkManager.Device.Wireless
+     * No documentation for options yet, see https://projects.gnome.org/NetworkManager/developers/api/09/spec.html#org.freedesktop.NetworkManager.Device.Wireless
      */
     QDBusPendingReply<> requestScan(const QVariantMap &options = QVariantMap());
     /**
