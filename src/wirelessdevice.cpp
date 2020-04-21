@@ -37,9 +37,9 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
 
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
 
-    QList <QDBusObjectPath> aps = d->wirelessIface.accessPoints();
+    const QList <QDBusObjectPath> aps = d->wirelessIface.accessPoints();
     // qCDebug(NMQT) << "AccessPoint list";
-    Q_FOREACH (const QDBusObjectPath & op, aps) {
+    for (const QDBusObjectPath &op : aps) {
         // qCDebug(NMQT) << "  " << op.path();
         d->accessPointAdded(op);
     }

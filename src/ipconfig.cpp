@@ -75,8 +75,8 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
     QList<NetworkManager::IpAddress> addressObjects;
     QList<NetworkManager::IpRoute> routeObjects;
     if (NetworkManager::checkVersion(1, 0, 0)) {
-        NMVariantMapList addresses = iface.addressData();
-        Q_FOREACH (const QVariantMap &addressList, addresses) {
+        const NMVariantMapList addresses = iface.addressData();
+        for (const QVariantMap &addressList : addresses) {
             if (addressList.contains(QLatin1String("address")) &&
                 addressList.contains(QLatin1String("prefix"))) {
                 NetworkManager::IpAddress address;
@@ -89,8 +89,8 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
             }
         }
 
-        NMVariantMapList routes = iface.routeData();
-        Q_FOREACH (const QVariantMap &routeList, routes) {
+        const NMVariantMapList routes = iface.routeData();
+        for (const QVariantMap &routeList : routes) {
             if (routeList.contains(QLatin1String("address")) &&
                 routeList.contains(QLatin1String("prefix"))) {
                 NetworkManager::IpRoute route;
@@ -108,8 +108,8 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
         }
     } else {
         //convert ipaddresses into object
-        UIntListList addresses = iface.addresses();
-        Q_FOREACH (const UIntList & addressList, addresses) {
+        const UIntListList addresses = iface.addresses();
+        for (const UIntList &addressList : addresses) {
             if (addressList.count() == 3) {
                 NetworkManager::IpAddress address;
                 address.setIp(QHostAddress(ntohl(addressList[0])));
@@ -119,8 +119,8 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
             }
         }
         //convert routes into objects
-        UIntListList routes = iface.routes();
-        Q_FOREACH (const UIntList & routeList, routes) {
+        const UIntListList routes = iface.routes();
+        for (const UIntList &routeList : routes) {
             if (routeList.count() == 4) {
                 NetworkManager::IpRoute route;
                 route.setIp(QHostAddress(ntohl(routeList[0])));
@@ -133,7 +133,8 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
     }
     // nameservers' IP addresses are always in network byte order
     QList<QHostAddress> nameservers;
-    Q_FOREACH (uint nameserver, iface.nameservers()) {
+    const QList<uint> ifaceNameservers = iface.nameservers();
+    for (uint nameserver : ifaceNameservers) {
         nameservers << QHostAddress(ntohl(nameserver));
     }
 
@@ -163,8 +164,8 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
     QList<NetworkManager::IpAddress> addressObjects;
     QList<NetworkManager::IpRoute> routeObjects;
     if (NetworkManager::checkVersion(1, 0, 0)) {
-        NMVariantMapList addresses = iface.addressData();
-        Q_FOREACH (const QVariantMap &addressList, addresses) {
+        const NMVariantMapList addresses = iface.addressData();
+        for (const QVariantMap &addressList : addresses) {
             if (addressList.contains(QLatin1String("address")) &&
                 addressList.contains(QLatin1String("prefix"))) {
                 NetworkManager::IpAddress address;
@@ -177,8 +178,8 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
             }
         }
 
-        NMVariantMapList routes = iface.routeData();
-        Q_FOREACH (const QVariantMap &routeList, routes) {
+        const NMVariantMapList routes = iface.routeData();
+        for (const QVariantMap &routeList : routes) {
             if (routeList.contains(QLatin1String("address")) &&
                 routeList.contains(QLatin1String("prefix"))) {
                 NetworkManager::IpRoute route;
@@ -195,8 +196,8 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
             }
         }
     } else {
-        IpV6DBusAddressList addresses = iface.addresses();
-        Q_FOREACH (const IpV6DBusAddress & address, addresses) {
+        const IpV6DBusAddressList addresses = iface.addresses();
+        for (const IpV6DBusAddress &address : addresses) {
             Q_IPV6ADDR addr;
             Q_IPV6ADDR gateway;
             for (int i = 0; i < 16; i++) {
@@ -212,8 +213,8 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
             addressObjects << addressEntry;
         }
 
-        IpV6DBusRouteList routes = iface.routes();
-        Q_FOREACH (const IpV6DBusRoute & route, routes) {
+        const IpV6DBusRouteList routes = iface.routes();
+        for (const IpV6DBusRoute &route : routes) {
             Q_IPV6ADDR dest;
             Q_IPV6ADDR nexthop;
             for (int i = 0; i < 16; i++) {
@@ -232,7 +233,8 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
     }
 
     QList<QHostAddress> nameservers;
-    Q_FOREACH (const QByteArray & nameserver, iface.nameservers()) {
+    const QList<QByteArray> ifaceNservers = iface.nameservers();
+    for (const QByteArray &nameserver : ifaceNservers) {
         Q_IPV6ADDR address;
         for (int i = 0; i < 16; i++) {
             address[i] = static_cast<quint8>(nameserver[i]);

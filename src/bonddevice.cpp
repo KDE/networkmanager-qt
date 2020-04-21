@@ -80,7 +80,8 @@ void NetworkManager::BondDevicePrivate::propertyChanged(const QString &property,
         Q_EMIT q->hwAddressChanged(hwAddress);
     } else if (property == QLatin1String("Slaves")) {
         QStringList list;
-        Q_FOREACH (const QDBusObjectPath & op, qdbus_cast< QList<QDBusObjectPath> >(value)) {
+        const QList<QDBusObjectPath> opList = qdbus_cast< QList<QDBusObjectPath> >(value);
+        for (const QDBusObjectPath &op : opList) {
             list << op.path();
         }
         slaves = list;

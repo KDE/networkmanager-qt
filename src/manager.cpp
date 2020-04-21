@@ -165,9 +165,9 @@ void NetworkManager::NetworkManagerPrivate::init()
     QTimer::singleShot(0, [] { qobject_cast<SettingsPrivate *>(settingsNotifier())->init(); });
 
     if (iface.isValid()) {
-        QList <QDBusObjectPath> devices = iface.devices();
+        const QList <QDBusObjectPath> devices = iface.devices();
         qCDebug(NMQT) << "Device list";
-        Q_FOREACH (const QDBusObjectPath & op, devices) {
+        for (const QDBusObjectPath &op : devices) {
             networkInterfaceMap.insert(op.path(), Device::Ptr());
             Q_EMIT deviceAdded(op.path());
             qCDebug(NMQT) << "  " << op.path();
@@ -744,7 +744,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
     while (it != changedProperties.constEnd()) {
         const QString property = it.key();
         if (property == QLatin1String("ActiveConnections")) {
-            QList<QDBusObjectPath> activePaths = qdbus_cast< QList<QDBusObjectPath> >(*it);
+            const QList<QDBusObjectPath> activePaths = qdbus_cast< QList<QDBusObjectPath> >(*it);
             if (activePaths.isEmpty()) {
                 QMap<QString, ActiveConnection::Ptr>::const_iterator it = m_activeConnections.constBegin();
                 while (it != m_activeConnections.constEnd()) {
@@ -754,7 +754,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
                 m_activeConnections.clear();
             } else {
                 QStringList knownConnections = m_activeConnections.keys();
-                Q_FOREACH (const QDBusObjectPath & ac, activePaths) {
+                for (const QDBusObjectPath &ac : activePaths) {
                     if (!m_activeConnections.contains(ac.path())) {
                         m_activeConnections.insert(ac.path(), NetworkManager::ActiveConnection::Ptr());
                         Q_EMIT activeConnectionAdded(ac.path());
@@ -763,7 +763,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
                     }
                     // qCDebug(NMQT) << "  " << ac.path();
                 }
-                Q_FOREACH (const QString & path, knownConnections) {
+                for (const QString &path : qAsConst(knownConnections)) {
                     m_activeConnections.remove(path);
                     Q_EMIT activeConnectionRemoved(path);
                 }
@@ -921,9 +921,9 @@ NetworkManager::ActiveConnection::List NetworkManager::NetworkManagerPrivate::ac
 {
     NetworkManager::ActiveConnection::List list;
 
-    // We do not use const_iterator here because
-    // findRegisteredActiveConnection() changes m_activeConnections.
-    foreach (const QString &key, m_activeConnections.keys()) {
+    // Take a copy because findRegisteredActiveConnection() may change m_activeConnections.
+    const QStringList keyList = m_activeConnections.keys();
+    for (const QString &key : keyList) {
         NetworkManager::ActiveConnection::Ptr activeConnection = findRegisteredActiveConnection(key);
 
         if (activeConnection) {

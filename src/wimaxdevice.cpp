@@ -21,8 +21,8 @@ NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString &path, Wima
 #endif
 {
     qDBusRegisterMetaType<QList<QDBusObjectPath> >();
-    QList <QDBusObjectPath> nsps = wimaxIface.nsps();
-    Q_FOREACH (const QDBusObjectPath & op, nsps) {
+    const QList <QDBusObjectPath> nsps = wimaxIface.nsps();
+    for (const QDBusObjectPath &op : nsps) {
         nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
         //qCDebug(NMQT) << "  " << op.path();
     }
