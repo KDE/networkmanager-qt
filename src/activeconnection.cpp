@@ -257,7 +257,7 @@ void NetworkManager::ActiveConnectionPrivate::recheckProperties()
         properties << QLatin1String("Dhcp6Config");
     }
 
-    Q_FOREACH (const QString &property, properties) {
+    for (const QString &property : qAsConst(properties)) {
         QDBusMessage message = QDBusMessage::createMethodCall(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE,
                             NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH,
                             NetworkManager::NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
@@ -403,7 +403,8 @@ void NetworkManager::ActiveConnectionPrivate::propertyChanged(const QString &pro
         Q_EMIT q->uuidChanged(uuid);
     } else if (property == QLatin1String("Devices")) {
         devices.clear();
-        Q_FOREACH (const QDBusObjectPath & path, qdbus_cast< QList<QDBusObjectPath> >(value)) {
+        const QList<QDBusObjectPath> opList = qdbus_cast< QList<QDBusObjectPath> >(value);
+        for (const QDBusObjectPath &path : opList) {
             devices.append(path.path());
         }
         Q_EMIT q->devicesChanged();

@@ -20,7 +20,8 @@ WirelessDevice::WirelessDevice(QObject *parent)
 
 WirelessDevice::~WirelessDevice()
 {
-    Q_FOREACH (const QDBusObjectPath & ap, m_accessPoints.keys()) {
+    for (auto it = m_accessPoints.cbegin(); it != m_accessPoints.cend(); ++it) {
+         const QDBusObjectPath &ap = it.key();
         QDBusConnection::sessionBus().unregisterObject(ap.path());
         Q_EMIT AccessPointRemoved(ap);
     }

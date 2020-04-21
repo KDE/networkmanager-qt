@@ -46,9 +46,9 @@ NetworkManager::SettingsPrivate::SettingsPrivate()
 
 void NetworkManager::SettingsPrivate::init()
 {
-    QList<QDBusObjectPath> connectionList = iface.connections();
+    const QList<QDBusObjectPath> connectionList = iface.connections();
     qCDebug(NMQT) << "Connections list";
-    Q_FOREACH (const QDBusObjectPath & connection, connectionList) {
+    for (const QDBusObjectPath &connection : connectionList) {
         if (!connections.contains(connection.path())) {
             connections.insert(connection.path(), Connection::Ptr());
             Q_EMIT connectionAdded(connection.path());

@@ -19,7 +19,8 @@ Settings::Settings(QObject *parent)
 
 Settings::~Settings()
 {
-    Q_FOREACH (const QDBusObjectPath & connection, m_connections.keys()) {
+    for (auto it =  m_connections.cbegin(); it != m_connections.cend(); ++it) {
+        const QDBusObjectPath &connection = it.key();
         QDBusConnection::sessionBus().unregisterObject(connection.path());
         Q_EMIT ConnectionRemoved(connection);
     }

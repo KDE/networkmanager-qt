@@ -234,18 +234,22 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
         Q_EMIT q->autoconnectChanged();
     } else if (property == QLatin1String("AvailableConnections")) {
         QStringList newAvailableConnections;
-        QList<QDBusObjectPath> availableConnectionsTmp = qdbus_cast< QList<QDBusObjectPath> >(value);
-        Q_FOREACH (const QDBusObjectPath & availableConnection, availableConnectionsTmp) {
+        const QList<QDBusObjectPath> availableConnectionsTmp = qdbus_cast< QList<QDBusObjectPath> >(value);
+        for (const QDBusObjectPath &availableConnection : availableConnectionsTmp) {
             newAvailableConnections << availableConnection.path();
             if (!availableConnections.contains(availableConnection.path())) {
                 availableConnections << availableConnection.path();
                 Q_EMIT q->availableConnectionAppeared(availableConnection.path());
             }
         }
-        Q_FOREACH (const QString & availableConnection, availableConnections) {
+        auto it = availableConnections.begin();
+        while (it != availableConnections.end()) {
+            const QString availableConnection = *it;
             if (!newAvailableConnections.contains(availableConnection)) {
-                availableConnections.removeOne(availableConnection);
+                it = availableConnections.erase(it);
                 Q_EMIT q->availableConnectionDisappeared(availableConnection);
+            } else {
+                ++it;
             }
         }
         Q_EMIT q->availableConnectionChanged();
@@ -402,7 +406,7 @@ NetworkManager::Connection::List NetworkManager::Device::availableConnections()
     Q_D(const Device);
 
     NetworkManager::Connection::List list;
-    Q_FOREACH (const QString & availableConnection, d->availableConnections) {
+    for (const QString &availableConnection : qAsConst(d->availableConnections)) {
         NetworkManager::Connection::Ptr connection = NetworkManager::findConnection(availableConnection);
         if (connection) {
             list << connection;

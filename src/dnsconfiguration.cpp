@@ -93,11 +93,13 @@ QVariantMap NetworkManager::DnsConfiguration::toMap() const
     map["options"] = d->options;
 
     QVariantMap domains;
-    Q_FOREACH (const NetworkManager::DnsDomain &domain, d->domains) {
+    for (const NetworkManager::DnsDomain &domain : qAsConst(d->domains)) {
         QVariantMap contents;
         QStringList serversList;
-        Q_FOREACH (const QHostAddress &address, domain.servers())
+        const QList<QHostAddress> servers = domain.servers();
+        for (const QHostAddress &address : servers) {
             serversList.append(address.toString());
+        }
         contents["servers"] = serversList;
         contents["options"] = domain.options();
         domains[domain.name()] = contents;
@@ -116,10 +118,12 @@ void NetworkManager::DnsConfiguration::fromMap (const QVariantMap &map)
     QVariantMap domains = map["domains"].toMap();
     QVariantMap::const_iterator i = domains.constBegin();
     while (i != domains.constEnd()) {
-        QVariantMap contents = i.value().toMap();
+        const QVariantMap contents = i.value().toMap();
         QList<QHostAddress> addressList;
-        Q_FOREACH (const QString &server, contents["servers"].toStringList())
+        const QStringList serversList = contents["servers"].toStringList();
+        for (const QString &server : serversList) {
             addressList.append(QHostAddress(server));
+        }
         NetworkManager::DnsDomain domain(i.key(),
                                          addressList,
                                          contents["options"].toStringList());
