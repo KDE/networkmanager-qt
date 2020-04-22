@@ -33,11 +33,11 @@ int main()
 {
     QTextStream qout(stdout, QIODevice::WriteOnly);
 
-    NetworkManager::Device::List list = NetworkManager::networkInterfaces();
+    const NetworkManager::Device::List list = NetworkManager::networkInterfaces();
 
     // List device configuration, not including vpn connections, which do not
     // have a real device tied to them.
-    Q_FOREACH (NetworkManager::Device::Ptr dev, list) {
+    for (NetworkManager::Device::Ptr &dev : list) {
         qout << "\n=====\n";
         qout << dev->uni() << "\n";
         qout << "type: " << typeAsString(dev->type()) << "\n";
@@ -99,11 +99,11 @@ int main()
             }
         }
 
-        NetworkManager::Connection::List connections = dev->availableConnections();
+        const NetworkManager::Connection::List connections = dev->availableConnections();
 
         qout << "available connections: ";
 
-        Q_FOREACH (NetworkManager::Connection::Ptr con, connections) {
+        for (NetworkManager::Connection::Ptr &con : connections) {
             qout << "con";
             NetworkManager::ConnectionSettings::Ptr settings = con->settings();
             qout << "\"" << settings->id() << "\" ";

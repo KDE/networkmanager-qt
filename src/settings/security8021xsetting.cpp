@@ -619,7 +619,7 @@ void NetworkManager::Security8021xSetting::fromMap(const QVariantMap &setting)
     if (setting.contains(QLatin1String(NM_SETTING_802_1X_EAP))) {
         const QStringList methods = setting.value(QLatin1String(NM_SETTING_802_1X_EAP)).toStringList();
         QList<EapMethod> eapMethods;
-        Q_FOREACH (const QString & method, methods) {
+        for (const QString &method : methods) {
             if (method == "leap") {
                 eapMethods << EapMethodLeap;
             } else if (method == "md5") {
@@ -828,7 +828,8 @@ QVariantMap NetworkManager::Security8021xSetting::toMap() const
     if (!eapMethods().isEmpty()) {
         QStringList methods;
 
-        Q_FOREACH (const EapMethod & method, eapMethods()) {
+        const auto methodList = eapMethods();
+        for (const EapMethod &method : methodList) {
             if (method == EapMethodLeap) {
                 methods << "leap";
             } else if (method == EapMethodMd5) {

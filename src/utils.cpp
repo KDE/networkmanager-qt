@@ -48,14 +48,14 @@ QString NetworkManager::macAddressAsString(const QByteArray &ba)
 
 QByteArray NetworkManager::macAddressFromString(const QString &s)
 {
-    QStringList macStringList = s.split(':');
+    const QStringList macStringList = s.split(':');
 //     Q_ASSERT(macStringList.size() == 6);
     QByteArray ba;
     if (!s.isEmpty()) {
         ba.resize(6);
         int i = 0;
 
-        Q_FOREACH (const QString & macPart, macStringList) {
+        for (const QString &macPart : macStringList) {
             ba[i++] = macPart.toUInt(nullptr, 16);
         }
     }
@@ -364,15 +364,17 @@ bool NetworkManager::securityIsValid(WirelessSecurityType type, NetworkManager::
 
 NetworkManager::WirelessSecurityType NetworkManager::findBestWirelessSecurity(NetworkManager::WirelessDevice::Capabilities interfaceCaps, bool haveAp, bool adHoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn)
 {
-    QList<NetworkManager::WirelessSecurityType> types;
-
     // The ordering of this list is a pragmatic combination of security level and popularity.
     // Therefore static WEP is before LEAP and Dynamic WEP because there is no way to detect
     // if an AP is capable of Dynamic WEP and showing Dynamic WEP first would confuse
     // Static WEP users.
-    types << NetworkManager::SAE << NetworkManager::Wpa2Eap << NetworkManager::Wpa2Psk << NetworkManager::WpaEap << NetworkManager::WpaPsk << NetworkManager::StaticWep << NetworkManager::DynamicWep << NetworkManager::Leap << NetworkManager::NoneSecurity;
+    const QList<NetworkManager::WirelessSecurityType> types = { NetworkManager::SAE, NetworkManager::Wpa2Eap,
+                                                                NetworkManager::Wpa2Psk, NetworkManager::WpaEap,
+                                                                NetworkManager::WpaPsk, NetworkManager::StaticWep,
+                                                                NetworkManager::DynamicWep, NetworkManager::Leap,
+                                                                NetworkManager::NoneSecurity };
 
-    Q_FOREACH (NetworkManager::WirelessSecurityType type, types) {
+    for (NetworkManager::WirelessSecurityType type : types) {
         if (NetworkManager::securityIsValid(type, interfaceCaps, haveAp, adHoc, apCaps, apWpa, apRsn)) {
             return type;
         }

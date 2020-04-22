@@ -29,12 +29,12 @@ int main()
     QTextStream qin(stdin, QIODevice::ReadOnly);
 
     NetworkManager::ConnectionSettings *settings = new NetworkManager::ConnectionSettings(NetworkManager::ConnectionSettings::Wireless);
-    Device::List deviceList = NetworkManager::networkInterfaces();
+    const Device::List deviceList = NetworkManager::networkInterfaces();
 
     WirelessDevice::Ptr wifiDevice;
 
     // We have to find some wireless device
-    Q_FOREACH (Device::Ptr dev, deviceList) {
+    for (Device::Ptr dev : deviceList) {
         if (dev->type() == Device::Wifi) {
             wifiDevice = qobject_cast<WirelessDevice *>(dev);
             break;
@@ -45,13 +45,13 @@ int main()
         return 1;
     }
 
-    QStringList accessPointList = wifiDevice->accessPoints();
+    const QStringList accessPointList = wifiDevice->accessPoints();
     QString ssid;
     QString result;
     QString accessPointPath;
 
     // Check for available accesspoint
-    Q_FOREACH (const QString & ap, accessPointList) {
+    for (const QString &ap : accessPointList) {
         AccessPoint accessPoint(ap);
         // For simplification we use APs only with Wep security or without any security
         if (accessPoint.wpaFlags().testFlag(AccessPoint::PairWep40) ||

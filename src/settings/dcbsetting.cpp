@@ -500,37 +500,43 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::DcbSetting 
     dbg.nospace() << NM_SETTING_DCB_PRIORITY_FLOW_CONTROL_FLAGS << ": " << setting.priorityFlowControlFlags() << '\n';
 
     dbg.nospace() << NM_SETTING_DCB_PRIORITY_FLOW_CONTROL << ": ";
-    Q_FOREACH (const quint32 enabled, setting.priorityFlowControl()) {
+    const auto flowControlList = setting.priorityFlowControl();
+    for (const quint32 enabled : flowControlList) {
         dbg.nospace() << enabled << ' ';
     }
     dbg.nospace() << '\n';
 
     dbg.nospace() << NM_SETTING_DCB_PRIORITY_BANDWIDTH << ": ";
-    Q_FOREACH (const quint32 bandwidthPercent, setting.priorityBandwidth()) {
+    const auto bwList = setting.priorityBandwidth();
+    for (const quint32 bandwidthPercent : bwList) {
         dbg.nospace() << bandwidthPercent << ' ';
     }
     dbg.nospace() << '\n';
 
     dbg.nospace() << NM_SETTING_DCB_PRIORITY_GROUP_BANDWIDTH << ": ";
-    Q_FOREACH (const quint32 bandwidthPercent, setting.priorityGroupBandwidth()) {
+    const auto gbwList = setting.priorityGroupBandwidth();
+    for (const quint32 bandwidthPercent : gbwList) {
         dbg.nospace() << bandwidthPercent << ' ';
     }
     dbg.nospace() << '\n';
 
     dbg.nospace() << NM_SETTING_DCB_PRIORITY_GROUP_ID << ": ";
-    Q_FOREACH (const quint32 groupId, setting.priorityGroupId()) {
+    const auto groupIds = setting.priorityGroupId();
+    for (const quint32 groupId : groupIds) {
         dbg.nospace() << groupId << ' ';
     }
     dbg.nospace() << '\n';
 
     dbg.nospace() << NM_SETTING_DCB_PRIORITY_STRICT_BANDWIDTH << ": ";
-    Q_FOREACH (const quint32 strict, setting.priorityStrictBandwidth()) {
+    const auto strictList = setting.priorityStrictBandwidth();
+    for (const quint32 strict : strictList) {
         dbg.nospace() << strict << ' ';
     }
     dbg.nospace() << '\n';
 
     dbg.nospace() << NM_SETTING_DCB_PRIORITY_TRAFFIC_CLASS << ": ";
-    Q_FOREACH (const quint32 trafficClass, setting.priorityTrafficClass()) {
+    const auto trafficList = setting.priorityTrafficClass();
+    for (const quint32 trafficClass : trafficList) {
         dbg.nospace() << trafficClass << ' ';
     }
     dbg.nospace() << '\n';

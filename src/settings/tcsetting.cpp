@@ -105,14 +105,16 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::TcSetting &
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
     dbg.nospace() << NM_SETTING_TC_CONFIG_QDISCS << ": " << '\n';
-    Q_FOREACH (const QVariantMap & qdisc, setting.qdiscs()) {
+    const NMVariantMapList qdiscList = setting.qdiscs();
+    for (const QVariantMap &qdisc : qdiscList) {
         QVariantMap::const_iterator i = qdisc.constBegin();
         while (i != qdisc.constEnd()) {
             dbg.nospace() << i.key() << ": " << i.value() << '\n';
         }
     }
     dbg.nospace() << NM_SETTING_TC_CONFIG_TFILTERS << ": " << '\n';
-    Q_FOREACH (const QVariantMap & tfilter, setting.tfilters()) {
+    const NMVariantMapList tfiltersList = setting.tfilters();
+    for (const QVariantMap &tfilter : tfiltersList) {
         QVariantMap::const_iterator i = tfilter.constBegin();
         while (i != tfilter.constEnd()) {
             dbg.nospace() << i.key() << ": " << i.value() << '\n';

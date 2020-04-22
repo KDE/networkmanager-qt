@@ -509,8 +509,8 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
         setInterfaceName(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_INTERFACE_NAME)).toString());
     }
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS))) {
-        QStringList permissions = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS)).toStringList();
-        Q_FOREACH (const QString & permission, permissions) {
+        const QStringList permissions = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS)).toStringList();
+        for (const QString & permission : permissions) {
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
             const QStringList split = permission.split(QLatin1Char(':'), QString::KeepEmptyParts);
 #else
@@ -577,7 +577,8 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
         setStableId(connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_STABLE_ID)).toString());
     }
 
-    Q_FOREACH (const Setting::Ptr & setting, settings()) {
+    const auto settingsList = settings();
+    for (const Setting::Ptr &setting : settingsList) {
         if (map.contains(setting->name())) {
             setting->fromMap(map.value(setting->name()));
             setting->setInitialized(true);
@@ -671,7 +672,8 @@ NMVariantMapMap NetworkManager::ConnectionSettings::toMap() const
 
     result.insert(QLatin1String(NM_SETTING_CONNECTION_SETTING_NAME), connectionSetting);
 
-    Q_FOREACH (const Setting::Ptr & setting, settings()) {
+    const auto settingsList = settings();
+    for (const Setting::Ptr &setting : settingsList) {
         QVariantMap map = setting->toMap();
         if (!setting->isNull()) {
             result.insert(setting->name(), map);
@@ -970,7 +972,8 @@ void NetworkManager::ConnectionSettings::setStableId(const QString &stableId)
 
 NetworkManager::Setting::Ptr NetworkManager::ConnectionSettings::setting(Setting::SettingType type) const
 {
-    Q_FOREACH (const Setting::Ptr & setting, settings()) {
+    const auto settingsList = settings();
+    for (const Setting::Ptr &setting : settingsList) {
         if (setting->type() == type) {
             return setting;
         }
@@ -1016,7 +1019,8 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionS
     dbg.nospace() << NM_SETTING_CONNECTION_METERED << ": " << setting.metered() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_STABLE_ID << ": " << setting.stableId() << '\n';
     dbg.nospace() << "===================\n";
-    Q_FOREACH (const Setting::Ptr & settingPtr, setting.settings()) {
+    const auto settingsList = setting.settings();
+    for (const Setting::Ptr &settingPtr : settingsList) {
         dbg.nospace() << settingPtr->typeAsString(settingPtr->type()).toUpper() << " SETTINGS\n";
         dbg.nospace() << "---------------------------\n";
         switch (settingPtr->type()) {
