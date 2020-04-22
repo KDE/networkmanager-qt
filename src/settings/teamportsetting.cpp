@@ -238,7 +238,8 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::TeamPortSet
     dbg.nospace() << NM_SETTING_TEAM_PORT_STICKY << ": " << setting.sticky() << '\n';
 
     dbg.nospace() << NM_SETTING_TEAM_PORT_LINK_WATCHERS << ": " << '\n';
-    Q_FOREACH (const QVariantMap & linkWatcher, setting.linkWatchers()) {
+    const NMVariantMapList variantMapList = setting.linkWatchers();
+    for (const QVariantMap &linkWatcher : variantMapList) {
         QVariantMap::const_iterator i = linkWatcher.constBegin();
         while (i != linkWatcher.constEnd()) {
             dbg.nospace() << i.key() << ": " << i.value() << '\n';

@@ -396,7 +396,7 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap &setting)
             temp = setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS)).value<QList<QByteArray> >();
         }
 
-        Q_FOREACH (const QByteArray & utmp, temp) {
+        for (const QByteArray &utmp : qAsConst(temp)) {
             dbusDns << ipv6AddressAsHostAddress(utmp);
         }
 
@@ -417,7 +417,7 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap &setting)
         }
         QList<NetworkManager::IpAddress> addresses;
 
-        Q_FOREACH (const IpV6DBusAddress & addressMap, temp) {
+        for (const IpV6DBusAddress &addressMap : qAsConst(temp)) {
             if (addressMap.address.isEmpty() || !addressMap.prefix || addressMap.gateway.isEmpty()) {
                 continue;
             }
@@ -446,7 +446,7 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap &setting)
         }
         QList<NetworkManager::IpRoute> routes;
 
-        Q_FOREACH (const IpV6DBusRoute & routeMap, temp) {
+        for (const IpV6DBusRoute &routeMap : qAsConst(temp)) {
             if (routeMap.destination.isEmpty() || !routeMap.prefix || routeMap.nexthop.isEmpty() || !routeMap.metric) {
                 continue;
             }
@@ -548,7 +548,8 @@ QVariantMap NetworkManager::Ipv6Setting::toMap() const
 
     if (!dns().isEmpty()) {
         QList<QByteArray> dbusDns;
-        Q_FOREACH (const QHostAddress & dns, dns()) {
+        const QList<QHostAddress> dnsList = dns();
+        for (const QHostAddress &dns : dnsList) {
             dbusDns << ipv6AddressFromHostAddress(dns);
         }
         setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS), QVariant::fromValue(dbusDns));
@@ -560,7 +561,8 @@ QVariantMap NetworkManager::Ipv6Setting::toMap() const
 
     if (!addresses().isEmpty()) {
         QList<IpV6DBusAddress> dbusAddresses;
-        Q_FOREACH (const NetworkManager::IpAddress & addr, addresses()) {
+        const QList<NetworkManager::IpAddress> addressesList = addresses();
+        for (const NetworkManager::IpAddress &addr : addressesList) {
             IpV6DBusAddress dbusAddress;
             dbusAddress.address = ipv6AddressFromHostAddress(addr.ip());
             dbusAddress.prefix = addr.prefixLength();
@@ -573,7 +575,8 @@ QVariantMap NetworkManager::Ipv6Setting::toMap() const
 
     if (!routes().isEmpty()) {
         QList<IpV6DBusRoute> dbusRoutes;
-        Q_FOREACH (const NetworkManager::IpRoute & route, routes()) {
+        const QList<NetworkManager::IpRoute> routesList = routes();
+        for (const NetworkManager::IpRoute &route : routesList) {
             IpV6DBusRoute dbusRoute;
             dbusRoute.destination = ipv6AddressFromHostAddress(route.ip());
             dbusRoute.prefix = route.prefixLength();
@@ -657,16 +660,19 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv6Setting
 
     dbg.nospace() << NMQT_SETTING_IP6_CONFIG_METHOD << ": " << setting.method() << '\n';
     dbg.nospace() << NMQT_SETTING_IP6_CONFIG_DNS << '\n';
-    Q_FOREACH (const QHostAddress & address, setting.dns()) {
+    const QList<QHostAddress> hostAdresses = setting.dns();
+    for (const QHostAddress &address : hostAdresses) {
         dbg.nospace() << address.toString() << '\n';
     }
     dbg.nospace() << NMQT_SETTING_IP6_CONFIG_DNS_SEARCH << ": " << setting.dnsSearch() << '\n';
     dbg.nospace() << NMQT_SETTING_IP6_CONFIG_ADDRESSES << '\n';
-    Q_FOREACH (const NetworkManager::IpAddress & address, setting.addresses()) {
+    const QList<NetworkManager::IpAddress> ipList = setting.addresses();
+    for (const NetworkManager::IpAddress &address : ipList) {
         dbg.nospace() << address.ip().toString() << ": " << address.gateway().toString() << ": " << address.netmask() << '\n';
     }
     dbg.nospace() << NMQT_SETTING_IP6_CONFIG_ROUTES << '\n';
-    Q_FOREACH (const NetworkManager::IpRoute & route, setting.routes()) {
+    const QList<NetworkManager::IpRoute> routesList = setting.routes();
+    for (const NetworkManager::IpRoute &route : routesList) {
         dbg.nospace() << route.ip().toString() << ": " << route.metric() << ": " << route.nextHop().toString() << ": " << route.metric() << '\n';
     }
     dbg.nospace() << NMQT_SETTING_IP6_CONFIG_ROUTE_METRIC << ":" << setting.routeMetric() << '\n';
@@ -683,14 +689,16 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv6Setting
     dbg.nospace() << NMQT_SETTING_IP6_CONFIG_TOKEN << ": " << setting.token() << '\n';
     dbg.nospace() << NMQT_SETTING_IP6_CONFIG_DNS_OPTIONS << ": " << setting.dnsOptions() << '\n';
     dbg.nospace() << NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA << ": " << '\n';
-    Q_FOREACH (const QVariantMap & addressData, setting.addressData()) {
+    const auto dataList = setting.addressData();
+    for (const QVariantMap &addressData : dataList) {
         QVariantMap::const_iterator i = addressData.constBegin();
         while (i != addressData.constEnd()) {
         dbg.nospace() << i.key() << ": " << i.value() << '\n';
         }
     }
     dbg.nospace() << NMQT_SETTING_IP6_CONFIG_ROUTE_DATA << ": " << '\n';
-    Q_FOREACH (const QVariantMap & routeData, setting.routeData()) {
+    const auto routeDataList = setting.routeData();
+    for (const QVariantMap &routeData : routeDataList) {
         QVariantMap::const_iterator i = routeData.constBegin();
         while (i != routeData.constEnd()) {
             dbg.nospace() << i.key() << ": " << i.value() << '\n';
