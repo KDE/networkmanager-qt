@@ -18,7 +18,7 @@
 #include <QDBusObjectPath>
 
 // logging category for this framework, default: log stuff >= warning
-Q_LOGGING_CATEGORY(NMQT, "networkmanager-qt", QtWarningMsg)
+Q_LOGGING_CATEGORY(NMQT, "kf.networkmanagerqt", QtWarningMsg)
 
 namespace NetworkManager
 {

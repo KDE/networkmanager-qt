@@ -140,7 +140,8 @@ set(DBUS_INTERFACE_SRCS
 
 ecm_qt_export_logging_category(
     IDENTIFIER NMQT
-    CATEGORY_NAME networkmanager-qt
+    CATEGORY_NAME kf.networkmanagerqt
+    OLD_CATEGORY_NAMES networkmanager-qt
     DEFAULT_SEVERITY Warning
     DESCRIPTION "NetworkManagerQt"
     EXPORT NETWORMANAGERQT
