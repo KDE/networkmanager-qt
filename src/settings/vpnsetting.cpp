@@ -237,7 +237,6 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::VpnSetting 
     dbg.nospace() << NM_SETTING_VPN_SERVICE_TYPE << ": " << setting.serviceType() << '\n';
     dbg.nospace() << NM_SETTING_VPN_USER_NAME << ": " << setting.username() << '\n';
     dbg.nospace() << NM_SETTING_VPN_DATA << ": " << setting.data() << '\n';
-    dbg.nospace() << NM_SETTING_VPN_SECRETS << ": " << setting.secrets() << '\n';
     dbg.nospace() << NM_SETTING_VPN_PERSISTENT << ": " << setting.persistent() << '\n';
     dbg.nospace() << NM_SETTING_VPN_TIMEOUT << ": " << setting.timeout() << '\n';
 
