@@ -20,7 +20,7 @@
 #include "agentmanagerinterface.h"
 #include "secretagentadaptor.h"
 
-NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id, NetworkManager::SecretAgent *parent)
+NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id, const NetworkManager::SecretAgent::Capabilities capabilities, NetworkManager::SecretAgent *parent)
     : q_ptr(parent)
     , agent(parent)
 #ifdef NMQT_STATIC
@@ -29,6 +29,7 @@ NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id, Networ
     , agentManager(NetworkManagerPrivate::DBUS_SERVICE, QLatin1String(NM_DBUS_PATH_AGENT_MANAGER), QDBusConnection::systemBus(), parent)
 #endif
     , agentId(id)
+    , capabilities(capabilities)
 {
     Q_Q(SecretAgent);
 
@@ -40,7 +41,7 @@ NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id, Networ
 
     agentManager.connection().registerObject(QLatin1String(NM_DBUS_PATH_SECRET_AGENT), &agent, QDBusConnection::ExportAllSlots);
 
-    registerAgent();
+    registerAgent(capabilities);
 }
 
 NetworkManager::SecretAgentPrivate::~SecretAgentPrivate()
@@ -54,18 +55,30 @@ void NetworkManager::SecretAgentPrivate::dbusInterfacesAdded(const QDBusObjectPa
 	if(!interfaces.contains(QString::fromLatin1(agentManager.staticInterfaceName())))
 		return;
 
-	registerAgent();
+	registerAgent(capabilities);
 }
 
 void NetworkManager::SecretAgentPrivate::registerAgent()
 {
-    agentManager.Register(agentId);
+    agentManager.RegisterWithCapabilities(agentId, NetworkManager::SecretAgent::Capability::NoCapability);
+}
+
+void NetworkManager::SecretAgentPrivate::registerAgent(NetworkManager::SecretAgent::Capabilities capabilities)
+{
+    agentManager.RegisterWithCapabilities(agentId, capabilities);
 }
 
 NetworkManager::SecretAgent::SecretAgent(const QString &id, QObject *parent)
     : QObject(parent)
     , QDBusContext()
-    , d_ptr(new NetworkManager::SecretAgentPrivate(id, this))
+    , d_ptr(new NetworkManager::SecretAgentPrivate(id, NetworkManager::SecretAgent::Capability::NoCapability, this))
+{
+}
+
+NetworkManager::SecretAgent::SecretAgent(const QString &id, NetworkManager::SecretAgent::Capabilities capabilities, QObject *parent)
+    : QObject(parent)
+    , QDBusContext()
+    , d_ptr(new NetworkManager::SecretAgentPrivate(id, capabilities, this))
 {
 }
 

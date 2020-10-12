@@ -51,9 +51,20 @@ public:
     Q_DECLARE_FLAGS(GetSecretsFlags, GetSecretsFlag)
 
     /**
+     * Capabilities to pass to secret agents
+     */
+    enum Capability {
+        NoCapability = 0, /**< No capability */
+        VpnHints = 0x01 /**< Pass hints to secret agent */
+    };
+    Q_DECLARE_FLAGS(Capabilities, Capability)
+
+    /**
      * Registers a SecretAgent with the \p id on NetworkManager
+     * Optionally add a capabilities argument
      */
     explicit SecretAgent(const QString &id, QObject *parent = nullptr);
+    explicit SecretAgent(const QString &id, NetworkManager::SecretAgent::Capabilities capabilities, QObject *parent = nullptr);
     virtual ~SecretAgent();
 
     /**
@@ -118,11 +129,13 @@ public Q_SLOTS:
 private:
     Q_DECLARE_PRIVATE(SecretAgent)
     Q_PRIVATE_SLOT(d_func(), void registerAgent())
+    Q_PRIVATE_SLOT(d_func(), void registerAgent(const NetworkManager::SecretAgent::Capabilities capabilities))
     Q_PRIVATE_SLOT(d_func(), void dbusInterfacesAdded(const QDBusObjectPath &path, const QVariantMap &interfaces))
 
     SecretAgentPrivate *const d_ptr;
 };
 }
 Q_DECLARE_OPERATORS_FOR_FLAGS(NetworkManager::SecretAgent::GetSecretsFlags)
+Q_DECLARE_OPERATORS_FOR_FLAGS(NetworkManager::SecretAgent::Capabilities)
 
 #endif // NETWORKMANAGERQT_SECRETAGENT_H
