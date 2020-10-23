@@ -8,7 +8,6 @@
 #include "wimaxdevice.h"
 #include "wimaxdevice_p.h"
 #include "manager_p.h"
-#include "wimaxnsp.h"
 
 #include "nmdebug.h"
 

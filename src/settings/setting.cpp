@@ -8,7 +8,6 @@
 
 #undef signals
 #include <nm-version.h>
-#include <libnm/NetworkManager.h>
 #define signals Q_SIGNALS
 
 #include <QDebug>

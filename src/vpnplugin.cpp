@@ -5,7 +5,6 @@
 */
 
 #include "vpnplugin.h"
-#include "vpnconnection.h"
 
 #include "manager_p.h"
 #include "vpnplugininterface.h"

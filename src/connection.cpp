@@ -14,7 +14,6 @@
 #define signals Q_SIGNALS
 
 #include <QDBusConnection>
-#include <QDBusPendingReply>
 #include <QDBusPendingCallWatcher>
 
 #include "nmdebug.h"

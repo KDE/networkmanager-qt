@@ -6,7 +6,6 @@
 */
 
 #include "vethdevice_p.h"
-#include "device.h"
 #include "manager.h"
 #include "manager_p.h"
 

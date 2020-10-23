@@ -16,7 +16,6 @@
 #include <libnm/NetworkManager.h>
 #define signals Q_SIGNALS
 
-#include "activeconnection.h"
 #include "adsldevice.h"
 #include "bluetoothdevice.h"
 #include "bonddevice.h"

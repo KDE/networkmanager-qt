@@ -8,7 +8,6 @@
 
 #include "activeconnection.h"
 #include "activeconnection_p.h"
-#include "connection.h"
 #include "device.h"
 #include "nmdebug.h"
 #include "manager.h"

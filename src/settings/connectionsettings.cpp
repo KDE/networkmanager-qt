@@ -34,7 +34,6 @@
 #include "wireguardsetting.h"
 
 #undef signals
-#include <libnm/NetworkManager.h>
 
 #if !NM_CHECK_VERSION(1, 6, 0)
 #define NM_SETTING_CONNECTION_AUTOCONNECT_RETRIES "autoconnect-retries"

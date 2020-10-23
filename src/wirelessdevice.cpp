@@ -13,7 +13,6 @@
 #include <libnm/NetworkManager.h>
 #define signals Q_SIGNALS
 
-#include "accesspoint.h"
 #include "manager_p.h"
 
 #include "nmdebug.h"

@@ -8,7 +8,6 @@
 #include "settings.h"
 #include "settings_p.h"
 #include "macros.h"
-#include "connection.h"
 #include "manager_p.h"
 
 #include <QDBusObjectPath>

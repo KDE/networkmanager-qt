@@ -11,7 +11,6 @@
 #include "nmdebug.h"
 #include "settings.h"
 
-#include <QDBusObjectPath>
 
 NetworkManager::VpnConnectionPrivate::VpnConnectionPrivate(const QString &path, VpnConnection *q)
     : ActiveConnectionPrivate(path, q)
