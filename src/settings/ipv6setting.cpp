@@ -383,6 +383,8 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap &setting)
             setMethod(Manual);
         } else if (methodType.toLower() == QLatin1String(NMQT_SETTING_IP6_CONFIG_METHOD_IGNORE)) {
             setMethod(Ignored);
+        } else if (methodType.toLower() == QLatin1String(NMQT_SETTING_IP6_CONFIG_METHOD_DISABLED)) {
+            setMethod(ConfigDisabled);
         } else {
             setMethod(Automatic);
         }
@@ -546,6 +548,8 @@ QVariantMap NetworkManager::Ipv6Setting::toMap() const
         setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_METHOD), QLatin1String(NMQT_SETTING_IP6_CONFIG_METHOD_MANUAL));
     } else if (method() == Ignored) {
         setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_METHOD), QLatin1String(NMQT_SETTING_IP6_CONFIG_METHOD_IGNORE));
+    } else if (method() == ConfigDisabled) {
+        setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_METHOD), QLatin1String(NMQT_SETTING_IP6_CONFIG_METHOD_DISABLED));
     }
 
     if (!dns().isEmpty()) {
