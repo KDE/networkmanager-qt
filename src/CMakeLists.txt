@@ -284,7 +284,7 @@ if(BUILD_QCH)
         KF5NetworkManagerQt_QCH
         NAME NetworkManagerQt
         BASE_NAME KF5NetworkManagerQt
-        VERSION ${KF5_VERSION}
+        VERSION ${KF_VERSION}
         ORG_DOMAIN org.kde
         SOURCES # using only public headers, to cover only public API
             ${NetworkManagerQt_HEADERS}
