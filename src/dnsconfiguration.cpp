@@ -10,6 +10,8 @@
 
 #include "dnsconfiguration.h"
 
+#include <QVariant>
+
 namespace NetworkManager
 {
 
