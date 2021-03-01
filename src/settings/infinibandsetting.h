@@ -25,7 +25,7 @@ class NETWORKMANAGERQT_EXPORT InfinibandSetting : public Setting
 public:
     typedef QSharedPointer<InfinibandSetting> Ptr;
     typedef QList<Ptr> List;
-    enum TransportMode {Unknown = 0, Datagram, Connected};
+    enum TransportMode {Unknown = 0, Datagram, Connected,};
 
     InfinibandSetting();
     explicit InfinibandSetting(const Ptr &other);

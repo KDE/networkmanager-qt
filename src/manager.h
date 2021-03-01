@@ -38,7 +38,7 @@ enum Status {
     Connecting, /**< the system is not connected to any network */
     ConnectedLinkLocal, /**< a network device is connected, but there is only link-local connectivity */
     ConnectedSiteOnly, /**< a network device is connected, but there is only site-local connectivity */
-    Connected /**< the system is currently connected to a network */
+    Connected, /**< the system is currently connected to a network */
 };
 
 enum LogLevel {
@@ -46,12 +46,12 @@ enum LogLevel {
     Warning,
     Info,
     Debug,
-    Trace/**< = Debug in runtime NM < 0.9.10*/
+    Trace, /**< = Debug in runtime NM < 0.9.10*/
     };
 
 enum LogDomain {NoChange, None, Hardware, RFKill, Ethernet, WiFi, Bluetooth, MobileBroadBand, DHCP4, DHCP6, PPP, WiFiScan, IPv4, IPv6,
                 AutoIPv4, DNS, VPN, Sharing, Supplicant, UserSet, SysSet, Suspend, Core, Devices, OLPC, Wimax/*TODO: mark it deprecated somehow?*/, Infiniband, Firewall, Adsl, Bond, Vlan
-                , Agents, Settings, Bridge, DbusProps, Team, ConCheck, Dcb, Dispatch
+                , Agents, Settings, Bridge, DbusProps, Team, ConCheck, Dcb, Dispatch,
                 };
 Q_DECLARE_FLAGS(LogDomains, LogDomain)
 Q_FLAGS(LogDomain)
@@ -65,7 +65,7 @@ enum Connectivity {
     NoConnectivity = 1, /**< The host is not connected to any network. */
     Portal = 2, /**< The host is behind a captive portal and cannot reach the full Internet. */
     Limited = 3, /**< The host is connected to a network, but does not appear to be able to reach the full Internet. */
-    Full = 4 /**< The host is connected to a network, and appears to be able to reach the full Internet. */
+    Full = 4, /**< The host is connected to a network, and appears to be able to reach the full Internet. */
 };
 
 class NETWORKMANAGERQT_EXPORT Notifier : public QObject

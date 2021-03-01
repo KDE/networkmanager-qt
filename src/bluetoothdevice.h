@@ -38,7 +38,7 @@ public:
     enum Capability {
         NoCapability = 0x0, /**< No special capability */
         Dun = 0x1, /**< Dial Up Networking profile */
-        Pan = 0x2  /**< Personal Area Network profile */
+        Pan = 0x2,  /**< Personal Area Network profile */
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
     Q_FLAG(Capabilities)

@@ -56,7 +56,7 @@ class NETWORKMANAGERQT_EXPORT Ipv4Setting : public Setting
 public:
     typedef QSharedPointer<Ipv4Setting> Ptr;
     typedef QList<Ptr> List;
-    enum ConfigMethod {Automatic, LinkLocal, Manual, Shared, Disabled};
+    enum ConfigMethod {Automatic, LinkLocal, Manual, Shared, Disabled,};
 
     Ipv4Setting();
     explicit Ipv4Setting(const Ptr &other);

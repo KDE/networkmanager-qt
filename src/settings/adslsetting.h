@@ -25,8 +25,8 @@ class NETWORKMANAGERQT_EXPORT AdslSetting : public Setting
 public:
     typedef QSharedPointer<AdslSetting> Ptr;
     typedef QList<Ptr> List;
-    enum Protocol {UnknownProtocol = 0, Pppoa, Pppoe, Ipoatm};
-    enum Encapsulation {UnknownEncapsulation = 0, Vcmux, Llc};
+    enum Protocol {UnknownProtocol = 0, Pppoa, Pppoe, Ipoatm,};
+    enum Encapsulation {UnknownEncapsulation = 0, Vcmux, Llc,};
 
     AdslSetting();
     explicit AdslSetting(const Ptr &other);

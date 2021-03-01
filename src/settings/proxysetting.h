@@ -27,7 +27,7 @@ public:
     typedef QList<Ptr> List;
     enum Mode {
         None = 0,
-        Auto = 1
+        Auto = 1,
     };
 
     ProxySetting();

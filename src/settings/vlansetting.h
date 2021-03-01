@@ -25,7 +25,7 @@ class NETWORKMANAGERQT_EXPORT VlanSetting : public Setting
 public:
     typedef QSharedPointer<VlanSetting> Ptr;
     typedef QList<Ptr> List;
-    enum Flag {None = 0, ReorderHeaders = 0x1, Gvrp = 0x2, LooseBinding = 0x4};
+    enum Flag {None = 0, ReorderHeaders = 0x1, Gvrp = 0x2, LooseBinding = 0x4,};
     Q_DECLARE_FLAGS(Flags, Flag)
 
     VlanSetting();

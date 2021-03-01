@@ -25,7 +25,7 @@ class NETWORKMANAGERQT_EXPORT BluetoothSetting : public Setting
 public:
     typedef QSharedPointer<BluetoothSetting> Ptr;
     typedef QList<Ptr> List;
-    enum ProfileType {Unknown = 0, Dun, Panu};
+    enum ProfileType {Unknown = 0, Dun, Panu,};
 
     BluetoothSetting();
     explicit BluetoothSetting(const Ptr &other);

@@ -70,21 +70,21 @@ public:
         TeamPort,
         Macsec,
         Dcb,
-        WireGuard
+        WireGuard,
     };
 
     enum SecretFlagType {
         None = 0,
         AgentOwned = 0x01,
         NotSaved = 0x02,
-        NotRequired = 0x04
+        NotRequired = 0x04,
     };
     Q_DECLARE_FLAGS(SecretFlags, SecretFlagType)
 
     enum MacAddressRandomization {
         MacAddressRandomizationDefault = 0,
         MacAddressRandomizationNever,
-        MacAddressRandomizationAlways
+        MacAddressRandomizationAlways,
     };
 
     static QString typeAsString(SettingType type);

@@ -24,9 +24,9 @@ public:
     typedef QSharedPointer<MacsecSetting> Ptr;
     typedef QList<Ptr> List;
 
-    enum Mode {Psk, Eap};
+    enum Mode {Psk, Eap,};
 
-    enum Validation {Disable, Check, Strict};
+    enum Validation {Disable, Check, Strict,};
 
     MacsecSetting();
     explicit MacsecSetting(const Ptr &other);

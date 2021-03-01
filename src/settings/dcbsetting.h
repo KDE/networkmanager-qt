@@ -30,7 +30,7 @@ public:
         None = 0,
         Enable = 0x01,
         Advertise = 0x02,
-        Willing = 0x04
+        Willing = 0x04,
     };
     Q_DECLARE_FLAGS(DcbFlags, DcbFlagType)
 

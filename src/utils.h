@@ -17,7 +17,7 @@
 
 namespace NetworkManager
 {
-    enum WirelessSecurityType { UnknownSecurity = -1, NoneSecurity, StaticWep, DynamicWep, Leap, WpaPsk, WpaEap, Wpa2Psk, Wpa2Eap, SAE };
+    enum WirelessSecurityType { UnknownSecurity = -1, NoneSecurity, StaticWep, DynamicWep, Leap, WpaPsk, WpaEap, Wpa2Psk, Wpa2Eap, SAE, };
 
     /**
      * @return QHostAddress representation of an ipv6 address

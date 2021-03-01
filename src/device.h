@@ -76,7 +76,7 @@ public:
         WaitingForSecondaries = 90, /**< The device is waiting for secondary connections to be activated */
         Activated = 100, /**< The device is active */
         Deactivating = 110, /**< The device's network connection is being torn down */
-        Failed = 120 /**< The device is in a failure state following an attempt to activate it */
+        Failed = 120, /**< The device is in a failure state following an attempt to activate it */
     };
     Q_ENUM(State)
 
@@ -103,7 +103,7 @@ public:
                              DependencyFailed = 50, Br2684Failed = 51, ModemManagerUnavailable = 52, SsidNotFound = 53, SecondaryConnectionFailed = 54,
                              DcbFcoeFailed = 55, TeamdControlFailed = 56, ModemFailed = 57, ModemAvailable = 58, SimPinIncorrect = 59,
                              NewActivation = 60, ParentChanged = 61, ParentManagedChanged = 62,
-                             Reserved = 65536
+                             Reserved = 65536,
                            };
     Q_ENUM(StateChangeReason)
 
@@ -112,7 +112,7 @@ public:
         Yes = 1,  /**< The device is metered and the value was statically set. */
         No = 2,  /**< The device is not metered and the value was statically set. */
         GuessYes = 3,  /**< The device is metered and the value was guessed. */
-        GuessNo = 4  /**< The device is not metered and the value was guessed. */
+        GuessNo = 4,  /**< The device is not metered and the value was guessed. */
     };
     Q_ENUM(MeteredStatus)
 
@@ -121,7 +121,7 @@ public:
      */
     enum Capability {
         IsManageable = 0x1, /**< denotes that the device can be controlled by this API */
-        SupportsCarrierDetect = 0x2 /**< the device informs us when it is plugged in to the medium */
+        SupportsCarrierDetect = 0x2, /**< the device informs us when it is plugged in to the medium */
     };
     Q_ENUM(Capability)
     Q_DECLARE_FLAGS(Capabilities, Capability)
@@ -162,7 +162,7 @@ public:
         Wpan,                                   /**< Wpan Device @since 1.14 */
         Lowpan,                                 /**< Lowpan Device @since 1.14 */
         WireGuard,                              /**< WireGuard Device @since 1.14 */
-        WifiP2P                                 /**< WifiP2P Device @since 1.16 */
+        WifiP2P,                                 /**< WifiP2P Device @since 1.16 */
     };
     Q_ENUM(Type)
     Q_DECLARE_FLAGS(Types, Type)

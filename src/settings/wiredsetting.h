@@ -30,20 +30,20 @@ public:
         Tp,
         Aui,
         Bnc,
-        Mii
+        Mii,
     };
 
     enum DuplexType {
         UnknownDuplexType = 0,
         Half,
-        Full
+        Full,
     };
 
     enum S390Nettype {
         Undefined = 0,
         Qeth,
         Lcs,
-        Ctc
+        Ctc,
     };
 
     enum WakeOnLanFlag {
@@ -55,7 +55,7 @@ public:
         WakeOnLanMagic = 1 << 6,
         /* Special values */
         WakeOnLanDefault = 1 << 0,
-        WakeOnLanIgnore = 1 << 15
+        WakeOnLanIgnore = 1 << 15,
     };
     Q_DECLARE_FLAGS(WakeOnLanFlags, WakeOnLanFlag)
     Q_FLAGS(WakeOnLanFlag)

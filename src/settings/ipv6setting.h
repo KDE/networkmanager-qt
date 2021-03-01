@@ -68,9 +68,9 @@ class NETWORKMANAGERQT_EXPORT Ipv6Setting : public Setting
 public:
     typedef QSharedPointer<Ipv6Setting> Ptr;
     typedef QList<Ptr> List;
-    enum ConfigMethod {Automatic, Dhcp, LinkLocal, Manual, Ignored};
-    enum IPv6Privacy {Unknown = -1, Disabled, PreferPublic, PreferTemporary};
-    enum IPv6AddressGenMode {Eui64, StablePrivacy};
+    enum ConfigMethod {Automatic, Dhcp, LinkLocal, Manual, Ignored,};
+    enum IPv6Privacy {Unknown = -1, Disabled, PreferPublic, PreferTemporary,};
+    enum IPv6AddressGenMode {Eui64, StablePrivacy,};
 
     Ipv6Setting();
     explicit Ipv6Setting(const Ptr &other);

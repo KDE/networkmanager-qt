@@ -41,7 +41,7 @@ public:
         Unknown = 0, /**< not associated with a network */
         Adhoc, /**< part of an adhoc network */
         Infra, /**< a station in an infrastructure wireless network */
-        ApMode /**< access point in an infrastructure network */
+        ApMode, /**< access point in an infrastructure network */
     };
     Q_ENUM(OperationMode)
     /**
@@ -62,7 +62,7 @@ public:
         Freq2Ghz = 0x200, /**< The device supports 2.4Ghz frequencies */
         Freq5Ghz = 0x400, /**< The device supports 5Ghz frequencies */
         Mesh = 0x1000, /**< The device supports acting as a mesh point */
-        IBSSRsn = 0x2000 /**< device supports WPA2/RSN in an IBSS network */
+        IBSSRsn = 0x2000, /**< device supports WPA2/RSN in an IBSS network */
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
     /**

@@ -25,7 +25,7 @@ class NETWORKMANAGERQT_EXPORT SerialSetting : public Setting
 public:
     typedef QSharedPointer<SerialSetting> Ptr;
     typedef QList<Ptr> List;
-    enum Parity {NoParity, EvenParity, OddParity};
+    enum Parity {NoParity, EvenParity, OddParity,};
 
     SerialSetting();
     explicit SerialSetting(const Ptr &other);

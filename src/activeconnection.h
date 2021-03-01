@@ -42,7 +42,7 @@ public:
         Activating, /**< The connection is activating */
         Activated, /**< The connection is activated */
         Deactivating, /**< The connection is being torn down and cleaned up */
-        Deactivated /**< The connection is no longer active */
+        Deactivated, /**< The connection is no longer active */
     };
 
     enum Reason {
@@ -60,7 +60,7 @@ public:
         ConnectionRemoved,  /**< The connection was deleted from settings */
         DependencyFailed,   /**< Master connection of this connection failed to activate */
         DeviceRealizeFailed,/**< Could not create the software device link */
-        DeviceRemoved       /**< The device this connection depended on disappeared */
+        DeviceRemoved,       /**< The device this connection depended on disappeared */
     };
 
     /**

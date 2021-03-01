@@ -30,20 +30,20 @@ public:
     enum NetworkMode {
         Infrastructure,
         Adhoc,
-        Ap
+        Ap,
     };
 
     enum FrequencyBand {
         Automatic,
         A,
-        Bg
+        Bg,
     };
 
     enum PowerSave {
         PowerSaveDefault = 0,
         PowerSaveIgnore = 1,
         PowerSaveDisable = 2,
-        PowerSaveEnable = 3
+        PowerSaveEnable = 3,
     };
 
     WirelessSetting();

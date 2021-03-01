@@ -43,7 +43,7 @@ public:
         GettingIpConfig, /**< The VPN connection is getting an IP address. */
         Activated, /**< The VPN connection is active. */
         Failed, /**< The VPN connection failed. */
-        Disconnected /**< The VPN connection is disconnected. */
+        Disconnected, /**< The VPN connection is disconnected. */
     };
 
     enum StateChangeReason {
@@ -58,7 +58,7 @@ public:
         ServiceStartFailedReason, /**< Starting the service starting the service providing the VPN connection failed. */
         NoSecretsReason, /**< Necessary secrets for the VPN connection were not provided. */
         LoginFailedReason, /**< Authentication to the VPN server failed. */
-        ConnectionRemovedReason /**< The connection was deleted from settings. */
+        ConnectionRemovedReason, /**< The connection was deleted from settings. */
     };
 
     /**

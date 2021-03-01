@@ -53,13 +53,13 @@ public:
         Generic,
         Tun,
         IpTunnel,
-        WireGuard
+        WireGuard,
     };
 
     enum AutoconnectSlaves {
         SlavesDefault = -1,
         DoNotConnectSlaves = 0,
-        ConnectAllSlaves = 1
+        ConnectAllSlaves = 1,
     };
 
     enum Lldp {
@@ -75,7 +75,7 @@ public:
         MeteredYes = 1,
         MeteredNo = 2,
         MeteredGuessYes = 3,
-        MeteredGuessNo = 4
+        MeteredGuessNo = 4,
     };
 
 

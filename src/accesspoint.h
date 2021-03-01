@@ -38,21 +38,21 @@ public:
         Unknown = 0, /**< not associated with a network */
         Adhoc, /**< part of an adhoc network */
         Infra, /**< a station in an infrastructure wireless network */
-        ApMode /**< access point in an infrastructure network */
+        ApMode, /**< access point in an infrastructure network */
     };
     /**
      * General capabilities of an access point
      */
     enum Capability {
         None = 0x0, /**< Null capability - says nothing about the access point */
-        Privacy = 0x1 /**< Access point supports privacy measures */
+        Privacy = 0x1, /**< Access point supports privacy measures */
     };
     /**
      * Flags describing the access point's capabilities according to WPA (Wifi Protected Access)
      */
     enum WpaFlag { PairWep40 = 0x1, PairWep104 = 0x2, PairTkip = 0x4, PairCcmp = 0x8,
                    GroupWep40 = 0x10, GroupWep104 = 0x20, GroupTkip = 0x40, GroupCcmp = 0x80,
-                   KeyMgmtPsk = 0x100, KeyMgmt8021x = 0x200, KeyMgmtSAE = 0x400
+                   KeyMgmtPsk = 0x100, KeyMgmt8021x = 0x200, KeyMgmtSAE = 0x400,
                  };
     Q_DECLARE_FLAGS(Capabilities, Capability)
     Q_FLAG(Capabilities)

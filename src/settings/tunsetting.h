@@ -25,7 +25,7 @@ class NETWORKMANAGERQT_EXPORT TunSetting : public Setting
 public:
     typedef QSharedPointer<TunSetting> Ptr;
     typedef QList<Ptr> List;
-    enum Mode { Tun, Tap };
+    enum Mode { Tun, Tap, };
 
 
     TunSetting();
