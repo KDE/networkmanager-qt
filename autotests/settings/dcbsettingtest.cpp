@@ -100,9 +100,13 @@ void DcbSettingTest::testSetting()
     // Will fail if set some default values, because they are skipped in toMap() method
     QVariantMap::const_iterator it = map.constBegin();
     while (it != map.constEnd()) {
-        if (it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_FLOW_CONTROL) && it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_BANDWIDTH)
-            && it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_GROUP_BANDWIDTH) && it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_GROUP_ID)
-            && it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_STRICT_BANDWIDTH) && it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_TRAFFIC_CLASS)) {
+        /* clang-format off */
+        if (it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_FLOW_CONTROL)
+            && it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_BANDWIDTH)
+            && it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_GROUP_BANDWIDTH)
+            && it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_GROUP_ID)
+            && it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_STRICT_BANDWIDTH)
+            && it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_TRAFFIC_CLASS)) { /* clang-format on */
             QCOMPARE(it.value(), map1.value(it.key()));
         }
         ++it;

@@ -137,12 +137,27 @@ void NetworkManager::NetworkManagerPrivate::init()
 
     m_version = iface.version();
     parseVersion(m_version);
+    /* clang-format off */
     m_supportedInterfaceTypes = static_cast<NetworkManager::Device::Types>(
-        NetworkManager::Device::Ethernet | NetworkManager::Device::Wifi | NetworkManager::Device::Modem
-        | (checkVersion(1, 2, 0) ? 0 : NetworkManager::Device::Wimax) | NetworkManager::Device::Bluetooth | NetworkManager::Device::OlpcMesh
-        | NetworkManager::Device::InfiniBand | NetworkManager::Device::Bond | NetworkManager::Device::Vlan | NetworkManager::Device::Adsl
-        | NetworkManager::Device::Bridge | NetworkManager::Device::Generic | NetworkManager::Device::Team | NetworkManager::Device::MacVlan
-        | NetworkManager::Device::Tun | NetworkManager::Device::Veth | NetworkManager::Device::IpTunnel | NetworkManager::Device::WireGuard);
+        NetworkManager::Device::Ethernet
+        | NetworkManager::Device::Wifi
+        | NetworkManager::Device::Modem
+        | (checkVersion(1, 2, 0) ? 0 : NetworkManager::Device::Wimax)
+        | NetworkManager::Device::Bluetooth
+        | NetworkManager::Device::OlpcMesh
+        | NetworkManager::Device::InfiniBand
+        | NetworkManager::Device::Bond
+        | NetworkManager::Device::Vlan
+        | NetworkManager::Device::Adsl
+        | NetworkManager::Device::Bridge
+        | NetworkManager::Device::Generic
+        | NetworkManager::Device::Team
+        | NetworkManager::Device::MacVlan
+        | NetworkManager::Device::Tun
+        | NetworkManager::Device::Veth
+        | NetworkManager::Device::IpTunnel
+        | NetworkManager::Device::WireGuard);
+    /* clang-format on */
 
     // Get all Manager's properties async
     QVariantMap initialProperties = retrieveInitialProperties(iface.staticInterfaceName(), DBUS_DAEMON_PATH);

@@ -12,6 +12,7 @@
 #define DHCP6CONFIGINTERFACE_H
 
 #include "generictypes.h"
+
 #include <QObject>
 #include <QString>
 #include <QVariant>

@@ -12,6 +12,7 @@
 #define WIMAXDEVICEINTERFACE_H
 
 #include "generictypes.h"
+
 #include <QList>
 #include <QObject>
 #include <QString>

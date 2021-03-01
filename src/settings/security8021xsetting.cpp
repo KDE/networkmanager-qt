@@ -545,19 +545,30 @@ QStringList NetworkManager::Security8021xSetting::needSecrets(bool requestNew) c
 {
     QStringList secrets;
 
-    if (eapMethods().contains(EapMethodTls) && (privateKeyPassword().isEmpty() || requestNew) && !privateKeyPasswordFlags().testFlag(NotRequired)) {
+    /* clang-format off */
+    if (eapMethods().contains(EapMethodTls)
+        && (privateKeyPassword().isEmpty() || requestNew)
+        && !privateKeyPasswordFlags().testFlag(NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD);
-    } else if ((eapMethods().contains(EapMethodTtls) || eapMethods().contains(EapMethodPeap) || eapMethods().contains(EapMethodLeap)
-                || eapMethods().contains(EapMethodFast) || eapMethods().contains(EapMethodPwd))
-               && (password().isEmpty() || requestNew) && !passwordFlags().testFlag(NotRequired)) {
+    } else if ((eapMethods().contains(EapMethodTtls)
+                    || eapMethods().contains(EapMethodPeap)
+                    || eapMethods().contains(EapMethodLeap)
+                    || eapMethods().contains(EapMethodFast)
+                    || eapMethods().contains(EapMethodPwd))
+               && (password().isEmpty() || requestNew)
+               && !passwordFlags().testFlag(NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD);
         secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW);
-    } else if (eapMethods().contains(EapMethodSim) && (pin().isEmpty() || requestNew) && !pinFlags().testFlag(NotRequired)) {
+    } else if (eapMethods().contains(EapMethodSim)
+               && (pin().isEmpty() || requestNew)
+               && !pinFlags().testFlag(NotRequired)) { /* clang-format on */
         secrets << QLatin1String(NM_SETTING_802_1X_PIN);
     }
 
-    if ((phase2AuthMethod() == AuthMethodTls || phase2AuthEapMethod() == AuthEapMethodTls) && (phase2PrivateKeyPassword().isEmpty() || requestNew)
-        && !phase2PrivateKeyPasswordFlags().testFlag(NotRequired)) {
+    /* clang-format off */
+    if ((phase2AuthMethod() == AuthMethodTls || phase2AuthEapMethod() == AuthEapMethodTls)
+        && (phase2PrivateKeyPassword().isEmpty() || requestNew)
+        && !phase2PrivateKeyPasswordFlags().testFlag(NotRequired)) { /* clang-format on */
         secrets << QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD);
     }
 

@@ -73,7 +73,8 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
     if (NetworkManager::checkVersion(1, 0, 0)) {
         const NMVariantMapList addresses = iface.addressData();
         for (const QVariantMap &addressList : addresses) {
-            if (addressList.contains(QLatin1String("address")) && addressList.contains(QLatin1String("prefix"))) {
+            if (addressList.contains(QLatin1String("address")) //
+                && addressList.contains(QLatin1String("prefix"))) {
                 NetworkManager::IpAddress address;
                 address.setIp(QHostAddress(addressList.value(QLatin1String("address")).toString()));
                 address.setPrefixLength(addressList.value(QLatin1String("prefix")).toUInt());
@@ -160,7 +161,8 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
     if (NetworkManager::checkVersion(1, 0, 0)) {
         const NMVariantMapList addresses = iface.addressData();
         for (const QVariantMap &addressList : addresses) {
-            if (addressList.contains(QLatin1String("address")) && addressList.contains(QLatin1String("prefix"))) {
+            if (addressList.contains(QLatin1String("address")) //
+                && addressList.contains(QLatin1String("prefix"))) {
                 NetworkManager::IpAddress address;
                 address.setIp(QHostAddress(addressList.value(QLatin1String("address")).toString()));
                 address.setPrefixLength(addressList.value(QLatin1String("prefix")).toUInt());

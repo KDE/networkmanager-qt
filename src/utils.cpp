@@ -175,7 +175,9 @@ bool NetworkManager::securityIsValid(WirelessSecurityType type,
         if (type == NoneSecurity) {
             return true;
         }
-        if ((type == StaticWep) || ((type == DynamicWep) && !adhoc) || ((type == Leap) && !adhoc)) {
+        if ((type == StaticWep) //
+            || ((type == DynamicWep) && !adhoc) //
+            || ((type == Leap) && !adhoc)) {
             if (interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wep40) || interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wep104)) {
                 return true;
             } else {
@@ -258,10 +260,12 @@ bool NetworkManager::securityIsValid(WirelessSecurityType type,
         }
         if (haveAp) {
             if (apWpa.testFlag(NetworkManager::AccessPoint::KeyMgmtPsk)) {
-                if (apWpa.testFlag(NetworkManager::AccessPoint::PairTkip) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
+                if (apWpa.testFlag(NetworkManager::AccessPoint::PairTkip) //
+                    && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
                     return true;
                 }
-                if (apWpa.testFlag(NetworkManager::AccessPoint::PairCcmp) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
+                if (apWpa.testFlag(NetworkManager::AccessPoint::PairCcmp) //
+                    && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
                     return true;
                 }
             }
@@ -277,15 +281,18 @@ bool NetworkManager::securityIsValid(WirelessSecurityType type,
                 if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::IBSSRsn)) {
                     return false;
                 }
-                if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
+                if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) //
+                    && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
                     return true;
                 }
             } else {
                 if (apRsn.testFlag(NetworkManager::AccessPoint::KeyMgmtPsk)) {
-                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairTkip) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
+                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairTkip) //
+                        && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
                         return true;
                     }
-                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
+                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) //
+                        && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
                         return true;
                     }
                 }
@@ -336,15 +343,18 @@ bool NetworkManager::securityIsValid(WirelessSecurityType type,
                 if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::IBSSRsn)) {
                     return false;
                 }
-                if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
+                if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) //
+                    && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
                     return true;
                 }
             } else {
                 if (apRsn.testFlag(NetworkManager::AccessPoint::KeyMgmtSAE)) {
-                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairTkip) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
+                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairTkip) //
+                        && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
                         return true;
                     }
-                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
+                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) //
+                        && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
                         return true;
                     }
                 }

@@ -498,8 +498,12 @@ NetworkManager::Dhcp6Config::Ptr NetworkManager::Device::dhcp6Config() const
 bool NetworkManager::Device::isActive() const
 {
     Q_D(const Device);
-    return !(d->connectionState == NetworkManager::Device::Unavailable || d->connectionState == NetworkManager::Device::Unmanaged
-             || d->connectionState == NetworkManager::Device::Disconnected || d->connectionState == NetworkManager::Device::Failed);
+    /* clang-format off */
+    return !(d->connectionState == NetworkManager::Device::Unavailable
+             || d->connectionState == NetworkManager::Device::Unmanaged
+             || d->connectionState == NetworkManager::Device::Disconnected
+             || d->connectionState == NetworkManager::Device::Failed);
+    /* clang-format on */
 }
 
 bool NetworkManager::Device::isValid() const

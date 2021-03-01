@@ -12,6 +12,7 @@
 #define WIMAXNSPINTERFACE_H
 
 #include "generictypes.h"
+
 #include <QObject>
 #include <QString>
 #include <QVariant>

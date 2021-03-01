@@ -162,9 +162,12 @@ void IPv6SettingTest::testSetting()
     // Will fail if set some default values, because they are skipped in toMap() method
     QVariantMap::const_iterator it = map.constBegin();
     while (it != map.constEnd()) {
-        if (it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS) && it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESSES)
-            && it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTES) && it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA)
-            && it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_DATA)) {
+        /* clang-format off */
+        if (it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS)
+            && it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESSES)
+            && it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTES)
+            && it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA)
+            && it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_DATA)) { /* clang-format on */
             QCOMPARE(it.value(), map1.value(it.key()));
         }
         ++it;

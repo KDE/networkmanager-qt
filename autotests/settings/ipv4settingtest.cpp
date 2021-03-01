@@ -157,15 +157,19 @@ void IPv4SettingTest::testSetting()
     // Will fail if set some default values, because they are skipped in toMap() method
     QVariantMap::const_iterator it = map.constBegin();
     while (it != map.constEnd()) {
-        if (it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS) && it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)
-            && it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES) && it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESS_DATA)
-            && it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_DATA)) {
+        /* clang-format off */
+        if (it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)
+            && it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)
+            && it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)
+            && it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESS_DATA)
+            && it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_DATA)) { /* clang-format on */
             QCOMPARE(it.value(), map1.value(it.key()));
         }
         ++it;
     }
 
-    QCOMPARE(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<UIntList>(), map1.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<UIntList>());
+    QCOMPARE(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<UIntList>(), //
+             map1.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<UIntList>());
     QCOMPARE(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).value<UIntListList>(),
              map1.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).value<UIntListList>());
     QCOMPARE(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).value<UIntListList>(),

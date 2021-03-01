@@ -12,6 +12,7 @@
 #define WIREDDEVICEINTERFACE_H
 
 #include "generictypes.h"
+
 #include <QObject>
 #include <QString>
 #include <QStringList>

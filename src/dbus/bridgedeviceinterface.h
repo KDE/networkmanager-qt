@@ -12,6 +12,7 @@
 #define BRIDGEDEVICEINTERFACE_H
 
 #include "generictypes.h"
+
 #include <QList>
 #include <QObject>
 #include <QString>

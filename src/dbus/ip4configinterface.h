@@ -12,6 +12,7 @@
 #define IP4CONFIGINTERFACE_H
 
 #include "generictypes.h"
+
 #include <QObject>
 #include <QString>
 #include <QStringList>

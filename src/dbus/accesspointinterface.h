@@ -12,6 +12,7 @@
 #define ACCESSPOINTINTERFACE_H
 
 #include "generictypes.h"
+
 #include <QByteArray>
 #include <QObject>
 #include <QString>

@@ -12,6 +12,7 @@
 #define ADSLDEVICEINTERFACE_H
 
 #include "generictypes.h"
+
 #include <QObject>
 #include <QString>
 #include <QVariant>

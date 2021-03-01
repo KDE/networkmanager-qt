@@ -54,9 +54,12 @@ int main()
     for (const QString &ap : accessPointList) {
         AccessPoint accessPoint(ap);
         // For simplification we use APs only with Wep security or without any security
-        if (accessPoint.wpaFlags().testFlag(AccessPoint::PairWep40) || accessPoint.wpaFlags().testFlag(AccessPoint::PairWep104)
-            || accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep40) || accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep104)
-            || !accessPoint.wpaFlags()) {
+        /* clang-format off */
+        if (accessPoint.wpaFlags().testFlag(AccessPoint::PairWep40)
+            || accessPoint.wpaFlags().testFlag(AccessPoint::PairWep104)
+            || accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep40)
+            || accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep104)
+            || !accessPoint.wpaFlags()) { /* clang-format on */
             qout << "Do you want to connect to " << accessPoint.ssid() << "?" << endl;
             qout << "Yes/No: " << flush;
             qin >> result;
