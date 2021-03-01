@@ -11,16 +11,16 @@
 #ifndef DEVICESTATISTICSINTERFACE_H
 #define DEVICESTATISTICSINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Statistics
  */
-class OrgFreedesktopNetworkManagerDeviceStatisticsInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceStatisticsInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -36,14 +36,17 @@ public:
 #endif
 
 public:
-    OrgFreedesktopNetworkManagerDeviceStatisticsInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
+    OrgFreedesktopNetworkManagerDeviceStatisticsInterface(const QString &service,
+                                                          const QString &path,
+                                                          const QDBusConnection &connection,
+                                                          QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceStatisticsInterface();
 
     Q_PROPERTY(uint RefreshRateMs READ refreshRateMs WRITE setRefreshRateMs)
     inline uint refreshRateMs() const
     {
-        return qvariant_cast< uint >(property("RefreshRateMs"));
+        return qvariant_cast<uint>(property("RefreshRateMs"));
     }
     inline void setRefreshRateMs(uint value)
     {
@@ -53,13 +56,13 @@ public:
     Q_PROPERTY(qulonglong RxBytes READ rxBytes)
     inline qulonglong rxBytes() const
     {
-        return qvariant_cast< qulonglong >(property("RxBytes"));
+        return qvariant_cast<qulonglong>(property("RxBytes"));
     }
 
     Q_PROPERTY(qulonglong TxBytes READ txBytes)
     inline qulonglong txBytes() const
     {
-        return qvariant_cast< qulonglong >(property("TxBytes"));
+        return qvariant_cast<qulonglong>(property("TxBytes"));
     }
 
 public Q_SLOTS: // METHODS

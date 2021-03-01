@@ -7,12 +7,11 @@
 #ifndef NETWORKMANAGERQT_MATCH_SETTING_H
 #define NETWORKMANAGERQT_MATCH_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 namespace NetworkManager
 {
-
 class MatchSettingPrivate;
 
 /**
@@ -49,4 +48,3 @@ NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const MatchSetting &settin
 }
 
 #endif // NETWORKMANAGERQT_MATCH_SETTING_H
-

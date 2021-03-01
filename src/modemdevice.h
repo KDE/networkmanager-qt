@@ -14,7 +14,6 @@
 
 namespace NetworkManager
 {
-
 class ModemDevicePrivate;
 
 /**
@@ -27,7 +26,13 @@ class NETWORKMANAGERQT_EXPORT ModemDevice : public Device
 public:
     typedef QSharedPointer<ModemDevice> Ptr;
     typedef QList<Ptr> List;
-    enum Capability { NoCapability = 0x0, Pots = 0x1, CdmaEvdo = 0x2, GsmUmts = 0x4, Lte = 0x8, };
+    enum Capability {
+        NoCapability = 0x0,
+        Pots = 0x1,
+        CdmaEvdo = 0x2,
+        GsmUmts = 0x4,
+        Lte = 0x8,
+    };
     Q_DECLARE_FLAGS(Capabilities, Capability)
     explicit ModemDevice(const QString &path, QObject *parent = nullptr);
     explicit ModemDevice(ModemDevicePrivate &dd, QObject *parent = nullptr);

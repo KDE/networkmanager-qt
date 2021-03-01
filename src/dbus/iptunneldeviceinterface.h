@@ -11,16 +11,16 @@
 #ifndef IPTUNNELDEVICEINTERFACE_H
 #define IPTUNNELDEVICEINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.IPTunnel
  */
-class OrgFreedesktopNetworkManagerDeviceIPTunnelInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceIPTunnelInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -35,74 +35,77 @@ public:
     }
 #endif
 public:
-    OrgFreedesktopNetworkManagerDeviceIPTunnelInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
+    OrgFreedesktopNetworkManagerDeviceIPTunnelInterface(const QString &service,
+                                                        const QString &path,
+                                                        const QDBusConnection &connection,
+                                                        QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceIPTunnelInterface();
 
     Q_PROPERTY(uchar EncapsulationLimit READ encapsulationLimit)
     inline uchar encapsulationLimit() const
     {
-        return qvariant_cast< uchar >(property("EncapsulationLimit"));
+        return qvariant_cast<uchar>(property("EncapsulationLimit"));
     }
 
     Q_PROPERTY(uint FlowLabel READ flowLabel)
     inline uint flowLabel() const
     {
-        return qvariant_cast< uint >(property("FlowLabel"));
+        return qvariant_cast<uint>(property("FlowLabel"));
     }
 
     Q_PROPERTY(QString InputKey READ inputKey)
     inline QString inputKey() const
     {
-        return qvariant_cast< QString >(property("InputKey"));
+        return qvariant_cast<QString>(property("InputKey"));
     }
 
     Q_PROPERTY(QString Local READ local)
     inline QString local() const
     {
-        return qvariant_cast< QString >(property("Local"));
+        return qvariant_cast<QString>(property("Local"));
     }
 
     Q_PROPERTY(uint Mode READ mode)
     inline uint mode() const
     {
-        return qvariant_cast< uint >(property("Mode"));
+        return qvariant_cast<uint>(property("Mode"));
     }
 
     Q_PROPERTY(QString OutputKey READ outputKey)
     inline QString outputKey() const
     {
-        return qvariant_cast< QString >(property("OutputKey"));
+        return qvariant_cast<QString>(property("OutputKey"));
     }
 
     Q_PROPERTY(QDBusObjectPath Parent READ parent)
     inline QDBusObjectPath parent() const
     {
-        return qvariant_cast< QDBusObjectPath >(property("Parent"));
+        return qvariant_cast<QDBusObjectPath>(property("Parent"));
     }
 
     Q_PROPERTY(bool PathMtuDiscovery READ pathMtuDiscovery)
     inline bool pathMtuDiscovery() const
     {
-        return qvariant_cast< bool >(property("PathMtuDiscovery"));
+        return qvariant_cast<bool>(property("PathMtuDiscovery"));
     }
 
     Q_PROPERTY(QString Remote READ remote)
     inline QString remote() const
     {
-        return qvariant_cast< QString >(property("Remote"));
+        return qvariant_cast<QString>(property("Remote"));
     }
 
     Q_PROPERTY(uchar Tos READ tos)
     inline uchar tos() const
     {
-        return qvariant_cast< uchar >(property("Tos"));
+        return qvariant_cast<uchar>(property("Tos"));
     }
 
     Q_PROPERTY(uchar Ttl READ ttl)
     inline uchar ttl() const
     {
-        return qvariant_cast< uchar >(property("Ttl"));
+        return qvariant_cast<uchar>(property("Ttl"));
     }
 
 public Q_SLOTS: // METHODS

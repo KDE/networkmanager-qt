@@ -12,12 +12,14 @@
 
 NetworkManager::WimaxSettingPrivate::WimaxSettingPrivate()
     : name(NM_SETTING_WIMAX_SETTING_NAME)
-{ }
+{
+}
 
 NetworkManager::WimaxSetting::WimaxSetting()
     : Setting(Setting::Wimax)
     , d_ptr(new WimaxSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::WimaxSetting::WimaxSetting(const Ptr &other)
     : Setting(other)
@@ -93,7 +95,7 @@ QVariantMap NetworkManager::WimaxSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WimaxSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::WimaxSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

@@ -20,13 +20,11 @@ void SerialSettingTest::testSetting_data()
     QTest::addColumn<quint32>("stopbits");
     QTest::addColumn<quint64>("sendDelay");
 
-    QTest::newRow("setting1")
-            << (quint32) 56000    // baud
-            << (quint32) 16       // bits
-            << QChar('E')         // parity
-            << (quint32) 2        // stopbits
-            << (quint64) 1000;    // senddelay
-
+    QTest::newRow("setting1") << (quint32)56000 // baud
+                              << (quint32)16 // bits
+                              << QChar('E') // parity
+                              << (quint32)2 // stopbits
+                              << (quint64)1000; // senddelay
 }
 
 void SerialSettingTest::testSetting()

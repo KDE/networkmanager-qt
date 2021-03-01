@@ -20,12 +20,14 @@ NetworkManager::BridgeSettingPrivate::BridgeSettingPrivate()
     , helloTime(2)
     , maxAge(20)
     , agingTime(300)
-{ }
+{
+}
 
 NetworkManager::BridgeSetting::BridgeSetting()
     : Setting(Setting::Bridge)
     , d_ptr(new BridgeSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::BridgeSetting::BridgeSetting(const Ptr &other)
     : Setting(other)
@@ -166,7 +168,7 @@ bool NetworkManager::BridgeSetting::multicastSnooping() const
     return d->multicastSnooping;
 }
 
-void NetworkManager::BridgeSetting::setMacAddress(const QByteArray& address)
+void NetworkManager::BridgeSetting::setMacAddress(const QByteArray &address)
 {
     Q_D(BridgeSetting);
 
@@ -260,7 +262,7 @@ QVariantMap NetworkManager::BridgeSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::BridgeSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::BridgeSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

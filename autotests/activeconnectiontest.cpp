@@ -16,9 +16,8 @@
 #include "fakenetwork/settings.h"
 #include "fakenetwork/wireddevice.h"
 
+#include <QSignalSpy>
 #include <QTest>
-#include <QSignalSpy>
-#include <QSignalSpy>
 
 void ActiveConnectionTest::initTestCase()
 {
@@ -44,7 +43,8 @@ void ActiveConnectionTest::initTestCase()
 
     fakeNetwork->addDevice(device);
 
-    NetworkManager::ConnectionSettings::Ptr connectionSettings = NetworkManager::ConnectionSettings::Ptr(new NetworkManager::ConnectionSettings(NetworkManager::ConnectionSettings::Wired));
+    NetworkManager::ConnectionSettings::Ptr connectionSettings =
+        NetworkManager::ConnectionSettings::Ptr(new NetworkManager::ConnectionSettings(NetworkManager::ConnectionSettings::Wired));
     connectionSettings->setId("Wired connection");
     connectionSettings->setUuid(QLatin1String("39af79a5-b053-4893-9378-7342a5a30d06"));
     NetworkManager::Ipv4Setting::Ptr ipv4Setting = connectionSettings->setting(NetworkManager::Setting::Ipv4).dynamicCast<NetworkManager::Ipv4Setting>();
@@ -76,7 +76,9 @@ void ActiveConnectionTest::testActiveConnection()
     NetworkManager::Device::Ptr device = NetworkManager::networkInterfaces().first();
     QSignalSpy deviceActiveConnectionChangedSpy(device.data(), SIGNAL(activeConnectionChanged()));
     QSignalSpy deviceIpInterfaceChangedSpy(device.data(), SIGNAL(ipInterfaceChanged()));
-    QSignalSpy deviceStateChangedSpy(device.data(), SIGNAL(stateChanged(NetworkManager::Device::State,NetworkManager::Device::State,NetworkManager::Device::StateChangeReason)));
+    QSignalSpy deviceStateChangedSpy(
+        device.data(),
+        SIGNAL(stateChanged(NetworkManager::Device::State, NetworkManager::Device::State, NetworkManager::Device::StateChangeReason)));
 
     NetworkManager::Connection::Ptr connection = device->availableConnections().first();
 
@@ -91,7 +93,9 @@ void ActiveConnectionTest::testActiveConnection()
 
     NetworkManager::ActiveConnection::Ptr activeConnection = NetworkManager::findActiveConnection(activeConnectionAddedSpy.at(0).at(0).toString());
     QSignalSpy activeConnectionStateChangedSpy(activeConnection.data(), SIGNAL(stateChanged(NetworkManager::ActiveConnection::State)));
-    QSignalSpy activeConnectionStateChangedReasonSpy(activeConnection.data(), SIGNAL(stateChangedReason(NetworkManager::ActiveConnection::State,NetworkManager::ActiveConnection::Reason)));
+    QSignalSpy activeConnectionStateChangedReasonSpy(
+        activeConnection.data(),
+        SIGNAL(stateChangedReason(NetworkManager::ActiveConnection::State, NetworkManager::ActiveConnection::Reason)));
 
     QCOMPARE(activeConnection->devices().first(), device->uni());
     QCOMPARE(activeConnection->state(), NetworkManager::ActiveConnection::Activating);

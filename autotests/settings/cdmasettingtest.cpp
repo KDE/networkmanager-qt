@@ -19,11 +19,10 @@ void CdmaSettingTest::testSetting_data()
     QTest::addColumn<QString>("password");
     QTest::addColumn<quint32>("passwordFlags");
 
-    QTest::newRow("setting1")
-            << QString("#123456789")    // number
-            << QString("username")      // username
-            << QString("password")      // password
-            << (quint32) 2;             // passwordFlags
+    QTest::newRow("setting1") << QString("#123456789") // number
+                              << QString("username") // username
+                              << QString("password") // password
+                              << (quint32)2; // passwordFlags
 }
 
 void CdmaSettingTest::testSetting()

@@ -9,15 +9,14 @@
 #ifndef NETWORKMANAGERQT_WIRELESSNETWORK_H
 #define NETWORKMANAGERQT_WIRELESSNETWORK_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "accesspoint.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QObject>
 #include <QSharedPointer>
 
 namespace NetworkManager
 {
-
 class WirelessDevice;
 class WirelessNetworkPrivate;
 
@@ -30,6 +29,7 @@ class NETWORKMANAGERQT_EXPORT WirelessNetwork : public QObject
     Q_OBJECT
     friend class WirelessDevice;
     friend class WirelessDevicePrivate;
+
 public:
     typedef QSharedPointer<WirelessNetwork> Ptr;
     typedef QList<Ptr> List;

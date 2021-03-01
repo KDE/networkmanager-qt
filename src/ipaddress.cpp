@@ -9,7 +9,6 @@
 
 namespace NetworkManager
 {
-
 class IpAddress::Private
 {
 public:
@@ -56,7 +55,7 @@ NetworkManager::IpAddress &NetworkManager::IpAddress::operator=(const NetworkMan
         return *this;
     }
 
-    QNetworkAddressEntry::operator =(other);
+    QNetworkAddressEntry::operator=(other);
     *d = *other.d;
 
     return *this;

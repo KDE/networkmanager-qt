@@ -11,12 +11,14 @@
 
 NetworkManager::GenericSettingPrivate::GenericSettingPrivate()
     : name(NM_SETTING_GENERIC_SETTING_NAME)
-{ }
+{
+}
 
 NetworkManager::GenericSetting::GenericSetting()
     : Setting(Setting::Generic)
     , d_ptr(new GenericSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::GenericSetting::GenericSetting(const Ptr &other)
     : Setting(other)
@@ -48,7 +50,7 @@ QVariantMap NetworkManager::GenericSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::GenericSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::GenericSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

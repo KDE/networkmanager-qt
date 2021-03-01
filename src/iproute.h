@@ -8,14 +8,13 @@
 #ifndef NETWORKMANAGERQT_IPROUTE_H
 #define NETWORKMANAGERQT_IPROUTE_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "ipaddress.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QNetworkAddressEntry>
 
 namespace NetworkManager
 {
-
 /**
  * This class represents IP route
  */

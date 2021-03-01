@@ -9,13 +9,12 @@
 
 #include "setting.h"
 
+#include <QDateTime>
 #include <QHash>
 #include <QString>
-#include <QDateTime>
 
 namespace NetworkManager
 {
-
 class ConnectionSettingsPrivate
 {
 public:

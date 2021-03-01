@@ -15,7 +15,10 @@
  * Implementation of interface class OrgFreedesktopNetworkManagerDeviceMacsecInterface
  */
 
-OrgFreedesktopNetworkManagerDeviceMacsecInterface::OrgFreedesktopNetworkManagerDeviceMacsecInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+OrgFreedesktopNetworkManagerDeviceMacsecInterface::OrgFreedesktopNetworkManagerDeviceMacsecInterface(const QString &service,
+                                                                                                     const QString &path,
+                                                                                                     const QDBusConnection &connection,
+                                                                                                     QObject *parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 }
@@ -23,4 +26,3 @@ OrgFreedesktopNetworkManagerDeviceMacsecInterface::OrgFreedesktopNetworkManagerD
 OrgFreedesktopNetworkManagerDeviceMacsecInterface::~OrgFreedesktopNetworkManagerDeviceMacsecInterface()
 {
 }
-

@@ -11,7 +11,6 @@
 
 namespace NetworkManager
 {
-
 class OvsBridgeSettingPrivate
 {
 public:
@@ -28,4 +27,3 @@ public:
 }
 
 #endif // NETWORKMANAGERQT_OVS_BRIDGE_SETTING_P_H
-

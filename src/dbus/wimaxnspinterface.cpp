@@ -15,7 +15,10 @@
  * Implementation of interface class OrgFreedesktopNetworkManagerWiMaxNspInterface
  */
 
-OrgFreedesktopNetworkManagerWiMaxNspInterface::OrgFreedesktopNetworkManagerWiMaxNspInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+OrgFreedesktopNetworkManagerWiMaxNspInterface::OrgFreedesktopNetworkManagerWiMaxNspInterface(const QString &service,
+                                                                                             const QString &path,
+                                                                                             const QDBusConnection &connection,
+                                                                                             QObject *parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 }
@@ -23,4 +26,3 @@ OrgFreedesktopNetworkManagerWiMaxNspInterface::OrgFreedesktopNetworkManagerWiMax
 OrgFreedesktopNetworkManagerWiMaxNspInterface::~OrgFreedesktopNetworkManagerWiMaxNspInterface()
 {
 }
-

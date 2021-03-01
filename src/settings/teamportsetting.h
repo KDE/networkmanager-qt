@@ -7,14 +7,13 @@
 #ifndef NETWORKMANAGERQT_TEAM_PORT_SETTING_H
 #define NETWORKMANAGERQT_TEAM_PORT_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QString>
 
 namespace NetworkManager
 {
-
 class TeamPortSettingPrivate;
 
 /**
@@ -69,4 +68,3 @@ NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const TeamPortSetting &set
 }
 
 #endif // NETWORKMANAGERQT_TEAM_PORT_SETTING_H
-

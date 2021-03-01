@@ -15,7 +15,6 @@ typedef QList<QVariantMap> NMVariantMapList;
 
 namespace NetworkManager
 {
-
 class TcSettingPrivate
 {
 public:
@@ -30,4 +29,3 @@ public:
 }
 
 #endif // NETWORKMANAGERQT_TC_SETTING_P_H
-

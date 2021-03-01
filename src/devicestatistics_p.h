@@ -7,12 +7,11 @@
 #ifndef NETWORKMANAGERQT_DEVICE_STATISTICS_P_H
 #define NETWORKMANAGERQT_DEVICE_STATISTICS_P_H
 
-#include "devicestatistics.h"
 #include "dbus/devicestatisticsinterface.h"
+#include "devicestatistics.h"
 
 namespace NetworkManager
 {
-
 class DeviceStatisticsPrivate : public QObject
 {
     Q_OBJECT

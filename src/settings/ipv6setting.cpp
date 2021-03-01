@@ -8,9 +8,9 @@
 #include "ipv6setting.h"
 #include "ipv6setting_p.h"
 
-#include "utils.h"
-#include "generictypes.h"
 #include "../ipconfig.h"
+#include "generictypes.h"
+#include "utils.h"
 
 #include <arpa/inet.h>
 
@@ -27,12 +27,14 @@ NetworkManager::Ipv6SettingPrivate::Ipv6SettingPrivate()
     , addressGenMode(NetworkManager::Ipv6Setting::StablePrivacy)
     , dhcpTimeout(0)
     , routeTable(0)
-{ }
+{
+}
 
 NetworkManager::Ipv6Setting::Ipv6Setting()
     : Setting(Setting::Ipv6)
     , d_ptr(new Ipv6SettingPrivate())
-{ }
+{
+}
 
 NetworkManager::Ipv6Setting::Ipv6Setting(const Ptr &other)
     : Setting(other)
@@ -121,14 +123,14 @@ void NetworkManager::Ipv6Setting::setAddresses(const QList<IpAddress> ipv6addres
     d->addresses = ipv6addresses;
 }
 
-QList< NetworkManager::IpAddress > NetworkManager::Ipv6Setting::addresses() const
+QList<NetworkManager::IpAddress> NetworkManager::Ipv6Setting::addresses() const
 {
     Q_D(const Ipv6Setting);
 
     return d->addresses;
 }
 
-void NetworkManager::Ipv6Setting::setRoutes(const QList< NetworkManager::IpRoute > ipv6routes)
+void NetworkManager::Ipv6Setting::setRoutes(const QList<NetworkManager::IpRoute> ipv6routes)
 {
     Q_D(Ipv6Setting);
 
@@ -390,10 +392,10 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap &setting)
         QList<QHostAddress> dbusDns;
         QList<QByteArray> temp;
         if (setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS)).canConvert<QDBusArgument>()) {
-            QDBusArgument dnsArg = setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS)).value< QDBusArgument>();
-            temp = qdbus_cast<QList<QByteArray> >(dnsArg);
+            QDBusArgument dnsArg = setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS)).value<QDBusArgument>();
+            temp = qdbus_cast<QList<QByteArray>>(dnsArg);
         } else {
-            temp = setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS)).value<QList<QByteArray> >();
+            temp = setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS)).value<QList<QByteArray>>();
         }
 
         for (const QByteArray &utmp : qAsConst(temp)) {
@@ -410,10 +412,10 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap &setting)
     if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESSES))) {
         QList<IpV6DBusAddress> temp;
         if (setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS)).canConvert<QDBusArgument>()) {
-            QDBusArgument addressArg = setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESSES)).value< QDBusArgument>();
-            temp = qdbus_cast<QList<IpV6DBusAddress> >(addressArg);
+            QDBusArgument addressArg = setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESSES)).value<QDBusArgument>();
+            temp = qdbus_cast<QList<IpV6DBusAddress>>(addressArg);
         } else {
-            temp = setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESSES)).value<QList<IpV6DBusAddress> >();
+            temp = setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESSES)).value<QList<IpV6DBusAddress>>();
         }
         QList<NetworkManager::IpAddress> addresses;
 
@@ -439,10 +441,10 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap &setting)
     if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTES))) {
         QList<IpV6DBusRoute> temp;
         if (setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTES)).canConvert<QDBusArgument>()) {
-            QDBusArgument routeArg = setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTES)).value< QDBusArgument>();
-            temp = qdbus_cast<QList<IpV6DBusRoute> >(routeArg);
+            QDBusArgument routeArg = setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTES)).value<QDBusArgument>();
+            temp = qdbus_cast<QList<IpV6DBusRoute>>(routeArg);
         } else {
-            temp = setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTES)).value<QList<IpV6DBusRoute> >();
+            temp = setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTES)).value<QList<IpV6DBusRoute>>();
         }
         QList<NetworkManager::IpRoute> routes;
 
@@ -588,7 +590,7 @@ QVariantMap NetworkManager::Ipv6Setting::toMap() const
         setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTES), QVariant::fromValue(dbusRoutes));
     }
 
-    if(routeMetric() >= 0) {
+    if (routeMetric() >= 0) {
         setting.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_METRIC), routeMetric());
     }
 
@@ -653,7 +655,7 @@ QVariantMap NetworkManager::Ipv6Setting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv6Setting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::Ipv6Setting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
@@ -693,7 +695,7 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv6Setting
     for (const QVariantMap &addressData : dataList) {
         QVariantMap::const_iterator i = addressData.constBegin();
         while (i != addressData.constEnd()) {
-        dbg.nospace() << i.key() << ": " << i.value() << '\n';
+            dbg.nospace() << i.key() << ": " << i.value() << '\n';
         }
     }
     dbg.nospace() << NMQT_SETTING_IP6_CONFIG_ROUTE_DATA << ": " << '\n';

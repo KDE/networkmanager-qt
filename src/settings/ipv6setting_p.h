@@ -14,7 +14,6 @@
 
 namespace NetworkManager
 {
-
 class Ipv6SettingPrivate
 {
 public:

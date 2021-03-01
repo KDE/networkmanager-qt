@@ -13,15 +13,14 @@
 #include <QTest>
 
 #if !NM_CHECK_VERSION(1, 14, 0)
-#define NM_SETTING_MATCH_INTERFACE_NAME    "interface-name"
+#define NM_SETTING_MATCH_INTERFACE_NAME "interface-name"
 #endif
 
 void MatchSettingTest::testSetting_data()
 {
     QTest::addColumn<QStringList>("interfaceName");
 
-    QTest::newRow("setting1")
-        <<  QStringList {QString("name1"), QString("name2")};    // interfaceName
+    QTest::newRow("setting1") << QStringList{QString("name1"), QString("name2")}; // interfaceName
 }
 
 void MatchSettingTest::testSetting()
@@ -46,4 +45,3 @@ void MatchSettingTest::testSetting()
 }
 
 QTEST_MAIN(MatchSettingTest)
-

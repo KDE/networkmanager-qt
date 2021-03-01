@@ -12,12 +12,14 @@
 NetworkManager::BluetoothSettingPrivate::BluetoothSettingPrivate()
     : name(NM_SETTING_BLUETOOTH_SETTING_NAME)
     , profileType(BluetoothSetting::Unknown)
-{ }
+{
+}
 
 NetworkManager::BluetoothSetting::BluetoothSetting()
     : Setting(Setting::Bluetooth)
     , d_ptr(new BluetoothSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::BluetoothSetting::BluetoothSetting(const Ptr &other)
     : Setting(other)
@@ -106,7 +108,7 @@ QVariantMap NetworkManager::BluetoothSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::BluetoothSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::BluetoothSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

@@ -7,12 +7,11 @@
 #ifndef NETWORKMANAGERQT_MODEMDEVICE_P_H
 #define NETWORKMANAGERQT_MODEMDEVICE_P_H
 
-#include "device_p.h"
 #include "dbus/modemdeviceinterface.h"
+#include "device_p.h"
 
 namespace NetworkManager
 {
-
 class ModemDevicePrivate : public DevicePrivate
 {
     Q_OBJECT

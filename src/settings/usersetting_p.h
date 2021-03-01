@@ -11,7 +11,6 @@
 
 namespace NetworkManager
 {
-
 class UserSettingPrivate
 {
 public:
@@ -25,4 +24,3 @@ public:
 }
 
 #endif // NETWORKMANAGERQT_USER_SETTING_P_H
-

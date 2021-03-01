@@ -13,7 +13,6 @@
 
 namespace NetworkManager
 {
-
 class GreDevicePrivate;
 
 /**

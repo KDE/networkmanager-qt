@@ -19,12 +19,14 @@ NetworkManager::GsmSettingPrivate::GsmSettingPrivate()
     , pinFlags(NetworkManager::GsmSetting::None)
     , allowedBand(1)
     , homeOnly(false)
-{ }
+{
+}
 
 NetworkManager::GsmSetting::GsmSetting()
     : Setting(Setting::Gsm)
     , d_ptr(new GsmSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::GsmSetting::GsmSetting(const Ptr &other)
     : Setting(other)
@@ -415,7 +417,7 @@ QVariantMap NetworkManager::GsmSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::GsmSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::GsmSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

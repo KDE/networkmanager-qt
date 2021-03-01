@@ -11,7 +11,6 @@
 
 namespace NetworkManager
 {
-
 class ProxySettingPrivate
 {
 public:
@@ -28,4 +27,3 @@ public:
 }
 
 #endif // NETWORKMANAGERQT_PROXY_SETTING_P_H
-

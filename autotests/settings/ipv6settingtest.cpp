@@ -7,8 +7,8 @@
 #include "ipv6settingtest.h"
 
 #include "generictypes.h"
-#include "utils.h"
 #include "settings/ipv6setting.h"
+#include "utils.h"
 
 #include <arpa/inet.h>
 
@@ -19,7 +19,7 @@
 
 using namespace NetworkManager;
 
-//TODO: Test DNS,IPv6Addresses and IPv6Routes
+// TODO: Test DNS,IPv6Addresses and IPv6Routes
 void IPv6SettingTest::testSetting_data()
 {
     QTest::addColumn<QString>("method");
@@ -43,7 +43,6 @@ void IPv6SettingTest::testSetting_data()
     QTest::addColumn<NMVariantMapList>("addressData");
     QTest::addColumn<NMVariantMapList>("routeData");
     QTest::addColumn<quint32>("routeTable");
-
 
     QStringList dnsSearch;
     dnsSearch << "foo.com";
@@ -84,28 +83,27 @@ void IPv6SettingTest::testSetting_data()
     routeMap["prefix"] = 25;
     routeData.append(routeMap);
 
-    QTest::newRow("setting1")
-            << QString("auto")                                          // method
-            << dns                                                      // dns
-            << dnsSearch                                                // dnsSearch
-            << addresses                                                // addresses
-            << routes                                                   // routes
-            << 100                                                      // routeMetric
-            << true                                                     // ignoreAutoRoutes
-            << true                                                     // ignoreAutoDns
-            << true                                                     // neverDefault
-            << false                                                    // mayFail
-            << (quint32) 0                                              // privacy
-            << (quint32) 1101                                           // dadTimeout
-            << (quint32) 0                                              // addressGenMode
-            << (quint32) 110                                            // dhcpTimeout
-            <<  QString("dhcp-hostname")                                // dhcpHostname
-            <<  QString("dhcp-duid")                                    // dhcpDuid
-            <<  QString("token")                                        // token
-            <<  QStringList {QString("option1"), QString("option2")}    // dnsOptions
-            <<  addressData                                             // addressData
-            <<  routeData                                               // routeData
-            << (quint32) 1;                                             // routeTable
+    QTest::newRow("setting1") << QString("auto") // method
+                              << dns // dns
+                              << dnsSearch // dnsSearch
+                              << addresses // addresses
+                              << routes // routes
+                              << 100 // routeMetric
+                              << true // ignoreAutoRoutes
+                              << true // ignoreAutoDns
+                              << true // neverDefault
+                              << false // mayFail
+                              << (quint32)0 // privacy
+                              << (quint32)1101 // dadTimeout
+                              << (quint32)0 // addressGenMode
+                              << (quint32)110 // dhcpTimeout
+                              << QString("dhcp-hostname") // dhcpHostname
+                              << QString("dhcp-duid") // dhcpDuid
+                              << QString("token") // token
+                              << QStringList{QString("option1"), QString("option2")} // dnsOptions
+                              << addressData // addressData
+                              << routeData // routeData
+                              << (quint32)1; // routeTable
 }
 
 void IPv6SettingTest::testSetting()
@@ -156,7 +154,6 @@ void IPv6SettingTest::testSetting()
     map.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_DATA), QVariant::fromValue(routeData));
     map.insert(QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_TABLE), routeTable);
 
-
     NetworkManager::Ipv6Setting setting;
     setting.fromMap(map);
 
@@ -165,11 +162,9 @@ void IPv6SettingTest::testSetting()
     // Will fail if set some default values, because they are skipped in toMap() method
     QVariantMap::const_iterator it = map.constBegin();
     while (it != map.constEnd()) {
-        if (it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS) &&
-                it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESSES) &&
-                it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTES) &&
-                it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA) &&
-                it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_DATA)) {
+        if (it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS) && it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESSES)
+            && it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTES) && it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESS_DATA)
+            && it.key() != QLatin1String(NMQT_SETTING_IP6_CONFIG_ROUTE_DATA)) {
             QCOMPARE(it.value(), map1.value(it.key()));
         }
         ++it;

@@ -11,10 +11,10 @@
 
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
-#include <QVariantMap>
 #include <QDBusArgument>
+#include <QVariantMap>
 
-typedef QList<QList<uint> > UIntListList;
+typedef QList<QList<uint>> UIntListList;
 Q_DECLARE_METATYPE(UIntListList)
 
 typedef QList<uint> UIntList;

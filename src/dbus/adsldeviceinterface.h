@@ -11,16 +11,16 @@
 #ifndef ADSLDEVICEINTERFACE_H
 #define ADSLDEVICEINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Adsl
  */
-class OrgFreedesktopNetworkManagerDeviceAdslInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceAdslInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -43,7 +43,7 @@ public:
     Q_PROPERTY(bool Carrier READ carrier)
     inline bool carrier() const
     {
-        return qvariant_cast< bool >(property("Carrier"));
+        return qvariant_cast<bool>(property("Carrier"));
     }
 
 public Q_SLOTS: // METHODS

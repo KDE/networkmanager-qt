@@ -24,16 +24,15 @@ void BridgeSettingTest::testSetting_data()
     QTest::addColumn<bool>("multicastSnooping");
     QTest::addColumn<QByteArray>("macAddress");
 
-    QTest::newRow("setting1")
-            << QString("eth0")                      // interfaceName
-            << false                                // stp
-            << (quint16) 10                         // priority
-            << (quint16) 5                          // forwardDelay
-            << (quint16) 5                          // helloTime
-            << (quint16) 10                         // maxAge
-            << (quint32) 10000                      // ageintTime
-            << false                                // multicastSnooping
-            << QByteArray("54:EE:75:53:E9:E4");     // macAddress
+    QTest::newRow("setting1") << QString("eth0") // interfaceName
+                              << false // stp
+                              << (quint16)10 // priority
+                              << (quint16)5 // forwardDelay
+                              << (quint16)5 // helloTime
+                              << (quint16)10 // maxAge
+                              << (quint32)10000 // ageintTime
+                              << false // multicastSnooping
+                              << QByteArray("54:EE:75:53:E9:E4"); // macAddress
 }
 
 void BridgeSettingTest::testSetting()

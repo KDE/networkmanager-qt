@@ -11,17 +11,17 @@
 #ifndef BRIDGEDEVICEINTERFACE_H
 #define BRIDGEDEVICEINTERFACE_H
 
-#include <QObject>
+#include "generictypes.h"
 #include <QList>
+#include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Bridge
  */
-class OrgFreedesktopNetworkManagerDeviceBridgeInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceBridgeInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -37,26 +37,29 @@ public:
 #endif
 
 public:
-    OrgFreedesktopNetworkManagerDeviceBridgeInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
+    OrgFreedesktopNetworkManagerDeviceBridgeInterface(const QString &service,
+                                                      const QString &path,
+                                                      const QDBusConnection &connection,
+                                                      QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceBridgeInterface();
 
     Q_PROPERTY(bool Carrier READ carrier)
     inline bool carrier() const
     {
-        return qvariant_cast< bool >(property("Carrier"));
+        return qvariant_cast<bool>(property("Carrier"));
     }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const
     {
-        return qvariant_cast< QString >(property("HwAddress"));
+        return qvariant_cast<QString>(property("HwAddress"));
     }
 
     Q_PROPERTY(QList<QDBusObjectPath> Slaves READ slaves)
     inline QList<QDBusObjectPath> slaves() const
     {
-        return qvariant_cast< QList<QDBusObjectPath> >(property("Slaves"));
+        return qvariant_cast<QList<QDBusObjectPath>>(property("Slaves"));
     }
 
 public Q_SLOTS: // METHODS

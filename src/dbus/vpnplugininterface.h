@@ -11,18 +11,18 @@
 #ifndef VPNPLUGININTERFACE_H
 #define VPNPLUGININTERFACE_H
 
-#include <QObject>
+#include "generictypes.h"
 #include <QList>
+#include <QObject>
 #include <QString>
 #include <QStringList>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.VPN.Plugin
  */
-class OrgFreedesktopNetworkManagerVPNPluginInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerVPNPluginInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -45,7 +45,7 @@ public:
     Q_PROPERTY(uint State READ state)
     inline uint state() const
     {
-        return qvariant_cast< uint >(property("State"));
+        return qvariant_cast<uint>(property("State"));
     }
 
 public Q_SLOTS: // METHODS

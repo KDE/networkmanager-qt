@@ -11,7 +11,6 @@
 
 namespace NetworkManager
 {
-
 class OvsPatchSettingPrivate
 {
 public:
@@ -25,4 +24,3 @@ public:
 }
 
 #endif // NETWORKMANAGERQT_OVS_PATCH_SETTING_P_H
-

@@ -7,14 +7,13 @@
 #ifndef NETWORKMANAGERQT_VLAN_SETTING_H
 #define NETWORKMANAGERQT_VLAN_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QString>
 
 namespace NetworkManager
 {
-
 class VlanSettingPrivate;
 
 /**
@@ -25,7 +24,12 @@ class NETWORKMANAGERQT_EXPORT VlanSetting : public Setting
 public:
     typedef QSharedPointer<VlanSetting> Ptr;
     typedef QList<Ptr> List;
-    enum Flag {None = 0, ReorderHeaders = 0x1, Gvrp = 0x2, LooseBinding = 0x4,};
+    enum Flag {
+        None = 0,
+        ReorderHeaders = 0x1,
+        Gvrp = 0x2,
+        LooseBinding = 0x4,
+    };
     Q_DECLARE_FLAGS(Flags, Flag)
 
     VlanSetting();

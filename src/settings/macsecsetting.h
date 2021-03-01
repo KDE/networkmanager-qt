@@ -7,12 +7,11 @@
 #ifndef NETWORKMANAGERQT_MACSECSETTING_H
 #define NETWORKMANAGERQT_MACSECSETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 namespace NetworkManager
 {
-
 class MacsecSettingPrivate;
 
 /**
@@ -24,9 +23,16 @@ public:
     typedef QSharedPointer<MacsecSetting> Ptr;
     typedef QList<Ptr> List;
 
-    enum Mode {Psk, Eap,};
+    enum Mode {
+        Psk,
+        Eap,
+    };
 
-    enum Validation {Disable, Check, Strict,};
+    enum Validation {
+        Disable,
+        Check,
+        Strict,
+    };
 
     MacsecSetting();
     explicit MacsecSetting(const Ptr &other);
@@ -83,4 +89,3 @@ NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const MacsecSetting &setti
 }
 
 #endif // NETWORKMANAGERQT_MACSECSETTING_H
-

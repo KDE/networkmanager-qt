@@ -12,17 +12,17 @@
 #if !NM_CHECK_VERSION(1, 16, 0)
 #define NM_SETTING_WIREGUARD_SETTING_NAME "wireguard"
 
-#define NM_SETTING_WIREGUARD_FWMARK            "fwmark"
-#define NM_SETTING_WIREGUARD_LISTEN_PORT       "listen-port"
-#define NM_SETTING_WIREGUARD_PRIVATE_KEY       "private-key"
+#define NM_SETTING_WIREGUARD_FWMARK "fwmark"
+#define NM_SETTING_WIREGUARD_LISTEN_PORT "listen-port"
+#define NM_SETTING_WIREGUARD_PRIVATE_KEY "private-key"
 #define NM_SETTING_WIREGUARD_PRIVATE_KEY_FLAGS "private-key-flags"
-#define NM_SETTING_WIREGUARD_PEERS             "peers"
-#define NM_SETTING_WIREGUARD_MTU               "mtu"
-#define NM_SETTING_WIREGUARD_PEER_ROUTES       "peer-routes"
+#define NM_SETTING_WIREGUARD_PEERS "peers"
+#define NM_SETTING_WIREGUARD_MTU "mtu"
+#define NM_SETTING_WIREGUARD_PEER_ROUTES "peer-routes"
 
-#define NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY        "preshared-key"
-#define NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS  "preshared-key-flags"
-#define NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY           "public-key"
+#define NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY "preshared-key"
+#define NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS "preshared-key-flags"
+#define NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY "public-key"
 #endif
 
 NetworkManager::WireGuardSettingPrivate::WireGuardSettingPrivate()
@@ -32,12 +32,14 @@ NetworkManager::WireGuardSettingPrivate::WireGuardSettingPrivate()
     , mtu(0)
     , peerRoutes(true)
     , privateKeyFlags(NetworkManager::Setting::None)
-{ }
+{
+}
 
 NetworkManager::WireGuardSetting::WireGuardSetting()
     : Setting(Setting::WireGuard)
     , d_ptr(new WireGuardSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::WireGuardSetting::WireGuardSetting(const Ptr &other)
     : Setting(other)
@@ -97,7 +99,6 @@ quint32 NetworkManager::WireGuardSetting::mtu() const
     Q_D(const WireGuardSetting);
 
     return d->mtu;
-
 }
 
 void NetworkManager::WireGuardSetting::setMtu(quint32 mtu)
@@ -260,9 +261,10 @@ NMStringMap NetworkManager::WireGuardSetting::secretsToStringMap() const
             NMVariantMapList listOfPeers = qdbus_cast<NMVariantMapList>(it.value());
 
             for (const QVariantMap &map : listOfPeers) {
-                const QString str = QStringLiteral("%1.%2.%3").arg(QLatin1String(NM_SETTING_WIREGUARD_PEERS))
-                                                              .arg(map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY)).toString())
-                                                              .arg(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY));
+                const QString str = QStringLiteral("%1.%2.%3")
+                                        .arg(QLatin1String(NM_SETTING_WIREGUARD_PEERS))
+                                        .arg(map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY)).toString())
+                                        .arg(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY));
                 ret.insert(str, map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY)).toString());
             }
         }
@@ -284,7 +286,7 @@ QStringList NetworkManager::WireGuardSetting::needSecrets(bool requestNew) const
 
     for (const QVariantMap &map : peers()) {
         const QString presharedKey = map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY)).toString();
-        SecretFlags preSharedKeyFlags = (SecretFlags) map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS)).toInt();
+        SecretFlags preSharedKeyFlags = (SecretFlags)map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS)).toInt();
 
         if (!presharedKey.isEmpty()) {
             continue;
@@ -294,9 +296,10 @@ QStringList NetworkManager::WireGuardSetting::needSecrets(bool requestNew) const
             continue;
         }
 
-        const QString str = QStringLiteral("%1.%2.%3").arg(QLatin1String(NM_SETTING_WIREGUARD_PEERS))
-                                                      .arg(map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY)).toString())
-                                                      .arg(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY));
+        const QString str = QStringLiteral("%1.%2.%3")
+                                .arg(QLatin1String(NM_SETTING_WIREGUARD_PEERS))
+                                .arg(map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY)).toString())
+                                .arg(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY));
         secrets << str;
     }
 
@@ -350,7 +353,8 @@ QVariantMap NetworkManager::WireGuardSetting::toMap() const
         NMVariantMapList fixedPeers = peers();
         for (QVariantMap &map : fixedPeers) {
             if (map.contains(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS))) {
-                map.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS), map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS)).toUInt());
+                map.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS),
+                           map.value(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS)).toUInt());
             }
         }
 
@@ -365,7 +369,7 @@ QVariantMap NetworkManager::WireGuardSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WireGuardSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::WireGuardSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

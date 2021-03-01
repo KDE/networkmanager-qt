@@ -9,8 +9,8 @@
 #include "activeconnection.h"
 #include "activeconnection_p.h"
 #include "device.h"
-#include "nmdebug.h"
 #include "manager.h"
+#include "nmdebug.h"
 #include "settings.h"
 
 #include <QDBusObjectPath>
@@ -46,7 +46,8 @@ NetworkManager::ActiveConnection::Reason NetworkManager::ActiveConnectionPrivate
 }
 
 NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject *parent)
-    : QObject(parent), d_ptr(new ActiveConnectionPrivate(path, this))
+    : QObject(parent)
+    , d_ptr(new ActiveConnectionPrivate(path, this))
 {
     Q_D(ActiveConnection);
 
@@ -57,10 +58,18 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject 
     }
 
 #ifndef NMQT_STATIC
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, d->iface.staticInterfaceName(),
-                                         QLatin1String("StateChanged"), d, SLOT(stateChanged(uint,uint)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->path,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->path,
+                                         d->iface.staticInterfaceName(),
+                                         QLatin1String("StateChanged"),
+                                         d,
+                                         SLOT(stateChanged(uint, uint)));
 #endif
 
 #ifdef NMQT_STATIC
@@ -78,15 +87,24 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject 
 }
 
 NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, QObject *parent)
-    : QObject(parent), d_ptr(&dd)
+    : QObject(parent)
+    , d_ptr(&dd)
 {
     Q_D(ActiveConnection);
 
 #ifndef NMQT_STATIC
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, d->iface.staticInterfaceName(),
-                                         QLatin1String("StateChanged"), d, SLOT(stateChanged(uint,uint)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->path,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->path,
+                                         d->iface.staticInterfaceName(),
+                                         QLatin1String("StateChanged"),
+                                         d,
+                                         SLOT(stateChanged(uint, uint)));
 #endif
 
 #ifdef NMQT_STATIC
@@ -258,15 +276,15 @@ void NetworkManager::ActiveConnectionPrivate::recheckProperties()
 
     for (const QString &property : qAsConst(properties)) {
         QDBusMessage message = QDBusMessage::createMethodCall(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE,
-                            NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH,
-                            NetworkManager::NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                            QLatin1String("Get"));
+                                                              NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH,
+                                                              NetworkManager::NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                                              QLatin1String("Get"));
         message << iface.staticInterfaceName() << property;
 
         QDBusPendingCall pendingCall = QDBusConnection::systemBus().asyncCall(message);
         QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(pendingCall, this);
 
-        connect(watcher, &QDBusPendingCallWatcher::finished, [watcher, q, this, property] () {
+        connect(watcher, &QDBusPendingCallWatcher::finished, [watcher, q, this, property]() {
             watcher->deleteLater();
             if (property == QLatin1String("State")) {
                 state = NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(iface.state());
@@ -289,7 +307,9 @@ void NetworkManager::ActiveConnectionPrivate::recheckProperties()
     }
 }
 
-void NetworkManager::ActiveConnectionPrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
+void NetworkManager::ActiveConnectionPrivate::dbusPropertiesChanged(const QString &interfaceName,
+                                                                    const QVariantMap &properties,
+                                                                    const QStringList &invalidatedProperties)
 {
     Q_UNUSED(invalidatedProperties);
 
@@ -385,7 +405,7 @@ void NetworkManager::ActiveConnectionPrivate::propertyChanged(const QString &pro
     } else if (property == QLatin1String("Type")) {
         type = value.toString();
         Q_EMIT q->typeChanged(NetworkManager::ConnectionSettings::typeFromString(type));
-    }  else if (property == QLatin1String("Master")) {
+    } else if (property == QLatin1String("Master")) {
         master = qdbus_cast<QDBusObjectPath>(value).path();
         Q_EMIT q->masterChanged(master);
     } else if (property == QLatin1String("SpecificObject")) {
@@ -402,7 +422,7 @@ void NetworkManager::ActiveConnectionPrivate::propertyChanged(const QString &pro
         Q_EMIT q->uuidChanged(uuid);
     } else if (property == QLatin1String("Devices")) {
         devices.clear();
-        const QList<QDBusObjectPath> opList = qdbus_cast< QList<QDBusObjectPath> >(value);
+        const QList<QDBusObjectPath> opList = qdbus_cast<QList<QDBusObjectPath>>(value);
         for (const QDBusObjectPath &path : opList) {
             devices.append(path.path());
         }

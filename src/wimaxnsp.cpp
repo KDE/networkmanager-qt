@@ -5,14 +5,13 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-#include "wimaxnsp_p.h"
 #include "manager_p.h"
-#include "wimaxdevice.h"
 #include "nmdebug.h"
+#include "wimaxdevice.h"
+#include "wimaxnsp_p.h"
 
 namespace NetworkManager
 {
-
 NetworkManager::WimaxNsp::NetworkType convertNetworkType(uint type)
 {
     switch (type) {

@@ -8,12 +8,11 @@
 #ifndef NETWORKMANAGERQT_DHCP6CONFIG_P_H
 #define NETWORKMANAGERQT_DHCP6CONFIG_P_H
 
-#include "dhcp6config.h"
 #include "dbus/dhcp6configinterface.h"
+#include "dhcp6config.h"
 
 namespace NetworkManager
 {
-
 class Dhcp6ConfigPrivate : public QObject
 {
     Q_OBJECT

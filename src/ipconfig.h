@@ -8,9 +8,9 @@
 #ifndef NETWORKMANAGERQT_IPCONFIG_H
 #define NETWORKMANAGERQT_IPCONFIG_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "ipaddress.h"
 #include "iproute.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 // To prevent signals in glib2 be defined by QT
 #undef signals
@@ -21,7 +21,6 @@
 
 namespace NetworkManager
 {
-
 /**
  * This class represents IP configuration
  */
@@ -31,10 +30,7 @@ public:
     /**
      * Constructs an IP config object with a list of @p addresses, @p nameservers, @p domains and @p routes.
      */
-    IpConfig(const IpAddresses &addresses,
-             const QList<QHostAddress> &nameservers,
-             const QStringList &domains,
-             const IpRoutes &routes);
+    IpConfig(const IpAddresses &addresses, const QList<QHostAddress> &nameservers, const QStringList &domains, const IpRoutes &routes);
 
     /**
      * Constructs an empty IpConfig object.

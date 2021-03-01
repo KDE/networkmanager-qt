@@ -7,12 +7,12 @@
 
 #include <QRegularExpression>
 
-#include "utils.h"
 #include "time.h"
+#include "utils.h"
 
 QHostAddress NetworkManager::ipv6AddressAsHostAddress(const QByteArray &address)
 {
-//     Q_ASSERT(address.size() == 16);
+    //     Q_ASSERT(address.size() == 16);
     Q_IPV6ADDR tmp;
     for (int i = 0; i < 16; ++i) {
         tmp[i] = address[i];
@@ -25,7 +25,7 @@ QHostAddress NetworkManager::ipv6AddressAsHostAddress(const QByteArray &address)
 
 QByteArray NetworkManager::ipv6AddressFromHostAddress(const QHostAddress &address)
 {
-//     Q_ASSERT(address.protocol() == QAbstractSocket::IPv6Protocol);
+    //     Q_ASSERT(address.protocol() == QAbstractSocket::IPv6Protocol);
     Q_IPV6ADDR tmp = address.toIPv6Address();
     QByteArray assembledAddress;
     for (int i = 0; i < 16; ++i) {
@@ -49,7 +49,7 @@ QString NetworkManager::macAddressAsString(const QByteArray &ba)
 QByteArray NetworkManager::macAddressFromString(const QString &s)
 {
     const QStringList macStringList = s.split(':');
-//     Q_ASSERT(macStringList.size() == 6);
+    //     Q_ASSERT(macStringList.size() == 6);
     QByteArray ba;
     if (!s.isEmpty()) {
         ba.resize(6);
@@ -80,7 +80,7 @@ int NetworkManager::findChannel(int freq)
     if (freq < 2500) {
         channel = 0;
         int i = 0;
-        QList<QPair<int, int> > bFreqs = getBFreqs();
+        QList<QPair<int, int>> bFreqs = getBFreqs();
         while (i < bFreqs.size()) {
             if (bFreqs.at(i).second <= freq) {
                 channel = bFreqs.at(i).first;
@@ -93,7 +93,7 @@ int NetworkManager::findChannel(int freq)
     }
     channel = 0;
     int i = 0;
-    QList<QPair<int, int> > aFreqs = getAFreqs();
+    QList<QPair<int, int>> aFreqs = getAFreqs();
     while (i < aFreqs.size()) {
         if (aFreqs.at(i).second <= freq) {
             channel = aFreqs.at(i).first;
@@ -115,7 +115,9 @@ NetworkManager::WirelessSetting::FrequencyBand NetworkManager::findFrequencyBand
     return WirelessSetting::A;
 }
 
-bool NetworkManager::deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities interfaceCaps, NetworkManager::AccessPoint::WpaFlags apCiphers, WirelessSecurityType type)
+bool NetworkManager::deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities interfaceCaps,
+                                             NetworkManager::AccessPoint::WpaFlags apCiphers,
+                                             WirelessSecurityType type)
 {
     bool havePair = false;
     bool haveGroup = true;
@@ -156,21 +158,25 @@ bool NetworkManager::deviceSupportsApCiphers(NetworkManager::WirelessDevice::Cap
 }
 
 // Keep this in sync with NetworkManager/libnm-core/nm-utils.c:nm_utils_security_valid()
-bool NetworkManager::securityIsValid(WirelessSecurityType type, NetworkManager::WirelessDevice::Capabilities interfaceCaps, bool haveAp, bool adhoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn)
+bool NetworkManager::securityIsValid(WirelessSecurityType type,
+                                     NetworkManager::WirelessDevice::Capabilities interfaceCaps,
+                                     bool haveAp,
+                                     bool adhoc,
+                                     NetworkManager::AccessPoint::Capabilities apCaps,
+                                     NetworkManager::AccessPoint::WpaFlags apWpa,
+                                     NetworkManager::AccessPoint::WpaFlags apRsn)
 {
     bool good = true;
 
-    //kDebug() << "type(" << type << ") interfaceCaps(" << interfaceCaps << ") haveAp(" << haveAp << ") adhoc(" << adhoc << ") apCaps(" << apCaps << ") apWpa(" << apWpa << " apRsn(" << apRsn << ")";
+    // kDebug() << "type(" << type << ") interfaceCaps(" << interfaceCaps << ") haveAp(" << haveAp << ") adhoc(" << adhoc << ") apCaps(" << apCaps << ") apWpa("
+    // << apWpa << " apRsn(" << apRsn << ")";
 
     if (!haveAp) {
         if (type == NoneSecurity) {
             return true;
         }
-        if ((type == StaticWep)
-                || ((type == DynamicWep) && !adhoc)
-                || ((type == Leap) && !adhoc)) {
-            if (interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wep40) ||
-                    interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wep104)) {
+        if ((type == StaticWep) || ((type == DynamicWep) && !adhoc) || ((type == Leap) && !adhoc)) {
+            if (interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wep40) || interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wep104)) {
                 return true;
             } else {
                 return false;
@@ -181,20 +187,20 @@ bool NetworkManager::securityIsValid(WirelessSecurityType type, NetworkManager::
         // see libs/internals/wirelessinterfaceconnectionhelpers.cpp
 
         // TODO: this is not in nm-utils.c
-//         if (type == Knm::WirelessSecurity::WpaPsk
-//                 || ((type == Knm::WirelessSecurity::WpaEap) && !adhoc)) {
-//             if (interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wpa) &&
-//                 !apCaps.testFlag(NetworkManager::AccessPoint::Privacy)) {
-//                 return true;
-//             }
-//         }
-//         if (type == Knm::WirelessSecurity::Wpa2Psk
-//                 || ((type == Knm::WirelessSecurity::Wpa2Eap) && !adhoc)) {
-//             if (interfaceCaps.testFlag(NetworkManager::WirelessDevice::Rsn) &&
-//                 !apCaps.testFlag(NetworkManager::AccessPoint::Privacy)) {
-//                 return true;
-//             }
-//         }
+        //         if (type == Knm::WirelessSecurity::WpaPsk
+        //                 || ((type == Knm::WirelessSecurity::WpaEap) && !adhoc)) {
+        //             if (interfaceCaps.testFlag(NetworkManager::WirelessDevice::Wpa) &&
+        //                 !apCaps.testFlag(NetworkManager::AccessPoint::Privacy)) {
+        //                 return true;
+        //             }
+        //         }
+        //         if (type == Knm::WirelessSecurity::Wpa2Psk
+        //                 || ((type == Knm::WirelessSecurity::Wpa2Eap) && !adhoc)) {
+        //             if (interfaceCaps.testFlag(NetworkManager::WirelessDevice::Rsn) &&
+        //                 !apCaps.testFlag(NetworkManager::AccessPoint::Privacy)) {
+        //                 return true;
+        //             }
+        //         }
     }
 
     switch (type) {
@@ -252,12 +258,10 @@ bool NetworkManager::securityIsValid(WirelessSecurityType type, NetworkManager::
         }
         if (haveAp) {
             if (apWpa.testFlag(NetworkManager::AccessPoint::KeyMgmtPsk)) {
-                if (apWpa.testFlag(NetworkManager::AccessPoint::PairTkip) &&
-                        interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
+                if (apWpa.testFlag(NetworkManager::AccessPoint::PairTkip) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
                     return true;
                 }
-                if (apWpa.testFlag(NetworkManager::AccessPoint::PairCcmp) &&
-                        interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
+                if (apWpa.testFlag(NetworkManager::AccessPoint::PairCcmp) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
                     return true;
                 }
             }
@@ -273,18 +277,15 @@ bool NetworkManager::securityIsValid(WirelessSecurityType type, NetworkManager::
                 if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::IBSSRsn)) {
                     return false;
                 }
-                if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) &&
-                        interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
+                if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
                     return true;
                 }
             } else {
                 if (apRsn.testFlag(NetworkManager::AccessPoint::KeyMgmtPsk)) {
-                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairTkip) &&
-                            interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
+                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairTkip) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
                         return true;
                     }
-                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) &&
-                            interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
+                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
                         return true;
                     }
                 }
@@ -335,18 +336,15 @@ bool NetworkManager::securityIsValid(WirelessSecurityType type, NetworkManager::
                 if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::IBSSRsn)) {
                     return false;
                 }
-                if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) &&
-                        interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
+                if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
                     return true;
                 }
             } else {
                 if (apRsn.testFlag(NetworkManager::AccessPoint::KeyMgmtSAE)) {
-                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairTkip) &&
-                            interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
+                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairTkip) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Tkip)) {
                         return true;
                     }
-                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) &&
-                            interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
+                    if (apRsn.testFlag(NetworkManager::AccessPoint::PairCcmp) && interfaceCaps.testFlag(NetworkManager::WirelessDevice::Ccmp)) {
                         return true;
                     }
                 }
@@ -362,17 +360,26 @@ bool NetworkManager::securityIsValid(WirelessSecurityType type, NetworkManager::
     return good;
 }
 
-NetworkManager::WirelessSecurityType NetworkManager::findBestWirelessSecurity(NetworkManager::WirelessDevice::Capabilities interfaceCaps, bool haveAp, bool adHoc, NetworkManager::AccessPoint::Capabilities apCaps, NetworkManager::AccessPoint::WpaFlags apWpa, NetworkManager::AccessPoint::WpaFlags apRsn)
+NetworkManager::WirelessSecurityType NetworkManager::findBestWirelessSecurity(NetworkManager::WirelessDevice::Capabilities interfaceCaps,
+                                                                              bool haveAp,
+                                                                              bool adHoc,
+                                                                              NetworkManager::AccessPoint::Capabilities apCaps,
+                                                                              NetworkManager::AccessPoint::WpaFlags apWpa,
+                                                                              NetworkManager::AccessPoint::WpaFlags apRsn)
 {
     // The ordering of this list is a pragmatic combination of security level and popularity.
     // Therefore static WEP is before LEAP and Dynamic WEP because there is no way to detect
     // if an AP is capable of Dynamic WEP and showing Dynamic WEP first would confuse
     // Static WEP users.
-    const QList<NetworkManager::WirelessSecurityType> types = { NetworkManager::SAE, NetworkManager::Wpa2Eap,
-                                                                NetworkManager::Wpa2Psk, NetworkManager::WpaEap,
-                                                                NetworkManager::WpaPsk, NetworkManager::StaticWep,
-                                                                NetworkManager::DynamicWep, NetworkManager::Leap,
-                                                                NetworkManager::NoneSecurity };
+    const QList<NetworkManager::WirelessSecurityType> types = {NetworkManager::SAE,
+                                                               NetworkManager::Wpa2Eap,
+                                                               NetworkManager::Wpa2Psk,
+                                                               NetworkManager::WpaEap,
+                                                               NetworkManager::WpaPsk,
+                                                               NetworkManager::StaticWep,
+                                                               NetworkManager::DynamicWep,
+                                                               NetworkManager::Leap,
+                                                               NetworkManager::NoneSecurity};
 
     for (NetworkManager::WirelessSecurityType type : types) {
         if (NetworkManager::securityIsValid(type, interfaceCaps, haveAp, adHoc, apCaps, apWpa, apRsn)) {
@@ -475,9 +482,9 @@ NetworkManager::WirelessSecurityType NetworkManager::securityTypeFromConnectionS
     return NoneSecurity;
 }
 
-QList<QPair<int, int> > NetworkManager::getBFreqs()
+QList<QPair<int, int>> NetworkManager::getBFreqs()
 {
-    QList<QPair<int, int> > freqs;
+    QList<QPair<int, int>> freqs;
 
     freqs.append(QPair<int, int>(1, 2412));
     freqs.append(QPair<int, int>(2, 2417));
@@ -497,9 +504,9 @@ QList<QPair<int, int> > NetworkManager::getBFreqs()
     return freqs;
 }
 
-QList<QPair<int, int> > NetworkManager::getAFreqs()
+QList<QPair<int, int>> NetworkManager::getAFreqs()
 {
-    QList<QPair<int, int> > freqs;
+    QList<QPair<int, int>> freqs;
 
     freqs.append(QPair<int, int>(7, 5035));
     freqs.append(QPair<int, int>(8, 5040));
@@ -547,8 +554,8 @@ QList<QPair<int, int> > NetworkManager::getAFreqs()
     return freqs;
 }
 
-QDateTime NetworkManager::clockBootTimeToDateTime(qlonglong clockBootime) {
-
+QDateTime NetworkManager::clockBootTimeToDateTime(qlonglong clockBootime)
+{
     clockid_t clk_id = CLOCK_BOOTTIME;
     struct timespec tp;
     int r;
@@ -556,10 +563,10 @@ QDateTime NetworkManager::clockBootTimeToDateTime(qlonglong clockBootime) {
     // now is used as a point of reference
     // with the timespec that contains the number of msec since boot
     QDateTime now = QDateTime::currentDateTime();
-    r = clock_gettime (clk_id, &tp);
+    r = clock_gettime(clk_id, &tp);
     if (r == -1 && errno == EINVAL) {
         clk_id = CLOCK_MONOTONIC;
-        r = clock_gettime (clk_id, &tp);
+        r = clock_gettime(clk_id, &tp);
     }
 
     // convert to msecs

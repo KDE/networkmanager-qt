@@ -11,17 +11,17 @@
 #ifndef PPPINTERFACE_H
 #define PPPINTERFACE_H
 
-#include <QObject>
+#include "generictypes.h"
 #include <QList>
+#include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.PPP
  */
-class OrgFreedesktopNetworkManagerPPPInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerPPPInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:

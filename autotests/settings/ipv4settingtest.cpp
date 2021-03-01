@@ -46,14 +46,14 @@ void IPv4SettingTest::testSetting_data()
     dnsSearch << "foo.com";
     dnsSearch << "foo.bar";
 
-    QList<QList<uint> > addresses;
+    QList<QList<uint>> addresses;
     QList<uint> addr;
     addr << inet_addr("192.168.1.1");
     addr << 25;
     addr << 0;
     addresses << addr;
 
-    QList<QList<uint> > routes;
+    QList<QList<uint>> routes;
     QList<uint> routeAddr;
     routeAddr << inet_addr("192.168.1.1");
     routeAddr << 25;
@@ -81,27 +81,26 @@ void IPv4SettingTest::testSetting_data()
     routeMap["prefix"] = 25;
     routeData.append(routeMap);
 
-    QTest::newRow("setting1")
-            << QString("auto")       // method
-            << dns                   // dns
-            << dnsSearch             // dnsSearch
-            << addresses             // addresses
-            << routes                // routes
-            << 100                   // routeMetric
-            << true                  // ignoreAutoRoutes
-            << true                  // ignoreAutoDns
-            << QString("home-test")  // dhcpClientId
-            << false                 // dhcpSendHostname
-            << QString("home-test")  // dhcpHostname
-            << true                  // neverDefault
-            << false                 // mayFail
-            << 100                   // dadTimeout
-            << QString("foo.com")    // dhcpFqdn
-            << dnsOptions            // dnsOptions
-            << 100                   // dnsPriority
-            << QString("1.1.1.1")    // gateway
-            << addressData           // addressData
-            << routeData;            // routeData
+    QTest::newRow("setting1") << QString("auto") // method
+                              << dns // dns
+                              << dnsSearch // dnsSearch
+                              << addresses // addresses
+                              << routes // routes
+                              << 100 // routeMetric
+                              << true // ignoreAutoRoutes
+                              << true // ignoreAutoDns
+                              << QString("home-test") // dhcpClientId
+                              << false // dhcpSendHostname
+                              << QString("home-test") // dhcpHostname
+                              << true // neverDefault
+                              << false // mayFail
+                              << 100 // dadTimeout
+                              << QString("foo.com") // dhcpFqdn
+                              << dnsOptions // dnsOptions
+                              << 100 // dnsPriority
+                              << QString("1.1.1.1") // gateway
+                              << addressData // addressData
+                              << routeData; // routeData
 }
 
 void IPv4SettingTest::testSetting()
@@ -158,18 +157,15 @@ void IPv4SettingTest::testSetting()
     // Will fail if set some default values, because they are skipped in toMap() method
     QVariantMap::const_iterator it = map.constBegin();
     while (it != map.constEnd()) {
-        if (it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS) &&
-                it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES) &&
-                it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES) &&
-                it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESS_DATA) &&
-                it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_DATA)) {
+        if (it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS) && it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)
+            && it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES) && it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESS_DATA)
+            && it.key() != QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_DATA)) {
             QCOMPARE(it.value(), map1.value(it.key()));
         }
         ++it;
     }
 
-    QCOMPARE(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<UIntList>(),
-             map1.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<UIntList>());
+    QCOMPARE(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<UIntList>(), map1.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<UIntList>());
     QCOMPARE(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).value<UIntListList>(),
              map1.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).value<UIntListList>());
     QCOMPARE(map.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).value<UIntListList>(),

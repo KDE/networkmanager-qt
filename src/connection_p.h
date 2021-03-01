@@ -10,16 +10,15 @@
 #define NETWORKMANAGERQT_SETTINGS_CONNECTION_P_H
 
 #include "connection.h"
-#include "device.h"
-#include "manager_p.h"
 #include "connectioninterface.h"
+#include "device.h"
 #include "generictypes.h"
+#include "manager_p.h"
 
 class QDBusPendingCallWatcher;
 
 namespace NetworkManager
 {
-
 class ConnectionPrivate : public QObject
 {
     Q_OBJECT

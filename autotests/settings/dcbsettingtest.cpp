@@ -37,22 +37,21 @@ void DcbSettingTest::testSetting_data()
     UIntList priorityStrictBandwidth = {1, 1, 1, 1, 1, 1, 1, 1};
     UIntList priorityTrafficClass = {6, 5, 6, 4, 6, 3, 6, 2};
 
-    QTest::newRow("setting1")
-            << QString("vn2vn")         // appFcoeMode
-            << (qint32)2                // appFcoePriority
-            << (qint32)2                // appFipPriority
-            << (qint32)2                // appIscsiPriority
-            << (qint32)2                // appFcoeFlags
-            << (qint32)2                // appFipFlags
-            << (qint32)2                // appIscsiFlags
-            << (qint32)2                // priorityGroupFlags
-            << (qint32)2                // priorityFlowControlFlags
-            << priorityFlowControl      // priorityFlowControl
-            << priorityBandwidth        // priorityBandwidth
-            << priorityGroupBandwidth   // priorityGroupBandwidth
-            << priorityGroupId          // priorityGroupId
-            << priorityStrictBandwidth  // priorityStrictBandwidth
-            << priorityTrafficClass;    // priorityTrafficClass
+    QTest::newRow("setting1") << QString("vn2vn") // appFcoeMode
+                              << (qint32)2 // appFcoePriority
+                              << (qint32)2 // appFipPriority
+                              << (qint32)2 // appIscsiPriority
+                              << (qint32)2 // appFcoeFlags
+                              << (qint32)2 // appFipFlags
+                              << (qint32)2 // appIscsiFlags
+                              << (qint32)2 // priorityGroupFlags
+                              << (qint32)2 // priorityFlowControlFlags
+                              << priorityFlowControl // priorityFlowControl
+                              << priorityBandwidth // priorityBandwidth
+                              << priorityGroupBandwidth // priorityGroupBandwidth
+                              << priorityGroupId // priorityGroupId
+                              << priorityStrictBandwidth // priorityStrictBandwidth
+                              << priorityTrafficClass; // priorityTrafficClass
 }
 
 void DcbSettingTest::testSetting()
@@ -101,13 +100,9 @@ void DcbSettingTest::testSetting()
     // Will fail if set some default values, because they are skipped in toMap() method
     QVariantMap::const_iterator it = map.constBegin();
     while (it != map.constEnd()) {
-        if (it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_FLOW_CONTROL) &&
-            it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_BANDWIDTH) &&
-            it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_GROUP_BANDWIDTH) &&
-            it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_GROUP_ID) &&
-            it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_STRICT_BANDWIDTH) &&
-            it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_TRAFFIC_CLASS))
-        {
+        if (it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_FLOW_CONTROL) && it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_BANDWIDTH)
+            && it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_GROUP_BANDWIDTH) && it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_GROUP_ID)
+            && it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_STRICT_BANDWIDTH) && it.key() != QLatin1String(NM_SETTING_DCB_PRIORITY_TRAFFIC_CLASS)) {
             QCOMPARE(it.value(), map1.value(it.key()));
         }
         ++it;

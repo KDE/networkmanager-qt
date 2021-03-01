@@ -12,7 +12,6 @@
 
 namespace NetworkManager
 {
-
 class WimaxDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
@@ -44,4 +43,3 @@ protected:
 }
 
 #endif
-

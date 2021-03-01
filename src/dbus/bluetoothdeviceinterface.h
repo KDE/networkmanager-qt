@@ -11,16 +11,16 @@
 #ifndef BLUETOOTHDEVICEINTERFACE_H
 #define BLUETOOTHDEVICEINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Bluetooth
  */
-class OrgFreedesktopNetworkManagerDeviceBluetoothInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceBluetoothInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -36,26 +36,29 @@ public:
 #endif
 
 public:
-    OrgFreedesktopNetworkManagerDeviceBluetoothInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
+    OrgFreedesktopNetworkManagerDeviceBluetoothInterface(const QString &service,
+                                                         const QString &path,
+                                                         const QDBusConnection &connection,
+                                                         QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceBluetoothInterface();
 
     Q_PROPERTY(uint BtCapabilities READ btCapabilities)
     inline uint btCapabilities() const
     {
-        return qvariant_cast< uint >(property("BtCapabilities"));
+        return qvariant_cast<uint>(property("BtCapabilities"));
     }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const
     {
-        return qvariant_cast< QString >(property("HwAddress"));
+        return qvariant_cast<QString>(property("HwAddress"));
     }
 
     Q_PROPERTY(QString Name READ name)
     inline QString name() const
     {
-        return qvariant_cast< QString >(property("Name"));
+        return qvariant_cast<QString>(property("Name"));
     }
 
 public Q_SLOTS: // METHODS

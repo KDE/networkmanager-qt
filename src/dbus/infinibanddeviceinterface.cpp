@@ -15,7 +15,10 @@
  * Implementation of interface class OrgFreedesktopNetworkManagerDeviceInfinibandInterface
  */
 
-OrgFreedesktopNetworkManagerDeviceInfinibandInterface::OrgFreedesktopNetworkManagerDeviceInfinibandInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+OrgFreedesktopNetworkManagerDeviceInfinibandInterface::OrgFreedesktopNetworkManagerDeviceInfinibandInterface(const QString &service,
+                                                                                                             const QString &path,
+                                                                                                             const QDBusConnection &connection,
+                                                                                                             QObject *parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 }
@@ -23,4 +26,3 @@ OrgFreedesktopNetworkManagerDeviceInfinibandInterface::OrgFreedesktopNetworkMana
 OrgFreedesktopNetworkManagerDeviceInfinibandInterface::~OrgFreedesktopNetworkManagerDeviceInfinibandInterface()
 {
 }
-

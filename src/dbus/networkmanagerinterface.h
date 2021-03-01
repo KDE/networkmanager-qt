@@ -11,17 +11,17 @@
 #ifndef NETWORKMANAGERINTERFACE_H
 #define NETWORKMANAGERINTERFACE_H
 
-#include <QObject>
+#include "generictypes.h"
 #include <QList>
+#include <QObject>
 #include <QString>
 #include <QVariant>
-#include "generictypes.h"
 #include <QtDBus>
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager
  */
-class OrgFreedesktopNetworkManagerInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -44,43 +44,43 @@ public:
     Q_PROPERTY(QDBusObjectPath ActivatingConnection READ activatingConnection)
     inline QDBusObjectPath activatingConnection() const
     {
-        return qvariant_cast< QDBusObjectPath >(property("ActivatingConnection"));
+        return qvariant_cast<QDBusObjectPath>(property("ActivatingConnection"));
     }
 
     Q_PROPERTY(QList<QDBusObjectPath> ActiveConnections READ activeConnections)
     inline QList<QDBusObjectPath> activeConnections() const
     {
-        return qvariant_cast< QList<QDBusObjectPath> >(property("ActiveConnections"));
+        return qvariant_cast<QList<QDBusObjectPath>>(property("ActiveConnections"));
     }
 
     Q_PROPERTY(QList<QDBusObjectPath> AllDevices READ allDevices)
     inline QList<QDBusObjectPath> allDevices() const
     {
-        return qvariant_cast< QList<QDBusObjectPath> >(property("AllDevices"));
+        return qvariant_cast<QList<QDBusObjectPath>>(property("AllDevices"));
     }
 
     Q_PROPERTY(UIntList Capabilities READ capabilities)
     inline UIntList capabilities() const
     {
-        return qvariant_cast< UIntList >(property("Capabilities"));
+        return qvariant_cast<UIntList>(property("Capabilities"));
     }
 
     Q_PROPERTY(uint Connectivity READ connectivity)
     inline uint connectivity() const
     {
-        return qvariant_cast< uint >(property("Connectivity"));
+        return qvariant_cast<uint>(property("Connectivity"));
     }
 
     Q_PROPERTY(QList<QDBusObjectPath> Devices READ devices)
     inline QList<QDBusObjectPath> devices() const
     {
-        return qvariant_cast< QList<QDBusObjectPath> >(property("Devices"));
+        return qvariant_cast<QList<QDBusObjectPath>>(property("Devices"));
     }
 
     Q_PROPERTY(QVariantMap GlobalDnsConfiguration READ globalDnsConfiguration WRITE setGlobalDnsConfiguration)
     inline QVariantMap globalDnsConfiguration() const
     {
-        return qvariant_cast< QVariantMap >(property("GlobalDnsConfiguration"));
+        return qvariant_cast<QVariantMap>(property("GlobalDnsConfiguration"));
     }
     inline void setGlobalDnsConfiguration(QVariantMap value)
     {
@@ -90,49 +90,49 @@ public:
     Q_PROPERTY(uint Metered READ metered)
     inline uint metered() const
     {
-        return qvariant_cast< uint >(property("Metered"));
+        return qvariant_cast<uint>(property("Metered"));
     }
 
     Q_PROPERTY(bool NetworkingEnabled READ networkingEnabled)
     inline bool networkingEnabled() const
     {
-        return qvariant_cast< bool >(property("NetworkingEnabled"));
+        return qvariant_cast<bool>(property("NetworkingEnabled"));
     }
 
     Q_PROPERTY(QDBusObjectPath PrimaryConnection READ primaryConnection)
     inline QDBusObjectPath primaryConnection() const
     {
-        return qvariant_cast< QDBusObjectPath >(property("PrimaryConnection"));
+        return qvariant_cast<QDBusObjectPath>(property("PrimaryConnection"));
     }
 
     Q_PROPERTY(QString PrimaryConnectionType READ primaryConnectionType)
     inline QString primaryConnectionType() const
     {
-        return qvariant_cast< QString >(property("PrimaryConnectionType"));
+        return qvariant_cast<QString>(property("PrimaryConnectionType"));
     }
 
     Q_PROPERTY(bool Startup READ startup)
     inline bool startup() const
     {
-        return qvariant_cast< bool >(property("Startup"));
+        return qvariant_cast<bool>(property("Startup"));
     }
 
     Q_PROPERTY(uint State READ state)
     inline uint state() const
     {
-        return qvariant_cast< uint >(property("State"));
+        return qvariant_cast<uint>(property("State"));
     }
 
     Q_PROPERTY(QString Version READ version)
     inline QString version() const
     {
-        return qvariant_cast< QString >(property("Version"));
+        return qvariant_cast<QString>(property("Version"));
     }
 
     Q_PROPERTY(bool WimaxEnabled READ wimaxEnabled WRITE setWimaxEnabled)
     inline bool wimaxEnabled() const
     {
-        return qvariant_cast< bool >(property("WimaxEnabled"));
+        return qvariant_cast<bool>(property("WimaxEnabled"));
     }
     inline void setWimaxEnabled(bool value)
     {
@@ -142,13 +142,13 @@ public:
     Q_PROPERTY(bool WimaxHardwareEnabled READ wimaxHardwareEnabled)
     inline bool wimaxHardwareEnabled() const
     {
-        return qvariant_cast< bool >(property("WimaxHardwareEnabled"));
+        return qvariant_cast<bool>(property("WimaxHardwareEnabled"));
     }
 
     Q_PROPERTY(bool WirelessEnabled READ wirelessEnabled WRITE setWirelessEnabled)
     inline bool wirelessEnabled() const
     {
-        return qvariant_cast< bool >(property("WirelessEnabled"));
+        return qvariant_cast<bool>(property("WirelessEnabled"));
     }
     inline void setWirelessEnabled(bool value)
     {
@@ -158,13 +158,13 @@ public:
     Q_PROPERTY(bool WirelessHardwareEnabled READ wirelessHardwareEnabled)
     inline bool wirelessHardwareEnabled() const
     {
-        return qvariant_cast< bool >(property("WirelessHardwareEnabled"));
+        return qvariant_cast<bool>(property("WirelessHardwareEnabled"));
     }
 
     Q_PROPERTY(bool WwanEnabled READ wwanEnabled WRITE setWwanEnabled)
     inline bool wwanEnabled() const
     {
-        return qvariant_cast< bool >(property("WwanEnabled"));
+        return qvariant_cast<bool>(property("WwanEnabled"));
     }
     inline void setWwanEnabled(bool value)
     {
@@ -174,25 +174,28 @@ public:
     Q_PROPERTY(bool WwanHardwareEnabled READ wwanHardwareEnabled)
     inline bool wwanHardwareEnabled() const
     {
-        return qvariant_cast< bool >(property("WwanHardwareEnabled"));
+        return qvariant_cast<bool>(property("WwanHardwareEnabled"));
     }
 
 public Q_SLOTS: // METHODS
-    inline QDBusPendingReply<QDBusObjectPath> ActivateConnection(const QDBusObjectPath &connection, const QDBusObjectPath &device, const QDBusObjectPath &specific_object)
+    inline QDBusPendingReply<QDBusObjectPath>
+    ActivateConnection(const QDBusObjectPath &connection, const QDBusObjectPath &device, const QDBusObjectPath &specific_object)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(connection) << QVariant::fromValue(device) << QVariant::fromValue(specific_object);
         return asyncCallWithArgumentList(QStringLiteral("ActivateConnection"), argumentList);
     }
 
-    inline QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> AddAndActivateConnection(NMVariantMapMap connection, const QDBusObjectPath &device, const QDBusObjectPath &specific_object)
+    inline QDBusPendingReply<QDBusObjectPath, QDBusObjectPath>
+    AddAndActivateConnection(NMVariantMapMap connection, const QDBusObjectPath &device, const QDBusObjectPath &specific_object)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(connection) << QVariant::fromValue(device) << QVariant::fromValue(specific_object);
         return asyncCallWithArgumentList(QStringLiteral("AddAndActivateConnection"), argumentList);
     }
 
-    inline QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap> AddAndActivateConnection2(NMVariantMapMap connection, const QDBusObjectPath &device, const QDBusObjectPath &specific_object, const QVariantMap &options)
+    inline QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap>
+    AddAndActivateConnection2(NMVariantMapMap connection, const QDBusObjectPath &device, const QDBusObjectPath &specific_object, const QVariantMap &options)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(connection) << QVariant::fromValue(device) << QVariant::fromValue(specific_object) << QVariant::fromValue(options);
@@ -233,7 +236,7 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("Enable"), argumentList);
     }
 
-    inline QDBusPendingReply<QList<QDBusObjectPath> > GetAllDevices()
+    inline QDBusPendingReply<QList<QDBusObjectPath>> GetAllDevices()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("GetAllDevices"), argumentList);
@@ -246,7 +249,7 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("GetDeviceByIpIface"), argumentList);
     }
 
-    inline QDBusPendingReply<QList<QDBusObjectPath> > GetDevices()
+    inline QDBusPendingReply<QList<QDBusObjectPath>> GetDevices()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("GetDevices"), argumentList);

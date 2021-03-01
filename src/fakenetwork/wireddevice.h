@@ -11,8 +11,8 @@
 
 #include <QDBusObjectPath>
 
-#include "../generictypes.h"
 #include "../device.h"
+#include "../generictypes.h"
 
 #include "device.h"
 

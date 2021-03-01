@@ -10,13 +10,13 @@
 #include <QDebug>
 
 #if !NM_CHECK_VERSION(1, 10, 0)
-#define NM_SETTING_OVS_PORT_SETTING_NAME        "ovs-port"
-#define NM_SETTING_OVS_PORT_VLAN_MODE           "vlan-mode"
-#define NM_SETTING_OVS_PORT_TAG                 "tag"
-#define NM_SETTING_OVS_PORT_LACP                "lacp"
-#define NM_SETTING_OVS_PORT_BOND_MODE           "bond-mode"
-#define NM_SETTING_OVS_PORT_BOND_UPDELAY        "bond-updelay"
-#define NM_SETTING_OVS_PORT_BOND_DOWNDELAY      "bond-downdelay"
+#define NM_SETTING_OVS_PORT_SETTING_NAME "ovs-port"
+#define NM_SETTING_OVS_PORT_VLAN_MODE "vlan-mode"
+#define NM_SETTING_OVS_PORT_TAG "tag"
+#define NM_SETTING_OVS_PORT_LACP "lacp"
+#define NM_SETTING_OVS_PORT_BOND_MODE "bond-mode"
+#define NM_SETTING_OVS_PORT_BOND_UPDELAY "bond-updelay"
+#define NM_SETTING_OVS_PORT_BOND_DOWNDELAY "bond-downdelay"
 #endif
 
 NetworkManager::OvsPortSettingPrivate::OvsPortSettingPrivate()
@@ -24,12 +24,14 @@ NetworkManager::OvsPortSettingPrivate::OvsPortSettingPrivate()
     , bondDowndelay(0)
     , bondUpdelay(0)
     , tag(0)
-{ }
+{
+}
 
 NetworkManager::OvsPortSetting::OvsPortSetting()
     : Setting(Setting::OvsPort)
     , d_ptr(new OvsPortSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::OvsPortSetting::OvsPortSetting(const Ptr &other)
     : Setting(other)
@@ -197,7 +199,7 @@ QVariantMap NetworkManager::OvsPortSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::OvsPortSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::OvsPortSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

@@ -11,16 +11,16 @@
 #ifndef VLANDEVICEINTERFACE_H
 #define VLANDEVICEINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Vlan
  */
-class OrgFreedesktopNetworkManagerDeviceVlanInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceVlanInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -43,25 +43,25 @@ public:
     Q_PROPERTY(bool Carrier READ carrier)
     inline bool carrier() const
     {
-        return qvariant_cast< bool >(property("Carrier"));
+        return qvariant_cast<bool>(property("Carrier"));
     }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const
     {
-        return qvariant_cast< QString >(property("HwAddress"));
+        return qvariant_cast<QString>(property("HwAddress"));
     }
 
     Q_PROPERTY(QDBusObjectPath Parent READ parent)
     inline QDBusObjectPath parent() const
     {
-        return qvariant_cast< QDBusObjectPath >(property("Parent"));
+        return qvariant_cast<QDBusObjectPath>(property("Parent"));
     }
 
     Q_PROPERTY(uint VlanId READ vlanId)
     inline uint vlanId() const
     {
-        return qvariant_cast< uint >(property("VlanId"));
+        return qvariant_cast<uint>(property("VlanId"));
     }
 
 public Q_SLOTS: // METHODS

@@ -7,14 +7,13 @@
 #ifndef NETWORKMANAGERQT_VETH_DEVICE_P_H
 #define NETWORKMANAGERQT_VETH_DEVICE_P_H
 
-#include "vethdevice.h"
 #include "device_p.h"
+#include "vethdevice.h"
 
 #include "vethdeviceinterface.h"
 
 namespace NetworkManager
 {
-
 class VethDevicePrivate : public DevicePrivate
 {
     Q_OBJECT

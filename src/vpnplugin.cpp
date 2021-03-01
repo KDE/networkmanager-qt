@@ -28,23 +28,19 @@ NetworkManager::VpnPluginPrivate::VpnPluginPrivate(const QString &path)
 }
 
 NetworkManager::VpnPlugin::VpnPlugin(const QString &path, QObject *parent)
-    : QObject(parent), d_ptr(new VpnPluginPrivate(path))
+    : QObject(parent)
+    , d_ptr(new VpnPluginPrivate(path))
 {
     Q_D(VpnPlugin);
     d->state = (NetworkManager::VpnConnection::State)d->iface.state();
 
-    QObject::connect(&d->iface, SIGNAL(Config(QVariantMap)),
-                     this, SLOT(setConfig(QVariantMap)));
-    QObject::connect(&d->iface, SIGNAL(Failure(uint)),
-                     this, SLOT(setFailure(QString)));
-    QObject::connect(&d->iface, SIGNAL(Ip4Config(QVariantMap)),
-                     this, SLOT(setIp4Config(QVariantMap)));
-    QObject::connect(&d->iface, SIGNAL(Ip6Config(QVariantMap)),
-                     this, SLOT(setIp6Config(QVariantMap)));
-    //QObject::connect(&d->iface, SIGNAL(LoginBanner(QString)),
+    QObject::connect(&d->iface, SIGNAL(Config(QVariantMap)), this, SLOT(setConfig(QVariantMap)));
+    QObject::connect(&d->iface, SIGNAL(Failure(uint)), this, SLOT(setFailure(QString)));
+    QObject::connect(&d->iface, SIGNAL(Ip4Config(QVariantMap)), this, SLOT(setIp4Config(QVariantMap)));
+    QObject::connect(&d->iface, SIGNAL(Ip6Config(QVariantMap)), this, SLOT(setIp6Config(QVariantMap)));
+    // QObject::connect(&d->iface, SIGNAL(LoginBanner(QString)),
     //        this, SLOT(onLoginBanner(QString)));
-    QObject::connect(&d->iface, SIGNAL(StateChanged(uint)),
-                     this, SLOT(onStateChanged(uint)));
+    QObject::connect(&d->iface, SIGNAL(StateChanged(uint)), this, SLOT(onStateChanged(uint)));
 }
 
 NetworkManager::VpnPlugin::~VpnPlugin()
@@ -90,8 +86,8 @@ void NetworkManager::VpnPlugin::setFailure(const QString &reason)
 
     QDBusPendingReply<QString> reply = d->iface.SetFailure(reason);
 
-    //TODO
-    //Q_EMIT failureChanged(reason);
+    // TODO
+    // Q_EMIT failureChanged(reason);
 }
 
 void NetworkManager::VpnPlugin::setIp4Config(const QVariantMap &config)
@@ -116,7 +112,7 @@ void NetworkManager::VpnPlugin::onStateChanged(uint state)
 {
     Q_D(VpnPlugin);
 
-    d->state = (VpnConnection::State) state;
+    d->state = (VpnConnection::State)state;
 
     Q_EMIT stateChanged(d->state);
 }

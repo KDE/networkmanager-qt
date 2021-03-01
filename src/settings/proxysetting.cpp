@@ -10,23 +10,25 @@
 #include <QDebug>
 
 #if !NM_CHECK_VERSION(1, 6, 0)
-#define NM_SETTING_PROXY_SETTING_NAME    "proxy"
-#define NM_SETTING_PROXY_BROWSER_ONLY    "browser-only"
-#define NM_SETTING_PROXY_METHOD          "method"
-#define NM_SETTING_PROXY_PAC_SCRIPT      "pac-script"
-#define NM_SETTING_PROXY_PAC_URL         "pac-url"
+#define NM_SETTING_PROXY_SETTING_NAME "proxy"
+#define NM_SETTING_PROXY_BROWSER_ONLY "browser-only"
+#define NM_SETTING_PROXY_METHOD "method"
+#define NM_SETTING_PROXY_PAC_SCRIPT "pac-script"
+#define NM_SETTING_PROXY_PAC_URL "pac-url"
 #endif
 
 NetworkManager::ProxySettingPrivate::ProxySettingPrivate()
     : name(NM_SETTING_PROXY_SETTING_NAME)
     , browserOnly(false)
     , method(ProxySetting::None)
-{ }
+{
+}
 
 NetworkManager::ProxySetting::ProxySetting()
     : Setting(Setting::Proxy)
     , d_ptr(new ProxySettingPrivate())
-{ }
+{
+}
 
 NetworkManager::ProxySetting::ProxySetting(const Ptr &other)
     : Setting(other)
@@ -112,7 +114,7 @@ void NetworkManager::ProxySetting::fromMap(const QVariantMap &setting)
         setBrowserOnly(setting.value(QLatin1String(NM_SETTING_PROXY_BROWSER_ONLY)).toBool());
     }
 
-   if (setting.contains(QLatin1String(NM_SETTING_PROXY_METHOD))) {
+    if (setting.contains(QLatin1String(NM_SETTING_PROXY_METHOD))) {
         setMethod((Mode)setting.value(QLatin1String(NM_SETTING_PROXY_METHOD)).toUInt());
     }
 
@@ -146,7 +148,7 @@ QVariantMap NetworkManager::ProxySetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ProxySetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::ProxySetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

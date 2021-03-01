@@ -11,7 +11,6 @@
 
 namespace NetworkManager
 {
-
 class WireGuardSettingPrivate
 {
 public:
@@ -31,4 +30,3 @@ public:
 }
 
 #endif // NETWORKMANAGERQT_WIREGUARD_SETTING_P_H
-

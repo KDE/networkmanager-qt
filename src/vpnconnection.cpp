@@ -5,12 +5,11 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-#include "vpnconnection_p.h"
 #include "connection.h"
 #include "device.h"
 #include "nmdebug.h"
 #include "settings.h"
-
+#include "vpnconnection_p.h"
 
 NetworkManager::VpnConnectionPrivate::VpnConnectionPrivate(const QString &path, VpnConnection *q)
     : ActiveConnectionPrivate(path, q)
@@ -40,7 +39,8 @@ NetworkManager::VpnConnection::VpnConnection(const QString &path, QObject *paren
 
     // We need to get ActiveConnection's properties, because by default every ActiveConnection
     // is basically a VpnConnection
-    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(OrgFreedesktopNetworkManagerConnectionActiveInterface::staticInterfaceName(), path);
+    QVariantMap initialProperties =
+        NetworkManagerPrivate::retrieveInitialProperties(OrgFreedesktopNetworkManagerConnectionActiveInterface::staticInterfaceName(), path);
     if (!initialProperties.isEmpty()) {
         d->propertiesChanged(initialProperties);
     }
@@ -54,8 +54,12 @@ NetworkManager::VpnConnection::VpnConnection(const QString &path, QObject *paren
         }
     }
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->path,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
     connect(&d->iface, &OrgFreedesktopNetworkManagerVPNConnectionInterface::VpnStateChanged, d, &VpnConnectionPrivate::vpnStateChanged);
 }
 
@@ -66,7 +70,7 @@ NetworkManager::VpnConnection::~VpnConnection()
 QString NetworkManager::VpnConnection::banner() const
 {
     Q_D(const VpnConnection);
-    //return d->banner; // FIXME NM doesn't Q_EMIT the Banner property change
+    // return d->banner; // FIXME NM doesn't Q_EMIT the Banner property change
     return d->iface.banner();
 }
 
@@ -76,7 +80,9 @@ NetworkManager::VpnConnection::State NetworkManager::VpnConnection::state() cons
     return d->state;
 }
 
-void NetworkManager::VpnConnectionPrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
+void NetworkManager::VpnConnectionPrivate::dbusPropertiesChanged(const QString &interfaceName,
+                                                                 const QVariantMap &properties,
+                                                                 const QStringList &invalidatedProperties)
 {
     Q_UNUSED(invalidatedProperties);
 
@@ -95,10 +101,10 @@ void NetworkManager::VpnConnectionPrivate::propertyChanged(const QString &proper
         banner = value.toString();
         Q_EMIT q->bannerChanged(banner);
     } else if (property == QLatin1String("VpnState")) {
-        //Do not notify about changed VpnState twice, because there is also signal VpnStateChanged() from NetworkManager
+        // Do not notify about changed VpnState twice, because there is also signal VpnStateChanged() from NetworkManager
         state = NetworkManager::VpnConnectionPrivate::convertVpnConnectionState(value.toUInt());
-        //NetworkManager::VpnConnection::StateChangeReason reason = NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(properties.key("Reason").toUInt());
-        //Q_EMIT stateChanged(d->state, reason);
+        // NetworkManager::VpnConnection::StateChangeReason reason =
+        // NetworkManager::VpnConnectionPrivate::convertVpnConnectionStateReason(properties.key("Reason").toUInt()); Q_EMIT stateChanged(d->state, reason);
     } else {
         ActiveConnectionPrivate::propertyChanged(property, value);
     }

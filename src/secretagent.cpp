@@ -5,13 +5,13 @@
 */
 
 #include "secretagent.h"
-#include "secretagent_p.h"
 #include "manager_p.h"
 #include "nmdebug.h"
+#include "secretagent_p.h"
 
 #undef signals
-#include <libnm/NetworkManager.h>
 #include <NetworkManager.h>
+#include <libnm/NetworkManager.h>
 
 #define signals Q_SIGNALS
 
@@ -20,7 +20,9 @@
 #include "agentmanagerinterface.h"
 #include "secretagentadaptor.h"
 
-NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id, const NetworkManager::SecretAgent::Capabilities capabilities, NetworkManager::SecretAgent *parent)
+NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id,
+                                                       const NetworkManager::SecretAgent::Capabilities capabilities,
+                                                       NetworkManager::SecretAgent *parent)
     : q_ptr(parent)
     , agent(parent)
 #ifdef NMQT_STATIC
@@ -36,8 +38,12 @@ NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id, const 
     qRegisterMetaType<NMVariantMapMap>("NMVariantMapMap");
     qDBusRegisterMetaType<NMVariantMapMap>();
 
-    agentManager.connection().connect(NetworkManagerPrivate::DBUS_SERVICE, "/org/freedesktop", NetworkManagerPrivate::FDO_DBUS_OBJECT_MANAGER,
-                               QLatin1String("InterfacesAdded"), q, SLOT(dbusInterfacesAdded(QDBusObjectPath,QVariantMap)));
+    agentManager.connection().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                      "/org/freedesktop",
+                                      NetworkManagerPrivate::FDO_DBUS_OBJECT_MANAGER,
+                                      QLatin1String("InterfacesAdded"),
+                                      q,
+                                      SLOT(dbusInterfacesAdded(QDBusObjectPath, QVariantMap)));
 
     agentManager.connection().registerObject(QLatin1String(NM_DBUS_PATH_SECRET_AGENT), &agent, QDBusConnection::ExportAllSlots);
 
@@ -51,11 +57,11 @@ NetworkManager::SecretAgentPrivate::~SecretAgentPrivate()
 
 void NetworkManager::SecretAgentPrivate::dbusInterfacesAdded(const QDBusObjectPath &path, const QVariantMap &interfaces)
 {
-	Q_UNUSED(path);
-	if(!interfaces.contains(QString::fromLatin1(agentManager.staticInterfaceName())))
-		return;
+    Q_UNUSED(path);
+    if (!interfaces.contains(QString::fromLatin1(agentManager.staticInterfaceName())))
+        return;
 
-	registerAgent(capabilities);
+    registerAgent(capabilities);
 }
 
 void NetworkManager::SecretAgentPrivate::registerAgent()

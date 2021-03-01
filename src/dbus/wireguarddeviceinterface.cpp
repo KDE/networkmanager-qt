@@ -15,7 +15,10 @@
  * Implementation of interface class OrgFreedesktopNetworkManagerDeviceWireGuardInterface
  */
 
-OrgFreedesktopNetworkManagerDeviceWireGuardInterface::OrgFreedesktopNetworkManagerDeviceWireGuardInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+OrgFreedesktopNetworkManagerDeviceWireGuardInterface::OrgFreedesktopNetworkManagerDeviceWireGuardInterface(const QString &service,
+                                                                                                           const QString &path,
+                                                                                                           const QDBusConnection &connection,
+                                                                                                           QObject *parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 }
@@ -23,5 +26,3 @@ OrgFreedesktopNetworkManagerDeviceWireGuardInterface::OrgFreedesktopNetworkManag
 OrgFreedesktopNetworkManagerDeviceWireGuardInterface::~OrgFreedesktopNetworkManagerDeviceWireGuardInterface()
 {
 }
-
-

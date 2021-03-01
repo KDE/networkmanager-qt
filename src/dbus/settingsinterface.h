@@ -11,18 +11,18 @@
 #ifndef SETTINGSINTERFACE_H
 #define SETTINGSINTERFACE_H
 
-#include <QObject>
+#include "generictypes.h"
 #include <QList>
+#include <QObject>
 #include <QString>
 #include <QStringList>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Settings
  */
-class OrgFreedesktopNetworkManagerSettingsInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerSettingsInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -45,19 +45,19 @@ public:
     Q_PROPERTY(bool CanModify READ canModify)
     inline bool canModify() const
     {
-        return qvariant_cast< bool >(property("CanModify"));
+        return qvariant_cast<bool>(property("CanModify"));
     }
 
     Q_PROPERTY(QList<QDBusObjectPath> Connections READ connections)
     inline QList<QDBusObjectPath> connections() const
     {
-        return qvariant_cast< QList<QDBusObjectPath> >(property("Connections"));
+        return qvariant_cast<QList<QDBusObjectPath>>(property("Connections"));
     }
 
     Q_PROPERTY(QString Hostname READ hostname)
     inline QString hostname() const
     {
-        return qvariant_cast< QString >(property("Hostname"));
+        return qvariant_cast<QString>(property("Hostname"));
     }
 
 public Q_SLOTS: // METHODS
@@ -82,7 +82,7 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("GetConnectionByUuid"), argumentList);
     }
 
-    inline QDBusPendingReply<QList<QDBusObjectPath> > ListConnections()
+    inline QDBusPendingReply<QList<QDBusObjectPath>> ListConnections()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("ListConnections"), argumentList);

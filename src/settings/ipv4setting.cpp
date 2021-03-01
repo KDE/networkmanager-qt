@@ -25,12 +25,14 @@ NetworkManager::Ipv4SettingPrivate::Ipv4SettingPrivate()
     , mayFail(true)
     , dadTimeout(-1)
     , dnsPriority(0)
-{ }
+{
+}
 
 NetworkManager::Ipv4Setting::Ipv4Setting()
     : Setting(Setting::Ipv4)
     , d_ptr(new Ipv4SettingPrivate())
-{ }
+{
+}
 
 NetworkManager::Ipv4Setting::Ipv4Setting(const Ptr &other)
     : Setting(other)
@@ -118,7 +120,7 @@ void NetworkManager::Ipv4Setting::setAddresses(const QList<IpAddress> &ipv4addre
     d->addresses = ipv4addresses;
 }
 
-QList< NetworkManager::IpAddress > NetworkManager::Ipv4Setting::addresses() const
+QList<NetworkManager::IpAddress> NetworkManager::Ipv4Setting::addresses() const
 {
     Q_D(const Ipv4Setting);
 
@@ -132,7 +134,7 @@ void NetworkManager::Ipv4Setting::setRoutes(const QList<IpRoute> &ipv4routes)
     d->routes = ipv4routes;
 }
 
-QList< NetworkManager::IpRoute > NetworkManager::Ipv4Setting::routes() const
+QList<NetworkManager::IpRoute> NetworkManager::Ipv4Setting::routes() const
 {
     Q_D(const Ipv4Setting);
 
@@ -374,9 +376,9 @@ void NetworkManager::Ipv4Setting::fromMap(const QVariantMap &setting)
         QList<uint> temp;
         if (setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).canConvert<QDBusArgument>()) {
             QDBusArgument dnsArg = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<QDBusArgument>();
-            temp = qdbus_cast<QList<uint> >(dnsArg);
+            temp = qdbus_cast<QList<uint>>(dnsArg);
         } else {
-            temp = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<QList<uint> >();
+            temp = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<QList<uint>>();
         }
 
         for (const uint utmp : qAsConst(temp)) {
@@ -393,12 +395,12 @@ void NetworkManager::Ipv4Setting::fromMap(const QVariantMap &setting)
 
     if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES))) {
         QList<NetworkManager::IpAddress> addresses;
-        QList<QList<uint> > temp;
-        if (setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).canConvert< QDBusArgument>()) {
+        QList<QList<uint>> temp;
+        if (setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).canConvert<QDBusArgument>()) {
             QDBusArgument addressArg = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).value<QDBusArgument>();
-            temp = qdbus_cast<QList<QList<uint> > >(addressArg);
+            temp = qdbus_cast<QList<QList<uint>>>(addressArg);
         } else {
-            temp = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).value<QList<QList<uint> > >();
+            temp = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).value<QList<QList<uint>>>();
         }
 
         for (const QList<uint> &uintList : qAsConst(temp)) {
@@ -422,12 +424,12 @@ void NetworkManager::Ipv4Setting::fromMap(const QVariantMap &setting)
 
     if (setting.contains(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES))) {
         QList<NetworkManager::IpRoute> routes;
-        QList<QList<uint> > temp;
-        if (setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).canConvert< QDBusArgument>()) {
+        QList<QList<uint>> temp;
+        if (setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).canConvert<QDBusArgument>()) {
             QDBusArgument routeArg = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).value<QDBusArgument>();
-            temp = qdbus_cast<QList<QList<uint> > >(routeArg);
+            temp = qdbus_cast<QList<QList<uint>>>(routeArg);
         } else {
-            temp = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).value<QList<QList<uint> > >();
+            temp = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).value<QList<QList<uint>>>();
         }
 
         for (const QList<uint> &uintList : qAsConst(temp)) {
@@ -543,13 +545,11 @@ QVariantMap NetworkManager::Ipv4Setting::toMap() const
     }
 
     if (!addresses().isEmpty()) {
-        QList<QList<uint> > dbusAddresses;
+        QList<QList<uint>> dbusAddresses;
         const auto addressesList = addresses();
         for (const NetworkManager::IpAddress &addr : addressesList) {
             QList<uint> dbusAddress;
-            dbusAddress << htonl(addr.ip().toIPv4Address())
-                        << addr.prefixLength()
-                        << htonl(addr.gateway().toIPv4Address());
+            dbusAddress << htonl(addr.ip().toIPv4Address()) << addr.prefixLength() << htonl(addr.gateway().toIPv4Address());
             dbusAddresses << dbusAddress;
         }
 
@@ -557,21 +557,18 @@ QVariantMap NetworkManager::Ipv4Setting::toMap() const
     }
 
     if (!routes().isEmpty()) {
-        QList<QList<uint> > dbusRoutes;
+        QList<QList<uint>> dbusRoutes;
         const auto routesList = routes();
-        for (const NetworkManager::IpRoute & route : routesList) {
+        for (const NetworkManager::IpRoute &route : routesList) {
             QList<uint> dbusRoute;
-            dbusRoute << htonl(route.ip().toIPv4Address())
-                      << route.prefixLength()
-                      << htonl(route.nextHop().toIPv4Address())
-                      << route.metric();
+            dbusRoute << htonl(route.ip().toIPv4Address()) << route.prefixLength() << htonl(route.nextHop().toIPv4Address()) << route.metric();
             dbusRoutes << dbusRoute;
         }
 
         setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES), QVariant::fromValue(dbusRoutes));
     }
 
-    if(routeMetric() >= 0) {
+    if (routeMetric() >= 0) {
         setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTE_METRIC), routeMetric());
     }
 
@@ -604,7 +601,7 @@ QVariantMap NetworkManager::Ipv4Setting::toMap() const
     }
 
     if (dadTimeout() >= 0) {
-	setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DAD_TIMEOUT), dadTimeout());
+        setting.insert(QLatin1String(NMQT_SETTING_IP4_CONFIG_DAD_TIMEOUT), dadTimeout());
     }
 
     if (!dhcpFqdn().isEmpty()) {
@@ -634,7 +631,7 @@ QVariantMap NetworkManager::Ipv4Setting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv4Setting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::Ipv4Setting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
@@ -674,8 +671,8 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv4Setting
     for (const QVariantMap &addressData : addDataList) {
         QVariantMap::const_iterator i = addressData.constBegin();
         while (i != addressData.constEnd()) {
-	    dbg.nospace() << i.key() << ": " << i.value() << '\n';
-	}
+            dbg.nospace() << i.key() << ": " << i.value() << '\n';
+        }
     }
     dbg.nospace() << NMQT_SETTING_IP4_CONFIG_ROUTE_DATA << ": " << '\n';
     const NMVariantMapList routeDataList = setting.routeData();
@@ -683,7 +680,7 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Ipv4Setting
         QVariantMap::const_iterator i = routeData.constBegin();
         while (i != routeData.constEnd()) {
             dbg.nospace() << i.key() << ": " << i.value() << '\n';
-	}
+        }
     }
 
     return dbg.maybeSpace();

@@ -30,7 +30,7 @@ public:
     void setConnectionPath(const QString &path);
 
 public Q_SLOTS: // METHODS
-    Q_SCRIPTABLE void  Delete();
+    Q_SCRIPTABLE void Delete();
     Q_SCRIPTABLE NMVariantMapMap GetSecrets(const QString &setting_name);
     Q_SCRIPTABLE NMVariantMapMap GetSettings();
     Q_SCRIPTABLE void Save();

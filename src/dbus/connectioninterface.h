@@ -11,17 +11,17 @@
 #ifndef CONNECTIONINTERFACE_H
 #define CONNECTIONINTERFACE_H
 
-#include <QObject>
+#include "generictypes.h"
 #include <QList>
+#include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Settings.Connection
  */
-class OrgFreedesktopNetworkManagerSettingsConnectionInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerSettingsConnectionInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -37,14 +37,17 @@ public:
 #endif
 
 public:
-    OrgFreedesktopNetworkManagerSettingsConnectionInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
+    OrgFreedesktopNetworkManagerSettingsConnectionInterface(const QString &service,
+                                                            const QString &path,
+                                                            const QDBusConnection &connection,
+                                                            QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerSettingsConnectionInterface();
 
     Q_PROPERTY(bool Unsaved READ unsaved)
     inline bool unsaved() const
     {
-        return qvariant_cast< bool >(property("Unsaved"));
+        return qvariant_cast<bool>(property("Unsaved"));
     }
 
 public Q_SLOTS: // METHODS

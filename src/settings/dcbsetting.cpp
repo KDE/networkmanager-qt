@@ -21,12 +21,14 @@ NetworkManager::DcbSettingPrivate::DcbSettingPrivate()
     , priorityGroupId({0, 0, 0, 0, 0, 0, 0, 0})
     , priorityStrictBandwidth({0, 0, 0, 0, 0, 0, 0, 0})
     , priorityTrafficClass({0, 0, 0, 0, 0, 0, 0, 0})
-{ }
+{
+}
 
 NetworkManager::DcbSetting::DcbSetting()
     : Setting(Setting::Dcb)
     , d_ptr(new DcbSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::DcbSetting::DcbSetting(const Ptr &other)
     : Setting(other)
@@ -484,7 +486,7 @@ QVariantMap NetworkManager::DcbSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::DcbSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::DcbSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

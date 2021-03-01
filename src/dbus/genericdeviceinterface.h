@@ -11,16 +11,16 @@
 #ifndef GENERICDEVICEINTERFACE_H
 #define GENERICDEVICEINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Generic
  */
-class OrgFreedesktopNetworkManagerDeviceGenericInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceGenericInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -36,20 +36,23 @@ public:
 #endif
 
 public:
-    OrgFreedesktopNetworkManagerDeviceGenericInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
+    OrgFreedesktopNetworkManagerDeviceGenericInterface(const QString &service,
+                                                       const QString &path,
+                                                       const QDBusConnection &connection,
+                                                       QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceGenericInterface();
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const
     {
-        return qvariant_cast< QString >(property("HwAddress"));
+        return qvariant_cast<QString>(property("HwAddress"));
     }
 
     Q_PROPERTY(QString TypeDescription READ typeDescription)
     inline QString typeDescription() const
     {
-        return qvariant_cast< QString >(property("TypeDescription"));
+        return qvariant_cast<QString>(property("TypeDescription"));
     }
 
 public Q_SLOTS: // METHODS

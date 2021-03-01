@@ -7,14 +7,13 @@
 #ifndef NETWORKMANAGERQT_INFINIBAND_SETTING_H
 #define NETWORKMANAGERQT_INFINIBAND_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QString>
 
 namespace NetworkManager
 {
-
 class InfinibandSettingPrivate;
 
 /**
@@ -25,7 +24,11 @@ class NETWORKMANAGERQT_EXPORT InfinibandSetting : public Setting
 public:
     typedef QSharedPointer<InfinibandSetting> Ptr;
     typedef QList<Ptr> List;
-    enum TransportMode {Unknown = 0, Datagram, Connected,};
+    enum TransportMode {
+        Unknown = 0,
+        Datagram,
+        Connected,
+    };
 
     InfinibandSetting();
     explicit InfinibandSetting(const Ptr &other);

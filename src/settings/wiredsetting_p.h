@@ -7,12 +7,11 @@
 #ifndef NETWORKMANAGERQT_WIRED_SETTING_P_H
 #define NETWORKMANAGERQT_WIRED_SETTING_P_H
 
-#include <QStringList>
 #include <QMap>
+#include <QStringList>
 
 namespace NetworkManager
 {
-
 class WiredSettingPrivate
 {
 public:

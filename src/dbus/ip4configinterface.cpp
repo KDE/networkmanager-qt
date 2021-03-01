@@ -15,7 +15,10 @@
  * Implementation of interface class OrgFreedesktopNetworkManagerIP4ConfigInterface
  */
 
-OrgFreedesktopNetworkManagerIP4ConfigInterface::OrgFreedesktopNetworkManagerIP4ConfigInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+OrgFreedesktopNetworkManagerIP4ConfigInterface::OrgFreedesktopNetworkManagerIP4ConfigInterface(const QString &service,
+                                                                                               const QString &path,
+                                                                                               const QDBusConnection &connection,
+                                                                                               QObject *parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 }
@@ -23,4 +26,3 @@ OrgFreedesktopNetworkManagerIP4ConfigInterface::OrgFreedesktopNetworkManagerIP4C
 OrgFreedesktopNetworkManagerIP4ConfigInterface::~OrgFreedesktopNetworkManagerIP4ConfigInterface()
 {
 }
-

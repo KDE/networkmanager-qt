@@ -17,10 +17,8 @@ void WimaxSettingTest::testSetting_data()
     QTest::addColumn<QString>("networkName");
     QTest::addColumn<QByteArray>("macAddress");
 
-    QTest::newRow("setting1")
-            << QString("networkname")           // networkName
-            << QByteArray("01:23:45:67:89:ab"); // macAddress
-
+    QTest::newRow("setting1") << QString("networkname") // networkName
+                              << QByteArray("01:23:45:67:89:ab"); // macAddress
 }
 
 void WimaxSettingTest::testSetting()

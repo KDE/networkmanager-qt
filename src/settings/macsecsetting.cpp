@@ -10,20 +10,20 @@
 #include <QDebug>
 
 #if !NM_CHECK_VERSION(1, 6, 0)
-#define NM_SETTING_MACSEC_SETTING_NAME         "macsec"
+#define NM_SETTING_MACSEC_SETTING_NAME "macsec"
 
-#define NM_SETTING_MACSEC_PARENT               "parent"
-#define NM_SETTING_MACSEC_MODE                 "mode"
-#define NM_SETTING_MACSEC_ENCRYPT              "encrypt"
-#define NM_SETTING_MACSEC_MKA_CAK              "mka-cak"
-#define NM_SETTING_MACSEC_MKA_CAK_FLAGS        "mka-cak-flags"
-#define NM_SETTING_MACSEC_MKA_CKN              "mka-ckn"
-#define NM_SETTING_MACSEC_PORT                 "port"
-#define NM_SETTING_MACSEC_VALIDATION           "validation"
+#define NM_SETTING_MACSEC_PARENT "parent"
+#define NM_SETTING_MACSEC_MODE "mode"
+#define NM_SETTING_MACSEC_ENCRYPT "encrypt"
+#define NM_SETTING_MACSEC_MKA_CAK "mka-cak"
+#define NM_SETTING_MACSEC_MKA_CAK_FLAGS "mka-cak-flags"
+#define NM_SETTING_MACSEC_MKA_CKN "mka-ckn"
+#define NM_SETTING_MACSEC_PORT "port"
+#define NM_SETTING_MACSEC_VALIDATION "validation"
 #endif
 
 #if !NM_CHECK_VERSION(1, 12, 0)
-#define NM_SETTING_MACSEC_SEND_SCI             "send-sci"
+#define NM_SETTING_MACSEC_SEND_SCI "send-sci"
 #endif
 
 NetworkManager::MacsecSettingPrivate::MacsecSettingPrivate()
@@ -33,12 +33,14 @@ NetworkManager::MacsecSettingPrivate::MacsecSettingPrivate()
     , port(1)
     , sendSci(true)
     , validation(NetworkManager::MacsecSetting::Strict)
-{ }
+{
+}
 
 NetworkManager::MacsecSetting::MacsecSetting()
     : Setting(Setting::Macsec)
     , d_ptr(new MacsecSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::MacsecSetting::MacsecSetting(const Ptr &other)
     : Setting(other)
@@ -302,7 +304,7 @@ QVariantMap NetworkManager::MacsecSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::MacsecSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::MacsecSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
@@ -319,4 +321,3 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::MacsecSetti
 
     return dbg.maybeSpace();
 }
-

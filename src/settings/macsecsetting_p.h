@@ -11,7 +11,6 @@
 
 namespace NetworkManager
 {
-
 class MacsecSettingPrivate
 {
 public:
@@ -33,4 +32,3 @@ public:
 }
 
 #endif // NETWORKMANAGERQT_MACSECSETTING_P_H
-

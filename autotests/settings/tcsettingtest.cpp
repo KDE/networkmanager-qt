@@ -13,8 +13,8 @@
 #include <QTest>
 
 #if !NM_CHECK_VERSION(1, 10, 0)
-#define NM_SETTING_TC_CONFIG_QDISCS          "qdiscs"
-#define NM_SETTING_TC_CONFIG_TFILTERS        "tfilters"
+#define NM_SETTING_TC_CONFIG_QDISCS "qdiscs"
+#define NM_SETTING_TC_CONFIG_TFILTERS "tfilters"
 #endif
 
 void TcSettingTest::testSetting_data()
@@ -34,9 +34,8 @@ void TcSettingTest::testSetting_data()
     tfilter["four"] = 4;
     tfilters.append(tfilter);
 
-    QTest::newRow("setting1")
-            <<  qdiscs                          // qdiscs
-            <<  tfilters;                       // tfilters
+    QTest::newRow("setting1") << qdiscs // qdiscs
+                              << tfilters; // tfilters
 }
 
 void TcSettingTest::testSetting()

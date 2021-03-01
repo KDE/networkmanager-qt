@@ -6,8 +6,8 @@
 */
 
 #include "wimaxdevice.h"
-#include "wimaxdevice_p.h"
 #include "manager_p.h"
+#include "wimaxdevice_p.h"
 
 #include "nmdebug.h"
 
@@ -19,11 +19,11 @@ NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString &path, Wima
     , wimaxIface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
 {
-    qDBusRegisterMetaType<QList<QDBusObjectPath> >();
-    const QList <QDBusObjectPath> nsps = wimaxIface.nsps();
+    qDBusRegisterMetaType<QList<QDBusObjectPath>>();
+    const QList<QDBusObjectPath> nsps = wimaxIface.nsps();
     for (const QDBusObjectPath &op : nsps) {
         nspMap.insert(op.path(), NetworkManager::WimaxNsp::Ptr());
-        //qCDebug(NMQT) << "  " << op.path();
+        // qCDebug(NMQT) << "  " << op.path();
     }
 }
 
@@ -37,15 +37,18 @@ NetworkManager::WimaxDevice::WimaxDevice(const QString &path, QObject *parent)
         d->propertiesChanged(initialProperties);
     }
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
     connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspAdded, d, &WimaxDevicePrivate::nspAdded);
     connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspRemoved, d, &WimaxDevicePrivate::nspRemoved);
 }
 
 NetworkManager::WimaxDevice::~WimaxDevice()
 {
-
 }
 
 NetworkManager::Device::Type NetworkManager::WimaxDevice::type() const
@@ -118,7 +121,7 @@ NetworkManager::WimaxNsp::Ptr NetworkManager::WimaxDevice::findNsp(const QString
 
 void NetworkManager::WimaxDevicePrivate::nspAdded(const QDBusObjectPath &nspPath)
 {
-    //qCDebug(NMQT) << nspPath.path();
+    // qCDebug(NMQT) << nspPath.path();
     Q_Q(WimaxDevice);
     if (!nspMap.contains(nspPath.path())) {
         nspMap.insert(nspPath.path(), NetworkManager::WimaxNsp::Ptr());
@@ -128,7 +131,7 @@ void NetworkManager::WimaxDevicePrivate::nspAdded(const QDBusObjectPath &nspPath
 
 void NetworkManager::WimaxDevicePrivate::nspRemoved(const QDBusObjectPath &nspPath)
 {
-    //qCDebug(NMQT) << nspPath.path();
+    // qCDebug(NMQT) << nspPath.path();
     Q_Q(WimaxDevice);
     if (!nspMap.contains(nspPath.path())) {
         qCDebug(NMQT) << "Access point list lookup failed for " << nspPath.path();

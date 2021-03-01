@@ -19,4 +19,3 @@ private Q_SLOTS:
 };
 
 #endif // NETWORKMANAGERQT_IP_TUNNEL_SETTING_TEST_H
-

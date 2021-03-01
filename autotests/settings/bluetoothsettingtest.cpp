@@ -17,10 +17,8 @@ void BluetoothSettingTest::testSetting_data()
     QTest::addColumn<QByteArray>("address");
     QTest::addColumn<QString>("type");
 
-    QTest::newRow("setting1")
-            << QByteArray("00:02:72:00:d4:1a")  // address
-            << QString("panu");                 // type
-
+    QTest::newRow("setting1") << QByteArray("00:02:72:00:d4:1a") // address
+                              << QString("panu"); // type
 }
 
 void BluetoothSettingTest::testSetting()

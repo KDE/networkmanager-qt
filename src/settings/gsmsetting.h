@@ -7,14 +7,13 @@
 #ifndef NETWORKMANAGERQT_GSM_SETTING_H
 #define NETWORKMANAGERQT_GSM_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QString>
 
 namespace NetworkManager
 {
-
 class GsmSettingPrivate;
 
 /**
@@ -25,7 +24,15 @@ class NETWORKMANAGERQT_EXPORT GsmSetting : public Setting
 public:
     typedef QSharedPointer<GsmSetting> Ptr;
     typedef QList<Ptr> List;
-    enum NetworkType { Any = -1, Only3G, GprsEdgeOnly, Prefer3G, Prefer2G, Prefer4GLte, Only4GLte, };
+    enum NetworkType {
+        Any = -1,
+        Only3G,
+        GprsEdgeOnly,
+        Prefer3G,
+        Prefer2G,
+        Prefer4GLte,
+        Only4GLte,
+    };
 
     GsmSetting();
     explicit GsmSetting(const Ptr &other);

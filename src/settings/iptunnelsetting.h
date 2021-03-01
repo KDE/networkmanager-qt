@@ -7,12 +7,11 @@
 #ifndef NETWORKMANAGERQT_IPTUNNEL_SETTING_H
 #define NETWORKMANAGERQT_IPTUNNEL_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 namespace NetworkManager
 {
-
 class IpTunnelSettingPrivate;
 
 /**
@@ -109,4 +108,3 @@ NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const IpTunnelSetting &set
 }
 
 #endif // NETWORKMANAGERQT_IP_TUNNEL_SETTING_H
-

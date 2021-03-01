@@ -4,8 +4,8 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-#include "macvlandevice_p.h"
 #include "device_p.h"
+#include "macvlandevice_p.h"
 #include "manager.h"
 
 NetworkManager::MacVlanDevicePrivate::MacVlanDevicePrivate(const QString &path, MacVlanDevice *q)
@@ -22,8 +22,8 @@ NetworkManager::MacVlanDevicePrivate::~MacVlanDevicePrivate()
 {
 }
 
-NetworkManager::MacVlanDevice::MacVlanDevice(const QString &path, QObject *parent):
-    Device(*new MacVlanDevicePrivate(path, this), parent)
+NetworkManager::MacVlanDevice::MacVlanDevice(const QString &path, QObject *parent)
+    : Device(*new MacVlanDevicePrivate(path, this), parent)
 {
     Q_D(MacVlanDevice);
 
@@ -32,8 +32,12 @@ NetworkManager::MacVlanDevice::MacVlanDevice(const QString &path, QObject *paren
         d->propertiesChanged(initialProperties);
     }
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::MacVlanDevice::~MacVlanDevice()

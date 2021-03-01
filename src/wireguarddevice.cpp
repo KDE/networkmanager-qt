@@ -5,8 +5,8 @@
 */
 
 #include "wireguarddevice.h"
-#include "wireguarddevice_p.h"
 #include "manager_p.h"
+#include "wireguarddevice_p.h"
 
 NetworkManager::WireGuardDevicePrivate::WireGuardDevicePrivate(const QString &path, WireGuardDevice *q)
     : DevicePrivate(path, q)
@@ -24,8 +24,8 @@ NetworkManager::WireGuardDevicePrivate::~WireGuardDevicePrivate()
 {
 }
 
-NetworkManager::WireGuardDevice::WireGuardDevice(const QString &path, QObject *parent):
-    Device(*new WireGuardDevicePrivate(path, this), parent)
+NetworkManager::WireGuardDevice::WireGuardDevice(const QString &path, QObject *parent)
+    : Device(*new WireGuardDevicePrivate(path, this), parent)
 {
     Q_D(WireGuardDevice);
 
@@ -34,8 +34,12 @@ NetworkManager::WireGuardDevice::WireGuardDevice(const QString &path, QObject *p
         d->propertiesChanged(initialProperties);
     }
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::WireGuardDevice::~WireGuardDevice()

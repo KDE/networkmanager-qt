@@ -44,24 +44,23 @@ void WirelessSecuritySettingTest::testSetting_data()
     group << "wep104";
     group << "tkip";
 
-    QTest::newRow("setting1")
-            << QString("none")          // keyMgmt
-            << (quint32) 1              // wepTxKeyIdx
-            << QString("open")          // authAlg
-            << proto                    // proto
-            << pairwise                 // pairwise
-            << group                    // group
-            << QString("login")         // leapUsername
-            << QString("abcde")         // wepKey0
-            << QString("fghij")         // wepKey1
-            << QString("klmno")         // wepKey2
-            << QString("pqrst")         // wepKey3
-            << (quint32) 1              // wepKeyFlags
-            << (quint32) 1              // wepKeyType
-            << QString("12345678")      // psk
-            << (quint32) 2              // pskFlags
-            << QString("leappass")      // leapPassword
-            << (quint32) 4;             // leapPasswordFlags
+    QTest::newRow("setting1") << QString("none") // keyMgmt
+                              << (quint32)1 // wepTxKeyIdx
+                              << QString("open") // authAlg
+                              << proto // proto
+                              << pairwise // pairwise
+                              << group // group
+                              << QString("login") // leapUsername
+                              << QString("abcde") // wepKey0
+                              << QString("fghij") // wepKey1
+                              << QString("klmno") // wepKey2
+                              << QString("pqrst") // wepKey3
+                              << (quint32)1 // wepKeyFlags
+                              << (quint32)1 // wepKeyType
+                              << QString("12345678") // psk
+                              << (quint32)2 // pskFlags
+                              << QString("leappass") // leapPassword
+                              << (quint32)4; // leapPasswordFlags
 }
 
 void WirelessSecuritySettingTest::testSetting()

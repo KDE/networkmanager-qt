@@ -15,12 +15,14 @@ NetworkManager::TunSettingPrivate::TunSettingPrivate()
     , multiQueue(false)
     , pi(false)
     , vnetHdr(false)
-{ }
+{
+}
 
 NetworkManager::TunSetting::TunSetting()
     : Setting(Setting::Tun)
     , d_ptr(new TunSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::TunSetting::TunSetting(const Ptr &other)
     : Setting(other)
@@ -46,7 +48,7 @@ QString NetworkManager::TunSetting::name() const
     return d->name;
 }
 
-void NetworkManager::TunSetting::setGroup(const QString& group)
+void NetworkManager::TunSetting::setGroup(const QString &group)
 {
     Q_D(TunSetting);
 
@@ -88,7 +90,7 @@ bool NetworkManager::TunSetting::multiQueue() const
     return d->multiQueue;
 }
 
-void NetworkManager::TunSetting::setOwner(const QString& owner)
+void NetworkManager::TunSetting::setOwner(const QString &owner)
 {
     Q_D(TunSetting);
 
@@ -178,7 +180,7 @@ QVariantMap NetworkManager::TunSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::TunSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::TunSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
@@ -189,7 +191,6 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::TunSetting 
     dbg.nospace() << NM_SETTING_TUN_OWNER << ": " << setting.owner() << '\n';
     dbg.nospace() << NM_SETTING_TUN_PI << ": " << setting.pi() << '\n';
     dbg.nospace() << NM_SETTING_TUN_VNET_HDR << ": " << setting.vnetHdr() << '\n';
-
 
     return dbg.maybeSpace();
 }

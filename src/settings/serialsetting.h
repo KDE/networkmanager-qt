@@ -7,14 +7,13 @@
 #ifndef NETWORKMANAGERQT_SERIAL_SETTING_H
 #define NETWORKMANAGERQT_SERIAL_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QString>
 
 namespace NetworkManager
 {
-
 class SerialSettingPrivate;
 
 /**
@@ -25,7 +24,11 @@ class NETWORKMANAGERQT_EXPORT SerialSetting : public Setting
 public:
     typedef QSharedPointer<SerialSetting> Ptr;
     typedef QList<Ptr> List;
-    enum Parity {NoParity, EvenParity, OddParity,};
+    enum Parity {
+        NoParity,
+        EvenParity,
+        OddParity,
+    };
 
     SerialSetting();
     explicit SerialSetting(const Ptr &other);

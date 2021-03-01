@@ -11,16 +11,16 @@
 #ifndef GREDEVICEINTERFACE_H
 #define GREDEVICEINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Gre
  */
-class OrgFreedesktopNetworkManagerDeviceGreInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceGreInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -43,61 +43,61 @@ public:
     Q_PROPERTY(ushort InputFlags READ inputFlags)
     inline ushort inputFlags() const
     {
-        return qvariant_cast< ushort >(property("InputFlags"));
+        return qvariant_cast<ushort>(property("InputFlags"));
     }
 
     Q_PROPERTY(uint InputKey READ inputKey)
     inline uint inputKey() const
     {
-        return qvariant_cast< uint >(property("InputKey"));
+        return qvariant_cast<uint>(property("InputKey"));
     }
 
     Q_PROPERTY(QString Local READ local)
     inline QString local() const
     {
-        return qvariant_cast< QString >(property("Local"));
+        return qvariant_cast<QString>(property("Local"));
     }
 
     Q_PROPERTY(ushort OutputFlags READ outputFlags)
     inline ushort outputFlags() const
     {
-        return qvariant_cast< ushort >(property("OutputFlags"));
+        return qvariant_cast<ushort>(property("OutputFlags"));
     }
 
     Q_PROPERTY(uint OutputKey READ outputKey)
     inline uint outputKey() const
     {
-        return qvariant_cast< uint >(property("OutputKey"));
+        return qvariant_cast<uint>(property("OutputKey"));
     }
 
     Q_PROPERTY(QDBusObjectPath Parent READ parent)
     inline QDBusObjectPath parent() const
     {
-        return qvariant_cast< QDBusObjectPath >(property("Parent"));
+        return qvariant_cast<QDBusObjectPath>(property("Parent"));
     }
 
     Q_PROPERTY(bool PathMtuDiscovery READ pathMtuDiscovery)
     inline bool pathMtuDiscovery() const
     {
-        return qvariant_cast< bool >(property("PathMtuDiscovery"));
+        return qvariant_cast<bool>(property("PathMtuDiscovery"));
     }
 
     Q_PROPERTY(QString Remote READ remote)
     inline QString remote() const
     {
-        return qvariant_cast< QString >(property("Remote"));
+        return qvariant_cast<QString>(property("Remote"));
     }
 
     Q_PROPERTY(uchar Tos READ tos)
     inline uchar tos() const
     {
-        return qvariant_cast< uchar >(property("Tos"));
+        return qvariant_cast<uchar>(property("Tos"));
     }
 
     Q_PROPERTY(uchar Ttl READ ttl)
     inline uchar ttl() const
     {
-        return qvariant_cast< uchar >(property("Ttl"));
+        return qvariant_cast<uchar>(property("Ttl"));
     }
 
 public Q_SLOTS: // METHODS

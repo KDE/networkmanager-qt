@@ -40,24 +40,23 @@ void WirelessSettingTest::testSetting_data()
     QStringList seenBssids;
     seenBssids << "0005.9a3e.7c0f";
 
-    QTest::newRow("setting1")
-            << QByteArray("test")                             // ssid
-            << QString("adhoc")                               // mode
-            << QString("bg")                                  // band
-            << (quint32)1                                     // channel
-            << QByteArray("0011.2161.b7c0")                   // bssid
-            << (quint32)2                                     // rate
-            << (quint32)3                                     // txPower
-            << QByteArray("00-B0-D0-86-BB-F7")                // macAddress
-            << QString("FE:FF:FF:00:00:00 68:F7:28:00:00:00") // generateMacAddressMask
-            << macAddressBlacklist                            // macAddressBlacklist
-            << (uint) 1                                       // macAddressRandomization
-            << (quint32)4                                     // mtu
-            << seenBssids                                     // seenBssids
-            << (uint) 2                                       // powerSave
-            << QString("802-11-wireless-security")            // security
-            << true                                           // hidden
-            << QString("random");                             // assignedMacAddress
+    QTest::newRow("setting1") << QByteArray("test") // ssid
+                              << QString("adhoc") // mode
+                              << QString("bg") // band
+                              << (quint32)1 // channel
+                              << QByteArray("0011.2161.b7c0") // bssid
+                              << (quint32)2 // rate
+                              << (quint32)3 // txPower
+                              << QByteArray("00-B0-D0-86-BB-F7") // macAddress
+                              << QString("FE:FF:FF:00:00:00 68:F7:28:00:00:00") // generateMacAddressMask
+                              << macAddressBlacklist // macAddressBlacklist
+                              << (uint)1 // macAddressRandomization
+                              << (quint32)4 // mtu
+                              << seenBssids // seenBssids
+                              << (uint)2 // powerSave
+                              << QString("802-11-wireless-security") // security
+                              << true // hidden
+                              << QString("random"); // assignedMacAddress
 }
 
 void WirelessSettingTest::testSetting()

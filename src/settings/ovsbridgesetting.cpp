@@ -10,11 +10,11 @@
 #include <QDebug>
 
 #if !NM_CHECK_VERSION(1, 10, 0)
-#define NM_SETTING_OVS_BRIDGE_SETTING_NAME          "ovs-bridge"
-#define NM_SETTING_OVS_BRIDGE_FAIL_MODE             "fail-mode"
+#define NM_SETTING_OVS_BRIDGE_SETTING_NAME "ovs-bridge"
+#define NM_SETTING_OVS_BRIDGE_FAIL_MODE "fail-mode"
 #define NM_SETTING_OVS_BRIDGE_MCAST_SNOOPING_ENABLE "mcast-snooping-enable"
-#define NM_SETTING_OVS_BRIDGE_RSTP_ENABLE           "rstp-enable"
-#define NM_SETTING_OVS_BRIDGE_STP_ENABLE            "stp-enable"
+#define NM_SETTING_OVS_BRIDGE_RSTP_ENABLE "rstp-enable"
+#define NM_SETTING_OVS_BRIDGE_STP_ENABLE "stp-enable"
 #endif
 
 NetworkManager::OvsBridgeSettingPrivate::OvsBridgeSettingPrivate()
@@ -22,12 +22,14 @@ NetworkManager::OvsBridgeSettingPrivate::OvsBridgeSettingPrivate()
     , mcastSnoopingEnable(false)
     , rstpEnable(false)
     , stpEnable(false)
-{ }
+{
+}
 
 NetworkManager::OvsBridgeSetting::OvsBridgeSetting()
     : Setting(Setting::OvsBridge)
     , d_ptr(new OvsBridgeSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::OvsBridgeSetting::OvsBridgeSetting(const Ptr &other)
     : Setting(other)
@@ -141,7 +143,7 @@ QVariantMap NetworkManager::OvsBridgeSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::OvsBridgeSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::OvsBridgeSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

@@ -20,10 +20,9 @@ void BridgePortSettingTest::testSetting_data()
     QTest::addColumn<quint16>("pathCost");
     QTest::addColumn<bool>("hairpinMode");
 
-    QTest::newRow("setting1")
-            << (quint16) 60             // priority
-            << (quint16) 30000          // pathCost
-            << true;                    // hairpinMode
+    QTest::newRow("setting1") << (quint16)60 // priority
+                              << (quint16)30000 // pathCost
+                              << true; // hairpinMode
 }
 
 void BridgePortSettingTest::testSetting()

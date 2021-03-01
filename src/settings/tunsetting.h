@@ -7,14 +7,13 @@
 #ifndef NETWORKMANAGERQT_TUN_SETTING_H
 #define NETWORKMANAGERQT_TUN_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QString>
 
 namespace NetworkManager
 {
-
 class TunSettingPrivate;
 
 /**
@@ -25,8 +24,10 @@ class NETWORKMANAGERQT_EXPORT TunSetting : public Setting
 public:
     typedef QSharedPointer<TunSetting> Ptr;
     typedef QList<Ptr> List;
-    enum Mode { Tun, Tap, };
-
+    enum Mode {
+        Tun,
+        Tap,
+    };
 
     TunSetting();
     explicit TunSetting(const Ptr &other);
@@ -34,7 +35,7 @@ public:
 
     QString name() const override;
 
-    void setGroup(const QString& group);
+    void setGroup(const QString &group);
     QString group() const;
 
     void setMode(Mode mode);
@@ -43,7 +44,7 @@ public:
     void setMultiQueue(bool multiQueue);
     bool multiQueue() const;
 
-    void setOwner(const QString& owner);
+    void setOwner(const QString &owner);
     QString owner() const;
 
     void setPi(bool pi);
@@ -68,4 +69,3 @@ NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const TunSetting &setting)
 }
 
 #endif // NETWORKMANAGERQT_TUN_SETTING_H
-

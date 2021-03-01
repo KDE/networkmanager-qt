@@ -11,16 +11,16 @@
 #ifndef MACVLANDEVICEINTERFACE_H
 #define MACVLANDEVICEINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Macvlan
  */
-class OrgFreedesktopNetworkManagerDeviceMacvlanInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceMacvlanInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -36,32 +36,35 @@ public:
 #endif
 
 public:
-    OrgFreedesktopNetworkManagerDeviceMacvlanInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
+    OrgFreedesktopNetworkManagerDeviceMacvlanInterface(const QString &service,
+                                                       const QString &path,
+                                                       const QDBusConnection &connection,
+                                                       QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceMacvlanInterface();
 
     Q_PROPERTY(QString Mode READ mode)
     inline QString mode() const
     {
-        return qvariant_cast< QString >(property("Mode"));
+        return qvariant_cast<QString>(property("Mode"));
     }
 
     Q_PROPERTY(bool NoPromisc READ noPromisc)
     inline bool noPromisc() const
     {
-        return qvariant_cast< bool >(property("NoPromisc"));
+        return qvariant_cast<bool>(property("NoPromisc"));
     }
 
     Q_PROPERTY(QDBusObjectPath Parent READ parent)
     inline QDBusObjectPath parent() const
     {
-        return qvariant_cast< QDBusObjectPath >(property("Parent"));
+        return qvariant_cast<QDBusObjectPath>(property("Parent"));
     }
 
     Q_PROPERTY(bool Tap READ tap)
     inline bool tap() const
     {
-        return qvariant_cast< bool >(property("Tap"));
+        return qvariant_cast<bool>(property("Tap"));
     }
 
 public Q_SLOTS: // METHODS

@@ -44,7 +44,7 @@ bool ActiveConnection::default6() const
     return m_default6;
 }
 
-QList< QDBusObjectPath > ActiveConnection::devices() const
+QList<QDBusObjectPath> ActiveConnection::devices() const
 {
     return m_devices;
 }

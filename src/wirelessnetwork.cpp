@@ -8,17 +8,15 @@
 #include "wirelessnetwork.h"
 #include "wirelessnetwork_p.h"
 
-#include "wirelessdevice.h"
 #include "manager.h"
+#include "wirelessdevice.h"
 
 NetworkManager::WirelessNetworkPrivate::WirelessNetworkPrivate(WirelessNetwork *q, WirelessDevice *device)
     : q_ptr(q)
     , wirelessNetworkInterface(device)
 {
-    QObject::connect(device, SIGNAL(accessPointAppeared(QString)),
-                     q, SLOT(accessPointAppeared(QString)));
-    QObject::connect(device, SIGNAL(accessPointDisappeared(QString)),
-                     q, SLOT(accessPointDisappeared(QString)));
+    QObject::connect(device, SIGNAL(accessPointAppeared(QString)), q, SLOT(accessPointAppeared(QString)));
+    QObject::connect(device, SIGNAL(accessPointDisappeared(QString)), q, SLOT(accessPointDisappeared(QString)));
 }
 
 NetworkManager::WirelessNetworkPrivate::~WirelessNetworkPrivate()
@@ -29,8 +27,7 @@ void NetworkManager::WirelessNetworkPrivate::addAccessPointInternal(const Networ
 {
     Q_Q(WirelessNetwork);
 
-    QObject::connect(accessPoint.data(), SIGNAL(signalStrengthChanged(int)),
-                     q, SLOT(updateStrength()));
+    QObject::connect(accessPoint.data(), SIGNAL(signalStrengthChanged(int)), q, SLOT(updateStrength()));
     aps.insert(accessPoint->uni(), accessPoint);
     updateStrength();
 }
@@ -77,12 +74,12 @@ void NetworkManager::WirelessNetworkPrivate::updateStrength()
         referenceAp = strongestAp;
         Q_EMIT q->referenceAccessPointChanged(referenceAp->uni());
     }
-    //TODO: update the networks delayed
-    //kDebug() << "update strength" << ssid << strength;
+    // TODO: update the networks delayed
+    // kDebug() << "update strength" << ssid << strength;
 }
 
-NetworkManager::WirelessNetwork::WirelessNetwork(const AccessPoint::Ptr &accessPoint, WirelessDevice *device) :
-    d_ptr(new WirelessNetworkPrivate(this, device))
+NetworkManager::WirelessNetwork::WirelessNetwork(const AccessPoint::Ptr &accessPoint, WirelessDevice *device)
+    : d_ptr(new WirelessNetworkPrivate(this, device))
 {
     Q_D(WirelessNetwork);
 

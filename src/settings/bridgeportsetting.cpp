@@ -14,12 +14,14 @@ NetworkManager::BridgePortSettingPrivate::BridgePortSettingPrivate()
     , priority(32)
     , pathCost(100)
     , hairpinMode(false)
-{ }
+{
+}
 
 NetworkManager::BridgePortSetting::BridgePortSetting()
     : Setting(Setting::BridgePort)
     , d_ptr(new BridgePortSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::BridgePortSetting::BridgePortSetting(const NetworkManager::BridgePortSetting::Ptr &other)
     : Setting(other)
@@ -118,7 +120,7 @@ QVariantMap NetworkManager::BridgePortSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::BridgePortSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::BridgePortSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

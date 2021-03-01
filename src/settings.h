@@ -11,16 +11,15 @@
 
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
-#include <QObject>
+#include "connection.h"
 #include "generictypes.h"
 #include "manager.h"
-#include "connection.h"
+#include <QObject>
 
 #include <QString>
 
 namespace NetworkManager
 {
-
 /**
  * This class manages provides access to connections and notify about new ones
  */

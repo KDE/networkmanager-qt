@@ -7,14 +7,13 @@
 #ifndef NETWORKMANAGERQT_ADSL_SETTING_H
 #define NETWORKMANAGERQT_ADSL_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QString>
 
 namespace NetworkManager
 {
-
 class AdslSettingPrivate;
 
 /**
@@ -25,8 +24,17 @@ class NETWORKMANAGERQT_EXPORT AdslSetting : public Setting
 public:
     typedef QSharedPointer<AdslSetting> Ptr;
     typedef QList<Ptr> List;
-    enum Protocol {UnknownProtocol = 0, Pppoa, Pppoe, Ipoatm,};
-    enum Encapsulation {UnknownEncapsulation = 0, Vcmux, Llc,};
+    enum Protocol {
+        UnknownProtocol = 0,
+        Pppoa,
+        Pppoe,
+        Ipoatm,
+    };
+    enum Encapsulation {
+        UnknownEncapsulation = 0,
+        Vcmux,
+        Llc,
+    };
 
     AdslSetting();
     explicit AdslSetting(const Ptr &other);

@@ -7,12 +7,11 @@
 #ifndef NETWORKMANAGERQT_OLPCMESHDEVICE_P_H
 #define NETWORKMANAGERQT_OLPCMESHDEVICE_P_H
 
-#include "device_p.h"
 #include "dbus/olpcmeshdeviceinterface.h"
+#include "device_p.h"
 
 namespace NetworkManager
 {
-
 class OlpcMeshDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
@@ -35,4 +34,3 @@ protected:
 }
 
 #endif
-

@@ -17,12 +17,14 @@ NetworkManager::AdslSettingPrivate::AdslSettingPrivate()
     , encapsulation(AdslSetting::UnknownEncapsulation)
     , vpi(0)
     , vci(0)
-{ }
+{
+}
 
-NetworkManager::AdslSetting::AdslSetting():
-    Setting(Setting::Adsl),
-    d_ptr(new AdslSettingPrivate())
-{ }
+NetworkManager::AdslSetting::AdslSetting()
+    : Setting(Setting::Adsl)
+    , d_ptr(new AdslSettingPrivate())
+{
+}
 
 NetworkManager::AdslSetting::AdslSetting(const AdslSetting::Ptr &other)
     : Setting(other)
@@ -256,7 +258,7 @@ QVariantMap NetworkManager::AdslSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::AdslSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::AdslSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

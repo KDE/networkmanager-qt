@@ -15,7 +15,10 @@
  * Implementation of interface class OrgFreedesktopNetworkManagerIP6ConfigInterface
  */
 
-OrgFreedesktopNetworkManagerIP6ConfigInterface::OrgFreedesktopNetworkManagerIP6ConfigInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+OrgFreedesktopNetworkManagerIP6ConfigInterface::OrgFreedesktopNetworkManagerIP6ConfigInterface(const QString &service,
+                                                                                               const QString &path,
+                                                                                               const QDBusConnection &connection,
+                                                                                               QObject *parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 }
@@ -23,4 +26,3 @@ OrgFreedesktopNetworkManagerIP6ConfigInterface::OrgFreedesktopNetworkManagerIP6C
 OrgFreedesktopNetworkManagerIP6ConfigInterface::~OrgFreedesktopNetworkManagerIP6ConfigInterface()
 {
 }
-

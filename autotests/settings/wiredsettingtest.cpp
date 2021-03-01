@@ -41,21 +41,20 @@ void WiredSettingTest::testSetting_data()
     QMap<QString, QString> s390Options;
     s390Options.insert("portno", "0");
 
-    QTest::newRow("setting1")
-            << QString("tp")                                  // port
-            << (quint32) 100                                  // speed
-            << QString("full")                                // duplex
-            << false                                          // autoNegotiate
-            << QString("FE:FF:FF:00:00:00 68:F7:28:00:00:00") // generateMacAddressMask
-            << QByteArray("00-B0-D0-86-BB-F7")                // macAddress
-            << QByteArray("00-14-22-01-23-4")                 // clonedMacAddress
-            << macAddressBlacklist                            // macAddressBlacklist
-            << (quint32) 200                                  // mtu
-            << s390Subchannels                                // s390Subchannels
-            << QString("qeth")                                // s390NetType
-            << s390Options                                    // s390Options
-            << (uint)(NetworkManager::WiredSetting::WakeOnLanMulticast | NetworkManager::WiredSetting::WakeOnLanMagic) // wakeOnLan
-            << QString("password");                           // wakeOnLanPassword
+    QTest::newRow("setting1") << QString("tp") // port
+                              << (quint32)100 // speed
+                              << QString("full") // duplex
+                              << false // autoNegotiate
+                              << QString("FE:FF:FF:00:00:00 68:F7:28:00:00:00") // generateMacAddressMask
+                              << QByteArray("00-B0-D0-86-BB-F7") // macAddress
+                              << QByteArray("00-14-22-01-23-4") // clonedMacAddress
+                              << macAddressBlacklist // macAddressBlacklist
+                              << (quint32)200 // mtu
+                              << s390Subchannels // s390Subchannels
+                              << QString("qeth") // s390NetType
+                              << s390Options // s390Options
+                              << (uint)(NetworkManager::WiredSetting::WakeOnLanMulticast | NetworkManager::WiredSetting::WakeOnLanMagic) // wakeOnLan
+                              << QString("password"); // wakeOnLanPassword
 }
 
 void WiredSettingTest::testSetting()

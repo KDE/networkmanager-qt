@@ -24,12 +24,14 @@ NetworkManager::VxlanSettingPrivate::VxlanSettingPrivate()
     , sourcePortMin(0)
     , tos(0)
     , ttl(0)
-{ }
+{
+}
 
 NetworkManager::VxlanSetting::VxlanSetting()
     : Setting(Setting::Vxlan)
     , d_ptr(new VxlanSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::VxlanSetting::VxlanSetting(const NetworkManager::VxlanSetting::Ptr &other)
     : Setting(other)
@@ -148,7 +150,6 @@ bool NetworkManager::VxlanSetting::learning() const
 
     return d->learning;
 }
-
 
 void NetworkManager::VxlanSetting::setLimit(quint32 limit)
 {
@@ -382,7 +383,7 @@ QVariantMap NetworkManager::VxlanSetting::toMap() const
 
     if (!learning()) {
         setting.insert(QLatin1String(NM_SETTING_VXLAN_LEARNING), learning());
-    } 
+    }
 
     if (limit()) {
         setting.insert(QLatin1String(NM_SETTING_VXLAN_LIMIT), limit());
@@ -427,7 +428,7 @@ QVariantMap NetworkManager::VxlanSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::VxlanSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::VxlanSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

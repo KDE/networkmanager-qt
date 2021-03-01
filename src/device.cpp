@@ -6,12 +6,12 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
+#include "connection.h"
 #include "device_p.h"
 #include "manager.h"
 #include "manager_p.h"
-#include "connection.h"
-#include "settings.h"
 #include "nmdebug.h"
+#include "settings.h"
 
 #include <arpa/inet.h>
 
@@ -28,11 +28,13 @@ public:
     DeviceStateReasonPrivate(Device::State st, Device::StateChangeReason rsn)
         : state(st)
         , reason(rsn)
-    {}
+    {
+    }
     DeviceStateReasonPrivate()
         : state(Device::UnknownState)
         , reason(Device::UnknownReason)
-    {}
+    {
+    }
     Device::State state;
     Device::StateChangeReason reason;
 };
@@ -120,14 +122,13 @@ void NetworkManager::DevicePrivate::init()
 
 NetworkManager::Device::MeteredStatus NetworkManager::DevicePrivate::convertMeteredStatus(uint metered)
 {
-    NetworkManager::Device::MeteredStatus ourMeteredStatus = (NetworkManager::Device::MeteredStatus) metered;
+    NetworkManager::Device::MeteredStatus ourMeteredStatus = (NetworkManager::Device::MeteredStatus)metered;
     return ourMeteredStatus;
 }
 
 NetworkManager::Device::Capabilities NetworkManager::DevicePrivate::convertCapabilities(uint theirCaps)
 {
-    NetworkManager::Device::Capabilities ourCaps
-        = (NetworkManager::Device::Capabilities) theirCaps;
+    NetworkManager::Device::Capabilities ourCaps = (NetworkManager::Device::Capabilities)theirCaps;
     return ourCaps;
 }
 
@@ -210,7 +211,7 @@ NetworkManager::Device::Device(const QString &path, QObject *parent)
     d->init();
 }
 
-NetworkManager::Device::Device(DevicePrivate &dd,  QObject *parent)
+NetworkManager::Device::Device(DevicePrivate &dd, QObject *parent)
     : QObject(parent)
     , d_ptr(&dd)
 {
@@ -234,7 +235,7 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
         Q_EMIT q->autoconnectChanged();
     } else if (property == QLatin1String("AvailableConnections")) {
         QStringList newAvailableConnections;
-        const QList<QDBusObjectPath> availableConnectionsTmp = qdbus_cast< QList<QDBusObjectPath> >(value);
+        const QList<QDBusObjectPath> availableConnectionsTmp = qdbus_cast<QList<QDBusObjectPath>>(value);
         for (const QDBusObjectPath &availableConnection : availableConnectionsTmp) {
             newAvailableConnections << availableConnection.path();
             if (!availableConnections.contains(availableConnection.path())) {
@@ -340,8 +341,8 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
         physicalPortId = value.toString();
         Q_EMIT q->physicalPortIdChanged();
     } else if (property == QLatin1String("Mtu")) {
-            mtu = value.toUInt();
-            Q_EMIT q->mtuChanged();
+        mtu = value.toUInt();
+        Q_EMIT q->mtuChanged();
     } else if (property == QLatin1String("NmPluginMissing")) {
         nmPluginMissing = value.toBool();
         Q_EMIT q->nmPluginMissingChanged(nmPluginMissing);
@@ -497,10 +498,8 @@ NetworkManager::Dhcp6Config::Ptr NetworkManager::Device::dhcp6Config() const
 bool NetworkManager::Device::isActive() const
 {
     Q_D(const Device);
-    return !(d->connectionState == NetworkManager::Device::Unavailable
-             || d->connectionState == NetworkManager::Device::Unmanaged
-             || d->connectionState == NetworkManager::Device::Disconnected
-             || d->connectionState == NetworkManager::Device::Failed);
+    return !(d->connectionState == NetworkManager::Device::Unavailable || d->connectionState == NetworkManager::Device::Unmanaged
+             || d->connectionState == NetworkManager::Device::Disconnected || d->connectionState == NetworkManager::Device::Failed);
 }
 
 bool NetworkManager::Device::isValid() const
@@ -525,7 +524,6 @@ bool NetworkManager::Device::nmPluginMissing() const
 {
     Q_D(const Device);
     return d->nmPluginMissing;
-
 }
 
 NetworkManager::Device::MeteredStatus NetworkManager::Device::metered() const
@@ -598,7 +596,8 @@ void NetworkManager::DevicePrivate::deviceStateChanged(uint newState, uint oldSt
 void NetworkManager::DevicePrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
 {
     Q_UNUSED(invalidatedProperties);
-    if (interfaceName.contains(QLatin1String("org.freedesktop.NetworkManager.Device")) && interfaceName != QLatin1String("org.freedesktop.NetworkManager.Device.Statistics")) {
+    if (interfaceName.contains(QLatin1String("org.freedesktop.NetworkManager.Device"))
+        && interfaceName != QLatin1String("org.freedesktop.NetworkManager.Device.Statistics")) {
         propertiesChanged(properties);
     }
 }

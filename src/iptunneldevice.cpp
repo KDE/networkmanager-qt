@@ -4,8 +4,8 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-#include "iptunneldevice_p.h"
 #include "device_p.h"
+#include "iptunneldevice_p.h"
 #include "manager.h"
 
 NetworkManager::IpTunnelDevicePrivate::IpTunnelDevicePrivate(const QString &path, IpTunnelDevice *q)
@@ -22,8 +22,8 @@ NetworkManager::IpTunnelDevicePrivate::~IpTunnelDevicePrivate()
 {
 }
 
-NetworkManager::IpTunnelDevice::IpTunnelDevice(const QString &path, QObject *parent):
-    Device(*new IpTunnelDevicePrivate(path, this), parent)
+NetworkManager::IpTunnelDevice::IpTunnelDevice(const QString &path, QObject *parent)
+    : Device(*new IpTunnelDevicePrivate(path, this), parent)
 {
     Q_D(IpTunnelDevice);
 
@@ -32,8 +32,12 @@ NetworkManager::IpTunnelDevice::IpTunnelDevice(const QString &path, QObject *par
         d->propertiesChanged(initialProperties);
     }
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::IpTunnelDevice::~IpTunnelDevice()

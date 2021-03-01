@@ -9,7 +9,7 @@
 
 #include "utils.h"
 
-//define the deprecated&dropped values
+// define the deprecated&dropped values
 #define NM_SETTING_WIRELESS_SEC "security"
 #define NM_SETTING_WIRELESS_ASSIGNED_MAC_ADDRESS "assigned-mac-address"
 
@@ -26,12 +26,14 @@ NetworkManager::WirelessSettingPrivate::WirelessSettingPrivate()
     , hidden(false)
     , macAddressRandomization(NetworkManager::Setting::MacAddressRandomizationDefault)
     , powersave(NetworkManager::WirelessSetting::PowerSaveDefault)
-{ }
+{
+}
 
 NetworkManager::WirelessSetting::WirelessSetting()
     : Setting(Setting::Wireless)
     , d_ptr(new WirelessSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::WirelessSetting::WirelessSetting(const Ptr &setting)
     : Setting(setting)
@@ -209,7 +211,7 @@ QByteArray NetworkManager::WirelessSetting::clonedMacAddress() const
     return NetworkManager::macAddressFromString(d->assignedMacAddress.toUtf8());
 }
 
-void NetworkManager::WirelessSetting::setGenerateMacAddressMask(const QString& macAddressMask)
+void NetworkManager::WirelessSetting::setGenerateMacAddressMask(const QString &macAddressMask)
 {
     Q_D(WirelessSetting);
 
@@ -384,7 +386,8 @@ void NetworkManager::WirelessSetting::fromMap(const QVariantMap &setting)
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_RANDOMIZATION))) {
-        setMacAddressRandomization(static_cast<Setting::MacAddressRandomization>(setting.value(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_RANDOMIZATION)).toUInt()));
+        setMacAddressRandomization(
+            static_cast<Setting::MacAddressRandomization>(setting.value(QLatin1String(NM_SETTING_WIRELESS_MAC_ADDRESS_RANDOMIZATION)).toUInt()));
     }
 
     if (setting.contains(QLatin1String(NM_SETTING_WIRELESS_MTU))) {
@@ -427,7 +430,7 @@ QVariantMap NetworkManager::WirelessSetting::toMap() const
     if (band() != Automatic) {
         if (band() == A) {
             setting.insert(QLatin1String(NM_SETTING_WIRELESS_BAND), "a");
-        } else if (band() ==  Bg) {
+        } else if (band() == Bg) {
             setting.insert(QLatin1String(NM_SETTING_WIRELESS_BAND), "bg");
         }
     }
@@ -487,7 +490,7 @@ QVariantMap NetworkManager::WirelessSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WirelessSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::WirelessSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

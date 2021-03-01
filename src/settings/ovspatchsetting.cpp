@@ -10,18 +10,20 @@
 #include <QDebug>
 
 #if !NM_CHECK_VERSION(1, 10, 0)
-#define NM_SETTING_OVS_PATCH_SETTING_NAME   "ovs-patch"
-#define NM_SETTING_OVS_PATCH_PEER           "peer"
+#define NM_SETTING_OVS_PATCH_SETTING_NAME "ovs-patch"
+#define NM_SETTING_OVS_PATCH_PEER "peer"
 #endif
 
 NetworkManager::OvsPatchSettingPrivate::OvsPatchSettingPrivate()
     : name(NM_SETTING_OVS_PATCH_SETTING_NAME)
-{ }
+{
+}
 
 NetworkManager::OvsPatchSetting::OvsPatchSetting()
     : Setting(Setting::OvsPatch)
     , d_ptr(new OvsPatchSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::OvsPatchSetting::OvsPatchSetting(const Ptr &other)
     : Setting(other)
@@ -74,7 +76,7 @@ QVariantMap NetworkManager::OvsPatchSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::OvsPatchSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::OvsPatchSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

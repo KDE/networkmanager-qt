@@ -6,7 +6,6 @@
 
 #include "wireddevice.h"
 
-
 WiredDevice::WiredDevice(QObject *parent)
     : Device(parent)
 {
@@ -15,7 +14,7 @@ WiredDevice::WiredDevice(QObject *parent)
 WiredDevice::~WiredDevice()
 {
     QVariantMap map;
-    map.insert(QLatin1String("AvailableConnections"), QVariant::fromValue<QList<QDBusObjectPath> >(QList<QDBusObjectPath>()));
+    map.insert(QLatin1String("AvailableConnections"), QVariant::fromValue<QList<QDBusObjectPath>>(QList<QDBusObjectPath>()));
     Q_EMIT PropertiesChanged(map);
 }
 

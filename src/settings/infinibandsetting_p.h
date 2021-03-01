@@ -11,7 +11,6 @@
 
 namespace NetworkManager
 {
-
 class InfinibandSettingPrivate
 {
 public:
@@ -23,7 +22,6 @@ public:
     NetworkManager::InfinibandSetting::TransportMode transportMode;
     qint32 pKey;
     QString parent;
-
 };
 
 }

@@ -9,19 +9,18 @@
 #ifndef NETWORKMANAGERQT_ACTIVECONNECTION_H
 #define NETWORKMANAGERQT_ACTIVECONNECTION_H
 
-#include <QObject>
 #include <QDBusObjectPath>
+#include <QObject>
 #include <QSharedPointer>
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "connection.h"
 #include "dhcp4config.h"
 #include "dhcp6config.h"
 #include "ipconfig.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 namespace NetworkManager
 {
-
 class ActiveConnectionPrivate;
 
 /**
@@ -46,21 +45,21 @@ public:
     };
 
     enum Reason {
-        UknownReason = 0,   /**< The reason for the active connection state change is unknown */
-        None,               /**< No reason was given for the active connection state change */
-        UserDisconnected,   /**< The active connection changed state because the user disconnected it */
+        UknownReason = 0, /**< The reason for the active connection state change is unknown */
+        None, /**< No reason was given for the active connection state change */
+        UserDisconnected, /**< The active connection changed state because the user disconnected it */
         DeviceDisconnected, /**< The active connection changed state because the device it was using was disconnected */
-        ServiceStopped,     /**< The service providing the VPN connection was stopped */
-        IpConfigInvalid,    /**< The IP config of the active connection was invalid */
-        ConnectTimeout,     /**< The connection attempt to the VPN service timed out */
-        ServiceStartTimeout,/**< A timeout occurred while starting the service providing the VPN connection */
+        ServiceStopped, /**< The service providing the VPN connection was stopped */
+        IpConfigInvalid, /**< The IP config of the active connection was invalid */
+        ConnectTimeout, /**< The connection attempt to the VPN service timed out */
+        ServiceStartTimeout, /**< A timeout occurred while starting the service providing the VPN connection */
         ServiceStartFailed, /**< Starting the service providing the VPN connection failed */
-        NoSecrets,          /**< Necessary secrets for the connection were not provided */
-        LoginFailed,        /**< Authentication to the server failed */
-        ConnectionRemoved,  /**< The connection was deleted from settings */
-        DependencyFailed,   /**< Master connection of this connection failed to activate */
-        DeviceRealizeFailed,/**< Could not create the software device link */
-        DeviceRemoved,       /**< The device this connection depended on disappeared */
+        NoSecrets, /**< Necessary secrets for the connection were not provided */
+        LoginFailed, /**< Authentication to the server failed */
+        ConnectionRemoved, /**< The connection was deleted from settings */
+        DependencyFailed, /**< Master connection of this connection failed to activate */
+        DeviceRealizeFailed, /**< Could not create the software device link */
+        DeviceRemoved, /**< The device this connection depended on disappeared */
     };
 
     /**
@@ -96,16 +95,16 @@ public:
      */
     bool default6() const;
     /**
-      * The Ip4Config object describing the configuration of the
-      * connection. Only valid when the connection is in the
-      * NM_ACTIVE_CONNECTION_STATE_ACTIVATED state
-      */
+     * The Ip4Config object describing the configuration of the
+     * connection. Only valid when the connection is in the
+     * NM_ACTIVE_CONNECTION_STATE_ACTIVATED state
+     */
     IpConfig ipV4Config() const;
     /**
-      * The Ip6Config object describing the configuration of the
-      * connection. Only valid when the connection is in the
-      * NM_ACTIVE_CONNECTION_STATE_ACTIVATED state
-      */
+     * The Ip6Config object describing the configuration of the
+     * connection. Only valid when the connection is in the
+     * NM_ACTIVE_CONNECTION_STATE_ACTIVATED state
+     */
     IpConfig ipV6Config() const;
     /**
      * The Dhcp4Config object describing the DHCP options
@@ -230,4 +229,3 @@ private:
 
 } // namespace NetworkManager
 #endif // NETWORKMANAGERQT_ACTIVECONNECTION_H
-

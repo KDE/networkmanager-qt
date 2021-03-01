@@ -12,15 +12,17 @@
 
 NetworkManager::TemplateSettingPrivate::TemplateSettingPrivate()
 //     : name(NM_SETTING_TEMPLATE_SETTING_NAME)
-{ }
+{
+}
 
-NetworkManager::TemplateSetting::TemplateSetting():
-/* TODO: Uncomment and replace the template with the setting that you want to implement
- *       This setting must also be added into the enum in base class
- */
-    //Setting(Setting::Template),
+NetworkManager::TemplateSetting::TemplateSetting()
+    : /* TODO: Uncomment and replace the template with the setting that you want to implement
+       *       This setting must also be added into the enum in base class
+       */
+    // Setting(Setting::Template),
     d_ptr(new TemplateSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::TemplateSetting::TemplateSetting(const Ptr &other)
     : Setting(other)
@@ -68,7 +70,7 @@ QVariantMap NetworkManager::TemplateSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::TemplateSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::TemplateSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

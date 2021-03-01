@@ -15,7 +15,10 @@
  * Implementation of interface class OrgFreedesktopNetworkManagerDeviceMacvlanInterface
  */
 
-OrgFreedesktopNetworkManagerDeviceMacvlanInterface::OrgFreedesktopNetworkManagerDeviceMacvlanInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+OrgFreedesktopNetworkManagerDeviceMacvlanInterface::OrgFreedesktopNetworkManagerDeviceMacvlanInterface(const QString &service,
+                                                                                                       const QString &path,
+                                                                                                       const QDBusConnection &connection,
+                                                                                                       QObject *parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 }
@@ -23,4 +26,3 @@ OrgFreedesktopNetworkManagerDeviceMacvlanInterface::OrgFreedesktopNetworkManager
 OrgFreedesktopNetworkManagerDeviceMacvlanInterface::~OrgFreedesktopNetworkManagerDeviceMacvlanInterface()
 {
 }
-

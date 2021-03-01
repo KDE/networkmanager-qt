@@ -7,8 +7,8 @@
 #ifndef NETWORKMANAGERQT_WIMAXNSP_P_H
 #define NETWORKMANAGERQT_WIMAXNSP_P_H
 
-#include "wimaxnsp.h"
 #include "dbus/wimaxnspinterface.h"
+#include "wimaxnsp.h"
 
 namespace NetworkManager
 {

@@ -40,25 +40,24 @@ void ConnectionSettingTest::testSetting_data()
     QStringList permissions;
     permissions << "user:foo:bar";
 
-    QTest::newRow("setting1")
-            << QString("test")                                      // id
-            << QString("2815492f-7e56-435e-b2e9-246bd7cdc664")      // uuid
-            << QString("802-3-ethernet")                            // type
-            << permissions                                          // permissions
-            << false                                                // autoconnect
-            << (quint64) 1355945444                                 // timestamp
-            << true                                                 // readOnly
-            << QString("Home")                                      // zone
-            << QString("3ba0ba8c-58f3-427d-bce4-3c8200277a5c")      // master
-            << QString("bond")                                      // slaveType
-            << QStringList{{"2d331115-a2f4-4376-b24e-b8ba6e71abcf"}}// secondaries
-            << (uint)10                                             // gatewayPingTimeout
-            << 10                                                   // autoconnectPriority
-            << 5                                                    // autoconnectRetries
-            << 1                                                    // autoconnectSlaves
-            << 1                                                    // lldp
-            << 1                                                    // metered
-            << QString("${CONNECTION}/${BOOT}");                    // stableId
+    QTest::newRow("setting1") << QString("test") // id
+                              << QString("2815492f-7e56-435e-b2e9-246bd7cdc664") // uuid
+                              << QString("802-3-ethernet") // type
+                              << permissions // permissions
+                              << false // autoconnect
+                              << (quint64)1355945444 // timestamp
+                              << true // readOnly
+                              << QString("Home") // zone
+                              << QString("3ba0ba8c-58f3-427d-bce4-3c8200277a5c") // master
+                              << QString("bond") // slaveType
+                              << QStringList{{"2d331115-a2f4-4376-b24e-b8ba6e71abcf"}} // secondaries
+                              << (uint)10 // gatewayPingTimeout
+                              << 10 // autoconnectPriority
+                              << 5 // autoconnectRetries
+                              << 1 // autoconnectSlaves
+                              << 1 // lldp
+                              << 1 // metered
+                              << QString("${CONNECTION}/${BOOT}"); // stableId
 }
 
 void ConnectionSettingTest::testSetting()

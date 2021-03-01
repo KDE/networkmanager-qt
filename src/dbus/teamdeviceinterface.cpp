@@ -15,7 +15,10 @@
  * Implementation of interface class OrgFreedesktopNetworkManagerDeviceTeamInterface
  */
 
-OrgFreedesktopNetworkManagerDeviceTeamInterface::OrgFreedesktopNetworkManagerDeviceTeamInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+OrgFreedesktopNetworkManagerDeviceTeamInterface::OrgFreedesktopNetworkManagerDeviceTeamInterface(const QString &service,
+                                                                                                 const QString &path,
+                                                                                                 const QDBusConnection &connection,
+                                                                                                 QObject *parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 }
@@ -23,4 +26,3 @@ OrgFreedesktopNetworkManagerDeviceTeamInterface::OrgFreedesktopNetworkManagerDev
 OrgFreedesktopNetworkManagerDeviceTeamInterface::~OrgFreedesktopNetworkManagerDeviceTeamInterface()
 {
 }
-

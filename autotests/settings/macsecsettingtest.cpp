@@ -13,18 +13,18 @@
 #include <QTest>
 
 #if !NM_CHECK_VERSION(1, 6, 0)
-#define NM_SETTING_MACSEC_PARENT               "parent"
-#define NM_SETTING_MACSEC_MODE                 "mode"
-#define NM_SETTING_MACSEC_ENCRYPT              "encrypt"
-#define NM_SETTING_MACSEC_MKA_CAK              "mka-cak"
-#define NM_SETTING_MACSEC_MKA_CAK_FLAGS        "mka-cak-flags"
-#define NM_SETTING_MACSEC_MKA_CKN              "mka-ckn"
-#define NM_SETTING_MACSEC_PORT                 "port"
-#define NM_SETTING_MACSEC_VALIDATION           "validation"
+#define NM_SETTING_MACSEC_PARENT "parent"
+#define NM_SETTING_MACSEC_MODE "mode"
+#define NM_SETTING_MACSEC_ENCRYPT "encrypt"
+#define NM_SETTING_MACSEC_MKA_CAK "mka-cak"
+#define NM_SETTING_MACSEC_MKA_CAK_FLAGS "mka-cak-flags"
+#define NM_SETTING_MACSEC_MKA_CKN "mka-ckn"
+#define NM_SETTING_MACSEC_PORT "port"
+#define NM_SETTING_MACSEC_VALIDATION "validation"
 #endif
 
 #if !NM_CHECK_VERSION(1, 12, 0)
-#define NM_SETTING_MACSEC_SEND_SCI             "send-sci"
+#define NM_SETTING_MACSEC_SEND_SCI "send-sci"
 #endif
 
 void MacsecSettingTest::testSetting_data()
@@ -39,17 +39,15 @@ void MacsecSettingTest::testSetting_data()
     QTest::addColumn<qint32>("validation");
     QTest::addColumn<quint32>("mkaCakFlags");
 
-    QTest::newRow("setting1")
-            << false             // encrypt
-            << QString("abc")    // mkaCak
-            << QString("abc")    // mkaCkn
-            << (qint32) 1        // mode
-            << QString("abc")    // parent
-            << (qint32) 666      // port
-            << false             // sendSci
-            << (qint32) 4        // validation
-            << (quint32) 6;      // mkaCakFlags
-
+    QTest::newRow("setting1") << false // encrypt
+                              << QString("abc") // mkaCak
+                              << QString("abc") // mkaCkn
+                              << (qint32)1 // mode
+                              << QString("abc") // parent
+                              << (qint32)666 // port
+                              << false // sendSci
+                              << (qint32)4 // validation
+                              << (quint32)6; // mkaCakFlags
 }
 
 void MacsecSettingTest::testSetting()

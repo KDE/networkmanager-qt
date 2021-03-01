@@ -4,9 +4,9 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-#include "vlandevice_p.h"
 #include "device_p.h"
 #include "manager.h"
+#include "vlandevice_p.h"
 
 NetworkManager::VlanDevicePrivate::VlanDevicePrivate(const QString &path, VlanDevice *q)
     : DevicePrivate(path, q)
@@ -33,8 +33,12 @@ NetworkManager::VlanDevice::VlanDevice(const QString &path, QObject *parent)
         d->propertiesChanged(initialProperties);
     }
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::VlanDevicePrivate::~VlanDevicePrivate()

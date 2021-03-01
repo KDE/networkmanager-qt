@@ -6,9 +6,9 @@
 */
 
 #include "settings.h"
-#include "settings_p.h"
 #include "macros.h"
 #include "manager_p.h"
+#include "settings_p.h"
 
 #include <QDBusObjectPath>
 
@@ -16,7 +16,7 @@
 
 #include "nmdebug.h"
 
-//NM_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
+// NM_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
 Q_GLOBAL_STATIC(NetworkManager::SettingsPrivate, globalSettings)
 
 NetworkManager::SettingsPrivate::SettingsPrivate()
@@ -27,12 +27,17 @@ NetworkManager::SettingsPrivate::SettingsPrivate()
 #endif
     , m_canModify(true)
 {
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_SETTINGS_PATH, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), this, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
-    connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::NewConnection,
-            this, &SettingsPrivate::onConnectionAdded);
-    connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::ConnectionRemoved,
-            this, static_cast<void (SettingsPrivate::*)(const QDBusObjectPath &)>(&SettingsPrivate::onConnectionRemoved));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         NetworkManagerPrivate::DBUS_SETTINGS_PATH,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         this,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
+    connect(&iface, &OrgFreedesktopNetworkManagerSettingsInterface::NewConnection, this, &SettingsPrivate::onConnectionAdded);
+    connect(&iface,
+            &OrgFreedesktopNetworkManagerSettingsInterface::ConnectionRemoved,
+            this,
+            static_cast<void (SettingsPrivate::*)(const QDBusObjectPath &)>(&SettingsPrivate::onConnectionRemoved));
     init();
     // This class is a friend of NetworkManagerPrivate thus initted there too
     // because of the init chain we must follow,
@@ -130,7 +135,9 @@ void NetworkManager::SettingsPrivate::saveHostname(const QString &hostname)
     iface.SaveHostname(hostname);
 }
 
-void NetworkManager::SettingsPrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
+void NetworkManager::SettingsPrivate::dbusPropertiesChanged(const QString &interfaceName,
+                                                            const QVariantMap &properties,
+                                                            const QStringList &invalidatedProperties)
 {
     Q_UNUSED(invalidatedProperties);
     if (interfaceName == QLatin1String("org.freedesktop.NetworkManager.Settings")) {
@@ -150,7 +157,7 @@ void NetworkManager::SettingsPrivate::propertiesChanged(const QVariantMap &prope
             m_hostname = it->toString();
             Q_EMIT hostnameChanged(m_hostname);
         } else if (property == QLatin1String("Connections")) {
-            //will never get here in runtime NM < 0.9.10
+            // will never get here in runtime NM < 0.9.10
             // TODO some action??
         } else {
             qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
@@ -229,12 +236,12 @@ QDBusPendingReply<QDBusObjectPath> NetworkManager::addConnectionUnsaved(const NM
     return globalSettings->addConnectionUnsaved(connection);
 }
 
-QDBusPendingReply< bool, QStringList > NetworkManager::loadConnections(const QStringList &filenames)
+QDBusPendingReply<bool, QStringList> NetworkManager::loadConnections(const QStringList &filenames)
 {
     return globalSettings->loadConnections(filenames);
 }
 
-QDBusPendingReply< bool > NetworkManager::reloadConnections()
+QDBusPendingReply<bool> NetworkManager::reloadConnections()
 {
     return globalSettings->reloadConnections();
 }

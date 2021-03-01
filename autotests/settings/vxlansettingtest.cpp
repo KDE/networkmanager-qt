@@ -31,23 +31,22 @@ void VxlanSettingTest::testSetting_data()
     QTest::addColumn<quint32>("tos");
     QTest::addColumn<quint32>("ttl");
 
-    QTest::newRow("setting1")
-            << (quint32) 2                                      // ageing
-            << (quint32) 334                                    // destinationPort
-            << (quint32) 2                                      // id
-            << (bool) true                                      // l2Miss
-            << (bool) true                                      // l3Miss
-            << (bool) false                                     // learning
-            << (quint32) 2                                      // limit
-            << QString("foo")                                   // local
-            << QString("bar")                                   // parent
-            << (bool) true                                      // proxy
-            << QString("foo")                                   // remote
-            << (bool) true                                      // rsc
-            << (quint32) 2                                      // sourcePortMax
-            << (quint32) 2                                      // sourcePortMin
-            << (quint32) 2                                      // tos
-            << (quint32) 2;                                     // ttl
+    QTest::newRow("setting1") << (quint32)2 // ageing
+                              << (quint32)334 // destinationPort
+                              << (quint32)2 // id
+                              << (bool)true // l2Miss
+                              << (bool)true // l3Miss
+                              << (bool)false // learning
+                              << (quint32)2 // limit
+                              << QString("foo") // local
+                              << QString("bar") // parent
+                              << (bool)true // proxy
+                              << QString("foo") // remote
+                              << (bool)true // rsc
+                              << (quint32)2 // sourcePortMax
+                              << (quint32)2 // sourcePortMin
+                              << (quint32)2 // tos
+                              << (quint32)2; // ttl
 }
 
 void VxlanSettingTest::testSetting()

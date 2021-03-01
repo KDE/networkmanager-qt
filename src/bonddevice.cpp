@@ -24,8 +24,8 @@ NetworkManager::BondDevice::~BondDevice()
 {
 }
 
-NetworkManager::BondDevice::BondDevice(const QString &path, QObject *parent):
-    Device(*new BondDevicePrivate(path, this), parent)
+NetworkManager::BondDevice::BondDevice(const QString &path, QObject *parent)
+    : Device(*new BondDevicePrivate(path, this), parent)
 {
     Q_D(BondDevice);
 
@@ -34,8 +34,12 @@ NetworkManager::BondDevice::BondDevice(const QString &path, QObject *parent):
         d->propertiesChanged(initialProperties);
     }
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::BondDevicePrivate::~BondDevicePrivate()
@@ -80,7 +84,7 @@ void NetworkManager::BondDevicePrivate::propertyChanged(const QString &property,
         Q_EMIT q->hwAddressChanged(hwAddress);
     } else if (property == QLatin1String("Slaves")) {
         QStringList list;
-        const QList<QDBusObjectPath> opList = qdbus_cast< QList<QDBusObjectPath> >(value);
+        const QList<QDBusObjectPath> opList = qdbus_cast<QList<QDBusObjectPath>>(value);
         for (const QDBusObjectPath &op : opList) {
             list << op.path();
         }

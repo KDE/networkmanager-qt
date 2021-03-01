@@ -10,18 +10,20 @@
 #include <QDebug>
 
 #if !NM_CHECK_VERSION(1, 8, 0)
-#define NM_SETTING_USER_SETTING_NAME    "user"
-#define NM_SETTING_USER_DATA            "data"
+#define NM_SETTING_USER_SETTING_NAME "user"
+#define NM_SETTING_USER_DATA "data"
 #endif
 
 NetworkManager::UserSettingPrivate::UserSettingPrivate()
     : name(NM_SETTING_USER_SETTING_NAME)
-{ }
+{
+}
 
 NetworkManager::UserSetting::UserSetting()
     : Setting(Setting::User)
     , d_ptr(new UserSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::UserSetting::UserSetting(const Ptr &other)
     : Setting(other)
@@ -81,7 +83,7 @@ QVariantMap NetworkManager::UserSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::UserSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::UserSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
@@ -90,4 +92,3 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::UserSetting
 
     return dbg.maybeSpace();
 }
-

@@ -11,7 +11,6 @@
 
 namespace NetworkManager
 {
-
 class MatchSettingPrivate
 {
 public:
@@ -25,4 +24,3 @@ public:
 }
 
 #endif // NETWORKMANAGERQT_MATCH_SETTING_P_H
-

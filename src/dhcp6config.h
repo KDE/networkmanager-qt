@@ -21,7 +21,7 @@ class Dhcp6ConfigPrivate;
 /**
  * This class represents dhcp4 configuration
  */
-class NETWORKMANAGERQT_EXPORT Dhcp6Config: public QObject
+class NETWORKMANAGERQT_EXPORT Dhcp6Config : public QObject
 {
     Q_OBJECT
 public:

@@ -11,16 +11,16 @@
 #ifndef TUNDEVICEINTERFACE_H
 #define TUNDEVICEINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Tun
  */
-class OrgFreedesktopNetworkManagerDeviceTunInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceTunInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -43,43 +43,43 @@ public:
     Q_PROPERTY(qlonglong Group READ group)
     inline qlonglong group() const
     {
-        return qvariant_cast< qlonglong >(property("Group"));
+        return qvariant_cast<qlonglong>(property("Group"));
     }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const
     {
-        return qvariant_cast< QString >(property("HwAddress"));
+        return qvariant_cast<QString>(property("HwAddress"));
     }
 
     Q_PROPERTY(QString Mode READ mode)
     inline QString mode() const
     {
-        return qvariant_cast< QString >(property("Mode"));
+        return qvariant_cast<QString>(property("Mode"));
     }
 
     Q_PROPERTY(bool MultiQueue READ multiQueue)
     inline bool multiQueue() const
     {
-        return qvariant_cast< bool >(property("MultiQueue"));
+        return qvariant_cast<bool>(property("MultiQueue"));
     }
 
     Q_PROPERTY(bool NoPi READ noPi)
     inline bool noPi() const
     {
-        return qvariant_cast< bool >(property("NoPi"));
+        return qvariant_cast<bool>(property("NoPi"));
     }
 
     Q_PROPERTY(qlonglong Owner READ owner)
     inline qlonglong owner() const
     {
-        return qvariant_cast< qlonglong >(property("Owner"));
+        return qvariant_cast<qlonglong>(property("Owner"));
     }
 
     Q_PROPERTY(bool VnetHdr READ vnetHdr)
     inline bool vnetHdr() const
     {
-        return qvariant_cast< bool >(property("VnetHdr"));
+        return qvariant_cast<bool>(property("VnetHdr"));
     }
 
 public Q_SLOTS: // METHODS

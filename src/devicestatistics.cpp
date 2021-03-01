@@ -32,8 +32,12 @@ NetworkManager::DeviceStatistics::DeviceStatistics(const QString &path, QObject 
     // as soon as the refresh rate is changed, we'll get the rest of properties initialised
 
     // Get all DeviceStatistics's properties at once
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::DeviceStatistics::~DeviceStatistics()
@@ -66,7 +70,9 @@ qulonglong NetworkManager::DeviceStatistics::txBytes() const
     return d->txBytes;
 }
 
-void NetworkManager::DeviceStatisticsPrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
+void NetworkManager::DeviceStatisticsPrivate::dbusPropertiesChanged(const QString &interfaceName,
+                                                                    const QVariantMap &properties,
+                                                                    const QStringList &invalidatedProperties)
 {
     Q_UNUSED(invalidatedProperties);
     if (interfaceName == QLatin1String("org.freedesktop.NetworkManager.Device.Statistics")) {
@@ -98,4 +104,3 @@ void NetworkManager::DeviceStatisticsPrivate::propertiesChanged(const QVariantMa
         ++it;
     }
 }
-

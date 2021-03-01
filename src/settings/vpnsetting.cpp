@@ -5,19 +5,21 @@
 */
 
 #include "vpnsetting.h"
-#include "vpnsetting_p.h"
 #include "nmdebug.h"
+#include "vpnsetting_p.h"
 
 NetworkManager::VpnSettingPrivate::VpnSettingPrivate()
     : name(NM_SETTING_VPN_SETTING_NAME)
     , persistent(false)
     , timeout(0)
-{ }
+{
+}
 
 NetworkManager::VpnSetting::VpnSetting()
     : Setting(Setting::Vpn)
     , d_ptr(new VpnSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::VpnSetting::VpnSetting(const Ptr &other)
     : Setting(other)
@@ -229,7 +231,7 @@ NMStringMap NetworkManager::VpnSetting::secretsToStringMap() const
     return ret;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::VpnSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::VpnSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

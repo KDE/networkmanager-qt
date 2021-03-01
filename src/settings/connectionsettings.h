@@ -8,20 +8,19 @@
 #ifndef NETWORKMANAGERQT_CONNECTION_SETTINGS_H
 #define NETWORKMANAGERQT_CONNECTION_SETTINGS_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #undef signals
 #include <libnm/NetworkManager.h>
 #define signals Q_SIGNALS
 
-#include <QString>
 #include <QDateTime>
 #include <QHash>
+#include <QString>
 
 namespace NetworkManager
 {
-
 class ConnectionSettingsPrivate;
 
 /**
@@ -77,7 +76,6 @@ public:
         MeteredGuessYes = 3,
         MeteredGuessNo = 4,
     };
-
 
     static ConnectionType typeFromString(const QString &typeString);
     static QString typeAsString(const ConnectionType type);

@@ -11,7 +11,6 @@
 
 namespace NetworkManager
 {
-
 class IpTunnelSettingPrivate
 {
 public:
@@ -37,4 +36,3 @@ public:
 }
 
 #endif // NETWORKMANAGERQT_IP_TUNNEL_SETTING_P_H
-

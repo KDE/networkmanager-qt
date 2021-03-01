@@ -7,12 +7,11 @@
 #ifndef NETWORKMANAGERQT_WIREDDEVICE_P_H
 #define NETWORKMANAGERQT_WIREDDEVICE_P_H
 
-#include "device_p.h"
 #include "dbus/wireddeviceinterface.h"
+#include "device_p.h"
 
 namespace NetworkManager
 {
-
 class WiredDevicePrivate : public DevicePrivate
 {
     Q_OBJECT

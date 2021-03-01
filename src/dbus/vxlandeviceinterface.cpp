@@ -15,7 +15,10 @@
  * Implementation of interface class OrgFreedesktopNetworkManagerDeviceVxlanInterface
  */
 
-OrgFreedesktopNetworkManagerDeviceVxlanInterface::OrgFreedesktopNetworkManagerDeviceVxlanInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+OrgFreedesktopNetworkManagerDeviceVxlanInterface::OrgFreedesktopNetworkManagerDeviceVxlanInterface(const QString &service,
+                                                                                                   const QString &path,
+                                                                                                   const QDBusConnection &connection,
+                                                                                                   QObject *parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 }
@@ -23,4 +26,3 @@ OrgFreedesktopNetworkManagerDeviceVxlanInterface::OrgFreedesktopNetworkManagerDe
 OrgFreedesktopNetworkManagerDeviceVxlanInterface::~OrgFreedesktopNetworkManagerDeviceVxlanInterface()
 {
 }
-

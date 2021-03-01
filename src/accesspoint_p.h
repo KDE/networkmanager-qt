@@ -14,7 +14,6 @@
 
 namespace NetworkManager
 {
-
 class AccessPointPrivate : public QObject
 {
     Q_OBJECT

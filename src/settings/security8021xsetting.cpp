@@ -22,12 +22,14 @@ NetworkManager::Security8021xSettingPrivate::Security8021xSettingPrivate()
     , phase2PrivateKeyPasswordFlags(NetworkManager::Setting::None)
     , pinFlags(NetworkManager::Setting::None)
     , systemCaCerts(false)
-{ }
+{
+}
 
 NetworkManager::Security8021xSetting::Security8021xSetting()
     : Setting(Setting::Security8021x)
     , d_ptr(new Security8021xSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::Security8021xSetting::Security8021xSetting(const Ptr &other)
     : Setting(other)
@@ -77,14 +79,14 @@ QString NetworkManager::Security8021xSetting::name() const
     return d->name;
 }
 
-void NetworkManager::Security8021xSetting::setEapMethods(const QList< NetworkManager::Security8021xSetting::EapMethod > &methods)
+void NetworkManager::Security8021xSetting::setEapMethods(const QList<NetworkManager::Security8021xSetting::EapMethod> &methods)
 {
     Q_D(Security8021xSetting);
 
     d->eap = methods;
 }
 
-QList< NetworkManager::Security8021xSetting::EapMethod > NetworkManager::Security8021xSetting::eapMethods() const
+QList<NetworkManager::Security8021xSetting::EapMethod> NetworkManager::Security8021xSetting::eapMethods() const
 {
     Q_D(const Security8021xSetting);
 
@@ -543,21 +545,19 @@ QStringList NetworkManager::Security8021xSetting::needSecrets(bool requestNew) c
 {
     QStringList secrets;
 
-    if (eapMethods().contains(EapMethodTls) && (privateKeyPassword().isEmpty() || requestNew) &&
-            !privateKeyPasswordFlags().testFlag(NotRequired)) {
+    if (eapMethods().contains(EapMethodTls) && (privateKeyPassword().isEmpty() || requestNew) && !privateKeyPasswordFlags().testFlag(NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PRIVATE_KEY_PASSWORD);
-    } else if ((eapMethods().contains(EapMethodTtls) || eapMethods().contains(EapMethodPeap) ||
-                eapMethods().contains(EapMethodLeap) || eapMethods().contains(EapMethodFast) ||
-                eapMethods().contains(EapMethodPwd)) &&
-               (password().isEmpty() || requestNew) && !passwordFlags().testFlag(NotRequired)) {
+    } else if ((eapMethods().contains(EapMethodTtls) || eapMethods().contains(EapMethodPeap) || eapMethods().contains(EapMethodLeap)
+                || eapMethods().contains(EapMethodFast) || eapMethods().contains(EapMethodPwd))
+               && (password().isEmpty() || requestNew) && !passwordFlags().testFlag(NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD);
         secrets << QLatin1String(NM_SETTING_802_1X_PASSWORD_RAW);
     } else if (eapMethods().contains(EapMethodSim) && (pin().isEmpty() || requestNew) && !pinFlags().testFlag(NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PIN);
     }
 
-    if ((phase2AuthMethod() == AuthMethodTls || phase2AuthEapMethod() == AuthEapMethodTls) &&
-            (phase2PrivateKeyPassword().isEmpty() || requestNew) && !phase2PrivateKeyPasswordFlags().testFlag(NotRequired)) {
+    if ((phase2AuthMethod() == AuthMethodTls || phase2AuthEapMethod() == AuthEapMethodTls) && (phase2PrivateKeyPassword().isEmpty() || requestNew)
+        && !phase2PrivateKeyPasswordFlags().testFlag(NotRequired)) {
         secrets << QLatin1String(NM_SETTING_802_1X_PHASE2_PRIVATE_KEY_PASSWORD);
     }
 
@@ -906,11 +906,11 @@ QVariantMap NetworkManager::Security8021xSetting::toMap() const
 
     QString peapLabel;
     switch (phase1PeapLabel()) {
-        case PeapLabelForce:
-            peapLabel = '1';
-            break;
-        case PeapLabelUnknown:
-            break;
+    case PeapLabelForce:
+        peapLabel = '1';
+        break;
+    case PeapLabelUnknown:
+        break;
     }
 
     if (!peapLabel.isEmpty()) {
@@ -1073,7 +1073,7 @@ QVariantMap NetworkManager::Security8021xSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::Security8021xSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::Security8021xSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

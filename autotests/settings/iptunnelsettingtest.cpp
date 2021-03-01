@@ -13,7 +13,7 @@
 #include <QTest>
 
 #if !NM_CHECK_VERSION(1, 12, 0)
-#define NM_SETTING_IP_TUNNEL_FLAGS    "flags"
+#define NM_SETTING_IP_TUNNEL_FLAGS "flags"
 #endif
 
 void IpTunnelSettingTest::testSetting_data()
@@ -32,20 +32,19 @@ void IpTunnelSettingTest::testSetting_data()
     QTest::addColumn<QString>("outputKey");
     QTest::addColumn<QString>("remote");
 
-    QTest::newRow("setting1")
-            << (quint32)2                // mode
-            << false                     // pathMtuDiscovery
-            << (quint32)1                // encapsulationLimit
-            << (quint32)0x02             // flags
-            << (quint32)1                // flowLabel
-            << (quint32)1                // mtu
-            << (quint32)1                // tos
-            << (quint32)1                // ttl
-            << QString("key")            // inputKey
-            << QString("abc")            // local
-            << QString("par")            // parent
-            << QString("out")            // outputKey
-            << QString("rem");           // remote
+    QTest::newRow("setting1") << (quint32)2 // mode
+                              << false // pathMtuDiscovery
+                              << (quint32)1 // encapsulationLimit
+                              << (quint32)0x02 // flags
+                              << (quint32)1 // flowLabel
+                              << (quint32)1 // mtu
+                              << (quint32)1 // tos
+                              << (quint32)1 // ttl
+                              << QString("key") // inputKey
+                              << QString("abc") // local
+                              << QString("par") // parent
+                              << QString("out") // outputKey
+                              << QString("rem"); // remote
 }
 
 void IpTunnelSettingTest::testSetting()

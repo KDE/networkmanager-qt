@@ -31,8 +31,12 @@ NetworkManager::Dhcp4Config::Dhcp4Config(const QString &path, QObject *owner)
     Q_D(Dhcp4Config);
     Q_UNUSED(owner);
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->myPath, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->myPath,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
     d->options = d->dhcp4Iface.options();
 }
 
@@ -63,7 +67,9 @@ QString NetworkManager::Dhcp4Config::optionValue(const QString &key) const
     return value;
 }
 
-void NetworkManager::Dhcp4ConfigPrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
+void NetworkManager::Dhcp4ConfigPrivate::dbusPropertiesChanged(const QString &interfaceName,
+                                                               const QVariantMap &properties,
+                                                               const QStringList &invalidatedProperties)
 {
     Q_UNUSED(invalidatedProperties);
     if (interfaceName == QLatin1String("org.freedesktop.NetworkManager.DHCP4Config")) {

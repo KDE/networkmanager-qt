@@ -9,15 +9,17 @@
 
 #include <QDebug>
 
-NetworkManager::CdmaSettingPrivate::CdmaSettingPrivate():
-    name(NM_SETTING_CDMA_SETTING_NAME),
-    passwordFlags(Setting::None)
-{ }
+NetworkManager::CdmaSettingPrivate::CdmaSettingPrivate()
+    : name(NM_SETTING_CDMA_SETTING_NAME)
+    , passwordFlags(Setting::None)
+{
+}
 
 NetworkManager::CdmaSetting::CdmaSetting()
     : Setting(Setting::Cdma)
     , d_ptr(new CdmaSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::CdmaSetting::CdmaSetting(const Ptr &other)
     : Setting(other)
@@ -171,7 +173,7 @@ QVariantMap NetworkManager::CdmaSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::CdmaSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::CdmaSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

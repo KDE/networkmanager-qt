@@ -34,9 +34,9 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
 {
     Q_D(WirelessDevice);
 
-    qDBusRegisterMetaType<QList<QDBusObjectPath> >();
+    qDBusRegisterMetaType<QList<QDBusObjectPath>>();
 
-    const QList <QDBusObjectPath> aps = d->wirelessIface.accessPoints();
+    const QList<QDBusObjectPath> aps = d->wirelessIface.accessPoints();
     // qCDebug(NMQT) << "AccessPoint list";
     for (const QDBusObjectPath &op : aps) {
         // qCDebug(NMQT) << "  " << op.path();
@@ -50,8 +50,12 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
     }
 
 #ifndef NMQT_STATIC
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 #endif
 
 #ifdef NMQT_STATIC
@@ -169,7 +173,7 @@ NetworkManager::WirelessNetwork::Ptr NetworkManager::WirelessDevice::findNetwork
 
 void NetworkManager::WirelessDevicePrivate::accessPointAdded(const QDBusObjectPath &accessPoint)
 {
-    //kDebug(1441) << apPath.path();
+    // kDebug(1441) << apPath.path();
     Q_Q(WirelessDevice);
 
     if (!apMap.contains(accessPoint.path())) {
@@ -189,14 +193,13 @@ void NetworkManager::WirelessDevicePrivate::accessPointAdded(const QDBusObjectPa
 
 void NetworkManager::WirelessDevicePrivate::accessPointRemoved(const QDBusObjectPath &accessPoint)
 {
-    //kDebug(1441) << apPath.path();
+    // kDebug(1441) << apPath.path();
     Q_Q(WirelessDevice);
     if (!apMap.contains(accessPoint.path())) {
         qCDebug(NMQT) << "Access point list lookup failed for " << accessPoint.path();
     }
     Q_EMIT q->accessPointDisappeared(accessPoint.path());
     apMap.remove(accessPoint.path());
-
 }
 
 void NetworkManager::WirelessDevicePrivate::removeNetwork(const QString &network)

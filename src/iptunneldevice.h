@@ -12,7 +12,6 @@
 
 namespace NetworkManager
 {
-
 class IpTunnelDevicePrivate;
 
 /**
@@ -48,7 +47,7 @@ public:
     uchar encapsulationLimit() const;
     /**
      * The flow label to assign to tunnel packets. This property applies only to IPv6 tunnels.
-    */
+     */
     uint flowLabel() const;
     /**
      * The key used for incoming packets.

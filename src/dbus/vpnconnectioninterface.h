@@ -11,16 +11,16 @@
 #ifndef VPNCONNECTIONINTERFACE_H
 #define VPNCONNECTIONINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.VPN.Connection
  */
-class OrgFreedesktopNetworkManagerVPNConnectionInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerVPNConnectionInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -36,20 +36,23 @@ public:
 #endif
 
 public:
-    OrgFreedesktopNetworkManagerVPNConnectionInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
+    OrgFreedesktopNetworkManagerVPNConnectionInterface(const QString &service,
+                                                       const QString &path,
+                                                       const QDBusConnection &connection,
+                                                       QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerVPNConnectionInterface();
 
     Q_PROPERTY(QString Banner READ banner)
     inline QString banner() const
     {
-        return qvariant_cast< QString >(property("Banner"));
+        return qvariant_cast<QString>(property("Banner"));
     }
 
     Q_PROPERTY(uint VpnState READ vpnState)
     inline uint vpnState() const
     {
-        return qvariant_cast< uint >(property("VpnState"));
+        return qvariant_cast<uint>(property("VpnState"));
     }
 
 public Q_SLOTS: // METHODS

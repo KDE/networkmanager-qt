@@ -40,7 +40,11 @@ void SecretAgentAdaptor::DeleteSecrets(NMVariantMapMap connection, const QDBusOb
     parent()->DeleteSecrets(connection, connection_path);
 }
 
-NMVariantMapMap SecretAgentAdaptor::GetSecrets(NMVariantMapMap connection, const QDBusObjectPath &connection_path, const QString &setting_name, const QStringList &hints, uint flags)
+NMVariantMapMap SecretAgentAdaptor::GetSecrets(NMVariantMapMap connection,
+                                               const QDBusObjectPath &connection_path,
+                                               const QString &setting_name,
+                                               const QStringList &hints,
+                                               uint flags)
 {
     // handle method call org.freedesktop.NetworkManager.SecretAgent.GetSecrets
     return parent()->GetSecrets(connection, connection_path, setting_name, hints, flags);
@@ -51,4 +55,3 @@ void SecretAgentAdaptor::SaveSecrets(NMVariantMapMap connection, const QDBusObje
     // handle method call org.freedesktop.NetworkManager.SecretAgent.SaveSecrets
     parent()->SaveSecrets(connection, connection_path);
 }
-

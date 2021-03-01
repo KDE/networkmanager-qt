@@ -7,9 +7,9 @@
 #ifndef NETWORKMANAGERQT_WIREGUARD_DEVICE_P_H
 #define NETWORKMANAGERQT_WIREGUARD_DEVICE_P_H
 
-#include "wireguarddevice.h"
 #include "device_p.h"
 #include "manager.h"
+#include "wireguarddevice.h"
 
 #include "wireguarddeviceinterface.h"
 
@@ -37,4 +37,3 @@ protected:
 }
 
 #endif
-

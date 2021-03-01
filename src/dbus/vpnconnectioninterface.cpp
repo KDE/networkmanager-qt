@@ -15,7 +15,10 @@
  * Implementation of interface class OrgFreedesktopNetworkManagerVPNConnectionInterface
  */
 
-OrgFreedesktopNetworkManagerVPNConnectionInterface::OrgFreedesktopNetworkManagerVPNConnectionInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+OrgFreedesktopNetworkManagerVPNConnectionInterface::OrgFreedesktopNetworkManagerVPNConnectionInterface(const QString &service,
+                                                                                                       const QString &path,
+                                                                                                       const QDBusConnection &connection,
+                                                                                                       QObject *parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 }
@@ -23,4 +26,3 @@ OrgFreedesktopNetworkManagerVPNConnectionInterface::OrgFreedesktopNetworkManager
 OrgFreedesktopNetworkManagerVPNConnectionInterface::~OrgFreedesktopNetworkManagerVPNConnectionInterface()
 {
 }
-

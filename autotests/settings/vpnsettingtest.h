@@ -19,5 +19,3 @@ private Q_SLOTS:
 };
 
 #endif // NETWORKMANAGERQT_VPNSETTING_TEST_H
-
-

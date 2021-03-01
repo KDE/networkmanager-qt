@@ -7,12 +7,11 @@
 #ifndef NETWORKMANAGERQT_TC_SETTING_H
 #define NETWORKMANAGERQT_TC_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 namespace NetworkManager
 {
-
 class TcSettingPrivate;
 
 /**
@@ -52,4 +51,3 @@ NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const TcSetting &setting);
 }
 
 #endif // NETWORKMANAGERQT_TC_SETTING_H
-

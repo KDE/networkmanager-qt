@@ -21,7 +21,7 @@ WirelessDevice::WirelessDevice(QObject *parent)
 WirelessDevice::~WirelessDevice()
 {
     for (auto it = m_accessPoints.cbegin(); it != m_accessPoints.cend(); ++it) {
-         const QDBusObjectPath &ap = it.key();
+        const QDBusObjectPath &ap = it.key();
         QDBusConnection::sessionBus().unregisterObject(ap.path());
         Q_EMIT AccessPointRemoved(ap);
     }
@@ -29,11 +29,11 @@ WirelessDevice::~WirelessDevice()
     qDeleteAll(m_accessPoints);
 
     QVariantMap map;
-    map.insert(QLatin1String("AvailableConnections"), QVariant::fromValue<QList<QDBusObjectPath> >(QList<QDBusObjectPath>()));
+    map.insert(QLatin1String("AvailableConnections"), QVariant::fromValue<QList<QDBusObjectPath>>(QList<QDBusObjectPath>()));
     Q_EMIT PropertiesChanged(map);
 }
 
-QList< QDBusObjectPath > WirelessDevice::accessPoints() const
+QList<QDBusObjectPath> WirelessDevice::accessPoints() const
 {
     return m_accessPoints.keys();
 }
@@ -122,12 +122,12 @@ void WirelessDevice::setWirelessCapabilities(uint capabilities)
     m_wirelessCapabilities = capabilities;
 }
 
-QList< QDBusObjectPath > WirelessDevice::GetAccessPoints()
+QList<QDBusObjectPath> WirelessDevice::GetAccessPoints()
 {
     return m_accessPoints.keys();
 }
 
-QList< QDBusObjectPath > WirelessDevice::GetAllAccessPoints()
+QList<QDBusObjectPath> WirelessDevice::GetAllAccessPoints()
 {
     return m_accessPoints.keys();
 }

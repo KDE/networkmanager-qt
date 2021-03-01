@@ -11,16 +11,16 @@
 #ifndef WIREGUARDDEVICEINTERFACE_H
 #define WIREGUARDDEVICEINTERFACE_H
 
-#include <QObject>
+#include "generictypes.h"
 #include <QByteArray>
+#include <QObject>
 #include <QString>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.WireGuard
  */
-class OrgFreedesktopNetworkManagerDeviceWireGuardInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceWireGuardInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -36,32 +36,33 @@ public:
 #endif
 
 public:
-    OrgFreedesktopNetworkManagerDeviceWireGuardInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
+    OrgFreedesktopNetworkManagerDeviceWireGuardInterface(const QString &service,
+                                                         const QString &path,
+                                                         const QDBusConnection &connection,
+                                                         QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceWireGuardInterface();
 
     Q_PROPERTY(QByteArray PublicKey READ publicKey)
     inline QByteArray publicKey() const
     {
-        return qvariant_cast< QByteArray >(property("PublicKey"));
+        return qvariant_cast<QByteArray>(property("PublicKey"));
     }
 
     Q_PROPERTY(uint ListenPort READ listenPort)
     inline uint listenPort() const
     {
-        return qvariant_cast< uint >(property("ListenPort"));
+        return qvariant_cast<uint>(property("ListenPort"));
     }
 
     Q_PROPERTY(uint FwMark READ fwMark)
     inline uint fwMark() const
     {
-        return qvariant_cast< uint >(property("FwMark"));
+        return qvariant_cast<uint>(property("FwMark"));
     }
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-
 };
 
 #endif
-

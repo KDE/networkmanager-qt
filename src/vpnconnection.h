@@ -13,12 +13,11 @@
 
 #include "activeconnection.h"
 
-#include <QObject>
 #include <QDBusObjectPath>
+#include <QObject>
 
 namespace NetworkManager
 {
-
 class Device;
 class VpnConnectionPrivate;
 
@@ -102,5 +101,4 @@ private:
 };
 
 } // namespace NetworkManager
-#endif //NETWORKMANAGERQT_VPNCONNECTION_H
-
+#endif // NETWORKMANAGERQT_VPNCONNECTION_H

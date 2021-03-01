@@ -14,12 +14,14 @@ NetworkManager::InfinibandSettingPrivate::InfinibandSettingPrivate()
     , mtu(0)
     , transportMode(InfinibandSetting::Unknown)
     , pKey(-1)
-{ }
+{
+}
 
 NetworkManager::InfinibandSetting::InfinibandSetting()
     : Setting(Setting::Infiniband)
     , d_ptr(new InfinibandSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::InfinibandSetting::InfinibandSetting(const NetworkManager::InfinibandSetting::Ptr &other)
     : Setting(other)
@@ -174,7 +176,7 @@ QVariantMap NetworkManager::InfinibandSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::InfinibandSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::InfinibandSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

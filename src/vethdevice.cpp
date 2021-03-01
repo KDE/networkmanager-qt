@@ -5,9 +5,9 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-#include "vethdevice_p.h"
 #include "manager.h"
 #include "manager_p.h"
+#include "vethdevice_p.h"
 
 NetworkManager::VethDevicePrivate::VethDevicePrivate(const QString &path, VethDevice *q)
     : DevicePrivate(path, q)
@@ -33,8 +33,12 @@ NetworkManager::VethDevice::VethDevice(const QString &path, QObject *parent)
         d->propertiesChanged(initialProperties);
     }
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::VethDevice::~VethDevice()

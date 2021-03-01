@@ -6,8 +6,8 @@
 */
 
 #include "olpcmeshdevice.h"
-#include "olpcmeshdevice_p.h"
 #include "manager_p.h"
+#include "olpcmeshdevice_p.h"
 
 #include "wimaxnsp.h"
 
@@ -31,8 +31,12 @@ NetworkManager::OlpcMeshDevice::OlpcMeshDevice(const QString &path, QObject *par
         d->propertiesChanged(initialProperties);
     }
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::OlpcMeshDevice::~OlpcMeshDevice()

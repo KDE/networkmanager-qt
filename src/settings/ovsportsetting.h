@@ -7,12 +7,11 @@
 #ifndef NETWORKMANAGERQTOVS_PORT_SETTING_H
 #define NETWORKMANAGERQTOVS_PORT_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 namespace NetworkManager
 {
-
 class OvsPortSettingPrivate;
 
 /**

@@ -11,16 +11,16 @@
 #ifndef WIMAXNSPINTERFACE_H
 #define WIMAXNSPINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.WiMax.Nsp
  */
-class OrgFreedesktopNetworkManagerWiMaxNspInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerWiMaxNspInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -43,19 +43,19 @@ public:
     Q_PROPERTY(QString Name READ name)
     inline QString name() const
     {
-        return qvariant_cast< QString >(property("Name"));
+        return qvariant_cast<QString>(property("Name"));
     }
 
     Q_PROPERTY(uint NetworkType READ networkType)
     inline uint networkType() const
     {
-        return qvariant_cast< uint >(property("NetworkType"));
+        return qvariant_cast<uint>(property("NetworkType"));
     }
 
     Q_PROPERTY(uint SignalQuality READ signalQuality)
     inline uint signalQuality() const
     {
-        return qvariant_cast< uint >(property("SignalQuality"));
+        return qvariant_cast<uint>(property("SignalQuality"));
     }
 
 public Q_SLOTS: // METHODS

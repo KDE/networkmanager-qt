@@ -15,7 +15,10 @@
  * Implementation of interface class OrgFreedesktopNetworkManagerDeviceGreInterface
  */
 
-OrgFreedesktopNetworkManagerDeviceGreInterface::OrgFreedesktopNetworkManagerDeviceGreInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+OrgFreedesktopNetworkManagerDeviceGreInterface::OrgFreedesktopNetworkManagerDeviceGreInterface(const QString &service,
+                                                                                               const QString &path,
+                                                                                               const QDBusConnection &connection,
+                                                                                               QObject *parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 }
@@ -23,4 +26,3 @@ OrgFreedesktopNetworkManagerDeviceGreInterface::OrgFreedesktopNetworkManagerDevi
 OrgFreedesktopNetworkManagerDeviceGreInterface::~OrgFreedesktopNetworkManagerDeviceGreInterface()
 {
 }
-

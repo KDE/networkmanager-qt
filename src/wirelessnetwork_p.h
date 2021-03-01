@@ -14,7 +14,6 @@
 
 namespace NetworkManager
 {
-
 class WirelessNetworkPrivate
 {
 public:

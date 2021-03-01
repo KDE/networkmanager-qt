@@ -17,30 +17,29 @@
 #endif
 
 #if !NM_CHECK_VERSION(1, 14, 0)
-#define NM_SETTING_MATCH_SETTING_NAME      "match"
+#define NM_SETTING_MATCH_SETTING_NAME "match"
 #endif
 
 #if !NM_CHECK_VERSION(1, 10, 0)
-#define NM_SETTING_OVS_BRIDGE_SETTING_NAME     "ovs-bridge"
-#define NM_SETTING_OVS_INTERFACE_SETTING_NAME  "ovs-interface"
-#define NM_SETTING_OVS_PATCH_SETTING_NAME      "ovs-patch"
-#define NM_SETTING_OVS_PORT_SETTING_NAME       "ovs-port"
-#define NM_SETTING_TC_CONFIG_SETTING_NAME      "tc"
-#define NM_SETTING_TEAM_PORT_SETTING_NAME      "team-port"
+#define NM_SETTING_OVS_BRIDGE_SETTING_NAME "ovs-bridge"
+#define NM_SETTING_OVS_INTERFACE_SETTING_NAME "ovs-interface"
+#define NM_SETTING_OVS_PATCH_SETTING_NAME "ovs-patch"
+#define NM_SETTING_OVS_PORT_SETTING_NAME "ovs-port"
+#define NM_SETTING_TC_CONFIG_SETTING_NAME "tc"
+#define NM_SETTING_TEAM_PORT_SETTING_NAME "team-port"
 #endif
 
 #if !NM_CHECK_VERSION(1, 8, 0)
-#define NM_SETTING_USER_SETTING_NAME   "user"
+#define NM_SETTING_USER_SETTING_NAME "user"
 #endif
 
 #if !NM_CHECK_VERSION(1, 6, 0)
 #define NM_SETTING_MACSEC_SETTING_NAME "macsec"
-#define NM_SETTING_PROXY_SETTING_NAME  "proxy"
+#define NM_SETTING_PROXY_SETTING_NAME "proxy"
 #endif
 
 namespace NetworkManager
 {
-
 class SettingPrivate
 {
 public:
@@ -50,7 +49,7 @@ public:
     bool initialized;
 };
 
-QDebug operator <<(QDebug dbg, const Setting &setting)
+QDebug operator<<(QDebug dbg, const Setting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
@@ -59,10 +58,11 @@ QDebug operator <<(QDebug dbg, const Setting &setting)
 
 }
 
-NetworkManager::SettingPrivate::SettingPrivate():
-    type(Setting::Wired),
-    initialized(false)
-{ }
+NetworkManager::SettingPrivate::SettingPrivate()
+    : type(Setting::Wired)
+    , initialized(false)
+{
+}
 
 QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingType type)
 {

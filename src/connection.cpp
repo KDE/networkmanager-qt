@@ -25,7 +25,8 @@ NetworkManager::ConnectionPrivate::ConnectionPrivate(const QString &path, Connec
     : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::systemBus())
 #endif
     , q_ptr(q)
-{ }
+{
+}
 
 NetworkManager::Connection::Connection(const QString &path, QObject *parent)
     : QObject(parent)
@@ -41,14 +42,18 @@ NetworkManager::Connection::Connection(const QString &path, QObject *parent)
         d->updateSettings();
     }
     d->path = path;
-    //qCDebug(NMQT) << m_connection;
+    // qCDebug(NMQT) << m_connection;
 
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Updated, d, &ConnectionPrivate::onConnectionUpdated);
     connect(&d->iface, &OrgFreedesktopNetworkManagerSettingsConnectionInterface::Removed, d, &ConnectionPrivate::onConnectionRemoved);
     d->unsaved = d->iface.unsaved();
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->path,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::Connection::~Connection()
@@ -152,7 +157,9 @@ void NetworkManager::ConnectionPrivate::onConnectionRemoved()
     Q_EMIT q->removed(tmpPath);
 }
 
-void NetworkManager::ConnectionPrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
+void NetworkManager::ConnectionPrivate::dbusPropertiesChanged(const QString &interfaceName,
+                                                              const QVariantMap &properties,
+                                                              const QStringList &invalidatedProperties)
 {
     Q_UNUSED(invalidatedProperties);
     if (interfaceName == QLatin1String("org.freedesktop.NetworkManager.Settings.Connection")) {

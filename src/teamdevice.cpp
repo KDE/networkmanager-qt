@@ -5,10 +5,10 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-#include "teamdevice_p.h"
 #include "device_p.h"
 #include "manager.h"
 #include "manager_p.h"
+#include "teamdevice_p.h"
 
 NetworkManager::TeamDevicePrivate::TeamDevicePrivate(const QString &path, TeamDevice *q)
     : DevicePrivate(path, q)
@@ -34,8 +34,12 @@ NetworkManager::TeamDevice::TeamDevice(const QString &path, QObject *parent)
         d->propertiesChanged(initialProperties);
     }
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::TeamDevice::~TeamDevice()
@@ -85,8 +89,8 @@ void NetworkManager::TeamDevicePrivate::propertyChanged(const QString &property,
         Q_EMIT q->hwAddressChanged(hwAddress);
     } else if (property == QLatin1String("Slaves")) {
         QStringList list;
-        const QList<QDBusObjectPath> opList = qdbus_cast< QList<QDBusObjectPath> >(value);
-        for (const QDBusObjectPath & op : opList) {
+        const QList<QDBusObjectPath> opList = qdbus_cast<QList<QDBusObjectPath>>(value);
+        for (const QDBusObjectPath &op : opList) {
             list << op.path();
         }
         slaves = list;

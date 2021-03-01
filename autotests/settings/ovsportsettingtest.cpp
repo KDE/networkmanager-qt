@@ -13,12 +13,12 @@
 #include <QTest>
 
 #if !NM_CHECK_VERSION(1, 10, 0)
-#define NM_SETTING_OVS_PORT_VLAN_MODE           "vlan-mode"
-#define NM_SETTING_OVS_PORT_TAG                 "tag"
-#define NM_SETTING_OVS_PORT_LACP                "lacp"
-#define NM_SETTING_OVS_PORT_BOND_MODE           "bond-mode"
-#define NM_SETTING_OVS_PORT_BOND_UPDELAY        "bond-updelay"
-#define NM_SETTING_OVS_PORT_BOND_DOWNDELAY      "bond-downdelay"
+#define NM_SETTING_OVS_PORT_VLAN_MODE "vlan-mode"
+#define NM_SETTING_OVS_PORT_TAG "tag"
+#define NM_SETTING_OVS_PORT_LACP "lacp"
+#define NM_SETTING_OVS_PORT_BOND_MODE "bond-mode"
+#define NM_SETTING_OVS_PORT_BOND_UPDELAY "bond-updelay"
+#define NM_SETTING_OVS_PORT_BOND_DOWNDELAY "bond-downdelay"
 #endif
 
 void OvsPortSettingTest::testSetting_data()
@@ -30,13 +30,12 @@ void OvsPortSettingTest::testSetting_data()
     QTest::addColumn<QString>("bondMode");
     QTest::addColumn<QString>("vlanMode");
 
-    QTest::newRow("setting1")
-            << (quint32)1                // bondDowndelay
-            << (quint32)1                // bondUpdelay
-            << (quint32)1                // tag
-            << QString("off")            // lacp
-            << QString("active-backup")  // bondMode
-            << QString("trunk");           // vlanMode
+    QTest::newRow("setting1") << (quint32)1 // bondDowndelay
+                              << (quint32)1 // bondUpdelay
+                              << (quint32)1 // tag
+                              << QString("off") // lacp
+                              << QString("active-backup") // bondMode
+                              << QString("trunk"); // vlanMode
 }
 
 void OvsPortSettingTest::testSetting()

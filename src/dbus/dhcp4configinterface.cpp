@@ -15,7 +15,10 @@
  * Implementation of interface class OrgFreedesktopNetworkManagerDHCP4ConfigInterface
  */
 
-OrgFreedesktopNetworkManagerDHCP4ConfigInterface::OrgFreedesktopNetworkManagerDHCP4ConfigInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+OrgFreedesktopNetworkManagerDHCP4ConfigInterface::OrgFreedesktopNetworkManagerDHCP4ConfigInterface(const QString &service,
+                                                                                                   const QString &path,
+                                                                                                   const QDBusConnection &connection,
+                                                                                                   QObject *parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 }
@@ -23,4 +26,3 @@ OrgFreedesktopNetworkManagerDHCP4ConfigInterface::OrgFreedesktopNetworkManagerDH
 OrgFreedesktopNetworkManagerDHCP4ConfigInterface::~OrgFreedesktopNetworkManagerDHCP4ConfigInterface()
 {
 }
-

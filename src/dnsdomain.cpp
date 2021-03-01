@@ -12,19 +12,18 @@
 
 namespace NetworkManager
 {
-
 class NetworkManager::DnsDomain::Private
 {
 public:
-    Private(const QString &theName,
-            const QList<QHostAddress> &theServers,
-            const QStringList &theOptions)
+    Private(const QString &theName, const QList<QHostAddress> &theServers, const QStringList &theOptions)
         : name(theName)
         , servers(theServers)
         , options(theOptions)
-    {}
+    {
+    }
     Private()
-    {}
+    {
+    }
     QString name;
     QList<QHostAddress> servers;
     QStringList options;
@@ -32,9 +31,7 @@ public:
 
 }
 
-NetworkManager::DnsDomain::DnsDomain(const QString &name,
-                                     const QList<QHostAddress> &servers,
-                                     const QStringList &options)
+NetworkManager::DnsDomain::DnsDomain(const QString &name, const QList<QHostAddress> &servers, const QStringList &options)
     : d(new Private(name, servers, options))
 {
 }

@@ -7,14 +7,13 @@
 #ifndef NETWORKMANAGERQT_USER_SETTING_H
 #define NETWORKMANAGERQT_USER_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QString>
 
 namespace NetworkManager
 {
-
 class UserSettingPrivate;
 
 /**
@@ -52,4 +51,3 @@ NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const UserSetting &setting
 }
 
 #endif // NETWORKMANAGERQT_USER_SETTING_H
-

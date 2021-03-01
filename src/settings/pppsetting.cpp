@@ -29,12 +29,14 @@ NetworkManager::PppSettingPrivate::PppSettingPrivate()
     , mtu(0)
     , lcpEchoFailure(0)
     , lcpEchoInterval(0)
-{ }
+{
+}
 
 NetworkManager::PppSetting::PppSetting()
     : Setting(Setting::Ppp)
     , d_ptr(new PppSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::PppSetting::PppSetting(const Ptr &other)
     : Setting(other)
@@ -478,7 +480,7 @@ QVariantMap NetworkManager::PppSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::PppSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::PppSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

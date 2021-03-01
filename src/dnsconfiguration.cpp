@@ -14,19 +14,18 @@
 
 namespace NetworkManager
 {
-
 class NetworkManager::DnsConfiguration::Private
 {
 public:
-    Private(const QStringList &theSearches,
-            const QStringList &theOptions,
-            const QList<DnsDomain> theDomains)
+    Private(const QStringList &theSearches, const QStringList &theOptions, const QList<DnsDomain> theDomains)
         : searches(theSearches)
         , options(theOptions)
         , domains(theDomains)
-    {}
+    {
+    }
     Private()
-    {}
+    {
+    }
     QStringList searches;
     QStringList options;
     QList<DnsDomain> domains;
@@ -34,9 +33,7 @@ public:
 
 }
 
-NetworkManager::DnsConfiguration::DnsConfiguration(const QStringList &searches,
-                                                   const QStringList &options,
-                                                   const QList<DnsDomain> domains)
+NetworkManager::DnsConfiguration::DnsConfiguration(const QStringList &searches, const QStringList &options, const QList<DnsDomain> domains)
     : d(new Private(searches, options, domains))
 {
 }
@@ -111,7 +108,7 @@ QVariantMap NetworkManager::DnsConfiguration::toMap() const
     return map;
 }
 
-void NetworkManager::DnsConfiguration::fromMap (const QVariantMap &map)
+void NetworkManager::DnsConfiguration::fromMap(const QVariantMap &map)
 {
     d->searches = map["searches"].toStringList();
     d->options = map["options"].toStringList();
@@ -126,9 +123,7 @@ void NetworkManager::DnsConfiguration::fromMap (const QVariantMap &map)
         for (const QString &server : serversList) {
             addressList.append(QHostAddress(server));
         }
-        NetworkManager::DnsDomain domain(i.key(),
-                                         addressList,
-                                         contents["options"].toStringList());
+        NetworkManager::DnsDomain domain(i.key(), addressList, contents["options"].toStringList());
         d->domains.append(domain);
         ++i;
     }

@@ -8,13 +8,12 @@
 #define NETWORKMANAGERQT_VLAN_DEVICE_P_H
 
 #include "device_p.h"
-#include "vlandevice.h"
 #include "manager_p.h"
+#include "vlandevice.h"
 #include "vlandeviceinterface.h"
 
 namespace NetworkManager
 {
-
 class VlanDevicePrivate : public DevicePrivate
 {
     Q_OBJECT

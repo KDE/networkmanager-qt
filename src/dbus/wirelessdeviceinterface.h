@@ -11,17 +11,17 @@
 #ifndef WIRELESSDEVICEINTERFACE_H
 #define WIRELESSDEVICEINTERFACE_H
 
-#include <QObject>
+#include "generictypes.h"
 #include <QList>
+#include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Wireless
  */
-class OrgFreedesktopNetworkManagerDeviceWirelessInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceWirelessInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -37,60 +37,63 @@ public:
 #endif
 
 public:
-    OrgFreedesktopNetworkManagerDeviceWirelessInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
+    OrgFreedesktopNetworkManagerDeviceWirelessInterface(const QString &service,
+                                                        const QString &path,
+                                                        const QDBusConnection &connection,
+                                                        QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceWirelessInterface();
 
     Q_PROPERTY(QList<QDBusObjectPath> AccessPoints READ accessPoints)
     inline QList<QDBusObjectPath> accessPoints() const
     {
-        return qvariant_cast< QList<QDBusObjectPath> >(property("AccessPoints"));
+        return qvariant_cast<QList<QDBusObjectPath>>(property("AccessPoints"));
     }
 
     Q_PROPERTY(QDBusObjectPath ActiveAccessPoint READ activeAccessPoint)
     inline QDBusObjectPath activeAccessPoint() const
     {
-        return qvariant_cast< QDBusObjectPath >(property("ActiveAccessPoint"));
+        return qvariant_cast<QDBusObjectPath>(property("ActiveAccessPoint"));
     }
 
     Q_PROPERTY(uint Bitrate READ bitrate)
     inline uint bitrate() const
     {
-        return qvariant_cast< uint >(property("Bitrate"));
+        return qvariant_cast<uint>(property("Bitrate"));
     }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const
     {
-        return qvariant_cast< QString >(property("HwAddress"));
+        return qvariant_cast<QString>(property("HwAddress"));
     }
 
     Q_PROPERTY(uint Mode READ mode)
     inline uint mode() const
     {
-        return qvariant_cast< uint >(property("Mode"));
+        return qvariant_cast<uint>(property("Mode"));
     }
 
     Q_PROPERTY(QString PermHwAddress READ permHwAddress)
     inline QString permHwAddress() const
     {
-        return qvariant_cast< QString >(property("PermHwAddress"));
+        return qvariant_cast<QString>(property("PermHwAddress"));
     }
 
     Q_PROPERTY(uint WirelessCapabilities READ wirelessCapabilities)
     inline uint wirelessCapabilities() const
     {
-        return qvariant_cast< uint >(property("WirelessCapabilities"));
+        return qvariant_cast<uint>(property("WirelessCapabilities"));
     }
 
 public Q_SLOTS: // METHODS
-    inline QDBusPendingReply<QList<QDBusObjectPath> > GetAccessPoints()
+    inline QDBusPendingReply<QList<QDBusObjectPath>> GetAccessPoints()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("GetAccessPoints"), argumentList);
     }
 
-    inline QDBusPendingReply<QList<QDBusObjectPath> > GetAllAccessPoints()
+    inline QDBusPendingReply<QList<QDBusObjectPath>> GetAllAccessPoints()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("GetAllAccessPoints"), argumentList);

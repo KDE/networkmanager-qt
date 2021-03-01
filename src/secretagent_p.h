@@ -10,7 +10,6 @@
 #include "agentmanagerinterface.h"
 #include "secretagentadaptor.h"
 
-
 namespace NetworkManager
 {
 class SecretAgent;
@@ -25,6 +24,7 @@ private Q_SLOTS:
     void dbusInterfacesAdded(const QDBusObjectPath &path, const QVariantMap &interfaces);
     void registerAgent();
     void registerAgent(const NetworkManager::SecretAgent::Capabilities capabilities);
+
 private:
     SecretAgent *q_ptr;
     SecretAgentAdaptor agent;

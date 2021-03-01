@@ -12,12 +12,12 @@
 #if !NM_CHECK_VERSION(1, 10, 0)
 #define NM_SETTING_TEAM_PORT_SETTING_NAME "team-port"
 
-#define NM_SETTING_TEAM_PORT_CONFIG        "config"
-#define NM_SETTING_TEAM_PORT_QUEUE_ID      "queue-id"
-#define NM_SETTING_TEAM_PORT_PRIO          "prio"
-#define NM_SETTING_TEAM_PORT_STICKY        "sticky"
-#define NM_SETTING_TEAM_PORT_LACP_PRIO     "lacp-prio"
-#define NM_SETTING_TEAM_PORT_LACP_KEY      "lacp-key"
+#define NM_SETTING_TEAM_PORT_CONFIG "config"
+#define NM_SETTING_TEAM_PORT_QUEUE_ID "queue-id"
+#define NM_SETTING_TEAM_PORT_PRIO "prio"
+#define NM_SETTING_TEAM_PORT_STICKY "sticky"
+#define NM_SETTING_TEAM_PORT_LACP_PRIO "lacp-prio"
+#define NM_SETTING_TEAM_PORT_LACP_KEY "lacp-key"
 #define NM_SETTING_TEAM_PORT_LINK_WATCHERS "link-watchers"
 #endif
 
@@ -28,12 +28,14 @@ NetworkManager::TeamPortSettingPrivate::TeamPortSettingPrivate()
     , prio(0)
     , queueId(-1)
     , sticky(false)
-{ }
+{
+}
 
 NetworkManager::TeamPortSetting::TeamPortSetting()
     : Setting(Setting::TeamPort)
     , d_ptr(new TeamPortSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::TeamPortSetting::TeamPortSetting(const Ptr &other)
     : Setting(other)
@@ -158,7 +160,6 @@ NMVariantMapList NetworkManager::TeamPortSetting::linkWatchers() const
     return d->linkWatchers;
 }
 
-
 void NetworkManager::TeamPortSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_TEAM_PORT_CONFIG))) {
@@ -225,7 +226,7 @@ QVariantMap NetworkManager::TeamPortSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::TeamPortSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::TeamPortSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

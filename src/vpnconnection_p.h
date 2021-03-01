@@ -16,7 +16,6 @@
 
 namespace NetworkManager
 {
-
 class VpnConnectionPrivate : public ActiveConnectionPrivate
 {
     Q_OBJECT

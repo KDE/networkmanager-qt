@@ -30,8 +30,12 @@ NetworkManager::Dhcp6Config::Dhcp6Config(const QString &path, QObject *owner)
     Q_D(Dhcp6Config);
     Q_UNUSED(owner);
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->path, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->path,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 
     d->options = d->dhcp6Iface.options();
 }
@@ -63,14 +67,15 @@ QString NetworkManager::Dhcp6Config::optionValue(const QString &key) const
     return value;
 }
 
-void NetworkManager::Dhcp6ConfigPrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
+void NetworkManager::Dhcp6ConfigPrivate::dbusPropertiesChanged(const QString &interfaceName,
+                                                               const QVariantMap &properties,
+                                                               const QStringList &invalidatedProperties)
 {
     Q_UNUSED(invalidatedProperties);
     if (interfaceName == QLatin1String("org.freedesktop.NetworkManager.DHCP6Config")) {
         dhcp6PropertiesChanged(properties);
     }
 }
-
 
 void NetworkManager::Dhcp6ConfigPrivate::dhcp6PropertiesChanged(const QVariantMap &properties)
 {

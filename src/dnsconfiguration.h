@@ -7,33 +7,29 @@
 #ifndef NETWORKMANAGERQT_DNSCONFIGURATION_H
 #define NETWORKMANAGERQT_DNSCONFIGURATION_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "dnsdomain.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 // To prevent signals in glib2 be defined by QT
 #undef signals
-#include <nm-version.h>
 #include <libnm/NetworkManager.h>
+#include <nm-version.h>
 #define signals Q_SIGNALS
 
 #include <QStringList>
 
 namespace NetworkManager
 {
-
 /**
  * This class represents IP configuration
  */
 class NETWORKMANAGERQT_EXPORT DnsConfiguration
 {
 public:
-
     /**
      * Constructs an initialized DnsConfiguration object
      */
-    DnsConfiguration(const QStringList &searches,
-                     const QStringList &options,
-                     const QList<DnsDomain> domains);
+    DnsConfiguration(const QStringList &searches, const QStringList &options, const QList<DnsDomain> domains);
 
     /**
      * Constructs an empty DnsConfiguration object
@@ -88,7 +84,7 @@ public:
     /**
      * De-marshall from a map
      */
-    void fromMap (const QVariantMap &map);
+    void fromMap(const QVariantMap &map);
 
     /**
      * Makes a copy of the DnsConfiguration object @p other.

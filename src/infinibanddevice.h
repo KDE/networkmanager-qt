@@ -12,7 +12,6 @@
 
 namespace NetworkManager
 {
-
 class InfinibandDevicePrivate;
 
 /**

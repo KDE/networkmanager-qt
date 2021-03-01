@@ -11,7 +11,6 @@
 
 namespace NetworkManager
 {
-
 class WirelessSettingPrivate
 {
 public:
@@ -41,4 +40,3 @@ public:
 }
 
 #endif // NETWORKMANAGERQT_WIRELESS_SETTING_P_H
-

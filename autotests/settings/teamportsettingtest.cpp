@@ -13,12 +13,12 @@
 #include <QTest>
 
 #if !NM_CHECK_VERSION(1, 10, 0)
-#define NM_SETTING_TEAM_PORT_CONFIG        "config"
-#define NM_SETTING_TEAM_PORT_QUEUE_ID      "queue-id"
-#define NM_SETTING_TEAM_PORT_PRIO          "prio"
-#define NM_SETTING_TEAM_PORT_STICKY        "sticky"
-#define NM_SETTING_TEAM_PORT_LACP_PRIO     "lacp-prio"
-#define NM_SETTING_TEAM_PORT_LACP_KEY      "lacp-key"
+#define NM_SETTING_TEAM_PORT_CONFIG "config"
+#define NM_SETTING_TEAM_PORT_QUEUE_ID "queue-id"
+#define NM_SETTING_TEAM_PORT_PRIO "prio"
+#define NM_SETTING_TEAM_PORT_STICKY "sticky"
+#define NM_SETTING_TEAM_PORT_LACP_PRIO "lacp-prio"
+#define NM_SETTING_TEAM_PORT_LACP_KEY "lacp-key"
 #define NM_SETTING_TEAM_PORT_LINK_WATCHERS "link-watchers"
 #endif
 
@@ -38,15 +38,13 @@ void TeamPortSettingTest::testSetting_data()
     linkWatcher["two"] = 2;
     linkWatchers.append(linkWatcher);
 
-
-    QTest::newRow("setting1")
-            << QString("abc")    // config
-            << (qint32)1         // lacpKey
-            << (qint32)1         // lacpPrio
-            << (qint32)1         // prio
-            << (qint32)1         // queueId
-            << true             // sticky
-            << linkWatchers;     // linkWatchers
+    QTest::newRow("setting1") << QString("abc") // config
+                              << (qint32)1 // lacpKey
+                              << (qint32)1 // lacpPrio
+                              << (qint32)1 // prio
+                              << (qint32)1 // queueId
+                              << true // sticky
+                              << linkWatchers; // linkWatchers
 }
 
 void TeamPortSettingTest::testSetting()

@@ -7,12 +7,12 @@
 #ifndef NETWORKMANAGERQT_VPNPLUGIN_H
 #define NETWORKMANAGERQT_VPNPLUGIN_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "generictypes.h"
 #include "vpnconnection.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
-#include <QObject>
 #include <QDBusObjectPath>
+#include <QObject>
 
 namespace NetworkManager
 {
@@ -23,7 +23,11 @@ class NETWORKMANAGERQT_EXPORT VpnPlugin : public QObject
     Q_OBJECT
 
 public:
-    enum FailureType {LoginFailed, ConnectFailed, BadIpConfig,};
+    enum FailureType {
+        LoginFailed,
+        ConnectFailed,
+        BadIpConfig,
+    };
 
     explicit VpnPlugin(const QString &path, QObject *parent = nullptr);
     virtual ~VpnPlugin();
@@ -55,4 +59,4 @@ private:
 
 } // namespace NetworkManager
 
-#endif //NETWORKMANAGERQT_VPNPLUGIN_H
+#endif // NETWORKMANAGERQT_VPNPLUGIN_H

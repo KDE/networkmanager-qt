@@ -11,16 +11,16 @@
 #ifndef DHCP6CONFIGINTERFACE_H
 #define DHCP6CONFIGINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.DHCP6Config
  */
-class OrgFreedesktopNetworkManagerDHCP6ConfigInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDHCP6ConfigInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -43,7 +43,7 @@ public:
     Q_PROPERTY(QVariantMap Options READ options)
     inline QVariantMap options() const
     {
-        return qvariant_cast< QVariantMap >(property("Options"));
+        return qvariant_cast<QVariantMap>(property("Options"));
     }
 
 public Q_SLOTS: // METHODS

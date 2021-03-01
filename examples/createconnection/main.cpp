@@ -6,15 +6,15 @@
 
 #include <arpa/inet.h>
 
-#include <NetworkManagerQt/Manager>
-#include <NetworkManagerQt/Device>
-#include <NetworkManagerQt/WirelessDevice>
 #include <NetworkManagerQt/AccessPoint>
 #include <NetworkManagerQt/Connection>
 #include <NetworkManagerQt/ConnectionSettings>
-#include <NetworkManagerQt/WirelessSetting>
-#include <NetworkManagerQt/WirelessSecuritySetting>
+#include <NetworkManagerQt/Device>
 #include <NetworkManagerQt/Ipv4Setting>
+#include <NetworkManagerQt/Manager>
+#include <NetworkManagerQt/WirelessDevice>
+#include <NetworkManagerQt/WirelessSecuritySetting>
+#include <NetworkManagerQt/WirelessSetting>
 
 #include <QDBusMetaType>
 #include <QTextStream>
@@ -54,12 +54,9 @@ int main()
     for (const QString &ap : accessPointList) {
         AccessPoint accessPoint(ap);
         // For simplification we use APs only with Wep security or without any security
-        if (accessPoint.wpaFlags().testFlag(AccessPoint::PairWep40) ||
-                accessPoint.wpaFlags().testFlag(AccessPoint::PairWep104) ||
-                accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep40) ||
-                accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep104) ||
-                !accessPoint.wpaFlags()) {
-
+        if (accessPoint.wpaFlags().testFlag(AccessPoint::PairWep40) || accessPoint.wpaFlags().testFlag(AccessPoint::PairWep104)
+            || accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep40) || accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep104)
+            || !accessPoint.wpaFlags()) {
             qout << "Do you want to connect to " << accessPoint.ssid() << "?" << endl;
             qout << "Yes/No: " << flush;
             qin >> result;
@@ -84,14 +81,15 @@ int main()
     ipv4Setting->setMethod(NetworkManager::Ipv4Setting::Automatic);
 
     // Optional password setting. Can be skipped if you do not need encryption.
-NetworkManager::WirelessSecuritySetting::Ptr wifiSecurity = settings->setting(NetworkManager::Setting::WirelessSecurity).dynamicCast<NetworkManager::WirelessSecuritySetting>();
-wifiSecurity->setKeyMgmt(NetworkManager::WirelessSecuritySetting::WpaPsk);
-wifiSecurity->setPsk("12345678");
+    NetworkManager::WirelessSecuritySetting::Ptr wifiSecurity =
+        settings->setting(NetworkManager::Setting::WirelessSecurity).dynamicCast<NetworkManager::WirelessSecuritySetting>();
+    wifiSecurity->setKeyMgmt(NetworkManager::WirelessSecuritySetting::WpaPsk);
+    wifiSecurity->setPsk("12345678");
     wifiSecurity->setInitialized(true);
     wirelessSetting->setSecurity("802-11-wireless-security");
 
     // We try to add and activate our new wireless connection
-    QDBusPendingReply <QDBusObjectPath, QDBusObjectPath > reply = NetworkManager::addAndActivateConnection(settings->toMap(), wifiDevice->uni(), accessPointPath);
+    QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> reply = NetworkManager::addAndActivateConnection(settings->toMap(), wifiDevice->uni(), accessPointPath);
 
     reply.waitForFinished();
 
@@ -104,7 +102,8 @@ wifiSecurity->setPsk("12345678");
         qDebug() << (*newSettings.data());
 
         // Continue with adding secrets
-        NetworkManager::WirelessSecuritySetting::Ptr wirelessSecuritySetting = newSettings->setting(Setting::WirelessSecurity).dynamicCast<WirelessSecuritySetting>();
+        NetworkManager::WirelessSecuritySetting::Ptr wirelessSecuritySetting =
+            newSettings->setting(Setting::WirelessSecurity).dynamicCast<WirelessSecuritySetting>();
         if (!wirelessSecuritySetting->needSecrets().isEmpty()) {
             qDebug() << "Need secrets: " << wirelessSecuritySetting->needSecrets();
             // TODO: fill missing secrets

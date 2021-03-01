@@ -11,7 +11,6 @@
 
 namespace NetworkManager
 {
-
 class TeamSettingPrivate
 {
 public:

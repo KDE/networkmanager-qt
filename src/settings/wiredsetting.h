@@ -7,14 +7,13 @@
 #ifndef NETWORKMANAGERQT_WIRED_SETTING_H
 #define NETWORKMANAGERQT_WIRED_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QStringList>
 
 namespace NetworkManager
 {
-
 class WiredSettingPrivate;
 
 /**
@@ -79,7 +78,7 @@ public:
     bool autoNegotiate() const;
 
     QString generateMacAddressMask() const;
-    void setGenerateMacAddressMask(const QString& mask);
+    void setGenerateMacAddressMask(const QString &mask);
 
     void setMacAddress(const QByteArray &address);
     QByteArray macAddress() const;
@@ -106,7 +105,7 @@ public:
     void setWakeOnLan(WakeOnLanFlags wol);
 
     QString wakeOnLanPassword() const;
-    void setWakeOnLanPassword(const QString& password);
+    void setWakeOnLanPassword(const QString &password);
 
     void fromMap(const QVariantMap &setting) override;
 

@@ -13,7 +13,6 @@
 
 namespace NetworkManager
 {
-
 class GenericDevicePrivate;
 
 /**
@@ -60,4 +59,3 @@ private:
 }
 
 #endif // NETWORKMANAGERQT_GENERICDEVICE_H
-

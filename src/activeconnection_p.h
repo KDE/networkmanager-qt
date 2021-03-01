@@ -12,7 +12,6 @@
 
 namespace NetworkManager
 {
-
 class ActiveConnectionPrivate : public QObject
 {
     Q_OBJECT
@@ -51,6 +50,7 @@ public:
      * BUG:352326
      */
     void recheckProperties();
+
 public:
     /**
      * When subclassing make sure to call the parent class method

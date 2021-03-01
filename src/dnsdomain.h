@@ -7,34 +7,30 @@
 #ifndef NETWORKMANAGERQT_DNSDOMAIN_H
 #define NETWORKMANAGERQT_DNSDOMAIN_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "ipaddress.h"
 #include "iproute.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 // To prevent signals in glib2 be defined by QT
 #undef signals
-#include <nm-version.h>
 #include <libnm/NetworkManager.h>
+#include <nm-version.h>
 #define signals Q_SIGNALS
 
 #include <QStringList>
 
 namespace NetworkManager
 {
-
 /**
  * This class represents the configuration for a DNS domain
  */
 class NETWORKMANAGERQT_EXPORT DnsDomain
 {
 public:
-
     /**
      * Constructs a DnsDomain object with a list of
      */
-    DnsDomain(const QString &name,
-              const QList<QHostAddress> &servers,
-              const QStringList &options);
+    DnsDomain(const QString &name, const QList<QHostAddress> &servers, const QStringList &options);
 
     /**
      * Constructs a DnsDomain object

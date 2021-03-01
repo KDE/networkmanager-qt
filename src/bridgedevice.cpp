@@ -22,8 +22,8 @@ NetworkManager::BridgeDevicePrivate::~BridgeDevicePrivate()
 {
 }
 
-NetworkManager::BridgeDevice::BridgeDevice(const QString &path, QObject *parent):
-    Device(*new BridgeDevicePrivate(path, this), parent)
+NetworkManager::BridgeDevice::BridgeDevice(const QString &path, QObject *parent)
+    : Device(*new BridgeDevicePrivate(path, this), parent)
 {
     Q_D(BridgeDevice);
 
@@ -32,8 +32,12 @@ NetworkManager::BridgeDevice::BridgeDevice(const QString &path, QObject *parent)
         d->propertiesChanged(initialProperties);
     }
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::BridgeDevice::~BridgeDevice()
@@ -78,8 +82,8 @@ void NetworkManager::BridgeDevicePrivate::propertyChanged(const QString &propert
         Q_EMIT q->hwAddressChanged(hwAddress);
     } else if (property == QLatin1String("Slaves")) {
         QStringList list;
-        const QList<QDBusObjectPath> opList = qdbus_cast< QList<QDBusObjectPath> >(value);
-        for (const QDBusObjectPath & op : opList) {
+        const QList<QDBusObjectPath> opList = qdbus_cast<QList<QDBusObjectPath>>(value);
+        for (const QDBusObjectPath &op : opList) {
             list << op.path();
         }
         slaves = list;

@@ -10,18 +10,20 @@
 #include <QDebug>
 
 #if !NM_CHECK_VERSION(1, 14, 0)
-#define NM_SETTING_MATCH_SETTING_NAME      "match"
-#define NM_SETTING_MATCH_INTERFACE_NAME    "interface-name"
+#define NM_SETTING_MATCH_SETTING_NAME "match"
+#define NM_SETTING_MATCH_INTERFACE_NAME "interface-name"
 #endif
 
 NetworkManager::MatchSettingPrivate::MatchSettingPrivate()
     : name(NM_SETTING_MATCH_SETTING_NAME)
-{ }
+{
+}
 
 NetworkManager::MatchSetting::MatchSetting()
     : Setting(Setting::Match)
     , d_ptr(new MatchSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::MatchSetting::MatchSetting(const Ptr &other)
     : Setting(other)
@@ -74,7 +76,7 @@ QVariantMap NetworkManager::MatchSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::MatchSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::MatchSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

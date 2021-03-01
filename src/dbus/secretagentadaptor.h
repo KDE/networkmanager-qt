@@ -12,13 +12,15 @@
 #ifndef SECRETAGENTADAPTOR_H
 #define SECRETAGENTADAPTOR_H
 
+#include "secretagent.h"
 #include <QObject>
 #include <QtDBus>
-#include "secretagent.h"
 QT_BEGIN_NAMESPACE
 class QByteArray;
-template<class T> class QList;
-template<class Key, class Value> class QMap;
+template<class T>
+class QList;
+template<class Key, class Value>
+class QMap;
 class QString;
 class QStringList;
 class QVariant;
@@ -27,11 +29,12 @@ QT_END_NAMESPACE
 /*
  * Adaptor class for interface org.freedesktop.NetworkManager.SecretAgent
  */
-class SecretAgentAdaptor: public QDBusAbstractAdaptor
+class SecretAgentAdaptor : public QDBusAbstractAdaptor
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.freedesktop.NetworkManager.SecretAgent")
-    Q_CLASSINFO("D-Bus Introspection", ""
+    Q_CLASSINFO("D-Bus Introspection",
+                ""
                 "  <interface name=\"org.freedesktop.NetworkManager.SecretAgent\">\n"
                 "    <method name=\"GetSecrets\">\n"
                 "      <annotation value=\"impl_secret_agent_get_secrets\" name=\"org.freedesktop.DBus.GLib.CSymbol\"/>\n"
@@ -80,7 +83,8 @@ public: // PROPERTIES
 public Q_SLOTS: // METHODS
     void CancelGetSecrets(const QDBusObjectPath &connection_path, const QString &setting_name);
     void DeleteSecrets(NMVariantMapMap connection, const QDBusObjectPath &connection_path);
-    NMVariantMapMap GetSecrets(NMVariantMapMap connection, const QDBusObjectPath &connection_path, const QString &setting_name, const QStringList &hints, uint flags);
+    NMVariantMapMap
+    GetSecrets(NMVariantMapMap connection, const QDBusObjectPath &connection_path, const QString &setting_name, const QStringList &hints, uint flags);
     void SaveSecrets(NMVariantMapMap connection, const QDBusObjectPath &connection_path);
 Q_SIGNALS: // SIGNALS
 };

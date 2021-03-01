@@ -10,7 +10,7 @@
 #include <QDebug>
 
 #if !NM_CHECK_VERSION(1, 12, 0)
-#define NM_SETTING_IP_TUNNEL_FLAGS    "flags"
+#define NM_SETTING_IP_TUNNEL_FLAGS "flags"
 #endif
 
 NetworkManager::IpTunnelSettingPrivate::IpTunnelSettingPrivate()
@@ -23,12 +23,14 @@ NetworkManager::IpTunnelSettingPrivate::IpTunnelSettingPrivate()
     , mtu(0)
     , tos(0)
     , ttl(0)
-{ }
+{
+}
 
 NetworkManager::IpTunnelSetting::IpTunnelSetting()
     : Setting(Setting::IpTunnel)
     , d_ptr(new IpTunnelSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::IpTunnelSetting::IpTunnelSetting(const Ptr &other)
     : Setting(other)
@@ -253,7 +255,7 @@ void NetworkManager::IpTunnelSetting::fromMap(const QVariantMap &setting)
         setPathMtuDiscovery(setting.value(QLatin1String(NM_SETTING_IP_TUNNEL_PATH_MTU_DISCOVERY)).toBool());
     }
 
-   if (setting.contains(QLatin1String(NM_SETTING_IP_TUNNEL_ENCAPSULATION_LIMIT))) {
+    if (setting.contains(QLatin1String(NM_SETTING_IP_TUNNEL_ENCAPSULATION_LIMIT))) {
         setEncapsulationLimit(setting.value(QLatin1String(NM_SETTING_IP_TUNNEL_ENCAPSULATION_LIMIT)).toUInt());
     }
 
@@ -355,7 +357,7 @@ QVariantMap NetworkManager::IpTunnelSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::IpTunnelSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::IpTunnelSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

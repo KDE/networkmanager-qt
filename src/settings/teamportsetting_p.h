@@ -13,7 +13,6 @@ typedef QList<QVariantMap> NMVariantMapList;
 
 namespace NetworkManager
 {
-
 class TeamPortSettingPrivate
 {
 public:
@@ -33,4 +32,3 @@ public:
 }
 
 #endif // NETWORKMANAGERQT_TEAM_PORT_SETTING_P_H
-

@@ -7,14 +7,13 @@
 #ifndef NETWORKMANAGERQT_TUN_DEVICE_P_H
 #define NETWORKMANAGERQT_TUN_DEVICE_P_H
 
-#include "tundevice.h"
 #include "device_p.h"
+#include "tundevice.h"
 #include "tundeviceinterface.h"
 
 namespace NetworkManager
 {
-
-class TunDevicePrivate: public DevicePrivate
+class TunDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:

@@ -12,12 +12,14 @@
 NetworkManager::PppoeSettingPrivate::PppoeSettingPrivate()
     : name(NM_SETTING_PPPOE_SETTING_NAME)
     , passwordFlags(Setting::None)
-{ }
+{
+}
 
 NetworkManager::PppoeSetting::PppoeSetting()
     : Setting(Setting::Pppoe)
     , d_ptr(new PppoeSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::PppoeSetting::PppoeSetting(const Ptr &other)
     : Setting(other)
@@ -168,7 +170,7 @@ QVariantMap NetworkManager::PppoeSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::PppoeSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::PppoeSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

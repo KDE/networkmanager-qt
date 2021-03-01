@@ -11,9 +11,8 @@
 
 #include "fakenetwork/wireddevice.h"
 
+#include <QSignalSpy>
 #include <QTest>
-#include <QSignalSpy>
-#include <QSignalSpy>
 
 void ManagerTest::initTestCase()
 {
@@ -102,7 +101,7 @@ void ManagerTest::testDeviceAdded(const QString &dev)
 void ManagerTest::testManager()
 {
     QCOMPARE(NetworkManager::connectivity(), NetworkManager::NoConnectivity);
-//     QCOMPARE(NetworkManager::status(), NetworkManager::Disconnected);
+    //     QCOMPARE(NetworkManager::status(), NetworkManager::Disconnected);
     QCOMPARE(NetworkManager::version(), QLatin1String("0.9.10.0"));
 
     QSignalSpy wirelessEnabledChanged(NetworkManager::notifier(), SIGNAL(wirelessEnabledChanged(bool)));

@@ -15,13 +15,12 @@
 #include <libnm/NetworkManager.h>
 #define signals Q_SIGNALS
 
-#include <QVariantMap>
-#include <QStringList>
 #include <QSharedPointer>
+#include <QStringList>
+#include <QVariantMap>
 
 namespace NetworkManager
 {
-
 class SettingPrivate;
 
 /**

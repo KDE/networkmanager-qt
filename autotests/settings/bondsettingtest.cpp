@@ -20,9 +20,8 @@ void BondSettingTest::testSetting_data()
     NMStringMap options;
     options.insert("mode", "802.3ad");
 
-    QTest::newRow("setting1")
-            << QString("eth0")       // interfaceName
-            << options;              // options
+    QTest::newRow("setting1") << QString("eth0") // interfaceName
+                              << options; // options
 }
 
 void BondSettingTest::testSetting()

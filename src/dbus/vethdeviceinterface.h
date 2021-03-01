@@ -11,16 +11,16 @@
 #ifndef VETHINTERFACE_H
 #define VETHINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Veth
  */
-class OrgFreedesktopNetworkManagerDeviceVethInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceVethInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -43,7 +43,7 @@ public:
     Q_PROPERTY(QDBusObjectPath Peer READ peer)
     inline QDBusObjectPath peer() const
     {
-        return qvariant_cast< QDBusObjectPath >(property("Peer"));
+        return qvariant_cast<QDBusObjectPath>(property("Peer"));
     }
 
 public Q_SLOTS: // METHODS

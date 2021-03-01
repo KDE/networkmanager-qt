@@ -4,8 +4,8 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-#include "activeconnection.h"
 #include "device.h"
+#include "activeconnection.h"
 
 #include <QDBusConnection>
 #include <QtDBus>
@@ -48,7 +48,7 @@ void Device::setAutoconnect(bool autoconnect)
     m_autoconnect = autoconnect;
 }
 
-QList< QDBusObjectPath > Device::availableConnections() const
+QList<QDBusObjectPath> Device::availableConnections() const
 {
     return m_availableConnections;
 }

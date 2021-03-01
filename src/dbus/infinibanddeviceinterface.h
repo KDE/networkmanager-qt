@@ -11,16 +11,16 @@
 #ifndef INFINIBANDDEVICEINTERFACE_H
 #define INFINIBANDDEVICEINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Infiniband
  */
-class OrgFreedesktopNetworkManagerDeviceInfinibandInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceInfinibandInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -36,20 +36,23 @@ public:
 #endif
 
 public:
-    OrgFreedesktopNetworkManagerDeviceInfinibandInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
+    OrgFreedesktopNetworkManagerDeviceInfinibandInterface(const QString &service,
+                                                          const QString &path,
+                                                          const QDBusConnection &connection,
+                                                          QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceInfinibandInterface();
 
     Q_PROPERTY(bool Carrier READ carrier)
     inline bool carrier() const
     {
-        return qvariant_cast< bool >(property("Carrier"));
+        return qvariant_cast<bool>(property("Carrier"));
     }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const
     {
-        return qvariant_cast< QString >(property("HwAddress"));
+        return qvariant_cast<QString>(property("HwAddress"));
     }
 
 public Q_SLOTS: // METHODS

@@ -8,30 +8,30 @@
 #include "connectionsettings.h"
 #include "connectionsettings_p.h"
 
-#include "wiredsetting.h"
-#include "olpcmeshsetting.h"
-#include "wirelesssetting.h"
-#include "wirelesssecuritysetting.h"
-#include "security8021xsetting.h"
 #include "adslsetting.h"
 #include "bluetoothsetting.h"
 #include "bondsetting.h"
-#include "bridgesetting.h"
 #include "bridgeportsetting.h"
-#include "gsmsetting.h"
+#include "bridgesetting.h"
 #include "cdmasetting.h"
+#include "gsmsetting.h"
 #include "infinibandsetting.h"
 #include "iptunnelsetting.h"
 #include "ipv4setting.h"
 #include "ipv6setting.h"
-#include "pppsetting.h"
+#include "olpcmeshsetting.h"
 #include "pppoesetting.h"
+#include "pppsetting.h"
+#include "security8021xsetting.h"
 #include "serialsetting.h"
 #include "tunsetting.h"
 #include "vlansetting.h"
 #include "vpnsetting.h"
 #include "wimaxsetting.h"
+#include "wiredsetting.h"
 #include "wireguardsetting.h"
+#include "wirelesssecuritysetting.h"
+#include "wirelesssetting.h"
 
 #undef signals
 
@@ -43,13 +43,14 @@
 #define NM_SETTING_WIREGUARD_SETTING_NAME "wireguard"
 #endif
 
-#include "teamsetting.h"
 #include "genericsetting.h"
+#include "teamsetting.h"
 
 #include <QUuid>
 
-namespace NetworkManager {
-    extern int checkVersion(const int x, const int y, const int z);
+namespace NetworkManager
+{
+extern int checkVersion(const int x, const int y, const int z);
 }
 
 NetworkManager::ConnectionSettingsPrivate::ConnectionSettingsPrivate(ConnectionSettings *q)
@@ -65,7 +66,8 @@ NetworkManager::ConnectionSettingsPrivate::ConnectionSettingsPrivate(ConnectionS
     , lldp(ConnectionSettings::LldpDefault)
     , metered(ConnectionSettings::MeteredUnknown)
     , q_ptr(q)
-{ }
+{
+}
 
 void NetworkManager::ConnectionSettingsPrivate::addSetting(const NetworkManager::Setting::Ptr &setting)
 {
@@ -95,7 +97,7 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabili
     case ConnectionSettings::Bluetooth:
         addSetting(Setting::Ptr(new BluetoothSetting()));
         addSetting(Setting::Ptr(new Ipv4Setting()));
-        //addSetting(Setting::Ptr(new Ipv6Setting()));
+        // addSetting(Setting::Ptr(new Ipv6Setting()));
         if (bt_cap == NM_BT_CAPABILITY_DUN) {
             addSetting(Setting::Ptr(new GsmSetting()));
             addSetting(Setting::Ptr(new PppSetting()));
@@ -135,7 +137,7 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabili
         break;
     case ConnectionSettings::Pppoe:
         addSetting(Setting::Ptr(new Ipv4Setting()));
-        //addSetting(new Ipv6Setting()));
+        // addSetting(new Ipv6Setting()));
         addSetting(Setting::Ptr(new PppSetting()));
         addSetting(Setting::Ptr(new PppoeSetting()));
         addSetting(Setting::Ptr(new WiredSetting()));
@@ -261,7 +263,7 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
         break;
     case ConnectionSettings::Pppoe:
         addSetting(connectionSettings->setting(Setting::Ipv4));
-        //addSetting(Ipv6Setting(connectionSettings->setting(Setting::Ipv6));
+        // addSetting(Ipv6Setting(connectionSettings->setting(Setting::Ipv6));
         addSetting(connectionSettings->setting(Setting::Ppp));
         addSetting(connectionSettings->setting(Setting::Pppoe));
         addSetting(connectionSettings->setting(Setting::Wired));
@@ -448,7 +450,8 @@ QString NetworkManager::ConnectionSettings::createNewUuid()
 
 NetworkManager::ConnectionSettings::ConnectionSettings()
     : d_ptr(new ConnectionSettingsPrivate(this))
-{ }
+{
+}
 
 NetworkManager::ConnectionSettings::ConnectionSettings(NetworkManager::ConnectionSettings::ConnectionType type, NMBluetoothCapabilities bt_cap)
     : d_ptr(new ConnectionSettingsPrivate(this))
@@ -509,7 +512,7 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
     }
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS))) {
         const QStringList permissions = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS)).toStringList();
-        for (const QString & permission : permissions) {
+        for (const QString &permission : permissions) {
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
             const QStringList split = permission.split(QLatin1Char(':'), QString::KeepEmptyParts);
 #else
@@ -561,7 +564,8 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
     }
 
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_SLAVES))) {
-        setAutoconnectSlaves((NetworkManager::ConnectionSettings::AutoconnectSlaves)connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_SLAVES)).toInt());
+        setAutoconnectSlaves(
+            (NetworkManager::ConnectionSettings::AutoconnectSlaves)connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_SLAVES)).toInt());
     }
 
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_LLDP))) {
@@ -752,14 +756,14 @@ void NetworkManager::ConnectionSettings::addToPermissions(const QString &user, c
     d->permissions.insert(user, type);
 }
 
-void NetworkManager::ConnectionSettings::setPermissions(const QHash< QString, QString > &perm)
+void NetworkManager::ConnectionSettings::setPermissions(const QHash<QString, QString> &perm)
 {
     Q_D(ConnectionSettings);
 
     d->permissions = perm;
 }
 
-QHash< QString, QString > NetworkManager::ConnectionSettings::permissions() const
+QHash<QString, QString> NetworkManager::ConnectionSettings::permissions() const
 {
     Q_D(const ConnectionSettings);
 
@@ -993,7 +997,7 @@ NetworkManager::Setting::List NetworkManager::ConnectionSettings::settings() con
     return d->settings;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::ConnectionSettings &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::ConnectionSettings &setting)
 {
     dbg.nospace() << "CONNECTION SETTINGS\n";
     dbg.nospace() << "===================\n";

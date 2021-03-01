@@ -7,8 +7,8 @@
 #ifndef NETWORKMANAGERQT_GRE_DEVICE_P_H
 #define NETWORKMANAGERQT_GRE_DEVICE_P_H
 
-#include "gredevice.h"
 #include "device_p.h"
+#include "gredevice.h"
 #include "manager.h"
 #include "manager_p.h"
 
@@ -16,7 +16,6 @@
 
 namespace NetworkManager
 {
-
 class GreDevicePrivate : public DevicePrivate
 {
     Q_OBJECT

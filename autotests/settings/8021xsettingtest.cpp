@@ -49,45 +49,50 @@ void Security8021xSettingTest::testSetting_data()
     QTest::addColumn<bool>("systemCaCerts");
 
     QStringList eapMethods;
-    eapMethods << "leap" << "md5" << "tls" << "peap" << "ttls" << "fast";
+    eapMethods << "leap"
+               << "md5"
+               << "tls"
+               << "peap"
+               << "ttls"
+               << "fast";
 
     QStringList altSubjectMatches;
-    altSubjectMatches << "subject1" << "subject2";
+    altSubjectMatches << "subject1"
+                      << "subject2";
 
-    QTest::newRow("setting1")
-            << eapMethods                                       // eap
-            << QString("identity")                              // identity
-            << QString("anonymousIdentity")                     // anonymousIdentity
-            << QString("file://path/to/pac/file")               // pacFile
-            << QByteArray("file://path/to/ca/cert")             // caCert
-            << QString("example.com")                           // domainSuffixMatch
-            << QString("file://path/to/ca/cert")                // caPath
-            << QString("subjectMatch")                          // subjectMatch
-            << altSubjectMatches                                // altSubjectMatches
-            << QByteArray("file://path/to/client/cert")         // clientCert
-            << QString("1")                                     // phase1PeapVer
-            << QString("1")                                     // phase1PeapLabel
-            << QString("3")                                     // phase1FastProvisioning
-            << QString("mschapv2")                              // phase2Auth
-            << QString("tls")                                   // phase2EapAuth
-            << QByteArray("file://path/to/phase2/ca/cert")      // phase2CaCert
-            << QString("file://path/to/phase2/ca/cert")         // phase2CaPath
-            << QString("phase2SubjectMatch")                    // phase2SubjectMatch
-            << altSubjectMatches                                // phase2AltSubjectMatches
-            << QByteArray("file://path/to/phase2/client/cert")  // phase2ClientCert
-            << QString("password")                              // password
-            << (quint32) 2                                      // passwordFlags
-            << QByteArray("passwordRaw")                        // passwordRaw
-            << (quint32) 4                                      // passwordFlags
-            << QByteArray("privateKey")                         // privateKey
-            << QString("privateKeyPassword")                    // privateKeyPassword
-            << (quint32) 2                                      // privateKeyPasswordFlags
-            << QByteArray("phase2PrivateKey")                   // phase2PrivateKey
-            << QString("phase2PrivateKeyPassword")              // phase2PrivateKeyPassword
-            << (quint32) 4                                      // phase2PrivateKeyPasswordFlags
-            << QString("pin")                                   // pin
-            << (quint32) 2                                      // pinFlags
-            << true;                                            // systemCaCerts
+    QTest::newRow("setting1") << eapMethods // eap
+                              << QString("identity") // identity
+                              << QString("anonymousIdentity") // anonymousIdentity
+                              << QString("file://path/to/pac/file") // pacFile
+                              << QByteArray("file://path/to/ca/cert") // caCert
+                              << QString("example.com") // domainSuffixMatch
+                              << QString("file://path/to/ca/cert") // caPath
+                              << QString("subjectMatch") // subjectMatch
+                              << altSubjectMatches // altSubjectMatches
+                              << QByteArray("file://path/to/client/cert") // clientCert
+                              << QString("1") // phase1PeapVer
+                              << QString("1") // phase1PeapLabel
+                              << QString("3") // phase1FastProvisioning
+                              << QString("mschapv2") // phase2Auth
+                              << QString("tls") // phase2EapAuth
+                              << QByteArray("file://path/to/phase2/ca/cert") // phase2CaCert
+                              << QString("file://path/to/phase2/ca/cert") // phase2CaPath
+                              << QString("phase2SubjectMatch") // phase2SubjectMatch
+                              << altSubjectMatches // phase2AltSubjectMatches
+                              << QByteArray("file://path/to/phase2/client/cert") // phase2ClientCert
+                              << QString("password") // password
+                              << (quint32)2 // passwordFlags
+                              << QByteArray("passwordRaw") // passwordRaw
+                              << (quint32)4 // passwordFlags
+                              << QByteArray("privateKey") // privateKey
+                              << QString("privateKeyPassword") // privateKeyPassword
+                              << (quint32)2 // privateKeyPasswordFlags
+                              << QByteArray("phase2PrivateKey") // phase2PrivateKey
+                              << QString("phase2PrivateKeyPassword") // phase2PrivateKeyPassword
+                              << (quint32)4 // phase2PrivateKeyPasswordFlags
+                              << QString("pin") // pin
+                              << (quint32)2 // pinFlags
+                              << true; // systemCaCerts
 }
 
 void Security8021xSettingTest::testSetting()

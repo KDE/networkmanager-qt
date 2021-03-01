@@ -16,7 +16,6 @@
 
 namespace NetworkManager
 {
-
 class DeviceStatisticsPrivate;
 
 /**
@@ -73,5 +72,3 @@ private:
 
 }
 #endif
-
-

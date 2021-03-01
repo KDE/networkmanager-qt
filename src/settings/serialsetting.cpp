@@ -16,12 +16,14 @@ NetworkManager::SerialSettingPrivate::SerialSettingPrivate()
     , parity(SerialSetting::NoParity)
     , stopbits(1)
     , sendDelay(0)
-{ }
+{
+}
 
 NetworkManager::SerialSetting::SerialSetting()
     : Setting(Setting::Serial)
     , d_ptr(new SerialSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::SerialSetting::SerialSetting(const Ptr &other)
     : Setting(other)
@@ -178,7 +180,7 @@ QVariantMap NetworkManager::SerialSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::SerialSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::SerialSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

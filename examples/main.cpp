@@ -8,23 +8,32 @@
 
 #include <QTextStream>
 
-#include <NetworkManagerQt/Manager>
-#include <NetworkManagerQt/Device>
 #include <NetworkManagerQt/ActiveConnection>
 #include <NetworkManagerQt/Connection>
+#include <NetworkManagerQt/Device>
+#include <NetworkManagerQt/Manager>
 
 QString typeAsString(const int type)
 {
     switch (type) {
-    case 0x0: return QString("Unknown");
-    case 0x1: return QString("Ethernet");
-    case 0x2: return QString("Wifi");
-    case 0x3: return QString("Unused1");
-    case 0x4: return QString("Unused2");
-    case 0x5: return QString("Bluetooth");
-    case 0x6: return QString("OlpcMesh");
-    case 0x7: return QString("Wimax");
-    case 0x8: return QString("Modem");
+    case 0x0:
+        return QString("Unknown");
+    case 0x1:
+        return QString("Ethernet");
+    case 0x2:
+        return QString("Wifi");
+    case 0x3:
+        return QString("Unused1");
+    case 0x4:
+        return QString("Unused2");
+    case 0x5:
+        return QString("Bluetooth");
+    case 0x6:
+        return QString("OlpcMesh");
+    case 0x7:
+        return QString("Wimax");
+    case 0x8:
+        return QString("Modem");
     }
     return QString("Unknown");
 }
@@ -83,7 +92,8 @@ int main()
                 qout << "\n";
 
                 qout << "(dhcp) ip address: " << dhcp4Config->optionValue("ip_address") << "\n";
-                qout << "(dhcp) network: " << dhcp4Config->optionValue("network_number") << '/' << dhcp4Config->optionValue("subnet_cidr") << " (" << dhcp4Config->optionValue("subnet_mask") << ")\n";
+                qout << "(dhcp) network: " << dhcp4Config->optionValue("network_number") << '/' << dhcp4Config->optionValue("subnet_cidr") << " ("
+                     << dhcp4Config->optionValue("subnet_mask") << ")\n";
 
                 if (dhcp4Config->optionValue("routers").isEmpty()) {
                     qout << "(dhcp) gateway(s): <not set>\n";

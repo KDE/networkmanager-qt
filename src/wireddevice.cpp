@@ -6,9 +6,9 @@
 */
 
 #include "wireddevice.h"
-#include "wireddevice_p.h"
 #include "manager.h"
 #include "manager_p.h"
+#include "wireddevice_p.h"
 
 #include "nmdebug.h"
 
@@ -40,8 +40,12 @@ NetworkManager::WiredDevice::WiredDevice(const QString &path, QObject *parent)
     }
 
 #ifndef NMQT_STATIC
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 #endif
 
 #ifdef NMQT_STATIC

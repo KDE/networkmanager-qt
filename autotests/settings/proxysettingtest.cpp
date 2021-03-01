@@ -13,10 +13,10 @@
 #include <QTest>
 
 #if !NM_CHECK_VERSION(1, 6, 0)
-#define NM_SETTING_PROXY_BROWSER_ONLY    "browser-only"
-#define NM_SETTING_PROXY_METHOD          "method"
-#define NM_SETTING_PROXY_PAC_SCRIPT      "pac-script"
-#define NM_SETTING_PROXY_PAC_URL         "pac-url"
+#define NM_SETTING_PROXY_BROWSER_ONLY "browser-only"
+#define NM_SETTING_PROXY_METHOD "method"
+#define NM_SETTING_PROXY_PAC_SCRIPT "pac-script"
+#define NM_SETTING_PROXY_PAC_URL "pac-url"
 #endif
 
 void ProxySettingTest::testSetting_data()
@@ -26,11 +26,10 @@ void ProxySettingTest::testSetting_data()
     QTest::addColumn<QString>("pacScript");
     QTest::addColumn<QString>("pacUrl");
 
-    QTest::newRow("setting1")
-            << false                     // browserOnly
-            << (quint32)1                // method
-            << QString("script")         // pacScript
-            << QString("url");           // pacUrl
+    QTest::newRow("setting1") << false // browserOnly
+                              << (quint32)1 // method
+                              << QString("script") // pacScript
+                              << QString("url"); // pacUrl
 }
 
 void ProxySettingTest::testSetting()

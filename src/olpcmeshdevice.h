@@ -16,7 +16,6 @@
 
 namespace NetworkManager
 {
-
 class OlpcMeshDevicePrivate;
 
 /**
@@ -75,5 +74,4 @@ private:
 };
 
 } // namespace NetworkManager
-#endif //NETWORKMANAGERQT_OLPCMESHDEVICE_H
-
+#endif // NETWORKMANAGERQT_OLPCMESHDEVICE_H

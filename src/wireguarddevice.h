@@ -12,7 +12,6 @@
 
 namespace NetworkManager
 {
-
 class WireGuardDevicePrivate;
 
 /**
@@ -67,4 +66,3 @@ private:
 }
 
 #endif
-

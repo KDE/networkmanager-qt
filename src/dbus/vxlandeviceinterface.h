@@ -11,16 +11,16 @@
 #ifndef VXLANDEVICEINTERFACE_H
 #define VXLANDEVICEINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Vxlan
  */
-class OrgFreedesktopNetworkManagerDeviceVxlanInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceVxlanInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -43,103 +43,103 @@ public:
     Q_PROPERTY(uint Ageing READ ageing)
     inline uint ageing() const
     {
-        return qvariant_cast< uint >(property("Ageing"));
+        return qvariant_cast<uint>(property("Ageing"));
     }
 
     Q_PROPERTY(ushort DstPort READ dstPort)
     inline ushort dstPort() const
     {
-        return qvariant_cast< ushort >(property("DstPort"));
+        return qvariant_cast<ushort>(property("DstPort"));
     }
 
     Q_PROPERTY(QString Group READ group)
     inline QString group() const
     {
-        return qvariant_cast< QString >(property("Group"));
+        return qvariant_cast<QString>(property("Group"));
     }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const
     {
-        return qvariant_cast< QString >(property("HwAddress"));
+        return qvariant_cast<QString>(property("HwAddress"));
     }
 
     Q_PROPERTY(uint Id READ id)
     inline uint id() const
     {
-        return qvariant_cast< uint >(property("Id"));
+        return qvariant_cast<uint>(property("Id"));
     }
 
     Q_PROPERTY(bool L2miss READ l2miss)
     inline bool l2miss() const
     {
-        return qvariant_cast< bool >(property("L2miss"));
+        return qvariant_cast<bool>(property("L2miss"));
     }
 
     Q_PROPERTY(bool L3miss READ l3miss)
     inline bool l3miss() const
     {
-        return qvariant_cast< bool >(property("L3miss"));
+        return qvariant_cast<bool>(property("L3miss"));
     }
 
     Q_PROPERTY(bool Learning READ learning)
     inline bool learning() const
     {
-        return qvariant_cast< bool >(property("Learning"));
+        return qvariant_cast<bool>(property("Learning"));
     }
 
     Q_PROPERTY(uint Limit READ limit)
     inline uint limit() const
     {
-        return qvariant_cast< uint >(property("Limit"));
+        return qvariant_cast<uint>(property("Limit"));
     }
 
     Q_PROPERTY(QString Local READ local)
     inline QString local() const
     {
-        return qvariant_cast< QString >(property("Local"));
+        return qvariant_cast<QString>(property("Local"));
     }
 
     Q_PROPERTY(QDBusObjectPath Parent READ parent)
     inline QDBusObjectPath parent() const
     {
-        return qvariant_cast< QDBusObjectPath >(property("Parent"));
+        return qvariant_cast<QDBusObjectPath>(property("Parent"));
     }
 
     Q_PROPERTY(bool Proxy READ proxy)
     inline bool proxy() const
     {
-        return qvariant_cast< bool >(property("Proxy"));
+        return qvariant_cast<bool>(property("Proxy"));
     }
 
     Q_PROPERTY(bool Rsc READ rsc)
     inline bool rsc() const
     {
-        return qvariant_cast< bool >(property("Rsc"));
+        return qvariant_cast<bool>(property("Rsc"));
     }
 
     Q_PROPERTY(ushort SrcPortMax READ srcPortMax)
     inline ushort srcPortMax() const
     {
-        return qvariant_cast< ushort >(property("SrcPortMax"));
+        return qvariant_cast<ushort>(property("SrcPortMax"));
     }
 
     Q_PROPERTY(ushort SrcPortMin READ srcPortMin)
     inline ushort srcPortMin() const
     {
-        return qvariant_cast< ushort >(property("SrcPortMin"));
+        return qvariant_cast<ushort>(property("SrcPortMin"));
     }
 
     Q_PROPERTY(uchar Tos READ tos)
     inline uchar tos() const
     {
-        return qvariant_cast< uchar >(property("Tos"));
+        return qvariant_cast<uchar>(property("Tos"));
     }
 
     Q_PROPERTY(uchar Ttl READ ttl)
     inline uchar ttl() const
     {
-        return qvariant_cast< uchar >(property("Ttl"));
+        return qvariant_cast<uchar>(property("Ttl"));
     }
 
 public Q_SLOTS: // METHODS

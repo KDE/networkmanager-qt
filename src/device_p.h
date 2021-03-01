@@ -12,7 +12,6 @@
 
 namespace NetworkManager
 {
-
 class NetworkManagerPrivate;
 
 class DevicePrivate : public QObject
@@ -65,6 +64,7 @@ public:
 
     Q_DECLARE_PUBLIC(Device)
     Device *q_ptr;
+
 public:
     /**
      * When subclassing make sure to call the parent class method

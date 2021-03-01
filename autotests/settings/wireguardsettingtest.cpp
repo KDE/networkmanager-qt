@@ -13,17 +13,17 @@
 #include <QTest>
 
 #if !NM_CHECK_VERSION(1, 16, 0)
-#define NM_SETTING_WIREGUARD_FWMARK            "fwmark"
-#define NM_SETTING_WIREGUARD_LISTEN_PORT       "listen-port"
-#define NM_SETTING_WIREGUARD_PRIVATE_KEY       "private-key"
+#define NM_SETTING_WIREGUARD_FWMARK "fwmark"
+#define NM_SETTING_WIREGUARD_LISTEN_PORT "listen-port"
+#define NM_SETTING_WIREGUARD_PRIVATE_KEY "private-key"
 #define NM_SETTING_WIREGUARD_PRIVATE_KEY_FLAGS "private-key-flags"
-#define NM_SETTING_WIREGUARD_PEERS             "peers"
-#define NM_SETTING_WIREGUARD_MTU               "mtu"
-#define NM_SETTING_WIREGUARD_PEER_ROUTES       "peer-routes"
+#define NM_SETTING_WIREGUARD_PEERS "peers"
+#define NM_SETTING_WIREGUARD_MTU "mtu"
+#define NM_SETTING_WIREGUARD_PEER_ROUTES "peer-routes"
 
-#define NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY        "preshared-key"
-#define NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS  "preshared-key-flags"
-#define NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY           "public-key"
+#define NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY "preshared-key"
+#define NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS "preshared-key-flags"
+#define NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY "public-key"
 #endif
 
 void WireGuardSettingTest::testSetting_data()
@@ -39,25 +39,24 @@ void WireGuardSettingTest::testSetting_data()
     NMVariantMapList peers;
     QVariantMap map;
     map.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY), "preshared-key");
-    map.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS), (uint) 2);
+    map.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS), (uint)2);
     map.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY), "public-key");
 
     peers << map;
 
     QVariantMap map1;
     map1.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY), "preshared-key1");
-    map1.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS), (uint) 3);
+    map1.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PRESHARED_KEY_FLAGS), (uint)3);
     map1.insert(QLatin1String(NM_WIREGUARD_PEER_ATTR_PUBLIC_KEY), "public-key1");
     peers << map1;
 
-    QTest::newRow("setting1")
-            << (qint32) 100                 // fwmark
-            << (qint32) 101                 // listenPort
-            << (qint32) 102                 // mtu
-            << false                        // peerRoutes
-            << peers                         // peers
-            << QString("private-key")       // privateKey
-            << (quint32) 2;                 // privateKeyFlags
+    QTest::newRow("setting1") << (qint32)100 // fwmark
+                              << (qint32)101 // listenPort
+                              << (qint32)102 // mtu
+                              << false // peerRoutes
+                              << peers // peers
+                              << QString("private-key") // privateKey
+                              << (quint32)2; // privateKeyFlags
 }
 
 void WireGuardSettingTest::testSetting()
@@ -124,4 +123,3 @@ void WireGuardSettingTest::testSetting()
 }
 
 QTEST_MAIN(WireGuardSettingTest)
-

@@ -18,10 +18,9 @@ void InfinibandSettingTest::testSetting_data()
     QTest::addColumn<quint32>("mtu");
     QTest::addColumn<QString>("transportMode");
 
-    QTest::newRow("setting1")
-            << QByteArray("eth0")       // macAddress
-            << (quint32) 1000           // mtu
-            << "connected";             // transportMode
+    QTest::newRow("setting1") << QByteArray("eth0") // macAddress
+                              << (quint32)1000 // mtu
+                              << "connected"; // transportMode
 }
 
 void InfinibandSettingTest::testSetting()

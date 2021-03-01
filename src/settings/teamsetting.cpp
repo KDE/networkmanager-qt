@@ -5,8 +5,8 @@
 */
 
 #include "teamsetting.h"
-#include "teamsetting_p.h"
 #include "manager.h"
+#include "teamsetting_p.h"
 
 #define NM_SETTING_TEAM_INTERFACE_NAME "interface-name"
 
@@ -14,12 +14,14 @@
 
 NetworkManager::TeamSettingPrivate::TeamSettingPrivate()
     : name(NM_SETTING_TEAM_SETTING_NAME)
-{ }
+{
+}
 
 NetworkManager::TeamSetting::TeamSetting()
     : Setting(Setting::Team)
     , d_ptr(new TeamSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::TeamSetting::TeamSetting(const Ptr &other)
     : Setting(other)
@@ -92,7 +94,7 @@ QVariantMap NetworkManager::TeamSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::TeamSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::TeamSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

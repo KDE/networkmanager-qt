@@ -11,17 +11,17 @@
 #ifndef WIREDDEVICEINTERFACE_H
 #define WIREDDEVICEINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QStringList>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Wired
  */
-class OrgFreedesktopNetworkManagerDeviceWiredInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceWiredInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -44,31 +44,31 @@ public:
     Q_PROPERTY(bool Carrier READ carrier)
     inline bool carrier() const
     {
-        return qvariant_cast< bool >(property("Carrier"));
+        return qvariant_cast<bool>(property("Carrier"));
     }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const
     {
-        return qvariant_cast< QString >(property("HwAddress"));
+        return qvariant_cast<QString>(property("HwAddress"));
     }
 
     Q_PROPERTY(QString PermHwAddress READ permHwAddress)
     inline QString permHwAddress() const
     {
-        return qvariant_cast< QString >(property("PermHwAddress"));
+        return qvariant_cast<QString>(property("PermHwAddress"));
     }
 
     Q_PROPERTY(QStringList S390Subchannels READ s390Subchannels)
     inline QStringList s390Subchannels() const
     {
-        return qvariant_cast< QStringList >(property("S390Subchannels"));
+        return qvariant_cast<QStringList>(property("S390Subchannels"));
     }
 
     Q_PROPERTY(uint Speed READ speed)
     inline uint speed() const
     {
-        return qvariant_cast< uint >(property("Speed"));
+        return qvariant_cast<uint>(property("Speed"));
     }
 
 public Q_SLOTS: // METHODS

@@ -8,12 +8,11 @@
 #ifndef NETWORKMANAGERQT_DHCP4CONFIG_P_H
 #define NETWORKMANAGERQT_DHCP4CONFIG_P_H
 
-#include "dhcp4config.h"
 #include "dbus/dhcp4configinterface.h"
+#include "dhcp4config.h"
 
 namespace NetworkManager
 {
-
 class Dhcp4ConfigPrivate : public QObject
 {
     Q_OBJECT

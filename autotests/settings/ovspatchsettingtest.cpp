@@ -13,15 +13,14 @@
 #include <QTest>
 
 #if !NM_CHECK_VERSION(1, 10, 0)
-#define NM_SETTING_OVS_PATCH_PEER           "peer"
+#define NM_SETTING_OVS_PATCH_PEER "peer"
 #endif
 
 void OvsPatchSettingTest::testSetting_data()
 {
     QTest::addColumn<QString>("peer");
 
-    QTest::newRow("setting1")
-            << QString("abc");           // peer
+    QTest::newRow("setting1") << QString("abc"); // peer
 }
 
 void OvsPatchSettingTest::testSetting()

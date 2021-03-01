@@ -11,7 +11,6 @@
 
 namespace NetworkManager
 {
-
 class TunSettingPrivate
 {
 public:
@@ -29,4 +28,3 @@ public:
 }
 
 #endif // NETWORKMANAGERQT_TUN_SETTING_P_H
-

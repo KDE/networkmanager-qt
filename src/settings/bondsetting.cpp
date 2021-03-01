@@ -13,12 +13,14 @@
 
 NetworkManager::BondSettingPrivate::BondSettingPrivate()
     : name(NM_SETTING_BOND_SETTING_NAME)
-{ }
+{
+}
 
 NetworkManager::BondSetting::BondSetting()
     : Setting(Setting::Bond)
     , d_ptr(new BondSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::BondSetting::BondSetting(const Ptr &other)
     : Setting(other)
@@ -99,7 +101,7 @@ QVariantMap NetworkManager::BondSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::BondSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::BondSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

@@ -11,7 +11,6 @@
 
 namespace NetworkManager
 {
-
 class Security8021xSettingPrivate
 {
 public:

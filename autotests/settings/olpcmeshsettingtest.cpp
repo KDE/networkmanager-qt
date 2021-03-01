@@ -18,11 +18,9 @@ void OlpcMeshSettingTest::testSetting_data()
     QTest::addColumn<quint32>("channel");
     QTest::addColumn<QByteArray>("dhcpAnycastAddress");
 
-    QTest::newRow("setting1")
-            << QByteArray("ssid")               // ssid
-            << (quint32) 1                      // channel
-            << QByteArray("00:A0:C9:14:C8:29"); // dhcpAnycastAddress
-
+    QTest::newRow("setting1") << QByteArray("ssid") // ssid
+                              << (quint32)1 // channel
+                              << QByteArray("00:A0:C9:14:C8:29"); // dhcpAnycastAddress
 }
 
 void OlpcMeshSettingTest::testSetting()

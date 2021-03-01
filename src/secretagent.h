@@ -8,13 +8,13 @@
 #ifndef NETWORKMANAGERQT_SECRETAGENT_H
 #define NETWORKMANAGERQT_SECRETAGENT_H
 
-#include <QObject>
 #include <QDBusContext>
-#include <QDBusObjectPath>
 #include <QDBusMessage>
+#include <QDBusObjectPath>
+#include <QObject>
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "generictypes.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 namespace NetworkManager
 {
@@ -43,10 +43,14 @@ public:
      * Flags modifying the behavior of GetSecrets request.
      */
     enum GetSecretsFlag {
-        None = 0, /**<  No special behavior; by default no user interaction is allowed and requests for secrets are fulfilled from persistent storage, or if no secrets are available an error is returned. */
-        AllowInteraction = 0x01, /**< Allows the request to interact with the user, possibly prompting via UI for secrets if any are required, or if none are found in persistent storage. */
-        RequestNew = 0x02, /**< Explicitly prompt for new secrets from the user. This flag signals that NetworkManager thinks any existing secrets are invalid or wrong. This flag implies that interaction is allowed. */
-        UserRequested = 0x04, /**< Set if the request was initiated by user-requested action via the D-Bus interface, as opposed to automatically initiated by NetworkManager in response to (for example) scan results or carrier changes. */
+        None = 0, /**<  No special behavior; by default no user interaction is allowed and requests for secrets are fulfilled from persistent storage, or if no
+                     secrets are available an error is returned. */
+        AllowInteraction = 0x01, /**< Allows the request to interact with the user, possibly prompting via UI for secrets if any are required, or if none are
+                                    found in persistent storage. */
+        RequestNew = 0x02, /**< Explicitly prompt for new secrets from the user. This flag signals that NetworkManager thinks any existing secrets are invalid
+                              or wrong. This flag implies that interaction is allowed. */
+        UserRequested = 0x04, /**< Set if the request was initiated by user-requested action via the D-Bus interface, as opposed to automatically initiated by
+                                 NetworkManager in response to (for example) scan results or carrier changes. */
     };
     Q_DECLARE_FLAGS(GetSecretsFlags, GetSecretsFlag)
 
@@ -92,7 +96,11 @@ public Q_SLOTS:
      *        secrets it has, or that it thinks are required, regardless of what hints NetworkManager sends in this request.
      * @param flags Flags which modify the behavior of the secrets request (see @ref GetSecretsFlag)
      */
-    virtual NMVariantMapMap GetSecrets(const NMVariantMapMap &connection, const QDBusObjectPath &connection_path, const QString &setting_name, const QStringList &hints, uint flags) = 0;
+    virtual NMVariantMapMap GetSecrets(const NMVariantMapMap &connection,
+                                       const QDBusObjectPath &connection_path,
+                                       const QString &setting_name,
+                                       const QStringList &hints,
+                                       uint flags) = 0;
 
     /**
      * Called when the subclass should cancel an outstanding request to
@@ -100,7 +108,8 @@ public Q_SLOTS:
      * Cancelling the request MUST \ref sendError() with the original
      * DBus message using \ref AgentCanceled param as the error type.
      *
-     * @param connection_path Object path of the connection for which, if secrets for the given 'setting_name' are being requested, the request should be canceled.
+     * @param connection_path Object path of the connection for which, if secrets for the given 'setting_name' are being requested, the request should be
+     * canceled.
      * @param setting_name Setting name for which secrets for this connection were originally being requested.
      */
     virtual void CancelGetSecrets(const QDBusObjectPath &connection_path, const QString &setting_name) = 0;

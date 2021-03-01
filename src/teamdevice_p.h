@@ -7,16 +7,15 @@
 #ifndef NETWORKMANAGERQT_TEAM_DEVICE_P_H
 #define NETWORKMANAGERQT_TEAM_DEVICE_P_H
 
-#include "teamdevice.h"
 #include "device_p.h"
 #include "manager.h"
 #include "manager_p.h"
+#include "teamdevice.h"
 
 #include "teamdeviceinterface.h"
 
 namespace NetworkManager
 {
-
 class TeamDevicePrivate : public DevicePrivate
 {
     Q_OBJECT

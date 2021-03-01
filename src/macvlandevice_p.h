@@ -9,13 +9,12 @@
 
 #include "device_p.h"
 #include "macvlandevice.h"
-#include "manager_p.h"
 #include "macvlandeviceinterface.h"
+#include "manager_p.h"
 
 namespace NetworkManager
 {
-
-class MacVlanDevicePrivate: public DevicePrivate
+class MacVlanDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:

@@ -18,12 +18,14 @@ NetworkManager::WirelessSecuritySettingPrivate::WirelessSecuritySettingPrivate()
     , wepKeyType(NetworkManager::WirelessSecuritySetting::NotSpecified)
     , pskFlags(NetworkManager::Setting::None)
     , leapPasswordFlags(NetworkManager::Setting::None)
-{ }
+{
+}
 
 NetworkManager::WirelessSecuritySetting::WirelessSecuritySetting()
     : Setting(Setting::WirelessSecurity)
     , d_ptr(new WirelessSecuritySettingPrivate())
-{ }
+{
+}
 
 NetworkManager::WirelessSecuritySetting::WirelessSecuritySetting(const Ptr &other)
     : Setting(other)
@@ -101,42 +103,42 @@ NetworkManager::WirelessSecuritySetting::AuthAlg NetworkManager::WirelessSecurit
     return d->authAlg;
 }
 
-void NetworkManager::WirelessSecuritySetting::setProto(const QList< NetworkManager::WirelessSecuritySetting::WpaProtocolVersion > &list)
+void NetworkManager::WirelessSecuritySetting::setProto(const QList<NetworkManager::WirelessSecuritySetting::WpaProtocolVersion> &list)
 {
     Q_D(WirelessSecuritySetting);
 
     d->proto = list;
 }
 
-QList< NetworkManager::WirelessSecuritySetting::WpaProtocolVersion > NetworkManager::WirelessSecuritySetting::proto() const
+QList<NetworkManager::WirelessSecuritySetting::WpaProtocolVersion> NetworkManager::WirelessSecuritySetting::proto() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->proto;
 }
 
-void NetworkManager::WirelessSecuritySetting::setPairwise(const QList< NetworkManager::WirelessSecuritySetting::WpaEncryptionCapabilities > &list)
+void NetworkManager::WirelessSecuritySetting::setPairwise(const QList<NetworkManager::WirelessSecuritySetting::WpaEncryptionCapabilities> &list)
 {
     Q_D(WirelessSecuritySetting);
 
     d->pairwise = list;
 }
 
-QList< NetworkManager::WirelessSecuritySetting::WpaEncryptionCapabilities > NetworkManager::WirelessSecuritySetting::pairwise() const
+QList<NetworkManager::WirelessSecuritySetting::WpaEncryptionCapabilities> NetworkManager::WirelessSecuritySetting::pairwise() const
 {
     Q_D(const WirelessSecuritySetting);
 
     return d->pairwise;
 }
 
-void NetworkManager::WirelessSecuritySetting::setGroup(const QList< NetworkManager::WirelessSecuritySetting::WpaEncryptionCapabilities > &list)
+void NetworkManager::WirelessSecuritySetting::setGroup(const QList<NetworkManager::WirelessSecuritySetting::WpaEncryptionCapabilities> &list)
 {
     Q_D(WirelessSecuritySetting);
 
     d->group = list;
 }
 
-QList< NetworkManager::WirelessSecuritySetting::WpaEncryptionCapabilities > NetworkManager::WirelessSecuritySetting::group() const
+QList<NetworkManager::WirelessSecuritySetting::WpaEncryptionCapabilities> NetworkManager::WirelessSecuritySetting::group() const
 {
     Q_D(const WirelessSecuritySetting);
 
@@ -390,8 +392,7 @@ QStringList NetworkManager::WirelessSecuritySetting::needSecrets(bool requestNew
         }
     }
 
-    if (keyMgmt() == WpaNone ||
-            keyMgmt() == WpaPsk || keyMgmt() == SAE) {
+    if (keyMgmt() == WpaNone || keyMgmt() == WpaPsk || keyMgmt() == SAE) {
         if (!pskFlags().testFlag(Setting::NotRequired)) {
             if (psk().isEmpty() || requestNew) {
                 secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK);
@@ -400,8 +401,7 @@ QStringList NetworkManager::WirelessSecuritySetting::needSecrets(bool requestNew
         }
     }
 
-    if (authAlg() == Leap &&
-            keyMgmt() == Ieee8021x) {
+    if (authAlg() == Leap && keyMgmt() == Ieee8021x) {
         if (!leapPasswordFlags().testFlag(Setting::NotRequired)) {
             if (leapPassword().isEmpty() || requestNew) {
                 secrets << QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD);
@@ -677,7 +677,7 @@ QVariantMap NetworkManager::WirelessSecuritySetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WirelessSecuritySetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::WirelessSecuritySetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

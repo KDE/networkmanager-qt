@@ -9,13 +9,12 @@
 
 #include "../ipconfig.h"
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include <QStringList>
 #include <QtNetwork/QHostAddress>
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 namespace NetworkManager
 {
-
 class Ipv4SettingPrivate
 {
 public:

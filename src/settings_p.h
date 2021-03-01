@@ -17,11 +17,11 @@ class QDBusPendingCallWatcher;
 
 namespace NetworkManager
 {
-
 class SettingsPrivate : public NetworkManager::SettingsNotifier
 {
     Q_OBJECT
     friend class NetworkManagerPrivate;
+
 public:
     SettingsPrivate();
     Connection::List listConnections();
@@ -46,6 +46,7 @@ protected Q_SLOTS:
     void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
     void propertiesChanged(const QVariantMap &properties);
     void initNotifier();
+
 protected:
     void daemonUnregistered();
     void init();

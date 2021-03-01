@@ -21,13 +21,12 @@ void VpnSettingTest::testSetting_data()
     QTest::addColumn<uint>("timeout");
     QTest::addColumn<QString>("userName");
 
-    QTest::newRow("setting1")
-            << NMStringMap{{"gateway", "kde.org"}}   // data
-            << true                                  // persistent
-            << NMStringMap{{"password", "kde"}}      // secrets
-            << QString("openvpn")                    // service-type
-            << (uint) 30                             // timeout
-            << QString("test-user");                // user-name
+    QTest::newRow("setting1") << NMStringMap{{"gateway", "kde.org"}} // data
+                              << true // persistent
+                              << NMStringMap{{"password", "kde"}} // secrets
+                              << QString("openvpn") // service-type
+                              << (uint)30 // timeout
+                              << QString("test-user"); // user-name
 }
 
 void VpnSettingTest::testSetting()

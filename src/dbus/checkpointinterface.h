@@ -11,17 +11,17 @@
 #ifndef CHECKPOINTINTERFACE_H
 #define CHECKPOINTINTERFACE_H
 
-#include <QObject>
+#include "generictypes.h"
 #include <QList>
+#include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Checkpoint
  */
-class OrgFreedesktopNetworkManagerCheckpointInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerCheckpointInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -44,19 +44,19 @@ public:
     Q_PROPERTY(qlonglong Created READ created)
     inline qlonglong created() const
     {
-        return qvariant_cast< qlonglong >(property("Created"));
+        return qvariant_cast<qlonglong>(property("Created"));
     }
 
     Q_PROPERTY(QList<QDBusObjectPath> Devices READ devices)
     inline QList<QDBusObjectPath> devices() const
     {
-        return qvariant_cast< QList<QDBusObjectPath> >(property("Devices"));
+        return qvariant_cast<QList<QDBusObjectPath>>(property("Devices"));
     }
 
     Q_PROPERTY(uint RollbackTimeout READ rollbackTimeout)
     inline uint rollbackTimeout() const
     {
-        return qvariant_cast< uint >(property("RollbackTimeout"));
+        return qvariant_cast<uint>(property("RollbackTimeout"));
     }
 
 public Q_SLOTS: // METHODS

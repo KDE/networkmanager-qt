@@ -14,8 +14,7 @@
 
 NetworkManager::ModemDevice::Capabilities convertModemCapabilities(uint theirCaps)
 {
-    NetworkManager::ModemDevice::Capabilities ourCaps
-        = (NetworkManager::ModemDevice::Capabilities) theirCaps;
+    NetworkManager::ModemDevice::Capabilities ourCaps = (NetworkManager::ModemDevice::Capabilities)theirCaps;
     return ourCaps;
 }
 
@@ -39,8 +38,12 @@ NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
         d->propertiesChanged(initialProperties);
     }
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd, QObject *parent)
@@ -48,8 +51,12 @@ NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd,
 {
     Q_D(ModemDevice);
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, d->uni, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), d, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::ModemDevice::~ModemDevice()

@@ -7,7 +7,7 @@
 #include "vlansetting.h"
 #include "vlansetting_p.h"
 
-//define the deprecated&dropped values
+// define the deprecated&dropped values
 #define NM_SETTING_VLAN_INTERFACE_NAME "interface-name"
 
 #include <QDebug>
@@ -16,12 +16,14 @@ NetworkManager::VlanSettingPrivate::VlanSettingPrivate()
     : name(NM_SETTING_VLAN_SETTING_NAME)
     , id(0)
     , flags(VlanSetting::None)
-{ }
+{
+}
 
 NetworkManager::VlanSetting::VlanSetting()
     : Setting(Setting::Vlan)
     , d_ptr(new VlanSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::VlanSetting::VlanSetting(const Ptr &other)
     : Setting(other)
@@ -189,7 +191,7 @@ QVariantMap NetworkManager::VlanSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::VlanSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::VlanSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

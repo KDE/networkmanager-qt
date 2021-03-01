@@ -8,12 +8,11 @@
 #ifndef NETWORKMANAGERQT_WIRELESSDEVICE_P_H
 #define NETWORKMANAGERQT_WIRELESSDEVICE_P_H
 
-#include "device_p.h"
 #include "dbus/wirelessdeviceinterface.h"
+#include "device_p.h"
 
 namespace NetworkManager
 {
-
 class WirelessDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
@@ -49,4 +48,3 @@ protected Q_SLOTS:
 }
 
 #endif
-

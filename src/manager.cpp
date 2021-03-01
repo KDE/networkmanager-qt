@@ -20,28 +20,28 @@
 #include "bluetoothdevice.h"
 #include "bonddevice.h"
 #include "bridgedevice.h"
+#include "genericdevice.h"
+#include "gredevice.h"
 #include "infinibanddevice.h"
 #include "iptunneldevice.h"
-#include "genericdevice.h"
+#include "macvlandevice.h"
 #include "modemdevice.h"
 #include "olpcmeshdevice.h"
 #include "settings.h"
 #include "settings_p.h"
-#include "vpnconnection.h"
-#include "vlandevice.h"
-#include "wireddevice.h"
-#include "wirelessdevice.h"
-#include "wimaxdevice.h"
-#include "gredevice.h"
-#include "macvlandevice.h"
 #include "tundevice.h"
 #include "vethdevice.h"
+#include "vlandevice.h"
+#include "vpnconnection.h"
+#include "wimaxdevice.h"
+#include "wireddevice.h"
 #include "wireguarddevice.h"
+#include "wirelessdevice.h"
 
 #include "nmdebug.h"
 
-#define DBUS_OBJECT_MANAGER  "org.freedesktop.DBus.ObjectManager"
-#define DBUS_PROPERTIES  "org.freedesktop.DBus.Properties"
+#define DBUS_OBJECT_MANAGER "org.freedesktop.DBus.ObjectManager"
+#define DBUS_PROPERTIES "org.freedesktop.DBus.Properties"
 
 #ifdef NMQT_STATIC
 const QString NetworkManager::NetworkManagerPrivate::DBUS_SERVICE(QString::fromLatin1("org.kde.fakenetwork"));
@@ -79,25 +79,28 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     , m_globalDnsConfiguration(NetworkManager::DnsConfiguration())
     , m_supportedInterfaceTypes(NetworkManager::Device::UnknownType)
 {
-    connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceAdded,
-            this, &NetworkManagerPrivate::onDeviceAdded);
-    connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceRemoved,
-            this, &NetworkManagerPrivate::onDeviceRemoved);
-
+    connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceAdded, this, &NetworkManagerPrivate::onDeviceAdded);
+    connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceRemoved, this, &NetworkManagerPrivate::onDeviceRemoved);
 
 #ifndef NMQT_STATIC
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE, NetworkManagerPrivate::DBUS_DAEMON_PATH, NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"), this, SLOT(dbusPropertiesChanged(QString,QVariantMap,QStringList)));
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         NetworkManagerPrivate::DBUS_DAEMON_PATH,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         this,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 #else
-    connect(&iface, &OrgFreedesktopNetworkManagerInterface::PropertiesChanged,
-            this, &NetworkManagerPrivate::propertiesChanged);
+    connect(&iface, &OrgFreedesktopNetworkManagerInterface::PropertiesChanged, this, &NetworkManagerPrivate::propertiesChanged);
 #endif
 
-    iface.connection().connect(NetworkManagerPrivate::DBUS_SERVICE, "/org/freedesktop", NetworkManagerPrivate::FDO_DBUS_OBJECT_MANAGER,
-                               QLatin1String("InterfacesAdded"), this, SLOT(dbusInterfacesAdded(QDBusObjectPath,QVariantMap)));
+    iface.connection().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                               "/org/freedesktop",
+                               NetworkManagerPrivate::FDO_DBUS_OBJECT_MANAGER,
+                               QLatin1String("InterfacesAdded"),
+                               this,
+                               SLOT(dbusInterfacesAdded(QDBusObjectPath, QVariantMap)));
 
-    connect(&watcher, &QDBusServiceWatcher::serviceUnregistered,
-            this, &NetworkManagerPrivate::daemonUnregistered);
+    connect(&watcher, &QDBusServiceWatcher::serviceUnregistered, this, &NetworkManagerPrivate::daemonUnregistered);
 
     init();
 }
@@ -121,12 +124,12 @@ void NetworkManager::NetworkManagerPrivate::init()
 {
     qDBusRegisterMetaType<UIntList>();
     qDBusRegisterMetaType<UIntListList>();
-//     qDBusRegisterMetaType<IpV6DBusAddress>();
-//     qDBusRegisterMetaType<IpV6DBusAddressList>();
-//     qDBusRegisterMetaType<IpV6DBusNameservers>();
-//     qDBusRegisterMetaType<IpV6DBusRoute>();
-//     qDBusRegisterMetaType<IpV6DBusRouteList>();
-    qDBusRegisterMetaType<QList<QDBusObjectPath> >();
+    //     qDBusRegisterMetaType<IpV6DBusAddress>();
+    //     qDBusRegisterMetaType<IpV6DBusAddressList>();
+    //     qDBusRegisterMetaType<IpV6DBusNameservers>();
+    //     qDBusRegisterMetaType<IpV6DBusRoute>();
+    //     qDBusRegisterMetaType<IpV6DBusRouteList>();
+    qDBusRegisterMetaType<QList<QDBusObjectPath>>();
     qDBusRegisterMetaType<DeviceDBusStateReason>();
     qDBusRegisterMetaType<NMVariantMapMap>();
     qDBusRegisterMetaType<NMVariantMapList>();
@@ -134,26 +137,12 @@ void NetworkManager::NetworkManagerPrivate::init()
 
     m_version = iface.version();
     parseVersion(m_version);
-    m_supportedInterfaceTypes =  static_cast<NetworkManager::Device::Types>(
-               NetworkManager::Device::Ethernet |
-               NetworkManager::Device::Wifi |
-               NetworkManager::Device::Modem |
-               (checkVersion(1, 2, 0) ? 0 : NetworkManager::Device::Wimax) |
-               NetworkManager::Device::Bluetooth |
-               NetworkManager::Device::OlpcMesh |
-               NetworkManager::Device::InfiniBand |
-               NetworkManager::Device::Bond |
-               NetworkManager::Device::Vlan |
-               NetworkManager::Device::Adsl |
-               NetworkManager::Device::Bridge |
-               NetworkManager::Device::Generic |
-               NetworkManager::Device::Team |
-               NetworkManager::Device::MacVlan |
-               NetworkManager::Device::Tun |
-               NetworkManager::Device::Veth |
-               NetworkManager::Device::IpTunnel |
-               NetworkManager::Device::WireGuard
-           );
+    m_supportedInterfaceTypes = static_cast<NetworkManager::Device::Types>(
+        NetworkManager::Device::Ethernet | NetworkManager::Device::Wifi | NetworkManager::Device::Modem
+        | (checkVersion(1, 2, 0) ? 0 : NetworkManager::Device::Wimax) | NetworkManager::Device::Bluetooth | NetworkManager::Device::OlpcMesh
+        | NetworkManager::Device::InfiniBand | NetworkManager::Device::Bond | NetworkManager::Device::Vlan | NetworkManager::Device::Adsl
+        | NetworkManager::Device::Bridge | NetworkManager::Device::Generic | NetworkManager::Device::Team | NetworkManager::Device::MacVlan
+        | NetworkManager::Device::Tun | NetworkManager::Device::Veth | NetworkManager::Device::IpTunnel | NetworkManager::Device::WireGuard);
 
     // Get all Manager's properties async
     QVariantMap initialProperties = retrieveInitialProperties(iface.staticInterfaceName(), DBUS_DAEMON_PATH);
@@ -161,10 +150,12 @@ void NetworkManager::NetworkManagerPrivate::init()
         propertiesChanged(initialProperties);
     }
 
-    QTimer::singleShot(0, [] { qobject_cast<SettingsPrivate *>(settingsNotifier())->init(); });
+    QTimer::singleShot(0, [] {
+        qobject_cast<SettingsPrivate *>(settingsNotifier())->init();
+    });
 
     if (iface.isValid()) {
-        const QList <QDBusObjectPath> devices = iface.devices();
+        const QList<QDBusObjectPath> devices = iface.devices();
         qCDebug(NMQT) << "Device list";
         for (const QDBusObjectPath &op : devices) {
             networkInterfaceMap.insert(op.path(), Device::Ptr());
@@ -176,7 +167,6 @@ void NetworkManager::NetworkManagerPrivate::init()
 
 NetworkManager::NetworkManagerPrivate::~NetworkManagerPrivate()
 {
-
 }
 
 QString NetworkManager::NetworkManagerPrivate::version() const
@@ -233,10 +223,7 @@ NetworkManager::Device::Types NetworkManager::NetworkManagerPrivate::supportedIn
 
 QVariantMap NetworkManager::NetworkManagerPrivate::retrieveInitialProperties(const QString &interfaceName, const QString &path)
 {
-    QDBusMessage message = QDBusMessage::createMethodCall(DBUS_SERVICE,
-                                                          path,
-                                                          FDO_DBUS_PROPERTIES,
-                                                          QLatin1String("GetAll"));
+    QDBusMessage message = QDBusMessage::createMethodCall(DBUS_SERVICE, path, FDO_DBUS_PROPERTIES, QLatin1String("GetAll"));
     message << interfaceName;
 #ifdef NMQT_STATIC
     QDBusMessage resultMessage = QDBusConnection::sessionBus().call(message);
@@ -295,7 +282,7 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::fin
 
 NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetworkInterface(const QString &uni)
 {
-    //qCDebug(NMQT);
+    // qCDebug(NMQT);
     Device::Ptr createdInterface;
     Device::Ptr device(new Device(uni));
     switch (device->type()) {
@@ -332,7 +319,7 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
     case Device::Bridge:
         createdInterface = Device::Ptr(new NetworkManager::BridgeDevice(uni), &QObject::deleteLater);
         break;
-    //No need to check checkVersion, because we can't get Generic, Gre, MacVlan, Tun & Veth values in incompatible runtime
+    // No need to check checkVersion, because we can't get Generic, Gre, MacVlan, Tun & Veth values in incompatible runtime
     case Device::Generic:
         createdInterface = Device::Ptr(new NetworkManager::GenericDevice(uni), &QObject::deleteLater);
         break;
@@ -435,7 +422,8 @@ bool NetworkManager::NetworkManagerPrivate::isWimaxHardwareEnabled() const
     return checkVersion(1, 2, 0) ? false : m_isWimaxHardwareEnabled;
 }
 
-QDBusPendingReply<QDBusObjectPath> NetworkManager::NetworkManagerPrivate::activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter)
+QDBusPendingReply<QDBusObjectPath>
+NetworkManager::NetworkManagerPrivate::activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter)
 {
     QString extra_connection_parameter = connectionParameter;
     QString extra_interface_parameter = interfaceUni;
@@ -452,7 +440,9 @@ QDBusPendingReply<QDBusObjectPath> NetworkManager::NetworkManagerPrivate::activa
     return iface.ActivateConnection(connPath, QDBusObjectPath(extra_interface_parameter), QDBusObjectPath(extra_connection_parameter));
 }
 
-QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::NetworkManagerPrivate::addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter)
+QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::NetworkManagerPrivate::addAndActivateConnection(const NMVariantMapMap &connection,
+                                                                                                                    const QString &interfaceUni,
+                                                                                                                    const QString &connectionParameter)
 {
     QString extra_connection_parameter = connectionParameter;
     if (extra_connection_parameter.isEmpty()) {
@@ -463,7 +453,11 @@ QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::NetworkManag
     return iface.AddAndActivateConnection(connection, interfacePath, QDBusObjectPath(extra_connection_parameter));
 }
 
-QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap> NetworkManager::NetworkManagerPrivate::addAndActivateConnection2(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter, const QVariantMap &options)
+QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap>
+NetworkManager::NetworkManagerPrivate::addAndActivateConnection2(const NMVariantMapMap &connection,
+                                                                 const QString &interfaceUni,
+                                                                 const QString &connectionParameter,
+                                                                 const QVariantMap &options)
 {
     QString extra_connection_parameter = connectionParameter;
     if (extra_connection_parameter.isEmpty()) {
@@ -727,7 +721,9 @@ void NetworkManager::NetworkManagerPrivate::stateChanged(uint state)
     }
 }
 
-void NetworkManager::NetworkManagerPrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
+void NetworkManager::NetworkManagerPrivate::dbusPropertiesChanged(const QString &interfaceName,
+                                                                  const QVariantMap &properties,
+                                                                  const QStringList &invalidatedProperties)
 {
     Q_UNUSED(invalidatedProperties);
     if (interfaceName == QLatin1String("org.freedesktop.NetworkManager")) {
@@ -743,7 +739,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
     while (it != changedProperties.constEnd()) {
         const QString property = it.key();
         if (property == QLatin1String("ActiveConnections")) {
-            const QList<QDBusObjectPath> activePaths = qdbus_cast< QList<QDBusObjectPath> >(*it);
+            const QList<QDBusObjectPath> activePaths = qdbus_cast<QList<QDBusObjectPath>>(*it);
             if (activePaths.isEmpty()) {
                 QMap<QString, ActiveConnection::Ptr>::const_iterator it = m_activeConnections.constBegin();
                 while (it != m_activeConnections.constEnd()) {
@@ -886,7 +882,7 @@ void NetworkManager::NetworkManagerPrivate::interfacesAdded(const QDBusObjectPat
 {
     Q_UNUSED(path);
 
-    if(!addedInterfaces.contains(NetworkManagerPrivate::DBUS_DAEMON_INTERFACE))
+    if (!addedInterfaces.contains(NetworkManagerPrivate::DBUS_DAEMON_INTERFACE))
         return;
 
     init();
@@ -937,7 +933,7 @@ QStringList NetworkManager::NetworkManagerPrivate::activeConnectionsPaths() cons
     return m_activeConnections.keys();
 }
 
-QDBusPendingReply< QString, QString > NetworkManager::NetworkManagerPrivate::getLogging()
+QDBusPendingReply<QString, QString> NetworkManager::NetworkManagerPrivate::getLogging()
 {
     return iface.GetLogging();
 }
@@ -1012,12 +1008,16 @@ NetworkManager::Device::Ptr NetworkManager::findDeviceByIpFace(const QString &if
     return globalNetworkManager->findDeviceByIpIface(iface);
 }
 
-QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> NetworkManager::addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter)
+QDBusPendingReply<QDBusObjectPath, QDBusObjectPath>
+NetworkManager::addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter)
 {
     return globalNetworkManager->addAndActivateConnection(connection, interfaceUni, connectionParameter);
 }
 
-QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap> NetworkManager::addAndActivateConnection2(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter, const QVariantMap &options)
+QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap> NetworkManager::addAndActivateConnection2(const NMVariantMapMap &connection,
+                                                                                                           const QString &interfaceUni,
+                                                                                                           const QString &connectionParameter,
+                                                                                                           const QVariantMap &options)
 {
     if (checkVersion(1, 16, 0)) {
         return globalNetworkManager->addAndActivateConnection2(connection, interfaceUni, connectionParameter, options);
@@ -1026,7 +1026,8 @@ QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap> NetworkManager:
     }
 }
 
-QDBusPendingReply<QDBusObjectPath> NetworkManager::activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter)
+QDBusPendingReply<QDBusObjectPath>
+NetworkManager::activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter)
 {
     return globalNetworkManager->activateConnection(connectionUni, interfaceUni, connectionParameter);
 }
@@ -1036,7 +1037,7 @@ QDBusPendingReply<> NetworkManager::deactivateConnection(const QString &activeCo
     return globalNetworkManager->deactivateConnection(activeConnectionPath);
 }
 
-QDBusPendingReply< QString, QString > NetworkManager::getLogging()
+QDBusPendingReply<QString, QString> NetworkManager::getLogging()
 {
     return globalNetworkManager->getLogging();
 }

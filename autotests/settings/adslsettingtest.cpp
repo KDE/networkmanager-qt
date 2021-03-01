@@ -22,14 +22,13 @@ void AdslSettingTest::testSetting_data()
     QTest::addColumn<quint32>("vpi");
     QTest::addColumn<quint32>("vci");
 
-    QTest::newRow("setting1")
-            << QString("username")   // username
-            << QString("password")   // options
-            << (quint32) 2           // passwordFlags
-            << "pppoa"               // protocol
-            << "llc"                 // encapsulation
-            << (quint32) 8           // vpi
-            << (quint32) 35;         // vci
+    QTest::newRow("setting1") << QString("username") // username
+                              << QString("password") // options
+                              << (quint32)2 // passwordFlags
+                              << "pppoa" // protocol
+                              << "llc" // encapsulation
+                              << (quint32)8 // vpi
+                              << (quint32)35; // vci
 }
 
 void AdslSettingTest::testSetting()

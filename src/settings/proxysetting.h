@@ -7,14 +7,13 @@
 #ifndef NETWORKMANAGERQT_PROXY_SETTING_H
 #define NETWORKMANAGERQT_PROXY_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QString>
 
 namespace NetworkManager
 {
-
 class ProxySettingPrivate;
 
 /**
@@ -64,4 +63,3 @@ NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const ProxySetting &settin
 }
 
 #endif // NETWORKMANAGERQT_PROXY_SETTING_H
-

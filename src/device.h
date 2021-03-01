@@ -13,17 +13,16 @@
 #include <QObject>
 #include <QSharedPointer>
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
-#include "generictypes.h"
-#include "ipconfig.h"
-#include "dhcp4config.h"
-#include "dhcp6config.h"
 #include "activeconnection.h"
 #include "devicestatistics.h"
+#include "dhcp4config.h"
+#include "dhcp6config.h"
+#include "generictypes.h"
+#include "ipconfig.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 namespace NetworkManager
 {
-
 class DevicePrivate;
 class DeviceStateReason;
 class DeviceStateReasonPrivate;
@@ -84,35 +83,80 @@ public:
      * Enums describing the reason for a connection state change
      * @note StateChangeReasons NewActivation, ParentChanged, ParentManagedChanged are available in runtime NM >= 1.0.4
      */
-    enum StateChangeReason { UnknownReason = 0, NoReason = 1 , NowManagedReason = 2, NowUnmanagedReason = 3,
-                             ConfigFailedReason = 4, ConfigUnavailableReason = 5,
-                             ConfigExpiredReason = 6, NoSecretsReason = 7, AuthSupplicantDisconnectReason = 8,
-                             AuthSupplicantConfigFailedReason = 9, AuthSupplicantFailedReason = 10,
-                             AuthSupplicantTimeoutReason = 11, PppStartFailedReason = 12, PppDisconnectReason = 13,
-                             PppFailedReason = 14, DhcpStartFailedReason = 15, DhcpErrorReason = 16, DhcpFailedReason = 17,
-                             SharedStartFailedReason = 18, SharedFailedReason = 19,
-                             AutoIpStartFailedReason = 20, AutoIpErrorReason = 21, AutoIpFailedReason = 22,
-                             ModemBusyReason = 23, ModemNoDialToneReason = 24, ModemNoCarrierReason = 25, ModemDialTimeoutReason = 26,
-                             ModemDialFailedReason = 27, ModemInitFailedReason = 28,
-                             GsmApnSelectFailedReason = 29, GsmNotSearchingReason = 30, GsmRegistrationDeniedReason = 31,
-                             GsmRegistrationTimeoutReason = 32, GsmRegistrationFailedReason = 33,
-                             GsmPinCheckFailedReason = 34, FirmwareMissingReason = 35, DeviceRemovedReason = 36,
-                             SleepingReason = 37, ConnectionRemovedReason = 38, UserRequestedReason = 39, CarrierReason = 40,
-                             ConnectionAssumedReason = 41, SupplicantAvailableReason = 42, ModemNotFoundReason = 43, BluetoothFailedReason = 44,
-                             GsmSimNotInserted = 45, GsmSimPinRequired = 46, GsmSimPukRequired = 47, GsmSimWrong = 48 , InfiniBandMode = 49,
-                             DependencyFailed = 50, Br2684Failed = 51, ModemManagerUnavailable = 52, SsidNotFound = 53, SecondaryConnectionFailed = 54,
-                             DcbFcoeFailed = 55, TeamdControlFailed = 56, ModemFailed = 57, ModemAvailable = 58, SimPinIncorrect = 59,
-                             NewActivation = 60, ParentChanged = 61, ParentManagedChanged = 62,
-                             Reserved = 65536,
-                           };
+    enum StateChangeReason {
+        UnknownReason = 0,
+        NoReason = 1,
+        NowManagedReason = 2,
+        NowUnmanagedReason = 3,
+        ConfigFailedReason = 4,
+        ConfigUnavailableReason = 5,
+        ConfigExpiredReason = 6,
+        NoSecretsReason = 7,
+        AuthSupplicantDisconnectReason = 8,
+        AuthSupplicantConfigFailedReason = 9,
+        AuthSupplicantFailedReason = 10,
+        AuthSupplicantTimeoutReason = 11,
+        PppStartFailedReason = 12,
+        PppDisconnectReason = 13,
+        PppFailedReason = 14,
+        DhcpStartFailedReason = 15,
+        DhcpErrorReason = 16,
+        DhcpFailedReason = 17,
+        SharedStartFailedReason = 18,
+        SharedFailedReason = 19,
+        AutoIpStartFailedReason = 20,
+        AutoIpErrorReason = 21,
+        AutoIpFailedReason = 22,
+        ModemBusyReason = 23,
+        ModemNoDialToneReason = 24,
+        ModemNoCarrierReason = 25,
+        ModemDialTimeoutReason = 26,
+        ModemDialFailedReason = 27,
+        ModemInitFailedReason = 28,
+        GsmApnSelectFailedReason = 29,
+        GsmNotSearchingReason = 30,
+        GsmRegistrationDeniedReason = 31,
+        GsmRegistrationTimeoutReason = 32,
+        GsmRegistrationFailedReason = 33,
+        GsmPinCheckFailedReason = 34,
+        FirmwareMissingReason = 35,
+        DeviceRemovedReason = 36,
+        SleepingReason = 37,
+        ConnectionRemovedReason = 38,
+        UserRequestedReason = 39,
+        CarrierReason = 40,
+        ConnectionAssumedReason = 41,
+        SupplicantAvailableReason = 42,
+        ModemNotFoundReason = 43,
+        BluetoothFailedReason = 44,
+        GsmSimNotInserted = 45,
+        GsmSimPinRequired = 46,
+        GsmSimPukRequired = 47,
+        GsmSimWrong = 48,
+        InfiniBandMode = 49,
+        DependencyFailed = 50,
+        Br2684Failed = 51,
+        ModemManagerUnavailable = 52,
+        SsidNotFound = 53,
+        SecondaryConnectionFailed = 54,
+        DcbFcoeFailed = 55,
+        TeamdControlFailed = 56,
+        ModemFailed = 57,
+        ModemAvailable = 58,
+        SimPinIncorrect = 59,
+        NewActivation = 60,
+        ParentChanged = 61,
+        ParentManagedChanged = 62,
+        Reserved = 65536,
+    };
     Q_ENUM(StateChangeReason)
 
     enum MeteredStatus {
-        UnknownStatus = 0,  /**< The device metered status is unknown. */
-        Yes = 1,  /**< The device is metered and the value was statically set. */
-        No = 2,  /**< The device is not metered and the value was statically set. */
-        GuessYes = 3,  /**< The device is metered and the value was guessed. */
-        GuessNo = 4,  /**< The device is not metered and the value was guessed. */
+        UnknownStatus = 0, /**< The device metered status is unknown. */
+        Yes = 1, /**< The device is metered and the value was statically set. */
+        No = 2, /**< The device is not metered and the value was statically set. */
+        GuessYes = 3, /**< The device is metered and the value was guessed. */
+        GuessNo = 4, /**< The device is not metered and the value was guessed. */
     };
     Q_ENUM(MeteredStatus)
 
@@ -131,38 +175,38 @@ public:
      * Device type
      */
     enum Type {
-        UnknownType = NM_DEVICE_TYPE_UNKNOWN,   /**< Unknown device type */
-        Ethernet = NM_DEVICE_TYPE_ETHERNET,     /**< Ieee8023 wired ethernet */
-        Wifi = NM_DEVICE_TYPE_WIFI,             /**< the Ieee80211 family of wireless networks */
-        Unused1 = NM_DEVICE_TYPE_UNUSED1,       /**< Currently unused */
-        Unused2 = NM_DEVICE_TYPE_UNUSED2,       /**< Currently unused */
-        Bluetooth = NM_DEVICE_TYPE_BT,          /**< network bluetooth device (usually a cell phone) */
-        OlpcMesh = NM_DEVICE_TYPE_OLPC_MESH,    /**< OLPC Mesh networking device */
-        Wimax = NM_DEVICE_TYPE_WIMAX,           /**< WiMax WWAN technology */
-        Modem = NM_DEVICE_TYPE_MODEM,           /**< POTS, GSM, CDMA or LTE modems */
+        UnknownType = NM_DEVICE_TYPE_UNKNOWN, /**< Unknown device type */
+        Ethernet = NM_DEVICE_TYPE_ETHERNET, /**< Ieee8023 wired ethernet */
+        Wifi = NM_DEVICE_TYPE_WIFI, /**< the Ieee80211 family of wireless networks */
+        Unused1 = NM_DEVICE_TYPE_UNUSED1, /**< Currently unused */
+        Unused2 = NM_DEVICE_TYPE_UNUSED2, /**< Currently unused */
+        Bluetooth = NM_DEVICE_TYPE_BT, /**< network bluetooth device (usually a cell phone) */
+        OlpcMesh = NM_DEVICE_TYPE_OLPC_MESH, /**< OLPC Mesh networking device */
+        Wimax = NM_DEVICE_TYPE_WIMAX, /**< WiMax WWAN technology */
+        Modem = NM_DEVICE_TYPE_MODEM, /**< POTS, GSM, CDMA or LTE modems */
         InfiniBand = NM_DEVICE_TYPE_INFINIBAND, /**< Infiniband network device */
-        Bond = NM_DEVICE_TYPE_BOND,             /**< Bond virtual device */
-        Vlan = NM_DEVICE_TYPE_VLAN,             /**< Vlan virtual device */
-        Adsl = NM_DEVICE_TYPE_ADSL,             /**< ADSL modem device */
-        Bridge = NM_DEVICE_TYPE_BRIDGE,         /**< Bridge virtual device */
-        Generic = NM_DEVICE_TYPE_GENERIC,       /**< Generic device @since 1.0.0 */
-        Team = NM_DEVICE_TYPE_TEAM,             /**< Team master device @since 1.0.0 */
-        Gre,                                    /**< Gre virtual device @since 1.2.0, @deprecated use IpTunnel instead*/
-        MacVlan,                                /**< MacVlan virtual device @since 1.2.0 */
-        Tun,                                    /**< Tun virtual device @since 1.2.0 */
-        Veth,                                   /**< Veth virtual device @since 1.2.0 */
-        IpTunnel,                               /**< IP Tunneling Device @since 1.2.0 */
-        VxLan,                                  /**< Vxlan Device @since 1.2.0 */
-        MacSec,                                 /**< MacSec Device @since 1.6.0 */
-        Dummy,                                  /**< Dummy Device @since 1.8.0 */
-        Ppp,                                    /**< Ppp Device @since 1.10 */
-        OvsInterface,                           /**< OvsInterface Device @since 1.10 */
-        OvsPort,                                /**< OvsPort Device @since 1.10 */
-        OvsBridge,                              /**< OvsBridge Device @since 1.10 */
-        Wpan,                                   /**< Wpan Device @since 1.14 */
-        Lowpan,                                 /**< Lowpan Device @since 1.14 */
-        WireGuard,                              /**< WireGuard Device @since 1.14 */
-        WifiP2P,                                 /**< WifiP2P Device @since 1.16 */
+        Bond = NM_DEVICE_TYPE_BOND, /**< Bond virtual device */
+        Vlan = NM_DEVICE_TYPE_VLAN, /**< Vlan virtual device */
+        Adsl = NM_DEVICE_TYPE_ADSL, /**< ADSL modem device */
+        Bridge = NM_DEVICE_TYPE_BRIDGE, /**< Bridge virtual device */
+        Generic = NM_DEVICE_TYPE_GENERIC, /**< Generic device @since 1.0.0 */
+        Team = NM_DEVICE_TYPE_TEAM, /**< Team master device @since 1.0.0 */
+        Gre, /**< Gre virtual device @since 1.2.0, @deprecated use IpTunnel instead*/
+        MacVlan, /**< MacVlan virtual device @since 1.2.0 */
+        Tun, /**< Tun virtual device @since 1.2.0 */
+        Veth, /**< Veth virtual device @since 1.2.0 */
+        IpTunnel, /**< IP Tunneling Device @since 1.2.0 */
+        VxLan, /**< Vxlan Device @since 1.2.0 */
+        MacSec, /**< MacSec Device @since 1.6.0 */
+        Dummy, /**< Dummy Device @since 1.8.0 */
+        Ppp, /**< Ppp Device @since 1.10 */
+        OvsInterface, /**< OvsInterface Device @since 1.10 */
+        OvsPort, /**< OvsPort Device @since 1.10 */
+        OvsBridge, /**< OvsBridge Device @since 1.10 */
+        Wpan, /**< Wpan Device @since 1.14 */
+        Lowpan, /**< Lowpan Device @since 1.14 */
+        WireGuard, /**< WireGuard Device @since 1.14 */
+        WifiP2P, /**< WifiP2P Device @since 1.16 */
     };
     Q_ENUM(Type)
     Q_DECLARE_FLAGS(Types, Type)
@@ -381,23 +425,25 @@ public:
     DeviceStatistics::Ptr deviceStatistics() const;
 
     /**
-      * Retrieves a specialized interface to interact with the device corresponding
-      * to a given device interface.
-      *
-      * @returns a pointer to the device interface if it exists, @p 0 otherwise
-      */
-    template <class DevIface> DevIface *as()
+     * Retrieves a specialized interface to interact with the device corresponding
+     * to a given device interface.
+     *
+     * @returns a pointer to the device interface if it exists, @p 0 otherwise
+     */
+    template<class DevIface>
+    DevIface *as()
     {
         return qobject_cast<DevIface *>(this);
     }
 
     /**
-      * Retrieves a specialized interface to interact with the device corresponding
-      * to a given device interface.
-      *
-      * @returns a pointer to the device interface if it exists, 0 otherwise
-      */
-    template <class DevIface> const DevIface *as() const
+     * Retrieves a specialized interface to interact with the device corresponding
+     * to a given device interface.
+     *
+     * @returns a pointer to the device interface if it exists, 0 otherwise
+     */
+    template<class DevIface>
+    const DevIface *as() const
     {
         return qobject_cast<const DevIface *>(this);
     }

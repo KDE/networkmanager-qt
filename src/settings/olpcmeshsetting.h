@@ -7,14 +7,13 @@
 #ifndef NETWORKMANAGERQT_OLPCMESH_SETTING_H
 #define NETWORKMANAGERQT_OLPCMESH_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QString>
 
 namespace NetworkManager
 {
-
 class OlpcMeshSettingPrivate;
 
 /**

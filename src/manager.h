@@ -11,9 +11,8 @@
 
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
-
-#include "device.h"
 #include "activeconnection.h"
+#include "device.h"
 #include "dnsconfiguration.h"
 
 /**
@@ -28,12 +27,12 @@
  */
 namespace NetworkManager
 {
-    Q_NAMESPACE
+Q_NAMESPACE
 
 enum Status {
     Unknown, /**< the networking system is not active or unable to report its status - proceed with caution */
     Asleep, /**< networking is inactive and all devices are disabled */
-    Disconnected,/**< the system is not connected to any network */
+    Disconnected, /**< the system is not connected to any network */
     Disconnecting, /**< the system is breaking the connection */
     Connecting, /**< the system is not connected to any network */
     ConnectedLinkLocal, /**< a network device is connected, but there is only link-local connectivity */
@@ -47,12 +46,49 @@ enum LogLevel {
     Info,
     Debug,
     Trace, /**< = Debug in runtime NM < 0.9.10*/
-    };
+};
 
-enum LogDomain {NoChange, None, Hardware, RFKill, Ethernet, WiFi, Bluetooth, MobileBroadBand, DHCP4, DHCP6, PPP, WiFiScan, IPv4, IPv6,
-                AutoIPv4, DNS, VPN, Sharing, Supplicant, UserSet, SysSet, Suspend, Core, Devices, OLPC, Wimax/*TODO: mark it deprecated somehow?*/, Infiniband, Firewall, Adsl, Bond, Vlan
-                , Agents, Settings, Bridge, DbusProps, Team, ConCheck, Dcb, Dispatch,
-                };
+enum LogDomain {
+    NoChange,
+    None,
+    Hardware,
+    RFKill,
+    Ethernet,
+    WiFi,
+    Bluetooth,
+    MobileBroadBand,
+    DHCP4,
+    DHCP6,
+    PPP,
+    WiFiScan,
+    IPv4,
+    IPv6,
+    AutoIPv4,
+    DNS,
+    VPN,
+    Sharing,
+    Supplicant,
+    UserSet,
+    SysSet,
+    Suspend,
+    Core,
+    Devices,
+    OLPC,
+    Wimax /*TODO: mark it deprecated somehow?*/,
+    Infiniband,
+    Firewall,
+    Adsl,
+    Bond,
+    Vlan,
+    Agents,
+    Settings,
+    Bridge,
+    DbusProps,
+    Team,
+    ConCheck,
+    Dcb,
+    Dispatch,
+};
 Q_DECLARE_FLAGS(LogDomains, LogDomain)
 Q_FLAGS(LogDomain)
 
@@ -294,36 +330,45 @@ NETWORKMANAGERQT_EXPORT bool isWimaxHardwareEnabled();
  *
  * @param connectionUni unique identifier for the connection to be activated
  * @param interfaceUni unique identifier of the network interface to be activated
- * @param connectionParameter can be used to specify extra parameters not specific to the NetworkInterface or the connection, eg which AP to use when several present with same ESSID in range (because ESSID does not guarantee that the AP is part of the network you want to join!)
+ * @param connectionParameter can be used to specify extra parameters not specific to the NetworkInterface or the connection, eg which AP to use when several
+ * present with same ESSID in range (because ESSID does not guarantee that the AP is part of the network you want to join!)
  */
-NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath> activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter);
+NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath>
+activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter);
 /**
- * Adds a new connection using the given details (if any) as a template (automatically filling in missing settings with the capabilities of the given device and specific object), then activate the new connection.
- * Cannot be used for VPN connections at this time.
+ * Adds a new connection using the given details (if any) as a template (automatically filling in missing settings with the capabilities of the given device and
+ * specific object), then activate the new connection. Cannot be used for VPN connections at this time.
  *
  * @param connection connection definition to be added and activated
  * @param interfaceUni unique identifier of the network interface to be activated
- * @param connectionParameter can be used to specify extra parameters not specific to the NetworkInterface or the connection, eg which AP to use when several present with same ESSID in range (because ESSID does not guarantee that the AP is part of the network you want to join!)
+ * @param connectionParameter can be used to specify extra parameters not specific to the NetworkInterface or the connection, eg which AP to use when several
+ * present with same ESSID in range (because ESSID does not guarantee that the AP is part of the network you want to join!)
  */
-NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter);
+NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath, QDBusObjectPath>
+addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter);
 /**
- * Adds a new connection using the given details (if any) as a template (automatically filling in missing settings with the capabilities of the given device and specific object), then activate the new connection.
- * Cannot be used for VPN connections at this time.
+ * Adds a new connection using the given details (if any) as a template (automatically filling in missing settings with the capabilities of the given device and
+ * specific object), then activate the new connection. Cannot be used for VPN connections at this time.
  *
  * @param connection connection definition to be added and activated
  * @param interfaceUni unique identifier of the network interface to be activated
- * @param connectionParameter can be used to specify extra parameters not specific to the NetworkInterface or the connection, eg which AP to use when several present with same ESSID in range (because ESSID does not guarantee that the AP is part of the network you want to join!)
+ * @param connectionParameter can be used to specify extra parameters not specific to the NetworkInterface or the connection, eg which AP to use when several
+ * present with same ESSID in range (because ESSID does not guarantee that the AP is part of the network you want to join!)
  * @param options further options for the method call.
  *
  * This method extends AddAndActivateConnection to allow passing further
  * parameters. At this time the following options are supported:
  *
- *        * persist: A string value of either "disk" (default), "memory" or "volatile". If "memory" is passed, the connection will not be saved to disk. If "volatile" is passed, the connection will not be saved to disk and will be destroyed when disconnected.
- *        * bind-activation: Bind the activation lifetime. Set to "dbus-name" to automatically disconnect when the requesting process disappears from the bus. The default of "none" means the connection is kept activated normally.
+ *        * persist: A string value of either "disk" (default), "memory" or "volatile". If "memory" is passed, the connection will not be saved to disk. If
+ * "volatile" is passed, the connection will not be saved to disk and will be destroyed when disconnected.
+ *        * bind-activation: Bind the activation lifetime. Set to "dbus-name" to automatically disconnect when the requesting process disappears from the bus.
+ * The default of "none" means the connection is kept activated normally.
  *
- * NOTE: will call AddAndActivateConnection(connection, interfaceUni, connectionParameter) instead when NetworkManager is older than 1.16, which means that the options property is ignored
+ * NOTE: will call AddAndActivateConnection(connection, interfaceUni, connectionParameter) instead when NetworkManager is older than 1.16, which means that the
+ * options property is ignored
  */
-NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap> addAndActivateConnection2(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter, const QVariantMap &options);
+NETWORKMANAGERQT_EXPORT QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap>
+addAndActivateConnection2(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter, const QVariantMap &options);
 /**
  * Deactivate this network interface, if active
  *
@@ -348,27 +393,27 @@ NETWORKMANAGERQT_EXPORT QStringList activeConnectionsPaths();
 NETWORKMANAGERQT_EXPORT QDBusPendingReply<QString, QString> getLogging();
 
 /**
-  * @return the network connectivity state
-  * @since 0.9.9.0
+ * @return the network connectivity state
+ * @since 0.9.9.0
  */
 NETWORKMANAGERQT_EXPORT Connectivity connectivity();
 
 /**
-  * Re-check the network connectivity state.
-  * @see connectivity()
-  * @since 0.9.9.0
+ * Re-check the network connectivity state.
+ * @see connectivity()
+ * @since 0.9.9.0
  */
 NETWORKMANAGERQT_EXPORT QDBusPendingReply<uint> checkConnectivity();
 
 /**
-  * @return the "primary" active connection being used
-  * to access the network. In particular, if there is no VPN
-  * active, or the VPN does not have the default route, then this
-  * indicates the connection that has the default route. If there
-  * is a VPN active with the default route, then this indicates
-  * the connection that contains the route to the VPN endpoint.
-  * @since 0.9.9.0
-  */
+ * @return the "primary" active connection being used
+ * to access the network. In particular, if there is no VPN
+ * active, or the VPN does not have the default route, then this
+ * indicates the connection that has the default route. If there
+ * is a VPN active with the default route, then this indicates
+ * the connection that contains the route to the VPN endpoint.
+ * @since 0.9.9.0
+ */
 NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr primaryConnection();
 
 /**
@@ -388,11 +433,11 @@ NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr activatingConnection();
 NETWORKMANAGERQT_EXPORT NetworkManager::ConnectionSettings::ConnectionType primaryConnectionType();
 
 /**
-  * Indicates whether NM is still starting up; this becomes @p false
-  * when NM has finished attempting to activate every connection
-  * that it might be able to activate at startup.
-  * @since 0.9.9.0
-  */
+ * Indicates whether NM is still starting up; this becomes @p false
+ * when NM has finished attempting to activate every connection
+ * that it might be able to activate at startup.
+ * @since 0.9.9.0
+ */
 NETWORKMANAGERQT_EXPORT bool isStartingUp();
 
 /**

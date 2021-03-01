@@ -7,15 +7,14 @@
 #ifndef NETWORKMANAGERQT_WIRELESS_SETTING_H
 #define NETWORKMANAGERQT_WIRELESS_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
-#include <QStringList>
 #include <QSharedPointer>
+#include <QStringList>
 
 namespace NetworkManager
 {
-
 class WirelessSettingPrivate;
 
 /**
@@ -124,4 +123,3 @@ NETWORKMANAGERQT_EXPORT QDebug operator<<(QDebug dbg, const WirelessSetting &set
 }
 
 #endif // NETWORKMANAGERQT_WIRELESS_SETTING_H
-

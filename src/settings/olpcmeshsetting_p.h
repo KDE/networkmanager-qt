@@ -11,7 +11,6 @@
 
 namespace NetworkManager
 {
-
 class OlpcMeshSettingPrivate
 {
 public:

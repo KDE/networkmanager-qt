@@ -11,17 +11,19 @@
 
 #if !NM_CHECK_VERSION(1, 10, 0)
 #define NM_SETTING_OVS_INTERFACE_SETTING_NAME "ovs-interface"
-#define NM_SETTING_OVS_INTERFACE_TYPE         "type"
+#define NM_SETTING_OVS_INTERFACE_TYPE "type"
 #endif
 
 NetworkManager::OvsInterfaceSettingPrivate::OvsInterfaceSettingPrivate()
     : name(NM_SETTING_OVS_INTERFACE_SETTING_NAME)
-{ }
+{
+}
 
 NetworkManager::OvsInterfaceSetting::OvsInterfaceSetting()
     : Setting(Setting::OvsInterface)
     , d_ptr(new OvsInterfaceSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::OvsInterfaceSetting::OvsInterfaceSetting(const Ptr &other)
     : Setting(other)
@@ -61,7 +63,6 @@ void NetworkManager::OvsInterfaceSetting::fromMap(const QVariantMap &setting)
     if (setting.contains(QLatin1String(NM_SETTING_OVS_INTERFACE_TYPE))) {
         setInterfaceType(setting.value(QLatin1String(NM_SETTING_OVS_INTERFACE_TYPE)).toString());
     }
-
 }
 
 QVariantMap NetworkManager::OvsInterfaceSetting::toMap() const
@@ -75,7 +76,7 @@ QVariantMap NetworkManager::OvsInterfaceSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::OvsInterfaceSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::OvsInterfaceSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

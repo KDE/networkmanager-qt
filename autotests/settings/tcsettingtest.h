@@ -19,4 +19,3 @@ private Q_SLOTS:
 };
 
 #endif // NETWORKMANAGERQT_TC_SETTING_TEST_H
-

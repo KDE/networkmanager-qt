@@ -25,13 +25,12 @@ void VlanSettingTest::testSetting_data()
     mapping << "7:3";
     mapping << "8:4";
 
-    QTest::newRow("setting1")
-            << QString("eth2.1")                                // interfaceName
-            << QString("2815492f-7e56-435e-b2e9-246bd7cdc668")  // parent
-            << (quint32) 2                                      // id
-            << (quint32) 0x02                                   // flags
-            << mapping                                          // ingressPriorityMap
-            << mapping;                                         // egressPriorityMap
+    QTest::newRow("setting1") << QString("eth2.1") // interfaceName
+                              << QString("2815492f-7e56-435e-b2e9-246bd7cdc668") // parent
+                              << (quint32)2 // id
+                              << (quint32)0x02 // flags
+                              << mapping // ingressPriorityMap
+                              << mapping; // egressPriorityMap
 }
 
 void VlanSettingTest::testSetting()

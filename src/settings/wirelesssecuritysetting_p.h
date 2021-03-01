@@ -7,12 +7,11 @@
 #ifndef NETWORKMANAGERQT_WIRELESSSECURITY_SETTING_P_H
 #define NETWORKMANAGERQT_WIRELESSSECURITY_SETTING_P_H
 
-#include <QString>
 #include <QList>
+#include <QString>
 
 namespace NetworkManager
 {
-
 class WirelessSecuritySettingPrivate
 {
 public:
@@ -41,4 +40,3 @@ public:
 }
 
 #endif // NETWORKMANAGERQT_WIRELESSSECURITY_SETTING_P_H
-

@@ -19,4 +19,3 @@ private Q_SLOTS:
 };
 
 #endif // NETWORKMANAGERQT_MATCHSETTING_TEST_H
-

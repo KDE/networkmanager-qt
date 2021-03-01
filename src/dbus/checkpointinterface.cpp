@@ -15,7 +15,10 @@
  * Implementation of interface class OrgFreedesktopNetworkManagerCheckpointInterface
  */
 
-OrgFreedesktopNetworkManagerCheckpointInterface::OrgFreedesktopNetworkManagerCheckpointInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+OrgFreedesktopNetworkManagerCheckpointInterface::OrgFreedesktopNetworkManagerCheckpointInterface(const QString &service,
+                                                                                                 const QString &path,
+                                                                                                 const QDBusConnection &connection,
+                                                                                                 QObject *parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 }
@@ -23,4 +26,3 @@ OrgFreedesktopNetworkManagerCheckpointInterface::OrgFreedesktopNetworkManagerChe
 OrgFreedesktopNetworkManagerCheckpointInterface::~OrgFreedesktopNetworkManagerCheckpointInterface()
 {
 }
-

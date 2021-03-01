@@ -11,15 +11,15 @@
 #ifndef DNSMANAGERINTERFACE_H
 #define DNSMANAGERINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.DnsManager
  */
-class OrgFreedesktopNetworkManagerDnsManagerInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDnsManagerInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -42,19 +42,19 @@ public:
     Q_PROPERTY(NMVariantMapList Configuration READ configuration)
     inline NMVariantMapList configuration() const
     {
-        return qvariant_cast< NMVariantMapList >(property("Configuration"));
+        return qvariant_cast<NMVariantMapList>(property("Configuration"));
     }
 
     Q_PROPERTY(QString Mode READ mode)
     inline QString mode() const
     {
-        return qvariant_cast< QString >(property("Mode"));
+        return qvariant_cast<QString>(property("Mode"));
     }
 
     Q_PROPERTY(QString RcManager READ rcManager)
     inline QString rcManager() const
     {
-        return qvariant_cast< QString >(property("RcManager"));
+        return qvariant_cast<QString>(property("RcManager"));
     }
 
 public Q_SLOTS: // METHODS

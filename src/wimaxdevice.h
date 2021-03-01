@@ -18,7 +18,6 @@
 
 namespace NetworkManager
 {
-
 class WimaxDevicePrivate;
 
 /**
@@ -71,7 +70,8 @@ public:
      */
     int cinr() const;
     /**
-     * RSSI of the current radio link in dBm. This value indicates how strong the raw received RF signal from the base station is, but does not indicate the overall quality of the radio link.
+     * RSSI of the current radio link in dBm. This value indicates how strong the raw received RF signal from the base station is, but does not indicate the
+     * overall quality of the radio link.
      */
     int rssi() const;
     /**
@@ -136,5 +136,4 @@ private:
 };
 
 } // namespace NetworkManager
-#endif //NETWORKMANAGERQT_WIMAXDEVICE_H
-
+#endif // NETWORKMANAGERQT_WIMAXDEVICE_H

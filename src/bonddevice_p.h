@@ -8,8 +8,8 @@
 #define NETWORKMANAGERQT_BOND_DEVICE_P_H
 
 #include "bonddevice.h"
-#include "device_p.h"
 #include "dbus/bonddeviceinterface.h"
+#include "device_p.h"
 
 namespace NetworkManager
 {

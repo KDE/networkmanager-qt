@@ -5,8 +5,8 @@
 */
 
 #include "wiredsetting.h"
-#include "wiredsetting_p.h"
 #include "manager.h"
+#include "wiredsetting_p.h"
 
 #include <QDebug>
 
@@ -29,7 +29,8 @@ NetworkManager::WiredSettingPrivate::WiredSettingPrivate()
 NetworkManager::WiredSetting::WiredSetting()
     : Setting(Setting::Wired)
     , d_ptr(new WiredSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::WiredSetting::WiredSetting(const WiredSetting::Ptr &other)
     : Setting(other)
@@ -126,7 +127,7 @@ QString NetworkManager::WiredSetting::generateMacAddressMask() const
     return d->generateMacAddressMask;
 }
 
-void NetworkManager::WiredSetting::setGenerateMacAddressMask(const QString& mask)
+void NetworkManager::WiredSetting::setGenerateMacAddressMask(const QString &mask)
 {
     Q_D(WiredSetting);
 
@@ -252,7 +253,7 @@ QString NetworkManager::WiredSetting::wakeOnLanPassword() const
     return d->wakeOnLanPassword;
 }
 
-void NetworkManager::WiredSetting::setWakeOnLanPassword(const QString& password)
+void NetworkManager::WiredSetting::setWakeOnLanPassword(const QString &password)
 {
     Q_D(WiredSetting);
 
@@ -437,7 +438,7 @@ QVariantMap NetworkManager::WiredSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::WiredSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::WiredSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';

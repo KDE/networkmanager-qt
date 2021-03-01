@@ -15,7 +15,6 @@
 
 namespace NetworkManager
 {
-
 class WiredDevicePrivate;
 
 /**
@@ -89,4 +88,3 @@ private:
 }
 
 #endif // NETWORKMANAGERQT_WIREDDEVICE_H
-

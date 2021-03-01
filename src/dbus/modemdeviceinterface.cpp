@@ -15,7 +15,10 @@
  * Implementation of interface class OrgFreedesktopNetworkManagerDeviceModemInterface
  */
 
-OrgFreedesktopNetworkManagerDeviceModemInterface::OrgFreedesktopNetworkManagerDeviceModemInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+OrgFreedesktopNetworkManagerDeviceModemInterface::OrgFreedesktopNetworkManagerDeviceModemInterface(const QString &service,
+                                                                                                   const QString &path,
+                                                                                                   const QDBusConnection &connection,
+                                                                                                   QObject *parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 }
@@ -23,4 +26,3 @@ OrgFreedesktopNetworkManagerDeviceModemInterface::OrgFreedesktopNetworkManagerDe
 OrgFreedesktopNetworkManagerDeviceModemInterface::~OrgFreedesktopNetworkManagerDeviceModemInterface()
 {
 }
-

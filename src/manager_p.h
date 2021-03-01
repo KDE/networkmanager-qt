@@ -11,15 +11,14 @@
 #include <QDBusServiceWatcher>
 #include <QMap>
 
+#include "activeconnection.h"
 #include "dbus/networkmanagerinterface.h"
 #include "device.h"
-#include "activeconnection.h"
 
 #include "manager.h"
 
 namespace NetworkManager
 {
-
 class Device;
 class ActiveConnection;
 
@@ -45,7 +44,7 @@ public:
     Connectivity m_connectivity;
     bool m_isNetworkingEnabled;
     bool m_isWimaxEnabled;
-    //TODO: mark it deprecated somehow?
+    // TODO: mark it deprecated somehow?
     bool m_isWimaxHardwareEnabled;
     bool m_isWirelessEnabled;
     bool m_isWirelessHardwareEnabled;
@@ -86,11 +85,13 @@ public:
     bool isWwanEnabled() const;
     bool isWwanHardwareEnabled() const;
     bool isWimaxEnabled() const;
-    //TODO: mark it deprecated somehow?
+    // TODO: mark it deprecated somehow?
     bool isWimaxHardwareEnabled() const;
     QDBusPendingReply<QDBusObjectPath> activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter);
-    QDBusPendingReply<QDBusObjectPath, QDBusObjectPath> addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter);
-    QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap> addAndActivateConnection2(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter, const QVariantMap &options);
+    QDBusPendingReply<QDBusObjectPath, QDBusObjectPath>
+    addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter);
+    QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap>
+    addAndActivateConnection2(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter, const QVariantMap &options);
     QDBusPendingReply<> deactivateConnection(const QString &activeConnection);
     ActiveConnection::List activeConnections();
     QStringList activeConnectionsPaths() const;
@@ -98,7 +99,7 @@ public:
     void setNetworkingEnabled(bool enabled);
     void setWirelessEnabled(bool enabled);
     void setWwanEnabled(bool enabled);
-    //TODO: mark it deprecated somehow?
+    // TODO: mark it deprecated somehow?
     void setWimaxEnabled(bool enabled);
     void sleep(bool sleep);
     void setLogging(NetworkManager::LogLevel, NetworkManager::LogDomains);
@@ -120,12 +121,12 @@ protected Q_SLOTS:
     void propertiesChanged(const QVariantMap &changedProperties);
     void interfacesAdded(const QDBusObjectPath &path, const QVariantMap &addedInterfaces);
     void daemonUnregistered();
+
 private:
     void connectivityChanged(uint connectivity);
     void stateChanged(uint state);
     static NetworkManager::Connectivity convertConnectivity(uint connectivity);
     static NetworkManager::Status convertNMState(uint state);
-
 };
 }
 #endif

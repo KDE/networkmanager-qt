@@ -9,12 +9,11 @@
 
 #include "device_p.h"
 #include "genericdevice.h"
-#include "manager_p.h"
 #include "genericdeviceinterface.h"
+#include "manager_p.h"
 
 namespace NetworkManager
 {
-
 class GenericDevicePrivate : public DevicePrivate
 {
     Q_OBJECT

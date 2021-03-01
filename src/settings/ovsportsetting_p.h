@@ -11,7 +11,6 @@
 
 namespace NetworkManager
 {
-
 class OvsPortSettingPrivate
 {
 public:
@@ -30,4 +29,3 @@ public:
 }
 
 #endif // NETWORKMANAGERQT_OVS_PORT_SETTING_P_H
-

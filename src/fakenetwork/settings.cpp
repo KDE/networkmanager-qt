@@ -19,7 +19,7 @@ Settings::Settings(QObject *parent)
 
 Settings::~Settings()
 {
-    for (auto it =  m_connections.cbegin(); it != m_connections.cend(); ++it) {
+    for (auto it = m_connections.cbegin(); it != m_connections.cend(); ++it) {
         const QDBusObjectPath &connection = it.key();
         QDBusConnection::sessionBus().unregisterObject(connection.path());
         Q_EMIT ConnectionRemoved(connection);
@@ -33,7 +33,7 @@ bool Settings::canModify() const
     return m_canModify;
 }
 
-QList< QDBusObjectPath > Settings::connections() const
+QList<QDBusObjectPath> Settings::connections() const
 {
     return m_connections.keys();
 }
@@ -72,7 +72,7 @@ QDBusObjectPath Settings::GetConnectionByUuid(const QString &uuid)
     return QDBusObjectPath();
 }
 
-QList< QDBusObjectPath > Settings::ListConnections()
+QList<QDBusObjectPath> Settings::ListConnections()
 {
     return m_connections.keys();
 }

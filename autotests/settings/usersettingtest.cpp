@@ -13,7 +13,7 @@
 #include <QTest>
 
 #if !NM_CHECK_VERSION(1, 8, 0)
-#define NM_SETTING_USER_DATA            "data"
+#define NM_SETTING_USER_DATA "data"
 #endif
 
 void UserSettingTest::testSetting_data()
@@ -23,8 +23,7 @@ void UserSettingTest::testSetting_data()
     NMStringMap data;
     data.insert("dat", "abc");
 
-    QTest::newRow("setting1")
-            << data;              // data
+    QTest::newRow("setting1") << data; // data
 }
 
 void UserSettingTest::testSetting()

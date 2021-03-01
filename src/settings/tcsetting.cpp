@@ -10,20 +10,22 @@
 #include <QDebug>
 
 #if !NM_CHECK_VERSION(1, 10, 0)
-#define NM_SETTING_TC_CONFIG_SETTING_NAME    "tc"
+#define NM_SETTING_TC_CONFIG_SETTING_NAME "tc"
 
-#define NM_SETTING_TC_CONFIG_QDISCS          "qdiscs"
-#define NM_SETTING_TC_CONFIG_TFILTERS        "tfilters"
+#define NM_SETTING_TC_CONFIG_QDISCS "qdiscs"
+#define NM_SETTING_TC_CONFIG_TFILTERS "tfilters"
 #endif
 
 NetworkManager::TcSettingPrivate::TcSettingPrivate()
     : name(NM_SETTING_TC_CONFIG_SETTING_NAME)
-{ }
+{
+}
 
 NetworkManager::TcSetting::TcSetting()
     : Setting(Setting::Tc)
     , d_ptr(new TcSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::TcSetting::TcSetting(const Ptr &other)
     : Setting(other)
@@ -99,7 +101,7 @@ QVariantMap NetworkManager::TcSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::TcSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::TcSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
@@ -123,4 +125,3 @@ QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::TcSetting &
 
     return dbg.maybeSpace();
 }
-

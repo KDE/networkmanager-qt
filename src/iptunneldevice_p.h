@@ -7,8 +7,8 @@
 #ifndef NETWORKMANAGERQT_IPTUNNEL_DEVICE_P_H
 #define NETWORKMANAGERQT_IPTUNNEL_DEVICE_P_H
 
-#include "iptunneldevice.h"
 #include "device_p.h"
+#include "iptunneldevice.h"
 #include "manager.h"
 #include "manager_p.h"
 
@@ -16,7 +16,6 @@
 
 namespace NetworkManager
 {
-
 class IpTunnelDevicePrivate : public DevicePrivate
 {
     Q_OBJECT

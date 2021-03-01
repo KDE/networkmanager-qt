@@ -21,13 +21,12 @@ void TunSettingTest::testSetting_data()
     QTest::addColumn<bool>("pi");
     QTest::addColumn<bool>("vnetHdr");
 
-    QTest::newRow("setting1")
-            << QString("randomGroup")    // group
-            << (quint32)2                // mode
-            << true                      // multi-queue
-            << QString("randomOwner")    // owner
-            << true                      // pi
-            << true;                     // vnet-hdr
+    QTest::newRow("setting1") << QString("randomGroup") // group
+                              << (quint32)2 // mode
+                              << true // multi-queue
+                              << QString("randomOwner") // owner
+                              << true // pi
+                              << true; // vnet-hdr
 }
 
 void TunSettingTest::testSetting()
@@ -48,7 +47,6 @@ void TunSettingTest::testSetting()
     map.insert(QLatin1String(NM_SETTING_TUN_PI), pi);
     map.insert(QLatin1String(NM_SETTING_TUN_VNET_HDR), vnetHdr);
 
-
     NetworkManager::TunSetting setting;
     setting.fromMap(map);
 
@@ -63,4 +61,3 @@ void TunSettingTest::testSetting()
 }
 
 QTEST_MAIN(TunSettingTest)
-

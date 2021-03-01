@@ -7,14 +7,13 @@
 #ifndef NETWORKMANAGERQT_BLUETOOTH_SETTING_H
 #define NETWORKMANAGERQT_BLUETOOTH_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QString>
 
 namespace NetworkManager
 {
-
 class BluetoothSettingPrivate;
 
 /**
@@ -25,7 +24,11 @@ class NETWORKMANAGERQT_EXPORT BluetoothSetting : public Setting
 public:
     typedef QSharedPointer<BluetoothSetting> Ptr;
     typedef QList<Ptr> List;
-    enum ProfileType {Unknown = 0, Dun, Panu,};
+    enum ProfileType {
+        Unknown = 0,
+        Dun,
+        Panu,
+    };
 
     BluetoothSetting();
     explicit BluetoothSetting(const Ptr &other);

@@ -33,26 +33,24 @@ void PppSettingTest::testSetting_data()
     QTest::addColumn<quint32>("lcpEchoFailure");
     QTest::addColumn<quint32>("lcpEchoInterval");
 
-    QTest::newRow("setting1")
-            << false            // noAuth
-            << true             // refuseEap
-            << true             // refusePap
-            << true             // refuseChap
-            << true             // refuseMschap
-            << true             // refuseMschapv2
-            << true             // noBsdComp
-            << true             // noDeflate
-            << true             // noVjCompare
-            << true             // requireMppe
-            << true             // requireMppe128
-            << true             // mppeStateful
-            << true             // cRtsCts
-            << (quint32) 1000   // baud
-            << (quint32) 128    // mru
-            << (quint32) 500    // mtu
-            << (quint32) 2      // lcpEchoFailure
-            << (quint32) 3;     // lcpEchoInterval
-
+    QTest::newRow("setting1") << false // noAuth
+                              << true // refuseEap
+                              << true // refusePap
+                              << true // refuseChap
+                              << true // refuseMschap
+                              << true // refuseMschapv2
+                              << true // noBsdComp
+                              << true // noDeflate
+                              << true // noVjCompare
+                              << true // requireMppe
+                              << true // requireMppe128
+                              << true // mppeStateful
+                              << true // cRtsCts
+                              << (quint32)1000 // baud
+                              << (quint32)128 // mru
+                              << (quint32)500 // mtu
+                              << (quint32)2 // lcpEchoFailure
+                              << (quint32)3; // lcpEchoInterval
 }
 
 void PppSettingTest::testSetting()

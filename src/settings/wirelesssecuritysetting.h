@@ -7,14 +7,13 @@
 #ifndef NETWORKMANAGERQT_WIRELESSSECURITY_SETTING_H
 #define NETWORKMANAGERQT_WIRELESSSECURITY_SETTING_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
 #include "setting.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
 #include <QStringList>
 
 namespace NetworkManager
 {
-
 class WirelessSecuritySettingPrivate;
 
 /**
@@ -25,11 +24,36 @@ class NETWORKMANAGERQT_EXPORT WirelessSecuritySetting : public Setting
 public:
     typedef QSharedPointer<WirelessSecuritySetting> Ptr;
     typedef QList<Ptr> List;
-    enum KeyMgmt {Unknown = -1, Wep, Ieee8021x, WpaNone, WpaPsk, WpaEap, SAE,};
-    enum AuthAlg {None, Open, Shared, Leap,};
-    enum WpaProtocolVersion {Wpa, Rsn,};
-    enum WpaEncryptionCapabilities {Wep40, Wep104, Tkip, Ccmp,};
-    enum WepKeyType {NotSpecified, Hex, Passphrase,};
+    enum KeyMgmt {
+        Unknown = -1,
+        Wep,
+        Ieee8021x,
+        WpaNone,
+        WpaPsk,
+        WpaEap,
+        SAE,
+    };
+    enum AuthAlg {
+        None,
+        Open,
+        Shared,
+        Leap,
+    };
+    enum WpaProtocolVersion {
+        Wpa,
+        Rsn,
+    };
+    enum WpaEncryptionCapabilities {
+        Wep40,
+        Wep104,
+        Tkip,
+        Ccmp,
+    };
+    enum WepKeyType {
+        NotSpecified,
+        Hex,
+        Passphrase,
+    };
 
     WirelessSecuritySetting();
     explicit WirelessSecuritySetting(const Ptr &other);

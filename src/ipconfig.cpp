@@ -17,20 +17,19 @@
 
 namespace NetworkManager
 {
-
 class NetworkManager::IpConfig::Private
 {
 public:
-    Private(const QList<IpAddress> &theAddresses,
-            const QList<QHostAddress> &theNameservers,
-            const QStringList &theDomains, const QList<IpRoute> &theRoutes)
+    Private(const QList<IpAddress> &theAddresses, const QList<QHostAddress> &theNameservers, const QStringList &theDomains, const QList<IpRoute> &theRoutes)
         : addresses(theAddresses)
         , nameservers(theNameservers)
         , domains(theDomains)
         , routes(theRoutes)
-    {}
+    {
+    }
     Private()
-    {}
+    {
+    }
     IpAddresses addresses;
     QString gateway;
     QStringList searches;
@@ -42,10 +41,7 @@ public:
 
 }
 
-NetworkManager::IpConfig::IpConfig(const IpAddresses &addresses,
-                                   const QList<QHostAddress> &nameservers,
-                                   const QStringList &domains,
-                                   const IpRoutes &routes)
+NetworkManager::IpConfig::IpConfig(const IpAddresses &addresses, const QList<QHostAddress> &nameservers, const QStringList &domains, const IpRoutes &routes)
     : d(new Private(addresses, nameservers, domains, routes))
 {
 }
@@ -64,11 +60,11 @@ NetworkManager::IpConfig::IpConfig(const IpConfig &other)
 void NetworkManager::IpConfig::setIPv4Path(const QString &path)
 {
     OrgFreedesktopNetworkManagerIP4ConfigInterface iface(NetworkManagerPrivate::DBUS_SERVICE,
-            path,
+                                                         path,
 #ifdef NMQT_STATIC
-            QDBusConnection::sessionBus());
+                                                         QDBusConnection::sessionBus());
 #else
-            QDBusConnection::systemBus());
+                                                         QDBusConnection::systemBus());
 #endif
     // TODO - watch propertiesChanged signal
 
@@ -77,8 +73,7 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
     if (NetworkManager::checkVersion(1, 0, 0)) {
         const NMVariantMapList addresses = iface.addressData();
         for (const QVariantMap &addressList : addresses) {
-            if (addressList.contains(QLatin1String("address")) &&
-                addressList.contains(QLatin1String("prefix"))) {
+            if (addressList.contains(QLatin1String("address")) && addressList.contains(QLatin1String("prefix"))) {
                 NetworkManager::IpAddress address;
                 address.setIp(QHostAddress(addressList.value(QLatin1String("address")).toString()));
                 address.setPrefixLength(addressList.value(QLatin1String("prefix")).toUInt());
@@ -91,8 +86,7 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
 
         const NMVariantMapList routes = iface.routeData();
         for (const QVariantMap &routeList : routes) {
-            if (routeList.contains(QLatin1String("address")) &&
-                routeList.contains(QLatin1String("prefix"))) {
+            if (routeList.contains(QLatin1String("address")) && routeList.contains(QLatin1String("prefix"))) {
                 NetworkManager::IpRoute route;
                 route.setIp(QHostAddress(routeList.value(QLatin1String("address")).toString()));
                 route.setPrefixLength(routeList.value(QLatin1String("prefix")).toUInt());
@@ -107,7 +101,7 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
             }
         }
     } else {
-        //convert ipaddresses into object
+        // convert ipaddresses into object
         const UIntListList addresses = iface.addresses();
         for (const UIntList &addressList : addresses) {
             if (addressList.count() == 3) {
@@ -118,7 +112,7 @@ void NetworkManager::IpConfig::setIPv4Path(const QString &path)
                 addressObjects << address;
             }
         }
-        //convert routes into objects
+        // convert routes into objects
         const UIntListList routes = iface.routes();
         for (const UIntList &routeList : routes) {
             if (routeList.count() == 4) {
@@ -153,11 +147,11 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
 {
     // ask the daemon for the details
     OrgFreedesktopNetworkManagerIP6ConfigInterface iface(NetworkManagerPrivate::DBUS_SERVICE,
-            path,
+                                                         path,
 #ifdef NMQT_STATIC
-            QDBusConnection::sessionBus());
+                                                         QDBusConnection::sessionBus());
 #else
-            QDBusConnection::systemBus());
+                                                         QDBusConnection::systemBus());
 #endif
     // TODO - watch propertiesChanged signal
 
@@ -166,8 +160,7 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
     if (NetworkManager::checkVersion(1, 0, 0)) {
         const NMVariantMapList addresses = iface.addressData();
         for (const QVariantMap &addressList : addresses) {
-            if (addressList.contains(QLatin1String("address")) &&
-                addressList.contains(QLatin1String("prefix"))) {
+            if (addressList.contains(QLatin1String("address")) && addressList.contains(QLatin1String("prefix"))) {
                 NetworkManager::IpAddress address;
                 address.setIp(QHostAddress(addressList.value(QLatin1String("address")).toString()));
                 address.setPrefixLength(addressList.value(QLatin1String("prefix")).toUInt());
@@ -180,8 +173,7 @@ void NetworkManager::IpConfig::setIPv6Path(const QString &path)
 
         const NMVariantMapList routes = iface.routeData();
         for (const QVariantMap &routeList : routes) {
-            if (routeList.contains(QLatin1String("address")) &&
-                routeList.contains(QLatin1String("prefix"))) {
+            if (routeList.contains(QLatin1String("address")) && routeList.contains(QLatin1String("prefix"))) {
                 NetworkManager::IpRoute route;
                 route.setIp(QHostAddress(routeList.value(QLatin1String("address")).toString()));
                 route.setPrefixLength(routeList.value(QLatin1String("prefix")).toUInt());

@@ -11,16 +11,16 @@
 #ifndef MODEMDEVICEINTERFACE_H
 #define MODEMDEVICEINTERFACE_H
 
+#include "generictypes.h"
 #include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Modem
  */
-class OrgFreedesktopNetworkManagerDeviceModemInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerDeviceModemInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -43,13 +43,13 @@ public:
     Q_PROPERTY(uint CurrentCapabilities READ currentCapabilities)
     inline uint currentCapabilities() const
     {
-        return qvariant_cast< uint >(property("CurrentCapabilities"));
+        return qvariant_cast<uint>(property("CurrentCapabilities"));
     }
 
     Q_PROPERTY(uint ModemCapabilities READ modemCapabilities)
     inline uint modemCapabilities() const
     {
-        return qvariant_cast< uint >(property("ModemCapabilities"));
+        return qvariant_cast<uint>(property("ModemCapabilities"));
     }
 
 public Q_SLOTS: // METHODS

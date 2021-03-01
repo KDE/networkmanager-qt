@@ -11,17 +11,17 @@
 #ifndef AGENTMANAGERINTERFACE_H
 #define AGENTMANAGERINTERFACE_H
 
-#include <QObject>
+#include "generictypes.h"
 #include <QList>
+#include <QObject>
 #include <QString>
 #include <QVariant>
 #include <QtDBus>
-#include "generictypes.h"
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.AgentManager
  */
-class OrgFreedesktopNetworkManagerAgentManagerInterface: public QDBusAbstractInterface
+class OrgFreedesktopNetworkManagerAgentManagerInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
@@ -37,7 +37,10 @@ public:
 #endif
 
 public:
-    OrgFreedesktopNetworkManagerAgentManagerInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
+    OrgFreedesktopNetworkManagerAgentManagerInterface(const QString &service,
+                                                      const QString &path,
+                                                      const QDBusConnection &connection,
+                                                      QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerAgentManagerInterface();
 

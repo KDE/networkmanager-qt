@@ -9,19 +9,18 @@
 #ifndef NETWORKMANAGERQT_SETTINGS_CONNECTION_H
 #define NETWORKMANAGERQT_SETTINGS_CONNECTION_H
 
-#include <networkmanagerqt/networkmanagerqt_export.h>
-#include "generictypes.h"
 #include "connectionsettings.h"
+#include "generictypes.h"
+#include <networkmanagerqt/networkmanagerqt_export.h>
 
+#include <QDBusPendingReply>
 #include <QObject>
 #include <QSharedPointer>
-#include <QDBusPendingReply>
 
 class QDBusPendingCallWatcher;
 
 namespace NetworkManager
 {
-
 class ConnectionPrivate;
 
 /**

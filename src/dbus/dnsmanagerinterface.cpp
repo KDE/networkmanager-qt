@@ -15,7 +15,10 @@
  * Implementation of interface class OrgFreedesktopNetworkManagerDnsManagerInterface
  */
 
-OrgFreedesktopNetworkManagerDnsManagerInterface::OrgFreedesktopNetworkManagerDnsManagerInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent)
+OrgFreedesktopNetworkManagerDnsManagerInterface::OrgFreedesktopNetworkManagerDnsManagerInterface(const QString &service,
+                                                                                                 const QString &path,
+                                                                                                 const QDBusConnection &connection,
+                                                                                                 QObject *parent)
     : QDBusAbstractInterface(service, path, staticInterfaceName(), connection, parent)
 {
 }
@@ -23,4 +26,3 @@ OrgFreedesktopNetworkManagerDnsManagerInterface::OrgFreedesktopNetworkManagerDns
 OrgFreedesktopNetworkManagerDnsManagerInterface::~OrgFreedesktopNetworkManagerDnsManagerInterface()
 {
 }
-

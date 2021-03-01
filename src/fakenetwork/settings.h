@@ -47,6 +47,7 @@ Q_SIGNALS:
     Q_SCRIPTABLE void ConnectionRemoved(const QDBusObjectPath &connection);
     Q_SCRIPTABLE void NewConnection(const QDBusObjectPath &connection);
     Q_SCRIPTABLE void PropertiesChanged(const QVariantMap &properties);
+
 private:
     bool m_canModify;
     QMap<QDBusObjectPath, Connection *> m_connections;

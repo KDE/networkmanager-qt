@@ -14,7 +14,6 @@
 
 namespace NetworkManager
 {
-
 /**
  * This class represents IP address
  */

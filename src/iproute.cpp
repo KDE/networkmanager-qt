@@ -9,12 +9,13 @@
 
 namespace NetworkManager
 {
-
 class NetworkManager::IpRoute::Private
 {
 public:
-    Private() :
-        metric(0) {}
+    Private()
+        : metric(0)
+    {
+    }
     QHostAddress nextHop;
     quint32 metric;
 };
@@ -64,7 +65,7 @@ NetworkManager::IpRoute &NetworkManager::IpRoute::operator=(const NetworkManager
         return *this;
     }
 
-    QNetworkAddressEntry::operator =(other);
+    QNetworkAddressEntry::operator=(other);
     *d = *other.d;
 
     return *this;

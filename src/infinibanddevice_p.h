@@ -9,12 +9,11 @@
 
 #include "device_p.h"
 #include "infinibanddevice.h"
-#include "manager_p.h"
 #include "infinibanddeviceinterface.h"
+#include "manager_p.h"
 
 namespace NetworkManager
 {
-
 class InfinibandDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
@@ -33,7 +32,6 @@ protected:
      * if the property was not useful to your new class
      */
     void propertyChanged(const QString &property, const QVariant &value) override;
-
 };
 
 }

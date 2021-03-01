@@ -12,12 +12,14 @@
 NetworkManager::OlpcMeshSettingPrivate::OlpcMeshSettingPrivate()
     : name(NM_SETTING_OLPC_MESH_SETTING_NAME)
     , channel(0)
-{ }
+{
+}
 
 NetworkManager::OlpcMeshSetting::OlpcMeshSetting()
     : Setting(Setting::Bond)
     , d_ptr(new OlpcMeshSettingPrivate())
-{ }
+{
+}
 
 NetworkManager::OlpcMeshSetting::OlpcMeshSetting(const Ptr &other)
     : Setting(other)
@@ -116,7 +118,7 @@ QVariantMap NetworkManager::OlpcMeshSetting::toMap() const
     return setting;
 }
 
-QDebug NetworkManager::operator <<(QDebug dbg, const NetworkManager::OlpcMeshSetting &setting)
+QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::OlpcMeshSetting &setting)
 {
     dbg.nospace() << "type: " << setting.typeAsString(setting.type()) << '\n';
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
