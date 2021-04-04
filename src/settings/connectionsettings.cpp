@@ -513,11 +513,7 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS))) {
         const QStringList permissions = connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_PERMISSIONS)).toStringList();
         for (const QString &permission : permissions) {
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-            const QStringList split = permission.split(QLatin1Char(':'), QString::KeepEmptyParts);
-#else
             const QStringList split = permission.split(QLatin1Char(':'), Qt::KeepEmptyParts);
-#endif
             addToPermissions(split.at(1), split.at(2));
         }
     }
