@@ -157,7 +157,7 @@ target_include_directories(KF5NetworkManagerQt PUBLIC "$<BUILD_INTERFACE:${Netwo
 
 target_link_libraries(KF5NetworkManagerQt PUBLIC Qt5::Core Qt5::Network Qt5::DBus)
 
-set_target_properties(KF5NetworkManagerQt PROPERTIES VERSION ${NETWORKMANAGERQT_VERSION_STRING}
+set_target_properties(KF5NetworkManagerQt PROPERTIES VERSION ${NETWORKMANAGERQT_VERSION}
                                                    SOVERSION ${NETWORKMANAGERQT_SOVERSION}
                                                    EXPORT_NAME NetworkManagerQt
 )
