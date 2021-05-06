@@ -20,6 +20,7 @@ public:
     QString service;
     QString username;
     QString password;
+    QString parent;
     NetworkManager::Setting::SecretFlags passwordFlags;
 };
 

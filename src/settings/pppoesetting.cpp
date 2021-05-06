@@ -57,6 +57,20 @@ QString NetworkManager::PppoeSetting::service() const
     return d->service;
 }
 
+void NetworkManager::PppoeSetting::setParent(const QString &parent)
+{
+    Q_D(PppoeSetting);
+
+    d->parent = parent;
+}
+
+QString NetworkManager::PppoeSetting::parent() const
+{
+    Q_D(const PppoeSetting);
+
+    return d->parent;
+}
+
 void NetworkManager::PppoeSetting::setUsername(const QString &username)
 {
     Q_D(PppoeSetting);
@@ -155,6 +169,10 @@ QVariantMap NetworkManager::PppoeSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_PPPOE_SERVICE), service());
     }
 
+    if (!parent().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_PPPOE_PARENT), parent());
+    }
+
     if (!username().isEmpty()) {
         setting.insert(QLatin1String(NM_SETTING_PPPOE_USERNAME), username());
     }
@@ -176,6 +194,7 @@ QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::PppoeSetting
     dbg.nospace() << "initialized: " << !setting.isNull() << '\n';
 
     dbg.nospace() << NM_SETTING_PPPOE_SERVICE << ": " << setting.service() << '\n';
+    dbg.nospace() << NM_SETTING_PPPOE_PARENT << ": " << setting.parent() << '\n';
     dbg.nospace() << NM_SETTING_PPPOE_USERNAME << ": " << setting.username() << '\n';
     dbg.nospace() << NM_SETTING_PPPOE_PASSWORD << ": " << setting.password() << '\n';
     dbg.nospace() << NM_SETTING_PPPOE_PASSWORD_FLAGS << ": " << setting.passwordFlags() << '\n';

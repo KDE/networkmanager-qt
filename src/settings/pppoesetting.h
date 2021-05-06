@@ -33,6 +33,9 @@ public:
     void setService(const QString &service);
     QString service() const;
 
+    void setParent(const QString &parent);
+    QString parent() const;
+
     void setUsername(const QString &username);
     QString username() const;
 
