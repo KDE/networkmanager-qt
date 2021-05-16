@@ -67,10 +67,10 @@ set_source_files_properties(${INTERFACE_INTROSPECTION_XML_FILES} ${ADAPTER_INTRO
 set(FILES_TO_BUILD
    )
 
-qt5_add_dbus_interfaces(FILES_TO_BUILD ${INTERFACE_INTROSPECTION_XML_FILES})
-qt5_add_dbus_adaptor(FILES_TO_BUILD introspection/org.freedesktop.NetworkManager.SecretAgent.xml "secretagent.h" "NetworkManager::SecretAgent")
+qt_add_dbus_interfaces(FILES_TO_BUILD ${INTERFACE_INTROSPECTION_XML_FILES})
+qt_add_dbus_adaptor(FILES_TO_BUILD introspection/org.freedesktop.NetworkManager.SecretAgent.xml "secretagent.h" "NetworkManager::SecretAgent")
 foreach(adaptor ${ADAPTER_INTROSPECTION_XML_FILES})
-    qt5_add_dbus_adaptor(FILES_TO_BUILD ${adaptor} "generictypes.h")
+    qt_add_dbus_adaptor(FILES_TO_BUILD ${adaptor} "generictypes.h")
 endforeach(adaptor ${ADAPTER_INTROSPECTION_XML_FILES})
 
 add_library(networkmanagerdbus ${FILES_TO_BUILD})
