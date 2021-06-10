@@ -39,6 +39,10 @@
 #define NM_SETTING_CONNECTION_AUTOCONNECT_RETRIES "autoconnect-retries"
 #endif
 
+#if !NM_CHECK_VERSION(1, 12, 0)
+#define NM_SETTING_CONNECTION_MDNS "mdns"
+#endif
+
 #if !NM_CHECK_VERSION(1, 16, 0)
 #define NM_SETTING_WIREGUARD_SETTING_NAME "wireguard"
 #endif
@@ -65,6 +69,7 @@ NetworkManager::ConnectionSettingsPrivate::ConnectionSettingsPrivate(ConnectionS
     , autoconnectSlaves(ConnectionSettings::SlavesDefault)
     , lldp(ConnectionSettings::LldpDefault)
     , metered(ConnectionSettings::MeteredUnknown)
+    , mdns(ConnectionSettings::MdnsDefault)
     , q_ptr(q)
 {
 }
@@ -481,6 +486,7 @@ NetworkManager::ConnectionSettings::ConnectionSettings(const NetworkManager::Con
     setAutoconnectSlaves(other->autoconnectSlaves());
     setLldp(other->lldp());
     setMetered(other->metered());
+    setMdns(other->mdns());
     setStableId(other->stableId());
 
     d->initSettings(other);
@@ -570,6 +576,10 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
 
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_METERED))) {
         setMetered((NetworkManager::ConnectionSettings::Metered)connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_METERED)).toInt());
+    }
+
+    if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_MDNS))) {
+        setMdns((NetworkManager::ConnectionSettings::Mdns)connectionSettings.value(QLatin1String(NM_SETTING_CONNECTION_MDNS)).toInt());
     }
 
     if (connectionSettings.contains(QLatin1String(NM_SETTING_CONNECTION_STABLE_ID))) {
@@ -664,6 +674,10 @@ NMVariantMapMap NetworkManager::ConnectionSettings::toMap() const
     connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_AUTOCONNECT_SLAVES), autoconnectSlaves());
     connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_LLDP), lldp());
     connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_METERED), metered());
+
+    if (mdns() != MdnsDefault) {
+        connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_MDNS), mdns());
+    }
 
     if (!stableId().isEmpty()) {
         connectionSetting.insert(QLatin1String(NM_SETTING_CONNECTION_STABLE_ID), stableId());
@@ -955,6 +969,20 @@ void NetworkManager::ConnectionSettings::setMetered(NetworkManager::ConnectionSe
     d->metered = metered;
 }
 
+NetworkManager::ConnectionSettings::Mdns NetworkManager::ConnectionSettings::mdns() const
+{
+    Q_D(const ConnectionSettings);
+
+    return d->mdns;
+}
+
+void NetworkManager::ConnectionSettings::setMdns(NetworkManager::ConnectionSettings::Mdns mdns)
+{
+    Q_D(ConnectionSettings);
+
+    d->mdns = mdns;
+}
+
 QString NetworkManager::ConnectionSettings::stableId() const
 {
     Q_D(const ConnectionSettings);
@@ -1016,6 +1044,7 @@ QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::ConnectionSe
     dbg.nospace() << NM_SETTING_CONNECTION_AUTOCONNECT_SLAVES << ": " << setting.autoconnectSlaves() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_LLDP << ": " << setting.lldp() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_METERED << ": " << setting.metered() << '\n';
+    dbg.nospace() << NM_SETTING_CONNECTION_MDNS << ": " << setting.mdns() << '\n';
     dbg.nospace() << NM_SETTING_CONNECTION_STABLE_ID << ": " << setting.stableId() << '\n';
     dbg.nospace() << "===================\n";
     const auto settingsList = setting.settings();

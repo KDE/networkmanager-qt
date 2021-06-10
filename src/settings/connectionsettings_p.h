@@ -46,6 +46,7 @@ public:
     NetworkManager::ConnectionSettings::AutoconnectSlaves autoconnectSlaves;
     NetworkManager::ConnectionSettings::Lldp lldp;
     NetworkManager::ConnectionSettings::Metered metered;
+    NetworkManager::ConnectionSettings::Mdns mdns;
     QString stableId;
     Setting::List settings;
 

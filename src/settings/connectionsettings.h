@@ -77,6 +77,13 @@ public:
         MeteredGuessNo = 4,
     };
 
+    enum Mdns {
+        MdnsDefault = -1,
+        MdnsNo = 0,
+        MdnsResolve = 1,
+        MdnsResolveAndRespond = 2
+    };
+
     static ConnectionType typeFromString(const QString &typeString);
     static QString typeAsString(const ConnectionType type);
     static QString createNewUuid();
@@ -149,6 +156,9 @@ public:
 
     void setMetered(Metered metered);
     Metered metered() const;
+
+    void setMdns(Mdns mdns);
+    Mdns mdns() const;
 
     void setStableId(const QString &stableId);
     QString stableId() const;
