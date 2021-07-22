@@ -13,6 +13,8 @@
 
 #include <QTest>
 
+#define NM_SETTING_WIRED_ASSIGNED_MAC_ADDRESS "assigned-mac-address"
+
 void WiredSettingTest::testSetting_data()
 {
     QTest::addColumn<QString>("port");
@@ -29,6 +31,7 @@ void WiredSettingTest::testSetting_data()
     QTest::addColumn<NMStringMap>("s390Options");
     QTest::addColumn<uint>("wakeOnLan");
     QTest::addColumn<QString>("wakeOnLanPassword");
+    QTest::addColumn<QString>("assignedMacAddress");    
 
     QStringList macAddressBlacklist;
     macAddressBlacklist << "00:08:C7:1B:8C:02";
@@ -55,6 +58,7 @@ void WiredSettingTest::testSetting_data()
                               << s390Options // s390Options
                               << (uint)(NetworkManager::WiredSetting::WakeOnLanMulticast | NetworkManager::WiredSetting::WakeOnLanMagic) // wakeOnLan
                               << QString("password"); // wakeOnLanPassword
+                              << QString("random"); // assignedMacAddress                              
 }
 
 void WiredSettingTest::testSetting()
@@ -73,6 +77,7 @@ void WiredSettingTest::testSetting()
     QFETCH(NMStringMap, s390Options);
     QFETCH(uint, wakeOnLan);
     QFETCH(QString, wakeOnLanPassword);
+    QFETCH(QString, assignedMacAddress);    
 
     QVariantMap map;
 
@@ -90,6 +95,7 @@ void WiredSettingTest::testSetting()
     map.insert(QLatin1String(NM_SETTING_WIRED_S390_OPTIONS), QVariant::fromValue(s390Options));
     map.insert(QLatin1String(NM_SETTING_WIRED_WAKE_ON_LAN), wakeOnLan);
     map.insert(QLatin1String(NM_SETTING_WIRED_WAKE_ON_LAN_PASSWORD), wakeOnLanPassword);
+    map.insert(QLatin1String(NM_SETTING_WIRED_ASSIGNED_MAC_ADDRESS), assignedMacAddress);    
 
     NetworkManager::WiredSetting setting;
     setting.fromMap(map);

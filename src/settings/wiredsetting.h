@@ -107,6 +107,9 @@ public:
     QString wakeOnLanPassword() const;
     void setWakeOnLanPassword(const QString &password);
 
+    QString assignedMacAddress() const;
+    void setAssignedMacAddress(const QString &assignedMacAddress);
+
     void fromMap(const QVariantMap &setting) override;
 
     QVariantMap toMap() const override;

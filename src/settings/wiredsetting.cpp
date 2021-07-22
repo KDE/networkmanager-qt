@@ -10,6 +10,8 @@
 
 #include <QDebug>
 
+#define NM_SETTING_WIRED_ASSIGNED_MAC_ADDRESS "assigned-mac-address"
+
 NetworkManager::WiredSettingPrivate::WiredSettingPrivate()
     : name(NM_SETTING_WIRED_SETTING_NAME)
     , port(NetworkManager::WiredSetting::UnknownPort)
@@ -50,6 +52,7 @@ NetworkManager::WiredSetting::WiredSetting(const WiredSetting::Ptr &other)
     setS390Options(other->s390Options());
     setWakeOnLan(other->wakeOnLan());
     setWakeOnLanPassword(other->wakeOnLanPassword());
+    setAssignedMacAddress(other->assignedMacAddress());
 }
 
 NetworkManager::WiredSetting::~WiredSetting()
@@ -260,6 +263,20 @@ void NetworkManager::WiredSetting::setWakeOnLanPassword(const QString &password)
     d->wakeOnLanPassword = password;
 }
 
+void NetworkManager::WiredSetting::setAssignedMacAddress(const QString &assignedMacAddress)
+{
+    Q_D(WiredSetting);
+
+    d->assignedMacAddress = assignedMacAddress;
+}
+
+QString NetworkManager::WiredSetting::assignedMacAddress() const
+{
+    Q_D(const WiredSetting);
+
+    return d->assignedMacAddress;
+}
+
 void NetworkManager::WiredSetting::fromMap(const QVariantMap &setting)
 {
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_PORT))) {
@@ -348,6 +365,10 @@ void NetworkManager::WiredSetting::fromMap(const QVariantMap &setting)
     if (setting.contains(QLatin1String(NM_SETTING_WIRED_WAKE_ON_LAN_PASSWORD))) {
         setWakeOnLanPassword(setting.value(QLatin1String(NM_SETTING_WIRED_WAKE_ON_LAN_PASSWORD)).toString());
     }
+
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_ASSIGNED_MAC_ADDRESS))) { 
+        setAssignedMacAddress(setting.value(QLatin1String(NM_SETTING_WIRED_ASSIGNED_MAC_ADDRESS)).toString())
+    }
 }
 
 QVariantMap NetworkManager::WiredSetting::toMap() const
@@ -435,6 +456,10 @@ QVariantMap NetworkManager::WiredSetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRED_WAKE_ON_LAN_PASSWORD), wakeOnLanPassword());
     }
 
+    if (!assignedMacAddress().isEmpty()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRED_ASSIGNED_MAC_ADDRESS), assignedMacAddress());
+    }
+
     return setting;
 }
 
@@ -457,6 +482,7 @@ QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::WiredSetting
     dbg.nospace() << NM_SETTING_WIRED_S390_OPTIONS << ": " << setting.s390Options() << '\n';
     dbg.nospace() << NM_SETTING_WIRED_WAKE_ON_LAN << ": " << setting.wakeOnLan() << '\n';
     dbg.nospace() << NM_SETTING_WIRED_WAKE_ON_LAN_PASSWORD << ": " << setting.wakeOnLanPassword() << '\n';
+    dbg.nospace() << NM_SETTING_WIRED_ASSIGNED_MAC_ADDRESS << ": " << setting.assignedMacAddress() << '\n';    
 
     return dbg.maybeSpace();
 }

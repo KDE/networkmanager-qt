@@ -32,6 +32,7 @@ public:
     QString generateMacAddressMask;
     NetworkManager::WiredSetting::WakeOnLanFlags wakeOnLan;
     QString wakeOnLanPassword;
+    QString assignedMacAddress;
 };
 
 }
