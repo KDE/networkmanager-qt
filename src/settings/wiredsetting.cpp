@@ -366,8 +366,8 @@ void NetworkManager::WiredSetting::fromMap(const QVariantMap &setting)
         setWakeOnLanPassword(setting.value(QLatin1String(NM_SETTING_WIRED_WAKE_ON_LAN_PASSWORD)).toString());
     }
 
-    if (setting.contains(QLatin1String(NM_SETTING_WIRED_ASSIGNED_MAC_ADDRESS))) { 
-        setAssignedMacAddress(setting.value(QLatin1String(NM_SETTING_WIRED_ASSIGNED_MAC_ADDRESS)).toString())
+    if (setting.contains(QLatin1String(NM_SETTING_WIRED_ASSIGNED_MAC_ADDRESS))) {
+        setAssignedMacAddress(setting.value(QLatin1String(NM_SETTING_WIRED_ASSIGNED_MAC_ADDRESS)).toString());
     }
 }
 
