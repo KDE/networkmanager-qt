@@ -57,8 +57,8 @@ void WiredSettingTest::testSetting_data()
                               << QString("qeth") // s390NetType
                               << s390Options // s390Options
                               << (uint)(NetworkManager::WiredSetting::WakeOnLanMulticast | NetworkManager::WiredSetting::WakeOnLanMagic) // wakeOnLan
-                              << QString("password"); // wakeOnLanPassword
-                              << QString("random"); // assignedMacAddress                              
+                              << QString("password") // wakeOnLanPassword
+                              << QString("random"); // assignedMacAddress
 }
 
 void WiredSettingTest::testSetting()
