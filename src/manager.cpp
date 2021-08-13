@@ -191,7 +191,9 @@ QString NetworkManager::NetworkManagerPrivate::version() const
 
 int NetworkManager::NetworkManagerPrivate::compareVersion(const QString &version)
 {
-    int x, y, z;
+    int x;
+    int y;
+    int z;
 
     const auto sl = version.splitRef('.');
 
@@ -505,8 +507,9 @@ void NetworkManager::NetworkManagerPrivate::setWwanEnabled(bool enabled)
 
 void NetworkManager::NetworkManagerPrivate::setWimaxEnabled(bool enabled)
 {
-    if (!checkVersion(1, 2, 0))
+    if (!checkVersion(1, 2, 0)) {
         iface.setWimaxEnabled(enabled);
+    }
 }
 
 void NetworkManager::NetworkManagerPrivate::sleep(bool sleep)
@@ -897,8 +900,9 @@ void NetworkManager::NetworkManagerPrivate::interfacesAdded(const QDBusObjectPat
 {
     Q_UNUSED(path);
 
-    if (!addedInterfaces.contains(NetworkManagerPrivate::DBUS_DAEMON_INTERFACE))
+    if (!addedInterfaces.contains(NetworkManagerPrivate::DBUS_DAEMON_INTERFACE)) {
         return;
+    }
 
     init();
     Q_EMIT serviceAppeared();

@@ -58,8 +58,9 @@ NetworkManager::SecretAgentPrivate::~SecretAgentPrivate()
 void NetworkManager::SecretAgentPrivate::dbusInterfacesAdded(const QDBusObjectPath &path, const QVariantMap &interfaces)
 {
     Q_UNUSED(path);
-    if (!interfaces.contains(QString::fromLatin1(agentManager.staticInterfaceName())))
+    if (!interfaces.contains(QString::fromLatin1(agentManager.staticInterfaceName()))) {
         return;
+    }
 
     registerAgent(capabilities);
 }

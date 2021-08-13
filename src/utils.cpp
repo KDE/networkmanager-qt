@@ -226,10 +226,11 @@ bool NetworkManager::securityIsValid(WirelessSecurityType type,
             return false;
         }
         if (apWpa || apRsn) {
-            if (!deviceSupportsApCiphers(interfaceCaps, apWpa, StaticWep))
+            if (!deviceSupportsApCiphers(interfaceCaps, apWpa, StaticWep)) {
                 if (!deviceSupportsApCiphers(interfaceCaps, apRsn, StaticWep)) {
                     return false;
                 }
+            }
         }
         break;
     case DynamicWep:
