@@ -59,7 +59,7 @@ void NetworkManager::WirelessNetworkPrivate::updateStrength()
 
     int maximumStrength = -1;
     NetworkManager::AccessPoint::Ptr strongestAp;
-    for (const NetworkManager::AccessPoint::Ptr &iface : qAsConst(aps)) {
+    for (const NetworkManager::AccessPoint::Ptr &iface : std::as_const(aps)) {
         if (maximumStrength <= iface->signalStrength()) {
             maximumStrength = iface->signalStrength();
             strongestAp = iface;

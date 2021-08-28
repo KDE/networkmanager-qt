@@ -776,7 +776,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
                     }
                     // qCDebug(NMQT) << "  " << ac.path();
                 }
-                for (const QString &path : qAsConst(knownConnections)) {
+                for (const QString &path : std::as_const(knownConnections)) {
                     m_activeConnections.remove(path);
                     Q_EMIT activeConnectionRemoved(path);
                 }

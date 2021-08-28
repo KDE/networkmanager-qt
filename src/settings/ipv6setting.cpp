@@ -400,7 +400,7 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap &setting)
             temp = setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS)).value<QList<QByteArray>>();
         }
 
-        for (const QByteArray &utmp : qAsConst(temp)) {
+        for (const QByteArray &utmp : std::as_const(temp)) {
             dbusDns << ipv6AddressAsHostAddress(utmp);
         }
 
@@ -421,7 +421,7 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap &setting)
         }
         QList<NetworkManager::IpAddress> addresses;
 
-        for (const IpV6DBusAddress &addressMap : qAsConst(temp)) {
+        for (const IpV6DBusAddress &addressMap : std::as_const(temp)) {
             if (addressMap.address.isEmpty() || !addressMap.prefix || addressMap.gateway.isEmpty()) {
                 continue;
             }
@@ -450,7 +450,7 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap &setting)
         }
         QList<NetworkManager::IpRoute> routes;
 
-        for (const IpV6DBusRoute &routeMap : qAsConst(temp)) {
+        for (const IpV6DBusRoute &routeMap : std::as_const(temp)) {
             if (routeMap.destination.isEmpty() || !routeMap.prefix || routeMap.nexthop.isEmpty() || !routeMap.metric) {
                 continue;
             }

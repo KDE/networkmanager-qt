@@ -407,7 +407,7 @@ NetworkManager::Connection::List NetworkManager::Device::availableConnections()
     Q_D(const Device);
 
     NetworkManager::Connection::List list;
-    for (const QString &availableConnection : qAsConst(d->availableConnections)) {
+    for (const QString &availableConnection : std::as_const(d->availableConnections)) {
         NetworkManager::Connection::Ptr connection = NetworkManager::findConnection(availableConnection);
         if (connection) {
             list << connection;

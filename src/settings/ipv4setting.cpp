@@ -381,7 +381,7 @@ void NetworkManager::Ipv4Setting::fromMap(const QVariantMap &setting)
             temp = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_DNS)).value<QList<uint>>();
         }
 
-        for (const uint utmp : qAsConst(temp)) {
+        for (const uint utmp : std::as_const(temp)) {
             QHostAddress tmpHost(ntohl(utmp));
             dbusDns << tmpHost;
         }
@@ -403,7 +403,7 @@ void NetworkManager::Ipv4Setting::fromMap(const QVariantMap &setting)
             temp = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ADDRESSES)).value<QList<QList<uint>>>();
         }
 
-        for (const QList<uint> &uintList : qAsConst(temp)) {
+        for (const QList<uint> &uintList : std::as_const(temp)) {
             if (uintList.count() != 3) {
                 continue;
             }
@@ -432,7 +432,7 @@ void NetworkManager::Ipv4Setting::fromMap(const QVariantMap &setting)
             temp = setting.value(QLatin1String(NMQT_SETTING_IP4_CONFIG_ROUTES)).value<QList<QList<uint>>>();
         }
 
-        for (const QList<uint> &uintList : qAsConst(temp)) {
+        for (const QList<uint> &uintList : std::as_const(temp)) {
             if (uintList.count() != 4) {
                 continue;
             }

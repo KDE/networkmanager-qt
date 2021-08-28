@@ -274,7 +274,7 @@ void NetworkManager::ActiveConnectionPrivate::recheckProperties()
         properties << QLatin1String("Dhcp6Config");
     }
 
-    for (const QString &property : qAsConst(properties)) {
+    for (const QString &property : std::as_const(properties)) {
         QDBusMessage message = QDBusMessage::createMethodCall(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE,
                                                               NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH,
                                                               NetworkManager::NetworkManagerPrivate::FDO_DBUS_PROPERTIES,

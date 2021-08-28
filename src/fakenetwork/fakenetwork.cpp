@@ -421,7 +421,7 @@ void FakeNetwork::onConnectionAdded(const QDBusObjectPath &connection)
             NetworkManager::ConnectionSettings::typeFromString(settings.value(QLatin1String("connection")).value(QLatin1String("type")).toString());
         if (!m_devices.isEmpty()) {
             Device *selectedDevice = nullptr;
-            for (Device *device : qAsConst(m_devices)) {
+            for (Device *device : std::as_const(m_devices)) {
                 if (type == NetworkManager::ConnectionSettings::Wired && device->deviceType() == NetworkManager::Device::Ethernet) {
                     selectedDevice = device;
                     device->addAvailableConnection(connection);
@@ -448,7 +448,7 @@ void FakeNetwork::onConnectionAdded(const QDBusObjectPath &connection)
 
 void FakeNetwork::onConnectionRemoved(const QDBusObjectPath &connection)
 {
-    for (Device *device : qAsConst(m_devices)) {
+    for (Device *device : std::as_const(m_devices)) {
         if (device && device->availableConnections().contains(connection)) {
             device->removeAvailableConnection(connection);
 

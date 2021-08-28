@@ -92,7 +92,7 @@ QVariantMap NetworkManager::DnsConfiguration::toMap() const
     map["options"] = d->options;
 
     QVariantMap domains;
-    for (const NetworkManager::DnsDomain &domain : qAsConst(d->domains)) {
+    for (const NetworkManager::DnsDomain &domain : std::as_const(d->domains)) {
         QVariantMap contents;
         QStringList serversList;
         const QList<QHostAddress> servers = domain.servers();
