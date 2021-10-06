@@ -3,7 +3,6 @@
 include_directories(
    ${CMAKE_CURRENT_SOURCE_DIR}/dbus
    ${CMAKE_CURRENT_SOURCE_DIR}/settings
-   SYSTEM ${NETWORKMANAGER_INCLUDE_DIRS}
 )
 
 set(NetworkManagerQt_PART_SRCS
@@ -151,28 +150,22 @@ add_library(KF5NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${NetworkMa
 generate_export_header(KF5NetworkManagerQt EXPORT_FILE_NAME ${NetworkManagerQt_BINARY_DIR}/networkmanagerqt/networkmanagerqt_export.h BASE_NAME NetworkManagerQt)
 add_library(KF5::NetworkManagerQt ALIAS KF5NetworkManagerQt)
 
-target_include_directories(KF5NetworkManagerQt INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/NetworkManagerQt;${NETWORKMANAGER_INCLUDE_DIRS}>")
+target_include_directories(KF5NetworkManagerQt INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/NetworkManagerQt>")
 # for examples to build
 target_include_directories(KF5NetworkManagerQt PUBLIC "$<BUILD_INTERFACE:${NetworkManagerQt_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}/settings;${CMAKE_CURRENT_BINARY_DIR}>")
 
-target_link_libraries(KF5NetworkManagerQt PUBLIC Qt5::Core Qt5::Network Qt5::DBus)
+target_link_libraries(KF5NetworkManagerQt PUBLIC Qt5::Core Qt5::Network Qt5::DBus PkgConfig::NetworkManager PkgConfig::Gio)
 
 set_target_properties(KF5NetworkManagerQt PROPERTIES VERSION ${NETWORKMANAGERQT_VERSION}
                                                    SOVERSION ${NETWORKMANAGERQT_SOVERSION}
                                                    EXPORT_NAME NetworkManagerQt
 )
 
-if (${NETWORKMANAGER_VERSION} VERSION_EQUAL 1.0.0 OR ${NETWORKMANAGER_VERSION} VERSION_GREATER 1.0.0)
-    target_include_directories(KF5NetworkManagerQt PUBLIC ${NM-CORE_INCLUDE_DIRS})
-else()
-    target_include_directories(KF5NetworkManagerQt PUBLIC ${NETWORKMANAGER_INCLUDE_DIRS} SYSTEM PUBLIC ${NM-UTIL_INCLUDE_DIRS} ${NM-GLIB_INCLUDE_DIRS})
-endif()
-
 ########### static lib for tests  ###############
 add_library(KF5NetworkManagerQt_static STATIC ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
 set_target_properties(KF5NetworkManagerQt_static PROPERTIES COMPILE_FLAGS -DNMQT_STATIC=1)
 
-target_link_libraries(KF5NetworkManagerQt_static PUBLIC Qt5::Core Qt5::Network Qt5::DBus)
+target_link_libraries(KF5NetworkManagerQt_static PUBLIC Qt5::Core Qt5::Network Qt5::DBus PkgConfig::NetworkManager PkgConfig::Gio)
 target_include_directories(KF5NetworkManagerQt_static PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..;${CMAKE_CURRENT_BINARY_DIR}/..>")
 
 ecm_generate_headers(NetworkManagerQt_CamelCase_HEADERS

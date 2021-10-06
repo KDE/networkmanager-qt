@@ -11,7 +11,9 @@ feature_summary(WHAT REQUIRED_PACKAGES_NOT_FOUND FATAL_ON_MISSING_REQUIRED_PACKA
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${ECM_MODULE_PATH})
 
-find_package(NetworkManager 1.4.0 REQUIRED)
+find_package(PkgConfig)
+pkg_search_module(NetworkManager REQUIRED IMPORTED_TARGET libnm>=1.4.0)
+pkg_search_module(Gio REQUIRED IMPORTED_TARGET gio-2.0)
 
 include(KDEInstallDirs)
 include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)

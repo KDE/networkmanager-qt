@@ -1,5 +1,4 @@
 include_directories(
-    ${NETWORKMANAGER_INCLUDE_DIRS}
     ${CMAKE_SOURCE_DIR}/src/settings
 )
 
@@ -20,4 +19,5 @@ target_link_libraries(fakeNetwork
     KF5NetworkManagerQt_static
     Qt5::Core
     Qt5::Network
-    Qt5::DBus)
+    Qt5::DBus
+    PkgConfig::NetworkManager)
