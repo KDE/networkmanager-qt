@@ -30,7 +30,7 @@ public:
     };
 
     explicit VpnPlugin(const QString &path, QObject *parent = nullptr);
-    virtual ~VpnPlugin();
+    ~VpnPlugin() override;
 
 Q_SIGNALS:
     void configChanged(const QVariantMap &configuration);

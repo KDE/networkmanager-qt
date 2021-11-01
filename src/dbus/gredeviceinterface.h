@@ -39,7 +39,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerDeviceGreInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceGreInterface();
+    ~OrgFreedesktopNetworkManagerDeviceGreInterface() override;
 
     Q_PROPERTY(ushort InputFlags READ inputFlags)
     inline ushort inputFlags() const

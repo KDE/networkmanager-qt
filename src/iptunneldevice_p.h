@@ -21,7 +21,7 @@ class IpTunnelDevicePrivate : public DevicePrivate
     Q_OBJECT
 public:
     IpTunnelDevicePrivate(const QString &path, IpTunnelDevice *q);
-    virtual ~IpTunnelDevicePrivate();
+    ~IpTunnelDevicePrivate() override;
 
     OrgFreedesktopNetworkManagerDeviceIPTunnelInterface iface;
     uchar encapsulationLimit;

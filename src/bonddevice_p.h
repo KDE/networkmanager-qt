@@ -18,7 +18,7 @@ class BondDevicePrivate : public DevicePrivate
     Q_OBJECT
 public:
     BondDevicePrivate(const QString &path, BondDevice *q);
-    virtual ~BondDevicePrivate();
+    ~BondDevicePrivate() override;
 
     OrgFreedesktopNetworkManagerDeviceBondInterface iface;
     bool carrier;

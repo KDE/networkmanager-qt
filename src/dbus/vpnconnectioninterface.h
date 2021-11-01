@@ -42,7 +42,7 @@ public:
                                                        const QDBusConnection &connection,
                                                        QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerVPNConnectionInterface();
+    ~OrgFreedesktopNetworkManagerVPNConnectionInterface() override;
 
     Q_PROPERTY(QString Banner READ banner)
     inline QString banner() const

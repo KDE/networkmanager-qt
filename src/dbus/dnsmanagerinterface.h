@@ -38,7 +38,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerDnsManagerInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDnsManagerInterface();
+    ~OrgFreedesktopNetworkManagerDnsManagerInterface() override;
 
     Q_PROPERTY(NMVariantMapList Configuration READ configuration)
     inline NMVariantMapList configuration() const

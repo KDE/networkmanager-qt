@@ -19,7 +19,7 @@ class Connection : public QObject
     Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Settings.Connection")
 public:
     explicit Connection(QObject *parent = nullptr, const NMVariantMapMap &settings = NMVariantMapMap());
-    virtual ~Connection();
+    ~Connection() override;
 
     Q_PROPERTY(bool Unsaved READ unsaved)
 

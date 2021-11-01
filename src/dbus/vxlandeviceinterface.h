@@ -39,7 +39,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerDeviceVxlanInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceVxlanInterface();
+    ~OrgFreedesktopNetworkManagerDeviceVxlanInterface() override;
 
     Q_PROPERTY(uint Ageing READ ageing)
     inline uint ageing() const

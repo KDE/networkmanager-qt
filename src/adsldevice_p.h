@@ -21,7 +21,7 @@ class AdslDevicePrivate : public DevicePrivate
     Q_OBJECT
 public:
     AdslDevicePrivate(const QString &path, AdslDevice *q);
-    virtual ~AdslDevicePrivate();
+    ~AdslDevicePrivate() override;
 
     OrgFreedesktopNetworkManagerDeviceAdslInterface iface;
     bool carrier;

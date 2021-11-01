@@ -39,7 +39,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerDeviceVlanInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceVlanInterface();
+    ~OrgFreedesktopNetworkManagerDeviceVlanInterface() override;
 
     Q_PROPERTY(bool Carrier READ carrier)
     inline bool carrier() const

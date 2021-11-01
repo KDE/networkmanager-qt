@@ -18,7 +18,7 @@ class Dhcp4ConfigPrivate : public QObject
     Q_OBJECT
 public:
     Dhcp4ConfigPrivate(const QString &path, Dhcp4Config *q);
-    virtual ~Dhcp4ConfigPrivate();
+    ~Dhcp4ConfigPrivate() override;
     OrgFreedesktopNetworkManagerDHCP4ConfigInterface dhcp4Iface;
     QString myPath;
     QVariantMap options;

@@ -72,7 +72,7 @@ public:
     /**
      * Destroys an ActiveConnection object.
      */
-    virtual ~ActiveConnection();
+    ~ActiveConnection() override;
 
     /**
      * Returns true is this object holds a valid connection

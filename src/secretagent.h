@@ -69,7 +69,7 @@ public:
      */
     explicit SecretAgent(const QString &id, QObject *parent = nullptr);
     explicit SecretAgent(const QString &id, NetworkManager::SecretAgent::Capabilities capabilities, QObject *parent = nullptr);
-    virtual ~SecretAgent();
+    ~SecretAgent() override;
 
     /**
      * Send to NetworkManager the \p error the subclass has

@@ -19,7 +19,7 @@ class DevicePrivate : public QObject
     Q_OBJECT
 public:
     explicit DevicePrivate(const QString &path, Device *q);
-    virtual ~DevicePrivate();
+    ~DevicePrivate() override;
 
     void init();
 

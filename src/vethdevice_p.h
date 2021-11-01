@@ -19,7 +19,7 @@ class VethDevicePrivate : public DevicePrivate
     Q_OBJECT
 public:
     VethDevicePrivate(const QString &path, VethDevice *q);
-    virtual ~VethDevicePrivate();
+    ~VethDevicePrivate() override;
 
     OrgFreedesktopNetworkManagerDeviceVethInterface iface;
     QString peer;

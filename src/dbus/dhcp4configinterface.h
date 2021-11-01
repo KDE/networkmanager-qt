@@ -39,7 +39,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerDHCP4ConfigInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDHCP4ConfigInterface();
+    ~OrgFreedesktopNetworkManagerDHCP4ConfigInterface() override;
 
     Q_PROPERTY(QVariantMap Options READ options)
     inline QVariantMap options() const

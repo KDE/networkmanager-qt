@@ -18,7 +18,7 @@ class TunDevicePrivate : public DevicePrivate
     Q_OBJECT
 public:
     TunDevicePrivate(const QString &path, TunDevice *q);
-    virtual ~TunDevicePrivate();
+    ~TunDevicePrivate() override;
 
     OrgFreedesktopNetworkManagerDeviceTunInterface iface;
     qlonglong owner;

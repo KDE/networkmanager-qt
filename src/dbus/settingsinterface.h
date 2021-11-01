@@ -41,7 +41,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerSettingsInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerSettingsInterface();
+    ~OrgFreedesktopNetworkManagerSettingsInterface() override;
 
     Q_PROPERTY(bool CanModify READ canModify)
     inline bool canModify() const

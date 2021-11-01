@@ -19,7 +19,7 @@ class BridgeDevicePrivate : public DevicePrivate
 {
 public:
     BridgeDevicePrivate(const QString &path, BridgeDevice *q);
-    virtual ~BridgeDevicePrivate();
+    ~BridgeDevicePrivate() override;
 
     OrgFreedesktopNetworkManagerDeviceBridgeInterface iface;
     bool carrier;

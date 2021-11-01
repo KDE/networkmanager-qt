@@ -42,7 +42,7 @@ public:
                                                        const QDBusConnection &connection,
                                                        QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceMacvlanInterface();
+    ~OrgFreedesktopNetworkManagerDeviceMacvlanInterface() override;
 
     Q_PROPERTY(QString Mode READ mode)
     inline QString mode() const

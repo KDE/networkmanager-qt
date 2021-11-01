@@ -43,7 +43,7 @@ public:
                                                             const QDBusConnection &connection,
                                                             QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerSettingsConnectionInterface();
+    ~OrgFreedesktopNetworkManagerSettingsConnectionInterface() override;
 
     Q_PROPERTY(bool Unsaved READ unsaved)
     inline bool unsaved() const

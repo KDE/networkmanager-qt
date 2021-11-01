@@ -222,7 +222,7 @@ public:
     /**
      * Destroys a device object.
      */
-    virtual ~Device();
+    ~Device() override;
     /**
      * Retrieves the interface type.  This is a virtual function that will return the
      * proper type of all sub-classes.

@@ -33,7 +33,7 @@ class NETWORKMANAGERQT_EXPORT WirelessNetwork : public QObject
 public:
     typedef QSharedPointer<WirelessNetwork> Ptr;
     typedef QList<Ptr> List;
-    ~WirelessNetwork();
+    ~WirelessNetwork() override;
     /**
      * ESSID of the network
      */

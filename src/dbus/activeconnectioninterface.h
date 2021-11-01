@@ -43,7 +43,7 @@ public:
                                                           const QDBusConnection &connection,
                                                           QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerConnectionActiveInterface();
+    ~OrgFreedesktopNetworkManagerConnectionActiveInterface() override;
 
     Q_PROPERTY(QDBusObjectPath Connection READ connection)
     inline QDBusObjectPath connection() const

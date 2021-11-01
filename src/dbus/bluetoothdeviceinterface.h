@@ -42,7 +42,7 @@ public:
                                                          const QDBusConnection &connection,
                                                          QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceBluetoothInterface();
+    ~OrgFreedesktopNetworkManagerDeviceBluetoothInterface() override;
 
     Q_PROPERTY(uint BtCapabilities READ btCapabilities)
     inline uint btCapabilities() const

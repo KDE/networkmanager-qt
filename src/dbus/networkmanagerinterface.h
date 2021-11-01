@@ -40,7 +40,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerInterface();
+    ~OrgFreedesktopNetworkManagerInterface() override;
 
     Q_PROPERTY(QDBusObjectPath ActivatingConnection READ activatingConnection)
     inline QDBusObjectPath activatingConnection() const

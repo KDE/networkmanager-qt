@@ -19,7 +19,7 @@ class WireGuardDevicePrivate : public DevicePrivate
 {
 public:
     WireGuardDevicePrivate(const QString &path, WireGuardDevice *q);
-    virtual ~WireGuardDevicePrivate();
+    ~WireGuardDevicePrivate() override;
 
     OrgFreedesktopNetworkManagerDeviceWireGuardInterface iface;
     QByteArray publicKey;

@@ -17,7 +17,7 @@ class ActiveConnectionPrivate : public QObject
     Q_OBJECT
 public:
     explicit ActiveConnectionPrivate(const QString &, ActiveConnection *q);
-    virtual ~ActiveConnectionPrivate();
+    ~ActiveConnectionPrivate() override;
     static NetworkManager::ActiveConnection::State convertActiveConnectionState(uint);
     static NetworkManager::ActiveConnection::Reason convertActiveConnectionReason(uint);
     NetworkManager::Connection::Ptr connection;

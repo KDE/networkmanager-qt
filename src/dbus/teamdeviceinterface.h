@@ -40,7 +40,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerDeviceTeamInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceTeamInterface();
+    ~OrgFreedesktopNetworkManagerDeviceTeamInterface() override;
 
     Q_PROPERTY(bool Carrier READ carrier)
     inline bool carrier() const

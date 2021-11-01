@@ -39,7 +39,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerDeviceTunInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceTunInterface();
+    ~OrgFreedesktopNetworkManagerDeviceTunInterface() override;
 
     Q_PROPERTY(qlonglong Group READ group)
     inline qlonglong group() const

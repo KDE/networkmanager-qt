@@ -42,7 +42,7 @@ public:
                                                        const QDBusConnection &connection,
                                                        QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceGenericInterface();
+    ~OrgFreedesktopNetworkManagerDeviceGenericInterface() override;
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
     inline QString hwAddress() const

@@ -42,7 +42,7 @@ public:
                                                           const QDBusConnection &connection,
                                                           QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceStatisticsInterface();
+    ~OrgFreedesktopNetworkManagerDeviceStatisticsInterface() override;
 
     Q_PROPERTY(uint RefreshRateMs READ refreshRateMs WRITE setRefreshRateMs)
     inline uint refreshRateMs() const

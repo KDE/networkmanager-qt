@@ -42,7 +42,7 @@ public:
                                                           const QDBusConnection &connection,
                                                           QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceInfinibandInterface();
+    ~OrgFreedesktopNetworkManagerDeviceInfinibandInterface() override;
 
     Q_PROPERTY(bool Carrier READ carrier)
     inline bool carrier() const

@@ -43,7 +43,7 @@ public:
                                                       const QDBusConnection &connection,
                                                       QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerAgentManagerInterface();
+    ~OrgFreedesktopNetworkManagerAgentManagerInterface() override;
 
 public Q_SLOTS: // METHODS
     inline QDBusPendingReply<> Register(const QString &identifier)

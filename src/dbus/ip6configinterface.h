@@ -39,7 +39,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerIP6ConfigInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerIP6ConfigInterface();
+    ~OrgFreedesktopNetworkManagerIP6ConfigInterface() override;
 
     Q_PROPERTY(NMVariantMapList AddressData READ addressData)
     inline NMVariantMapList addressData() const

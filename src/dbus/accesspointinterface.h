@@ -39,7 +39,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerAccessPointInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerAccessPointInterface();
+    ~OrgFreedesktopNetworkManagerAccessPointInterface() override;
 
     Q_PROPERTY(uint Flags READ flags)
     inline uint flags() const

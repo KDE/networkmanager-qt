@@ -43,7 +43,7 @@ public:
                                                       const QDBusConnection &connection,
                                                       QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceBridgeInterface();
+    ~OrgFreedesktopNetworkManagerDeviceBridgeInterface() override;
 
     Q_PROPERTY(bool Carrier READ carrier)
     inline bool carrier() const

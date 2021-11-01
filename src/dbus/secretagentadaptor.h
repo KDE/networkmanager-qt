@@ -72,7 +72,7 @@ class SecretAgentAdaptor : public QDBusAbstractAdaptor
                 "")
 public:
     SecretAgentAdaptor(NetworkManager::SecretAgent *parent);
-    virtual ~SecretAgentAdaptor();
+    ~SecretAgentAdaptor() override;
 
     inline NetworkManager::SecretAgent *parent() const
     {

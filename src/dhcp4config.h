@@ -29,7 +29,7 @@ public:
     typedef QList<Ptr> List;
 
     explicit Dhcp4Config(const QString &path, QObject *owner = nullptr);
-    ~Dhcp4Config();
+    ~Dhcp4Config() override;
 
     QString path() const;
 

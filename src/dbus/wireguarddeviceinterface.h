@@ -42,7 +42,7 @@ public:
                                                          const QDBusConnection &connection,
                                                          QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceWireGuardInterface();
+    ~OrgFreedesktopNetworkManagerDeviceWireGuardInterface() override;
 
     Q_PROPERTY(QByteArray PublicKey READ publicKey)
     inline QByteArray publicKey() const

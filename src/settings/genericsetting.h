@@ -26,7 +26,7 @@ public:
     typedef QList<Ptr> List;
     GenericSetting();
     explicit GenericSetting(const Ptr &other);
-    ~GenericSetting();
+    ~GenericSetting() override;
 
     QString name() const override;
 

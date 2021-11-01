@@ -19,7 +19,7 @@ class AccessPoint : public QObject
     Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.AccessPoint")
 public:
     explicit AccessPoint(QObject *parent = nullptr);
-    virtual ~AccessPoint();
+    ~AccessPoint() override;
 
     Q_PROPERTY(uint Flags READ flags)
     Q_PROPERTY(uint Frequency READ frequency)

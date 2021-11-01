@@ -33,7 +33,7 @@ public:
     typedef QList<Ptr> List;
 
     explicit DeviceStatistics(const QString &path, QObject *parent = nullptr);
-    virtual ~DeviceStatistics();
+    ~DeviceStatistics() override;
 
     /**
      * Refresh rate of the rest of properties of this interface. The properties are guaranteed to be refreshed

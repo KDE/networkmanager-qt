@@ -41,7 +41,7 @@ public:
                                                         const QDBusConnection &connection,
                                                         QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceIPTunnelInterface();
+    ~OrgFreedesktopNetworkManagerDeviceIPTunnelInterface() override;
 
     Q_PROPERTY(uchar EncapsulationLimit READ encapsulationLimit)
     inline uchar encapsulationLimit() const

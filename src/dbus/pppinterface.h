@@ -40,7 +40,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerPPPInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerPPPInterface();
+    ~OrgFreedesktopNetworkManagerPPPInterface() override;
 
 public Q_SLOTS: // METHODS
     inline QDBusPendingReply<QString, QString> NeedSecrets()

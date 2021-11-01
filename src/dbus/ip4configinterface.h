@@ -40,7 +40,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerIP4ConfigInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerIP4ConfigInterface();
+    ~OrgFreedesktopNetworkManagerIP4ConfigInterface() override;
 
     Q_PROPERTY(NMVariantMapList AddressData READ addressData)
     inline NMVariantMapList addressData() const

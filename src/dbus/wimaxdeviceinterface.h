@@ -40,7 +40,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerDeviceWiMaxInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceWiMaxInterface();
+    ~OrgFreedesktopNetworkManagerDeviceWiMaxInterface() override;
 
     Q_PROPERTY(QDBusObjectPath ActiveNsp READ activeNsp)
     inline QDBusObjectPath activeNsp() const

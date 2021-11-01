@@ -19,7 +19,7 @@ class MacVlanDevicePrivate : public DevicePrivate
     Q_OBJECT
 public:
     MacVlanDevicePrivate(const QString &path, MacVlanDevice *q);
-    virtual ~MacVlanDevicePrivate();
+    ~MacVlanDevicePrivate() override;
 
     OrgFreedesktopNetworkManagerDeviceMacvlanInterface iface;
     QString mode;

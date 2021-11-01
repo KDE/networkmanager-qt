@@ -42,7 +42,7 @@ public:
                                                         const QDBusConnection &connection,
                                                         QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface();
+    ~OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface() override;
 
     Q_PROPERTY(uint ActiveChannel READ activeChannel)
     inline uint activeChannel() const

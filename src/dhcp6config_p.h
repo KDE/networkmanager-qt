@@ -18,7 +18,7 @@ class Dhcp6ConfigPrivate : public QObject
     Q_OBJECT
 public:
     Dhcp6ConfigPrivate(const QString &path, Dhcp6Config *q);
-    virtual ~Dhcp6ConfigPrivate();
+    ~Dhcp6ConfigPrivate() override;
     OrgFreedesktopNetworkManagerDHCP6ConfigInterface dhcp6Iface;
     QString path;
     QVariantMap options;

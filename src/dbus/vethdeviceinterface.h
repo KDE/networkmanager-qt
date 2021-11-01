@@ -39,7 +39,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerDeviceVethInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceVethInterface();
+    ~OrgFreedesktopNetworkManagerDeviceVethInterface() override;
 
     Q_PROPERTY(QDBusObjectPath Peer READ peer)
     inline QDBusObjectPath peer() const

@@ -43,7 +43,7 @@ public:
                                                         const QDBusConnection &connection,
                                                         QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceWirelessInterface();
+    ~OrgFreedesktopNetworkManagerDeviceWirelessInterface() override;
 
     Q_PROPERTY(QList<QDBusObjectPath> AccessPoints READ accessPoints)
     inline QList<QDBusObjectPath> accessPoints() const

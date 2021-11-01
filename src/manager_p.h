@@ -37,7 +37,7 @@ public:
     static QVariantMap retrieveInitialProperties(const QString &interfaceName, const QString &path);
 
     NetworkManagerPrivate();
-    ~NetworkManagerPrivate();
+    ~NetworkManagerPrivate() override;
     QDBusServiceWatcher watcher;
     OrgFreedesktopNetworkManagerInterface iface;
     NetworkManager::Status nmState;

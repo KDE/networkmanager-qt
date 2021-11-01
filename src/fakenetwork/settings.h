@@ -21,7 +21,7 @@ class Settings : public QObject
     Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Settings")
 public:
     explicit Settings(QObject *parent = nullptr);
-    virtual ~Settings();
+    ~Settings() override;
 
     Q_PROPERTY(bool CanModify READ canModify)
     Q_PROPERTY(QList<QDBusObjectPath> Connections READ connections)

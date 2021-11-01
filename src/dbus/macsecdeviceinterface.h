@@ -42,7 +42,7 @@ public:
                                                       const QDBusConnection &connection,
                                                       QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceMacsecInterface();
+    ~OrgFreedesktopNetworkManagerDeviceMacsecInterface() override;
 
     Q_PROPERTY(qulonglong CipherSuite READ cipherSuite)
     inline qulonglong cipherSuite() const

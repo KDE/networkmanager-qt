@@ -37,7 +37,7 @@ public:
      * Constructs a connection object for the given path
      */
     explicit Connection(const QString &path, QObject *parent = nullptr);
-    ~Connection();
+    ~Connection() override;
 
     /**
      * Returns if this connection is valid

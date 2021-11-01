@@ -21,7 +21,7 @@ class GreDevicePrivate : public DevicePrivate
     Q_OBJECT
 public:
     GreDevicePrivate(const QString &path, GreDevice *q);
-    virtual ~GreDevicePrivate();
+    ~GreDevicePrivate() override;
 
     OrgFreedesktopNetworkManagerDeviceGreInterface iface;
     ushort inputFlags;

@@ -17,7 +17,7 @@ class WiredDevicePrivate : public DevicePrivate
     Q_OBJECT
 public:
     explicit WiredDevicePrivate(const QString &path, WiredDevice *q);
-    virtual ~WiredDevicePrivate();
+    ~WiredDevicePrivate() override;
     OrgFreedesktopNetworkManagerDeviceWiredInterface wiredIface;
     QString hardwareAddress;
     QString permanentHardwareAddress;

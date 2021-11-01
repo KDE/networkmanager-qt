@@ -29,7 +29,7 @@ public:
     typedef QList<Ptr> List;
 
     explicit Dhcp6Config(const QString &path, QObject *owner = nullptr);
-    ~Dhcp6Config();
+    ~Dhcp6Config() override;
 
     QString path() const;
 

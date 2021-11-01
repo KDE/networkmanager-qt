@@ -41,7 +41,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerVPNPluginInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerVPNPluginInterface();
+    ~OrgFreedesktopNetworkManagerVPNPluginInterface() override;
 
     Q_PROPERTY(uint State READ state)
     inline uint state() const

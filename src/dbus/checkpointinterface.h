@@ -40,7 +40,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerCheckpointInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerCheckpointInterface();
+    ~OrgFreedesktopNetworkManagerCheckpointInterface() override;
 
     Q_PROPERTY(qlonglong Created READ created)
     inline qlonglong created() const

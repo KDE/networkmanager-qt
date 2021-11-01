@@ -20,7 +20,7 @@ class Device : public QObject
     Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Device")
 public:
     explicit Device(QObject *parent = nullptr);
-    virtual ~Device();
+    ~Device() override;
 
     Q_PROPERTY(QDBusObjectPath ActiveConnection READ activeConnection)
     Q_PROPERTY(bool Autoconnect READ autoconnect WRITE setAutoconnect)

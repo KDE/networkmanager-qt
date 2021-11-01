@@ -39,7 +39,7 @@ public:
 public:
     OrgFreedesktopNetworkManagerDeviceModemInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
-    ~OrgFreedesktopNetworkManagerDeviceModemInterface();
+    ~OrgFreedesktopNetworkManagerDeviceModemInterface() override;
 
     Q_PROPERTY(uint CurrentCapabilities READ currentCapabilities)
     inline uint currentCapabilities() const

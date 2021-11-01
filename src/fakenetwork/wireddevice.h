@@ -22,7 +22,7 @@ class WiredDevice : public Device
     Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Device.Wired")
 public:
     explicit WiredDevice(QObject *parent = nullptr);
-    virtual ~WiredDevice();
+    ~WiredDevice() override;
 
     Q_PROPERTY(bool Carrier READ carrier)
     Q_PROPERTY(QString HwAddress READ hwAddress)

@@ -37,7 +37,7 @@ public:
     };
 
     explicit WimaxNsp(const QString &path, QObject *parent = nullptr);
-    virtual ~WimaxNsp();
+    ~WimaxNsp() override;
 
     QString uni() const;
     /**

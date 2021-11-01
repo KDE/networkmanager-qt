@@ -69,7 +69,7 @@ public:
     /**
      * Destroys a VpnConnection object.
      */
-    virtual ~VpnConnection();
+    ~VpnConnection() override;
     /**
      * Return the current login banner
      */
