@@ -1,6 +1,6 @@
 macro(NETWORKMANAGERQT_AUTOTESTS)
     foreach(_testname ${ARGN})
-        ecm_add_test(${_testname}.cpp LINK_LIBRARIES Qt5::Test KF5NetworkManagerQt_static)
+        ecm_add_test(${_testname}.cpp LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF5NetworkManagerQt_static)
     endforeach(_testname)
 endmacro(NETWORKMANAGERQT_AUTOTESTS)
 

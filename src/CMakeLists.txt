@@ -150,11 +150,11 @@ add_library(KF5NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${NetworkMa
 generate_export_header(KF5NetworkManagerQt EXPORT_FILE_NAME ${NetworkManagerQt_BINARY_DIR}/networkmanagerqt/networkmanagerqt_export.h BASE_NAME NetworkManagerQt)
 add_library(KF5::NetworkManagerQt ALIAS KF5NetworkManagerQt)
 
-target_include_directories(KF5NetworkManagerQt INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/NetworkManagerQt>")
+target_include_directories(KF5NetworkManagerQt INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/NetworkManagerQt>")
 # for examples to build
 target_include_directories(KF5NetworkManagerQt PUBLIC "$<BUILD_INTERFACE:${NetworkManagerQt_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}/settings;${CMAKE_CURRENT_BINARY_DIR}>")
 
-target_link_libraries(KF5NetworkManagerQt PUBLIC Qt5::Core Qt5::Network Qt5::DBus PkgConfig::NetworkManager PkgConfig::Gio)
+target_link_libraries(KF5NetworkManagerQt PUBLIC Qt${QT_MAJOR_VERSION}::Core Qt${QT_MAJOR_VERSION}::Network Qt${QT_MAJOR_VERSION}::DBus PkgConfig::NetworkManager PkgConfig::Gio)
 
 set_target_properties(KF5NetworkManagerQt PROPERTIES VERSION ${NETWORKMANAGERQT_VERSION}
                                                    SOVERSION ${NETWORKMANAGERQT_SOVERSION}
@@ -165,7 +165,7 @@ set_target_properties(KF5NetworkManagerQt PROPERTIES VERSION ${NETWORKMANAGERQT_
 add_library(KF5NetworkManagerQt_static STATIC ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
 set_target_properties(KF5NetworkManagerQt_static PROPERTIES COMPILE_FLAGS -DNMQT_STATIC=1)
 
-target_link_libraries(KF5NetworkManagerQt_static PUBLIC Qt5::Core Qt5::Network Qt5::DBus PkgConfig::NetworkManager PkgConfig::Gio)
+target_link_libraries(KF5NetworkManagerQt_static PUBLIC Qt${QT_MAJOR_VERSION}::Core Qt${QT_MAJOR_VERSION}::Network Qt${QT_MAJOR_VERSION}::DBus PkgConfig::NetworkManager PkgConfig::Gio)
 target_include_directories(KF5NetworkManagerQt_static PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..;${CMAKE_CURRENT_BINARY_DIR}/..>")
 
 ecm_generate_headers(NetworkManagerQt_CamelCase_HEADERS
@@ -256,14 +256,14 @@ install(TARGETS KF5NetworkManagerQt EXPORT KF5NetworkManagerQtTargets ${KF5_INST
 install(FILES
   ${NetworkManagerQt_CamelCase_HEADERS}
   ${NetworkManagerQt_SETTINGS_CamelCase_HEADERS}
-  DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/NetworkManagerQt/NetworkManagerQt COMPONENT Devel
+  DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/NetworkManagerQt/NetworkManagerQt COMPONENT Devel
 )
 
 install(FILES
   ${NetworkManagerQt_BINARY_DIR}/networkmanagerqt/networkmanagerqt_export.h
   ${NetworkManagerQt_HEADERS}
   ${NetworkManagerQt_SETTINGS_HEADERS}
-  DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/NetworkManagerQt/networkmanagerqt COMPONENT Devel
+  DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/NetworkManagerQt/networkmanagerqt COMPONENT Devel
 )
 
 ecm_qt_install_logging_categories(
