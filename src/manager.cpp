@@ -194,9 +194,11 @@ int NetworkManager::NetworkManagerPrivate::compareVersion(const QString &version
     int x;
     int y;
     int z;
-
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     const auto sl = QStringView(version).split('.');
-
+#else
+    const auto sl = version.splitRef('.');
+#endif
     if (sl.size() > 2) {
         x = sl[0].toInt();
         y = sl[1].toInt();
