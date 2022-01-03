@@ -32,6 +32,7 @@ public:
         WpaPsk,
         WpaEap,
         SAE,
+        WpaEapSuiteB192,
     };
     enum AuthAlg {
         None,
@@ -53,6 +54,12 @@ public:
         NotSpecified,
         Hex,
         Passphrase,
+    };
+    enum Pmf {
+        DefaultPmf,
+        DisablePmf,
+        OptionalPmf,
+        RequiredPmf,
     };
 
     WirelessSecuritySetting();
@@ -111,6 +118,9 @@ public:
 
     void setLeapPasswordFlags(SecretFlags type);
     SecretFlags leapPasswordFlags() const;
+
+    void setPmf(Pmf pmf);
+    Pmf pmf() const;
 
     void secretsFromMap(const QVariantMap &secrets) override;
 

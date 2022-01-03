@@ -12,6 +12,10 @@
 
 #include <QTest>
 
+#if !NM_CHECK_VERSION(1, 10, 0)
+#define NM_SETTING_WIRELESS_SECURITY_PMF "pmf"
+#endif
+
 void WirelessSecuritySettingTest::testSetting_data()
 {
     QTest::addColumn<QString>("keyMgmt");
@@ -31,6 +35,7 @@ void WirelessSecuritySettingTest::testSetting_data()
     QTest::addColumn<quint32>("pskFlags");
     QTest::addColumn<QString>("leapPassword");
     QTest::addColumn<quint32>("leapPasswordFlags");
+    QTest::addColumn<quint32>("pmf");
 
     QStringList proto;
     proto << "wpa";
@@ -60,7 +65,8 @@ void WirelessSecuritySettingTest::testSetting_data()
                               << QString("12345678") // psk
                               << (quint32)2 // pskFlags
                               << QString("leappass") // leapPassword
-                              << (quint32)4; // leapPasswordFlags
+                              << (quint32)4 // leapPasswordFlags
+                              << (quint32)3; // pmf
 }
 
 void WirelessSecuritySettingTest::testSetting()
@@ -82,6 +88,7 @@ void WirelessSecuritySettingTest::testSetting()
     QFETCH(quint32, pskFlags);
     QFETCH(QString, leapPassword);
     QFETCH(quint32, leapPasswordFlags);
+    QFETCH(quint32, pmf);
 
     QVariantMap map;
 
@@ -102,6 +109,7 @@ void WirelessSecuritySettingTest::testSetting()
     map.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PSK_FLAGS), pskFlags);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD), leapPassword);
     map.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS), leapPasswordFlags);
+    map.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PMF), pmf);
 
     NetworkManager::WirelessSecuritySetting setting;
     setting.fromMap(map);

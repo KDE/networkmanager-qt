@@ -61,6 +61,7 @@ public:
         KeyMgmtPsk = 0x100,
         KeyMgmt8021x = 0x200,
         KeyMgmtSAE = 0x400,
+        KeyMgmtEapSuiteB192 = 0x2000,
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
     Q_FLAG(Capabilities)

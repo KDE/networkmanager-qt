@@ -28,6 +28,7 @@ enum WirelessSecurityType {
     Wpa2Psk,
     Wpa2Eap,
     SAE,
+    Wpa3SuiteB192,
 };
 
 /**

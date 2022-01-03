@@ -35,6 +35,7 @@ public:
     NetworkManager::Setting::SecretFlags pskFlags;
     QString leapPassword;
     NetworkManager::Setting::SecretFlags leapPasswordFlags;
+    NetworkManager::WirelessSecuritySetting::Pmf pmf;
 };
 
 }

@@ -9,6 +9,10 @@
 
 #include <QDebug>
 
+#if !NM_CHECK_VERSION(1, 10, 0)
+#define NM_SETTING_WIRELESS_SECURITY_PMF "pmf"
+#endif
+
 NetworkManager::WirelessSecuritySettingPrivate::WirelessSecuritySettingPrivate()
     : name(NM_SETTING_WIRELESS_SECURITY_SETTING_NAME)
     , keyMgmt(NetworkManager::WirelessSecuritySetting::Unknown)
@@ -18,6 +22,7 @@ NetworkManager::WirelessSecuritySettingPrivate::WirelessSecuritySettingPrivate()
     , wepKeyType(NetworkManager::WirelessSecuritySetting::NotSpecified)
     , pskFlags(NetworkManager::Setting::None)
     , leapPasswordFlags(NetworkManager::Setting::None)
+    , pmf(NetworkManager::WirelessSecuritySetting::DefaultPmf)
 {
 }
 
@@ -47,6 +52,7 @@ NetworkManager::WirelessSecuritySetting::WirelessSecuritySetting(const Ptr &othe
     setPskFlags(other->pskFlags());
     setLeapPassword(other->leapPassword());
     setLeapPasswordFlags(other->leapPasswordFlags());
+    setPmf(other->pmf());
 }
 
 NetworkManager::WirelessSecuritySetting::~WirelessSecuritySetting()
@@ -299,6 +305,20 @@ NetworkManager::Setting::SecretFlags NetworkManager::WirelessSecuritySetting::le
     return d->leapPasswordFlags;
 }
 
+void NetworkManager::WirelessSecuritySetting::setPmf(NetworkManager::WirelessSecuritySetting::Pmf pmf)
+{
+    Q_D(WirelessSecuritySetting);
+
+    d->pmf = pmf;
+}
+
+NetworkManager::WirelessSecuritySetting::Pmf NetworkManager::WirelessSecuritySetting::pmf() const
+{
+    Q_D(const WirelessSecuritySetting);
+
+    return d->pmf;
+}
+
 void NetworkManager::WirelessSecuritySetting::secretsFromMap(const QVariantMap &secrets)
 {
     if (secrets.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_WEP_KEY0))) {
@@ -429,6 +449,8 @@ void NetworkManager::WirelessSecuritySetting::fromMap(const QVariantMap &map)
             setKeyMgmt(WpaEap);
         } else if (key == "sae") {
             setKeyMgmt(SAE);
+        } else if (key == "wpa-eap-suite-b-192") {
+            setKeyMgmt(WpaEapSuiteB192);
         }
     }
 
@@ -543,6 +565,10 @@ void NetworkManager::WirelessSecuritySetting::fromMap(const QVariantMap &map)
     if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS))) {
         setLeapPasswordFlags((SecretFlags)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS)).toInt());
     }
+
+    if (map.contains(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PMF))) {
+        setPmf((Pmf)map.value(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PMF)).toInt());
+    }
 }
 
 QVariantMap NetworkManager::WirelessSecuritySetting::toMap() const
@@ -561,6 +587,8 @@ QVariantMap NetworkManager::WirelessSecuritySetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT), "wpa-eap");
     } else if (keyMgmt() == SAE) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT), "sae");
+    } else if (keyMgmt() == WpaEapSuiteB192) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT), "wpa-eap-suite-b-192");
     }
 
     if (wepTxKeyindex()) {
@@ -674,6 +702,10 @@ QVariantMap NetworkManager::WirelessSecuritySetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS), (int)leapPasswordFlags());
     }
 
+    if (pmf()) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_PMF), (int)pmf());
+    }
+
     return setting;
 }
 
@@ -699,6 +731,7 @@ QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::WirelessSecu
     dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_PSK_FLAGS << ": " << setting.pskFlags() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD << ": " << setting.leapPassword() << '\n';
     dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_LEAP_PASSWORD_FLAGS << ": " << setting.leapPasswordFlags() << '\n';
+    dbg.nospace() << NM_SETTING_WIRELESS_SECURITY_PMF << ": " << setting.pmf() << '\n';
 
     return dbg.maybeSpace();
 }

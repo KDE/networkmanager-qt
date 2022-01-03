@@ -363,6 +363,17 @@ bool NetworkManager::securityIsValid(WirelessSecurityType type,
             return false;
         }
         break;
+    case Wpa3SuiteB192:
+        if (adhoc) {
+            return false;
+        }
+        if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::Rsn)) {
+            return false;
+        }
+        if (haveAp && !apRsn.testFlag(NetworkManager::AccessPoint::KeyMgmtEapSuiteB192)) {
+            return false;
+        }
+        break;
     default:
         good = false;
         break;
@@ -382,7 +393,8 @@ NetworkManager::WirelessSecurityType NetworkManager::findBestWirelessSecurity(Ne
     // Therefore static WEP is before LEAP and Dynamic WEP because there is no way to detect
     // if an AP is capable of Dynamic WEP and showing Dynamic WEP first would confuse
     // Static WEP users.
-    const QList<NetworkManager::WirelessSecurityType> types = {NetworkManager::SAE,
+    const QList<NetworkManager::WirelessSecurityType> types = {NetworkManager::Wpa3SuiteB192,
+                                                               NetworkManager::SAE,
                                                                NetworkManager::Wpa2Eap,
                                                                NetworkManager::Wpa2Psk,
                                                                NetworkManager::WpaEap,
@@ -488,6 +500,8 @@ NetworkManager::WirelessSecurityType NetworkManager::securityTypeFromConnectionS
         return Wpa2Eap;
     } else if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::SAE) {
         return SAE;
+    } else if (wifiSecuritySetting->keyMgmt() == WirelessSecuritySetting::WpaEapSuiteB192) {
+        return Wpa3SuiteB192;
     }
 
     return NoneSecurity;
