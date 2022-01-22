@@ -163,9 +163,9 @@ QVariantMap NetworkManager::SerialSetting::toMap() const
 
     if (parity() != NoParity) {
         if (parity() == EvenParity) {
-            setting.insert(QLatin1String(NM_SETTING_SERIAL_PARITY), 'E');
+            setting.insert(QLatin1String(NM_SETTING_SERIAL_PARITY), QChar('E'));
         } else if (parity() == OddParity) {
-            setting.insert(QLatin1String(NM_SETTING_SERIAL_PARITY), 'o');
+            setting.insert(QLatin1String(NM_SETTING_SERIAL_PARITY), QChar('o'));
         }
     }
 
