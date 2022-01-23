@@ -10,6 +10,7 @@
 #include "wirelessdevice.h"
 
 #include <QDBusConnection>
+#include <QDBusMetaType>
 #include <QTimer>
 
 #include "../manager.h"
@@ -33,6 +34,7 @@ FakeNetwork::FakeNetwork(QObject *parent)
     , m_deviceCounter(0)
     , m_settings(new Settings(this))
 {
+    qDBusRegisterMetaType<QDBusObjectPath>();
     registerService();
     connect(m_settings, &Settings::connectionAdded, this, &FakeNetwork::onConnectionAdded);
     connect(m_settings, &Settings::connectionRemoved, this, &FakeNetwork::onConnectionRemoved);
