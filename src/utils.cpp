@@ -28,8 +28,9 @@ QByteArray NetworkManager::ipv6AddressFromHostAddress(const QHostAddress &addres
     //     Q_ASSERT(address.protocol() == QAbstractSocket::IPv6Protocol);
     Q_IPV6ADDR tmp = address.toIPv6Address();
     QByteArray assembledAddress;
+    assembledAddress.reserve(16);
     for (int i = 0; i < 16; ++i) {
-        assembledAddress[i] = tmp[i];
+        assembledAddress.push_back(tmp[i]);
     }
 
     return assembledAddress;
