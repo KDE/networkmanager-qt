@@ -45,12 +45,6 @@ public:
     Q_DECLARE_PUBLIC(ActiveConnection)
     ActiveConnection *q_ptr;
 
-    /*
-     * Workaround: Re-check connection state before we watch changes in case it gets changed too quickly
-     * BUG:352326
-     */
-    void recheckProperties();
-
 public:
     /**
      * When subclassing make sure to call the parent class method

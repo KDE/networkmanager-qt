@@ -51,12 +51,6 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject 
 {
     Q_D(ActiveConnection);
 
-    // Get all ActiveConnection's at once
-    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
-    if (!initialProperties.isEmpty()) {
-        d->propertiesChanged(initialProperties);
-    }
-
 #ifndef NMQT_STATIC
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
                                          d->path,
@@ -77,13 +71,11 @@ NetworkManager::ActiveConnection::ActiveConnection(const QString &path, QObject 
     connect(&d->iface, &OrgFreedesktopNetworkManagerConnectionActiveInterface::StateChanged, d, &ActiveConnectionPrivate::stateChanged);
 #endif
 
-#ifndef NMQT_STATIC
-    /*
-     * Workaround: Re-check connection state before we watch changes in case it gets changed too quickly
-     * BUG:352326
-     */
-    d->recheckProperties();
-#endif
+    // Get all ActiveConnection's at once
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
 }
 
 NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, QObject *parent)
@@ -110,14 +102,6 @@ NetworkManager::ActiveConnection::ActiveConnection(ActiveConnectionPrivate &dd, 
 #ifdef NMQT_STATIC
     connect(&d->iface, &OrgFreedesktopNetworkManagerConnectionActiveInterface::PropertiesChanged, d, &ActiveConnectionPrivate::propertiesChanged);
     connect(&d->iface, &OrgFreedesktopNetworkManagerConnectionActiveInterface::StateChanged, d, &ActiveConnectionPrivate::stateChanged);
-#endif
-
-#ifndef NMQT_STATIC
-    /*
-     * Workaround: Re-check connection state before we watch changes in case it gets changed too quickly
-     * BUG:352326
-     */
-    d->recheckProperties();
 #endif
 }
 
@@ -238,73 +222,6 @@ QStringList NetworkManager::ActiveConnection::devices() const
 {
     Q_D(const ActiveConnection);
     return d->devices;
-}
-
-void NetworkManager::ActiveConnectionPrivate::recheckProperties()
-{
-    Q_Q(ActiveConnection);
-
-    /*
-     * Workaround: Re-check connection state before we watch changes in case it gets changed too quickly
-     * BUG:352326
-     */
-    QStringList properties;
-    const QDBusObjectPath ip4ConfigObjectPath = iface.ip4Config();
-    const QDBusObjectPath ip6ConfigObjectPath = iface.ip6Config();
-    const QDBusObjectPath dhcp4ConfigObjectPath = iface.dhcp4Config();
-    const QDBusObjectPath dhcp6ConfigObjectPath = iface.dhcp6Config();
-
-    if (state != NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(iface.state())) {
-        properties << QLatin1String("State");
-    }
-
-    if (!ip4ConfigObjectPath.path().isNull() && ip4ConfigObjectPath.path() != ipV4ConfigPath) {
-        properties << QLatin1String("Ip4Config");
-    }
-
-    if (!ip6ConfigObjectPath.path().isNull() && ip6ConfigObjectPath.path() != ipV6ConfigPath) {
-        properties << QLatin1String("Ip6Config");
-    }
-
-    if (!dhcp4ConfigObjectPath.path().isNull() && dhcp4ConfigObjectPath.path() != dhcp4ConfigPath) {
-        properties << QLatin1String("Dhcp4Config");
-    }
-
-    if (!dhcp6ConfigObjectPath.path().isNull() && dhcp6ConfigObjectPath.path() != dhcp6ConfigPath) {
-        properties << QLatin1String("Dhcp6Config");
-    }
-
-    for (const QString &property : std::as_const(properties)) {
-        QDBusMessage message = QDBusMessage::createMethodCall(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE,
-                                                              NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH,
-                                                              NetworkManager::NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                                              QLatin1String("Get"));
-        message << iface.staticInterfaceName() << property;
-
-        QDBusPendingCall pendingCall = QDBusConnection::systemBus().asyncCall(message);
-        QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(pendingCall, this);
-
-        connect(watcher, &QDBusPendingCallWatcher::finished, [watcher, q, this, property]() {
-            watcher->deleteLater();
-            if (property == QLatin1String("State")) {
-                state = NetworkManager::ActiveConnectionPrivate::convertActiveConnectionState(iface.state());
-                Q_EMIT q->stateChanged(state);
-            }
-            if (property == QLatin1String("Ip4Config")) {
-                ipV4ConfigPath = iface.ip4Config().path();
-                Q_EMIT q->ipV4ConfigChanged();
-            } else if (property == QLatin1String("Ip6Config")) {
-                ipV6ConfigPath = iface.ip6Config().path();
-                Q_EMIT q->ipV6ConfigChanged();
-            } else if (property == QLatin1String("Dhcp4Config")) {
-                dhcp4ConfigPath = iface.dhcp4Config().path();
-                Q_EMIT q->dhcp4ConfigChanged();
-            } else if (property == QLatin1String("Dhcp6Config")) {
-                dhcp6ConfigPath = iface.dhcp6Config().path();
-                Q_EMIT q->dhcp6ConfigChanged();
-            }
-        });
-    }
 }
 
 void NetworkManager::ActiveConnectionPrivate::dbusPropertiesChanged(const QString &interfaceName,
