@@ -48,10 +48,10 @@ NetworkManager::WimaxNsp::WimaxNsp(const QString &path, QObject *parent)
     Q_D(WimaxNsp);
     d->uni = path;
     if (d->iface.isValid()) {
+        connect(&d->iface, &OrgFreedesktopNetworkManagerWiMaxNspInterface::PropertiesChanged, d, &WimaxNspPrivate::propertiesChanged);
         d->networkType = convertNetworkType(d->iface.networkType());
         d->name = d->iface.name();
         d->signalQuality = d->iface.signalQuality();
-        connect(&d->iface, &OrgFreedesktopNetworkManagerWiMaxNspInterface::PropertiesChanged, d, &WimaxNspPrivate::propertiesChanged);
     }
 }
 

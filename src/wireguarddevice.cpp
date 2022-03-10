@@ -33,13 +33,6 @@ NetworkManager::WireGuardDevice::WireGuardDevice(const QString &path, QObject *p
     if (!initialProperties.isEmpty()) {
         d->propertiesChanged(initialProperties);
     }
-
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
-                                         d->uni,
-                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"),
-                                         d,
-                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::WireGuardDevice::~WireGuardDevice()

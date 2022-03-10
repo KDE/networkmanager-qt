@@ -32,19 +32,13 @@ NetworkManager::WimaxDevice::WimaxDevice(const QString &path, QObject *parent)
 {
     Q_D(WimaxDevice);
 
+    connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspAdded, d, &WimaxDevicePrivate::nspAdded);
+    connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspRemoved, d, &WimaxDevicePrivate::nspRemoved);
+
     QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->wimaxIface.staticInterfaceName(), path);
     if (!initialProperties.isEmpty()) {
         d->propertiesChanged(initialProperties);
     }
-
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
-                                         d->uni,
-                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"),
-                                         d,
-                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
-    connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspAdded, d, &WimaxDevicePrivate::nspAdded);
-    connect(&d->wimaxIface, &OrgFreedesktopNetworkManagerDeviceWiMaxInterface::NspRemoved, d, &WimaxDevicePrivate::nspRemoved);
 }
 
 NetworkManager::WimaxDevice::~WimaxDevice()

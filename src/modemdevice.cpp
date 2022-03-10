@@ -37,13 +37,6 @@ NetworkManager::ModemDevice::ModemDevice(const QString &path, QObject *parent)
     if (!initialProperties.isEmpty()) {
         d->propertiesChanged(initialProperties);
     }
-
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
-                                         d->uni,
-                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"),
-                                         d,
-                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd, QObject *parent)

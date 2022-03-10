@@ -31,13 +31,6 @@ NetworkManager::GenericDevice::GenericDevice(const QString &path, QObject *paren
     if (!initialProperties.isEmpty()) {
         d->propertiesChanged(initialProperties);
     }
-
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
-                                         d->uni,
-                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"),
-                                         d,
-                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::GenericDevice::~GenericDevice()

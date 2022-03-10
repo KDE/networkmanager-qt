@@ -32,12 +32,6 @@ NetworkManager::IpTunnelDevice::IpTunnelDevice(const QString &path, QObject *par
         d->propertiesChanged(initialProperties);
     }
 
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
-                                         d->uni,
-                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"),
-                                         d,
-                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::IpTunnelDevice::~IpTunnelDevice()

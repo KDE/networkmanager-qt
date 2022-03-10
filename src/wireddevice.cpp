@@ -32,25 +32,16 @@ NetworkManager::WiredDevice::WiredDevice(const QString &path, QObject *parent)
     : Device(*new NetworkManager::WiredDevicePrivate(path, this), parent)
 {
     Q_D(WiredDevice);
-
+#ifdef NMQT_STATIC
+    connect(&d->wiredIface, &OrgFreedesktopNetworkManagerDeviceWiredInterface::PropertiesChanged, d, &WiredDevicePrivate::propertiesChanged);
+#endif
     // Get all WiredDevices's properties at once
     QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->wiredIface.staticInterfaceName(), path);
     if (!initialProperties.isEmpty()) {
         d->propertiesChanged(initialProperties);
     }
 
-#ifndef NMQT_STATIC
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
-                                         d->uni,
-                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"),
-                                         d,
-                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
-#endif
 
-#ifdef NMQT_STATIC
-    connect(&d->wiredIface, &OrgFreedesktopNetworkManagerDeviceWiredInterface::PropertiesChanged, d, &WiredDevicePrivate::propertiesChanged);
-#endif
 }
 
 NetworkManager::WiredDevice::~WiredDevice()

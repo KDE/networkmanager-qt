@@ -37,6 +37,14 @@ NetworkManager::VpnConnection::VpnConnection(const QString &path, QObject *paren
 {
     Q_D(VpnConnection);
 
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         d->path,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         d,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
+    connect(&d->iface, &OrgFreedesktopNetworkManagerVPNConnectionInterface::VpnStateChanged, d, &VpnConnectionPrivate::vpnStateChanged);
+
     // We need to get ActiveConnection's properties, because by default every ActiveConnection
     // is basically a VpnConnection
     QVariantMap initialProperties =
@@ -53,14 +61,6 @@ NetworkManager::VpnConnection::VpnConnection(const QString &path, QObject *paren
             d->propertiesChanged(initialProperties);
         }
     }
-
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
-                                         d->path,
-                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"),
-                                         d,
-                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
-    connect(&d->iface, &OrgFreedesktopNetworkManagerVPNConnectionInterface::VpnStateChanged, d, &VpnConnectionPrivate::vpnStateChanged);
 }
 
 NetworkManager::VpnConnection::~VpnConnection()

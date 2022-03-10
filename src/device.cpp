@@ -106,6 +106,14 @@ void NetworkManager::DevicePrivate::init()
     qDBusRegisterMetaType<IpV6DBusRouteList>();
     qDBusRegisterMetaType<DeviceDBusStateReason>();
 
+    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                                         uni,
+                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                         QLatin1String("PropertiesChanged"),
+                                         this,
+                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
+    QObject::connect(&deviceIface, &OrgFreedesktopNetworkManagerDeviceInterface::StateChanged, this, &DevicePrivate::deviceStateChanged);
+
 
     deviceStatistics = DeviceStatistics::Ptr(new NetworkManager::DeviceStatistics(uni), &QObject::deleteLater);
 
@@ -115,7 +123,6 @@ void NetworkManager::DevicePrivate::init()
         propertiesChanged(initialProperties);
     }
 
-    QObject::connect(&deviceIface, &OrgFreedesktopNetworkManagerDeviceInterface::StateChanged, this, &DevicePrivate::deviceStateChanged);
 }
 
 NetworkManager::Device::MeteredStatus NetworkManager::DevicePrivate::convertMeteredStatus(uint metered)

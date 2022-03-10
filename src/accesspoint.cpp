@@ -52,18 +52,18 @@ NetworkManager::AccessPoint::AccessPoint(const QString &path, QObject *parent)
 {
     Q_D(AccessPoint);
 
-    // Get all AccessPoint's properties at once
-    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
-    if (!initialProperties.isEmpty()) {
-        d->propertiesChanged(initialProperties);
-    }
-
     QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
                                          d->uni,
                                          NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
                                          QLatin1String("PropertiesChanged"),
                                          d,
                                          SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
+
+    // Get all AccessPoint's properties at once
+    QVariantMap initialProperties = NetworkManagerPrivate::retrieveInitialProperties(d->iface.staticInterfaceName(), path);
+    if (!initialProperties.isEmpty()) {
+        d->propertiesChanged(initialProperties);
+    }
 }
 
 NetworkManager::AccessPoint::~AccessPoint()

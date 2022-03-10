@@ -36,6 +36,13 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
 
     qDBusRegisterMetaType<QList<QDBusObjectPath>>();
 
+#ifdef NMQT_STATIC
+    connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::PropertiesChanged, d, &WirelessDevicePrivate::propertiesChanged);
+#endif
+
+    connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::AccessPointAdded, d, &WirelessDevicePrivate::accessPointAdded);
+    connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::AccessPointRemoved, d, &WirelessDevicePrivate::accessPointRemoved);
+
     const QList<QDBusObjectPath> aps = d->wirelessIface.accessPoints();
     // qCDebug(NMQT) << "AccessPoint list";
     for (const QDBusObjectPath &op : aps) {
@@ -49,21 +56,6 @@ NetworkManager::WirelessDevice::WirelessDevice(const QString &path, QObject *par
         d->propertiesChanged(initialProperties);
     }
 
-#ifndef NMQT_STATIC
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
-                                         d->uni,
-                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"),
-                                         d,
-                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
-#endif
-
-#ifdef NMQT_STATIC
-    connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::PropertiesChanged, d, &WirelessDevicePrivate::propertiesChanged);
-#endif
-
-    connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::AccessPointAdded, d, &WirelessDevicePrivate::accessPointAdded);
-    connect(&d->wirelessIface, &OrgFreedesktopNetworkManagerDeviceWirelessInterface::AccessPointRemoved, d, &WirelessDevicePrivate::accessPointRemoved);
 }
 
 NetworkManager::WirelessDevice::~WirelessDevice()
