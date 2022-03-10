@@ -20,6 +20,8 @@
 #include "bluetoothdevice.h"
 #include "bonddevice.h"
 #include "bridgedevice.h"
+#include "dbus/deviceinterface.h"
+#include "device_p.h"
 #include "genericdevice.h"
 #include "gredevice.h"
 #include "infinibanddevice.h"
@@ -302,73 +304,60 @@ NetworkManager::ActiveConnection::Ptr NetworkManager::NetworkManagerPrivate::fin
 NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetworkInterface(const QString &uni)
 {
     // qCDebug(NMQT);
-    Device::Ptr createdInterface;
-    Device::Ptr device(new Device(uni));
-    switch (device->type()) {
+    auto message = QDBusMessage::createMethodCall(DBUS_SERVICE, uni, FDO_DBUS_PROPERTIES, QStringLiteral("Get"));
+    message.setArguments({QLatin1String(OrgFreedesktopNetworkManagerDeviceInterface::staticInterfaceName()), QStringLiteral("DeviceType")});
+#ifdef NMQT_STATIC
+    auto bus = QDBusConnection::sessionBus();
+#else
+    auto bus = QDBusConnection::systemBus();
+#endif
+    QDBusReply<QVariant> reply = bus.call(message);
+    Device::Type type = reply.isValid() ? NetworkManager::DevicePrivate::convertType(reply.value().toInt()) : Device::UnknownType;
+    switch (type) {
     case Device::Ethernet:
-        createdInterface = Device::Ptr(new NetworkManager::WiredDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::WiredDevice(uni), &QObject::deleteLater);
     case Device::Wifi:
-        createdInterface = Device::Ptr(new NetworkManager::WirelessDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::WirelessDevice(uni), &QObject::deleteLater);
     case Device::Modem:
-        createdInterface = Device::Ptr(new NetworkManager::ModemDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::ModemDevice(uni), &QObject::deleteLater);
     case Device::Bluetooth:
-        createdInterface = Device::Ptr(new NetworkManager::BluetoothDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::BluetoothDevice(uni), &QObject::deleteLater);
     case Device::Wimax:
-        createdInterface = Device::Ptr(new NetworkManager::WimaxDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::WimaxDevice(uni), &QObject::deleteLater);
     case Device::OlpcMesh:
-        createdInterface = Device::Ptr(new NetworkManager::OlpcMeshDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::OlpcMeshDevice(uni), &QObject::deleteLater);
     case Device::InfiniBand:
-        createdInterface = Device::Ptr(new NetworkManager::InfinibandDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::InfinibandDevice(uni), &QObject::deleteLater);
     case Device::Bond:
-        createdInterface = Device::Ptr(new NetworkManager::BondDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::BondDevice(uni), &QObject::deleteLater);
     case Device::Vlan:
-        createdInterface = Device::Ptr(new NetworkManager::VlanDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::VlanDevice(uni), &QObject::deleteLater);
     case Device::Adsl:
-        createdInterface = Device::Ptr(new NetworkManager::AdslDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::AdslDevice(uni), &QObject::deleteLater);
     case Device::Bridge:
-        createdInterface = Device::Ptr(new NetworkManager::BridgeDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::BridgeDevice(uni), &QObject::deleteLater);
     // No need to check checkVersion, because we can't get Generic, Gre, MacVlan, Tun & Veth values in incompatible runtime
     case Device::Generic:
-        createdInterface = Device::Ptr(new NetworkManager::GenericDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::GenericDevice(uni), &QObject::deleteLater);
     case Device::Gre:
-        createdInterface = Device::Ptr(new NetworkManager::GreDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::GreDevice(uni), &QObject::deleteLater);
     case Device::MacVlan:
-        createdInterface = Device::Ptr(new NetworkManager::MacVlanDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::MacVlanDevice(uni), &QObject::deleteLater);
     case Device::Tun:
-        createdInterface = Device::Ptr(new NetworkManager::TunDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::TunDevice(uni), &QObject::deleteLater);
     case Device::Veth:
-        createdInterface = Device::Ptr(new NetworkManager::VethDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::VethDevice(uni), &QObject::deleteLater);
     case Device::IpTunnel:
-        createdInterface = Device::Ptr(new NetworkManager::IpTunnelDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::IpTunnelDevice(uni), &QObject::deleteLater);
     case Device::WireGuard:
-        createdInterface = Device::Ptr(new NetworkManager::WireGuardDevice(uni), &QObject::deleteLater);
-        break;
+        return Device::Ptr(new NetworkManager::WireGuardDevice(uni), &QObject::deleteLater);
     default:
-        createdInterface = device;
         if (uni != QLatin1String("any")) { // VPN connections use "any" as uni for the network interface.
-            qCDebug(NMQT) << "Can't create device of type " << device->type() << "for" << uni;
+            qCDebug(NMQT) << "Can't create device of type" << type << "for" << uni;
         }
-        break;
     }
 
-    return createdInterface;
+    return Device::Ptr(new Device(uni), &QObject::deleteLater);
 }
 
 NetworkManager::Status NetworkManager::NetworkManagerPrivate::status() const
