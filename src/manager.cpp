@@ -82,16 +82,12 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceAdded, this, &NetworkManagerPrivate::onDeviceAdded);
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::DeviceRemoved, this, &NetworkManagerPrivate::onDeviceRemoved);
 
-#ifndef NMQT_STATIC
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
-                                         NetworkManagerPrivate::DBUS_DAEMON_PATH,
-                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"),
-                                         this,
-                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
-#else
-    connect(&iface, &OrgFreedesktopNetworkManagerInterface::PropertiesChanged, this, &NetworkManagerPrivate::propertiesChanged);
-#endif
+    iface.connection().connect(NetworkManagerPrivate::DBUS_SERVICE,
+                               NetworkManagerPrivate::DBUS_DAEMON_PATH,
+                               NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                               QLatin1String("PropertiesChanged"),
+                               this,
+                               SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 
     iface.connection().connect(NetworkManagerPrivate::DBUS_SERVICE,
                                "/org/freedesktop",
@@ -746,7 +742,7 @@ void NetworkManager::NetworkManagerPrivate::dbusPropertiesChanged(const QString 
                                                                   const QStringList &invalidatedProperties)
 {
     Q_UNUSED(invalidatedProperties);
-    if (interfaceName == QLatin1String("org.freedesktop.NetworkManager")) {
+    if (interfaceName == iface.interface()) {
         propertiesChanged(properties);
     }
 }

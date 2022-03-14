@@ -16,6 +16,15 @@
 #include "../manager.h"
 #include "connectionsettings.h"
 
+static void sendPropertiesChanged(const QVariantMap &map,
+                                  const QString &path = QLatin1String("/org/kde/fakenetwork"),
+                                  const QString &interface = QLatin1String("org.kde.fakenetwork"))
+{
+    QDBusMessage message = QDBusMessage::createSignal(path, QLatin1String("org.freedesktop.DBus.Properties"), QLatin1String("PropertiesChanged"));
+    message << interface << map << QStringList{};
+    QDBusConnection::sessionBus().send(message);
+}
+
 FakeNetwork::FakeNetwork(QObject *parent)
     : QObject(parent)
     , m_activatingConnection(QDBusObjectPath("/"))
@@ -38,6 +47,9 @@ FakeNetwork::FakeNetwork(QObject *parent)
     registerService();
     connect(m_settings, &Settings::connectionAdded, this, &FakeNetwork::onConnectionAdded);
     connect(m_settings, &Settings::connectionRemoved, this, &FakeNetwork::onConnectionRemoved);
+    connect(this, &FakeNetwork::PropertiesChanged, this, [](const QVariantMap &map) {
+        sendPropertiesChanged(map);
+    });
 }
 
 FakeNetwork::~FakeNetwork()
@@ -213,6 +225,9 @@ QDBusObjectPath FakeNetwork::ActivateConnection(const QDBusObjectPath &connectio
     newActiveConnection->setConnection(connection);
     newActiveConnection->setSpecificObject(specific_object);
     newActiveConnection->setState(NetworkManager::ActiveConnection::Activating);
+    connect(newActiveConnection, &ActiveConnection::PropertiesChanged, newActiveConnection, [newActiveConnection](const QVariantMap &map) {
+        sendPropertiesChanged(map, newActiveConnection->activeConnectionPath(), QLatin1String("org.kde.fakenetwork.Connection.Active"));
+    });
 
     m_activeConnections.insert(QDBusObjectPath(newActiveConnectionPath), newActiveConnection);
     QDBusConnection::sessionBus().registerObject(newActiveConnectionPath, newActiveConnection, QDBusConnection::ExportScriptableContents);
@@ -258,11 +273,7 @@ void FakeNetwork::updateConnectingState()
             activeConnectionMap.insert(QLatin1String("State"), NetworkManager::ActiveConnection::Activated);
 
             activeConnection->setState(NetworkManager::ActiveConnection::Activated);
-            QDBusMessage message = QDBusMessage::createSignal(activeConnection->activeConnectionPath(),
-                                                              QLatin1String("org.kde.fakenetwork.Connection.Active"),
-                                                              QLatin1String("PropertiesChanged"));
-            message << activeConnectionMap;
-            QDBusConnection::sessionBus().send(message);
+            Q_EMIT activeConnection->PropertiesChanged(activeConnectionMap);
 
             QDBusMessage message2 = QDBusMessage::createSignal(activeConnection->activeConnectionPath(),
                                                                QLatin1String("org.kde.fakenetwork.Connection.Active"),
@@ -291,10 +302,7 @@ void FakeNetwork::updateConnectingState()
         networkMap.insert(QLatin1String("PrimaryConnection"), QVariant::fromValue(m_primaryConnection));
         networkMap.insert(QLatin1String("State"), m_state);
 
-        QDBusMessage message =
-            QDBusMessage::createSignal(QLatin1String("/org/kde/fakenetwork"), QLatin1String("org.kde.fakenetwork"), QLatin1String("PropertiesChanged"));
-        message << networkMap;
-        QDBusConnection::sessionBus().send(message);
+        Q_EMIT PropertiesChanged(networkMap);
 
         Q_EMIT StateChanged(m_state);
     }
@@ -303,6 +311,7 @@ void FakeNetwork::updateConnectingState()
     QDBusMessage message = QDBusMessage::createSignal(device->devicePath(), device->deviceInterface(), QLatin1String("PropertiesChanged"));
     message << deviceMap;
     QDBusConnection::sessionBus().send(message);
+    sendPropertiesChanged(deviceMap, device->devicePath(), device->deviceInterface());
 
     if (device->state() != NetworkManager::Device::Activated) {
         QTimer::singleShot(100, this, SLOT(updateConnectingState()));
@@ -324,11 +333,7 @@ void FakeNetwork::DeactivateConnection(const QDBusObjectPath &active_connection)
         activeConnectionMap.insert(QLatin1String("State"), NetworkManager::ActiveConnection::Deactivating);
 
         activeConnection->setState(NetworkManager::ActiveConnection::Activated);
-        QDBusMessage message = QDBusMessage::createSignal(activeConnection->activeConnectionPath(),
-                                                          QLatin1String("org.kde.fakenetwork.Connection.Active"),
-                                                          QLatin1String("PropertiesChanged"));
-        message << activeConnectionMap;
-        QDBusConnection::sessionBus().send(message);
+        Q_EMIT activeConnection->PropertiesChanged(activeConnectionMap);
 
         QDBusMessage message2 = QDBusMessage::createSignal(activeConnection->activeConnectionPath(),
                                                            QLatin1String("org.kde.fakenetwork.Connection.Active"),
@@ -352,9 +357,7 @@ void FakeNetwork::DeactivateConnection(const QDBusObjectPath &active_connection)
         networkMap.insert(QLatin1String("PrimaryConnection"), QVariant::fromValue(m_primaryConnection));
         networkMap.insert(QLatin1String("State"), m_state);
 
-        message = QDBusMessage::createSignal(QLatin1String("/org/kde/fakenetwork"), QLatin1String("org.kde.fakenetwork"), QLatin1String("PropertiesChanged"));
-        message << networkMap;
-        QDBusConnection::sessionBus().send(message);
+        Q_EMIT PropertiesChanged(networkMap);
 
         Q_EMIT StateChanged(m_state);
     }
@@ -370,11 +373,7 @@ void FakeNetwork::updateDeactivatingState()
         activeConnectionMap.insert(QLatin1String("State"), NetworkManager::ActiveConnection::Deactivated);
 
         activeConnection->setState(NetworkManager::ActiveConnection::Activated);
-        QDBusMessage message = QDBusMessage::createSignal(activeConnection->activeConnectionPath(),
-                                                          QLatin1String("org.kde.fakenetwork.Connection.Active"),
-                                                          QLatin1String("PropertiesChanged"));
-        message << activeConnectionMap;
-        QDBusConnection::sessionBus().send(message);
+        Q_EMIT activeConnection->PropertiesChanged(activeConnectionMap);
 
         QDBusMessage message2 = QDBusMessage::createSignal(activeConnection->activeConnectionPath(),
                                                            QLatin1String("org.kde.fakenetwork.Connection.Active"),
@@ -401,6 +400,7 @@ void FakeNetwork::updateDeactivatingState()
     QDBusMessage message = QDBusMessage::createSignal(device->devicePath(), device->deviceInterface(), QLatin1String("PropertiesChanged"));
     message << deviceMap;
     QDBusConnection::sessionBus().send(message);
+    sendPropertiesChanged(deviceMap, device->devicePath(), device->deviceInterface());
 }
 
 QDBusObjectPath FakeNetwork::GetDeviceByIpIface(const QString &iface)
@@ -443,6 +443,7 @@ void FakeNetwork::onConnectionAdded(const QDBusObjectPath &connection)
                     QDBusMessage::createSignal(selectedDevice->devicePath(), selectedDevice->deviceInterface(), QLatin1String("PropertiesChanged"));
                 message << map;
                 QDBusConnection::sessionBus().send(message);
+                sendPropertiesChanged(map, selectedDevice->devicePath(), selectedDevice->deviceInterface());
             }
         }
     }
@@ -460,6 +461,7 @@ void FakeNetwork::onConnectionRemoved(const QDBusObjectPath &connection)
             QDBusMessage message = QDBusMessage::createSignal(device->devicePath(), device->deviceInterface(), QLatin1String("PropertiesChanged"));
             message << map;
             QDBusConnection::sessionBus().send(message);
+            sendPropertiesChanged(map, device->devicePath(), device->deviceInterface());
         }
     }
 }

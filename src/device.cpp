@@ -600,7 +600,7 @@ void NetworkManager::DevicePrivate::deviceStateChanged(uint newState, uint oldSt
 void NetworkManager::DevicePrivate::dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties)
 {
     Q_UNUSED(invalidatedProperties);
-    if (interfaceName.contains(QLatin1String("org.freedesktop.NetworkManager.Device"))
+    if (interfaceName.contains(QLatin1String(deviceIface.staticInterfaceName()))
         && interfaceName != QLatin1String("org.freedesktop.NetworkManager.Device.Statistics")) {
         propertiesChanged(properties);
     }
