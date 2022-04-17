@@ -17,6 +17,7 @@ NetworkManager::WirelessNetworkPrivate::WirelessNetworkPrivate(WirelessNetwork *
 {
     QObject::connect(device, SIGNAL(accessPointAppeared(QString)), q, SLOT(accessPointAppeared(QString)));
     QObject::connect(device, SIGNAL(accessPointDisappeared(QString)), q, SLOT(accessPointDisappeared(QString)));
+    QObject::connect(device, SIGNAL(activeAccessPointChanged(QString)), q, SLOT(updateStrength()));
 }
 
 NetworkManager::WirelessNetworkPrivate::~WirelessNetworkPrivate()
@@ -57,21 +58,31 @@ void NetworkManager::WirelessNetworkPrivate::updateStrength()
 {
     Q_Q(WirelessNetwork);
 
-    int maximumStrength = -1;
-    NetworkManager::AccessPoint::Ptr strongestAp;
-    for (const NetworkManager::AccessPoint::Ptr &iface : std::as_const(aps)) {
-        if (maximumStrength <= iface->signalStrength()) {
-            maximumStrength = iface->signalStrength();
-            strongestAp = iface;
+    int selectedStrength = -1;
+    NetworkManager::AccessPoint::Ptr selectedAp;
+
+    NetworkManager::AccessPoint::Ptr activeAp = wirelessNetworkInterface->activeAccessPoint();
+    if (activeAp && activeAp->ssid() == ssid) {
+        // If the network has an active access point, use it as the referenceAp
+        selectedStrength = activeAp->signalStrength();
+        selectedAp = activeAp;
+    } else {
+        // Otherwise, choose the access point with the strongest signal
+        for (const NetworkManager::AccessPoint::Ptr &iface : std::as_const(aps)) {
+            if (selectedStrength <= iface->signalStrength()) {
+                selectedStrength = iface->signalStrength();
+                selectedAp = iface;
+            }
         }
     }
-    if (maximumStrength != strength) {
-        strength = maximumStrength;
+
+    if (selectedStrength != strength) {
+        strength = selectedStrength;
         Q_EMIT q->signalStrengthChanged(strength);
     }
 
-    if (strongestAp && referenceAp != strongestAp) {
-        referenceAp = strongestAp;
+    if (selectedAp && referenceAp != selectedAp) {
+        referenceAp = selectedAp;
         Q_EMIT q->referenceAccessPointChanged(referenceAp->uni());
     }
     // TODO: update the networks delayed
