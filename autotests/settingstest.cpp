@@ -23,17 +23,19 @@ void SettingsTest::initTestCase()
 
 void SettingsTest::testConnections()
 {
-    NetworkManager::ConnectionSettings::Ptr connectionSettings =
-        NetworkManager::ConnectionSettings::Ptr(new NetworkManager::ConnectionSettings(NetworkManager::ConnectionSettings::Wired));
+    auto connectionSettings = NetworkManager::ConnectionSettings::Ptr(new NetworkManager::ConnectionSettings(NetworkManager::ConnectionSettings::Wired));
     connectionSettings->setId("Wired connection");
     connectionSettings->setUuid(QLatin1String("39af79a5-b053-4893-9378-7342a5a30d06"));
-    NetworkManager::Ipv4Setting::Ptr ipv4Setting = connectionSettings->setting(NetworkManager::Setting::Ipv4).dynamicCast<NetworkManager::Ipv4Setting>();
+
+    auto ipv4Setting = connectionSettings->setting<NetworkManager::Ipv4Setting>();
     ipv4Setting->setInitialized(true);
     ipv4Setting->setMethod(NetworkManager::Ipv4Setting::Automatic);
-    NetworkManager::Ipv6Setting::Ptr ipv6Setting = connectionSettings->setting(NetworkManager::Setting::Ipv6).dynamicCast<NetworkManager::Ipv6Setting>();
+
+    auto ipv6Setting = connectionSettings->setting<NetworkManager::Ipv6Setting>();
     ipv6Setting->setInitialized(true);
     ipv6Setting->setMethod(NetworkManager::Ipv6Setting::Automatic);
-    NetworkManager::WiredSetting::Ptr wiredSetting = connectionSettings->setting(NetworkManager::Setting::Wired).dynamicCast<NetworkManager::WiredSetting>();
+
+    auto wiredSetting = connectionSettings->setting<NetworkManager::WiredSetting>();
     wiredSetting->setInitialized(true);
     // Something needs to be set to not use default values, when using default values we get an empty map
     wiredSetting->setAutoNegotiate(false);
@@ -65,11 +67,11 @@ void SettingsTest::testConnectionAdded(const QString &connection)
     QCOMPARE(addedConnection->path(), connection);
 
     NetworkManager::ConnectionSettings::Ptr connectionSettings = addedConnection->settings();
-    NetworkManager::Ipv4Setting::Ptr ipv4Setting = connectionSettings->setting(NetworkManager::Setting::Ipv4).dynamicCast<NetworkManager::Ipv4Setting>();
+    auto ipv4Setting = connectionSettings->setting<NetworkManager::Ipv4Setting>();
     QCOMPARE(ipv4Setting->method(), NetworkManager::Ipv4Setting::Automatic);
-    NetworkManager::Ipv6Setting::Ptr ipv6Setting = connectionSettings->setting(NetworkManager::Setting::Ipv6).dynamicCast<NetworkManager::Ipv6Setting>();
+    auto ipv6Setting = connectionSettings->setting<NetworkManager::Ipv6Setting>();
     QCOMPARE(ipv6Setting->method(), NetworkManager::Ipv6Setting::Automatic);
-    NetworkManager::WiredSetting::Ptr wiredSetting = connectionSettings->setting(NetworkManager::Setting::Wired).dynamicCast<NetworkManager::WiredSetting>();
+    auto wiredSetting = connectionSettings->setting<NetworkManager::WiredSetting>();
     QVERIFY(wiredSetting->autoNegotiate() == false);
     QVERIFY(wiredSetting->speed() == 100);
     QVERIFY(wiredSetting->duplexType() == NetworkManager::WiredSetting::Full);
