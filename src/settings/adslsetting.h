@@ -36,6 +36,8 @@ public:
         Llc,
     };
 
+    static const SettingType Type = Setting::SettingType::Adsl;
+
     AdslSetting();
     explicit AdslSetting(const Ptr &other);
     ~AdslSetting() override;

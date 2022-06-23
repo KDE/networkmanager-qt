@@ -26,6 +26,8 @@ public:
     typedef QSharedPointer<WirelessSetting> Ptr;
     typedef QList<Ptr> List;
 
+    static const SettingType Type = Setting::SettingType::Wireless;
+
     enum NetworkMode {
         Infrastructure,
         Adhoc,

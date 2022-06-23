@@ -24,6 +24,9 @@ class NETWORKMANAGERQT_EXPORT WireGuardSetting : public Setting
 public:
     typedef QSharedPointer<WireGuardSetting> Ptr;
     typedef QList<Ptr> List;
+
+    static const SettingType Type = Setting::SettingType::WireGuard;
+
     WireGuardSetting();
     explicit WireGuardSetting(const Ptr &other);
     ~WireGuardSetting() override;

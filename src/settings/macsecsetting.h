@@ -34,6 +34,8 @@ public:
         Strict,
     };
 
+    static const SettingType Type = Setting::SettingType::Macsec;
+
     MacsecSetting();
     explicit MacsecSetting(const Ptr &other);
     ~MacsecSetting() override;

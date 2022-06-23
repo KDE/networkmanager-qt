@@ -25,6 +25,8 @@ public:
     typedef QSharedPointer<OvsBridgeSetting> Ptr;
     typedef QList<Ptr> List;
 
+    static const SettingType Type = Setting::SettingType::OvsBridge;
+
     OvsBridgeSetting();
     explicit OvsBridgeSetting(const Ptr &other);
     ~OvsBridgeSetting() override;

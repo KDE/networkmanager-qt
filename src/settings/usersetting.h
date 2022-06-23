@@ -25,6 +25,8 @@ public:
     typedef QSharedPointer<UserSetting> Ptr;
     typedef QList<Ptr> List;
 
+    static const SettingType Type = Setting::SettingType::User;
+
     UserSetting();
     explicit UserSetting(const Ptr &other);
     ~UserSetting() override;

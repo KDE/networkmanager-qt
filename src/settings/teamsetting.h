@@ -24,6 +24,9 @@ class NETWORKMANAGERQT_EXPORT TeamSetting : public Setting
 public:
     typedef QSharedPointer<TeamSetting> Ptr;
     typedef QList<Ptr> List;
+
+    static const SettingType Type = Setting::SettingType::Team;
+
     TeamSetting();
     explicit TeamSetting(const Ptr &other);
     ~TeamSetting() override;

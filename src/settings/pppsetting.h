@@ -24,6 +24,9 @@ class NETWORKMANAGERQT_EXPORT PppSetting : public Setting
 public:
     typedef QSharedPointer<PppSetting> Ptr;
     typedef QList<Ptr> List;
+
+    static const SettingType Type = Setting::SettingType::Ppp;
+
     PppSetting();
     explicit PppSetting(const Ptr &other);
     ~PppSetting() override;

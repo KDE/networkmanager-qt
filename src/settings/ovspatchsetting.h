@@ -25,6 +25,8 @@ public:
     typedef QSharedPointer<OvsPatchSetting> Ptr;
     typedef QList<Ptr> List;
 
+    static const SettingType Type = Setting::SettingType::OvsPatch;
+
     OvsPatchSetting();
     explicit OvsPatchSetting(const Ptr &other);
     ~OvsPatchSetting() override;

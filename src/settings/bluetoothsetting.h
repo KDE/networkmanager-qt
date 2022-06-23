@@ -30,6 +30,8 @@ public:
         Panu,
     };
 
+    static const SettingType Type = Setting::SettingType::Bluetooth;
+
     BluetoothSetting();
     explicit BluetoothSetting(const Ptr &other);
     ~BluetoothSetting() override;

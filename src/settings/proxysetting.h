@@ -29,6 +29,8 @@ public:
         Auto = 1,
     };
 
+    static const SettingType Type = Setting::SettingType::Proxy;
+
     ProxySetting();
     explicit ProxySetting(const Ptr &other);
     ~ProxySetting() override;

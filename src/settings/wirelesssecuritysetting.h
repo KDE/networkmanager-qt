@@ -62,6 +62,8 @@ public:
         RequiredPmf,
     };
 
+    static const SettingType Type = Setting::SettingType::WirelessSecurity;
+
     WirelessSecuritySetting();
     explicit WirelessSecuritySetting(const Ptr &other);
     ~WirelessSecuritySetting() override;

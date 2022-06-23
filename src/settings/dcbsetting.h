@@ -25,6 +25,8 @@ public:
     typedef QSharedPointer<DcbSetting> Ptr;
     typedef QList<Ptr> List;
 
+    static const SettingType Type = Setting::SettingType::Dcb;
+
     enum DcbFlagType {
         None = 0,
         Enable = 0x01,

@@ -23,6 +23,8 @@ public:
     typedef QSharedPointer<MatchSetting> Ptr;
     typedef QList<Ptr> List;
 
+    static const SettingType Type = Setting::SettingType::Match;
+
     MatchSetting();
     explicit MatchSetting(const Ptr &other);
     ~MatchSetting() override;

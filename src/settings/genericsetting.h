@@ -24,6 +24,9 @@ class NETWORKMANAGERQT_EXPORT GenericSetting : public Setting
 public:
     typedef QSharedPointer<GenericSetting> Ptr;
     typedef QList<Ptr> List;
+
+    static const SettingType Type = Setting::SettingType::Generic;
+
     GenericSetting();
     explicit GenericSetting(const Ptr &other);
     ~GenericSetting() override;

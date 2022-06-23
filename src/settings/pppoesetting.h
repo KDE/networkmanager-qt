@@ -24,6 +24,9 @@ class NETWORKMANAGERQT_EXPORT PppoeSetting : public Setting
 public:
     typedef QSharedPointer<PppoeSetting> Ptr;
     typedef QList<Ptr> List;
+
+    static const SettingType Type = Setting::SettingType::Pppoe;
+
     PppoeSetting();
     explicit PppoeSetting(const Ptr &other);
     ~PppoeSetting() override;

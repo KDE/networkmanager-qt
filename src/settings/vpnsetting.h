@@ -24,6 +24,9 @@ class NETWORKMANAGERQT_EXPORT VpnSetting : public Setting
 public:
     typedef QSharedPointer<VpnSetting> Ptr;
     typedef QList<Ptr> List;
+
+    static const SettingType Type = Setting::SettingType::Vpn;
+
     VpnSetting();
     explicit VpnSetting(const Ptr &other);
     ~VpnSetting() override;

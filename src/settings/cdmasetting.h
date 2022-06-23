@@ -24,6 +24,9 @@ class NETWORKMANAGERQT_EXPORT CdmaSetting : public Setting
 public:
     typedef QSharedPointer<CdmaSetting> Ptr;
     typedef QList<Ptr> List;
+
+    static const SettingType Type = Setting::SettingType::Cdma;
+
     CdmaSetting();
     explicit CdmaSetting(const Ptr &other);
     ~CdmaSetting() override;

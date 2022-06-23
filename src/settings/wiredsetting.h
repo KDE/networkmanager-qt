@@ -59,6 +59,8 @@ public:
     Q_DECLARE_FLAGS(WakeOnLanFlags, WakeOnLanFlag)
     Q_FLAGS(WakeOnLanFlag)
 
+    static const SettingType Type = Setting::SettingType::Wired;
+
     WiredSetting();
     explicit WiredSetting(const Ptr &other);
     ~WiredSetting() override;

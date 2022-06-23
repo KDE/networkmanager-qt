@@ -24,6 +24,9 @@ class NETWORKMANAGERQT_EXPORT OlpcMeshSetting : public Setting
 public:
     typedef QSharedPointer<OlpcMeshSetting> Ptr;
     typedef QList<Ptr> List;
+
+    static const SettingType Type = Setting::SettingType::OlpcMesh;
+
     OlpcMeshSetting();
     explicit OlpcMeshSetting(const Ptr &other);
     ~OlpcMeshSetting() override;

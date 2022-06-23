@@ -25,6 +25,8 @@ public:
     typedef QSharedPointer<OvsInterfaceSetting> Ptr;
     typedef QList<Ptr> List;
 
+    static const SettingType Type = Setting::SettingType::OvsInterface;
+
     OvsInterfaceSetting();
     explicit OvsInterfaceSetting(const Ptr &other);
     ~OvsInterfaceSetting() override;

@@ -91,6 +91,8 @@ public:
         StablePrivacy,
     };
 
+    static const SettingType Type = Setting::SettingType::Ipv6;
+
     Ipv6Setting();
     explicit Ipv6Setting(const Ptr &other);
     ~Ipv6Setting() override;

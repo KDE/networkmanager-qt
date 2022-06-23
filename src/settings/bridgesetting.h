@@ -24,6 +24,9 @@ class NETWORKMANAGERQT_EXPORT BridgeSetting : public Setting
 public:
     typedef QSharedPointer<BridgeSetting> Ptr;
     typedef QList<Ptr> List;
+
+    static const SettingType Type = Setting::SettingType::Bridge;
+
     BridgeSetting();
     explicit BridgeSetting(const Ptr &other);
     ~BridgeSetting() override;

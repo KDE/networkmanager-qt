@@ -24,6 +24,9 @@ class NETWORKMANAGERQT_EXPORT GsmSetting : public Setting
 public:
     typedef QSharedPointer<GsmSetting> Ptr;
     typedef QList<Ptr> List;
+
+    static const SettingType Type = Setting::SettingType::Gsm;
+
     enum NetworkType {
         Any = -1,
         Only3G,

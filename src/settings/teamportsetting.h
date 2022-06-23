@@ -25,6 +25,8 @@ public:
     typedef QSharedPointer<TeamPortSetting> Ptr;
     typedef QList<Ptr> List;
 
+    static const SettingType Type = Setting::SettingType::TeamPort;
+
     TeamPortSetting();
     explicit TeamPortSetting(const Ptr &other);
     ~TeamPortSetting() override;

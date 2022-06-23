@@ -25,6 +25,9 @@ class NETWORKMANAGERQT_EXPORT WimaxSetting : public Setting
 public:
     typedef QSharedPointer<WimaxSetting> Ptr;
     typedef QList<Ptr> List;
+
+    static const SettingType Type = Setting::SettingType::Wimax;
+
     WimaxSetting();
     explicit WimaxSetting(const Ptr &other);
     ~WimaxSetting() override;

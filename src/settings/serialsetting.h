@@ -30,6 +30,8 @@ public:
         OddParity,
     };
 
+    static const SettingType Type = Setting::SettingType::Serial;
+
     SerialSetting();
     explicit SerialSetting(const Ptr &other);
     ~SerialSetting() override;

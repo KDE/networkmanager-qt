@@ -46,6 +46,8 @@ public:
     };
     Q_DECLARE_FLAGS(Flags, Flag)
 
+    static const SettingType Type = Setting::SettingType::IpTunnel;
+
     IpTunnelSetting();
     explicit IpTunnelSetting(const Ptr &other);
     ~IpTunnelSetting() override;

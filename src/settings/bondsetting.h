@@ -24,6 +24,9 @@ class NETWORKMANAGERQT_EXPORT BondSetting : public Setting
 public:
     typedef QSharedPointer<BondSetting> Ptr;
     typedef QList<Ptr> List;
+
+    static const SettingType Type = Setting::SettingType::Bond;
+
     BondSetting();
     explicit BondSetting(const Ptr &other);
     ~BondSetting() override;

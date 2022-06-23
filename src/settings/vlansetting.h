@@ -32,6 +32,8 @@ public:
     };
     Q_DECLARE_FLAGS(Flags, Flag)
 
+    static const SettingType Type = Setting::SettingType::Vlan;
+
     VlanSetting();
     explicit VlanSetting(const Ptr &other);
     ~VlanSetting() override;

@@ -23,6 +23,8 @@ public:
     typedef QSharedPointer<OvsPortSetting> Ptr;
     typedef QList<Ptr> List;
 
+    static const SettingType Type = Setting::SettingType::OvsPort;
+
     OvsPortSetting();
     explicit OvsPortSetting(const Ptr &other);
     ~OvsPortSetting() override;

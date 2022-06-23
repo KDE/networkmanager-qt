@@ -23,6 +23,8 @@ public:
     typedef QSharedPointer<TcSetting> Ptr;
     typedef QList<Ptr> List;
 
+    static const SettingType Type = Setting::SettingType::Tc;
+
     TcSetting();
     explicit TcSetting(const Ptr &other);
     ~TcSetting() override;

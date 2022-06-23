@@ -69,6 +69,8 @@ public:
         AuthEapMethodTls,
     };
 
+    static const SettingType Type = Setting::SettingType::Security8021x;
+
     Security8021xSetting();
     explicit Security8021xSetting(const Ptr &other);
     ~Security8021xSetting() override;

@@ -30,6 +30,8 @@ public:
         Connected,
     };
 
+    static const SettingType Type = Setting::SettingType::Infiniband;
+
     InfinibandSetting();
     explicit InfinibandSetting(const Ptr &other);
     ~InfinibandSetting() override;

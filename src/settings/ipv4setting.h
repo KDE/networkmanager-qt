@@ -62,6 +62,8 @@ public:
         Disabled,
     };
 
+    static const SettingType Type = Setting::SettingType::Ipv4;
+
     Ipv4Setting();
     explicit Ipv4Setting(const Ptr &other);
     ~Ipv4Setting() override;

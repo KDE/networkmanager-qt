@@ -166,6 +166,12 @@ public:
     Setting::Ptr setting(Setting::SettingType type) const;
     Setting::Ptr setting(const QString &type) const;
 
+    template<typename T>
+    inline QSharedPointer<T> setting() const
+    {
+        return setting(T::Type).template staticCast<T>();
+    }
+
     Setting::List settings() const;
 
 protected:

@@ -24,6 +24,9 @@ class NETWORKMANAGERQT_EXPORT VxlanSetting : public Setting
 public:
     typedef QSharedPointer<VxlanSetting> Ptr;
     typedef QList<Ptr> List;
+
+    static const SettingType Type = Setting::SettingType::Vxlan;
+
     VxlanSetting();
     explicit VxlanSetting(const Ptr &other);
     ~VxlanSetting() override;

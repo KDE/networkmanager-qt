@@ -29,6 +29,8 @@ public:
         Tap,
     };
 
+    static const SettingType Type = Setting::SettingType::Tun;
+
     TunSetting();
     explicit TunSetting(const Ptr &other);
     ~TunSetting() override;
