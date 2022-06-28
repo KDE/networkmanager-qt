@@ -18,12 +18,12 @@ pkg_search_module(Gio REQUIRED IMPORTED_TARGET gio-2.0)
 include(KDEInstallDirs)
 include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
+
 include(KDEGitCommitHooks)
+include(ECMDeprecationSettings)
 
 set(REQUIRED_QT_VERSION 5.15.2)
 find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} REQUIRED Core DBus Network)
-
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050f02)
 
 remove_definitions(-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_FROM_BYTEARRAY)
 
@@ -42,6 +42,9 @@ ecm_setup_version(PROJECT VARIABLE_PREFIX NETWORKMANAGERQT
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/networkmanagerqt_version.h"
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5NetworkManagerQtConfigVersion.cmake"
                         SOVERSION 6)
+ecm_set_disabled_deprecation_versions(
+    QT 5.15.2
+)
 
 # Enable unit testing
 if (BUILD_TESTING)
