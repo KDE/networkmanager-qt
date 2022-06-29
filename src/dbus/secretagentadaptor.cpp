@@ -10,7 +10,6 @@
 
 #include "secretagentadaptor.h"
 #include <QString>
-#include <QStringList>
 
 /*
  * Implementation of adaptor class SecretAgentAdaptor
