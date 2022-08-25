@@ -887,7 +887,7 @@ NetworkManager::Status NetworkManager::NetworkManagerPrivate::convertNMState(uin
     return status;
 }
 
-void NetworkManager::NetworkManagerPrivate::interfacesAdded(const QDBusObjectPath &path, const QVariantMap &addedInterfaces)
+void NetworkManager::NetworkManagerPrivate::dbusInterfacesAdded(const QDBusObjectPath &path, const QVariantMap &addedInterfaces)
 {
     Q_UNUSED(path);
 
