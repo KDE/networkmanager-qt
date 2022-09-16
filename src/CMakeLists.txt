@@ -251,7 +251,7 @@ ecm_generate_headers(NetworkManagerQt_SETTINGS_CamelCase_HEADERS
   PREFIX NetworkManagerQt
 )
 
-install(TARGETS KF5NetworkManagerQt EXPORT KF5NetworkManagerQtTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF5NetworkManagerQt EXPORT KF5NetworkManagerQtTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
   ${NetworkManagerQt_CamelCase_HEADERS}
