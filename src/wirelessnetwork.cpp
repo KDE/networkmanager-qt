@@ -61,6 +61,10 @@ void NetworkManager::WirelessNetworkPrivate::updateStrength()
     int selectedStrength = -1;
     NetworkManager::AccessPoint::Ptr selectedAp;
 
+    if (!wirelessNetworkInterface) {
+        return;
+    }
+
     NetworkManager::AccessPoint::Ptr activeAp = wirelessNetworkInterface->activeAccessPoint();
     if (activeAp && activeAp->ssid() == ssid) {
         // If the network has an active access point, use it as the referenceAp
