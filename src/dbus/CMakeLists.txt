@@ -12,9 +12,6 @@
 #      headers have already been included
 # Run do-hand-edits to update the diff of the interfaces vs what is generated; this speeds up regenerating them since you just have to apply the diff to make them compile
 
-# Just the hardware related files to begin with, as these are already present in Solid
-#find_package(Qt4 REQUIRED)
-
 set(INTERFACE_INTROSPECTION_XML_FILES
     introspection/nm-agent-manager.xml
     introspection/org.freedesktop.NetworkManager.AccessPoint.xml
