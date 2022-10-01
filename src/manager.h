@@ -27,7 +27,7 @@
  */
 namespace NetworkManager
 {
-Q_NAMESPACE
+Q_NAMESPACE_EXPORT(NETWORKMANAGERQT_EXPORT)
 
 enum Status {
     Unknown, /**< the networking system is not active or unable to report its status - proceed with caution */
@@ -39,6 +39,7 @@ enum Status {
     ConnectedSiteOnly, /**< a network device is connected, but there is only site-local connectivity */
     Connected, /**< the system is currently connected to a network */
 };
+Q_ENUM_NS(Status)
 
 enum LogLevel {
     Error,
@@ -103,6 +104,7 @@ enum Connectivity {
     Limited = 3, /**< The host is connected to a network, but does not appear to be able to reach the full Internet. */
     Full = 4, /**< The host is connected to a network, and appears to be able to reach the full Internet. */
 };
+Q_ENUM_NS(Connectivity)
 
 class NETWORKMANAGERQT_EXPORT Notifier : public QObject
 {
