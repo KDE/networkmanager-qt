@@ -55,7 +55,18 @@ uint NetworkManager::DeviceStatistics::refreshRateMs() const
 void NetworkManager::DeviceStatistics::setRefreshRateMs(uint refreshRate)
 {
     Q_D(DeviceStatistics);
-    d->iface.setRefreshRateMs(refreshRate);
+
+    // HACK calling d->iface.setRefreshRateMs does a blocking DBus call as internally it does
+    // setProperty which returns whether the call succeeded, so Qt waits for it.
+    // Since this can occasionally take a quite a while, this is replaced with a manual DBus call.
+
+    QDBusMessage message = QDBusMessage::createMethodCall(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE,
+                                                          d->iface.path(),
+                                                          NetworkManager::NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
+                                                          QLatin1String("Set"));
+    message << d->iface.staticInterfaceName() << QLatin1String("RefreshRateMs") << QVariant::fromValue(QDBusVariant(refreshRate));
+
+    d->iface.connection().call(message, QDBus::NoBlock);
 }
 
 qulonglong NetworkManager::DeviceStatistics::rxBytes() const
