@@ -2,6 +2,7 @@
 
 include(CMakeFindDependencyMacro)
 find_dependency(Qt@QT_MAJOR_VERSION@Core @REQUIRED_QT_VERSION@)
+find_dependency(Qt@QT_MAJOR_VERSION@DBus @REQUIRED_QT_VERSION@)
 
 find_package(PkgConfig)
 pkg_search_module(NetworkManager REQUIRED IMPORTED_TARGET libnm>=1.4.0)
