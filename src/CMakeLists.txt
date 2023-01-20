@@ -146,27 +146,27 @@ ecm_qt_export_logging_category(
     EXPORT NETWORMANAGERQT
 )
 
-add_library(KF5NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
-generate_export_header(KF5NetworkManagerQt EXPORT_FILE_NAME ${NetworkManagerQt_BINARY_DIR}/networkmanagerqt/networkmanagerqt_export.h BASE_NAME NetworkManagerQt)
-add_library(KF5::NetworkManagerQt ALIAS KF5NetworkManagerQt)
+add_library(KF6NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
+generate_export_header(KF6NetworkManagerQt EXPORT_FILE_NAME ${NetworkManagerQt_BINARY_DIR}/networkmanagerqt/networkmanagerqt_export.h BASE_NAME NetworkManagerQt)
+add_library(KF6::NetworkManagerQt ALIAS KF6NetworkManagerQt)
 
-target_include_directories(KF5NetworkManagerQt INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/NetworkManagerQt>")
+target_include_directories(KF6NetworkManagerQt INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/NetworkManagerQt>")
 # for examples to build
-target_include_directories(KF5NetworkManagerQt PUBLIC "$<BUILD_INTERFACE:${NetworkManagerQt_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}/settings;${CMAKE_CURRENT_BINARY_DIR}>")
+target_include_directories(KF6NetworkManagerQt PUBLIC "$<BUILD_INTERFACE:${NetworkManagerQt_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}/settings;${CMAKE_CURRENT_BINARY_DIR}>")
 
-target_link_libraries(KF5NetworkManagerQt PUBLIC Qt${QT_MAJOR_VERSION}::Core Qt${QT_MAJOR_VERSION}::Network Qt${QT_MAJOR_VERSION}::DBus PkgConfig::NetworkManager PkgConfig::Gio)
+target_link_libraries(KF6NetworkManagerQt PUBLIC Qt${QT_MAJOR_VERSION}::Core Qt${QT_MAJOR_VERSION}::Network Qt${QT_MAJOR_VERSION}::DBus PkgConfig::NetworkManager PkgConfig::Gio)
 
-set_target_properties(KF5NetworkManagerQt PROPERTIES VERSION ${NETWORKMANAGERQT_VERSION}
+set_target_properties(KF6NetworkManagerQt PROPERTIES VERSION ${NETWORKMANAGERQT_VERSION}
                                                    SOVERSION ${NETWORKMANAGERQT_SOVERSION}
                                                    EXPORT_NAME NetworkManagerQt
 )
 
 ########### static lib for tests  ###############
-add_library(KF5NetworkManagerQt_static STATIC ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
-set_target_properties(KF5NetworkManagerQt_static PROPERTIES COMPILE_FLAGS -DNMQT_STATIC=1)
+add_library(KF6NetworkManagerQt_static STATIC ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
+set_target_properties(KF6NetworkManagerQt_static PROPERTIES COMPILE_FLAGS -DNMQT_STATIC=1)
 
-target_link_libraries(KF5NetworkManagerQt_static PUBLIC Qt${QT_MAJOR_VERSION}::Core Qt${QT_MAJOR_VERSION}::Network Qt${QT_MAJOR_VERSION}::DBus PkgConfig::NetworkManager PkgConfig::Gio)
-target_include_directories(KF5NetworkManagerQt_static PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..;${CMAKE_CURRENT_BINARY_DIR}/..>")
+target_link_libraries(KF6NetworkManagerQt_static PUBLIC Qt${QT_MAJOR_VERSION}::Core Qt${QT_MAJOR_VERSION}::Network Qt${QT_MAJOR_VERSION}::DBus PkgConfig::NetworkManager PkgConfig::Gio)
+target_include_directories(KF6NetworkManagerQt_static PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..;${CMAKE_CURRENT_BINARY_DIR}/..>")
 
 ecm_generate_headers(NetworkManagerQt_CamelCase_HEADERS
   HEADER_NAMES
@@ -251,7 +251,7 @@ ecm_generate_headers(NetworkManagerQt_SETTINGS_CamelCase_HEADERS
   PREFIX NetworkManagerQt
 )
 
-install(TARGETS KF5NetworkManagerQt EXPORT KF5NetworkManagerQtTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF6NetworkManagerQt EXPORT KF6NetworkManagerQtTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
   ${NetworkManagerQt_CamelCase_HEADERS}
@@ -274,9 +274,9 @@ ecm_qt_install_logging_categories(
 
 if(BUILD_QCH)
     ecm_add_qch(
-        KF5NetworkManagerQt_QCH
+        KF6NetworkManagerQt_QCH
         NAME NetworkManagerQt
-        BASE_NAME KF5NetworkManagerQt
+        BASE_NAME KF6NetworkManagerQt
         VERSION ${KF_VERSION}
         ORG_DOMAIN org.kde
         SOURCES # using only public headers, to cover only public API
