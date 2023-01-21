@@ -41,7 +41,7 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, IpV6DBusRoute &ro
 
 QDBusArgument &operator<<(QDBusArgument &argument, const NMStringMap &mydict)
 {
-    argument.beginMap(QVariant::String, QVariant::String);
+    argument.beginMap(QMetaType::QString, QMetaType::QString);
 
     QMapIterator<QString, QString> i(mydict);
     while (i.hasNext()) {
