@@ -17,7 +17,7 @@ add_library(fakeNetwork STATIC ${fakeNetwork_SRCS})
 
 target_link_libraries(fakeNetwork
     KF6NetworkManagerQt_static
-    Qt${QT_MAJOR_VERSION}::Core
-    Qt${QT_MAJOR_VERSION}::Network
-    Qt${QT_MAJOR_VERSION}::DBus
+    Qt6::Core
+    Qt6::Network
+    Qt6::DBus
     PkgConfig::NetworkManager)

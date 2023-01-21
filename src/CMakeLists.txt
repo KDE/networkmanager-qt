@@ -154,7 +154,7 @@ target_include_directories(KF6NetworkManagerQt INTERFACE "$<INSTALL_INTERFACE:${
 # for examples to build
 target_include_directories(KF6NetworkManagerQt PUBLIC "$<BUILD_INTERFACE:${NetworkManagerQt_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}/settings;${CMAKE_CURRENT_BINARY_DIR}>")
 
-target_link_libraries(KF6NetworkManagerQt PUBLIC Qt${QT_MAJOR_VERSION}::Core Qt${QT_MAJOR_VERSION}::Network Qt${QT_MAJOR_VERSION}::DBus PkgConfig::NetworkManager PkgConfig::Gio)
+target_link_libraries(KF6NetworkManagerQt PUBLIC Qt6::Core Qt6::Network Qt6::DBus PkgConfig::NetworkManager PkgConfig::Gio)
 
 set_target_properties(KF6NetworkManagerQt PROPERTIES VERSION ${NETWORKMANAGERQT_VERSION}
                                                    SOVERSION ${NETWORKMANAGERQT_SOVERSION}
@@ -165,7 +165,7 @@ set_target_properties(KF6NetworkManagerQt PROPERTIES VERSION ${NETWORKMANAGERQT_
 add_library(KF6NetworkManagerQt_static STATIC ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
 set_target_properties(KF6NetworkManagerQt_static PROPERTIES COMPILE_FLAGS -DNMQT_STATIC=1)
 
-target_link_libraries(KF6NetworkManagerQt_static PUBLIC Qt${QT_MAJOR_VERSION}::Core Qt${QT_MAJOR_VERSION}::Network Qt${QT_MAJOR_VERSION}::DBus PkgConfig::NetworkManager PkgConfig::Gio)
+target_link_libraries(KF6NetworkManagerQt_static PUBLIC Qt6::Core Qt6::Network Qt6::DBus PkgConfig::NetworkManager PkgConfig::Gio)
 target_include_directories(KF6NetworkManagerQt_static PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..;${CMAKE_CURRENT_BINARY_DIR}/..>")
 
 ecm_generate_headers(NetworkManagerQt_CamelCase_HEADERS

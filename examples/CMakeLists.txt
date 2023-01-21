@@ -5,7 +5,7 @@ set(exampleNetworkManagerQt_SRCS
 add_executable(exampleNetworkManagerQt ${exampleNetworkManagerQt_SRCS})
 target_link_libraries(exampleNetworkManagerQt
     KF6::NetworkManagerQt
-    Qt${QT_MAJOR_VERSION}::Core
-    Qt${QT_MAJOR_VERSION}::Network)
+    Qt6::Core
+    Qt6::Network)
 
 add_subdirectory(createconnection)

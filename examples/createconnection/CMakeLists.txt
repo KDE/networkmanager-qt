@@ -6,5 +6,5 @@ set(createConnectionExample_SRCS
 add_executable(createConnectionExample ${createConnectionExample_SRCS})
 target_link_libraries(createConnectionExample
     KF6::NetworkManagerQt
-    Qt${QT_MAJOR_VERSION}::Core
-    Qt${QT_MAJOR_VERSION}::Network)
+    Qt6::Core
+    Qt6::Network)
