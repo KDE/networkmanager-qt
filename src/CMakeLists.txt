@@ -284,9 +284,9 @@ if(BUILD_QCH)
             ${NetworkManagerQt_SETTINGS_HEADERS}
         MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
         LINK_QCHS
-            Qt5Core_QCH
-            Qt5Network_QCH
-            Qt5DBus_QCH
+            Qt6Core_QCH
+            Qt6Network_QCH
+            Qt6DBus_QCH
         BLANK_MACROS
             NETWORKMANAGERQT_EXPORT
             NETWORKMANAGERQT_DEPRECATED
