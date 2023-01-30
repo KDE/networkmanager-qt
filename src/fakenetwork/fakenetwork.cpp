@@ -405,6 +405,7 @@ void FakeNetwork::updateDeactivatingState()
 
 QDBusObjectPath FakeNetwork::GetDeviceByIpIface(const QString &iface)
 {
+    Q_UNUSED(iface)
     // TODO
     return QDBusObjectPath();
 }

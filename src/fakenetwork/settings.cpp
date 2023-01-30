@@ -62,12 +62,14 @@ QDBusObjectPath Settings::AddConnection(const NMVariantMapMap &connection)
 
 QDBusObjectPath Settings::AddConnectionUnsaved(const NMVariantMapMap &connection)
 {
+    Q_UNUSED(connection)
     // TODO
     return QDBusObjectPath();
 }
 
 QDBusObjectPath Settings::GetConnectionByUuid(const QString &uuid)
 {
+    Q_UNUSED(uuid)
     // TODO
     return QDBusObjectPath();
 }
