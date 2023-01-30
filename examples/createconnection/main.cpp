@@ -60,8 +60,8 @@ int main()
             || accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep40)
             || accessPoint.wpaFlags().testFlag(AccessPoint::GroupWep104)
             || !accessPoint.wpaFlags()) { /* clang-format on */
-            qout << "Do you want to connect to " << accessPoint.ssid() << "?" << endl;
-            qout << "Yes/No: " << flush;
+            qout << "Do you want to connect to " << accessPoint.ssid() << "?" << Qt::endl;
+            qout << "Yes/No: " << Qt::flush;
             qin >> result;
 
             if (result.toLower() == "yes" || result == "y") {
