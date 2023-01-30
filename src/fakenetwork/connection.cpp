@@ -38,6 +38,7 @@ void Connection::Delete()
 
 NMVariantMapMap Connection::GetSecrets(const QString &setting_name)
 {
+    Q_UNUSED(setting_name)
     // TODO
     return NMVariantMapMap();
 }
@@ -62,6 +63,7 @@ void Connection::Update(const NMVariantMapMap &properties)
 
 void Connection::UpdateUnsaved(const NMVariantMapMap &properties)
 {
+    Q_UNUSED(properties)
     // TODO
 }
 
