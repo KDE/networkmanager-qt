@@ -44,6 +44,7 @@ class NETWORKMANAGERQT_EXPORT Device : public QObject
     Q_PROPERTY(QHostAddress ipV4Address READ ipV4Address)
     Q_PROPERTY(bool managed READ managed)
     Q_PROPERTY(uint mtu READ mtu)
+    Q_PROPERTY(Interfaceflags InterfaceFlags READ interfaceFlags)
     Q_PROPERTY(bool nmPluginMissing READ nmPluginMissing)
     Q_PROPERTY(MeteredStatus metered READ metered)
     Q_PROPERTY(QString udi READ udi)
@@ -170,6 +171,19 @@ public:
     Q_ENUM(Capability)
     Q_DECLARE_FLAGS(Capabilities, Capability)
     Q_FLAG(Capabilities)
+
+    /**
+     * Possible device interfaceflags
+     */
+    enum Interfaceflag {
+        None = NM_DEVICE_INTERFACE_FLAG_NONE,                   /**< no flags set */
+        Up = NM_DEVICE_INTERFACE_FLAG_UP,                       /**< Corresponds to kernel IFF_UP */
+        LowerUp = NM_DEVICE_INTERFACE_FLAG_LOWER_UP,            /**< Corresponds to kernel IFF_LOWER_UP */
+        Carrier = NM_DEVICE_INTERFACE_FLAG_CARRIER              /**< the interface has carrier */
+    };
+    Q_ENUM(Interfaceflag)
+    Q_DECLARE_FLAGS(Interfaceflags, Interfaceflag)
+    Q_FLAG(Interfaceflags)
 
     /**
      * Device type
@@ -364,6 +378,10 @@ public:
      */
     bool managed() const;
     /**
+      * The up or down flag for the device
+      */
+    Interfaceflags interfaceFlags() const;
+    /**
      * Is the firmware needed by the device missing?
      */
     bool firmwareMissing() const;
@@ -552,6 +570,13 @@ Q_SIGNALS:
     void managedChanged();
 
     /**
+      * Emitted when the up or down state of the device
+      * @since 1.22
+      * @note will always return NM_DEVICE_INTERFACE_FLAG_NONE when runtime NM < 1.22
+      */
+    void interfaceFlagsChanged();
+
+    /**
      * Emitted when the physical port ID changes.
      * @see physicalPortId()
      * @since 0.9.9.0
@@ -602,6 +627,7 @@ private:
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Capabilities)
 Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Types)
+Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Interfaceflags)
 
 class NETWORKMANAGERQT_EXPORT DeviceStateReason
 {

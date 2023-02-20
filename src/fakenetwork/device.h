@@ -38,6 +38,7 @@ public:
     Q_PROPERTY(QDBusObjectPath Ip4Config READ ip4Config)
     Q_PROPERTY(QDBusObjectPath Ip6Config READ ip6Config)
     Q_PROPERTY(QString IpInterface READ ipInterface)
+    Q_PROPERTY(uint InterfaceFlags READ interfaceFlags)
     Q_PROPERTY(bool Managed READ managed)
     Q_PROPERTY(uint Mtu READ mtu)
     Q_PROPERTY(uint State READ state)
@@ -61,6 +62,7 @@ public:
     QDBusObjectPath ip4Config() const;
     QDBusObjectPath ip6Config() const;
     QString ipInterface() const;
+    uint interfaceFlags() const;
     bool managed() const;
     uint mtu() const;
     uint state() const;
@@ -83,6 +85,7 @@ public:
     void setFirmwareMissing(bool firmwareMissing);
     void setFirmwareVersion(const QString &firmwareVersion);
     void setInterface(const QString &interface);
+    void setInterfaceFlags(uint interfaceFlags);
     void setIpv4Address(int address);
     void setIp4Config(const QString &config);
     void setIp6Config(const QString &config);
@@ -114,6 +117,7 @@ private:
     bool m_firmwareMissing;
     QString m_firmwareVersion;
     QString m_interface;
+    uint m_interfaceFlags;
     int m_ip4Address;
     QDBusObjectPath m_ip4Config;
     QDBusObjectPath m_ip6Config;

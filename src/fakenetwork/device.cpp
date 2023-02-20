@@ -19,6 +19,7 @@ Device::Device(QObject *parent)
     , m_dhcp4Config(QDBusObjectPath("/"))
     , m_dhcp6Config(QDBusObjectPath("/"))
     , m_firmwareMissing(false)
+    , m_interfaceFlags(NM_DEVICE_INTERFACE_FLAG_NONE)
     , m_ip4Address(0)
     , m_ip4Config(QDBusObjectPath("/"))
     , m_ip6Config(QDBusObjectPath("/"))
@@ -139,6 +140,11 @@ QString Device::ipInterface() const
     return m_ipInterface;
 }
 
+uint Device::interfaceFlags() const
+{
+    return m_interfaceFlags;
+}
+
 bool Device::managed() const
 {
     return m_managed;
@@ -222,6 +228,11 @@ void Device::setFirmwareVersion(const QString &firmwareVersion)
 void Device::setInterface(const QString &interface)
 {
     m_interface = interface;
+}
+
+void Device::setInterfaceFlags(uint interfaceFlags)
+{
+    m_interfaceFlags = interfaceFlags;
 }
 
 void Device::setIp4Config(const QString &config)

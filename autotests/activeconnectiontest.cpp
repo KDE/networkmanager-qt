@@ -33,6 +33,7 @@ void ActiveConnectionTest::initTestCase()
     device->setFirmwareMissing(false);
     device->setFirmwareVersion(QLatin1String("0.13-3"));
     device->setInterface(QLatin1String("em1"));
+    device->setInterfaceFlags(NetworkManager::Device::Interfaceflag::Up);
     device->setManaged(true);
     device->setUdi(QLatin1String("/sys/devices/pci0000:00/0000:00:19.0/net/em1"));
 

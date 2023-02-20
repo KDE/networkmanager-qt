@@ -40,6 +40,7 @@ public:
     QHostAddress ipV4Address;
     QString interfaceName;
     QString ipInterface;
+    Device::Interfaceflags interfaceFlags;
     bool firmwareMissing;
     mutable Dhcp4Config::Ptr dhcp4Config;
     QString dhcp4ConfigPath;
@@ -58,6 +59,7 @@ public:
 
     static NetworkManager::Device::MeteredStatus convertMeteredStatus(uint);
     static NetworkManager::Device::Capabilities convertCapabilities(uint);
+    static NetworkManager::Device::Interfaceflags convertInterfaceflags(uint);
     static NetworkManager::Device::State convertState(uint);
     static NetworkManager::Device::StateChangeReason convertReason(uint);
     static NetworkManager::Device::Type convertType(uint);

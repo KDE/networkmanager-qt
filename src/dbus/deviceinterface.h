@@ -142,6 +142,12 @@ public:
         return qvariant_cast<QString>(property("IpInterface"));
     }
 
+    Q_PROPERTY(uint InterfaceFlags READ interfaceFlags)
+    inline uint interfaceFlags() const
+    {
+        return qvariant_cast<uint>(property("InterfaceFlags"));
+    }
+
     Q_PROPERTY(NMVariantMapList LldpNeighbors READ lldpNeighbors)
     inline NMVariantMapList lldpNeighbors() const
     {

@@ -29,6 +29,7 @@ void ManagerTest::testDevices()
     device->setDriver(QLatin1String("e1000e"));
     device->setDriverVersion(QLatin1String("2.3.2-k"));
     device->setFirmwareMissing(false);
+    device->setInterfaceFlags(NetworkManager::Device::Interfaceflag::Up);
     device->setFirmwareVersion(QLatin1String("0.13-3"));
     device->setInterface(QLatin1String("em1"));
     device->setManaged(true);
@@ -88,6 +89,7 @@ void ManagerTest::testDeviceAdded(const QString &dev)
     QCOMPARE(device->firmwareMissing(), false);
     QCOMPARE(device->firmwareVersion(), QLatin1String("0.13-3"));
     QCOMPARE(device->interfaceName(), QLatin1String("em1"));
+    QCOMPARE(device->interfaceFlags(), NetworkManager::Device::Interfaceflag::Up);
     QCOMPARE(device->managed(), true);
     QCOMPARE(device->udi(), QLatin1String("/sys/devices/pci0000:00/0000:00:19.0/net/em1"));
 

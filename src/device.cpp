@@ -115,6 +115,9 @@ void NetworkManager::DevicePrivate::init()
     QObject::connect(&deviceIface, &OrgFreedesktopNetworkManagerDeviceInterface::StateChanged, this, &DevicePrivate::deviceStateChanged);
 
 
+    // The interfaceFlags will return NM_DEVICE_INTERFACE_FLAG_NONE when runtime NM < 1.22
+    // we initialize the interfaceFlags
+    interfaceFlags = NetworkManager::Device::Interfaceflag::None;
     deviceStatistics = DeviceStatistics::Ptr(new NetworkManager::DeviceStatistics(uni), &QObject::deleteLater);
 
     // Get all Device's properties at once
@@ -135,6 +138,12 @@ NetworkManager::Device::Capabilities NetworkManager::DevicePrivate::convertCapab
 {
     NetworkManager::Device::Capabilities ourCaps = (NetworkManager::Device::Capabilities)theirCaps;
     return ourCaps;
+}
+
+NetworkManager::Device::Interfaceflags NetworkManager::DevicePrivate::convertInterfaceflags(uint flags)
+{
+    NetworkManager::Device::Interfaceflags ourFlags = static_cast<NetworkManager::Device::Interfaceflags>(flags);
+    return ourFlags;
 }
 
 NetworkManager::Device::State NetworkManager::DevicePrivate::convertState(uint theirState)
@@ -299,6 +308,9 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
     } else if (property == QLatin1String("Interface")) {
         interfaceName = value.toString();
         Q_EMIT q->interfaceNameChanged();
+    } else if (property == QLatin1String("InterfaceFlags")) {
+        interfaceFlags = NetworkManager::DevicePrivate::convertInterfaceflags(value.toUInt());
+        Q_EMIT q->interfaceFlagsChanged();
     } else if (property == QLatin1String("Ip4Address")) {
         ipV4Address = QHostAddress(ntohl(value.toUInt()));
         Q_EMIT q->ipV4AddressChanged();
@@ -521,6 +533,12 @@ bool NetworkManager::Device::managed() const
 {
     Q_D(const Device);
     return d->managed;
+}
+
+NetworkManager::Device::Interfaceflags NetworkManager::Device::interfaceFlags() const
+{
+    Q_D(const Device);
+    return d->interfaceFlags;
 }
 
 uint NetworkManager::Device::mtu() const
