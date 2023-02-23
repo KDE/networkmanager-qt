@@ -54,7 +54,7 @@
 
 namespace NetworkManager
 {
-extern int checkVersion(const int x, const int y, const int z);
+extern bool checkVersion(const int x, const int y, const int z);
 }
 
 NetworkManager::ConnectionSettingsPrivate::ConnectionSettingsPrivate(ConnectionSettings *q)
