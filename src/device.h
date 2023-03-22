@@ -232,7 +232,6 @@ public:
      * @param path UNI of the device
      */
     explicit Device(const QString &path, QObject *parent = nullptr);
-    Device(DevicePrivate &dd, QObject *parent);
     /**
      * Destroys a device object.
      */
@@ -619,6 +618,8 @@ Q_SIGNALS:
     void udiChanged();
 
 protected:
+    NETWORKMANAGERQT_NO_EXPORT Device(DevicePrivate &dd, QObject *parent);
+
     DevicePrivate *const d_ptr;
 
 private:

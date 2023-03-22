@@ -68,7 +68,7 @@ public:
      * @param path the DBus path of the device
      */
     explicit ActiveConnection(const QString &path, QObject *parent = nullptr);
-    explicit ActiveConnection(ActiveConnectionPrivate &dd, QObject *parent = nullptr);
+
     /**
      * Destroys an ActiveConnection object.
      */
@@ -221,6 +221,8 @@ Q_SIGNALS:
     void devicesChanged();
 
 protected:
+    NETWORKMANAGERQT_NO_EXPORT explicit ActiveConnection(ActiveConnectionPrivate &dd, QObject *parent = nullptr);
+
     ActiveConnectionPrivate *const d_ptr;
 
 private:
