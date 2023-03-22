@@ -35,7 +35,6 @@ public:
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
     explicit ModemDevice(const QString &path, QObject *parent = nullptr);
-    explicit ModemDevice(ModemDevicePrivate &dd, QObject *parent = nullptr);
     ~ModemDevice() override;
     /**
      * Return the type
@@ -58,6 +57,9 @@ Q_SIGNALS:
      * This signal is emitted when the capabilities of the device change
      */
     void currentCapabilitiesChanged(Capabilities);
+
+protected:
+    NETWORKMANAGERQT_NO_EXPORT explicit ModemDevice(ModemDevicePrivate &dd, QObject *parent = nullptr);
 
 private:
     Q_DECLARE_PRIVATE(ModemDevice)
