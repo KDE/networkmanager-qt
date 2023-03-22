@@ -90,7 +90,7 @@ private:
 
     WirelessNetworkPrivate *const d_ptr;
 
-    explicit WirelessNetwork(const AccessPoint::Ptr &accessPoint, WirelessDevice *device);
+    NETWORKMANAGERQT_NO_EXPORT explicit WirelessNetwork(const AccessPoint::Ptr &accessPoint, WirelessDevice *device);
 };
 
 }
