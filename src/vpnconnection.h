@@ -44,6 +44,7 @@ public:
         Failed, /**< The VPN connection failed. */
         Disconnected, /**< The VPN connection is disconnected. */
     };
+    Q_ENUM(State)
 
     enum StateChangeReason {
         UnknownReason = 0, /**< The reason for the VPN connection state change is unknown.*/
@@ -59,6 +60,7 @@ public:
         LoginFailedReason, /**< Authentication to the VPN server failed. */
         ConnectionRemovedReason, /**< The connection was deleted from settings. */
     };
+    Q_ENUM(StateChangeReason)
 
     /**
      * Creates a new VpnConnection object.
