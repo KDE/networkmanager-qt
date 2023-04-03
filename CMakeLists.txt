@@ -27,9 +27,7 @@ find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED Core DBus Network)
 
 remove_definitions(-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_FROM_BYTEARRAY)
 
-
-include(GenerateExportHeader)
-
+include(ECMGenerateExportHeader)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(ECMAddQch)
