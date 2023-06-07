@@ -9,8 +9,8 @@
 
 #include "../ipconfig.h"
 
+#include <QHostAddress>
 #include <QStringList>
-#include <QtNetwork/QHostAddress>
 
 namespace NetworkManager
 {

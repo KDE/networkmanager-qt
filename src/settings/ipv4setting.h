@@ -11,8 +11,8 @@
 #include "setting.h"
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
+#include <QHostAddress>
 #include <QStringList>
-#include <QtNetwork/QHostAddress>
 
 #define NMQT_SETTING_IP4_CONFIG_SETTING_NAME NM_SETTING_IP4_CONFIG_SETTING_NAME
 #define NMQT_SETTING_IP4_CONFIG_METHOD NM_SETTING_IP_CONFIG_METHOD
