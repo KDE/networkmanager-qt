@@ -15,6 +15,7 @@
 
 #include <arpa/inet.h>
 
+#include <QDBusMetaType>
 #include <QDBusObjectPath>
 
 // logging category for this framework, default: log stuff >= warning

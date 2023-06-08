@@ -42,6 +42,10 @@
 
 #include "nmdebug.h"
 
+#include <QDBusMetaType>
+#include <QDBusReply>
+#include <QTimer>
+
 #define DBUS_OBJECT_MANAGER "org.freedesktop.DBus.ObjectManager"
 #define DBUS_PROPERTIES "org.freedesktop.DBus.Properties"
 

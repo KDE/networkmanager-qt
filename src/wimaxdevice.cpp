@@ -11,6 +11,8 @@
 
 #include "nmdebug.h"
 
+#include <QDBusMetaType>
+
 NetworkManager::WimaxDevicePrivate::WimaxDevicePrivate(const QString &path, WimaxDevice *q)
     : DevicePrivate(path, q)
 #ifdef NMQT_STATIC

@@ -6,7 +6,8 @@
 
 #include "settings.h"
 
-#include <QtDBus>
+#include <QDBusConnection>
+#include <QDBusMetaType>
 
 Settings::Settings(QObject *parent)
     : QObject(parent)

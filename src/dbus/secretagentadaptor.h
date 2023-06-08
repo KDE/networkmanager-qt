@@ -13,9 +13,12 @@
 #define SECRETAGENTADAPTOR_H
 
 #include "secretagent.h"
+
+#include <QDBusAbstractAdaptor>
+#include <QDBusObjectPath>
 #include <QObject>
 #include <QStringList>
-#include <QtDBus>
+
 QT_BEGIN_NAMESPACE
 class QByteArray;
 template<class T>

@@ -16,6 +16,7 @@
 #define signals Q_SIGNALS
 
 #include <QDBusConnection>
+#include <QDBusMetaType>
 
 #include "agentmanagerinterface.h"
 #include "secretagentadaptor.h"

@@ -13,11 +13,11 @@
 
 #include "generictypes.h"
 
+#include <QDBusAbstractInterface>
 #include <QObject>
 #include <QString>
 #include <QStringList>
 #include <QVariant>
-#include <QtDBus>
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Wired

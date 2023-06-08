@@ -8,7 +8,7 @@
 #include "activeconnection.h"
 
 #include <QDBusConnection>
-#include <QtDBus>
+#include <QDBusMetaType>
 
 Device::Device(QObject *parent)
     : QObject(parent)
