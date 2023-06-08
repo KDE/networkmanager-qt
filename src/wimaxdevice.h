@@ -14,8 +14,6 @@
 #include "device.h"
 #include "wimaxnsp.h"
 
-#include <QDBusObjectPath>
-
 namespace NetworkManager
 {
 class WimaxDevicePrivate;

@@ -9,8 +9,6 @@
 
 #include <QObject>
 
-#include <QDBusObjectPath>
-
 #include "../generictypes.h"
 
 class AccessPoint : public QObject

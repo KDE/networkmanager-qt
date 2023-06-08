@@ -12,8 +12,6 @@
 
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
-#include <QDBusObjectPath>
-
 namespace NetworkManager
 {
 class OlpcMeshDevicePrivate;

@@ -13,9 +13,9 @@
 
 #include "generictypes.h"
 
+#include <QDBusAbstractInterface>
 #include <QObject>
 #include <QString>
-#include <QtDBus>
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.DnsManager

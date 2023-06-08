@@ -11,6 +11,7 @@
 #include "settings_p.h"
 
 #include <QDBusObjectPath>
+#include <QTimer>
 
 #include <nm-setting-connection.h>
 

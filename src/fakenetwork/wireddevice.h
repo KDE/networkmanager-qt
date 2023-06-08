@@ -9,8 +9,6 @@
 
 #include <QObject>
 
-#include <QDBusObjectPath>
-
 #include "../device.h"
 #include "../generictypes.h"
 

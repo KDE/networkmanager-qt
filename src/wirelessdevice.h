@@ -15,7 +15,6 @@
 #include "wirelessnetwork.h"
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
-#include <QDBusObjectPath>
 #include <QDBusPendingReply>
 
 namespace NetworkManager

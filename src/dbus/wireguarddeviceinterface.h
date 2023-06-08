@@ -14,9 +14,9 @@
 #include "generictypes.h"
 
 #include <QByteArray>
+#include <QDBusAbstractInterface>
 #include <QObject>
 #include <QString>
-#include <QtDBus>
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.WireGuard

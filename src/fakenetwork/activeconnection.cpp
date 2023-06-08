@@ -7,7 +7,7 @@
 #include "activeconnection.h"
 #include "connection.h"
 
-#include <QtDBus>
+#include <QDBusConnection>
 
 ActiveConnection::ActiveConnection(QObject *parent)
     : QObject(parent)

@@ -11,7 +11,6 @@
 #include "vpnconnection.h"
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
-#include <QDBusObjectPath>
 #include <QObject>
 
 namespace NetworkManager

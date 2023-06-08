@@ -17,8 +17,6 @@
 #include <QObject>
 #include <QSharedPointer>
 
-class QDBusPendingCallWatcher;
-
 namespace NetworkManager
 {
 class ConnectionPrivate;

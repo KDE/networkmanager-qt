@@ -13,7 +13,6 @@
 
 #include "activeconnection.h"
 
-#include <QDBusObjectPath>
 #include <QObject>
 
 namespace NetworkManager

@@ -14,10 +14,10 @@
 #include "generictypes.h"
 
 #include <QByteArray>
+#include <QDBusAbstractInterface>
 #include <QObject>
 #include <QString>
 #include <QVariant>
-#include <QtDBus>
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.AccessPoint

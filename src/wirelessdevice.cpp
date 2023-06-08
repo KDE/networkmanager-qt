@@ -18,6 +18,8 @@
 #include "nmdebug.h"
 #include "utils.h"
 
+#include <QDBusMetaType>
+
 NetworkManager::WirelessDevicePrivate::WirelessDevicePrivate(const QString &path, WirelessDevice *q)
     : DevicePrivate(path, q)
 #ifdef NMQT_STATIC

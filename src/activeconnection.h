@@ -9,7 +9,6 @@
 #ifndef NETWORKMANAGERQT_ACTIVECONNECTION_H
 #define NETWORKMANAGERQT_ACTIVECONNECTION_H
 
-#include <QDBusObjectPath>
 #include <QObject>
 #include <QSharedPointer>
 

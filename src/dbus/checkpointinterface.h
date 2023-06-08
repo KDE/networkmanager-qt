@@ -13,11 +13,12 @@
 
 #include "generictypes.h"
 
+#include <QDBusAbstractInterface>
+#include <QDBusObjectPath>
 #include <QList>
 #include <QObject>
 #include <QString>
 #include <QVariant>
-#include <QtDBus>
 
 /*
  * Proxy class for interface org.freedesktop.NetworkManager.Checkpoint
