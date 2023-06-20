@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerVPNPluginInterface::OrgFreedesktopNetworkManagerVPNP
 OrgFreedesktopNetworkManagerVPNPluginInterface::~OrgFreedesktopNetworkManagerVPNPluginInterface()
 {
 }
+
+#include "moc_vpnplugininterface.cpp"

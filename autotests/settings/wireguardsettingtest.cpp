@@ -123,3 +123,5 @@ void WireGuardSettingTest::testSetting()
 }
 
 QTEST_MAIN(WireGuardSettingTest)
+
+#include "moc_wireguardsettingtest.cpp"

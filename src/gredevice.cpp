@@ -142,3 +142,6 @@ void NetworkManager::GreDevicePrivate::propertyChanged(const QString &property, 
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_gredevice.cpp"
+#include "moc_gredevice_p.cpp"

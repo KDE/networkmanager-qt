@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceVxlanInterface::OrgFreedesktopNetworkManagerDe
 OrgFreedesktopNetworkManagerDeviceVxlanInterface::~OrgFreedesktopNetworkManagerDeviceVxlanInterface()
 {
 }
+
+#include "moc_vxlandeviceinterface.cpp"

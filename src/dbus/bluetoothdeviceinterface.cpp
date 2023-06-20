@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceBluetoothInterface::OrgFreedesktopNetworkManag
 OrgFreedesktopNetworkManagerDeviceBluetoothInterface::~OrgFreedesktopNetworkManagerDeviceBluetoothInterface()
 {
 }
+
+#include "moc_bluetoothdeviceinterface.cpp"

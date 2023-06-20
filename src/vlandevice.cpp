@@ -95,3 +95,6 @@ void NetworkManager::VlanDevicePrivate::propertyChanged(const QString &property,
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_vlandevice.cpp"
+#include "moc_vlandevice_p.cpp"

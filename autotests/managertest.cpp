@@ -153,3 +153,5 @@ void ManagerTest::testManager()
 }
 
 QTEST_MAIN(ManagerTest)
+
+#include "moc_managertest.cpp"

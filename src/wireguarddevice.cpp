@@ -82,3 +82,5 @@ void NetworkManager::WireGuardDevicePrivate::propertyChanged(const QString &prop
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_wireguarddevice.cpp"

@@ -47,3 +47,5 @@ void InfinibandSettingTest::testSetting()
 }
 
 QTEST_MAIN(InfinibandSettingTest)
+
+#include "moc_infinibandsettingtest.cpp"

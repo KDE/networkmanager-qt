@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceMacvlanInterface::OrgFreedesktopNetworkManager
 OrgFreedesktopNetworkManagerDeviceMacvlanInterface::~OrgFreedesktopNetworkManagerDeviceMacvlanInterface()
 {
 }
+
+#include "moc_macvlandeviceinterface.cpp"

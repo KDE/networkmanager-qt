@@ -87,3 +87,5 @@ void TcSettingTest::testSetting()
 }
 
 QTEST_MAIN(TcSettingTest)
+
+#include "moc_tcsettingtest.cpp"

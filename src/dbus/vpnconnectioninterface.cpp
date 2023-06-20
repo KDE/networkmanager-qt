@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerVPNConnectionInterface::OrgFreedesktopNetworkManager
 OrgFreedesktopNetworkManagerVPNConnectionInterface::~OrgFreedesktopNetworkManagerVPNConnectionInterface()
 {
 }
+
+#include "moc_vpnconnectioninterface.cpp"

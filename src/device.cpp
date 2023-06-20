@@ -636,3 +636,6 @@ NetworkManager::Device::Type NetworkManager::Device::type() const
     Q_D(const Device);
     return d->deviceType;
 }
+
+#include "moc_device.cpp"
+#include "moc_device_p.cpp"

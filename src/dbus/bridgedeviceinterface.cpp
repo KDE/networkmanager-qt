@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceBridgeInterface::OrgFreedesktopNetworkManagerD
 OrgFreedesktopNetworkManagerDeviceBridgeInterface::~OrgFreedesktopNetworkManagerDeviceBridgeInterface()
 {
 }
+
+#include "moc_bridgedeviceinterface.cpp"

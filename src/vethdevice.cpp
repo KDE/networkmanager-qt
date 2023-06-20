@@ -60,3 +60,6 @@ void NetworkManager::VethDevicePrivate::propertyChanged(const QString &property,
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_vethdevice.cpp"
+#include "moc_vethdevice_p.cpp"

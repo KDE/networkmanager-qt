@@ -266,3 +266,6 @@ NetworkManager::SettingsNotifier *NetworkManager::settingsNotifier()
 {
     return globalSettings;
 }
+
+#include "moc_settings.cpp"
+#include "moc_settings_p.cpp"

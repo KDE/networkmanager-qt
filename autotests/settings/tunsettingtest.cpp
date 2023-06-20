@@ -61,3 +61,5 @@ void TunSettingTest::testSetting()
 }
 
 QTEST_MAIN(TunSettingTest)
+
+#include "moc_tunsettingtest.cpp"

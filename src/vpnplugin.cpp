@@ -116,3 +116,5 @@ void NetworkManager::VpnPlugin::onStateChanged(uint state)
 
     Q_EMIT stateChanged(d->state);
 }
+
+#include "moc_vpnplugin.cpp"

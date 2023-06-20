@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerAccessPointInterface::OrgFreedesktopNetworkManagerAc
 OrgFreedesktopNetworkManagerAccessPointInterface::~OrgFreedesktopNetworkManagerAccessPointInterface()
 {
 }
+
+#include "moc_accesspointinterface.cpp"

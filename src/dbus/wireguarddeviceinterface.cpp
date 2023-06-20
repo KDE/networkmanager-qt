@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceWireGuardInterface::OrgFreedesktopNetworkManag
 OrgFreedesktopNetworkManagerDeviceWireGuardInterface::~OrgFreedesktopNetworkManagerDeviceWireGuardInterface()
 {
 }
+
+#include "moc_wireguarddeviceinterface.cpp"

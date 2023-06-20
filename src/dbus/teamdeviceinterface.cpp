@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceTeamInterface::OrgFreedesktopNetworkManagerDev
 OrgFreedesktopNetworkManagerDeviceTeamInterface::~OrgFreedesktopNetworkManagerDeviceTeamInterface()
 {
 }
+
+#include "moc_teamdeviceinterface.cpp"

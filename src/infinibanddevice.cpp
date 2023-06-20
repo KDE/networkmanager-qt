@@ -72,3 +72,6 @@ void NetworkManager::InfinibandDevicePrivate::propertyChanged(const QString &pro
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_infinibanddevice.cpp"
+#include "moc_infinibanddevice_p.cpp"

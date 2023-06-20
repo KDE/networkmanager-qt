@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDHCP4ConfigInterface::OrgFreedesktopNetworkManagerDH
 OrgFreedesktopNetworkManagerDHCP4ConfigInterface::~OrgFreedesktopNetworkManagerDHCP4ConfigInterface()
 {
 }
+
+#include "moc_dhcp4configinterface.cpp"

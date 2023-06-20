@@ -77,3 +77,6 @@ void NetworkManager::MacVlanDevicePrivate::propertyChanged(const QString &proper
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_macvlandevice.cpp"
+#include "moc_macvlandevice_p.cpp"

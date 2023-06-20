@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceWiMaxInterface::OrgFreedesktopNetworkManagerDe
 OrgFreedesktopNetworkManagerDeviceWiMaxInterface::~OrgFreedesktopNetworkManagerDeviceWiMaxInterface()
 {
 }
+
+#include "moc_wimaxdeviceinterface.cpp"

@@ -95,3 +95,6 @@ void NetworkManager::TeamDevicePrivate::propertyChanged(const QString &property,
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_teamdevice.cpp"
+#include "moc_teamdevice_p.cpp"

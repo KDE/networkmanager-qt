@@ -114,3 +114,5 @@ void WirelessSettingTest::testSetting()
 }
 
 QTEST_MAIN(WirelessSettingTest)
+
+#include "moc_wirelesssettingtest.cpp"

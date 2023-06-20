@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerCheckpointInterface::OrgFreedesktopNetworkManagerChe
 OrgFreedesktopNetworkManagerCheckpointInterface::~OrgFreedesktopNetworkManagerCheckpointInterface()
 {
 }
+
+#include "moc_checkpointinterface.cpp"

@@ -54,3 +54,5 @@ void SecretAgentAdaptor::SaveSecrets(NMVariantMapMap connection, const QDBusObje
     // handle method call org.freedesktop.NetworkManager.SecretAgent.SaveSecrets
     parent()->SaveSecrets(connection, connection_path);
 }
+
+#include "moc_secretagentadaptor.cpp"

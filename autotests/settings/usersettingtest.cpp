@@ -50,3 +50,5 @@ void UserSettingTest::testSetting()
 }
 
 QTEST_MAIN(UserSettingTest)
+
+#include "moc_usersettingtest.cpp"

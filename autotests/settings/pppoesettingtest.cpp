@@ -51,3 +51,5 @@ void PppoeSettingTest::testSetting()
 }
 
 QTEST_MAIN(PppoeSettingTest)
+
+#include "moc_pppoesettingtest.cpp"

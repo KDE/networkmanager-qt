@@ -76,3 +76,6 @@ void NetworkManager::OlpcMeshDevicePrivate::propertyChanged(const QString &prope
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_olpcmeshdevice.cpp"
+#include "moc_olpcmeshdevice_p.cpp"

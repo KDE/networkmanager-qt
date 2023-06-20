@@ -115,3 +115,6 @@ void NetworkManager::DeviceStatisticsPrivate::propertiesChanged(const QVariantMa
         ++it;
     }
 }
+
+#include "moc_devicestatistics.cpp"
+#include "moc_devicestatistics_p.cpp"

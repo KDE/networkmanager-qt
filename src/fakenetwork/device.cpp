@@ -279,3 +279,5 @@ void Device::Disconnect()
 {
     // TODO
 }
+
+#include "moc_device.cpp"

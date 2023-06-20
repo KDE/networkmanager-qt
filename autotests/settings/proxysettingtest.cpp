@@ -60,3 +60,5 @@ void ProxySettingTest::testSetting()
 }
 
 QTEST_MAIN(ProxySettingTest)
+
+#include "moc_proxysettingtest.cpp"

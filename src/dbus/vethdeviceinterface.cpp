@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceVethInterface::OrgFreedesktopNetworkManagerDev
 OrgFreedesktopNetworkManagerDeviceVethInterface::~OrgFreedesktopNetworkManagerDeviceVethInterface()
 {
 }
+
+#include "moc_vethdeviceinterface.cpp"

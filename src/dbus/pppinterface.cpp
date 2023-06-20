@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerPPPInterface::OrgFreedesktopNetworkManagerPPPInterfa
 OrgFreedesktopNetworkManagerPPPInterface::~OrgFreedesktopNetworkManagerPPPInterface()
 {
 }
+
+#include "moc_pppinterface.cpp"

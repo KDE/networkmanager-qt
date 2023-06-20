@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceTunInterface::OrgFreedesktopNetworkManagerDevi
 OrgFreedesktopNetworkManagerDeviceTunInterface::~OrgFreedesktopNetworkManagerDeviceTunInterface()
 {
 }
+
+#include "moc_tundeviceinterface.cpp"

@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerIP6ConfigInterface::OrgFreedesktopNetworkManagerIP6C
 OrgFreedesktopNetworkManagerIP6ConfigInterface::~OrgFreedesktopNetworkManagerIP6ConfigInterface()
 {
 }
+
+#include "moc_ip6configinterface.cpp"

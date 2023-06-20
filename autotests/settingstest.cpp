@@ -84,3 +84,5 @@ void SettingsTest::testConnectionAdded(const QString &connection)
 }
 
 QTEST_MAIN(SettingsTest)
+
+#include "moc_settingstest.cpp"

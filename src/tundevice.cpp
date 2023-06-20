@@ -113,3 +113,6 @@ void NetworkManager::TunDevicePrivate::propertyChanged(const QString &property, 
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_tundevice.cpp"
+#include "moc_tundevice_p.cpp"

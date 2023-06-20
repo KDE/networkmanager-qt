@@ -93,3 +93,6 @@ void NetworkManager::Dhcp6ConfigPrivate::dhcp6PropertiesChanged(const QVariantMa
         ++it;
     }
 }
+
+#include "moc_dhcp6config.cpp"
+#include "moc_dhcp6config_p.cpp"

@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDnsManagerInterface::OrgFreedesktopNetworkManagerDns
 OrgFreedesktopNetworkManagerDnsManagerInterface::~OrgFreedesktopNetworkManagerDnsManagerInterface()
 {
 }
+
+#include "moc_dnsmanagerinterface.cpp"

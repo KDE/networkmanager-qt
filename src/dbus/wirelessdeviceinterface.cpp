@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceWirelessInterface::OrgFreedesktopNetworkManage
 OrgFreedesktopNetworkManagerDeviceWirelessInterface::~OrgFreedesktopNetworkManagerDeviceWirelessInterface()
 {
 }
+
+#include "moc_wirelessdeviceinterface.cpp"

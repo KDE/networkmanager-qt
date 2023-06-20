@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceBondInterface::OrgFreedesktopNetworkManagerDev
 OrgFreedesktopNetworkManagerDeviceBondInterface::~OrgFreedesktopNetworkManagerDeviceBondInterface()
 {
 }
+
+#include "moc_bonddeviceinterface.cpp"

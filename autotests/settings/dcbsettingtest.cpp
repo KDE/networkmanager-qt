@@ -127,3 +127,5 @@ void DcbSettingTest::testSetting()
 }
 
 QTEST_MAIN(DcbSettingTest)
+
+#include "moc_dcbsettingtest.cpp"

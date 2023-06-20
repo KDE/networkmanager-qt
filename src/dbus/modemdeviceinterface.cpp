@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceModemInterface::OrgFreedesktopNetworkManagerDe
 OrgFreedesktopNetworkManagerDeviceModemInterface::~OrgFreedesktopNetworkManagerDeviceModemInterface()
 {
 }
+
+#include "moc_modemdeviceinterface.cpp"

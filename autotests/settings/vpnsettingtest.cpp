@@ -61,3 +61,5 @@ void VpnSettingTest::testSetting()
 }
 
 QTEST_MAIN(VpnSettingTest)
+
+#include "moc_vpnsettingtest.cpp"

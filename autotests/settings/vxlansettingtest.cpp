@@ -99,3 +99,5 @@ void VxlanSettingTest::testSetting()
 }
 
 QTEST_MAIN(VxlanSettingTest)
+
+#include "moc_vxlansettingtest.cpp"

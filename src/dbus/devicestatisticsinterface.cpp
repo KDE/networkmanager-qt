@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceStatisticsInterface::OrgFreedesktopNetworkMana
 OrgFreedesktopNetworkManagerDeviceStatisticsInterface::~OrgFreedesktopNetworkManagerDeviceStatisticsInterface()
 {
 }
+
+#include "moc_devicestatisticsinterface.cpp"

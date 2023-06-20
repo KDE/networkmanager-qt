@@ -79,3 +79,5 @@ void Connection::setConnectionPath(const QString &path)
 {
     m_connectionPath = path;
 }
+
+#include "moc_connection.cpp"

@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceAdslInterface::OrgFreedesktopNetworkManagerDev
 OrgFreedesktopNetworkManagerDeviceAdslInterface::~OrgFreedesktopNetworkManagerDeviceAdslInterface()
 {
 }
+
+#include "moc_adsldeviceinterface.cpp"

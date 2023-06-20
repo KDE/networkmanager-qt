@@ -150,3 +150,6 @@ void NetworkManager::IpTunnelDevicePrivate::propertyChanged(const QString &prope
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_iptunneldevice.cpp"
+#include "moc_iptunneldevice_p.cpp"

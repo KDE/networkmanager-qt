@@ -106,3 +106,6 @@ void NetworkManager::WiredDevicePrivate::propertyChanged(const QString &property
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_wireddevice.cpp"
+#include "moc_wireddevice_p.cpp"

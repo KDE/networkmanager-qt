@@ -88,3 +88,5 @@ void MacsecSettingTest::testSetting()
 }
 
 QTEST_MAIN(MacsecSettingTest)
+
+#include "moc_macsecsettingtest.cpp"
