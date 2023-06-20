@@ -70,3 +70,5 @@ void OvsPortSettingTest::testSetting()
 }
 
 QTEST_MAIN(OvsPortSettingTest)
+
+#include "moc_ovsportsettingtest.cpp"

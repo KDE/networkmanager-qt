@@ -93,3 +93,5 @@ void GsmSettingTest::testSetting()
 }
 
 QTEST_MAIN(GsmSettingTest)
+
+#include "moc_gsmsettingtest.cpp"

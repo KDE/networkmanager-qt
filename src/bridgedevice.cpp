@@ -85,3 +85,5 @@ void NetworkManager::BridgeDevicePrivate::propertyChanged(const QString &propert
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_bridgedevice.cpp"

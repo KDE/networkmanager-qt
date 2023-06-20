@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceVlanInterface::OrgFreedesktopNetworkManagerDev
 OrgFreedesktopNetworkManagerDeviceVlanInterface::~OrgFreedesktopNetworkManagerDeviceVlanInterface()
 {
 }
+
+#include "moc_vlandeviceinterface.cpp"

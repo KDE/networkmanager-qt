@@ -121,3 +121,5 @@ void AccessPoint::setWpaFlags(uint flags)
 {
     m_wpaFlags = flags;
 }
+
+#include "moc_accesspoint.cpp"

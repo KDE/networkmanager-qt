@@ -202,3 +202,6 @@ void NetworkManager::ConnectionPrivate::updateSettings(const NMVariantMapMap &ne
     }
     connection.clear();
 }
+
+#include "moc_connection.cpp"
+#include "moc_connection_p.cpp"

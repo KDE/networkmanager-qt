@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerConnectionActiveInterface::OrgFreedesktopNetworkMana
 OrgFreedesktopNetworkManagerConnectionActiveInterface::~OrgFreedesktopNetworkManagerConnectionActiveInterface()
 {
 }
+
+#include "moc_activeconnectioninterface.cpp"

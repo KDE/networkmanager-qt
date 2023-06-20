@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerAgentManagerInterface::OrgFreedesktopNetworkManagerA
 OrgFreedesktopNetworkManagerAgentManagerInterface::~OrgFreedesktopNetworkManagerAgentManagerInterface()
 {
 }
+
+#include "moc_agentmanagerinterface.cpp"

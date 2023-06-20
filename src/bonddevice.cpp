@@ -88,3 +88,6 @@ void NetworkManager::BondDevicePrivate::propertyChanged(const QString &property,
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_bonddevice.cpp"
+#include "moc_bonddevice_p.cpp"

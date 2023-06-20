@@ -93,3 +93,5 @@ void IpTunnelSettingTest::testSetting()
 }
 
 QTEST_MAIN(IpTunnelSettingTest)
+
+#include "moc_iptunnelsettingtest.cpp"

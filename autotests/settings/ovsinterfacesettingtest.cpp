@@ -45,3 +45,5 @@ void OvsInterfaceSettingTest::testSetting()
 }
 
 QTEST_MAIN(OvsInterfaceSettingTest)
+
+#include "moc_ovsinterfacesettingtest.cpp"

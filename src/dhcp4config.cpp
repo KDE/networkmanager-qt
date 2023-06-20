@@ -93,3 +93,6 @@ void NetworkManager::Dhcp4ConfigPrivate::dhcp4PropertiesChanged(const QVariantMa
         ++it;
     }
 }
+
+#include "moc_dhcp4config.cpp"
+#include "moc_dhcp4config_p.cpp"

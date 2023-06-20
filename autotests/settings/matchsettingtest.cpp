@@ -45,3 +45,5 @@ void MatchSettingTest::testSetting()
 }
 
 QTEST_MAIN(MatchSettingTest)
+
+#include "moc_matchsettingtest.cpp"

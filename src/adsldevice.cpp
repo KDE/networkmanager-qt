@@ -60,3 +60,6 @@ void NetworkManager::AdslDevicePrivate::propertyChanged(const QString &property,
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_adsldevice.cpp"
+#include "moc_adsldevice_p.cpp"

@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDHCP6ConfigInterface::OrgFreedesktopNetworkManagerDH
 OrgFreedesktopNetworkManagerDHCP6ConfigInterface::~OrgFreedesktopNetworkManagerDHCP6ConfigInterface()
 {
 }
+
+#include "moc_dhcp6configinterface.cpp"

@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceInfinibandInterface::OrgFreedesktopNetworkMana
 OrgFreedesktopNetworkManagerDeviceInfinibandInterface::~OrgFreedesktopNetworkManagerDeviceInfinibandInterface()
 {
 }
+
+#include "moc_infinibanddeviceinterface.cpp"

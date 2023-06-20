@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceIPTunnelInterface::OrgFreedesktopNetworkManage
 OrgFreedesktopNetworkManagerDeviceIPTunnelInterface::~OrgFreedesktopNetworkManagerDeviceIPTunnelInterface()
 {
 }
+
+#include "moc_iptunneldeviceinterface.cpp"

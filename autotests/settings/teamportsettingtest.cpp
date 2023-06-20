@@ -112,3 +112,5 @@ void TeamPortSettingTest::testSetting()
 }
 
 QTEST_MAIN(TeamPortSettingTest)
+
+#include "moc_teamportsettingtest.cpp"

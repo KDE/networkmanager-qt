@@ -75,3 +75,6 @@ QString NetworkManager::BluetoothDevice::name() const
     Q_D(const BluetoothDevice);
     return d->name;
 }
+
+#include "moc_bluetoothdevice.cpp"
+#include "moc_bluetoothdevice_p.cpp"

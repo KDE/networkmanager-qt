@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceGreInterface::OrgFreedesktopNetworkManagerDevi
 OrgFreedesktopNetworkManagerDeviceGreInterface::~OrgFreedesktopNetworkManagerDeviceGreInterface()
 {
 }
+
+#include "moc_gredeviceinterface.cpp"

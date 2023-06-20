@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerSettingsInterface::OrgFreedesktopNetworkManagerSetti
 OrgFreedesktopNetworkManagerSettingsInterface::~OrgFreedesktopNetworkManagerSettingsInterface()
 {
 }
+
+#include "moc_settingsinterface.cpp"

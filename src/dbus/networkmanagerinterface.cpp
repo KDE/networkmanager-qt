@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerInterface::OrgFreedesktopNetworkManagerInterface(con
 OrgFreedesktopNetworkManagerInterface::~OrgFreedesktopNetworkManagerInterface()
 {
 }
+
+#include "moc_networkmanagerinterface.cpp"

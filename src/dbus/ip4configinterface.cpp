@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerIP4ConfigInterface::OrgFreedesktopNetworkManagerIP4C
 OrgFreedesktopNetworkManagerIP4ConfigInterface::~OrgFreedesktopNetworkManagerIP4ConfigInterface()
 {
 }
+
+#include "moc_ip4configinterface.cpp"

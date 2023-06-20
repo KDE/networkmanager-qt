@@ -63,3 +63,5 @@ void WiredDevice::setState(uint state)
     Device::setState(state);
     // set speed
 }
+
+#include "moc_wireddevice.cpp"

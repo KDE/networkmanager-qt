@@ -43,3 +43,5 @@ void BluetoothSettingTest::testSetting()
 }
 
 QTEST_MAIN(BluetoothSettingTest)
+
+#include "moc_bluetoothsettingtest.cpp"

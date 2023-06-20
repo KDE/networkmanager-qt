@@ -98,3 +98,5 @@ void Settings::onConnectionRemoved(const QDBusObjectPath &connectionPath)
         delete connection;
     }
 }
+
+#include "moc_settings.cpp"

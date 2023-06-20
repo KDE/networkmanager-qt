@@ -165,3 +165,6 @@ void NetworkManager::WimaxDevicePrivate::propertyChanged(const QString &property
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_wimaxdevice.cpp"
+#include "moc_wimaxdevice_p.cpp"

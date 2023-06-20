@@ -129,3 +129,6 @@ NetworkManager::VpnConnection::operator VpnConnection *()
         return nullptr;
     }
 }
+
+#include "moc_vpnconnection.cpp"
+#include "moc_vpnconnection_p.cpp"

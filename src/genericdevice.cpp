@@ -68,3 +68,6 @@ void NetworkManager::GenericDevicePrivate::propertyChanged(const QString &proper
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_genericdevice.cpp"
+#include "moc_genericdevice_p.cpp"

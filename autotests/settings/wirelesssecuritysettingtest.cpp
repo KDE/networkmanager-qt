@@ -125,3 +125,5 @@ void WirelessSecuritySettingTest::testSetting()
 }
 
 QTEST_MAIN(WirelessSecuritySettingTest)
+
+#include "moc_wirelesssecuritysettingtest.cpp"

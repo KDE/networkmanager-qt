@@ -45,3 +45,5 @@ void OvsPatchSettingTest::testSetting()
 }
 
 QTEST_MAIN(OvsPatchSettingTest)
+
+#include "moc_ovspatchsettingtest.cpp"

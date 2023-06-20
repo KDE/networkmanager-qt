@@ -86,3 +86,6 @@ void NetworkManager::ModemDevicePrivate::propertyChanged(const QString &property
         DevicePrivate::propertyChanged(property, value);
     }
 }
+
+#include "moc_modemdevice.cpp"
+#include "moc_modemdevice_p.cpp"

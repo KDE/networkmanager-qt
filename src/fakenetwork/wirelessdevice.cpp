@@ -136,3 +136,5 @@ void WirelessDevice::RequestScan(const QVariantMap &options)
 {
     Q_UNUSED(options);
 }
+
+#include "moc_wirelessdevice.cpp"

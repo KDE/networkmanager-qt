@@ -139,3 +139,5 @@ void ActiveConnectionTest::testActiveConnection()
 }
 
 QTEST_MAIN(ActiveConnectionTest)
+
+#include "moc_activeconnectiontest.cpp"

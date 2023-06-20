@@ -220,3 +220,6 @@ void NetworkManager::AccessPointPrivate::propertiesChanged(const QVariantMap &pr
         ++it;
     }
 }
+
+#include "moc_accesspoint.cpp"
+#include "moc_accesspoint_p.cpp"

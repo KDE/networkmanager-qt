@@ -348,3 +348,6 @@ void NetworkManager::ActiveConnectionPrivate::propertyChanged(const QString &pro
         qCDebug(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
     }
 }
+
+#include "moc_activeconnection.cpp"
+#include "moc_activeconnection_p.cpp"

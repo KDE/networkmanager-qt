@@ -61,3 +61,5 @@ void OvsBridgeSettingTest::testSetting()
 }
 
 QTEST_MAIN(OvsBridgeSettingTest)
+
+#include "moc_ovsbridgesettingtest.cpp"

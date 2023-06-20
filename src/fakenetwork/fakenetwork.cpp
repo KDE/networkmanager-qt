@@ -475,3 +475,5 @@ void FakeNetwork::removeActiveConnection(const QDBusObjectPath &activeConnection
     map.insert(QLatin1String("ActiveConnections"), QVariant::fromValue<QList<QDBusObjectPath>>(m_activeConnections.keys()));
     Q_EMIT PropertiesChanged(map);
 }
+
+#include "moc_fakenetwork.cpp"

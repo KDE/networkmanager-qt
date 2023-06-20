@@ -200,3 +200,5 @@ void ActiveConnection::setUuid(const QString &uuid)
 {
     m_uuid = uuid;
 }
+
+#include "moc_activeconnection.cpp"

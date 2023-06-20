@@ -26,3 +26,5 @@ OrgFreedesktopNetworkManagerDeviceMacsecInterface::OrgFreedesktopNetworkManagerD
 OrgFreedesktopNetworkManagerDeviceMacsecInterface::~OrgFreedesktopNetworkManagerDeviceMacsecInterface()
 {
 }
+
+#include "moc_macsecdeviceinterface.cpp"
