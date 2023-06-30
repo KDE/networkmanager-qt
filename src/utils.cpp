@@ -98,6 +98,9 @@ int NetworkManager::findChannel(int freq)
     while (i < aFreqs.size()) {
         if (aFreqs.at(i).second <= freq) {
             channel = aFreqs.at(i).first;
+            if (aFreqs.at(i).second == freq) {
+                break;
+            }
         } else {
             break;
         }
