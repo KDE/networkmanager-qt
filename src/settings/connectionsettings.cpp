@@ -1,6 +1,7 @@
 /*
     SPDX-FileCopyrightText: 2012-2013 Jan Grulich <jgrulich@redhat.com>
     SPDX-FileCopyrightText: 2013 Daniel Nicoletti <dantti12@gmail.com>
+    SPDX-FileCopyrightText: 2023 Volker Krause <vkrause@kde.org>
 
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
@@ -593,6 +594,70 @@ void NetworkManager::ConnectionSettings::fromMap(const NMVariantMapMap &map)
             setting->setInitialized(true);
         } else {
             setting->setInitialized(false);
+        }
+    }
+}
+
+static struct {
+    const char *name;
+    NetworkManager::Security8021xSetting::EapMethod method;
+} constexpr const eap_methods[] = {
+    {"PEAP", NetworkManager::Security8021xSetting::EapMethodPeap},
+    {"PWD", NetworkManager::Security8021xSetting::EapMethodPwd},
+    {"TLS", NetworkManager::Security8021xSetting::EapMethodTls},
+    {"TTLS", NetworkManager::Security8021xSetting::EapMethodTtls},
+};
+
+static struct {
+    const char *name;
+    NetworkManager::Security8021xSetting::AuthMethod method;
+} constexpr const auth_methods[] = {
+    {"GTC", NetworkManager::Security8021xSetting::AuthMethodGtc},
+    {"MSCHAP", NetworkManager::Security8021xSetting::AuthMethodMschap},
+    {"MSCHAPV2", NetworkManager::Security8021xSetting::AuthMethodMschapv2},
+    {"PAP", NetworkManager::Security8021xSetting::AuthMethodPap},
+};
+
+void NetworkManager::ConnectionSettings::fromMeCard(const QVariantMap &map)
+{
+    const auto ssid = map.value(QLatin1String("S")).toString();
+    setId(ssid);
+
+    auto wifiSetting = setting(Setting::Wireless).dynamicCast<WirelessSetting>();
+    wifiSetting->setInitialized(true);
+    wifiSetting->setSsid(ssid.toUtf8());
+
+    auto wifiSecurity = setting(Setting::WirelessSecurity).dynamicCast<WirelessSecuritySetting>();
+    const auto securityType = map.value(QLatin1String("T")).toString();
+
+    if (!securityType.isEmpty() && securityType != QLatin1String("nopass")) {
+        wifiSecurity->setInitialized(true);
+    }
+
+    if (securityType == QLatin1String("WPA") || securityType == QLatin1String("WEP")) {
+        wifiSecurity->setKeyMgmt(NetworkManager::WirelessSecuritySetting::WpaPsk);
+        wifiSecurity->setPsk(map.value(QLatin1String("P")).toString());
+        wifiSecurity->setPskFlags(NetworkManager::Setting::AgentOwned);
+    } else if (securityType == QLatin1String("WPA2-EAP")) {
+        wifiSecurity->setKeyMgmt(NetworkManager::WirelessSecuritySetting::WpaEap);
+        auto sec8021x = setting(Setting::Security8021x).dynamicCast<Security8021xSetting>();
+        sec8021x->setAnonymousIdentity(map.value(QLatin1String("A")).toString());
+        sec8021x->setIdentity(map.value(QLatin1String("I")).toString());
+        sec8021x->setPassword(map.value(QLatin1String("P")).toString());
+
+        const auto eapMethod = map.value(QLatin1String("E")).toString();
+        for (const auto &method : eap_methods) {
+            if (eapMethod == QLatin1String(method.name)) {
+                sec8021x->setEapMethods({method.method});
+                break;
+            }
+        }
+        const auto phase2AuthMethod = map.value(QLatin1String("PH2")).toString();
+        for (const auto &method : auth_methods) {
+            if (phase2AuthMethod == QLatin1String(method.name)) {
+                sec8021x->setPhase2AuthMethod(method.method);
+                break;
+            }
         }
     }
 }

@@ -97,6 +97,7 @@ public:
     QString name() const;
 
     void fromMap(const NMVariantMapMap &map);
+    void fromMeCard(const QVariantMap &map);
 
     NMVariantMapMap toMap() const;
 
