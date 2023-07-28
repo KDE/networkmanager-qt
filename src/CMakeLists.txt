@@ -137,14 +137,12 @@ set(DBUS_INTERFACE_SRCS
     dbus/wireguarddeviceinterface.cpp
 )
 
-ecm_qt_export_logging_category(
-    IDENTIFIER NMQT
-    CATEGORY_NAME kf.networkmanagerqt
-    OLD_CATEGORY_NAMES networkmanager-qt
+ecm_qt_declare_logging_category(KF6NetworkManagerQt HEADER nmdebug.h IDENTIFIER NMQT
+    CATEGORY_NAME kf.networkmanagerqt OLD_CATEGORY_NAMES networkmanager-qt
     DEFAULT_SEVERITY Warning
     DESCRIPTION "NetworkManagerQt"
     EXPORT NETWORMANAGERQT
-)
+    )
 
 add_library(KF6NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
 add_library(KF6::NetworkManagerQt ALIAS KF6NetworkManagerQt)

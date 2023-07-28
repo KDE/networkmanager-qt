@@ -92,6 +92,12 @@ install(FILES
   DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/NetworkManagerQt COMPONENT Devel
 )
 
+ecm_qt_install_logging_categories(
+        EXPORT NETWORKMANAGERQT
+        FILE networkmanagerqt.categories
+        DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
+        )
+
 feature_summary(WHAT ALL   FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
 kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
