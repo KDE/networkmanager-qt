@@ -145,7 +145,7 @@ ecm_qt_declare_logging_category(KF6NetworkManagerQt
     DEFAULT_SEVERITY Warning
     DESCRIPTION "NetworkManagerQt"
     EXPORT NETWORMANAGERQT
-    )
+)
 
 add_library(KF6NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
 add_library(KF6::NetworkManagerQt ALIAS KF6NetworkManagerQt)
