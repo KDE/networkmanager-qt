@@ -150,6 +150,8 @@ ecm_qt_declare_logging_category(KF6NetworkManagerQt
 add_library(KF6NetworkManagerQt SHARED ${NetworkManagerQt_PART_SRCS} ${NetworkManagerQt_SETTINGS_SRCS} ${DBUS_INTERFACE_SRCS})
 add_library(KF6::NetworkManagerQt ALIAS KF6NetworkManagerQt)
 
+qt_extract_metatypes(KF6NetworkManagerQt)
+
 ecm_generate_export_header(KF6NetworkManagerQt
     EXPORT_FILE_NAME ${NetworkManagerQt_BINARY_DIR}/networkmanagerqt/networkmanagerqt_export.h
     BASE_NAME NetworkManagerQt
@@ -259,6 +261,11 @@ ecm_generate_headers(NetworkManagerQt_SETTINGS_CamelCase_HEADERS
   REQUIRED_HEADERS NetworkManagerQt_SETTINGS_HEADERS
   PREFIX NetworkManagerQt
 )
+
+ecm_add_qml_module(networkmanagerqtqml URI org.kde.networkmanager GENERATE_PLUGIN_SOURCE)
+target_sources(networkmanagerqtqml PRIVATE qmltypes.h)
+target_link_libraries(networkmanagerqtqml PRIVATE Qt6::Qml KF6NetworkManagerQt)
+ecm_finalize_qml_module(networkmanagerqtqml)
 
 install(TARGETS KF6NetworkManagerQt EXPORT KF6NetworkManagerQtTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
