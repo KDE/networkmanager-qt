@@ -10,9 +10,9 @@
 
 #include <qqmlregistration.h>
 
-struct NMForeign {
-    Q_GADGET
-    QML_ELEMENT
-    QML_NAMED_ELEMENT(NetworkManager)
-    QML_FOREIGN_NAMESPACE(NetworkManager)
+namespace NMForeign
+{
+Q_NAMESPACE
+QML_NAMED_ELEMENT(NetworkManager)
+QML_FOREIGN_NAMESPACE(NetworkManager)
 };
