@@ -67,10 +67,10 @@ Q_GLOBAL_STATIC(NetworkManager::NetworkManagerPrivate, globalNetworkManager)
 
 NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
 #ifdef NMQT_STATIC
-    : watcher(DBUS_SERVICE, QDBusConnection::sessionBus(), QDBusServiceWatcher::WatchForUnregistration, this)
+    : watcher(DBUS_SERVICE, QDBusConnection::sessionBus(), QDBusServiceWatcher::WatchForOwnerChange, this)
     , iface(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE, NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH, QDBusConnection::sessionBus())
 #else
-    : watcher(DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForUnregistration, this)
+    : watcher(DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForOwnerChange, this)
     , iface(NetworkManager::NetworkManagerPrivate::DBUS_SERVICE, NetworkManager::NetworkManagerPrivate::DBUS_DAEMON_PATH, QDBusConnection::systemBus())
 #endif
     , nmState(NetworkManager::Unknown)
@@ -99,6 +99,11 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     connect(&iface, &OrgFreedesktopNetworkManagerInterface::PropertiesChanged, this, &NetworkManagerPrivate::propertiesChanged);
 #endif
 
+    // We register two listeners here:
+    // - a ServiceRegistered listener for newer NM versions that connect to the bus when the interfaces
+    //   we care about are already initialized
+    // - and an InterfaceAdded listener for older NM versions that connect to the bus early,
+    //   and then add interfaces dynamically
     iface.connection().connect(NetworkManagerPrivate::DBUS_SERVICE,
                                "/org/freedesktop",
                                NetworkManagerPrivate::FDO_DBUS_OBJECT_MANAGER,
@@ -106,6 +111,7 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
                                this,
                                SLOT(dbusInterfacesAdded(QDBusObjectPath, QVariantMap)));
 
+    connect(&watcher, &QDBusServiceWatcher::serviceRegistered, this, &NetworkManagerPrivate::daemonRegistered);
     connect(&watcher, &QDBusServiceWatcher::serviceUnregistered, this, &NetworkManagerPrivate::daemonUnregistered);
 
     init();
@@ -175,14 +181,12 @@ void NetworkManager::NetworkManagerPrivate::init()
         qobject_cast<SettingsPrivate *>(settingsNotifier())->init();
     });
 
-    if (iface.isValid()) {
-        const QList<QDBusObjectPath> devices = iface.devices();
-        qCDebug(NMQT) << "Device list";
-        for (const QDBusObjectPath &op : devices) {
-            networkInterfaceMap.insert(op.path(), Device::Ptr());
-            Q_EMIT deviceAdded(op.path());
-            qCDebug(NMQT) << "  " << op.path();
-        }
+    const QList<QDBusObjectPath> devices = iface.devices();
+    qCDebug(NMQT) << "Device list";
+    for (const QDBusObjectPath &op : devices) {
+        networkInterfaceMap.insert(op.path(), Device::Ptr());
+        Q_EMIT deviceAdded(op.path());
+        qCDebug(NMQT) << "  " << op.path();
     }
 }
 
@@ -896,6 +900,17 @@ void NetworkManager::NetworkManagerPrivate::dbusInterfacesAdded(const QDBusObjec
     Q_UNUSED(path);
 
     if (!addedInterfaces.contains(NetworkManagerPrivate::DBUS_DAEMON_INTERFACE)) {
+        return;
+    }
+
+    daemonRegistered();
+}
+
+void NetworkManager::NetworkManagerPrivate::daemonRegistered()
+{
+    if (iface.version().isEmpty()) {
+        // If this call fails, we've probably been called from ServiceRegistered on an old NM,
+        // and the interface isn't ready yet. Just exit and hope we get called again on InterfacesAdded.
         return;
     }
 
