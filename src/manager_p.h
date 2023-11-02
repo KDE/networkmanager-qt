@@ -120,6 +120,7 @@ protected Q_SLOTS:
     void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
     void propertiesChanged(const QVariantMap &changedProperties);
     void dbusInterfacesAdded(const QDBusObjectPath &path, const QVariantMap &addedInterfaces);
+    void daemonRegistered();
     void daemonUnregistered();
 
 private:

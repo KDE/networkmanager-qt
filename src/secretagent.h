@@ -140,6 +140,7 @@ private:
     Q_PRIVATE_SLOT(d_func(), void registerAgent())
     Q_PRIVATE_SLOT(d_func(), void registerAgent(const NetworkManager::SecretAgent::Capabilities capabilities))
     Q_PRIVATE_SLOT(d_func(), void dbusInterfacesAdded(const QDBusObjectPath &path, const QVariantMap &interfaces))
+    Q_PRIVATE_SLOT(d_func(), void daemonRegistered())
 
     SecretAgentPrivate *const d_ptr;
 };

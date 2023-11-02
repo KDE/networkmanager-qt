@@ -28,8 +28,10 @@ NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id,
     , agent(parent)
 #ifdef NMQT_STATIC
     , agentManager(NetworkManagerPrivate::DBUS_SERVICE, QLatin1String(NM_DBUS_PATH_AGENT_MANAGER), QDBusConnection::sessionBus(), parent)
+    , watcher(NetworkManagerPrivate::DBUS_SERVICE, QDBusConnection::sessionBus(), QDBusServiceWatcher::WatchForOwnerChange, parent)
 #else
     , agentManager(NetworkManagerPrivate::DBUS_SERVICE, QLatin1String(NM_DBUS_PATH_AGENT_MANAGER), QDBusConnection::systemBus(), parent)
+    , watcher(NetworkManagerPrivate::DBUS_SERVICE, QDBusConnection::systemBus(), QDBusServiceWatcher::WatchForOwnerChange, parent)
 #endif
     , agentId(id)
     , capabilities(capabilities)
@@ -39,12 +41,18 @@ NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id,
     qRegisterMetaType<NMVariantMapMap>("NMVariantMapMap");
     qDBusRegisterMetaType<NMVariantMapMap>();
 
+    // Similarly to NetworkManagerPrivate(), we register two listeners here:
+    // one for ServiceRegistered and one for InterfacesAdded.
+    // As of this writing (NM 1.44.x), the NM secrets machinery is initialized late
+    // enough that InterfacesAdded is always emitted, but better safe than sorry.
     agentManager.connection().connect(NetworkManagerPrivate::DBUS_SERVICE,
                                       "/org/freedesktop",
                                       NetworkManagerPrivate::FDO_DBUS_OBJECT_MANAGER,
                                       QLatin1String("InterfacesAdded"),
                                       q,
                                       SLOT(dbusInterfacesAdded(QDBusObjectPath, QVariantMap)));
+
+    QObject::connect(&watcher, SIGNAL(serviceRegistered()), parent, SLOT(daemonRegistered()));
 
     agentManager.connection().registerObject(QLatin1String(NM_DBUS_PATH_SECRET_AGENT), &agent, QDBusConnection::ExportAllSlots);
 
@@ -66,9 +74,14 @@ void NetworkManager::SecretAgentPrivate::dbusInterfacesAdded(const QDBusObjectPa
     registerAgent(capabilities);
 }
 
+void NetworkManager::SecretAgentPrivate::daemonRegistered() 
+{
+    registerAgent(capabilities);
+}
+
 void NetworkManager::SecretAgentPrivate::registerAgent()
 {
-    agentManager.RegisterWithCapabilities(agentId, NetworkManager::SecretAgent::Capability::NoCapability);
+    registerAgent(NetworkManager::SecretAgent::Capability::NoCapability);
 }
 
 void NetworkManager::SecretAgentPrivate::registerAgent(NetworkManager::SecretAgent::Capabilities capabilities)
