@@ -1,12 +1,12 @@
 set(exampleNetworkManagerQt_SRCS
-   main.cpp
+    main.cpp
 )
 
 add_executable(exampleNetworkManagerQt ${exampleNetworkManagerQt_SRCS})
 target_link_libraries(exampleNetworkManagerQt
     KF6::NetworkManagerQt
     Qt6::Core
-    Qt6::Network)
+)
 
 add_subdirectory(createconnection)
 add_subdirectory(secret_agent)
