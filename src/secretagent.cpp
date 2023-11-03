@@ -50,7 +50,7 @@ NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id,
                                       q,
                                       SLOT(dbusInterfacesAdded(QDBusObjectPath, QVariantMap)));
 
-    QObject::connect(&watcher, SIGNAL(serviceRegistered()), parent, SLOT(daemonRegistered()));
+    QObject::connect(&watcher, &QDBusServiceWatcher::serviceRegistered, parent, [this] { this->daemonRegistered(); });
 
     agentManager.connection().registerObject(QLatin1String(NM_DBUS_PATH_SECRET_AGENT), &agent, QDBusConnection::ExportAllSlots);
 
