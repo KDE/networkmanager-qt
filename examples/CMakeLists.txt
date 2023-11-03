@@ -9,3 +9,4 @@ target_link_libraries(exampleNetworkManagerQt
     Qt6::Network)
 
 add_subdirectory(createconnection)
+add_subdirectory(secret_agent)
