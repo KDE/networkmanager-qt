@@ -43,8 +43,6 @@ NetworkManager::SecretAgentPrivate::SecretAgentPrivate(const QString &id,
 
     // Similarly to NetworkManagerPrivate(), we register two listeners here:
     // one for ServiceRegistered and one for InterfacesAdded.
-    // As of this writing (NM 1.44.x), the NM secrets machinery is initialized late
-    // enough that InterfacesAdded is always emitted, but better safe than sorry.
     agentManager.connection().connect(NetworkManagerPrivate::DBUS_SERVICE,
                                       "/org/freedesktop",
                                       NetworkManagerPrivate::FDO_DBUS_OBJECT_MANAGER,
