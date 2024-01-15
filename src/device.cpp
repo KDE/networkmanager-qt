@@ -247,9 +247,7 @@ void NetworkManager::DevicePrivate::propertyChanged(const QString &property, con
 
     // qCDebug(NMQT) << property  << " - " << value;
     if (property == QLatin1String("ActiveConnection")) {
-        // FIXME workaround, because NM doesn't Q_EMIT correct value
-        // d->activeConnection = value.value<QDBusObjectPath>.path();
-        activeConnection = deviceIface.activeConnection().path();
+        activeConnection = value.value<QDBusObjectPath>().path();
         Q_EMIT q->activeConnectionChanged();
     } else if (property == QLatin1String("Autoconnect")) {
         autoconnect = value.toBool();
