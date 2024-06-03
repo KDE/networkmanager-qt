@@ -221,6 +221,8 @@ public:
         Lowpan, /**< Lowpan Device @since 1.14 */
         WireGuard, /**< WireGuard Device @since 1.14 */
         WifiP2P, /**< WifiP2P Device @since 1.16 */
+        VRF, /**< VRF (Virtual Routing and Forwarding) Device @since: 1.24 */
+        Loopback, /**< Loopback Device @since 1.42 */
     };
     Q_ENUM(Type)
     Q_DECLARE_FLAGS(Types, Type)

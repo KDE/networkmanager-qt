@@ -212,6 +212,12 @@ NetworkManager::Device::Type NetworkManager::DevicePrivate::convertType(uint typ
     case 30:
         // NM_DEVICE_TYPE_WIFI_P2P
         return NetworkManager::Device::WifiP2P;
+    case 31:
+        // NM_DEVICE_TYPE_VRF
+        return NetworkManager::Device::VRF;
+    case 32:
+        // NM_DEVICE_TYPE_LOOPBACK
+        return NetworkManager::Device::Loopback;
     }
 
     return NetworkManager::Device::UnknownType;
