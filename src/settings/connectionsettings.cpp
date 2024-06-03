@@ -48,6 +48,10 @@
 #define NM_SETTING_WIREGUARD_SETTING_NAME "wireguard"
 #endif
 
+#if !NM_CHECK_VERSION(1, 42, 0)
+#define NM_SETTING_LOOPBACK_SETTING_NAME "loopback"
+#endif
+
 #include "genericsetting.h"
 #include "teamsetting.h"
 
@@ -201,6 +205,9 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabili
         addSetting(Setting::Ptr(new Ipv4Setting()));
         addSetting(Setting::Ptr(new Ipv6Setting()));
         break;
+    case ConnectionSettings::Loopback:
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
     case ConnectionSettings::Unknown:
     default:
         break;
@@ -327,6 +334,10 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
         addSetting(connectionSettings->setting(Setting::Ipv4));
         addSetting(connectionSettings->setting(Setting::Ipv6));
         break;
+    case ConnectionSettings::Loopback:
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        break;
     case ConnectionSettings::Unknown:
     default:
         break;
@@ -375,6 +386,8 @@ NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSet
         type = IpTunnel;
     } else if (typeString == QLatin1String(NM_SETTING_WIREGUARD_SETTING_NAME)) {
         type = WireGuard;
+    } else if (typeString == QLatin1String(NM_SETTING_LOOPBACK_SETTING_NAME)) {
+        type = Loopback;
     }
 
     return type;
@@ -441,6 +454,9 @@ QString NetworkManager::ConnectionSettings::typeAsString(NetworkManager::Connect
         break;
     case WireGuard:
         typeString = QLatin1String(NM_SETTING_WIREGUARD_SETTING_NAME);
+        break;
+    case Loopback:
+        typeString = QLatin1String(NM_SETTING_LOOPBACK_SETTING_NAME);
         break;
     default:
         break;

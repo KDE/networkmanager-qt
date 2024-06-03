@@ -53,6 +53,7 @@ public:
         Tun,
         IpTunnel,
         WireGuard,
+        Loopback,
     };
 
     enum AutoconnectSlaves {
