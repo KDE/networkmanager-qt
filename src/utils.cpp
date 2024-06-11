@@ -124,7 +124,7 @@ bool NetworkManager::deviceSupportsApCiphers(NetworkManager::WirelessDevice::Cap
                                              WirelessSecurityType type)
 {
     bool havePair = false;
-    bool haveGroup = true;
+    bool haveGroup = false;
 
     if (type == NetworkManager::StaticWep) {
         havePair = true;
