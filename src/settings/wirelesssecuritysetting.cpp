@@ -451,6 +451,8 @@ void NetworkManager::WirelessSecuritySetting::fromMap(const QVariantMap &map)
             setKeyMgmt(SAE);
         } else if (key == "wpa-eap-suite-b-192") {
             setKeyMgmt(WpaEapSuiteB192);
+        } else if (key == "owe") {
+            setKeyMgmt(OWE);
         }
     }
 
@@ -589,6 +591,8 @@ QVariantMap NetworkManager::WirelessSecuritySetting::toMap() const
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT), "sae");
     } else if (keyMgmt() == WpaEapSuiteB192) {
         setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT), "wpa-eap-suite-b-192");
+    } else if (keyMgmt() == OWE) {
+        setting.insert(QLatin1String(NM_SETTING_WIRELESS_SECURITY_KEY_MGMT), "owe");
     }
 
     if (wepTxKeyindex()) {

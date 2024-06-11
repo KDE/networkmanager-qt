@@ -33,6 +33,7 @@ public:
         WpaEap,
         SAE,
         WpaEapSuiteB192,
+        OWE,
     };
     enum AuthAlg {
         None,

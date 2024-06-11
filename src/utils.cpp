@@ -367,6 +367,20 @@ bool NetworkManager::securityIsValid(WirelessSecurityType type,
             return false;
         }
         break;
+    case OWE:
+        if (adhoc) {
+            return false;
+        }
+        if (!interfaceCaps.testFlag(NetworkManager::WirelessDevice::Rsn)) {
+            return false;
+        }
+        if (haveAp) {
+            if (!apRsn.testFlag(NetworkManager::AccessPoint::KeyMgmtOWE) //
+                && !apRsn.testFlag(NetworkManager::AccessPoint::KeyMgmtOWETM)) {
+                return false;
+            }
+        }
+        break;
     case Wpa3SuiteB192:
         if (adhoc) {
             return false;
@@ -406,6 +420,7 @@ NetworkManager::WirelessSecurityType NetworkManager::findBestWirelessSecurity(Ne
                                                                NetworkManager::StaticWep,
                                                                NetworkManager::DynamicWep,
                                                                NetworkManager::Leap,
+                                                               NetworkManager::OWE,
                                                                NetworkManager::NoneSecurity};
 
     for (NetworkManager::WirelessSecurityType type : types) {
