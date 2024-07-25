@@ -654,6 +654,10 @@ void NetworkManager::ConnectionSettings::fromMeCard(const QVariantMap &map)
         wifiSecurity->setKeyMgmt(NetworkManager::WirelessSecuritySetting::WpaPsk);
         wifiSecurity->setPsk(map.value(QLatin1String("P")).toString());
         wifiSecurity->setPskFlags(NetworkManager::Setting::AgentOwned);
+    } else if (securityType == QLatin1String("SAE")) {
+        wifiSecurity->setKeyMgmt(NetworkManager::WirelessSecuritySetting::SAE);
+        wifiSecurity->setPsk(map.value(QLatin1String("P")).toString());
+        wifiSecurity->setPskFlags(NetworkManager::Setting::AgentOwned);
     } else if (securityType == QLatin1String("WPA2-EAP")) {
         wifiSecurity->setKeyMgmt(NetworkManager::WirelessSecuritySetting::WpaEap);
         auto sec8021x = setting(Setting::Security8021x).dynamicCast<Security8021xSetting>();
