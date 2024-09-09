@@ -318,11 +318,9 @@ QVariantMap NetworkManager::Setting::secretsToMap() const
 NMStringMap NetworkManager::Setting::secretsToStringMap() const
 {
     NMStringMap ret;
-    QVariantMap secretsMap = secretsToMap();
-    QVariantMap::ConstIterator i = secretsMap.constBegin();
-    while (i != secretsMap.constEnd()) {
-        ret.insert(i.key(), i.value().toString());
-        ++i;
+    const QVariantMap secretsMap = secretsToMap();
+    for (auto it = secretsMap.begin(); it != secretsMap.end(); ++it) {
+        ret.insert(it.key(), it.value().toString());
     }
 
     return ret;

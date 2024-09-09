@@ -221,12 +221,10 @@ NMStringMap NetworkManager::VpnSetting::secretsToStringMap() const
 {
     NMStringMap ret;
     QStringList list;
-    QMap<QString, QString>::ConstIterator i = secrets().constBegin();
-    while (i != secrets().constEnd()) {
-        list << i.key() << i.value();
-        ++i;
+    const QMap<QString, QString> values = secrets();
+    for (auto it = values.begin(); it != values.end(); ++it) {
+        list << it.key() << it.value();
     }
-
     ret.insert(QLatin1String("VpnSecrets"), list.join("%SEP%"));
     return ret;
 }
