@@ -65,8 +65,7 @@ QByteArray NetworkManager::macAddressFromString(const QString &s)
 
 bool NetworkManager::macAddressIsValid(const QString &macAddress)
 {
-    QRegularExpression macAddressCheck(QStringLiteral("([a-fA-F0-9][a-fA-F0-9]:){5}[0-9a-fA-F][0-9a-fA-F]"));
-
+    const static QRegularExpression macAddressCheck(QStringLiteral("([a-fA-F0-9][a-fA-F0-9]:){5}[0-9a-fA-F][0-9a-fA-F]"));
     return macAddressCheck.match(macAddress).hasMatch();
 }
 
