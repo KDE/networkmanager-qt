@@ -413,7 +413,7 @@ void NetworkManager::Ipv6Setting::fromMap(const QVariantMap &setting)
 
     if (setting.contains(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESSES))) {
         QList<IpV6DBusAddress> temp;
-        if (setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_DNS)).canConvert<QDBusArgument>()) {
+        if (setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESSES)).canConvert<QDBusArgument>()) {
             QDBusArgument addressArg = setting.value(QLatin1String(NMQT_SETTING_IP6_CONFIG_ADDRESSES)).value<QDBusArgument>();
             temp = qdbus_cast<QList<IpV6DBusAddress>>(addressArg);
         } else {
