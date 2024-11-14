@@ -1,0 +1,8 @@
+/*!
+    \module NetworkManagerQt
+    \title NetworkManagerQt C++ Classes
+    \ingroup modules
+    \cmakepackage KF6
+    \cmakecomponent NetworkManagerQt
+    \brief Qt wrapper for NetworkManager API.
+*/

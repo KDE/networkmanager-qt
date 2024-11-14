@@ -14,25 +14,47 @@ namespace NetworkManager
 {
 class TcSettingPrivate;
 
-/**
- * Represents Tc setting
+/*!
+ * \class NetworkManager::TcSetting
+ * \inheaderfile NetworkManagerQt/TcSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents Tc setting.
  */
 class NETWORKMANAGERQT_EXPORT TcSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::TcSetting::Ptr
+     */
     typedef QSharedPointer<TcSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::TcSetting::List
+     */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     TcSetting();
+    /*!
+     */
     explicit TcSetting(const Ptr &other);
     ~TcSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setQdiscs(const NMVariantMapList &qdiscs);
+    /*!
+     */
     NMVariantMapList qdiscs() const;
 
+    /*!
+     */
     void setTfilters(const NMVariantMapList &tfilters);
+    /*!
+     */
     NMVariantMapList tfilters() const;
 
     void fromMap(const QVariantMap &setting) override;

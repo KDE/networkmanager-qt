@@ -16,31 +16,61 @@ namespace NetworkManager
 {
 class OvsBridgeSettingPrivate;
 
-/**
- * Represents ovs-bridge setting
+/*!
+ * \class NetworkManager::OvsBridgeSetting
+ * \inheaderfile NetworkManagerQt/OvsBridgeSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents ovs-bridge setting.
  */
 class NETWORKMANAGERQT_EXPORT OvsBridgeSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::OvsBridgeSetting::Ptr
+     */
     typedef QSharedPointer<OvsBridgeSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::OvsBridgeSetting::List
+     */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     OvsBridgeSetting();
+    /*!
+     */
     explicit OvsBridgeSetting(const Ptr &other);
     ~OvsBridgeSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setMcastSnoopingEnable(bool mcastSnoopingEnable);
+    /*!
+     */
     bool mcastSnoopingEnable() const;
 
+    /*!
+     */
     void setRstpEnable(bool rstpEnable);
+    /*!
+     */
     bool rstpEnable() const;
 
+    /*!
+     */
     void setStpEnable(bool stpEnable);
+    /*!
+     */
     bool stpEnable() const;
 
+    /*!
+     */
     void setFailMode(const QString &mode);
+    /*!
+     */
     QString failMode() const;
 
     void fromMap(const QVariantMap &setting) override;

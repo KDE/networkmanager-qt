@@ -16,53 +16,63 @@ namespace NetworkManager
 {
 class OlpcMeshDevicePrivate;
 
-/**
- * A OLPC mesh interface
+/*!
+ * \class NetworkManager::OlpcMeshDevice
+ * \inheaderfile NetworkManagerQt/OlpcMeshDevice
+ * \inmodule NetworkManagerQt
+ *
+ * \brief A OLPC mesh interface.
  */
 class NETWORKMANAGERQT_EXPORT OlpcMeshDevice : public Device
 {
     Q_OBJECT
 
 public:
+    /*!
+     * \typedef NetworkManager::OlpcMeshDevice::Ptr
+     */
     typedef QSharedPointer<OlpcMeshDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::OlpcMeshDevice::List
+     */
     typedef QList<Ptr> List;
-    /**
+    /*!
      * Creates a new OlpcMeshDevice object.
      *
-     * @param path the DBus path of the device
+     * \a path the DBus path of the device
      */
     explicit OlpcMeshDevice(const QString &path, QObject *parent = nullptr);
-    /**
+    /*!
      * Destroys a OlpcMeshDevice object.
      */
     ~OlpcMeshDevice() override;
-    /**
+    /*!
      * Return the type
      */
     Type type() const override;
-    /**
+    /*!
      * Currently active channel.
      */
     uint activeChannel() const;
-    /**
+    /*!
      * The hardware address currently used by the network interface
      */
     QString hardwareAddress() const;
-    /**
+    /*!
      * The current companion device.
      */
     Device::Ptr companionDevice() const;
 
 Q_SIGNALS:
-    /**
+    /*!
      * The active channel changed.
      */
     void activeChannelChanged(uint);
-    /**
+    /*!
      * The companion changed.
      */
     void companionChanged(const Device::Ptr &device);
-    /**
+    /*!
      * The device changed its hardware address
      */
     void hardwareAddressChanged(const QString &);

@@ -16,25 +16,45 @@ namespace NetworkManager
 {
 class TeamSettingPrivate;
 
-/**
- * Represents team setting
+/*!
+ * \class NetworkManager::TeamSetting
+ * \inheaderfile NetworkManagerQt/TeamSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents team setting.
  */
 class NETWORKMANAGERQT_EXPORT TeamSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::TeamSetting::Ptr
+     */
     typedef QSharedPointer<TeamSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::TeamSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     */
     TeamSetting();
+    /*!
+     */
     explicit TeamSetting(const Ptr &other);
     ~TeamSetting() override;
 
     QString name() const override;
 
-    /// @deprecated in favor of connection.interface-name in NM 1.0.0
+    /*! \deprecated in favor of connection.interface-name in NM 1.0.0 */
     void setInterfaceName(const QString &name);
+    /*!
+     */
     QString interfaceName() const;
 
+    /*!
+     */
     QString config() const;
+    /*!
+     */
     void setConfig(const QString &config);
 
     void fromMap(const QVariantMap &setting) override;

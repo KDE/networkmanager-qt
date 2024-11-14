@@ -16,23 +16,43 @@ namespace NetworkManager
 {
 class UserSettingPrivate;
 
-/**
- * Represents user setting
+/*!
+ * \class NetworkManager::UserSetting
+ * \inheaderfile NetworkManagerQt/UserSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents user setting.
  */
 class NETWORKMANAGERQT_EXPORT UserSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::UserSetting::Ptr
+     */
     typedef QSharedPointer<UserSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::UserSetting::List
+     */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     UserSetting();
+    /*!
+     */
     explicit UserSetting(const Ptr &other);
     ~UserSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void addData(const QString &data, const QString &value);
+    /*!
+     */
     void setData(const NMStringMap &data);
+    /*!
+     */
     NMStringMap data() const;
 
     void fromMap(const QVariantMap &setting) override;

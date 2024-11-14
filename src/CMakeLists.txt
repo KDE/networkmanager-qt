@@ -266,6 +266,7 @@ ecm_add_qml_module(networkmanagerqtqml URI org.kde.networkmanager GENERATE_PLUGI
 target_sources(networkmanagerqtqml PRIVATE qmltypes.h)
 target_link_libraries(networkmanagerqtqml PRIVATE Qt6::Qml KF6NetworkManagerQt)
 ecm_finalize_qml_module(networkmanagerqtqml)
+ecm_generate_qdoc(KF6NetworkManagerQt networkmanager-qt.qdocconf)
 
 install(TARGETS KF6NetworkManagerQt EXPORT KF6NetworkManagerQtTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
@@ -287,28 +288,3 @@ ecm_qt_install_logging_categories(
     FILE networkmanagerqt.categories
     DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
 )
-
-if(BUILD_QCH)
-    ecm_add_qch(
-        KF6NetworkManagerQt_QCH
-        NAME NetworkManagerQt
-        BASE_NAME KF6NetworkManagerQt
-        VERSION ${KF_VERSION}
-        ORG_DOMAIN org.kde
-        SOURCES # using only public headers, to cover only public API
-            ${NetworkManagerQt_HEADERS}
-            ${NetworkManagerQt_SETTINGS_HEADERS}
-        MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
-        LINK_QCHS
-            Qt6Core_QCH
-            Qt6Network_QCH
-            Qt6DBus_QCH
-        BLANK_MACROS
-            NETWORKMANAGERQT_EXPORT
-            NETWORKMANAGERQT_DEPRECATED
-            NETWORKMANAGERQT_DEPRECATED_EXPORT
-        TAGFILE_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
-        QCH_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
-        COMPONENT Devel
-    )
-endif()

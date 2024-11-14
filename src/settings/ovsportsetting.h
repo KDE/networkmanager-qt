@@ -14,37 +14,75 @@ namespace NetworkManager
 {
 class OvsPortSettingPrivate;
 
-/**
- * Represents OvsPort setting
+/*!
+ * \class NetworkManager::OvsPortSetting
+ * \inheaderfile NetworkManagerQt/OvsPortSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents o setting.
  */
 class NETWORKMANAGERQT_EXPORT OvsPortSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::OvsPortSetting::Ptr
+     */
     typedef QSharedPointer<OvsPortSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::OvsPortSetting::List
+     */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     OvsPortSetting();
+    /*!
+     */
     explicit OvsPortSetting(const Ptr &other);
     ~OvsPortSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setBondDowndelay(quint32 delay);
+    /*!
+     */
     quint32 bondDowndelay() const;
 
+    /*!
+     */
     void setBondUpdelay(quint32 delay);
+    /*!
+     */
     quint32 bondUpdelay() const;
 
+    /*!
+     */
     void setTag(quint32 tag);
+    /*!
+     */
     quint32 tag() const;
 
+    /*!
+     */
     void setBondMode(const QString &mode);
+    /*!
+     */
     QString bondMode() const;
 
+    /*!
+     */
     void setLacp(const QString &lacp);
+    /*!
+     */
     QString lacp() const;
 
+    /*!
+     */
     void setVlanMode(const QString &mode);
+    /*!
+     */
     QString vlanMode() const;
 
     void fromMap(const QVariantMap &setting) override;

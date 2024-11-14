@@ -18,26 +18,46 @@ namespace NetworkManager
 {
 class Dhcp6ConfigPrivate;
 
-/**
- * This class represents dhcp4 configuration
+/*!
+ * \class NetworkManager::Dhcp6Config
+ * \inheaderfile NetworkManagerQt/Dhcp6Config
+ * \inmodule NetworkManagerQt
+ *
+ * \brief This class represents dhcp4 configuration.
  */
 class NETWORKMANAGERQT_EXPORT Dhcp6Config : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     * \typedef NetworkManager::Dhcp6Config::Ptr
+     */
     typedef QSharedPointer<Dhcp6Config> Ptr;
+    /*!
+     * \typedef NetworkManager::Dhcp6Config::List
+     */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     explicit Dhcp6Config(const QString &path, QObject *owner = nullptr);
     ~Dhcp6Config() override;
 
+    /*!
+     */
     QString path() const;
 
+    /*!
+     */
     QVariantMap options() const;
 
+    /*!
+     */
     QString optionValue(const QString &key) const;
 
 Q_SIGNALS:
+    /*!
+     */
     void optionsChanged(const QVariantMap &);
 
 private:

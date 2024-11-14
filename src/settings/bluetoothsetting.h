@@ -16,30 +16,58 @@ namespace NetworkManager
 {
 class BluetoothSettingPrivate;
 
-/**
- * Represents bluetooth setting
+/*!
+ * \class NetworkManager::BluetoothSetting
+ * \inheaderfile NetworkManagerQt/BluetoothSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents bluetooth setting.
  */
 class NETWORKMANAGERQT_EXPORT BluetoothSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::BluetoothSetting::Ptr
+     */
     typedef QSharedPointer<BluetoothSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::BluetoothSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     *
+     * \value Unknown
+     * \value Dun
+     * \value Panu
+     */
     enum ProfileType {
         Unknown = 0,
         Dun,
         Panu,
     };
 
+    /*!
+     */
     BluetoothSetting();
+    /*!
+     */
     explicit BluetoothSetting(const Ptr &other);
     ~BluetoothSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setBluetoothAddress(const QByteArray &address);
+    /*!
+     */
     QByteArray bluetoothAddress() const;
 
+    /*!
+     */
     void setProfileType(ProfileType type);
+    /*!
+     */
     ProfileType profileType() const;
 
     void fromMap(const QVariantMap &setting) override;

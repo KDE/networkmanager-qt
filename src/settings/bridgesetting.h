@@ -16,46 +16,96 @@ namespace NetworkManager
 {
 class BridgeSettingPrivate;
 
-/**
- * Represents bridge setting
+/*!
+ * \class NetworkManager::BridgeSetting
+ * \inheaderfile NetworkManagerQt/BridgeSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents bridge setting.
  */
 class NETWORKMANAGERQT_EXPORT BridgeSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::BridgeSetting::Ptr
+     */
     typedef QSharedPointer<BridgeSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::BridgeSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     */
     BridgeSetting();
+    /*!
+     */
     explicit BridgeSetting(const Ptr &other);
     ~BridgeSetting() override;
 
     QString name() const override;
 
     // Deprecated in favor of connection.interface-name in NM 1.0.0
+    /*!
+     */
     void setInterfaceName(const QString &name);
+    /*!
+     */
     QString interfaceName() const;
 
+    /*!
+     */
     void setStp(bool enabled);
+    /*!
+     */
     bool stp() const;
 
+    /*!
+     */
     void setPriority(quint32 priority);
+    /*!
+     */
     quint32 priority() const;
 
+    /*!
+     */
     void setForwardDelay(quint32 delay);
+    /*!
+     */
     quint32 forwardDelay() const;
 
+    /*!
+     */
     void setHelloTime(quint32 time);
+    /*!
+     */
     quint32 helloTime() const;
 
+    /*!
+     */
     void setMaxAge(quint32 age);
+    /*!
+     */
     quint32 maxAge() const;
 
+    /*!
+     */
     void setAgingTime(quint32 time);
+    /*!
+     */
     quint32 agingTime() const;
 
+    /*!
+     */
     void setMulticastSnooping(bool snooping);
+    /*!
+     */
     bool multicastSnooping() const;
 
+    /*!
+     */
     void setMacAddress(const QByteArray &address);
+    /*!
+     */
     QByteArray macAddress() const;
 
     void fromMap(const QVariantMap &setting) override;

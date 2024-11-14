@@ -16,14 +16,36 @@ namespace NetworkManager
 {
 class WirelessSecuritySettingPrivate;
 
-/**
- * Represents wireless security setting
+/*!
+ * \class NetworkManager::WirelessSecuritySetting
+ * \inheaderfile NetworkManagerQt/WirelessSecuritySetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents wireless security setting.
  */
 class NETWORKMANAGERQT_EXPORT WirelessSecuritySetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::WirelessSecuritySetting::Ptr
+     */
     typedef QSharedPointer<WirelessSecuritySetting> Ptr;
+    /*!
+     * \typedef NetworkManager::WirelessSecuritySetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     *
+     * \value Unknown
+     * \value Wep
+     * \value Ieee8021x
+     * \value WpaNone
+     * \value WpaPsk
+     * \value WpaEap
+     * \value SAE
+     * \value WpaEapSuiteB192
+     * \value OWE
+     */
     enum KeyMgmt {
         Unknown = -1,
         Wep,
@@ -35,27 +57,59 @@ public:
         WpaEapSuiteB192,
         OWE,
     };
+    /*!
+     *
+     * \value None
+     * \value Open
+     * \value Shared
+     * \value Leap
+     */
     enum AuthAlg {
         None,
         Open,
         Shared,
         Leap,
     };
+    /*!
+     *
+     * \value Wpa
+     * \value Rsn
+     */
     enum WpaProtocolVersion {
         Wpa,
         Rsn,
     };
+    /*!
+     *
+     * \value Wep40
+     * \value Wep104
+     * \value Tkip
+     * \value Ccmp
+     */
     enum WpaEncryptionCapabilities {
         Wep40,
         Wep104,
         Tkip,
         Ccmp,
     };
+    /*!
+     *
+     * \value NotSpecified
+     * \value Hex
+     * \value Passphrase
+     */
     enum WepKeyType {
         NotSpecified,
         Hex,
         Passphrase,
     };
+    /*!
+     *
+     * \value DefaultPmf
+     * \value DisablePmf
+     * \value OptionalPmf
+     * \value RequiredPmf
+     */
     enum Pmf {
         DefaultPmf,
         DisablePmf,
@@ -63,64 +117,140 @@ public:
         RequiredPmf,
     };
 
+    /*!
+     */
     WirelessSecuritySetting();
+    /*!
+     */
     explicit WirelessSecuritySetting(const Ptr &other);
     ~WirelessSecuritySetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setKeyMgmt(KeyMgmt mgmt);
+    /*!
+     */
     KeyMgmt keyMgmt() const;
 
+    /*!
+     */
     void setWepTxKeyindex(quint32 index);
+    /*!
+     */
     quint32 wepTxKeyindex() const;
 
+    /*!
+     */
     void setAuthAlg(AuthAlg alg);
+    /*!
+     */
     AuthAlg authAlg() const;
 
+    /*!
+     */
     void setProto(const QList<WpaProtocolVersion> &list);
+    /*!
+     */
     QList<WpaProtocolVersion> proto() const;
 
+    /*!
+     */
     void setPairwise(const QList<WpaEncryptionCapabilities> &list);
+    /*!
+     */
     QList<WpaEncryptionCapabilities> pairwise() const;
 
+    /*!
+     */
     void setGroup(const QList<WpaEncryptionCapabilities> &list);
+    /*!
+     */
     QList<WpaEncryptionCapabilities> group() const;
 
+    /*!
+     */
     void setLeapUsername(const QString &username);
+    /*!
+     */
     QString leapUsername() const;
 
+    /*!
+     */
     void setWepKey0(const QString key);
+    /*!
+     */
     QString wepKey0() const;
 
+    /*!
+     */
     void setWepKey1(const QString key);
+    /*!
+     */
     QString wepKey1() const;
 
+    /*!
+     */
     void setWepKey2(const QString key);
+    /*!
+     */
     QString wepKey2() const;
 
+    /*!
+     */
     void setWepKey3(const QString key);
+    /*!
+     */
     QString wepKey3() const;
 
+    /*!
+     */
     void setWepKeyFlags(SecretFlags type);
+    /*!
+     */
     SecretFlags wepKeyFlags() const;
 
+    /*!
+     */
     void setWepKeyType(WepKeyType type);
+    /*!
+     */
     WepKeyType wepKeyType() const;
 
+    /*!
+     */
     void setPsk(const QString &key);
+    /*!
+     */
     QString psk() const;
 
+    /*!
+     */
     void setPskFlags(SecretFlags type);
+    /*!
+     */
     SecretFlags pskFlags() const;
 
+    /*!
+     */
     void setLeapPassword(const QString &password);
+    /*!
+     */
     QString leapPassword() const;
 
+    /*!
+     */
     void setLeapPasswordFlags(SecretFlags type);
+    /*!
+     */
     SecretFlags leapPasswordFlags() const;
 
+    /*!
+     */
     void setPmf(Pmf pmf);
+    /*!
+     */
     Pmf pmf() const;
 
     void secretsFromMap(const QVariantMap &secrets) override;

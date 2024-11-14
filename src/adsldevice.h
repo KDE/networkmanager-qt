@@ -14,27 +14,42 @@ namespace NetworkManager
 {
 class AdslDevicePrivate;
 
-/**
- * An adsl device interface
+/*!
+ * \class NetworkManager::AdslDevice
+ * \inheaderfile NetworkManagerQt/AdslDevice
+ * \inmodule NetworkManagerQt
+ *
+ * \brief An adsl device interface.
  */
 class NETWORKMANAGERQT_EXPORT AdslDevice : public Device
 {
     Q_OBJECT
+    /*!
+     * \property NetworkManager::AdslDevice::carrier
+     */
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
 public:
+    /*!
+     * \typedef NetworkManager::AdslDevice::Ptr
+     */
     typedef QSharedPointer<AdslDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::AdslDevice::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     */
     explicit AdslDevice(const QString &path, QObject *parent = nullptr);
     ~AdslDevice() override;
 
     Type type() const override;
-    /**
+    /*!
      * Indicates whether the physical carrier is found
      */
     bool carrier() const;
 
 Q_SIGNALS:
-    /**
+    /*!
      * Emitted when the carrier of this device has changed
      */
     void carrierChanged(bool plugged);

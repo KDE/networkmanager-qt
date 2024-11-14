@@ -20,9 +20,13 @@ namespace NetworkManager
 class WirelessDevice;
 class WirelessNetworkPrivate;
 
-/**
- * This class represents a wireless network, which aggregates all
- * access points with the same SSID
+/*!
+ * \class NetworkManager::WirelessNetwork
+ * \inheaderfile NetworkManagerQt/WirelessNetwork
+ * \inmodule NetworkManagerQt
+ *
+ * \brief This class represents a wireless network, which aggregates all
+ * access points with the same SSID.
  */
 class NETWORKMANAGERQT_EXPORT WirelessNetwork : public QObject
 {
@@ -31,54 +35,63 @@ class NETWORKMANAGERQT_EXPORT WirelessNetwork : public QObject
     friend class WirelessDevicePrivate;
 
 public:
+    /*!
+     * \typedef NetworkManager::WirelessNetwork::Ptr
+     */
     typedef QSharedPointer<WirelessNetwork> Ptr;
+    /*!
+     * \typedef NetworkManager::WirelessNetwork::List
+     */
     typedef QList<Ptr> List;
     ~WirelessNetwork() override;
-    /**
+    /*!
      * ESSID of the network
      */
     QString ssid() const;
 
-    /**
+    /*!
      * Signal strength of the network.  Syntactic sugar around tracking the reference access
      * point and watching its signal strength
      */
     int signalStrength() const;
 
-    /**
+    /*!
      * The uni of the current 'best' (strongest) Access Point. Note that this may change or disappear over time.
-     * Get the Access Point object using @ref WirelessDevice::findAccessPoint() on the NetworkInterface this network was obtained from.
-     * Use @ref WirelessDevice::accessPointDisappeared() or
+     * Get the Access Point object using \ WirelessDevice::findAccessPoint() on the NetworkInterface this network was obtained from.
+     * Use \ WirelessDevice::accessPointDisappeared() or
      * WirelessNetwork::referenceAccessPointChanged() to detect this.
      */
     AccessPoint::Ptr referenceAccessPoint() const;
 
-    /**
+    /*!
      * List of access points
-     * @warning Subject to change, do not store!
+     * \warning Subject to change, do not store!
      */
     AccessPoint::List accessPoints() const;
 
-    /**
+    /*!
      * The uni of device associated with this network.
      */
     QString device() const;
 
 Q_SIGNALS:
-    /**
+    /*!
      * Indicate that the signal strength changed
-     * @param strength strength as a percentage.
+     *
+     * \a strength strength as a percentage.
      */
     void signalStrengthChanged(int strength);
-    /**
+    /*!
      * Indicate that the reference access point changed
-     * @param apUni new access point or empty string if none
+     *
+     * \a apUni new access point or empty string if none
      */
     void referenceAccessPointChanged(const QString &apUni);
-    /**
+    /*!
      * Indicate that this network has no more access points
      * (meaning the network has disappeared from view of the network interface)
-     * @param ssid the SSID of this network
+     *
+     * \a ssid the SSID of this network
      */
     void disappeared(const QString &ssid);
 

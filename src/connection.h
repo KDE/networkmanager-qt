@@ -21,71 +21,81 @@ namespace NetworkManager
 {
 class ConnectionPrivate;
 
-/**
- * This class represents a single network connection configuration.
+/*!
+ * \class NetworkManager::Connection
+ * \inheaderfile NetworkManagerQt/Connection
+ * \inmodule NetworkManagerQt
+ *
+ * \brief This class represents a single network connection configuration.
  */
 class NETWORKMANAGERQT_EXPORT Connection : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     * \typedef NetworkManager::Connection::Ptr
+     */
     typedef QSharedPointer<Connection> Ptr;
+    /*!
+     * \typedef NetworkManager::Connection::List
+     */
     typedef QList<Ptr> List;
 
-    /**
+    /*!
      * Constructs a connection object for the given path
      */
     explicit Connection(const QString &path, QObject *parent = nullptr);
     ~Connection() override;
 
-    /**
+    /*!
      * Returns if this connection is valid
      */
     bool isValid() const;
 
-    /**
+    /*!
      * Returns the unique identifier of this connection
      */
     QString uuid() const;
 
-    /**
+    /*!
      * Returns the path (DBus) of this connection
      */
     QString path() const;
 
-    /**
+    /*!
      * Returns the name of this connection
      */
     QString name() const;
-    /**
+    /*!
      * If set, indicates that the in-memory state of the
      * connection does not match the on-disk state. This flag
      * will be set when updateUnsaved() is called or when any
      * connection details change, and cleared when the connection
      * is saved to disk via save() or from internal operations.
      *
-     * @since 0.9.9.0
+     * \since 0.9.9.0
      */
     bool isUnsaved() const;
-    /**
+    /*!
      * Returns the settings of this connection
      */
     ConnectionSettings::Ptr settings();
 
-    /**
+    /*!
      * Retrieves this connections's secrets (passwords and / or encryption keys).
      *
-     * @param setting the setting identifier.
+     * \a setting the setting identifier.
      */
     QDBusPendingReply<NMVariantMapMap> secrets(const QString &setting);
 
-    /**
-     * Update the connection with new @p settings and properties, replacing all previous settings and properties.
+    /*!
+     * Update the connection with new \a settings and properties, replacing all previous settings and properties.
      * Secrets may be part of the update request, and will be either stored in persistent storage or given to a Secret Agent for storage,
      * depending on the request.
      */
     QDBusPendingReply<> update(const NMVariantMapMap &settings);
-    /**
-     * Update the connection with new @p settings and properties (replacing
+    /*!
+     * Update the connection with new \a settings and properties (replacing
      * all previous settings and properties) but do not immediately save
      * the connection to disk. Secrets may be part of the update request
      * and may sent to a Secret Agent for storage, depending on the
@@ -96,25 +106,25 @@ public:
      * reloaded from disk (either automatically on file change or
      * due to an explicit reloadConnections() call).
      *
-     * @since 0.9.9.0
+     * \since 0.9.9.0
      */
     QDBusPendingReply<> updateUnsaved(const NMVariantMapMap &settings);
 
-    /**
+    /*!
      * Saves a "dirty" connection (that had previously been
      * updated with updateUnsaved()) to persistent storage.
      *
-     * @since 0.9.9.0
+     * \since 0.9.9.0
      */
     QDBusPendingReply<> save();
 
-    /**
+    /*!
      * Clear the secrets belonging to this network connection profile.
-     * @since 5.8.0
+     * \since 5.8.0
      */
     QDBusPendingReply<> clearSecrets();
 
-    /**
+    /*!
      * Removes the connection from NetworkManager database,
      * this operation does not ask for confirmation but
      * a policykit rule might prevent it from being removed
@@ -123,17 +133,18 @@ public:
     QDBusPendingReply<> remove();
 
 Q_SIGNALS:
-    /**
+    /*!
      * Emitted when the connection settings changes
      */
     void updated();
 
-    /**
+    /*!
      * Emitted when the connection was removed
-     * @param path connections's path.
+     *
+     * \a path connections's path.
      */
     void removed(const QString &path);
-    /**
+    /*!
      * Emitted when the connection unsaved state changes
      */
     void unsavedChanged(bool unsaved);

@@ -16,15 +16,32 @@ namespace NetworkManager
 {
 class DcbSettingPrivate;
 
-/**
- * Represents Dcb setting
+/*!
+ * \class NetworkManager::DcbSetting
+ * \inheaderfile NetworkManagerQt/DcbSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents Dcb setting.
  */
 class NETWORKMANAGERQT_EXPORT DcbSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::DcbSetting::Ptr
+     */
     typedef QSharedPointer<DcbSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::DcbSetting::List
+     */
     typedef QList<Ptr> List;
 
+    /*!
+     *
+     * \value None
+     * \value Enable
+     * \value Advertise
+     * \value Willing
+     */
     enum DcbFlagType {
         None = 0,
         Enable = 0x01,
@@ -33,67 +50,155 @@ public:
     };
     Q_DECLARE_FLAGS(DcbFlags, DcbFlagType)
 
+    /*!
+     */
     DcbSetting();
+    /*!
+     */
     explicit DcbSetting(const Ptr &other);
     ~DcbSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setAppFcoeMode(const QString &mode);
+    /*!
+     */
     QString appFcoeMode() const;
 
+    /*!
+     */
     void setAppFcoePriority(qint32 priority);
+    /*!
+     */
     qint32 appFcoePriority() const;
 
+    /*!
+     */
     void setAppFipPriority(qint32 priority);
+    /*!
+     */
     qint32 appFipPriority() const;
 
+    /*!
+     */
     void setAppIscsiPriority(qint32 priority);
+    /*!
+     */
     qint32 appIscsiPriority() const;
 
+    /*!
+     */
     void setAppFcoeFlags(DcbFlags flags);
+    /*!
+     */
     DcbFlags appFcoeFlags() const;
 
+    /*!
+     */
     void setAppFipFlags(DcbFlags flags);
+    /*!
+     */
     DcbFlags appFipFlags() const;
 
+    /*!
+     */
     void setAppIscsiFlags(DcbFlags flags);
+    /*!
+     */
     DcbFlags appIscsiFlags() const;
 
+    /*!
+     */
     void setPriorityGroupFlags(DcbFlags flags);
+    /*!
+     */
     DcbFlags priorityGroupFlags() const;
 
+    /*!
+     */
     void setPriorityFlowControlFlags(DcbFlags flags);
+    /*!
+     */
     DcbFlags priorityFlowControlFlags() const;
 
+    /*!
+     */
     void setPriorityFlowControl(quint32 userPriority, bool enabled);
+    /*!
+     */
     bool priorityFlowControl(quint32 userPriority) const;
+    /*!
+     */
     void setPriorityFlowControl(const UIntList &list);
+    /*!
+     */
     UIntList priorityFlowControl() const;
 
+    /*!
+     */
     void setPriorityBandwidth(quint32 userPriority, quint32 bandwidthPercent);
+    /*!
+     */
     quint32 priorityBandwidth(quint32 userPriority) const;
+    /*!
+     */
     void setPriorityBandwidth(const UIntList &list);
+    /*!
+     */
     UIntList priorityBandwidth() const;
 
+    /*!
+     */
     void setPriorityGroupBandwidth(quint32 groupId, quint32 bandwidthPercent);
+    /*!
+     */
     quint32 priorityGroupBandwidth(quint32 groupId) const;
+    /*!
+     */
     void setPriorityGroupBandwidth(const UIntList &list);
+    /*!
+     */
     UIntList priorityGroupBandwidth() const;
 
+    /*!
+     */
     void setPriorityGroupId(quint32 userPriority, quint32 groupId);
+    /*!
+     */
     quint32 priorityGroupId(quint32 userPriority) const;
+    /*!
+     */
     void setPriorityGroupId(const UIntList &list);
+    /*!
+     */
     UIntList priorityGroupId() const;
 
+    /*!
+     */
     void setPriorityStrictBandwidth(quint32 userPriority, bool strict);
+    /*!
+     */
     bool priorityStrictBandwidth(quint32 userPriority) const;
+    /*!
+     */
     void setPriorityStrictBandwidth(const UIntList &list);
+    /*!
+     */
     UIntList priorityStrictBandwidth() const;
 
+    /*!
+     */
     void setPriorityTrafficClass(quint32 userPriority, quint32 trafficClass);
+    /*!
+     */
     quint32 priorityTrafficClass(quint32 userPriority) const;
+    /*!
+     */
     void setPriorityTrafficClass(const UIntList &list);
+    /*!
+     */
     UIntList priorityTrafficClass() const;
 
     void fromMap(const QVariantMap &setting) override;

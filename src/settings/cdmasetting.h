@@ -16,30 +16,60 @@ namespace NetworkManager
 {
 class CdmaSettingPrivate;
 
-/**
- * Represents cdma setting
+/*!
+ * \class NetworkManager::CdmaSetting
+ * \inheaderfile NetworkManagerQt/CdmaSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents cdma setting.
  */
 class NETWORKMANAGERQT_EXPORT CdmaSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::CdmaSetting::Ptr
+     */
     typedef QSharedPointer<CdmaSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::CdmaSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     */
     CdmaSetting();
+    /*!
+     */
     explicit CdmaSetting(const Ptr &other);
     ~CdmaSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setNumber(const QString &number);
+    /*!
+     */
     QString number() const;
 
+    /*!
+     */
     void setUsername(const QString &username);
+    /*!
+     */
     QString username() const;
 
+    /*!
+     */
     void setPassword(const QString &password);
+    /*!
+     */
     QString password() const;
 
+    /*!
+     */
     void setPasswordFlags(SecretFlags flags);
+    /*!
+     */
     SecretFlags passwordFlags() const;
 
     QStringList needSecrets(bool requestNew = false) const override;

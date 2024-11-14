@@ -16,36 +16,74 @@ namespace NetworkManager
 {
 class VpnSettingPrivate;
 
-/**
- * Represents vpn setting
+/*!
+ * \class NetworkManager::VpnSetting
+ * \inheaderfile NetworkManagerQt/VpnSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents vpn setting.
  */
 class NETWORKMANAGERQT_EXPORT VpnSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::VpnSetting::Ptr
+     */
     typedef QSharedPointer<VpnSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::VpnSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     */
     VpnSetting();
+    /*!
+     */
     explicit VpnSetting(const Ptr &other);
     ~VpnSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     bool persistent() const;
+    /*!
+     */
     void setPersistent(bool persistent);
 
+    /*!
+     */
     void setServiceType(const QString &type);
+    /*!
+     */
     QString serviceType() const;
 
+    /*!
+     */
     uint timeout() const;
+    /*!
+     */
     void setTimeout(uint timeout);
 
+    /*!
+     */
     void setUsername(const QString &username);
+    /*!
+     */
     QString username() const;
 
+    /*!
+     */
     void setData(const NMStringMap &data);
+    /*!
+     */
     NMStringMap data() const;
 
+    /*!
+     */
     void setSecrets(const NMStringMap &secrets);
+    /*!
+     */
     NMStringMap secrets() const;
 
     void secretsFromMap(const QVariantMap &secrets) override;

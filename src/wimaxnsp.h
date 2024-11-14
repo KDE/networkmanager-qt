@@ -11,23 +11,39 @@
 
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
+#include <QObject>
 #include <QSharedPointer>
 
 namespace NetworkManager
 {
 class WimaxNspPrivate;
 
-/**
- * Wimax network service provider (access point)
+/*!
+ * \class NetworkManager::WimaxNsp
+ * \inheaderfile NetworkManagerQt/WimaxNsp
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Wimax network service provider (access point).
  */
 class NETWORKMANAGERQT_EXPORT WimaxNsp : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     * \typedef NetworkManager::WimaxNsp::Ptr
+     */
     typedef QSharedPointer<WimaxNsp> Ptr;
+    /*!
+     * \typedef NetworkManager::WimaxNsp::List
+     */
     typedef QList<Ptr> List;
-    /**
+    /*!
      * network types a NSP can have
+     *
+     * \value Unknown
+     * \value Home
+     * \value Partner
+     * \value RoamingPartner
      */
     enum NetworkType {
         Unknown = 0x1,
@@ -36,42 +52,46 @@ public:
         RoamingPartner = 0x4,
     };
 
+    /*!
+     */
     explicit WimaxNsp(const QString &path, QObject *parent = nullptr);
     ~WimaxNsp() override;
 
+    /*!
+     */
     QString uni() const;
-    /**
+    /*!
      * The network type of the NSP
      */
     NetworkType networkType() const;
-    /**
+    /*!
      * The name of the NSP
      */
     QString name() const;
-    /**
+    /*!
      * The current signal quality of the NSP, in percent
      */
     uint signalQuality() const;
 
 Q_SIGNALS:
-    /**
+    /*!
      * This signal is emitted when the network type of this NSP has changed.
      *
-     * @param type the new type
+     * \a type the new type
      */
     void networkTypeChanged(NetworkType type);
 
-    /**
+    /*!
      * This signal is emitted when the name of this NSP has changed
      *
-     * @param name the new name for this NSP
+     * \a name the new name for this NSP
      */
     void nameChanged(const QString &name);
 
-    /**
+    /*!
      * This signal is emitted when the signal quality of this NSP has changed.
      *
-     * @param quality the new quality
+     * \a quality the new quality
      */
     void signalQualityChanged(uint quality);
 

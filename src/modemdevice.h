@@ -16,16 +16,35 @@ namespace NetworkManager
 {
 class ModemDevicePrivate;
 
-/**
- * Represents a generic modem device, generally defined by the modemCapabilities() it exposes and at
+/*!
+ * \class NetworkManager::ModemDevice
+ * \inheaderfile NetworkManagerQt/ModemDevice
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents a generic modem device, generally defined by the modemCapabilities() it exposes and at
  * the current point in time by the currentCapabilities().
  */
 class NETWORKMANAGERQT_EXPORT ModemDevice : public Device
 {
     Q_OBJECT
 public:
+    /*!
+     * \typedef NetworkManager::ModemDevice::Ptr
+     */
     typedef QSharedPointer<ModemDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::ModemDevice::List
+     */
     typedef QList<Ptr> List;
+
+    /*!
+     *
+     * \value NoCapability
+     * \value Pots
+     * \value CdmaEvdo
+     * \value GsmUmts
+     * \value Lte
+     */
     enum Capability {
         NoCapability = 0x0,
         Pots = 0x1,
@@ -34,31 +53,35 @@ public:
         Lte = 0x8,
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
+    /*!
+     */
     explicit ModemDevice(const QString &path, QObject *parent = nullptr);
     ~ModemDevice() override;
-    /**
+    /*!
      * Return the type
      */
     Type type() const override;
-    /**
+    /*!
      * The generic family of access technologies the modem supports. Not all capabilities are
      * available at the same time however; some modems require a firmware reload or other
      * reinitialization to switch between eg CDMA/EVDO and GSM/UMTS.
      */
     Capabilities modemCapabilities() const;
-    /**
+    /*!
      * The generic family of access technologies the modem currently supports without a firmware
      * reload or reinitialization.
      */
     Capabilities currentCapabilities() const;
 
 Q_SIGNALS:
-    /**
+    /*!
      * This signal is emitted when the capabilities of the device change
      */
     void currentCapabilitiesChanged(Capabilities);
 
 protected:
+    /*!
+     */
     NETWORKMANAGERQT_NO_EXPORT explicit ModemDevice(ModemDevicePrivate &dd, QObject *parent = nullptr);
 
 private:

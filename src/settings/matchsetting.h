@@ -14,21 +14,37 @@ namespace NetworkManager
 {
 class MatchSettingPrivate;
 
-/**
- * Represents Match setting
+/*!
+ * \class NetworkManager::MatchSetting
+ * \inheaderfile NetworkManagerQt/MatchSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents Match setting.
  */
 class NETWORKMANAGERQT_EXPORT MatchSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::MatchSetting::Ptr
+     */
     typedef QSharedPointer<MatchSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::MatchSetting::List
+     */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     MatchSetting();
+    /*!
+     */
     explicit MatchSetting(const Ptr &other);
     ~MatchSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setInterfaceName(const QStringList &name);
     QStringList interfaceName() const;
 

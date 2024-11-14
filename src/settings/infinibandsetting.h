@@ -16,39 +16,79 @@ namespace NetworkManager
 {
 class InfinibandSettingPrivate;
 
-/**
- * Represents infiniband setting
+/*!
+ * \class NetworkManager::InfinibandSetting
+ * \inheaderfile NetworkManagerQt/InfinibandSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents infiniband setting.
  */
 class NETWORKMANAGERQT_EXPORT InfinibandSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::InfinibandSetting::Ptr
+     */
     typedef QSharedPointer<InfinibandSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::InfinibandSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     *
+     * \value Unknown
+     * \value Datagram
+     * \value Connected
+     */
     enum TransportMode {
         Unknown = 0,
         Datagram,
         Connected,
     };
 
+    /*!
+     */
     InfinibandSetting();
+    /*!
+     */
     explicit InfinibandSetting(const Ptr &other);
     ~InfinibandSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setMacAddress(const QByteArray &address);
+    /*!
+     */
     QByteArray macAddress() const;
 
+    /*!
+     */
     void setMtu(quint32 mtu);
+    /*!
+     */
     quint32 mtu() const;
 
+    /*!
+     */
     void setTransportMode(TransportMode mode);
+    /*!
+     */
     TransportMode transportMode() const;
 
+    /*!
+     */
     void setPKey(qint32 key);
+    /*!
+     */
     qint32 pKey() const;
 
+    /*!
+     */
     void setParent(const QString &parent);
+    /*!
+     */
     QString parent() const;
 
     void fromMap(const QVariantMap &setting) override;

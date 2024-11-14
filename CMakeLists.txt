@@ -30,12 +30,9 @@ remove_definitions(-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_FROM_BYTEARRAY)
 include(ECMGenerateExportHeader)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
-include(ECMAddQch)
 include(ECMQtDeclareLoggingCategory)
 include(ECMQmlModule)
-
-option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
-add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
+include(ECMGenerateQDoc)
 
 ecm_setup_version(PROJECT VARIABLE_PREFIX NETWORKMANAGERQT
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/networkmanagerqt_version.h"
@@ -60,16 +57,6 @@ endif(BUILD_EXAMPLES)
 
 # create a Config.cmake and a ConfigVersion.cmake file and install them
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF6NetworkManagerQt")
-
-if (BUILD_QCH)
-    ecm_install_qch_export(
-        TARGETS KF6NetworkManagerQt_QCH
-        FILE KF6NetworkManagerQtQchTargets.cmake
-        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-        COMPONENT Devel
-    )
-    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KF6NetworkManagerQtQchTargets.cmake\")")
-endif()
 
 include(CMakePackageConfigHelpers)
 

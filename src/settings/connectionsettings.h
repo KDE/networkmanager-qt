@@ -23,15 +23,49 @@ namespace NetworkManager
 {
 class ConnectionSettingsPrivate;
 
-/**
- * Represents collection of all connection settings
+/*!
+ * \class NetworkManager::ConnectionSettings
+ * \inheaderfile NetworkManagerQt/ConnectionSettings
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents collection of all connection settings.
  */
 class NETWORKMANAGERQT_EXPORT ConnectionSettings
 {
     Q_ENUMS(ConnectionType)
 public:
+    /*!
+     * \typedef NetworkManager::ConnectionSettings::Ptr
+     */
     typedef QSharedPointer<ConnectionSettings> Ptr;
+    /*!
+     * \typedef NetworkManager::ConnectionSettings::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     *
+     * \value Unknown
+     * \value Adsl
+     * \value Bluetooth
+     * \value Bond
+     * \value Bridge
+     * \value Cdma
+     * \value Gsm
+     * \value Infiniband
+     * \value OLPCMesh
+     * \value Pppoe
+     * \value Vlan
+     * \value Vpn
+     * \value Wimax
+     * \value Wired
+     * \value Wireless
+     * \value Team
+     * \value Generic
+     * \value Tun
+     * \value IpTunnel
+     * \value WireGuard
+     * \value Loopback
+     */
     enum ConnectionType {
         Unknown = 0,
         Adsl,
@@ -56,20 +90,41 @@ public:
         Loopback,
     };
 
+    /*!
+     *
+     * \value SlavesDefault
+     * \value DoNotConnectSlaves
+     * \value ConnectAllSlaves
+     */
     enum AutoconnectSlaves {
         SlavesDefault = -1,
         DoNotConnectSlaves = 0,
         ConnectAllSlaves = 1,
     };
 
+    /*!
+     *
+     * \value LldpDefault
+     * \value LldpDisable
+     * \value LldpEnableRx
+     */
     enum Lldp {
         LldpDefault = -1,
         LldpDisable = 0,
         LldpEnableRx = 1,
     };
 
-    // FIXME same enum as in device.h, unfortunately it's not possible to use that one
-    // maybe in future move all enums into one header so they can be used across all classes
+    /*!
+     *
+     * FIXME same enum as in device.h, unfortunately it's not possible to use that one
+     * maybe in future move all enums into one header so they can be used across all classes
+     *
+     * \value MeteredUnknown
+     * \value MeteredYes
+     * \value MeteredNo
+     * \value MeteredGuessYes
+     * \value MeteredGuessNo
+     */
     enum Metered {
         MeteredUnknown = 0,
         MeteredYes = 1,
@@ -78,6 +133,13 @@ public:
         MeteredGuessNo = 4,
     };
 
+    /*!
+     *
+     * \value MdnsDefault
+     * \value MdnsNo
+     * \value MdnsResolve
+     * \value MdnsResolveAndRespond
+     */
     enum Mdns {
         MdnsDefault = -1,
         MdnsNo = 0,
@@ -85,89 +147,203 @@ public:
         MdnsResolveAndRespond = 2
     };
 
+    /*!
+     */
     static ConnectionType typeFromString(const QString &typeString);
+    /*!
+     */
     static QString typeAsString(const ConnectionType type);
+    /*!
+     */
     static QString createNewUuid();
 
+    /*!
+     */
     ConnectionSettings();
+    /*!
+     */
     explicit ConnectionSettings(ConnectionType type, NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
+    /*!
+     */
     explicit ConnectionSettings(const ConnectionSettings::Ptr &other);
+    /*!
+     */
     explicit ConnectionSettings(const NMVariantMapMap &map);
+    /*!
+     */
     virtual ~ConnectionSettings();
 
+    /*!
+     */
     QString name() const;
 
+    /*!
+     */
     void fromMap(const NMVariantMapMap &map);
+    /*!
+     */
     void fromMeCard(const QVariantMap &map);
 
+    /*!
+     */
     NMVariantMapMap toMap() const;
 
+    /*!
+     */
     void setId(const QString &id);
+    /*!
+     */
     QString id() const;
 
+    /*!
+     */
     void setUuid(const QString &uuid);
+    /*!
+     */
     QString uuid() const;
 
+    /*!
+     */
     void setInterfaceName(const QString &interfaceName);
+    /*!
+     */
     QString interfaceName() const;
 
+    /*!
+     */
     void setConnectionType(ConnectionType type, NMBluetoothCapabilities bt_cap = NM_BT_CAPABILITY_DUN);
+    /*!
+     */
     ConnectionType connectionType() const;
 
+    /*!
+     */
     void addToPermissions(const QString &user, const QString &type);
+    /*!
+     */
     void setPermissions(const QHash<QString, QString> &perm);
+    /*!
+     */
     QHash<QString, QString> permissions() const;
 
+    /*!
+     */
     void setAutoconnect(bool autoconnect);
+    /*!
+     */
     bool autoconnect() const;
 
+    /*!
+     */
     void setAutoconnectPriority(int priority);
+    /*!
+     */
     int autoconnectPriority() const;
 
+    /*!
+     */
     void setTimestamp(const QDateTime &timestamp);
+    /*!
+     */
     QDateTime timestamp() const;
 
+    /*!
+     */
     void setReadOnly(bool readonly);
+    /*!
+     */
     bool readOnly() const;
 
+    /*!
+     */
     void setZone(const QString &zone);
+    /*!
+     */
     QString zone() const;
 
+    /*!
+     */
     bool isSlave() const;
 
+    /*!
+     */
     void setMaster(const QString &master);
+    /*!
+     */
     QString master() const;
 
+    /*!
+     */
     void setSlaveType(const QString &type);
+    /*!
+     */
     QString slaveType() const;
 
+    /*!
+     */
     void setSecondaries(const QStringList &secondaries);
+    /*!
+     */
     QStringList secondaries() const;
 
+    /*!
+     */
     void setGatewayPingTimeout(quint32 timeout);
+    /*!
+     */
     quint32 gatewayPingTimeout() const;
 
+    /*!
+     */
     void setAutoconnectRetries(int retries);
+    /*!
+     */
     int autoconnectRetries() const;
 
+    /*!
+     */
     void setAutoconnectSlaves(AutoconnectSlaves autoconnectSlaves);
+    /*!
+     */
     AutoconnectSlaves autoconnectSlaves() const;
 
+    /*!
+     */
     void setLldp(Lldp lldp);
+    /*!
+     */
     Lldp lldp() const;
 
+    /*!
+     */
     void setMetered(Metered metered);
+    /*!
+     */
     Metered metered() const;
 
+    /*!
+     */
     void setMdns(Mdns mdns);
+    /*!
+     */
     Mdns mdns() const;
 
+    /*!
+     */
     void setStableId(const QString &stableId);
+    /*!
+     */
     QString stableId() const;
 
+    /*!
+     */
     Setting::Ptr setting(Setting::SettingType type) const;
+    /*!
+     */
     Setting::Ptr setting(const QString &type) const;
 
+    /*!
+     */
     Setting::List settings() const;
 
 protected:

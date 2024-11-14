@@ -16,22 +16,40 @@ namespace NetworkManager
 {
 class OvsPatchSettingPrivate;
 
-/**
- * Represents OvsPatch setting
+/*!
+ * \class NetworkManager::OvsPatchSetting
+ * \inheaderfile NetworkManagerQt/OvsPatchSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents OvsPatch setting.
  */
 class NETWORKMANAGERQT_EXPORT OvsPatchSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::OvsPatchSetting::Ptr
+     */
     typedef QSharedPointer<OvsPatchSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::OvsPatchSetting::List
+     */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     OvsPatchSetting();
+    /*!
+     */
     explicit OvsPatchSetting(const Ptr &other);
     ~OvsPatchSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setPeer(const QString &peer);
+    /*!
+     */
     QString peer() const;
 
     void fromMap(const QVariantMap &setting) override;

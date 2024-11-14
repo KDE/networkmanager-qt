@@ -16,15 +16,29 @@ namespace NetworkManager
 {
 class TemplateSettingPrivate;
 
-/**
- * Represents generic setting
+/*!
+ * \class NetworkManager::TemplateSetting
+ * \inheaderfile NetworkManagerQt/TemplateSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents generic setting.
  */
 class NETWORKMANAGERQT_EXPORT TemplateSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::TemplateSetting::Ptr
+     */
     typedef QSharedPointer<TemplateSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::TemplateSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     */
     TemplateSetting();
+    /*!
+     */
     explicit TemplateSetting(const Ptr &other);
     ~TemplateSetting() override;
 
