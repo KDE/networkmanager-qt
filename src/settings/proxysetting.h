@@ -16,35 +16,70 @@ namespace NetworkManager
 {
 class ProxySettingPrivate;
 
-/**
- * Represents proxy setting
+/*!
+ * \class NetworkManager::ProxySetting
+ * \inheaderfile NetworkManagerQt/ProxySetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents proxy setting.
  */
 class NETWORKMANAGERQT_EXPORT ProxySetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::ProxySetting::Ptr
+     */
     typedef QSharedPointer<ProxySetting> Ptr;
+    /*!
+     * \typedef NetworkManager::ProxySetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     *
+     * \value None
+     * \value Auto
+     */
     enum Mode {
         None = 0,
         Auto = 1,
     };
 
+    /*!
+     */
     ProxySetting();
+    /*!
+     */
     explicit ProxySetting(const Ptr &other);
     ~ProxySetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setBrowserOnly(bool browserOnly);
+    /*!
+     */
     bool browserOnly() const;
 
+    /*!
+     */
     void setMethod(Mode method);
+    /*!
+     */
     Mode method() const;
 
+    /*!
+     */
     void setPacScript(const QString &script);
+    /*!
+     */
     QString pacScript() const;
 
+    /*!
+     */
     void setPacUrl(const QString &url);
+    /*!
+     */
     QString pacUrl() const;
 
     void fromMap(const QVariantMap &setting) override;

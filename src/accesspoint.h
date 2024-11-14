@@ -21,33 +21,73 @@ namespace NetworkManager
 {
 class AccessPointPrivate;
 
-/**
- * Represents an access point
+/*!
+ * \class NetworkManager::AccessPoint
+ * \inheaderfile NetworkManagerQt/AccessPoint
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents an access point.
  */
 class NETWORKMANAGERQT_EXPORT AccessPoint : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     * \typedef NetworkManager::AccessPoint::Ptr
+     */
     typedef QSharedPointer<AccessPoint> Ptr;
+    /*!
+     * \typedef NetworkManager::AccessPoint::List
+     */
     typedef QList<Ptr> List;
-    /**
+    /*!
+     *
      * The access point's current operating mode
+     *
+     * \value Unknown
+     *        Not associated with a network
+     * \value Adhoc
+     *        A station in an infrastructure wireless network
+     * \value ApMode
+     *        Access point in an infrastructure network
      */
     enum OperationMode {
-        Unknown = 0, /**< not associated with a network */
-        Adhoc, /**< part of an adhoc network */
-        Infra, /**< a station in an infrastructure wireless network */
-        ApMode, /**< access point in an infrastructure network */
+        Unknown = 0,
+        Adhoc,
+        Infra,
+        ApMode,
     };
-    /**
+    /*!
+     *
      * General capabilities of an access point
+     *
+     * \value None
+     *        Null capability - says nothing about the access point
+     * \value Privacy
+     *        Access point supports privacy measures
      */
     enum Capability {
-        None = 0x0, /**< Null capability - says nothing about the access point */
-        Privacy = 0x1, /**< Access point supports privacy measures */
+        None = 0x0,
+        Privacy = 0x1,
     };
-    /**
+    /*!
+     *
      * Flags describing the access point's capabilities according to WPA (Wifi Protected Access)
+     *
+     * \value PairWep40
+     * \value PairWep104
+     * \value PairTkip
+     * \value PairCcmp
+     * \value GroupWep40
+     * \value GroupWep104
+     * \value GroupTkip
+     * \value GroupCcmp
+     * \value KeyMgmtPsk
+     * \value KeyMgmt8021x
+     * \value KeyMgmtSAE
+     * \value KeyMgmtOWE
+     * \value KeyMgmtOWETM
+     * \value KeyMgmtEapSuiteB192
      */
     enum WpaFlag {
         PairWep40 = 0x1,
@@ -69,136 +109,136 @@ public:
     Q_FLAG(Capabilities)
     Q_DECLARE_FLAGS(WpaFlags, WpaFlag)
     Q_FLAG(WpaFlags)
+    /*!
+     */
     explicit AccessPoint(const QString &path, QObject *parent = nullptr);
     ~AccessPoint() override;
 
-    /**
-     * @return path of the access point
+    /*!
+     * \brief Returns path of the access point.
      */
     QString uni() const;
-    /**
-     * @return capabilities of an access point
+    /*!
+     * \brief Returns capabilities of an access point.
      */
     Capabilities capabilities() const;
-    /**
-     * @return flags describing the access point's capabilities according to WPA (Wifi Protected Access).
-     * @see WpaFlag
+    /*!
+     * \brief Returns flags describing the access point's capabilities according to WPA (Wifi Protected Access).
+     * \sa WpaFlag
      */
     AccessPoint::WpaFlags wpaFlags() const;
-    /**
-     * @return Flags describing the access point's capabilities according to the RSN (Robust Secure Network) protocol.
-     * @see WpaFlag
+    /*!
+     * \brief Returns Flags describing the access point's capabilities according to the RSN (Robust Secure Network) protocol.
+     * \sa WpaFlag
      */
     AccessPoint::WpaFlags rsnFlags() const;
-    /**
-     * @return The Service Set Identifier identifying the access point.
+    /*!
+     * \brief Returns The Service Set Identifier identifying the access point.
      */
     QString ssid() const;
-    /**
-     * @return raw SSID, encoded as a byte array
+    /*!
+     * \brief Returns raw SSID, encoded as a byte array.
      */
     QByteArray rawSsid() const;
-    /**
-     * @return The radio channel frequency in use by the access point, in MHz.
+    /*!
+     * \brief Returns The radio channel frequency in use by the access point, in MHz.
      */
     uint frequency() const;
-    /**
-     * @return The hardware address (BSSID) of the access point.
+    /*!
+     * \brief Returns The hardware address (BSSID) of the access point.
      */
     QString hardwareAddress() const;
-    /**
-     * @return The maximum bitrate this access point is capable of, in kilobits/second (Kb/s).
+    /*!
+     * \brief Returns The maximum bitrate this access point is capable of, in kilobits/second (Kb/s).
      */
     uint maxBitRate() const;
-    /**
-     * @return Describes the operating mode of the access point.
+    /*!
+     * \brief Returns Describes the operating mode of the access point.
      */
     OperationMode mode() const;
-    /**
-     * @return The current signal quality of the access point, in percent.
+    /*!
+     * \brief Returns The current signal quality of the access point, in percent.
      */
     int signalStrength() const;
-    /**
-     * @return The timestamp (in CLOCK_BOOTTIME seconds) for the last time the access point
+    /*!
+     * \brief Returns The timestamp (in CLOCK_BOOTTIME seconds) for the last time the access point
      * was found in scan results. A value of -1 means the access point has never been found in scan results.
-     * @since 5.14.0
+     * \since 5.14.0
      */
     int lastSeen() const;
-    /**
+    /*!
      * The bandwidth announced by the access point in MHz.
-     * @since 6.12.0.
+     * \since 6.12.0.
      */
     uint bandwidth() const;
-    /**
-     * Helper method to convert wire representation of operation @p mode to enum
+    /*!
+     * \brief Helper method to convert wire representation of operation \a mode to enum.
      */
     static OperationMode convertOperationMode(uint mode);
 
 Q_SIGNALS:
-    /**
-     * This signal is emitted when the signal strength of this network has changed.
+    /*!
+     * \brief This signal is emitted when the signal strength of this network has changed.
      *
-     * @param strength the new signal strength value for this network
+     * \a strength the new signal strength value for this network
      */
     void signalStrengthChanged(int strength);
 
-    /**
-     * This signal is emitted when the bitrate of this network has changed.
+    /*!
+     * \brief This signal is emitted when the bitrate of this network has changed.
      *
-     * @param bitrate the new bitrate value for this network
+     * \a bitrate the new bitrate value for this network
      */
     void bitRateChanged(int bitrate);
 
-    /**
-     * This signal is emitted when the capabilities of this network have changed.
+    /*!
+     * \brief This signal is emitted when the capabilities of this network have changed.
      *
-     * @param caps the new capabilities
+     * \a caps the new capabilities
      */
     void capabilitiesChanged(AccessPoint::Capabilities caps);
 
-    /**
-     * This signal is emitted when the WPA flags in use by this access point change
+    /*!
+     * \brief This signal is emitted when the WPA flags in use by this access point change.
      *
-     * @param flags the new flags
+     * \a flags the new flags
      */
     void wpaFlagsChanged(AccessPoint::WpaFlags flags);
 
-    /**
-     * This signal is emitted when the RSN(WPA2) flags in use by this access point change
+    /*!
+     * \brief This signal is emitted when the RSN(WPA2) flags in use by this access point change.
      *
-     * @param flags the new flags
+     * \a flags the new flags
      */
     void rsnFlagsChanged(AccessPoint::WpaFlags flags);
-    /**
-     * This signal is emitted when the ssid of this Access Point changes
+    /*!
+     * \brief This signal is emitted when the ssid of this Access Point changes.
      *
-     * @param ssid the new SSID
+     * \a ssid the new SSID
      */
     void ssidChanged(const QString &ssid);
 
-    /**
-     * This signal is emitted when the frequency used by this Access Point changes
+    /*!
+     * \brief This signal is emitted when the frequency used by this Access Point changes.
      *
-     * @param frequency the new frequency
+     * \a frequency the new frequency
      */
     void frequencyChanged(uint frequency);
 
-    /**
-     * This signal is emitted when the timestamp for the last time the access point was found
-     * in scan results changes
+    /*!
+     * \brief This signal is emitted when the timestamp for the last time the access point was found
+     * in scan results changes.
      *
-     * @param lastSeen the timestamp for the last time the access point was found in scan results.
-     * @since 5.14.0
-     * @see lastSeen
+     * \a lastSeen the timestamp for the last time the access point was found in scan results.
+     * \since 5.14.0
      */
     void lastSeenChanged(int lastSeen);
 
-    /**
+    /*!
      * This signal is emitted when bandwidth announced by the access point changes.
      *
-     * @param lastSeen the bandwidth announced by the access point in MHz.
-     * @since 6.12.0
-     * @see bandwidth
+     * \a lastSeen the bandwidth announced by the access point in MHz.
+     * \since 6.12.0
      */
     void bandwidthChanged(uint bandwidth);
 

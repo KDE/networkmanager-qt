@@ -16,22 +16,40 @@ namespace NetworkManager
 {
 class OvsInterfaceSettingPrivate;
 
-/**
- * Represents ovs-interface setting
+/*!
+ * \class NetworkManager::OvsInterfaceSetting
+ * \inheaderfile NetworkManagerQt/OvsInterfaceSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents ovs-interface setting.
  */
 class NETWORKMANAGERQT_EXPORT OvsInterfaceSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::OvsInterfaceSetting::Ptr
+     */
     typedef QSharedPointer<OvsInterfaceSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::OvsInterfaceSetting::List
+     */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     OvsInterfaceSetting();
+    /*!
+     */
     explicit OvsInterfaceSetting(const Ptr &other);
     ~OvsInterfaceSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setInterfaceType(const QString &type);
+    /*!
+     */
     QString interfaceType() const;
 
     void fromMap(const QVariantMap &setting) override;

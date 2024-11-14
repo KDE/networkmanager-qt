@@ -16,15 +16,29 @@ namespace NetworkManager
 {
 class GenericSettingPrivate;
 
-/**
- * Represents generic setting
+/*!
+ * \class NetworkManager::GenericSetting
+ * \inheaderfile NetworkManagerQt/GenericSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents generic setting.
  */
 class NETWORKMANAGERQT_EXPORT GenericSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::GenericSetting::Ptr
+     */
     typedef QSharedPointer<GenericSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::GenericSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     */
     GenericSetting();
+    /*!
+     */
     explicit GenericSetting(const Ptr &other);
     ~GenericSetting() override;
 

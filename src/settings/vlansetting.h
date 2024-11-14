@@ -16,14 +16,31 @@ namespace NetworkManager
 {
 class VlanSettingPrivate;
 
-/**
- * Represents vlan setting
+/*!
+ * \class NetworkManager::VlanSetting
+ * \inheaderfile NetworkManagerQt/VlanSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents vlan setting.
  */
 class NETWORKMANAGERQT_EXPORT VlanSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::VlanSetting::Ptr
+     */
     typedef QSharedPointer<VlanSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::VlanSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     *
+     * \value None
+     * \value ReorderHeaders
+     * \value Gvrp
+     * \value LooseBinding
+     */
     enum Flag {
         None = 0,
         ReorderHeaders = 0x1,
@@ -32,29 +49,55 @@ public:
     };
     Q_DECLARE_FLAGS(Flags, Flag)
 
+    /*!
+     */
     VlanSetting();
+    /*!
+     */
     explicit VlanSetting(const Ptr &other);
     ~VlanSetting() override;
 
     QString name() const override;
 
-    /// @deprecated in favor of connection.interface-name in NM 1.0.0
+    /*! \deprecated in favor of connection.interface-name in NM 1.0.0 */
     void setInterfaceName(const QString &name);
+    /*!
+     */
     QString interfaceName() const;
 
+    /*!
+     */
     void setParent(const QString &parent);
+    /*!
+     */
     QString parent() const;
 
+    /*!
+     */
     void setId(quint32 id);
+    /*!
+     */
     quint32 id() const;
 
+    /*!
+     */
     void setFlags(Flags flags);
+    /*!
+     */
     Flags flags() const;
 
+    /*!
+     */
     void setIngressPriorityMap(const QStringList &map);
+    /*!
+     */
     QStringList ingressPriorityMap() const;
 
+    /*!
+     */
     void setEgressPriorityMap(const QStringList &map);
+    /*!
+     */
     QStringList egressPriorityMap() const;
 
     void fromMap(const QVariantMap &setting) override;

@@ -1,0 +1,20 @@
+/*!
+    \page networkmanager-qt-index.html
+    \title NetworkManagerQt
+
+    NetworkManagerQt is a Qt wrapper for NetworkManager API.
+
+    \section1 Using the Module
+
+    \include {module-use.qdocinc} {using the c++ api}
+
+    \section2 Building with CMake
+
+    \include {module-use.qdocinc} {building with cmake} {KF6} {NetworkManagerQt} {KF6::NetworkManagerQt}
+
+    \section1 API Reference
+
+    \list
+        \li \l{NetworkManagerQt C++ Classes}
+    \endlist
+*/

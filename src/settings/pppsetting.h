@@ -16,72 +16,158 @@ namespace NetworkManager
 {
 class PppSettingPrivate;
 
-/**
- * Represents ppp setting
+/*!
+ * \class NetworkManager::PppSetting
+ * \inheaderfile NetworkManagerQt/PppSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents ppp setting.
  */
 class NETWORKMANAGERQT_EXPORT PppSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::PppSetting::Ptr
+     */
     typedef QSharedPointer<PppSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::PppSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     */
     PppSetting();
+    /*!
+     */
     explicit PppSetting(const Ptr &other);
     ~PppSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setNoAuth(bool require);
+    /*!
+     */
     bool noAuth() const;
 
+    /*!
+     */
     void setRefuseEap(bool refuse);
+    /*!
+     */
     bool refuseEap() const;
 
+    /*!
+     */
     void setRefusePap(bool refuse);
+    /*!
+     */
     bool refusePap() const;
 
+    /*!
+     */
     void setRefuseChap(bool refuse);
+    /*!
+     */
     bool refuseChap() const;
 
+    /*!
+     */
     void setRefuseMschap(bool refuse);
+    /*!
+     */
     bool refuseMschap() const;
 
+    /*!
+     */
     void setRefuseMschapv2(bool refuse);
+    /*!
+     */
     bool refuseMschapv2() const;
 
+    /*!
+     */
     void setNoBsdComp(bool require);
+    /*!
+     */
     bool noBsdComp() const;
 
+    /*!
+     */
     void setNoDeflate(bool require);
+    /*!
+     */
     bool noDeflate() const;
 
+    /*!
+     */
     void setNoVjComp(bool require);
+    /*!
+     */
     bool noVjComp() const;
 
+    /*!
+     */
     void setRequireMppe(bool require);
+    /*!
+     */
     bool requireMppe() const;
 
+    /*!
+     */
     void setRequireMppe128(bool require);
+    /*!
+     */
     bool requireMppe128() const;
 
+    /*!
+     */
     void setMppeStateful(bool used);
+    /*!
+     */
     bool mppeStateful() const;
 
+    /*!
+     */
     void setCRtsCts(bool control);
+    /*!
+     */
     bool cRtsCts() const;
 
+    /*!
+     */
     void setBaud(quint32 baud);
+    /*!
+     */
     quint32 baud() const;
 
+    /*!
+     */
     void setMru(quint32 mru);
+    /*!
+     */
     quint32 mru() const;
 
+    /*!
+     */
     void setMtu(quint32 mtu);
+    /*!
+     */
     quint32 mtu() const;
 
+    /*!
+     */
     void setLcpEchoFailure(quint32 number);
+    /*!
+     */
     quint32 lcpEchoFailure() const;
 
+    /*!
+     */
     void setLcpEchoInterval(quint32 interval);
+    /*!
+     */
     quint32 lcpEchoInterval() const;
 
     void fromMap(const QVariantMap &setting) override;

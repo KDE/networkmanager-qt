@@ -16,41 +16,84 @@ namespace NetworkManager
 {
 class TunSettingPrivate;
 
-/**
- * Represents generic setting
+/*!
+ * \class NetworkManager::TunSetting
+ * \inheaderfile NetworkManagerQt/TunSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents generic setting.
  */
 class NETWORKMANAGERQT_EXPORT TunSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::TunSetting::Ptr
+     */
     typedef QSharedPointer<TunSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::TunSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     *
+     * \value Tun
+     * \value Tap
+     */
     enum Mode {
         Tun,
         Tap,
     };
 
+    /*!
+     */
     TunSetting();
+    /*!
+     */
     explicit TunSetting(const Ptr &other);
     ~TunSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setGroup(const QString &group);
+    /*!
+     */
     QString group() const;
 
+    /*!
+     */
     void setMode(Mode mode);
+    /*!
+     */
     Mode mode() const;
 
+    /*!
+     */
     void setMultiQueue(bool multiQueue);
+    /*!
+     */
     bool multiQueue() const;
 
+    /*!
+     */
     void setOwner(const QString &owner);
+    /*!
+     */
     QString owner() const;
 
+    /*!
+     */
     void setPi(bool pi);
+    /*!
+     */
     bool pi() const;
 
+    /*!
+     */
     void setVnetHdr(bool vnetHdr);
+    /*!
+     */
     bool vnetHdr() const;
 
     void fromMap(const QVariantMap &setting) override;

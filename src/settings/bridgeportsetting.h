@@ -16,27 +16,53 @@ namespace NetworkManager
 {
 class BridgePortSettingPrivate;
 
-/**
- * Represents bridge port setting
+/*!
+ * \class NetworkManager::BridgePortSetting
+ * \inheaderfile NetworkManagerQt/BridgePortSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents bridge port setting.
  */
 class NETWORKMANAGERQT_EXPORT BridgePortSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::BridgePortSetting::Ptr
+     */
     typedef QSharedPointer<BridgePortSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::BridgePortSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     */
     BridgePortSetting();
+    /*!
+     */
     explicit BridgePortSetting(const Ptr &other);
     ~BridgePortSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setPriority(quint32 priority);
+    /*!
+     */
     quint32 priority() const;
 
+    /*!
+     */
     void setPathCost(quint32 cost);
+    /*!
+     */
     quint32 pathCost() const;
 
+    /*!
+     */
     void setHairpinMode(bool enable);
+    /*!
+     */
     bool hairpinMode() const;
 
     void fromMap(const QVariantMap &setting) override;

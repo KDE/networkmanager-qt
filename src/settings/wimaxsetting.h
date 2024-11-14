@@ -17,24 +17,46 @@ namespace NetworkManager
 {
 class WimaxSettingPrivate;
 
-/**
- * Represents wimax setting
+/*!
+ * \class NetworkManager::WimaxSetting
+ * \inheaderfile NetworkManagerQt/WimaxSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents wimax setting.
  */
 class NETWORKMANAGERQT_EXPORT WimaxSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::VxlanSetting::Ptr
+     */
     typedef QSharedPointer<WimaxSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::VxlanSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     */
     WimaxSetting();
+    /*!
+     */
     explicit WimaxSetting(const Ptr &other);
     ~WimaxSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setNetworkName(const QString &name);
+    /*!
+     */
     QString networkName() const;
 
+    /*!
+     */
     void setMacAddress(const QByteArray &address);
+    /*!
+     */
     QByteArray macAddress() const;
 
     void fromMap(const QVariantMap &setting) override;

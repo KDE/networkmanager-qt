@@ -16,40 +16,82 @@ namespace NetworkManager
 {
 class TeamPortSettingPrivate;
 
-/**
- * Represents TeamPort setting
+/*!
+ * \class NetworkManager::TeamPortSetting
+ * \inheaderfile NetworkManagerQt/TeamPortSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents TeamPort setting.
  */
 class NETWORKMANAGERQT_EXPORT TeamPortSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::TeamPortSetting::Ptr
+     */
     typedef QSharedPointer<TeamPortSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::TeamPortSetting::List
+     */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     TeamPortSetting();
+    /*!
+     */
     explicit TeamPortSetting(const Ptr &other);
     ~TeamPortSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void config(const QString &config);
+    /*!
+     */
     QString config() const;
 
+    /*!
+     */
     void lacpKey(qint32 key);
+    /*!
+     */
     qint32 lacpKey() const;
 
+    /*!
+     */
     void lacpPrio(qint32 priority);
+    /*!
+     */
     qint32 lacpPrio() const;
 
+    /*!
+     */
     void prio(qint32 prio);
+    /*!
+     */
     qint32 prio() const;
 
+    /*!
+     */
     void queueId(qint32 id);
+    /*!
+     */
     qint32 queueId() const;
 
+    /*!
+     */
     void sticky(bool sticky);
+    /*!
+     */
     bool sticky() const;
 
+    /*!
+     */
     void setLinkWatchers(const NMVariantMapList &linkWatchers);
+    /*!
+     */
     NMVariantMapList linkWatchers() const;
 
     void fromMap(const QVariantMap &setting) override;

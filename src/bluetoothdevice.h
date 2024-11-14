@@ -17,64 +17,92 @@ namespace NetworkManager
 {
 class BluetoothDevicePrivate;
 
-/**
- * A bluetooth device interface
+/*!
+ * \class NetworkManager::BluetoothDevice
+ * \inheaderfile NetworkManagerQt/BluetoothDevice
+ * \inmodule NetworkManagerQt
+ *
+ * \brief A bluetooth device interface.
  */
 class NETWORKMANAGERQT_EXPORT BluetoothDevice : public ModemDevice
 {
     Q_OBJECT
 
+    /*!
+     * \property NetworkManager::BluetoothDevice::bluetoothCapabilities
+     */
     Q_PROPERTY(uint bluetoothCapabilities READ bluetoothCapabilities)
+
+    /*!
+     * \property NetworkManager::BluetoothDevice::hardwareAddress
+     */
     Q_PROPERTY(QString hardwareAddress READ hardwareAddress)
+
+    /*!
+     * \property NetworkManager::BluetoothDevice::name
+     */
     Q_PROPERTY(QString name READ name)
 
 public:
+    /*!
+     * \typedef NetworkManager::BluetoothDevice::Ptr
+     */
     typedef QSharedPointer<BluetoothDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::BluetoothDevice::List
+     */
     typedef QList<Ptr> List;
-    /**
+    /*!
+     *
      * Capabilities of the Bluetooth device
+     *
+     * \value NoCapability
+     *        No special capability
+     * \value Dun
+     *        Dial Up Networking profile
+     * \value Pan
+     *        Personal Area Network profile
      */
     enum Capability {
-        NoCapability = 0x0, /**< No special capability */
-        Dun = 0x1, /**< Dial Up Networking profile */
-        Pan = 0x2, /**< Personal Area Network profile */
+        NoCapability = 0x0,
+        Dun = 0x1,
+        Pan = 0x2,
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
     Q_FLAG(Capabilities)
-    /**
+    /*!
      * Creates a new BluetoothDevice object.
      */
     explicit BluetoothDevice(const QString &path, QObject *parent = nullptr);
-    /**
+    /*!
      * Destroys a BluetoothDevice object.
      */
     ~BluetoothDevice() override;
 
-    /**
+    /*!
      * Retrieves the capabilities supported by this device.
      *
-     * @return the capabilities of the device
-     * @see NetworkManager::BluetoothDevice::Capability
+     * \sa NetworkManager::BluetoothDevice::Capability
      */
     Capabilities bluetoothCapabilities() const;
-    /**
+    /*!
      * The hardware address assigned to the bluetooth interface
      */
     QString hardwareAddress() const;
-    /**
+    /*!
      * Name of the bluetooth interface
      */
     QString name() const;
-    /**
+    /*!
      * The NetworkInterface type.
      *
-     * @return the NetworkManager::Device::Type.  This always returns NetworkManager::Device::Bluetooth
+     * Returns the NetworkManager::Device::Type.  This always returns NetworkManager::Device::Bluetooth
      */
     Type type() const override;
 
 Q_SIGNALS:
-    /**
-     * Emitted when the BT device @p name changes
+    /*!
+     * Emitted when the BT device \a name changes
      */
     void nameChanged(const QString &name);
 

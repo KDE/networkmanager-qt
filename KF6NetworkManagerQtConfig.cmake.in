@@ -10,4 +10,3 @@ pkg_search_module(NetworkManager REQUIRED IMPORTED_TARGET libnm>=1.4.0)
 pkg_search_module(Gio REQUIRED IMPORTED_TARGET gio-2.0)
 
 include("${CMAKE_CURRENT_LIST_DIR}/KF6NetworkManagerQtTargets.cmake")
-@PACKAGE_INCLUDE_QCHTARGETS@

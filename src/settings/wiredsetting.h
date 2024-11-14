@@ -16,14 +16,32 @@ namespace NetworkManager
 {
 class WiredSettingPrivate;
 
-/**
- * Represents wired setting
+/*!
+ * \class NetworkManager::WiredSetting
+ * \inheaderfile NetworkManagerQt/WiredSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents wired setting.
  */
 class NETWORKMANAGERQT_EXPORT WiredSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::WiredSetting::Ptr
+     */
     typedef QSharedPointer<WiredSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::WiredSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     *
+     * \value UnknownPort
+     * \value Tp
+     * \value Aui
+     * \value Bnc
+     * \value Mii
+     */
     enum PortType {
         UnknownPort = 0,
         Tp,
@@ -32,12 +50,25 @@ public:
         Mii,
     };
 
+    /*!
+     *
+     * \value UnknownDuplexType
+     * \value Half
+     * \value Full
+     */
     enum DuplexType {
         UnknownDuplexType = 0,
         Half,
         Full,
     };
 
+    /*!
+     *
+     * \value Undefined
+     * \value Qeth
+     * \value Lcs
+     * \value Ctc
+     */
     enum S390Nettype {
         Undefined = 0,
         Qeth,
@@ -45,6 +76,20 @@ public:
         Ctc,
     };
 
+    /*!
+     *
+     * \value WakeOnLanPhy
+     * \value WakeOnLanUnicast
+     * \value WakeOnLanMulticast
+     * \value WakeOnLanBroadcast
+     * \value WakeOnLanArp
+     * \value WakeOnLanMagic
+     *
+     * Special values
+     *
+     * \value WakeOnLanDefault
+     * \value WakeOnLanIgnore
+     */
     enum WakeOnLanFlag {
         WakeOnLanPhy = 1 << 1,
         WakeOnLanUnicast = 1 << 2,
@@ -52,62 +97,125 @@ public:
         WakeOnLanBroadcast = 1 << 4,
         WakeOnLanArp = 1 << 5,
         WakeOnLanMagic = 1 << 6,
-        /* Special values */
         WakeOnLanDefault = 1 << 0,
         WakeOnLanIgnore = 1 << 15,
     };
     Q_DECLARE_FLAGS(WakeOnLanFlags, WakeOnLanFlag)
     Q_FLAGS(WakeOnLanFlag)
 
+    /*!
+     */
     WiredSetting();
+    /*!
+     */
     explicit WiredSetting(const Ptr &other);
     ~WiredSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setPort(PortType port);
+    /*!
+     */
     PortType port() const;
 
+    /*!
+     */
     void setSpeed(quint32 speed);
+    /*!
+     */
     quint32 speed() const;
 
+    /*!
+     */
     void setDuplexType(DuplexType type);
+    /*!
+     */
     DuplexType duplexType() const;
 
+    /*!
+     */
     void setAutoNegotiate(bool autoNegotiate);
+    /*!
+     */
     bool autoNegotiate() const;
 
+    /*!
+     */
     QString generateMacAddressMask() const;
+    /*!
+     */
     void setGenerateMacAddressMask(const QString &mask);
 
+    /*!
+     */
     void setMacAddress(const QByteArray &address);
+    /*!
+     */
     QByteArray macAddress() const;
 
+    /*!
+     */
     void setClonedMacAddress(const QByteArray &address);
+    /*!
+     */
     QByteArray clonedMacAddress() const;
 
+    /*!
+     */
     void setMacAddressBlacklist(const QStringList &list);
+    /*!
+     */
     QStringList macAddressBlacklist() const;
 
+    /*!
+     */
     void setMtu(quint32 mtu);
+    /*!
+     */
     quint32 mtu() const;
 
+    /*!
+     */
     void setS390Subchannels(const QStringList &channels);
+    /*!
+     */
     QStringList s390Subchannels() const;
 
+    /*!
+     */
     void setS390NetType(S390Nettype type);
+    /*!
+     */
     S390Nettype s390NetType() const;
 
+    /*!
+     */
     void setS390Options(const QMap<QString, QString> &options);
+    /*!
+     */
     QMap<QString, QString> s390Options() const;
 
+    /*!
+     */
     WakeOnLanFlags wakeOnLan() const;
+    /*!
+     */
     void setWakeOnLan(WakeOnLanFlags wol);
 
+    /*!
+     */
     QString wakeOnLanPassword() const;
+    /*!
+     */
     void setWakeOnLanPassword(const QString &password);
 
+    /*!
+     */
     QString assignedMacAddress() const;
+    /*!
+     */
     void setAssignedMacAddress(const QString &assignedMacAddress);
 
     void fromMap(const QVariantMap &setting) override;

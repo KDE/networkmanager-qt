@@ -14,14 +14,37 @@ namespace NetworkManager
 {
 class IpTunnelSettingPrivate;
 
-/**
- * Represents IpTunnel setting
+/*!
+ * \class NetworkManager::IpTunnelSetting
+ * \inheaderfile NetworkManagerQt/IpTunnelSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents IpTunnel setting.
  */
 class NETWORKMANAGERQT_EXPORT IpTunnelSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::IpTunnelSetting::Ptr
+     */
     typedef QSharedPointer<IpTunnelSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::IpTunnelSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     *
+     * \value Unknown
+     * \value Ipip
+     * \value Gre
+     * \value Sit
+     * \value Isatap
+     * \value Vti
+     * \value Ip6ip6
+     * \value Ipip6
+     * \value Ip6gre
+     * \value Vti6
+     */
     enum Mode {
         Unknown = NM_IP_TUNNEL_MODE_UNKNOWN,
         Ipip = NM_IP_TUNNEL_MODE_IPIP,
@@ -35,6 +58,16 @@ public:
         Vti6 = NM_IP_TUNNEL_MODE_VTI,
     };
 
+    /*!
+     *
+     * \value None
+     * \value Ip6IgnEncapLimit
+     * \value Ip6UseOrigTclass
+     * \value Ip6UseOrigFlowlabel
+     * \value Ip6Mip6Dev
+     * \value Ip6RcvDscpCopy
+     * \value Ip6UseOrigFwmark
+     */
     enum Flag {
         None = 0x0,
         Ip6IgnEncapLimit = 0x1,
@@ -46,49 +79,105 @@ public:
     };
     Q_DECLARE_FLAGS(Flags, Flag)
 
+    /*!
+     */
     IpTunnelSetting();
+    /*!
+     */
     explicit IpTunnelSetting(const Ptr &other);
     ~IpTunnelSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setMode(Mode mode);
+    /*!
+     */
     Mode mode() const;
 
+    /*!
+     */
     void setPathMtuDiscovery(bool discovery);
+    /*!
+     */
     bool pathMtuDiscovery() const;
 
+    /*!
+     */
     void setEncapsulationLimit(quint32 limit);
+    /*!
+     */
     quint32 encapsulationLimit() const;
 
+    /*!
+     */
     void setFlags(Flags flags);
+    /*!
+     */
     Flags flags() const;
 
+    /*!
+     */
     void setFlowLabel(quint32 label);
+    /*!
+     */
     quint32 flowLabel() const;
 
+    /*!
+     */
     void setMtu(quint32 mtu);
+    /*!
+     */
     quint32 mtu() const;
 
+    /*!
+     */
     void setTos(quint32 tos);
+    /*!
+     */
     quint32 tos() const;
 
+    /*!
+     */
     void setTtl(quint32 ttl);
+    /*!
+     */
     quint32 ttl() const;
 
+    /*!
+     */
     void setInputKey(const QString &key);
+    /*!
+     */
     QString inputKey() const;
 
+    /*!
+     */
     void setLocal(const QString &local);
+    /*!
+     */
     QString local() const;
 
+    /*!
+     */
     void setParent(const QString &parent);
+    /*!
+     */
     QString parent() const;
 
+    /*!
+     */
     void setOutputKey(const QString &key);
+    /*!
+     */
     QString outputKey() const;
 
+    /*!
+     */
     void setRemote(const QString &remote);
+    /*!
+     */
     QString remote() const;
 
     void fromMap(const QVariantMap &setting) override;

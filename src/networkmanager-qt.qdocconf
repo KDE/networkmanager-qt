@@ -1,0 +1,29 @@
+include($KDE_DOCS/global/qt-module-defaults.qdocconf)
+
+project = NetworkManagerQt
+description = Qt wrapper for NetworkManager API
+
+documentationinheaders = true
+
+headerdirs += .
+sourcedirs += .
+
+excludedirs += fakenetwork dbus
+
+outputformats = HTML
+
+depends += kde qtcore qtnetwork qtdbus qtqml
+
+qhp.projects            = NetworkManagerQt
+
+qhp.NetworkManagerQt.file                = networkmanager-qt.qhp
+qhp.NetworkManagerQt.namespace           = org.kde.networkmanager-qt.$QT_VERSION_TAG
+qhp.NetworkManagerQt.virtualFolder       = networkmanager-qt
+qhp.NetworkManagerQt.indexTitle          = NetworkManagerQt
+qhp.NetworkManagerQt.indexRoot           =
+
+qhp.NetworkManagerQt.subprojects         = classes
+qhp.NetworkManagerQt.subprojects.classes.title = C++ Classes
+qhp.NetworkManagerQt.subprojects.classes.indexTitle = NetworkManagerQt C++ Classes
+qhp.NetworkManagerQt.subprojects.classes.selectors = class fake:headerfile
+qhp.NetworkManagerQt.subprojects.classes.sortPages = true

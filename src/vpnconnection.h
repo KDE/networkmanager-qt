@@ -20,66 +20,120 @@ namespace NetworkManager
 class Device;
 class VpnConnectionPrivate;
 
-/**
- * An active VPN connection
+/*!
+ * \class NetworkManager::VpnConnection
+ * \inheaderfile NetworkManagerQt/VpnConnection
+ * \inmodule NetworkManagerQt
+ *
+ * \brief An active VPN connection.
  */
 class NETWORKMANAGERQT_EXPORT VpnConnection : public ActiveConnection
 {
     Q_OBJECT
 
 public:
+    /*!
+     * \typedef NetworkManager::VpnConnection::Ptr
+     */
     typedef QSharedPointer<VpnConnection> Ptr;
+    /*!
+     * \typedef NetworkManager::VpnConnection::List
+     */
     typedef QList<Ptr> List;
-    /**
+    /*!
      * Enum describing the possible VPN connection states
+     *
+     * \value Unknown
+     *        The state of the VPN connection is unknown.
+     * \value Prepare
+     *        The VPN connection is preparing to connect.
+     * \value NeedAuth
+     *        The VPN connection needs authorization credentials.
+     * \value Connecting
+     *        The VPN connection is being established.
+     * \value GettingIpConfig
+     *        The VPN connection is getting an IP address.
+     * \value Activated
+     *        The VPN connection is active.
+     * \value Failed
+     *        The VPN connection failed.
+     * \value Disconnected
+     *        The VPN connection is disconnected.
      */
     enum State {
-        Unknown = 0, /**< The state of the VPN connection is unknown. */
-        Prepare, /**< The VPN connection is preparing to connect. */
-        NeedAuth, /**< The VPN connection needs authorization credentials. */
-        Connecting, /**< The VPN connection is being established. */
-        GettingIpConfig, /**< The VPN connection is getting an IP address. */
-        Activated, /**< The VPN connection is active. */
-        Failed, /**< The VPN connection failed. */
-        Disconnected, /**< The VPN connection is disconnected. */
+        Unknown = 0,
+        Prepare,
+        NeedAuth,
+        Connecting,
+        GettingIpConfig,
+        Activated,
+        Failed,
+        Disconnected,
     };
     Q_ENUM(State)
 
+    /*!
+     *
+     * \value UnknownReason
+     *        The reason for the VPN connection state change is unknown.
+     * \value NoneReason
+     *        No reason was given for the VPN connection state change.
+     * \value UserDisconnectedReason
+     *        The VPN connection changed state because the user disconnected it.
+     * \value DeviceDisconnectedReason
+     *        The VPN connection changed state because the device it was using was disconnected.
+     * \value ServiceStoppedReason
+     *        The service providing the VPN connection was stopped.
+     * \value IpConfigInvalidReason
+     *        The IP config of the VPN connection was invalid.
+     * \value ConnectTimeoutReason
+     *        The connection attempt to the VPN service timed out.
+     * \value ServiceStartTimeoutReason
+     *        A timeout occurred while starting the service providing the VPN connection.
+     * \value ServiceStartFailedReason
+     *        Starting the service starting the service providing the VPN connection failed.
+     * \value NoSecretsReason
+     *        Necessary secrets for the VPN connection were not provided.
+     * \value LoginFailedReason
+     *        Authentication to the VPN server failed.
+     * \value ConnectionRemovedReason
+     *        The connection was deleted from settings.
+     */
     enum StateChangeReason {
-        UnknownReason = 0, /**< The reason for the VPN connection state change is unknown.*/
-        NoneReason, /**< No reason was given for the VPN connection state change. */
-        UserDisconnectedReason, /**< The VPN connection changed state because the user disconnected it. */
-        DeviceDisconnectedReason, /**< The VPN connection changed state because the device it was using was disconnected. */
-        ServiceStoppedReason, /**< The service providing the VPN connection was stopped. */
-        IpConfigInvalidReason, /**< The IP config of the VPN connection was invalid. */
-        ConnectTimeoutReason, /**< The connection attempt to the VPN service timed out. */
-        ServiceStartTimeoutReason, /**< A timeout occurred while starting the service providing the VPN connection. */
-        ServiceStartFailedReason, /**< Starting the service starting the service providing the VPN connection failed. */
-        NoSecretsReason, /**< Necessary secrets for the VPN connection were not provided. */
-        LoginFailedReason, /**< Authentication to the VPN server failed. */
-        ConnectionRemovedReason, /**< The connection was deleted from settings. */
+        UnknownReason = 0,
+        NoneReason,
+        UserDisconnectedReason,
+        DeviceDisconnectedReason,
+        ServiceStoppedReason,
+        IpConfigInvalidReason,
+        ConnectTimeoutReason,
+        ServiceStartTimeoutReason,
+        ServiceStartFailedReason,
+        NoSecretsReason,
+        LoginFailedReason,
+        ConnectionRemovedReason,
     };
     Q_ENUM(StateChangeReason)
 
-    /**
+    /*!
      * Creates a new VpnConnection object.
      *
-     * @param path the DBus path of the device
+     * \a path the DBus path of the device
      */
     explicit VpnConnection(const QString &path, QObject *parent = nullptr);
-    /**
+    /*!
      * Destroys a VpnConnection object.
      */
     ~VpnConnection() override;
-    /**
+    /*!
      * Return the current login banner
      */
     QString banner() const;
-    /**
+    /*!
      * returns the current state
      */
     NetworkManager::VpnConnection::State state() const;
-    /**
+    /*!
      * operator for casting an ActiveConnection into a VpnConnection. Returns 0 if this
      * object is not a VPN connection. Introduced to make it possible to create a VpnConnection
      * object for every active connection, without creating an ActiveConnection object, checking
@@ -88,12 +142,12 @@ public:
     operator VpnConnection *();
 
 Q_SIGNALS:
-    /**
-     * This signal is emitted when the connection @p banner has changed
+    /*!
+     * This signal is emitted when the connection \a banner has changed
      */
     void bannerChanged(const QString &banner);
-    /**
-     * This signal is emitted when the VPN connection @p state has changed
+    /*!
+     * This signal is emitted when the VPN connection \a state has changed
      */
     void stateChanged(NetworkManager::VpnConnection::State state, NetworkManager::VpnConnection::StateChangeReason reason);
 

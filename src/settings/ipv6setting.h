@@ -64,104 +64,224 @@ namespace NetworkManager
 {
 class Ipv6SettingPrivate;
 
-/**
- * Represents ipv6 setting
+/*!
+ * \class NetworkManager::Ipv6Setting
+ * \inheaderfile NetworkManagerQt/Ipv6Setting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents ipv6 setting.
  */
 class NETWORKMANAGERQT_EXPORT Ipv6Setting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::Ipv6Setting::Ptr
+     */
     typedef QSharedPointer<Ipv6Setting> Ptr;
+    /*!
+     * \typedef NetworkManager::Ipv6Setting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     *
+     * \value Automatic
+     * \value Dhcp
+     * \value LinkLocal
+     * \value Manual
+     * \value Ignored
+     * \value ConfigDisabled
+     *        FIXME KF6: fix enum naming (possibly move to enum class)
+     */
     enum ConfigMethod {
         Automatic,
         Dhcp,
         LinkLocal,
         Manual,
         Ignored,
-        ConfigDisabled // FIXME KF6: fix enum naming (possibly move to enum class)
+        ConfigDisabled
     };
+    /*!
+     *
+     * \value Unknown
+     * \value Disabled
+     * \value PreferPublic
+     * \value PreferTemporary
+     */
     enum IPv6Privacy {
         Unknown = -1,
         Disabled,
         PreferPublic,
         PreferTemporary,
     };
+    /*!
+     *
+     * \value Eui64
+     * \value StablePrivacy
+     */
     enum IPv6AddressGenMode {
         Eui64,
         StablePrivacy,
     };
 
+    /*!
+     */
     Ipv6Setting();
+    /*!
+     */
     explicit Ipv6Setting(const Ptr &other);
     ~Ipv6Setting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setMethod(ConfigMethod method);
+    /*!
+     */
     ConfigMethod method() const;
 
+    /*!
+     */
     void setDns(const QList<QHostAddress> &dns);
+    /*!
+     */
     QList<QHostAddress> dns() const;
 
+    /*!
+     */
     void setDnsSearch(const QStringList &domains);
+    /*!
+     */
     QStringList dnsSearch() const;
 
+    /*!
+     */
     void setAddresses(const QList<NetworkManager::IpAddress> ipv6addresses);
+    /*!
+     */
     QList<NetworkManager::IpAddress> addresses() const;
 
+    /*!
+     */
     void setRoutes(const QList<NetworkManager::IpRoute> ipv6routes);
+    /*!
+     */
     QList<NetworkManager::IpRoute> routes() const;
 
+    /*!
+     */
     void setRouteMetric(int metric);
+    /*!
+     */
     int routeMetric() const;
 
+    /*!
+     */
     void setIgnoreAutoRoutes(bool ignore);
+    /*!
+     */
     bool ignoreAutoRoutes() const;
 
+    /*!
+     */
     void setIgnoreAutoDns(bool ignore);
+    /*!
+     */
     bool ignoreAutoDns() const;
 
+    /*!
+     */
     void setNeverDefault(bool neverDefault);
+    /*!
+     */
     bool neverDefault() const;
 
+    /*!
+     */
     void setMayFail(bool mayFail);
+    /*!
+     */
     bool mayFail() const;
 
+    /*!
+     */
     void setPrivacy(IPv6Privacy privacy);
+    /*!
+     */
     IPv6Privacy privacy() const;
 
     void fromMap(const QVariantMap &setting) override;
 
     QVariantMap toMap() const override;
 
+    /*!
+     */
     void setDadTimeout(qint32 timeout);
+    /*!
+     */
     qint32 dadTimeout() const;
 
+    /*!
+     */
     void setAddressGenMode(IPv6AddressGenMode mode);
+    /*!
+     */
     IPv6AddressGenMode addressGenMode() const;
 
+    /*!
+     */
     void setDhcpTimeout(qint32 timeout);
+    /*!
+     */
     qint32 dhcpTimeout() const;
 
+    /*!
+     */
     void setDhcpHostname(const QString &hostname);
+    /*!
+     */
     QString dhcpHostname() const;
 
+    /*!
+     */
     void setDhcpDuid(const QString &duid);
+    /*!
+     */
     QString dhcpDuid() const;
 
+    /*!
+     */
     void setToken(const QString &token);
+    /*!
+     */
     QString token() const;
 
+    /*!
+     */
     void setDnsOptions(const QStringList &options);
+    /*!
+     */
     QStringList dnsOptions() const;
 
+    /*!
+     */
     void setAddressData(const NMVariantMapList &addressData);
+    /*!
+     */
     NMVariantMapList addressData() const;
 
+    /*!
+     */
     void setRouteData(const NMVariantMapList &routeData);
+    /*!
+     */
     NMVariantMapList routeData() const;
 
+    /*!
+     */
     void setRouteTable(quint32 routeTable);
+    /*!
+     */
     quint32 routeTable() const;
 
 protected:

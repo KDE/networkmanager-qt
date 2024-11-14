@@ -15,55 +15,59 @@
 
 namespace NetworkManager
 {
-/**
- * This class represents IP route
+/*!
+ * \class NetworkManager::IpRoute
+ * \inheaderfile NetworkManagerQt/IpRoute
+ * \inmodule NetworkManagerQt
+ *
+ * \brief This class represents IP route.
  */
 class NETWORKMANAGERQT_EXPORT IpRoute : public QNetworkAddressEntry
 {
 public:
-    /**
+    /*!
      * Constructs an empty IpRoute object.
      */
     IpRoute();
 
-    /**
-     * Constructs an IpRoute object that is a copy of the object @p other.
+    /*!
+     * Constructs an IpRoute object that is a copy of the object \a other.
      */
     IpRoute(const IpRoute &other);
 
-    /**
+    /*!
      * Destroys this IpRoute object.
      */
     ~IpRoute();
 
-    /**
+    /*!
      * Returns true if the route IP is defined.
      */
     bool isValid() const;
 
-    /**
+    /*!
      * Defines the next hop of the given route.
      */
     void setNextHop(const QHostAddress &nextHop) const;
 
-    /**
+    /*!
      * Returns the next hop of the given route.
      */
     QHostAddress nextHop() const;
 
-    /**
-     * Defines the @p metric of the given route,
+    /*!
+     * Defines the \a metric of the given route,
      * lower values have higher priority.
      */
     void setMetric(quint32 metric);
 
-    /**
+    /*!
      * Returns the route metric number of the given route.
      */
     quint32 metric() const;
 
-    /**
-     * Makes a copy of the IpRoute object @p other.
+    /*!
+     * Makes a copy of the IpRoute object \a other.
      */
     IpRoute &operator=(const IpRoute &other);
 
@@ -71,6 +75,9 @@ private:
     class Private;
     Private *const d;
 };
+/*!
+ * \typedef NetworkManager::IpRoutes
+ */
 typedef QList<IpRoute> IpRoutes;
 
 } // namespace NetworkManager

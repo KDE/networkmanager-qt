@@ -16,26 +16,51 @@ namespace NetworkManager
 {
 class BondSettingPrivate;
 
-/**
- * Represents bond setting
+/*!
+ * \class NetworkManager::BondSetting
+ * \inheaderfile NetworkManagerQt/BondSetting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents bond setting.
  */
 class NETWORKMANAGERQT_EXPORT BondSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::BondSetting::Ptr
+     */
     typedef QSharedPointer<BondSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::BondSetting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     */
     BondSetting();
+    /*!
+     */
     explicit BondSetting(const Ptr &other);
     ~BondSetting() override;
 
     QString name() const override;
 
-    /// @deprecated in favor of connection.interface-name in NM 1.0.0
+    /*!
+     * \deprecated
+     * Deprecated in favor of connection.interface-name in NM 1.0.0
+     */
     void setInterfaceName(const QString &name);
+    /*!
+     */
     QString interfaceName() const;
 
+    /*!
+     */
     void addOption(const QString &option, const QString &value);
+    /*!
+     */
     void setOptions(const NMStringMap &options);
+    /*!
+     */
     NMStringMap options() const;
 
     void fromMap(const QVariantMap &setting) override;

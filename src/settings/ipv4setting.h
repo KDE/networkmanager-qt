@@ -46,14 +46,32 @@ namespace NetworkManager
 {
 class Ipv4SettingPrivate;
 
-/**
- * Represents ipv4 setting
+/*!
+ * \class NetworkManager::Ipv4Setting
+ * \inheaderfile NetworkManagerQt/Ipv4Setting
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents ipv4 setting.
  */
 class NETWORKMANAGERQT_EXPORT Ipv4Setting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::Ipv4Setting::Ptr
+     */
     typedef QSharedPointer<Ipv4Setting> Ptr;
+    /*!
+     * \typedef NetworkManager::Ipv4Setting::List
+     */
     typedef QList<Ptr> List;
+    /*!
+     *
+     * \value Automatic
+     * \value LinkLocal
+     * \value Manual
+     * \value Shared
+     * \value Disabled
+     */
     enum ConfigMethod {
         Automatic,
         LinkLocal,
@@ -62,70 +80,154 @@ public:
         Disabled,
     };
 
+    /*!
+     */
     Ipv4Setting();
+    /*!
+     */
     explicit Ipv4Setting(const Ptr &other);
     ~Ipv4Setting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setMethod(ConfigMethod method);
+    /*!
+     */
     ConfigMethod method() const;
 
+    /*!
+     */
     void setDns(const QList<QHostAddress> &dns);
+    /*!
+     */
     QList<QHostAddress> dns() const;
 
+    /*!
+     */
     void setDnsSearch(const QStringList &domains);
+    /*!
+     */
     QStringList dnsSearch() const;
 
+    /*!
+     */
     void setAddresses(const QList<NetworkManager::IpAddress> &ipv4addresses);
+    /*!
+     */
     QList<NetworkManager::IpAddress> addresses() const;
 
+    /*!
+     */
     void setRoutes(const QList<NetworkManager::IpRoute> &ipv4routes);
+    /*!
+     */
     QList<NetworkManager::IpRoute> routes() const;
 
+    /*!
+     */
     void setRouteMetric(int metric);
+    /*!
+     */
     int routeMetric() const;
 
+    /*!
+     */
     void setIgnoreAutoRoutes(bool ignore);
+    /*!
+     */
     bool ignoreAutoRoutes() const;
 
+    /*!
+     */
     void setIgnoreAutoDns(bool ignore);
+    /*!
+     */
     bool ignoreAutoDns() const;
 
+    /*!
+     */
     void setDhcpClientId(const QString &id);
+    /*!
+     */
     QString dhcpClientId() const;
 
+    /*!
+     */
     void setDhcpSendHostname(bool send);
+    /*!
+     */
     bool dhcpSendHostname() const;
 
+    /*!
+     */
     void setDhcpHostname(const QString &hostname);
+    /*!
+     */
     QString dhcpHostname() const;
 
+    /*!
+     */
     void setNeverDefault(bool neverDefault);
+    /*!
+     */
     bool neverDefault() const;
 
+    /*!
+     */
     void setMayFail(bool mayFail);
+    /*!
+     */
     bool mayFail() const;
 
+    /*!
+     */
     void setDadTimeout(qint32 timeout);
+    /*!
+     */
     qint32 dadTimeout() const;
 
+    /*!
+     */
     void setDhcpFqdn(const QString &fqdn);
+    /*!
+     */
     QString dhcpFqdn() const;
 
+    /*!
+     */
     void setDnsOptions(const QStringList &options);
+    /*!
+     */
     QStringList dnsOptions() const;
 
+    /*!
+     */
     void setDnsPriority(qint32 priority);
+    /*!
+     */
     qint32 dnsPriority() const;
 
+    /*!
+     */
     void setGateway(const QString &gateway);
+    /*!
+     */
     QString gateway() const;
 
+    /*!
+     */
     void setAddressData(const NMVariantMapList &addressData);
+    /*!
+     */
     NMVariantMapList addressData() const;
 
+    /*!
+     */
     void setRouteData(const NMVariantMapList &routeData);
+    /*!
+     */
     NMVariantMapList routeData() const;
 
     void fromMap(const QVariantMap &setting) override;

@@ -15,26 +15,45 @@ namespace NetworkManager
 {
 class VethDevicePrivate;
 
-/**
- * A veth device interface
+/*!
+ * \class NetworkManager::VethDevice
+ * \inheaderfile NetworkManagerQt/VethDevice
+ * \inmodule NetworkManagerQt
+ *
+ * \brief A veth device interface.
  */
 class NETWORKMANAGERQT_EXPORT VethDevice : public Device
 {
     Q_OBJECT
+    /*!
+     * \property NetworkManager::VethDevice::peer
+     */
     Q_PROPERTY(QString peer READ peer NOTIFY peerChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::VethDevice::Ptr
+     */
     typedef QSharedPointer<VethDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::VethDevice::List
+     */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     explicit VethDevice(const QString &path, QObject *parent = nullptr);
     ~VethDevice() override;
 
     Type type() const override;
 
+    /*!
+     */
     QString peer() const;
 
 Q_SIGNALS:
+    /*!
+     */
     void peerChanged(const QString &peer);
 
 private:

@@ -21,91 +21,95 @@
 
 namespace NetworkManager
 {
-/**
- * This class represents IP configuration
+/*!
+ * \class NetworkManager::IpConfig
+ * \inheaderfile NetworkManagerQt/IpConfig
+ * \inmodule NetworkManagerQt
+ *
+ * \brief This class represents IP configuration.
  */
 class NETWORKMANAGERQT_EXPORT IpConfig
 {
 public:
-    /**
-     * Constructs an IP config object with a list of @p addresses, @p nameservers, @p domains and @p routes.
+    /*!
+     * Constructs an IP config object with a list of \a addresses, \a nameservers, \a domains and \a routes.
      */
     IpConfig(const IpAddresses &addresses, const QList<QHostAddress> &nameservers, const QStringList &domains, const IpRoutes &routes);
 
-    /**
+    /*!
      * Constructs an empty IpConfig object.
      */
     IpConfig();
 
-    /**
+    /*!
      * Destroys this IpConfig object.
      */
     ~IpConfig();
 
-    /**
-     * Constructs an IpConfig object that is a copy of the object @p other.
+    /*!
+     * Constructs an IpConfig object that is a copy of the object \a other.
      */
     IpConfig(const IpConfig &other);
 
-    /**
-     * Configure this class using the information on the following @p path
+    /*!
+     * Configure this class using the information on the following \a path
      */
     void setIPv4Path(const QString &path);
 
-    /**
-     * Configure this class using the information on the following @p path
+    /*!
+     * Configure this class using the information on the following \a path
      */
     void setIPv6Path(const QString &path);
 
-    /**
+    /*!
      * Returns a list of IP addresses and gateway related to this configuration.
      * Use IpAddress::ip() to access the IP address and IpAddress::gateway()
      * to access the gateway address.
      */
     NetworkManager::IpAddresses addresses() const;
 
-    /**
+    /*!
      * Returns a list of domains related to this configuration.
      */
     QStringList domains() const;
 
-    /**
+    /*!
      * Returns the gateway in use
      *
-     * @since 0.9.9.0
+     * \since 0.9.9.0
      */
     QString gateway() const;
 
-    /**
+    /*!
      * Returns a list of nameservers related to this configuration.
      */
     QList<QHostAddress> nameservers() const;
 
-    /**
+    /*!
      * Returns a list of static routes (not the default gateway) related to this configuration.
-     * Use @ref addresses() to retrieve the default gateway.
+     * Use \ addresses() to retrieve the default gateway.
      */
     IpRoutes routes() const;
 
-    /**
+    /*!
      * Returns a list of DNS searches.
      *
-     * @since 0.9.9.0
+     * \since 0.9.9.0
      */
     QStringList searches() const;
 
-    /**
+    /*!
      * Returns a list of DNS options that modify the behaviour of the DNS resolver.
-     * @since 5.14.0
+     * \since 5.14.0
      */
     QStringList dnsOptions() const;
 
-    /**
-     * Makes a copy of the IpConfig object @p other.
+    /*!
+     * Makes a copy of the IpConfig object \a other.
      */
     IpConfig &operator=(const IpConfig &other);
 
-    /**
+    /*!
      * Returns false if the list of IP addresses is empty
      */
     bool isValid() const;
