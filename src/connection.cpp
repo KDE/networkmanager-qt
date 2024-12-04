@@ -179,7 +179,7 @@ void NetworkManager::ConnectionPrivate::onPropertiesChanged(const QVariantMap &p
             unsaved = it->toBool();
             Q_EMIT q->unsavedChanged(unsaved);
         } else {
-            qCWarning(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
+            qCDebug(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
         ++it;
     }
