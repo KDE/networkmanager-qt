@@ -74,6 +74,24 @@ public:
         return qvariant_cast<uint>(property("Connectivity"));
     }
 
+    Q_PROPERTY(bool ConnectivityCheckAvailable READ connectivityCheckAvailable)
+    inline bool connectivityCheckAvailable() const
+    {
+        return qvariant_cast<bool>(property("ConnectivityCheckAvailable"));
+    }
+
+    Q_PROPERTY(bool ConnectivityCheckEnabled READ connectivityCheckEnabled)
+    inline bool connectivityCheckEnabled() const
+    {
+        return qvariant_cast<bool>(property("ConnectivityCheckEnabled"));
+    }
+
+    Q_PROPERTY(QString ConnectivityCheckUri READ connectivityCheckUri)
+    inline QString connectivityCheckUri() const
+    {
+        return qvariant_cast<QString>(property("ConnectivityCheckUri"));
+    }
+
     Q_PROPERTY(QList<QDBusObjectPath> Devices READ devices)
     inline QList<QDBusObjectPath> devices() const
     {

@@ -82,6 +82,8 @@ NetworkManager::NetworkManagerPrivate::NetworkManagerPrivate()
     , m_isWirelessHardwareEnabled(false)
     , m_isWwanEnabled(false)
     , m_isWwanHardwareEnabled(false)
+    , m_isConnectivityCheckAvailable(false)
+    , m_isConnectivityCheckEnabled(false)
     , m_globalDnsConfiguration(NetworkManager::DnsConfiguration())
     , m_supportedInterfaceTypes(NetworkManager::Device::UnknownType)
 {
@@ -700,6 +702,21 @@ void NetworkManager::NetworkManagerPrivate::setGlobalDnsConfiguration(const Netw
     iface.setGlobalDnsConfiguration(m_globalDnsConfiguration.toMap());
 }
 
+bool NetworkManager::NetworkManagerPrivate::isConnectivityCheckAvailable() const
+{
+    return m_isConnectivityCheckAvailable;
+}
+
+bool NetworkManager::NetworkManagerPrivate::isConnectivityCheckEnabled() const
+{
+    return m_isConnectivityCheckEnabled;
+}
+
+QString NetworkManager::NetworkManagerPrivate::connectivityCheckUri() const
+{
+    return m_connectivityCheckUri;
+}
+
 void NetworkManager::NetworkManagerPrivate::onDeviceAdded(const QDBusObjectPath &objpath)
 {
     // qCDebug(NMQT);
@@ -829,6 +846,26 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
         } else if (property == QLatin1String("GlobalDnsConfiguration")) {
             m_globalDnsConfiguration.fromMap(qdbus_cast<QVariantMap>(*it));
             Q_EMIT globalDnsConfigurationChanged(m_globalDnsConfiguration);
+        } else if (property == QLatin1String("ConnectivityCheckAvailable")) {
+            m_isConnectivityCheckAvailable = it->toBool();
+            qCDebug(NMQT) << property << m_isConnectivityCheckAvailable;
+            Q_EMIT isConnectivityCheckAvailableChanged(m_isConnectivityCheckAvailable);
+        } else if (property == QLatin1String("ConnectivityCheckEnabled")) {
+            m_isConnectivityCheckEnabled = it->toBool();
+            qCDebug(NMQT) << property << m_isConnectivityCheckEnabled;
+            Q_EMIT isConnectivityCheckEnabledChanged(m_isConnectivityCheckEnabled);
+        } else if (property == QLatin1String("ConnectivityCheckUri")) {
+            QString uri = it->toString().trimmed();
+            // Remove possible quotes on the uri string (ex. \"https://connectivity-check.ubuntu.com/\")
+            if (uri.startsWith(QLatin1Char('\"'))) {
+                uri.slice(1);
+            }
+            if (uri.endsWith(QLatin1Char('\"'))) {
+                uri.chop(1);
+            }
+            m_connectivityCheckUri = uri;
+            qCDebug(NMQT) << property << m_connectivityCheckUri;
+            Q_EMIT connectivityCheckUriChanged(m_connectivityCheckUri);
         } else {
             qCDebug(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }
@@ -1170,6 +1207,21 @@ NetworkManager::DnsConfiguration NetworkManager::globalDnsConfiguration()
 void NetworkManager::setGlobalDnsConfiguration(const NetworkManager::DnsConfiguration &configuration)
 {
     globalNetworkManager->setGlobalDnsConfiguration(configuration);
+}
+
+bool NetworkManager::isConnectivityCheckAvailable()
+{
+    return globalNetworkManager->isConnectivityCheckAvailable();
+}
+
+bool NetworkManager::isConnectivityCheckEnabled()
+{
+    return globalNetworkManager->isConnectivityCheckEnabled();
+}
+
+QString NetworkManager::connectivityCheckUri()
+{
+    return globalNetworkManager->connectivityCheckUri();
 }
 
 NetworkManager::Notifier *NetworkManager::notifier()

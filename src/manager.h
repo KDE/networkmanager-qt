@@ -227,6 +227,24 @@ Q_SIGNALS:
      * @see globalDnsConfiguration
      */
     void globalDnsConfigurationChanged(const NetworkManager::DnsConfiguration &configuration);
+
+    /**
+     * Emitted when the connectivity check availability has changed
+     * @since 6.10.0
+     */
+    void isConnectivityCheckAvailableChanged(bool);
+
+    /**
+     * Emitted when the connectivity check statu has changed
+     * @since 6.10.0
+     */
+    void isConnectivityCheckEnabledChanged(bool);
+
+    /**
+     * Emitted when the connectivity check URI has changed
+     * @since 6.10.0
+     */
+    void connectivityCheckUriChanged(QString);
 };
 
 /**
@@ -459,6 +477,24 @@ NETWORKMANAGERQT_EXPORT NetworkManager::DnsConfiguration globalDnsConfiguration(
  * @since 5.45.0
  */
 NETWORKMANAGERQT_EXPORT void setGlobalDnsConfiguration(const NetworkManager::DnsConfiguration &configuration);
+
+/**
+ * @return Whether the connectivity check is available
+ * @since 6.10.0
+ */
+NETWORKMANAGERQT_EXPORT bool isConnectivityCheckAvailable();
+
+/**
+ * @return Whether the connectivity check is enabled
+ * @since 6.10.0
+ */
+NETWORKMANAGERQT_EXPORT bool isConnectivityCheckEnabled();
+
+/**
+ * @return The URI used for connectivity check
+ * @since 6.10.0
+ */
+NETWORKMANAGERQT_EXPORT QString connectivityCheckUri();
 
 /**
  * Find an ActiveConnection object for an active connection id

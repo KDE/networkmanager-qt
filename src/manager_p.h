@@ -50,6 +50,9 @@ public:
     bool m_isWirelessHardwareEnabled;
     bool m_isWwanEnabled;
     bool m_isWwanHardwareEnabled;
+    bool m_isConnectivityCheckAvailable;
+    bool m_isConnectivityCheckEnabled;
+    QString m_connectivityCheckUri;
     QString m_activatingConnection;
     QString m_primaryConnection;
     NetworkManager::ConnectionSettings::ConnectionType m_primaryConnectionType;
@@ -113,6 +116,9 @@ public:
     NetworkManager::Device::MeteredStatus metered() const;
     NetworkManager::DnsConfiguration globalDnsConfiguration() const;
     void setGlobalDnsConfiguration(const NetworkManager::DnsConfiguration &configuration);
+    bool isConnectivityCheckAvailable() const;
+    bool isConnectivityCheckEnabled() const;
+    QString connectivityCheckUri() const;
 protected Q_SLOTS:
     void init();
     void onDeviceAdded(const QDBusObjectPath &state);
