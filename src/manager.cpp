@@ -855,15 +855,7 @@ void NetworkManager::NetworkManagerPrivate::propertiesChanged(const QVariantMap 
             qCDebug(NMQT) << property << m_isConnectivityCheckEnabled;
             Q_EMIT isConnectivityCheckEnabledChanged(m_isConnectivityCheckEnabled);
         } else if (property == QLatin1String("ConnectivityCheckUri")) {
-            QString uri = it->toString().trimmed();
-            // Remove possible quotes on the uri string (ex. \"https://connectivity-check.ubuntu.com/\")
-            if (uri.startsWith(QLatin1Char('\"'))) {
-                uri.slice(1);
-            }
-            if (uri.endsWith(QLatin1Char('\"'))) {
-                uri.chop(1);
-            }
-            m_connectivityCheckUri = uri;
+            m_connectivityCheckUri = it->toString().trimmed();
             qCDebug(NMQT) << property << m_connectivityCheckUri;
             Q_EMIT connectivityCheckUriChanged(m_connectivityCheckUri);
         } else {
