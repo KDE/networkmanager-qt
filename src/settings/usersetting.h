@@ -16,8 +16,12 @@ namespace NetworkManager
 {
 class UserSettingPrivate;
 
-/**
- * Represents user setting
+/*!
+ * \class UserSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents user setting.
  */
 class NETWORKMANAGERQT_EXPORT UserSetting : public Setting
 {

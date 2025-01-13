@@ -16,8 +16,12 @@ namespace NetworkManager
 {
 class BridgeSettingPrivate;
 
-/**
- * Represents bridge setting
+/*!
+ * \class BridgeSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents bridge setting.
  */
 class NETWORKMANAGERQT_EXPORT BridgeSetting : public Setting
 {

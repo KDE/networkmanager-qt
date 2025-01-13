@@ -14,8 +14,12 @@ namespace NetworkManager
 {
 class OvsPortSettingPrivate;
 
-/**
- * Represents OvsPort setting
+/*!
+ * \class OvsPortSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents o setting.
  */
 class NETWORKMANAGERQT_EXPORT OvsPortSetting : public Setting
 {

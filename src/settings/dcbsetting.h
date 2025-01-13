@@ -16,8 +16,12 @@ namespace NetworkManager
 {
 class DcbSettingPrivate;
 
-/**
- * Represents Dcb setting
+/*!
+ * \class DcbSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents Dcb setting.
  */
 class NETWORKMANAGERQT_EXPORT DcbSetting : public Setting
 {
@@ -25,6 +29,14 @@ public:
     typedef QSharedPointer<DcbSetting> Ptr;
     typedef QList<Ptr> List;
 
+    /*!
+     * \enum DcbFlagType
+     *
+     * \value None
+     * \value Enable
+     * \value Advertise
+     * \value Willing
+     */
     enum DcbFlagType {
         None = 0,
         Enable = 0x01,

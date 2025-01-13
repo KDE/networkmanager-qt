@@ -17,11 +17,23 @@ namespace NetworkManager
 {
 class VpnPluginPrivate;
 
+/*!
+ * \class VpnPlugin
+ *
+ * \inmodule NetworkManagerQt
+ */
 class NETWORKMANAGERQT_EXPORT VpnPlugin : public QObject
 {
     Q_OBJECT
 
 public:
+    /*!
+     * \enum FailureType
+     *
+     * \value LoginFailed
+     * \value ConnectFailed
+     * \value BadIpConfig
+     */
     enum FailureType {
         LoginFailed,
         ConnectFailed,

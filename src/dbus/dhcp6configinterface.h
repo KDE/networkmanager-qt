@@ -18,7 +18,7 @@
 #include <QString>
 #include <QVariant>
 
-/*
+/*!
  * Proxy class for interface org.freedesktop.NetworkManager.DHCP6Config
  */
 class OrgFreedesktopNetworkManagerDHCP6ConfigInterface : public QDBusAbstractInterface

@@ -14,8 +14,12 @@ namespace NetworkManager
 {
 class AdslDevicePrivate;
 
-/**
- * An adsl device interface
+/*!
+ * \class AdslDevice
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief An adsl device interface.
  */
 class NETWORKMANAGERQT_EXPORT AdslDevice : public Device
 {
@@ -28,13 +32,13 @@ public:
     ~AdslDevice() override;
 
     Type type() const override;
-    /**
+    /*!
      * Indicates whether the physical carrier is found
      */
     bool carrier() const;
 
 Q_SIGNALS:
-    /**
+    /*!
      * Emitted when the carrier of this device has changed
      */
     void carrierChanged(bool plugged);

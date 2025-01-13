@@ -23,8 +23,12 @@ namespace NetworkManager
 {
 class ConnectionSettingsPrivate;
 
-/**
- * Represents collection of all connection settings
+/*!
+ * \class ConnectionSettings
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents collection of all connection settings.
  */
 class NETWORKMANAGERQT_EXPORT ConnectionSettings
 {
@@ -32,6 +36,31 @@ class NETWORKMANAGERQT_EXPORT ConnectionSettings
 public:
     typedef QSharedPointer<ConnectionSettings> Ptr;
     typedef QList<Ptr> List;
+    /*!
+     * \enum ConnectionType
+     *
+     * \value Unknown
+     * \value Adsl
+     * \value Bluetooth
+     * \value Bond
+     * \value Bridge
+     * \value Cdma
+     * \value Gsm
+     * \value Infiniband
+     * \value OLPCMesh
+     * \value Pppoe
+     * \value Vlan
+     * \value Vpn
+     * \value Wimax
+     * \value Wired
+     * \value Wireless
+     * \value Team
+     * \value Generic
+     * \value Tun
+     * \value IpTunnel
+     * \value WireGuard
+     * \value Loopback
+     */
     enum ConnectionType {
         Unknown = 0,
         Adsl,
@@ -56,20 +85,44 @@ public:
         Loopback,
     };
 
+    /*!
+     * \enum AutoconnectSlaves
+     *
+     * \value SlavesDefault
+     * \value DoNotConnectSlaves
+     * \value ConnectAllSlaves
+     */
     enum AutoconnectSlaves {
         SlavesDefault = -1,
         DoNotConnectSlaves = 0,
         ConnectAllSlaves = 1,
     };
 
+    /*!
+     * \enum Lldp
+     *
+     * \value LldpDefault
+     * \value LldpDisable
+     * \value LldpEnableRx
+     */
     enum Lldp {
         LldpDefault = -1,
         LldpDisable = 0,
         LldpEnableRx = 1,
     };
 
-    // FIXME same enum as in device.h, unfortunately it's not possible to use that one
-    // maybe in future move all enums into one header so they can be used across all classes
+    /*!
+     * \enum Metered
+     *
+     * FIXME same enum as in device.h, unfortunately it's not possible to use that one
+     * maybe in future move all enums into one header so they can be used across all classes
+     *
+     * \value MeteredUnknown
+     * \value MeteredYes
+     * \value MeteredNo
+     * \value MeteredGuessYes
+     * \value MeteredGuessNo
+     */
     enum Metered {
         MeteredUnknown = 0,
         MeteredYes = 1,
@@ -78,6 +131,14 @@ public:
         MeteredGuessNo = 4,
     };
 
+    /*!
+     * \enum Mdns
+     *
+     * \value MdnsDefault
+     * \value MdnsNo
+     * \value MdnsResolve
+     * \value MdnsResolveAndRespond
+     */
     enum Mdns {
         MdnsDefault = -1,
         MdnsNo = 0,

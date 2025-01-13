@@ -31,7 +31,7 @@ public:
 
     Q_DECLARE_PUBLIC(TeamDevice)
 protected:
-    /**
+    /*!
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */

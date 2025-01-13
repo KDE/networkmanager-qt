@@ -18,8 +18,12 @@ namespace NetworkManager
 {
 class Dhcp6ConfigPrivate;
 
-/**
- * This class represents dhcp4 configuration
+/*!
+ * \class Dhcp6Config
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief This class represents dhcp4 configuration.
  */
 class NETWORKMANAGERQT_EXPORT Dhcp6Config : public QObject
 {

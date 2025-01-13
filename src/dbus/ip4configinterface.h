@@ -19,7 +19,7 @@
 #include <QStringList>
 #include <QVariant>
 
-/*
+/*!
  * Proxy class for interface org.freedesktop.NetworkManager.IP4Config
  */
 class OrgFreedesktopNetworkManagerIP4ConfigInterface : public QDBusAbstractInterface

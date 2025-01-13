@@ -14,8 +14,12 @@ namespace NetworkManager
 {
 class MatchSettingPrivate;
 
-/**
- * Represents Match setting
+/*!
+ * \class MatchSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents Match setting.
  */
 class NETWORKMANAGERQT_EXPORT MatchSetting : public Setting
 {

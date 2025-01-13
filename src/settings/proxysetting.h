@@ -16,14 +16,24 @@ namespace NetworkManager
 {
 class ProxySettingPrivate;
 
-/**
- * Represents proxy setting
+/*!
+ * \class ProxySetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents proxy setting.
  */
 class NETWORKMANAGERQT_EXPORT ProxySetting : public Setting
 {
 public:
     typedef QSharedPointer<ProxySetting> Ptr;
     typedef QList<Ptr> List;
+    /*!
+     * \enum Mode
+     *
+     * \value None
+     * \value Auto
+     */
     enum Mode {
         None = 0,
         Auto = 1,

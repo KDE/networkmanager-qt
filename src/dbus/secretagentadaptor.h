@@ -29,7 +29,7 @@ class QString;
 class QVariant;
 QT_END_NAMESPACE
 
-/*
+/*!
  * Adaptor class for interface org.freedesktop.NetworkManager.SecretAgent
  */
 class SecretAgentAdaptor : public QDBusAbstractAdaptor

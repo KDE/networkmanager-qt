@@ -46,14 +46,27 @@ namespace NetworkManager
 {
 class Ipv4SettingPrivate;
 
-/**
- * Represents ipv4 setting
+/*!
+ * \class Ipv4Setting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents ipv4 setting.
  */
 class NETWORKMANAGERQT_EXPORT Ipv4Setting : public Setting
 {
 public:
     typedef QSharedPointer<Ipv4Setting> Ptr;
     typedef QList<Ptr> List;
+    /*!
+     * \enum ConfigMethod
+     *
+     * \value Automatic
+     * \value LinkLocal
+     * \value Manual
+     * \value Shared
+     * \value Disabled
+     */
     enum ConfigMethod {
         Automatic,
         LinkLocal,

@@ -16,14 +16,25 @@ namespace NetworkManager
 {
 class BluetoothSettingPrivate;
 
-/**
- * Represents bluetooth setting
+/*!
+ * \class BluetoothSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents bluetooth setting.
  */
 class NETWORKMANAGERQT_EXPORT BluetoothSetting : public Setting
 {
 public:
     typedef QSharedPointer<BluetoothSetting> Ptr;
     typedef QList<Ptr> List;
+    /*!
+     * \enum ProfileType
+     *
+     * \value Unknown
+     * \value Dun
+     * \value Panu
+     */
     enum ProfileType {
         Unknown = 0,
         Dun,

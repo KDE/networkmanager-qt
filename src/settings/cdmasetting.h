@@ -16,8 +16,12 @@ namespace NetworkManager
 {
 class CdmaSettingPrivate;
 
-/**
- * Represents cdma setting
+/*!
+ * \class CdmaSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents cdma setting.
  */
 class NETWORKMANAGERQT_EXPORT CdmaSetting : public Setting
 {

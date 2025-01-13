@@ -16,8 +16,12 @@ namespace NetworkManager
 {
 class OvsInterfaceSettingPrivate;
 
-/**
- * Represents ovs-interface setting
+/*!
+ * \class OvsInterfaceSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents ovs-interface setting.
  */
 class NETWORKMANAGERQT_EXPORT OvsInterfaceSetting : public Setting
 {

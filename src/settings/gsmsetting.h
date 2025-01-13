@@ -16,14 +16,29 @@ namespace NetworkManager
 {
 class GsmSettingPrivate;
 
-/**
- * Represents gsm setting
+/*!
+ * \class GsmSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents gsm setting.
  */
 class NETWORKMANAGERQT_EXPORT GsmSetting : public Setting
 {
 public:
     typedef QSharedPointer<GsmSetting> Ptr;
     typedef QList<Ptr> List;
+    /*!
+     * \enum NetworkType
+     *
+     * \value Any
+     * \value Only3G
+     * \value GprsEdgeOnly
+     * \value Prefer3G
+     * \value Prefer2G
+     * \value Prefer4GLte
+     * \value Only4GLte
+     */
     enum NetworkType {
         Any = -1,
         Only3G,
@@ -58,7 +73,7 @@ public:
     void setNetworkId(const QString &id);
     QString networkId() const;
 
-    /// @deprecated since NM 1.0.0
+    /*! \deprecated NM 1.0.0 */
     void setNetworkType(NetworkType type);
     NetworkType networkType() const;
 
@@ -68,7 +83,7 @@ public:
     void setPinFlags(SecretFlags flags);
     SecretFlags pinFlags() const;
 
-    /// @deprecated since NM 1.0.0
+    /*! \deprecated NM 1.0.0 */
     void setAllowedBand(quint32 band);
     quint32 allowedBand() const;
 

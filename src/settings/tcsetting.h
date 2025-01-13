@@ -14,8 +14,12 @@ namespace NetworkManager
 {
 class TcSettingPrivate;
 
-/**
- * Represents Tc setting
+/*!
+ * \class TcSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents Tc setting.
  */
 class NETWORKMANAGERQT_EXPORT TcSetting : public Setting
 {

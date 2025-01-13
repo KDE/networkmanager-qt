@@ -18,7 +18,7 @@
 #include <QString>
 #include <QVariant>
 
-/*
+/*!
  * Proxy class for interface org.freedesktop.NetworkManager.WiMax.Nsp
  */
 class OrgFreedesktopNetworkManagerWiMaxNspInterface : public QDBusAbstractInterface

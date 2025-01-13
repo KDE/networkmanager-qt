@@ -14,14 +14,32 @@ namespace NetworkManager
 {
 class IpTunnelSettingPrivate;
 
-/**
- * Represents IpTunnel setting
+/*!
+ * \class IpTunnelSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents IpTunnel setting.
  */
 class NETWORKMANAGERQT_EXPORT IpTunnelSetting : public Setting
 {
 public:
     typedef QSharedPointer<IpTunnelSetting> Ptr;
     typedef QList<Ptr> List;
+    /*!
+     * \enum Mode
+     *
+     * \value Unknown
+     * \value Ipip
+     * \value Gre
+     * \value Sit
+     * \value Isatap
+     * \value Vti
+     * \value Ip6ip6
+     * \value Ipip6
+     * \value Ip6gre
+     * \value Vti6
+     */
     enum Mode {
         Unknown = NM_IP_TUNNEL_MODE_UNKNOWN,
         Ipip = NM_IP_TUNNEL_MODE_IPIP,
@@ -35,6 +53,17 @@ public:
         Vti6 = NM_IP_TUNNEL_MODE_VTI,
     };
 
+    /*!
+     * \enum Flag
+     *
+     * \value None
+     * \value Ip6IgnEncapLimit
+     * \value Ip6UseOrigTclass
+     * \value Ip6UseOrigFlowlabel
+     * \value Ip6Mip6Dev
+     * \value Ip6RcvDscpCopy
+     * \value Ip6UseOrigFwmark
+     */
     enum Flag {
         None = 0x0,
         Ip6IgnEncapLimit = 0x1,

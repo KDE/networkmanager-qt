@@ -16,8 +16,12 @@ namespace NetworkManager
 {
 class VxlanSettingPrivate;
 
-/**
- * Represents vxlan setting
+/*!
+ * \class VxlanSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents vxlan setting.
  */
 class NETWORKMANAGERQT_EXPORT VxlanSetting : public Setting
 {

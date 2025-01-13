@@ -22,7 +22,7 @@
 #include <QStringList>
 #include <QVariant>
 
-/*
+/*!
  * Proxy class for interface org.freedesktop.NetworkManager.Settings
  */
 class OrgFreedesktopNetworkManagerSettingsInterface : public QDBusAbstractInterface

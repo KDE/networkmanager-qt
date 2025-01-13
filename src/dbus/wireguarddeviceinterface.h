@@ -18,7 +18,7 @@
 #include <QObject>
 #include <QString>
 
-/*
+/*!
  * Proxy class for interface org.freedesktop.NetworkManager.Device.WireGuard
  */
 class OrgFreedesktopNetworkManagerDeviceWireGuardInterface : public QDBusAbstractInterface

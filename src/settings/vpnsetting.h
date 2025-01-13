@@ -16,8 +16,12 @@ namespace NetworkManager
 {
 class VpnSettingPrivate;
 
-/**
- * Represents vpn setting
+/*!
+ * \class VpnSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents vpn setting.
  */
 class NETWORKMANAGERQT_EXPORT VpnSetting : public Setting
 {

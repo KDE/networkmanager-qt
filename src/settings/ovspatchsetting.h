@@ -16,8 +16,12 @@ namespace NetworkManager
 {
 class OvsPatchSettingPrivate;
 
-/**
- * Represents OvsPatch setting
+/*!
+ * \class OvsPatchSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents OvsPatch setting.
  */
 class NETWORKMANAGERQT_EXPORT OvsPatchSetting : public Setting
 {

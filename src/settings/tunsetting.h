@@ -16,14 +16,24 @@ namespace NetworkManager
 {
 class TunSettingPrivate;
 
-/**
- * Represents generic setting
+/*!
+ * \class TunSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents generic setting.
  */
 class NETWORKMANAGERQT_EXPORT TunSetting : public Setting
 {
 public:
     typedef QSharedPointer<TunSetting> Ptr;
     typedef QList<Ptr> List;
+    /*!
+     * \enum Mode
+     *
+     * \value Tun
+     * \value Tap
+     */
     enum Mode {
         Tun,
         Tap,

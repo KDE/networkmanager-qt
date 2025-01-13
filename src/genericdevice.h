@@ -15,8 +15,12 @@ namespace NetworkManager
 {
 class GenericDevicePrivate;
 
-/**
- * A generic device interface
+/*!
+ * \class GenericDevice
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief A generic device interface.
  */
 class NETWORKMANAGERQT_EXPORT GenericDevice : public Device
 {
@@ -29,25 +33,25 @@ public:
     typedef QList<Ptr> List;
     explicit GenericDevice(const QString &path, QObject *parent = nullptr);
     ~GenericDevice() override;
-    /**
+    /*!
      * Return the type
      */
     Type type() const override;
-    /**
+    /*!
      * Active hardware address of the device
      */
     QString hardwareAddress() const;
-    /**
+    /*!
      * A (non-localized) description of the interface type, if known.
      */
     QString typeDescription() const;
 
 Q_SIGNALS:
-    /**
+    /*!
      * Emitted when the hardware address of this device has changed
      */
     void hardwareAddressChanged(const QString &hwAddress);
-    /**
+    /*!
      * Emitted when the type description this device has changed
      */
     void permanentHardwareAddressChanged(const QString &permHwAddress);

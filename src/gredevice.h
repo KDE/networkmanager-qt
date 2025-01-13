@@ -15,9 +15,13 @@ namespace NetworkManager
 {
 class GreDevicePrivate;
 
-/**
- * A gre device interface
- * @deprecated renamed to IpTunnelDevice
+/*!
+ * \class GreDevice
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief A gre device interface.
+ * \deprecated renamed to IpTunnelDevice
  */
 class NETWORKMANAGERQT_EXPORT GreDevice : public Device
 {

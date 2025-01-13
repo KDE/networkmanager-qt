@@ -17,8 +17,12 @@ namespace NetworkManager
 {
 class WimaxSettingPrivate;
 
-/**
- * Represents wimax setting
+/*!
+ * \class WimaxSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents wimax setting.
  */
 class NETWORKMANAGERQT_EXPORT WimaxSetting : public Setting
 {

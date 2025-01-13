@@ -16,8 +16,12 @@ namespace NetworkManager
 {
 class TeamPortSettingPrivate;
 
-/**
- * Represents TeamPort setting
+/*!
+ * \class TeamPortSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents TeamPort setting.
  */
 class NETWORKMANAGERQT_EXPORT TeamPortSetting : public Setting
 {

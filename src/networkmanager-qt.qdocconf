@@ -8,8 +8,6 @@ documentationinheaders = true
 headerdirs = .
 sourcedirs = .
 
-imagedirs = ../docs/pics
-
 outputformats = HTML
 
 depends += qtcore qtnetwork qtdbus qtqml

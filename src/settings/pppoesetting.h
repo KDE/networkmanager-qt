@@ -16,8 +16,12 @@ namespace NetworkManager
 {
 class PppoeSettingPrivate;
 
-/**
- * Represents pppoe setting
+/*!
+ * \class PppoeSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents pppoe setting.
  */
 class NETWORKMANAGERQT_EXPORT PppoeSetting : public Setting
 {

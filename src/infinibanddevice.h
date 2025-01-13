@@ -14,8 +14,12 @@ namespace NetworkManager
 {
 class InfinibandDevicePrivate;
 
-/**
- * An infiniband device interface
+/*!
+ * \class InfinibandDevice
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief An infiniband device interface.
  */
 class NETWORKMANAGERQT_EXPORT InfinibandDevice : public Device
 {
@@ -31,21 +35,21 @@ public:
 
     Type type() const override;
 
-    /**
+    /*!
      * Indicates whether the physical carrier is found
      */
     bool carrier() const;
-    /**
+    /*!
      * Hardware address of the device
      */
     QString hwAddress() const;
 
 Q_SIGNALS:
-    /**
+    /*!
      * Emitted when the carrier of this device has changed
      */
     void carrierChanged(bool plugged);
-    /**
+    /*!
      * Emitted when the hardware address of this device has changed
      */
     void hwAddressChanged(const QString &address);

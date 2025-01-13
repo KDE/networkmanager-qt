@@ -16,14 +16,25 @@ namespace NetworkManager
 {
 class InfinibandSettingPrivate;
 
-/**
- * Represents infiniband setting
+/*!
+ * \class InfinibandSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents infiniband setting.
  */
 class NETWORKMANAGERQT_EXPORT InfinibandSetting : public Setting
 {
 public:
     typedef QSharedPointer<InfinibandSetting> Ptr;
     typedef QList<Ptr> List;
+    /*!
+     * \enum TransportMode
+     *
+     * \value Unknown
+     * \value Datagram
+     * \value Connected
+     */
     enum TransportMode {
         Unknown = 0,
         Datagram,

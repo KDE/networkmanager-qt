@@ -17,6 +17,24 @@
 
 namespace NetworkManager
 {
+/*!
+ * \enum WirelessSecurityType
+ *
+ * Capabilities to pass to secret agents
+ *
+ * \value UnknownSecurity
+ * \value NoneSecurity
+ * \value StaticWep
+ * \value DynamicWep
+ * \value Leap
+ * \value WpaPsk
+ * \value WpaEap
+ * \value Wpa2Psk
+ * \value Wpa2Eap
+ * \value SAE
+ * \value Wpa3SuiteB192
+ * \value OWE
+ */
 enum WirelessSecurityType {
     UnknownSecurity = -1,
     NoneSecurity,
@@ -32,36 +50,36 @@ enum WirelessSecurityType {
     OWE,
 };
 
-/**
- * @return QHostAddress representation of an ipv6 address
- * @param address byte array containing the binary representation of the address
+/*!
+ * Returns QHostAddress representation of an ipv6 address
+ * \a address byte array containing the binary representation of the address
  */
 NETWORKMANAGERQT_EXPORT QHostAddress ipv6AddressAsHostAddress(const QByteArray &address);
 
-/**
- * @return binary representation of an ipv6 address
- * @param address qhostaddress containing the address
+/*!
+ * Returns binary representation of an ipv6 address
+ * \a address qhostaddress containing the address
  */
 NETWORKMANAGERQT_EXPORT QByteArray ipv6AddressFromHostAddress(const QHostAddress &address);
 
-/**
- * @return String representation of a mac address.
- * @param ba byte array containing the binary repesentation of the address
+/*!
+ * Returns String representation of a mac address.
+ * \a ba byte array containing the binary repesentation of the address
  */
 NETWORKMANAGERQT_EXPORT QString macAddressAsString(const QByteArray &ba);
 
-/**
- * @return binary repesentation of a mac address.
- * @param s string representation of the address
+/*!
+ * Returns binary repesentation of a mac address.
+ * \a s string representation of the address
  */
 NETWORKMANAGERQT_EXPORT QByteArray macAddressFromString(const QString &s);
 
 NETWORKMANAGERQT_EXPORT bool macAddressIsValid(const QString &macAddress);
 NETWORKMANAGERQT_EXPORT bool macAddressIsValid(const QByteArray &macAddress);
 
-/**
- * @param freq frequency of a wireless network
- * @return The frequency channel.
+/*!
+ * \a freq frequency of a wireless network
+ * Returns The frequency channel.
  */
 NETWORKMANAGERQT_EXPORT int findChannel(int freq);
 

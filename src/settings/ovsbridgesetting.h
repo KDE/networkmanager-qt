@@ -16,8 +16,12 @@ namespace NetworkManager
 {
 class OvsBridgeSettingPrivate;
 
-/**
- * Represents ovs-bridge setting
+/*!
+ * \class OvsBridgeSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents ovs-bridge setting.
  */
 class NETWORKMANAGERQT_EXPORT OvsBridgeSetting : public Setting
 {

@@ -19,7 +19,7 @@
 #include <QStringList>
 #include <QVariant>
 
-/*
+/*!
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Wired
  */
 class OrgFreedesktopNetworkManagerDeviceWiredInterface : public QDBusAbstractInterface

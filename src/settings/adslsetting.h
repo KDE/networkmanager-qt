@@ -16,20 +16,39 @@ namespace NetworkManager
 {
 class AdslSettingPrivate;
 
-/**
- * Represents adsl setting
+/*!
+ * \class AdslSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents adsl setting
  */
 class NETWORKMANAGERQT_EXPORT AdslSetting : public Setting
 {
 public:
     typedef QSharedPointer<AdslSetting> Ptr;
     typedef QList<Ptr> List;
+    /*!
+     * \enum Protocol
+     *
+     * \value UnknownProtocol
+     * \value Pppoa
+     * \value Pppoe
+     * \value Ipoatm
+     */
     enum Protocol {
         UnknownProtocol = 0,
         Pppoa,
         Pppoe,
         Ipoatm,
     };
+    /*!
+     * \enum Encapsulation
+     *
+     * \value UnknownEncapsulation
+     * \value Vcmux
+     * \value Llc
+     */
     enum Encapsulation {
         UnknownEncapsulation = 0,
         Vcmux,

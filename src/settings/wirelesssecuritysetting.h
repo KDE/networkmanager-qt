@@ -16,14 +16,31 @@ namespace NetworkManager
 {
 class WirelessSecuritySettingPrivate;
 
-/**
- * Represents wireless security setting
+/*!
+ * \class WirelessSecuritySetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents wireless security setting.
  */
 class NETWORKMANAGERQT_EXPORT WirelessSecuritySetting : public Setting
 {
 public:
     typedef QSharedPointer<WirelessSecuritySetting> Ptr;
     typedef QList<Ptr> List;
+    /*!
+     * \enum KeyMgmt
+     *
+     * \value Unknown
+     * \value Wep
+     * \value Ieee8021x
+     * \value WpaNone
+     * \value WpaPsk
+     * \value WpaEap
+     * \value SAE
+     * \value WpaEapSuiteB192
+     * \value OWE
+     */
     enum KeyMgmt {
         Unknown = -1,
         Wep,
@@ -35,27 +52,64 @@ public:
         WpaEapSuiteB192,
         OWE,
     };
+    /*!
+     * \enum AuthAlg
+     *
+     * \value None
+     * \value Open
+     * \value Shared
+     * \value Leap
+     */
     enum AuthAlg {
         None,
         Open,
         Shared,
         Leap,
     };
+    /*!
+     * \enum WpaProtocolVersion
+     *
+     * \value Wpa
+     * \value Rsn
+     */
     enum WpaProtocolVersion {
         Wpa,
         Rsn,
     };
+    /*!
+     * \enum WpaEncryptionCapabilities
+     *
+     * \value Wep40
+     * \value Wep104
+     * \value Tkip
+     * \value Ccmp
+     */
     enum WpaEncryptionCapabilities {
         Wep40,
         Wep104,
         Tkip,
         Ccmp,
     };
+    /*!
+     * \enum WepKeyType
+     *
+     * \value NotSpecified
+     * \value Hex
+     * \value Passphrase
+     */
     enum WepKeyType {
         NotSpecified,
         Hex,
         Passphrase,
     };
+    /*!
+     * \enum Pmf
+     *
+     * \value DefaultPmf
+     * \value DisablePmf
+     * \value OptionalPmf
+     * \value RequiredPmf
+     */
     enum Pmf {
         DefaultPmf,
         DisablePmf,

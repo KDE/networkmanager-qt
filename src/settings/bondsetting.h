@@ -16,8 +16,12 @@ namespace NetworkManager
 {
 class BondSettingPrivate;
 
-/**
- * Represents bond setting
+/*!
+ * \class BondSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents bond setting.
  */
 class NETWORKMANAGERQT_EXPORT BondSetting : public Setting
 {
@@ -30,7 +34,7 @@ public:
 
     QString name() const override;
 
-    /// @deprecated in favor of connection.interface-name in NM 1.0.0
+    /*! \deprecated in favor of connection.interface-name in NM 1.0.0 */
     void setInterfaceName(const QString &name);
     QString interfaceName() const;
 

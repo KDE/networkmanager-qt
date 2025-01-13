@@ -33,7 +33,7 @@ protected Q_SLOTS:
     void nspRemoved(const QDBusObjectPath &);
 
 protected:
-    /**
+    /*!
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */

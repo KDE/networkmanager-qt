@@ -16,14 +16,26 @@ namespace NetworkManager
 {
 class VlanSettingPrivate;
 
-/**
- * Represents vlan setting
+/*!
+ * \class VlanSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents vlan setting.
  */
 class NETWORKMANAGERQT_EXPORT VlanSetting : public Setting
 {
 public:
     typedef QSharedPointer<VlanSetting> Ptr;
     typedef QList<Ptr> List;
+    /*!
+     * \enum Flag
+     *
+     * \value None
+     * \value ReorderHeaders
+     * \value Gvrp
+     * \value LooseBinding
+     */
     enum Flag {
         None = 0,
         ReorderHeaders = 0x1,
@@ -38,7 +50,7 @@ public:
 
     QString name() const override;
 
-    /// @deprecated in favor of connection.interface-name in NM 1.0.0
+    /*! \deprecated in favor of connection.interface-name in NM 1.0.0 */
     void setInterfaceName(const QString &name);
     QString interfaceName() const;
 

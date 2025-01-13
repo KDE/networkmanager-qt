@@ -15,8 +15,12 @@ namespace NetworkManager
 {
 class VethDevicePrivate;
 
-/**
- * A veth device interface
+/*!
+ * \class VethDevice
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief A veth device interface.
  */
 class NETWORKMANAGERQT_EXPORT VethDevice : public Device
 {

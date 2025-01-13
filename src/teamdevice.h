@@ -14,8 +14,12 @@ namespace NetworkManager
 {
 class TeamDevicePrivate;
 
-/**
- * A team device interface
+/*!
+ * \class TeamDevice
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief A team device interface.
  */
 class NETWORKMANAGERQT_EXPORT TeamDevice : public Device
 {
@@ -34,41 +38,41 @@ public:
 
     Type type() const override;
 
-    /**
+    /*!
      * Indicates whether the physical carrier is found
      */
     bool carrier() const;
-    /**
+    /*!
      * Hardware address of the device
      */
     QString hwAddress() const;
 
-    /**
+    /*!
      * Devices which are currently slaved to this device
      */
     QStringList slaves() const;
 
-    /**
+    /*!
      * The JSON configuration currently applied on the device.
      */
     QString config() const;
 
 Q_SIGNALS:
-    /**
+    /*!
      * Emitted when the carrier of this device has changed
      */
     void carrierChanged(bool plugged);
-    /**
+    /*!
      * Emitted when the hardware address of this device has changed
      */
     void hwAddressChanged(const QString &address);
 
-    /**
+    /*!
      * Emitted when the list of devices slaved to this device has changed
      */
     void slavesChanged(const QStringList &slaves);
 
-    /**
+    /*!
      * Emitted when the JSON confugration which is currently applied has changed
      */
     void configChanged(const QString &config);

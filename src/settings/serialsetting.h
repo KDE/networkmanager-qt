@@ -16,14 +16,25 @@ namespace NetworkManager
 {
 class SerialSettingPrivate;
 
-/**
- * Represents serial setting
+/*!
+ * \class SerialSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents serial setting.
  */
 class NETWORKMANAGERQT_EXPORT SerialSetting : public Setting
 {
 public:
     typedef QSharedPointer<SerialSetting> Ptr;
     typedef QList<Ptr> List;
+    /*!
+     * \enum Parity
+     *
+     * \value NoParity
+     * \value EvenParity
+     * \value OddParity
+     */
     enum Parity {
         NoParity,
         EvenParity,

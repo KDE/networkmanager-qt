@@ -14,8 +14,12 @@ namespace NetworkManager
 {
 class WireGuardDevicePrivate;
 
-/**
- * A WireGuard device interface
+/*!
+ * \class WireGuardDevice
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief A WireGuard device interface.
  */
 class NETWORKMANAGERQT_EXPORT WireGuardDevice : public Device
 {
@@ -32,29 +36,29 @@ public:
 
     Type type() const override;
 
-    /**
+    /*!
      * 32-byte public WireGuard key.
      */
     QByteArray publicKey() const;
-    /**
+    /*!
      * Local UDP listening port.
      */
     uint listenPort() const;
-    /**
+    /*!
      * Optional 32-bit mark used to set routing policy for outgoing encrypted packets. See: ip-rule(8)
      */
     uint fwMark() const;
 
 Q_SIGNALS:
-    /**
+    /*!
      * Emitted when the public key of this device has changed
      */
     void publicKeyChanged(const QByteArray &publicKey);
-    /**
+    /*!
      * Emitted when the listen port of this device has changed
      */
     void listenPortChanged(uint listenPort);
-    /**
+    /*!
      * Emitted when the fwmark of this device have changed
      */
     void fwMarkChanged(uint fwMark);

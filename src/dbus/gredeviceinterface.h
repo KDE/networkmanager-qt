@@ -19,7 +19,7 @@
 #include <QString>
 #include <QVariant>
 
-/*
+/*!
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Gre
  */
 class OrgFreedesktopNetworkManagerDeviceGreInterface : public QDBusAbstractInterface

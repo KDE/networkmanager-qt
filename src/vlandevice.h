@@ -14,8 +14,12 @@ namespace NetworkManager
 {
 class VlanDevicePrivate;
 
-/**
- * A vlan device interface
+/*!
+ * \class VlanDevice
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief A vlan device interface.
  */
 class NETWORKMANAGERQT_EXPORT VlanDevice : public Device
 {
@@ -34,38 +38,38 @@ public:
 
     Type type() const override;
 
-    /**
+    /*!
      * Indicates whether the physical carrier is found
      */
     bool carrier() const;
-    /**
+    /*!
      * Hardware address of the device
      */
     QString hwAddress() const;
-    /**
+    /*!
      * The parent device of this VLAN device
-     * @since 5.8.0
+     * \since 5.8.0
      */
     NetworkManager::Device::Ptr parent() const;
-    /**
+    /*!
      * The VLAN ID of this VLAN interface
      */
     uint vlanId() const;
 
 Q_SIGNALS:
-    /**
+    /*!
      * Emitted when the carrier of this device has changed
      */
     void carrierChanged(bool plugged);
-    /**
+    /*!
      * Emitted when the hardware address of this device has changed
      */
     void hwAddressChanged(const QString &address);
-    /**
+    /*!
      * Emitted when the parent device of this device has changed
      */
     void parentChanged(const QString &path);
-    /**
+    /*!
      * Emitted when the VLAN ID of this device has changed
      */
     void vlanIdChanged(uint id);

@@ -64,28 +64,57 @@ namespace NetworkManager
 {
 class Ipv6SettingPrivate;
 
-/**
- * Represents ipv6 setting
+/*!
+ * \class Ipv6Setting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents ipv6 setting.
  */
 class NETWORKMANAGERQT_EXPORT Ipv6Setting : public Setting
 {
 public:
     typedef QSharedPointer<Ipv6Setting> Ptr;
     typedef QList<Ptr> List;
+    /*!
+     * \enum ConfigMethod
+     *
+     * \value Automatic
+     * \value Dhcp
+     * \value LinkLocal
+     * \value Manual
+     * \value Ignored
+     * \value ConfigDisabled
+     *        FIXME KF6: fix enum naming (possibly move to enum class)
+     */
     enum ConfigMethod {
         Automatic,
         Dhcp,
         LinkLocal,
         Manual,
         Ignored,
-        ConfigDisabled // FIXME KF6: fix enum naming (possibly move to enum class)
+        ConfigDisabled
     };
+    /*!
+     * \enum IPv6Privacy
+     *
+     * \value Unknown
+     * \value Disabled
+     * \value PreferPublic
+     * \value PreferTemporary
+     */
     enum IPv6Privacy {
         Unknown = -1,
         Disabled,
         PreferPublic,
         PreferTemporary,
     };
+    /*!
+     * \enum IPv6AddressGenMode
+     *
+     * \value Eui64
+     * \value StablePrivacy
+     */
     enum IPv6AddressGenMode {
         Eui64,
         StablePrivacy,

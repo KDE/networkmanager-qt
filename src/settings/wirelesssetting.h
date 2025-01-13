@@ -17,8 +17,12 @@ namespace NetworkManager
 {
 class WirelessSettingPrivate;
 
-/**
- * Represents wireless setting
+/*!
+ * \class WirelessSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents wireless setting.
  */
 class NETWORKMANAGERQT_EXPORT WirelessSetting : public Setting
 {
@@ -26,18 +30,40 @@ public:
     typedef QSharedPointer<WirelessSetting> Ptr;
     typedef QList<Ptr> List;
 
+    /*!
+     * \enum NetworkMode
+     *
+     * \value Infrastructure
+     * \value Adhoc
+     * \value Ap
+     */
     enum NetworkMode {
         Infrastructure,
         Adhoc,
         Ap,
     };
 
+    /*!
+     * \enum FrequencyBand
+     *
+     * \value Automatic
+     * \value A
+     * \value Bg
+     */
     enum FrequencyBand {
         Automatic,
         A,
         Bg,
     };
 
+    /*!
+     * \enum PowerSave
+     *
+     * \value PowerSaveDefault
+     * \value PowerSaveIgnore
+     * \value PowerSaveDisable
+     * \value PowerSaveEnable
+     */
     enum PowerSave {
         PowerSaveDefault = 0,
         PowerSaveIgnore = 1,
@@ -78,7 +104,7 @@ public:
     void setMacAddress(const QByteArray &address);
     QByteArray macAddress() const;
 
-    /// @deprecated since NM 1.4.0, will internally use assigned-mac-address property
+    /*! \deprecated [NM 1.4.0], will internally use assigned-mac-address property */
     void setClonedMacAddress(const QByteArray &address);
     QByteArray clonedMacAddress() const;
 
@@ -100,7 +126,7 @@ public:
     void setPowerSave(PowerSave powersave);
     PowerSave powerSave() const;
 
-    /// @deprecated since NM 1.0.0
+    /*! \deprecated [NM 1.0.0] */
     void setSecurity(const QString &security);
     QString security() const;
 

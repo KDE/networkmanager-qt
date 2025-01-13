@@ -14,8 +14,12 @@ namespace NetworkManager
 {
 class MacsecSettingPrivate;
 
-/**
- * Represents Macsec setting
+/*!
+ * \class MacsecSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents Macsec setting.
  */
 class NETWORKMANAGERQT_EXPORT MacsecSetting : public Setting
 {
@@ -23,11 +27,24 @@ public:
     typedef QSharedPointer<MacsecSetting> Ptr;
     typedef QList<Ptr> List;
 
+    /*!
+     * \enum Mode
+     *
+     * \value Psk
+     * \value Eap
+     */
     enum Mode {
         Psk,
         Eap,
     };
 
+    /*!
+     * \enum Validation
+     *
+     * \value Disable
+     * \value Check
+     * \value Strict
+     */
     enum Validation {
         Disable,
         Check,

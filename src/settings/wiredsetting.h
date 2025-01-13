@@ -16,14 +16,27 @@ namespace NetworkManager
 {
 class WiredSettingPrivate;
 
-/**
- * Represents wired setting
+/*!
+ * \class WiredSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents wired setting.
  */
 class NETWORKMANAGERQT_EXPORT WiredSetting : public Setting
 {
 public:
     typedef QSharedPointer<WiredSetting> Ptr;
     typedef QList<Ptr> List;
+    /*!
+     * \enum PortType
+     *
+     * \value UnknownPort
+     * \value Tp
+     * \value Aui
+     * \value Bnc
+     * \value Mii
+     */
     enum PortType {
         UnknownPort = 0,
         Tp,
@@ -32,12 +45,27 @@ public:
         Mii,
     };
 
+    /*!
+     * \enum DuplexType
+     *
+     * \value UnknownDuplexType
+     * \value Half
+     * \value Full
+     */
     enum DuplexType {
         UnknownDuplexType = 0,
         Half,
         Full,
     };
 
+    /*!
+     * \enum S390Nettype
+     *
+     * \value Undefined
+     * \value Qeth
+     * \value Lcs
+     * \value Ctc
+     */
     enum S390Nettype {
         Undefined = 0,
         Qeth,
@@ -45,6 +73,21 @@ public:
         Ctc,
     };
 
+    /*!
+     * \enum WakeOnLanFlag
+     *
+     * \value WakeOnLanPhy
+     * \value WakeOnLanUnicast
+     * \value WakeOnLanMulticast
+     * \value WakeOnLanBroadcast
+     * \value WakeOnLanArp
+     * \value WakeOnLanMagic
+     *
+     * Special values
+     *
+     * \value WakeOnLanDefault
+     * \value WakeOnLanIgnore
+     */
     enum WakeOnLanFlag {
         WakeOnLanPhy = 1 << 1,
         WakeOnLanUnicast = 1 << 2,
@@ -52,7 +95,6 @@ public:
         WakeOnLanBroadcast = 1 << 4,
         WakeOnLanArp = 1 << 5,
         WakeOnLanMagic = 1 << 6,
-        /* Special values */
         WakeOnLanDefault = 1 << 0,
         WakeOnLanIgnore = 1 << 15,
     };

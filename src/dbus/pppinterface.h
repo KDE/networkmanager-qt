@@ -20,7 +20,7 @@
 #include <QString>
 #include <QVariant>
 
-/*
+/*!
  * Proxy class for interface org.freedesktop.NetworkManager.PPP
  */
 class OrgFreedesktopNetworkManagerPPPInterface : public QDBusAbstractInterface

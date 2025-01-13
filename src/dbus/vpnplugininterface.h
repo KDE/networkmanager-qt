@@ -21,7 +21,7 @@
 #include <QStringList>
 #include <QVariant>
 
-/*
+/*!
  * Proxy class for interface org.freedesktop.NetworkManager.VPN.Plugin
  */
 class OrgFreedesktopNetworkManagerVPNPluginInterface : public QDBusAbstractInterface

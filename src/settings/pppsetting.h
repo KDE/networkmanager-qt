@@ -16,8 +16,12 @@ namespace NetworkManager
 {
 class PppSettingPrivate;
 
-/**
- * Represents ppp setting
+/*!
+ * \class PppSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents ppp setting.
  */
 class NETWORKMANAGERQT_EXPORT PppSetting : public Setting
 {

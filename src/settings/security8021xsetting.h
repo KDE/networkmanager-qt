@@ -14,14 +14,31 @@ namespace NetworkManager
 {
 class Security8021xSettingPrivate;
 
-/**
- * Represents 802.1x wireless security setting
+/*!
+ * \class Security8021xSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents 802.1x wireless security setting.
  */
 class NETWORKMANAGERQT_EXPORT Security8021xSetting : public Setting
 {
 public:
     typedef QSharedPointer<Security8021xSetting> Ptr;
     typedef QList<Ptr> List;
+    /*!
+     * \enum EapMethod
+     *
+     * \value EapMethodUnknown
+     * \value EapMethodLeap
+     * \value EapMethodMd5
+     * \value EapMethodTls
+     * \value EapMethodPeap
+     * \value EapMethodTtls
+     * \value EapMethodSim
+     * \value EapMethodFast
+     * \value EapMethodPwd
+     */
     enum EapMethod {
         EapMethodUnknown = 0,
         EapMethodLeap,
@@ -33,15 +50,37 @@ public:
         EapMethodFast,
         EapMethodPwd,
     };
+    /*!
+     * \enum PeapVersion
+     *
+     * \value PeapVersionUnknown
+     * \value PeapVersionZero
+     * \value PeapVersionOne
+     */
     enum PeapVersion {
         PeapVersionUnknown = -1,
         PeapVersionZero,
         PeapVersionOne,
     };
+    /*!
+     * \enum PeapLabel
+     *
+     * \value PeapLabelUnknown
+     * \value PeapLabelForce
+     */
     enum PeapLabel {
         PeapLabelUnknown = 0,
         PeapLabelForce,
     };
+    /*!
+     * \enum FastProvisioning
+     *
+     * \value FastProvisioningUnknown
+     * \value FastProvisioningDisabled
+     * \value FastProvisioningAllowUnauthenticated
+     * \value FastProvisioningAllowAuthenticated
+     * \value FastProvisioningAllowBoth
+     */
     enum FastProvisioning {
         FastProvisioningUnknown = -1,
         FastProvisioningDisabled,
@@ -49,6 +88,19 @@ public:
         FastProvisioningAllowAuthenticated,
         FastProvisioningAllowBoth,
     };
+    /*!
+     * \enum AuthMethod
+     *
+     * \value AuthMethodUnknown
+     * \value AuthMethodPap
+     * \value AuthMethodChap
+     * \value AuthMethodMschap
+     * \value AuthMethodMschapv2
+     * \value AuthMethodGtc
+     * \value AuthMethodOtp
+     * \value AuthMethodMd5
+     * \value AuthMethodTls
+     */
     enum AuthMethod {
         AuthMethodUnknown = 0,
         AuthMethodPap,
@@ -60,6 +112,16 @@ public:
         AuthMethodMd5,
         AuthMethodTls,
     };
+    /*!
+     * \enum AuthEapMethod
+     *
+     * \value AuthEapMethodUnknown
+     * \value AuthEapMethodMd5
+     * \value AuthEapMethodMschapv2
+     * \value AuthEapMethodOtp
+     * \value AuthEapMethodGtc
+     * \value AuthEapMethodTls
+     */
     enum AuthEapMethod {
         AuthEapMethodUnknown = 0,
         AuthEapMethodMd5,
@@ -87,7 +149,7 @@ public:
     void setDomainSuffixMatch(const QString &domainSuffixMatch);
     QString domainSuffixMatch() const;
 
-    /**
+    /*!
      * Set UTF-8 encoded file path containing PAC for EAP-FAST.
      *
      * \param filePath file path to be set.
@@ -95,7 +157,7 @@ public:
     void setPacFile(const QString &filePath);
     QString pacFile() const;
 
-    /**
+    /*!
      * Set certificate authority (ca)'s certificate for this setting.
      *
      * \param certificate certificate's file path encoded into a byte array.
@@ -114,7 +176,7 @@ public:
     void setAltSubjectMatches(const QStringList &strings);
     QStringList altSubjectMatches() const;
 
-    /**
+    /*!
      * Set client certificate for this setting.
      *
      * \param certificate certificate's file path encoded into a byte array.
@@ -139,7 +201,7 @@ public:
     void setPhase2AuthEapMethod(AuthEapMethod method);
     AuthEapMethod phase2AuthEapMethod() const;
 
-    /**
+    /*!
      * Contains the CA certificate if used by the EAP method specified in the
      * phase2AuthMethod() or phase2AuthEapMethod() properties.
      *
@@ -174,7 +236,7 @@ public:
     void setPasswordRawFlags(Setting::SecretFlags flags);
     Setting::SecretFlags passwordRawFlags() const;
 
-    /**
+    /*!
      * Set private key for this setting.
      *
      * \param key the key to be set.

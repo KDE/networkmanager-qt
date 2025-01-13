@@ -16,8 +16,12 @@ namespace NetworkManager
 {
 class TemplateSettingPrivate;
 
-/**
- * Represents generic setting
+/*!
+ * \class TemplateSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents generic setting.
  */
 class NETWORKMANAGERQT_EXPORT TemplateSetting : public Setting
 {

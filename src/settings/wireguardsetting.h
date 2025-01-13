@@ -16,8 +16,15 @@ namespace NetworkManager
 {
 class WireGuardSettingPrivate;
 
-/**
+/*!
  * Represents generic setting
+ */
+/*!
+ * \class WireGuardSetting
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief Represents generic setting.
  */
 class NETWORKMANAGERQT_EXPORT WireGuardSetting : public Setting
 {

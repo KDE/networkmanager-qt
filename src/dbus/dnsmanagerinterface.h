@@ -17,7 +17,7 @@
 #include <QObject>
 #include <QString>
 
-/*
+/*!
  * Proxy class for interface org.freedesktop.NetworkManager.DnsManager
  */
 class OrgFreedesktopNetworkManagerDnsManagerInterface : public QDBusAbstractInterface

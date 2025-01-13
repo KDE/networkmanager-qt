@@ -18,7 +18,7 @@
 #include <QString>
 #include <QVariant>
 
-/*
+/*!
  * Proxy class for interface org.freedesktop.NetworkManager.DHCP4Config
  */
 class OrgFreedesktopNetworkManagerDHCP4ConfigInterface : public QDBusAbstractInterface

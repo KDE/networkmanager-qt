@@ -17,8 +17,12 @@ namespace NetworkManager
 {
 class WiredDevicePrivate;
 
-/**
- * A wired device interface
+/*!
+ * \class WiredDevice
+ *
+ * \inmodule NetworkManagerQt
+ *
+ * \brief A wired device interface.
  */
 class NETWORKMANAGERQT_EXPORT WiredDevice : public Device
 {
@@ -34,49 +38,49 @@ public:
     typedef QList<Ptr> List;
     explicit WiredDevice(const QString &path, QObject *parent = nullptr);
     ~WiredDevice() override;
-    /**
+    /*!
      * Return the type
      */
     Type type() const override;
-    /**
+    /*!
      * Active hardware address of the device
      */
     QString hardwareAddress() const;
-    /**
+    /*!
      * Permanent hardware address of the device
      */
     QString permanentHardwareAddress() const;
-    /**
+    /*!
      * Design speed of the device, in megabits/second (Mb/s)
      */
     int bitRate() const;
-    /**
+    /*!
      * Indicates whether the physical carrier is found (e.g. whether a cable is plugged in or not)
      */
     bool carrier() const;
-    /**
+    /*!
      * Array of S/390 subchannels for S/390 or z/Architecture devices
      */
     QStringList s390SubChannels() const;
 
 Q_SIGNALS:
-    /**
+    /*!
      * Emitted when the design speed of the device has changed
      */
     void bitRateChanged(int bitRate);
-    /**
+    /*!
      * Emitted when the carrier of this device has changed
      */
     void carrierChanged(bool plugged);
-    /**
+    /*!
      * Emitted when the hardware address of this device has changed
      */
     void hardwareAddressChanged(const QString &hwAddress);
-    /**
+    /*!
      * Emitted when the permanent hardware address of this device has changed
      */
     void permanentHardwareAddressChanged(const QString &permHwAddress);
-    /*
+    /*!
      * Emitted when the array of s390SubChannels has changed
      */
     void s390SubChannelsChanged(const QStringList &channels);
