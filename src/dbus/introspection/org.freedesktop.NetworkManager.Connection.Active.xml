@@ -167,7 +167,7 @@
     -->
     <signal name="PropertiesChanged">
       <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QVariantMap"/>
-      <arg name="properties" type="a{sv}" direction="In">
+      <arg name="properties" type="a{sv}" direction="In"/>
     </signal>
   </interface>
 </node>
