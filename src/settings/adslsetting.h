@@ -21,7 +21,7 @@ class AdslSettingPrivate;
  *
  * \inmodule NetworkManagerQt
  *
- * \brief Represents adsl setting
+ * \brief Represents adsl setting.
  */
 class NETWORKMANAGERQT_EXPORT AdslSetting : public Setting
 {

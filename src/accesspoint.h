@@ -110,11 +110,11 @@ public:
     ~AccessPoint() override;
 
     /*!
-     * \brief Returns path of the access point
+     * \brief Returns path of the access point.
      */
     QString uni() const;
     /*!
-     * \brief Returns capabilities of an access point
+     * \brief Returns capabilities of an access point.
      */
     Capabilities capabilities() const;
     /*!
@@ -132,7 +132,7 @@ public:
      */
     QString ssid() const;
     /*!
-     * \brief Returns raw SSID, encoded as a byte array
+     * \brief Returns raw SSID, encoded as a byte array.
      */
     QByteArray rawSsid() const;
     /*!
@@ -167,7 +167,7 @@ public:
      */
     uint bandwidth() const;
     /*!
-     * \brief Helper method to convert wire representation of operation \a mode to enum
+     * \brief Helper method to convert wire representation of operation \a mode to enum.
      */
     static OperationMode convertOperationMode(uint mode);
 
@@ -194,27 +194,27 @@ Q_SIGNALS:
     void capabilitiesChanged(AccessPoint::Capabilities caps);
 
     /*!
-     * \brief This signal is emitted when the WPA flags in use by this access point change
+     * \brief This signal is emitted when the WPA flags in use by this access point change.
      *
      * \a flags the new flags
      */
     void wpaFlagsChanged(AccessPoint::WpaFlags flags);
 
     /*!
-     * \brief This signal is emitted when the RSN(WPA2) flags in use by this access point change
+     * \brief This signal is emitted when the RSN(WPA2) flags in use by this access point change.
      *
      * \a flags the new flags
      */
     void rsnFlagsChanged(AccessPoint::WpaFlags flags);
     /*!
-     * \brief This signal is emitted when the ssid of this Access Point changes
+     * \brief This signal is emitted when the ssid of this Access Point changes.
      *
      * \a ssid the new SSID
      */
     void ssidChanged(const QString &ssid);
 
     /*!
-     * \brief This signal is emitted when the frequency used by this Access Point changes
+     * \brief This signal is emitted when the frequency used by this Access Point changes.
      *
      * \a frequency the new frequency
      */
@@ -222,7 +222,7 @@ Q_SIGNALS:
 
     /*!
      * \brief This signal is emitted when the timestamp for the last time the access point was found
-     * in scan results changes
+     * in scan results changes.
      *
      * \a lastSeen the timestamp for the last time the access point was found in scan results.
      * \since 5.14.0

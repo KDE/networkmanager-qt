@@ -155,12 +155,12 @@ public:
     virtual ~Setting();
 
     /*!
-     * \brief Must be reimplemented, default implementation does nothing
+     * \brief Must be reimplemented, default implementation does nothing.
      */
     virtual void fromMap(const QVariantMap &map);
 
     /*!
-     * \brief Must be reimplemented, default implementationd does nothing
+     * \brief Must be reimplemented, default implementationd does nothing.
      */
     virtual QVariantMap toMap() const;
 
@@ -185,7 +185,7 @@ public:
     virtual QStringList needSecrets(bool requestNew = false) const;
 
     /*!
-     * \brief Must be reimplemented, default implementationd does nothing
+     * \brief Must be reimplemented, default implementationd does nothing.
      */
     virtual QString name() const;
 
