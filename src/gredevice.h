@@ -38,7 +38,13 @@ class NETWORKMANAGERQT_EXPORT GreDevice : public Device
     Q_PROPERTY(uchar ttl READ ttl NOTIFY ttlChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::GreDevice::Ptr
+     */
     typedef QSharedPointer<GreDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::GreDevice::List
+     */
     typedef QList<Ptr> List;
     explicit GreDevice(const QString &path, QObject *parent = nullptr);
     ~GreDevice() override;

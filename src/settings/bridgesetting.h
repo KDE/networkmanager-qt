@@ -26,7 +26,13 @@ class BridgeSettingPrivate;
 class NETWORKMANAGERQT_EXPORT BridgeSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::BridgeSetting::Ptr
+     */
     typedef QSharedPointer<BridgeSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::BridgeSetting::List
+     */
     typedef QList<Ptr> List;
     BridgeSetting();
     explicit BridgeSetting(const Ptr &other);

@@ -34,7 +34,13 @@ class NETWORKMANAGERQT_EXPORT WiredDevice : public Device
     Q_PROPERTY(QStringList s390SubChannels READ s390SubChannels NOTIFY s390SubChannelsChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::WiredDevice::Ptr
+     */
     typedef QSharedPointer<WiredDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::WiredDevice::List
+     */
     typedef QList<Ptr> List;
     explicit WiredDevice(const QString &path, QObject *parent = nullptr);
     ~WiredDevice() override;

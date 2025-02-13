@@ -26,7 +26,13 @@ class InfinibandSettingPrivate;
 class NETWORKMANAGERQT_EXPORT InfinibandSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::InfinibandSetting::Ptr
+     */
     typedef QSharedPointer<InfinibandSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::InfinibandSetting::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum TransportMode

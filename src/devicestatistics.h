@@ -33,7 +33,13 @@ class NETWORKMANAGERQT_EXPORT DeviceStatistics : public QObject
     Q_PROPERTY(qulonglong rxBytes READ rxBytes NOTIFY rxBytesChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::DeviceStatistics::Ptr
+     */
     typedef QSharedPointer<DeviceStatistics> Ptr;
+    /*!
+     * \typedef NetworkManager::DeviceStatistics::List
+     */
     typedef QList<Ptr> List;
 
     explicit DeviceStatistics(const QString &path, QObject *parent = nullptr);

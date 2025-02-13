@@ -26,7 +26,13 @@ class GsmSettingPrivate;
 class NETWORKMANAGERQT_EXPORT GsmSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::GsmSetting::Ptr
+     */
     typedef QSharedPointer<GsmSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::GsmSetting::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum NetworkType

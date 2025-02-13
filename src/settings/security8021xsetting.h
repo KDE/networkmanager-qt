@@ -24,7 +24,13 @@ class Security8021xSettingPrivate;
 class NETWORKMANAGERQT_EXPORT Security8021xSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::Security8021xSetting::Ptr
+     */
     typedef QSharedPointer<Security8021xSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::Security8021xSetting::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum EapMethod

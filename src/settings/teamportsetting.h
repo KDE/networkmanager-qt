@@ -26,7 +26,13 @@ class TeamPortSettingPrivate;
 class NETWORKMANAGERQT_EXPORT TeamPortSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::TeamPortSetting::Ptr
+     */
     typedef QSharedPointer<TeamPortSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::TeamPortSetting::List
+     */
     typedef QList<Ptr> List;
 
     TeamPortSetting();

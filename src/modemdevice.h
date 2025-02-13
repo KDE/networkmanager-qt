@@ -28,7 +28,13 @@ class NETWORKMANAGERQT_EXPORT ModemDevice : public Device
 {
     Q_OBJECT
 public:
+    /*!
+     * \typedef NetworkManager::ModemDevice::Ptr
+     */
     typedef QSharedPointer<ModemDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::ModemDevice::List
+     */
     typedef QList<Ptr> List;
 
     /*!

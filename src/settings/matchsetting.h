@@ -24,7 +24,13 @@ class MatchSettingPrivate;
 class NETWORKMANAGERQT_EXPORT MatchSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::MatchSetting::Ptr
+     */
     typedef QSharedPointer<MatchSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::MatchSetting::List
+     */
     typedef QList<Ptr> List;
 
     MatchSetting();

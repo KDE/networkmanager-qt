@@ -26,7 +26,13 @@ class ProxySettingPrivate;
 class NETWORKMANAGERQT_EXPORT ProxySetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::ProxySetting::Ptr
+     */
     typedef QSharedPointer<ProxySetting> Ptr;
+    /*!
+     * \typedef NetworkManager::ProxySetting::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum Mode

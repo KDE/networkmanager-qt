@@ -26,7 +26,13 @@ class TunSettingPrivate;
 class NETWORKMANAGERQT_EXPORT TunSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::TunSetting::Ptr
+     */
     typedef QSharedPointer<TunSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::TunSetting::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum Mode

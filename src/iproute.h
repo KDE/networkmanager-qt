@@ -75,6 +75,9 @@ private:
     class Private;
     Private *const d;
 };
+/*!
+ * \typedef NetworkManager::IpRoutes
+ */
 typedef QList<IpRoute> IpRoutes;
 
 } // namespace NetworkManager

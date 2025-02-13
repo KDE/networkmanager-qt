@@ -29,7 +29,13 @@ class NETWORKMANAGERQT_EXPORT Dhcp4Config : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     * \typedef NetworkManager::Dhcp4Config::Ptr
+     */
     typedef QSharedPointer<Dhcp4Config> Ptr;
+    /*!
+     * \typedef NetworkManager::Dhcp4Config::List
+     */
     typedef QList<Ptr> List;
 
     explicit Dhcp4Config(const QString &path, QObject *owner = nullptr);

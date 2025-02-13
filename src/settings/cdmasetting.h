@@ -26,7 +26,13 @@ class CdmaSettingPrivate;
 class NETWORKMANAGERQT_EXPORT CdmaSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::CdmaSetting::Ptr
+     */
     typedef QSharedPointer<CdmaSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::CdmaSetting::List
+     */
     typedef QList<Ptr> List;
     CdmaSetting();
     explicit CdmaSetting(const Ptr &other);

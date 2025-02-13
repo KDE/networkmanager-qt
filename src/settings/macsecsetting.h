@@ -24,7 +24,13 @@ class MacsecSettingPrivate;
 class NETWORKMANAGERQT_EXPORT MacsecSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::MacsecSetting::Ptr
+     */
     typedef QSharedPointer<MacsecSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::MacsecSetting::List
+     */
     typedef QList<Ptr> List;
 
     /*!

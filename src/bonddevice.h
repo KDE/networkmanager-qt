@@ -29,7 +29,13 @@ class NETWORKMANAGERQT_EXPORT BondDevice : public Device
     Q_PROPERTY(QStringList slaves READ slaves NOTIFY slavesChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::BondDevice::Ptr
+     */
     typedef QSharedPointer<BondDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::BondDevice::List
+     */
     typedef QList<Ptr> List;
     explicit BondDevice(const QString &path, QObject *parent = nullptr);
     ~BondDevice() override;

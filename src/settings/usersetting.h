@@ -26,7 +26,13 @@ class UserSettingPrivate;
 class NETWORKMANAGERQT_EXPORT UserSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::UserSetting::Ptr
+     */
     typedef QSharedPointer<UserSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::UserSetting::List
+     */
     typedef QList<Ptr> List;
 
     UserSetting();

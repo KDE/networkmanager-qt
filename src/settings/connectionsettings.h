@@ -34,7 +34,13 @@ class NETWORKMANAGERQT_EXPORT ConnectionSettings
 {
     Q_ENUMS(ConnectionType)
 public:
+    /*!
+     * \typedef NetworkManager::ConnectionSettings::Ptr
+     */
     typedef QSharedPointer<ConnectionSettings> Ptr;
+    /*!
+     * \typedef NetworkManager::ConnectionSettings::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum ConnectionType

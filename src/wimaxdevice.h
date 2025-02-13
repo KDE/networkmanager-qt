@@ -30,7 +30,13 @@ class NETWORKMANAGERQT_EXPORT WimaxDevice : public Device
     Q_OBJECT
 
 public:
+    /*!
+     * \typedef NetworkManager::WimaxDevice::Ptr
+     */
     typedef QSharedPointer<WimaxDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::WimaxDevice::List
+     */
     typedef QList<Ptr> List;
 
     /*!

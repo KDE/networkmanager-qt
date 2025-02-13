@@ -29,7 +29,13 @@ class NETWORKMANAGERQT_EXPORT MacVlanDevice : public Device
     Q_PROPERTY(QString parent READ parent NOTIFY parentChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::MacVlanDevice::Ptr
+     */
     typedef QSharedPointer<MacVlanDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::MacVlanDevice::List
+     */
     typedef QList<Ptr> List;
     explicit MacVlanDevice(const QString &path, QObject *parent = nullptr);
     ~MacVlanDevice() override;

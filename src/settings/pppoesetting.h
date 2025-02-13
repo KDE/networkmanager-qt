@@ -26,7 +26,13 @@ class PppoeSettingPrivate;
 class NETWORKMANAGERQT_EXPORT PppoeSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::PppoeSetting::Ptr
+     */
     typedef QSharedPointer<PppoeSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::PppoeSetting::List
+     */
     typedef QList<Ptr> List;
     PppoeSetting();
     explicit PppoeSetting(const Ptr &other);

@@ -9,6 +9,9 @@
 
 #include <QString>
 
+/*!
+ * \typedef NMVariantMapList
+ */
 typedef QList<QVariantMap> NMVariantMapList;
 
 namespace NetworkManager

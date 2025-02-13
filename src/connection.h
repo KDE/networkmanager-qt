@@ -32,7 +32,13 @@ class NETWORKMANAGERQT_EXPORT Connection : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     * \typedef NetworkManager::Connection::Ptr
+     */
     typedef QSharedPointer<Connection> Ptr;
+    /*!
+     * \typedef NetworkManager::Connection::List
+     */
     typedef QList<Ptr> List;
 
     /*!

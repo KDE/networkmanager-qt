@@ -32,7 +32,13 @@ class NETWORKMANAGERQT_EXPORT AccessPoint : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     * \typedef NetworkManager::AccessPoint::Ptr
+     */
     typedef QSharedPointer<AccessPoint> Ptr;
+    /*!
+     * \typedef NetworkManager::AccessPoint::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum OperationMode

@@ -27,7 +27,13 @@ class WimaxSettingPrivate;
 class NETWORKMANAGERQT_EXPORT WimaxSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::VxlanSetting::Ptr
+     */
     typedef QSharedPointer<WimaxSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::VxlanSetting::List
+     */
     typedef QList<Ptr> List;
     WimaxSetting();
     explicit WimaxSetting(const Ptr &other);

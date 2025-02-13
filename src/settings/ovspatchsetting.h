@@ -26,7 +26,13 @@ class OvsPatchSettingPrivate;
 class NETWORKMANAGERQT_EXPORT OvsPatchSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::OvsPatchSetting::Ptr
+     */
     typedef QSharedPointer<OvsPatchSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::OvsPatchSetting::List
+     */
     typedef QList<Ptr> List;
 
     OvsPatchSetting();

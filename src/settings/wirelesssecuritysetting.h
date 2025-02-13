@@ -26,7 +26,13 @@ class WirelessSecuritySettingPrivate;
 class NETWORKMANAGERQT_EXPORT WirelessSecuritySetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::WirelessSecuritySetting::Ptr
+     */
     typedef QSharedPointer<WirelessSecuritySetting> Ptr;
+    /*!
+     * \typedef NetworkManager::WirelessSecuritySetting::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum KeyMgmt

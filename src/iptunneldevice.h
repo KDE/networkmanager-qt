@@ -37,7 +37,13 @@ class NETWORKMANAGERQT_EXPORT IpTunnelDevice : public Device
     Q_PROPERTY(uchar ttl READ ttl NOTIFY ttlChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::IpTunnelDevice::Ptr
+     */
     typedef QSharedPointer<IpTunnelDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::IpTunnelDevice::List
+     */
     typedef QList<Ptr> List;
     explicit IpTunnelDevice(const QString &path, QObject *parent = nullptr);
     ~IpTunnelDevice() override;

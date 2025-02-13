@@ -28,7 +28,13 @@ class NETWORKMANAGERQT_EXPORT InfinibandDevice : public Device
     Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::InfinibandDevice::Ptr
+     */
     typedef QSharedPointer<InfinibandDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::InfinibandDevice::List
+     */
     typedef QList<Ptr> List;
     explicit InfinibandDevice(const QString &path, QObject *parent = nullptr);
     ~InfinibandDevice() override;

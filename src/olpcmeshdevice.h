@@ -28,7 +28,13 @@ class NETWORKMANAGERQT_EXPORT OlpcMeshDevice : public Device
     Q_OBJECT
 
 public:
+    /*!
+     * \typedef NetworkManager::OlpcMeshDevice::Ptr
+     */
     typedef QSharedPointer<OlpcMeshDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::OlpcMeshDevice::List
+     */
     typedef QList<Ptr> List;
     /*!
      * Creates a new OlpcMeshDevice object.

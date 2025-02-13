@@ -74,7 +74,13 @@ class Ipv6SettingPrivate;
 class NETWORKMANAGERQT_EXPORT Ipv6Setting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::Ipv6Setting::Ptr
+     */
     typedef QSharedPointer<Ipv6Setting> Ptr;
+    /*!
+     * \typedef NetworkManager::Ipv6Setting::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum ConfigMethod

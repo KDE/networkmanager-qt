@@ -26,7 +26,13 @@ class DcbSettingPrivate;
 class NETWORKMANAGERQT_EXPORT DcbSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::DcbSetting::Ptr
+     */
     typedef QSharedPointer<DcbSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::DcbSetting::List
+     */
     typedef QList<Ptr> List;
 
     /*!

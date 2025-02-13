@@ -33,7 +33,13 @@ class NETWORKMANAGERQT_EXPORT WirelessDevice : public Device
     Q_OBJECT
 
 public:
+    /*!
+     * \typedef NetworkManager::WirelessDevice::Ptr
+     */
     typedef QSharedPointer<WirelessDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::WirelessDevice::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum OperationMode

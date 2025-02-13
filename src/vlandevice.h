@@ -30,7 +30,13 @@ class NETWORKMANAGERQT_EXPORT VlanDevice : public Device
     Q_PROPERTY(NetworkManager::Device::Ptr parent READ parent NOTIFY parentChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::VlanDevice::Ptr
+     */
     typedef QSharedPointer<VlanDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::VlanDevice::List
+     */
     typedef QList<Ptr> List;
 
     explicit VlanDevice(const QString &path, QObject *parent = nullptr);

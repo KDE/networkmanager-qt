@@ -26,7 +26,13 @@ class WiredSettingPrivate;
 class NETWORKMANAGERQT_EXPORT WiredSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::WiredSetting::Ptr
+     */
     typedef QSharedPointer<WiredSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::WiredSetting::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum PortType

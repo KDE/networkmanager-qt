@@ -26,7 +26,13 @@ class OvsBridgeSettingPrivate;
 class NETWORKMANAGERQT_EXPORT OvsBridgeSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::OvsBridgeSetting::Ptr
+     */
     typedef QSharedPointer<OvsBridgeSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::OvsBridgeSetting::List
+     */
     typedef QList<Ptr> List;
 
     OvsBridgeSetting();

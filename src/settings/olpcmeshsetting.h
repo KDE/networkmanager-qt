@@ -26,7 +26,13 @@ class OlpcMeshSettingPrivate;
 class NETWORKMANAGERQT_EXPORT OlpcMeshSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::OlpcMeshSetting::Ptr
+     */
     typedef QSharedPointer<OlpcMeshSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::OlpcMeshSetting::List
+     */
     typedef QList<Ptr> List;
     OlpcMeshSetting();
     explicit OlpcMeshSetting(const Ptr &other);

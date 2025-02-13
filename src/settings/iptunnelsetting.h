@@ -24,7 +24,13 @@ class IpTunnelSettingPrivate;
 class NETWORKMANAGERQT_EXPORT IpTunnelSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::IpTunnelSetting::Ptr
+     */
     typedef QSharedPointer<IpTunnelSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::IpTunnelSetting::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum Mode

@@ -34,7 +34,13 @@ class NETWORKMANAGERQT_EXPORT ActiveConnection : public QObject
     Q_OBJECT
 
 public:
+    /*!
+     * \typedef NetworkManager::ActiveConnection::Ptr
+     */
     typedef QSharedPointer<ActiveConnection> Ptr;
+    /*!
+     * \typedef NetworkManager::ActiveConnection::List
+     */
     typedef QList<Ptr> List;
 
     /*!

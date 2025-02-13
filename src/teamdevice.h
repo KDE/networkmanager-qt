@@ -30,7 +30,13 @@ class NETWORKMANAGERQT_EXPORT TeamDevice : public Device
     Q_PROPERTY(QString config READ config NOTIFY configChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::TeamDevice::Ptr
+     */
     typedef QSharedPointer<TeamDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::TeamDevice::List
+     */
     typedef QList<Ptr> List;
 
     explicit TeamDevice(const QString &path, QObject *parent = nullptr);

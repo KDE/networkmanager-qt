@@ -35,7 +35,13 @@ class NETWORKMANAGERQT_EXPORT WirelessNetwork : public QObject
     friend class WirelessDevicePrivate;
 
 public:
+    /*!
+     * \typedef NetworkManager::WirelessNetwork::Ptr
+     */
     typedef QSharedPointer<WirelessNetwork> Ptr;
+    /*!
+     * \typedef NetworkManager::WirelessNetwork::List
+     */
     typedef QList<Ptr> List;
     ~WirelessNetwork() override;
     /*!

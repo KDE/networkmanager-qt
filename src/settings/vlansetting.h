@@ -26,7 +26,13 @@ class VlanSettingPrivate;
 class NETWORKMANAGERQT_EXPORT VlanSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::VlanSetting::Ptr
+     */
     typedef QSharedPointer<VlanSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::VlanSetting::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum Flag

@@ -26,7 +26,13 @@ class PppSettingPrivate;
 class NETWORKMANAGERQT_EXPORT PppSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::PppSetting::Ptr
+     */
     typedef QSharedPointer<PppSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::PppSetting::List
+     */
     typedef QList<Ptr> List;
     PppSetting();
     explicit PppSetting(const Ptr &other);

@@ -26,7 +26,13 @@ class TeamSettingPrivate;
 class NETWORKMANAGERQT_EXPORT TeamSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::TeamSetting::Ptr
+     */
     typedef QSharedPointer<TeamSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::TeamSetting::List
+     */
     typedef QList<Ptr> List;
     TeamSetting();
     explicit TeamSetting(const Ptr &other);

@@ -26,7 +26,13 @@ class VxlanSettingPrivate;
 class NETWORKMANAGERQT_EXPORT VxlanSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::VxlanSetting::Ptr
+     */
     typedef QSharedPointer<VxlanSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::VxlanSetting::List
+     */
     typedef QList<Ptr> List;
     VxlanSetting();
     explicit VxlanSetting(const Ptr &other);

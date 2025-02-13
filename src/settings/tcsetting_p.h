@@ -11,6 +11,9 @@
 
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
+/*!
+ * \typedef NMVariantMapList
+ */
 typedef QList<QVariantMap> NMVariantMapList;
 
 namespace NetworkManager

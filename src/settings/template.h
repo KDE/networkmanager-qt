@@ -26,7 +26,13 @@ class TemplateSettingPrivate;
 class NETWORKMANAGERQT_EXPORT TemplateSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::TemplateSetting::Ptr
+     */
     typedef QSharedPointer<TemplateSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::TemplateSetting::List
+     */
     typedef QList<Ptr> List;
     TemplateSetting();
     explicit TemplateSetting(const Ptr &other);

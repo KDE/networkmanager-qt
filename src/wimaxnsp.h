@@ -28,7 +28,13 @@ class NETWORKMANAGERQT_EXPORT WimaxNsp : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     * \typedef NetworkManager::WimaxNsp::Ptr
+     */
     typedef QSharedPointer<WimaxNsp> Ptr;
+    /*!
+     * \typedef NetworkManager::WimaxNsp::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum NetworkType

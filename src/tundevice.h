@@ -34,7 +34,13 @@ class NETWORKMANAGERQT_EXPORT TunDevice : public Device
     Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::TunDevice::Ptr
+     */
     typedef QSharedPointer<TunDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::TunDevice::List
+     */
     typedef QList<Ptr> List;
     explicit TunDevice(const QString &path, QObject *parent = nullptr);
     ~TunDevice() override;

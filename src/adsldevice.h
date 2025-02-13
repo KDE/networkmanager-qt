@@ -26,7 +26,13 @@ class NETWORKMANAGERQT_EXPORT AdslDevice : public Device
     Q_OBJECT
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
 public:
+    /*!
+     * \typedef NetworkManager::AdslDevice::Ptr
+     */
     typedef QSharedPointer<AdslDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::AdslDevice::List
+     */
     typedef QList<Ptr> List;
     explicit AdslDevice(const QString &path, QObject *parent = nullptr);
     ~AdslDevice() override;

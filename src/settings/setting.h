@@ -33,7 +33,13 @@ class SettingPrivate;
 class NETWORKMANAGERQT_EXPORT Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::SerialSetting::Ptr
+     */
     typedef QSharedPointer<Setting> Ptr;
+    /*!
+     * \typedef NetworkManager::SerialSetting::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum SettingType

@@ -26,7 +26,13 @@ class GenericSettingPrivate;
 class NETWORKMANAGERQT_EXPORT GenericSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::GenericSetting::Ptr
+     */
     typedef QSharedPointer<GenericSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::GenericSetting::List
+     */
     typedef QList<Ptr> List;
     GenericSetting();
     explicit GenericSetting(const Ptr &other);

@@ -29,7 +29,13 @@ class WireGuardSettingPrivate;
 class NETWORKMANAGERQT_EXPORT WireGuardSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::WireGuardSetting::Ptr
+     */
     typedef QSharedPointer<WireGuardSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::WireGuardSetting::List
+     */
     typedef QList<Ptr> List;
     WireGuardSetting();
     explicit WireGuardSetting(const Ptr &other);

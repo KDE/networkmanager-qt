@@ -32,7 +32,13 @@ class NETWORKMANAGERQT_EXPORT VpnConnection : public ActiveConnection
     Q_OBJECT
 
 public:
+    /*!
+     * \typedef NetworkManager::VpnConnection::Ptr
+     */
     typedef QSharedPointer<VpnConnection> Ptr;
+    /*!
+     * \typedef NetworkManager::VpnConnection::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum State

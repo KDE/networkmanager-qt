@@ -24,7 +24,13 @@ class TcSettingPrivate;
 class NETWORKMANAGERQT_EXPORT TcSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::TcSetting::Ptr
+     */
     typedef QSharedPointer<TcSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::TcSetting::List
+     */
     typedef QList<Ptr> List;
 
     TcSetting();

@@ -26,7 +26,13 @@ class SerialSettingPrivate;
 class NETWORKMANAGERQT_EXPORT SerialSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::SerialSetting::Ptr
+     */
     typedef QSharedPointer<SerialSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::SerialSetting::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum Parity

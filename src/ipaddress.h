@@ -63,6 +63,9 @@ private:
     class Private;
     Private *const d;
 };
+/*!
+ * \typedef NetworkManager::IpAddresses
+ */
 typedef QList<IpAddress> IpAddresses;
 
 } // namespace NetworkManager

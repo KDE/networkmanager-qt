@@ -26,7 +26,13 @@ class AdslSettingPrivate;
 class NETWORKMANAGERQT_EXPORT AdslSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::AdslSetting::Ptr
+     */
     typedef QSharedPointer<AdslSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::AdslSetting::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum Protocol

@@ -29,7 +29,13 @@ class NETWORKMANAGERQT_EXPORT GenericDevice : public Device
     Q_PROPERTY(QString typeDescription READ typeDescription)
 
 public:
+    /*!
+     * \typedef NetworkManager::GenericDevice::Ptr
+     */
     typedef QSharedPointer<GenericDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::GenericDevice::List
+     */
     typedef QList<Ptr> List;
     explicit GenericDevice(const QString &path, QObject *parent = nullptr);
     ~GenericDevice() override;

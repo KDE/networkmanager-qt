@@ -26,7 +26,13 @@ class BondSettingPrivate;
 class NETWORKMANAGERQT_EXPORT BondSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::BondSetting::Ptr
+     */
     typedef QSharedPointer<BondSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::BondSetting::List
+     */
     typedef QList<Ptr> List;
     BondSetting();
     explicit BondSetting(const Ptr &other);

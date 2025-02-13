@@ -26,7 +26,13 @@ class VpnSettingPrivate;
 class NETWORKMANAGERQT_EXPORT VpnSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::VpnSetting::Ptr
+     */
     typedef QSharedPointer<VpnSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::VpnSetting::List
+     */
     typedef QList<Ptr> List;
     VpnSetting();
     explicit VpnSetting(const Ptr &other);

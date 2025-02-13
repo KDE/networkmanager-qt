@@ -56,7 +56,13 @@ class Ipv4SettingPrivate;
 class NETWORKMANAGERQT_EXPORT Ipv4Setting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::Ipv4Setting::Ptr
+     */
     typedef QSharedPointer<Ipv4Setting> Ptr;
+    /*!
+     * \typedef NetworkManager::Ipv4Setting::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum ConfigMethod

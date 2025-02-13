@@ -29,7 +29,13 @@ class NETWORKMANAGERQT_EXPORT Dhcp6Config : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     * \typedef NetworkManager::Dhcp6Config::Ptr
+     */
     typedef QSharedPointer<Dhcp6Config> Ptr;
+    /*!
+     * \typedef NetworkManager::Dhcp6Config::List
+     */
     typedef QList<Ptr> List;
 
     explicit Dhcp6Config(const QString &path, QObject *owner = nullptr);

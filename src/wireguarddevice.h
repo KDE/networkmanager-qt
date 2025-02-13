@@ -29,7 +29,13 @@ class NETWORKMANAGERQT_EXPORT WireGuardDevice : public Device
     Q_PROPERTY(uint fwMark READ fwMark NOTIFY fwMarkChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::WireGuardDevice::Ptr
+     */
     typedef QSharedPointer<WireGuardDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::WireGuardDevice::List
+     */
     typedef QList<Ptr> List;
     explicit WireGuardDevice(const QString &path, QObject *parent = nullptr);
     ~WireGuardDevice() override;

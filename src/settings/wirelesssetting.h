@@ -27,7 +27,13 @@ class WirelessSettingPrivate;
 class NETWORKMANAGERQT_EXPORT WirelessSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::WirelessSetting::Ptr
+     */
     typedef QSharedPointer<WirelessSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::WirelessSetting::List
+     */
     typedef QList<Ptr> List;
 
     /*!

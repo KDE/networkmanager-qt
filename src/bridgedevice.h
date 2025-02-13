@@ -29,7 +29,13 @@ class NETWORKMANAGERQT_EXPORT BridgeDevice : public Device
     Q_PROPERTY(QStringList slaves READ slaves NOTIFY slavesChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::BridgeDevice::Ptr
+     */
     typedef QSharedPointer<BridgeDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::BridgeDevice::List
+     */
     typedef QList<Ptr> List;
     explicit BridgeDevice(const QString &path, QObject *parent = nullptr);
     ~BridgeDevice() override;

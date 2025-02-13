@@ -59,7 +59,13 @@ class NETWORKMANAGERQT_EXPORT Device : public QObject
     Q_PROPERTY(NetworkManager::DeviceStatistics::Ptr deviceStatistics READ deviceStatistics)
 
 public:
+    /*!
+     * \typedef NetworkManager::Device::Ptr
+     */
     typedef QSharedPointer<Device> Ptr;
+    /*!
+     * \typedef NetworkManager::Device::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum State

@@ -28,7 +28,13 @@ class NETWORKMANAGERQT_EXPORT VethDevice : public Device
     Q_PROPERTY(QString peer READ peer NOTIFY peerChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::VethDevice::Ptr
+     */
     typedef QSharedPointer<VethDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::VethDevice::List
+     */
     typedef QList<Ptr> List;
 
     explicit VethDevice(const QString &path, QObject *parent = nullptr);

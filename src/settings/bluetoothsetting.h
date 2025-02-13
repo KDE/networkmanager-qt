@@ -26,7 +26,13 @@ class BluetoothSettingPrivate;
 class NETWORKMANAGERQT_EXPORT BluetoothSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::BluetoothSetting::Ptr
+     */
     typedef QSharedPointer<BluetoothSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::BluetoothSetting::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum ProfileType

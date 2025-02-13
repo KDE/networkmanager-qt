@@ -24,7 +24,13 @@ class OvsPortSettingPrivate;
 class NETWORKMANAGERQT_EXPORT OvsPortSetting : public Setting
 {
 public:
+    /*!
+     * \typedef NetworkManager::OvsPortSetting::Ptr
+     */
     typedef QSharedPointer<OvsPortSetting> Ptr;
+    /*!
+     * \typedef NetworkManager::OvsPortSetting::List
+     */
     typedef QList<Ptr> List;
 
     OvsPortSetting();

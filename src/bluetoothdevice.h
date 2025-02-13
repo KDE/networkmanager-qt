@@ -33,7 +33,13 @@ class NETWORKMANAGERQT_EXPORT BluetoothDevice : public ModemDevice
     Q_PROPERTY(QString name READ name)
 
 public:
+    /*!
+     * \typedef NetworkManager::BluetoothDevice::Ptr
+     */
     typedef QSharedPointer<BluetoothDevice> Ptr;
+    /*!
+     * \typedef NetworkManager::BluetoothDevice::List
+     */
     typedef QList<Ptr> List;
     /*!
      * \enum Capability
