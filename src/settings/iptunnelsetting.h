@@ -15,7 +15,7 @@ namespace NetworkManager
 class IpTunnelSettingPrivate;
 
 /*!
- * \class IpTunnelSetting
+ * \class NetworkManager::IpTunnelSetting
  *
  * \inmodule NetworkManagerQt
  *

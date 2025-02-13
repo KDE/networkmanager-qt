@@ -47,7 +47,7 @@ namespace NetworkManager
 class Ipv4SettingPrivate;
 
 /*!
- * \class Ipv4Setting
+ * \class NetworkManager::Ipv4Setting
  *
  * \inmodule NetworkManagerQt
  *

@@ -19,7 +19,7 @@ namespace NetworkManager
 class Dhcp6ConfigPrivate;
 
 /*!
- * \class Dhcp6Config
+ * \class NetworkManager::Dhcp6Config
  *
  * \inmodule NetworkManagerQt
  *

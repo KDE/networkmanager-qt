@@ -15,7 +15,7 @@ namespace NetworkManager
 class MacsecSettingPrivate;
 
 /*!
- * \class MacsecSetting
+ * \class NetworkManager::MacsecSetting
  *
  * \inmodule NetworkManagerQt
  *

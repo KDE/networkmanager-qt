@@ -17,7 +17,7 @@ namespace NetworkManager
 class VxlanSettingPrivate;
 
 /*!
- * \class VxlanSetting
+ * \class NetworkManager::VxlanSetting
  *
  * \inmodule NetworkManagerQt
  *

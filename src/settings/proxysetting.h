@@ -17,7 +17,7 @@ namespace NetworkManager
 class ProxySettingPrivate;
 
 /*!
- * \class ProxySetting
+ * \class NetworkManager::ProxySetting
  *
  * \inmodule NetworkManagerQt
  *

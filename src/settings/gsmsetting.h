@@ -17,7 +17,7 @@ namespace NetworkManager
 class GsmSettingPrivate;
 
 /*!
- * \class GsmSetting
+ * \class NetworkManager::GsmSetting
  *
  * \inmodule NetworkManagerQt
  *

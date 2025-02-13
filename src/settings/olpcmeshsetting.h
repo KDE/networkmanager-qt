@@ -17,7 +17,7 @@ namespace NetworkManager
 class OlpcMeshSettingPrivate;
 
 /*!
- * \class OlpcMeshSetting
+ * \class NetworkManager::OlpcMeshSetting
  *
  * \inmodule NetworkManagerQt
  *

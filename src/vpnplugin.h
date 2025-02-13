@@ -18,7 +18,7 @@ namespace NetworkManager
 class VpnPluginPrivate;
 
 /*!
- * \class VpnPlugin
+ * \class NetworkManager::VpnPlugin
  *
  * \inmodule NetworkManagerQt
  */

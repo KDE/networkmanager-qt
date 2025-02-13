@@ -15,7 +15,7 @@ namespace NetworkManager
 class MacVlanDevicePrivate;
 
 /*!
- * \class MacVlanDevice
+ * \class NetworkManager::MacVlanDevice
  *
  * \inmodule NetworkManagerQt
  *

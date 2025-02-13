@@ -22,7 +22,7 @@ namespace NetworkManager
 class AccessPointPrivate;
 
 /*!
- * \class AccessPoint
+ * \class NetworkManager::AccessPoint
  *
  * \inmodule NetworkManagerQt
  *

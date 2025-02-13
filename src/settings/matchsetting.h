@@ -15,7 +15,7 @@ namespace NetworkManager
 class MatchSettingPrivate;
 
 /*!
- * \class MatchSetting
+ * \class NetworkManager::MatchSetting
  *
  * \inmodule NetworkManagerQt
  *

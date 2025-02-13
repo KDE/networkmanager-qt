@@ -17,7 +17,7 @@ namespace NetworkManager
 class TemplateSettingPrivate;
 
 /*!
- * \class TemplateSetting
+ * \class NetworkManager::TemplateSetting
  *
  * \inmodule NetworkManagerQt
  *

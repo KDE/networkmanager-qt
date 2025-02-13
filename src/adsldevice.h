@@ -15,7 +15,7 @@ namespace NetworkManager
 class AdslDevicePrivate;
 
 /*!
- * \class AdslDevice
+ * \class NetworkManager::AdslDevice
  *
  * \inmodule NetworkManagerQt
  *

@@ -18,7 +18,7 @@ namespace NetworkManager
 class WimaxNspPrivate;
 
 /*!
- * \class WimaxNsp
+ * \class NetworkManager::WimaxNsp
  *
  * \inmodule NetworkManagerQt
  *

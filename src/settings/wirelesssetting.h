@@ -18,7 +18,7 @@ namespace NetworkManager
 class WirelessSettingPrivate;
 
 /*!
- * \class WirelessSetting
+ * \class NetworkManager::WirelessSetting
  *
  * \inmodule NetworkManagerQt
  *

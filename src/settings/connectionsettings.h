@@ -24,7 +24,7 @@ namespace NetworkManager
 class ConnectionSettingsPrivate;
 
 /*!
- * \class ConnectionSettings
+ * \class NetworkManager::ConnectionSettings
  *
  * \inmodule NetworkManagerQt
  *

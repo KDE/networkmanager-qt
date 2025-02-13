@@ -17,7 +17,7 @@ namespace NetworkManager
 class OvsPatchSettingPrivate;
 
 /*!
- * \class OvsPatchSetting
+ * \class NetworkManager::OvsPatchSetting
  *
  * \inmodule NetworkManagerQt
  *

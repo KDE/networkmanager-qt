@@ -16,7 +16,7 @@ namespace NetworkManager
 class GreDevicePrivate;
 
 /*!
- * \class GreDevice
+ * \class NetworkManager::GreDevice
  *
  * \inmodule NetworkManagerQt
  *

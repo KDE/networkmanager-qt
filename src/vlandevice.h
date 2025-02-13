@@ -15,7 +15,7 @@ namespace NetworkManager
 class VlanDevicePrivate;
 
 /*!
- * \class VlanDevice
+ * \class NetworkManager::VlanDevice
  *
  * \inmodule NetworkManagerQt
  *

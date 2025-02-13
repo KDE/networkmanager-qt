@@ -17,7 +17,7 @@ namespace NetworkManager
 class TeamSettingPrivate;
 
 /*!
- * \class TeamSetting
+ * \class NetworkManager::TeamSetting
  *
  * \inmodule NetworkManagerQt
  *

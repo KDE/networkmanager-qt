@@ -15,7 +15,7 @@ namespace NetworkManager
 class InfinibandDevicePrivate;
 
 /*!
- * \class InfinibandDevice
+ * \class NetworkManager::InfinibandDevice
  *
  * \inmodule NetworkManagerQt
  *

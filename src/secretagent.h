@@ -21,7 +21,7 @@ namespace NetworkManager
 class SecretAgentPrivate;
 
 /*!
- * \class SecretAgent
+ * \class NetworkManager::SecretAgent
  *
  * \inmodule NetworkManagerQt
  *

@@ -18,7 +18,7 @@ namespace NetworkManager
 class WiredDevicePrivate;
 
 /*!
- * \class WiredDevice
+ * \class NetworkManager::WiredDevice
  *
  * \inmodule NetworkManagerQt
  *

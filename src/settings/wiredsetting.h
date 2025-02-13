@@ -17,7 +17,7 @@ namespace NetworkManager
 class WiredSettingPrivate;
 
 /*!
- * \class WiredSetting
+ * \class NetworkManager::WiredSetting
  *
  * \inmodule NetworkManagerQt
  *

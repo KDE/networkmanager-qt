@@ -15,7 +15,7 @@
 namespace NetworkManager
 {
 /*!
- * \class IpAddress
+ * \class NetworkManager::IpAddress
  *
  * \inmodule NetworkManagerQt
  *

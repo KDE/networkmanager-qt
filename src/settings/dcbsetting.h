@@ -17,7 +17,7 @@ namespace NetworkManager
 class DcbSettingPrivate;
 
 /*!
- * \class DcbSetting
+ * \class NetworkManager::DcbSetting
  *
  * \inmodule NetworkManagerQt
  *

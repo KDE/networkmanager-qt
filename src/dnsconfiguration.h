@@ -21,7 +21,7 @@
 namespace NetworkManager
 {
 /*!
- * \class DnsConfiguration
+ * \class NetworkManager::DnsConfiguration
  *
  * \inmodule NetworkManagerQt
  *

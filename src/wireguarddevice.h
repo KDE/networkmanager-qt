@@ -15,7 +15,7 @@ namespace NetworkManager
 class WireGuardDevicePrivate;
 
 /*!
- * \class WireGuardDevice
+ * \class NetworkManager::WireGuardDevice
  *
  * \inmodule NetworkManagerQt
  *

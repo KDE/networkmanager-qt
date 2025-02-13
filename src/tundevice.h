@@ -16,7 +16,7 @@ namespace NetworkManager
 class TunDevicePrivate;
 
 /*!
- * \class TunDevice
+ * \class NetworkManager::TunDevice
  *
  * \inmodule NetworkManagerQt
  *

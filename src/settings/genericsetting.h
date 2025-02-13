@@ -17,7 +17,7 @@ namespace NetworkManager
 class GenericSettingPrivate;
 
 /*!
- * \class GenericSetting
+ * \class NetworkManager::GenericSetting
  *
  * \inmodule NetworkManagerQt
  *

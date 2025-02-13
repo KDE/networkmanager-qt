@@ -16,7 +16,7 @@ namespace NetworkManager
 class GenericDevicePrivate;
 
 /*!
- * \class GenericDevice
+ * \class NetworkManager::GenericDevice
  *
  * \inmodule NetworkManagerQt
  *

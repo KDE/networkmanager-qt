@@ -15,7 +15,7 @@ namespace NetworkManager
 class TcSettingPrivate;
 
 /*!
- * \class TcSetting
+ * \class NetworkManager::TcSetting
  *
  * \inmodule NetworkManagerQt
  *

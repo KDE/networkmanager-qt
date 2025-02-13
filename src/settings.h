@@ -21,7 +21,7 @@
 namespace NetworkManager
 {
 /*!
- * \class SettingsNotifier
+ * \class NetworkManager::SettingsNotifier
  *
  * \inmodule NetworkManagerQt
  *

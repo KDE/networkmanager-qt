@@ -21,7 +21,7 @@ class WirelessDevice;
 class WirelessNetworkPrivate;
 
 /*!
- * \class WirelessNetwork
+ * \class NetworkManager::WirelessNetwork
  *
  * \inmodule NetworkManagerQt
  *

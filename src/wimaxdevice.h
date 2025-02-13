@@ -19,7 +19,7 @@ namespace NetworkManager
 class WimaxDevicePrivate;
 
 /*!
- * \class WimaxDevice
+ * \class NetworkManager::WimaxDevice
  *
  * \inmodule NetworkManagerQt
  *

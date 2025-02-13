@@ -21,7 +21,7 @@ class Device;
 class VpnConnectionPrivate;
 
 /*!
- * \class VpnConnection
+ * \class NetworkManager::VpnConnection
  *
  * \inmodule NetworkManagerQt
  *

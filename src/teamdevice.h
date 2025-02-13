@@ -15,7 +15,7 @@ namespace NetworkManager
 class TeamDevicePrivate;
 
 /*!
- * \class TeamDevice
+ * \class NetworkManager::TeamDevice
  *
  * \inmodule NetworkManagerQt
  *

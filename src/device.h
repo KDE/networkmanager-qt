@@ -28,7 +28,7 @@ class DeviceStateReason;
 class DeviceStateReasonPrivate;
 
 /*!
- * \class Device
+ * \class NetworkManager::Device
  *
  * \inmodule NetworkManagerQt
  *
@@ -836,7 +836,7 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Types)
 Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Interfaceflags)
 
 /*!
- * \class DeviceStateReason
+ * \class NetworkManager::DeviceStateReason
  *
  * \inmodule NetworkManagerQt
  */

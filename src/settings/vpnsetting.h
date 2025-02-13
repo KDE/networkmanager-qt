@@ -17,7 +17,7 @@ namespace NetworkManager
 class VpnSettingPrivate;
 
 /*!
- * \class VpnSetting
+ * \class NetworkManager::VpnSetting
  *
  * \inmodule NetworkManagerQt
  *

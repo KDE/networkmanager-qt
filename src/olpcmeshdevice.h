@@ -17,7 +17,7 @@ namespace NetworkManager
 class OlpcMeshDevicePrivate;
 
 /*!
- * \class OlpcMeshDevice
+ * \class NetworkManager::OlpcMeshDevice
  *
  * \inmodule NetworkManagerQt
  *

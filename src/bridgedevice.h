@@ -15,7 +15,7 @@ namespace NetworkManager
 class BridgeDevicePrivate;
 
 /*!
- * \class BridgeDevice
+ * \class NetworkManager::BridgeDevice
  *
  * \inmodule NetworkManagerQt
  *

@@ -19,7 +19,7 @@ namespace NetworkManager
 class Dhcp4ConfigPrivate;
 
 /*!
- * \class Dhcp4Config
+ * \class NetworkManager::Dhcp4Config
  *
  * \inmodule NetworkManagerQt
  *

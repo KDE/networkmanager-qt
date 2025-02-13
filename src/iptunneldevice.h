@@ -15,7 +15,7 @@ namespace NetworkManager
 class IpTunnelDevicePrivate;
 
 /*!
- * \class IpTunnelDevice
+ * \class NetworkManager::IpTunnelDevice
  *
  * \inmodule NetworkManagerQt
  *

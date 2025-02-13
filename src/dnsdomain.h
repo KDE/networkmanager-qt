@@ -22,7 +22,7 @@
 namespace NetworkManager
 {
 /*!
- * \class DnsDomain
+ * \class NetworkManager::DnsDomain
  *
  * \inmodule NetworkManagerQt
  *

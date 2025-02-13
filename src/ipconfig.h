@@ -22,7 +22,7 @@
 namespace NetworkManager
 {
 /*!
- * \class IpConfig
+ * \class NetworkManager::IpConfig
  *
  * \inmodule NetworkManagerQt
  *

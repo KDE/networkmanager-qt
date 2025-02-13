@@ -22,7 +22,7 @@ namespace NetworkManager
 class WirelessDevicePrivate;
 
 /*!
- * \class WirelessDevice
+ * \class NetworkManager::WirelessDevice
  *
  * \inmodule NetworkManagerQt
  *

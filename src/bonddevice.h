@@ -15,7 +15,7 @@ namespace NetworkManager
 class BondDevicePrivate;
 
 /*!
- * \class BondDevice
+ * \class NetworkManager::BondDevice
  *
  * \inmodule NetworkManagerQt
  *

@@ -23,7 +23,7 @@ namespace NetworkManager
 class ActiveConnectionPrivate;
 
 /*!
- * \class ActiveConnection
+ * \class NetworkManager::ActiveConnection
  *
  * \inmodule NetworkManagerQt
  *

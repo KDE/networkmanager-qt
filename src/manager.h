@@ -197,7 +197,7 @@ enum Connectivity {
 Q_ENUM_NS(Connectivity)
 
 /*!
- * \class Notifier
+ * \class NetworkManager::Notifier
  *
  * \inmodule NetworkManagerQt
  */

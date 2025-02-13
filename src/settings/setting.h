@@ -24,7 +24,7 @@ namespace NetworkManager
 class SettingPrivate;
 
 /*!
- * \class Setting
+ * \class NetworkManager::Setting
  *
  * \inmodule NetworkManagerQt
  *

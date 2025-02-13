@@ -19,7 +19,7 @@ namespace NetworkManager
 class DeviceStatisticsPrivate;
 
 /*!
- * \class DeviceStatistics
+ * \class NetworkManager::DeviceStatistics
  *
  * \inmodule NetworkManagerQt
  *

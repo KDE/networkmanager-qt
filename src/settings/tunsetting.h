@@ -17,7 +17,7 @@ namespace NetworkManager
 class TunSettingPrivate;
 
 /*!
- * \class TunSetting
+ * \class NetworkManager::TunSetting
  *
  * \inmodule NetworkManagerQt
  *

@@ -17,7 +17,7 @@ namespace NetworkManager
 class TeamPortSettingPrivate;
 
 /*!
- * \class TeamPortSetting
+ * \class NetworkManager::TeamPortSetting
  *
  * \inmodule NetworkManagerQt
  *

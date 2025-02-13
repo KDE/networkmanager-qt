@@ -17,7 +17,7 @@ namespace NetworkManager
 class PppoeSettingPrivate;
 
 /*!
- * \class PppoeSetting
+ * \class NetworkManager::PppoeSetting
  *
  * \inmodule NetworkManagerQt
  *

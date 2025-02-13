@@ -15,7 +15,7 @@ namespace NetworkManager
 class OvsPortSettingPrivate;
 
 /*!
- * \class OvsPortSetting
+ * \class NetworkManager::OvsPortSetting
  *
  * \inmodule NetworkManagerQt
  *

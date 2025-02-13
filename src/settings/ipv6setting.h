@@ -65,7 +65,7 @@ namespace NetworkManager
 class Ipv6SettingPrivate;
 
 /*!
- * \class Ipv6Setting
+ * \class NetworkManager::Ipv6Setting
  *
  * \inmodule NetworkManagerQt
  *

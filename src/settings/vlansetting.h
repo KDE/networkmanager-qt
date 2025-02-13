@@ -17,7 +17,7 @@ namespace NetworkManager
 class VlanSettingPrivate;
 
 /*!
- * \class VlanSetting
+ * \class NetworkManager::VlanSetting
  *
  * \inmodule NetworkManagerQt
  *

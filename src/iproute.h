@@ -16,7 +16,7 @@
 namespace NetworkManager
 {
 /*!
- * \class IpRoute
+ * \class NetworkManager::IpRoute
  *
  * \inmodule NetworkManagerQt
  *

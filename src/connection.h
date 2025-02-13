@@ -22,7 +22,7 @@ namespace NetworkManager
 class ConnectionPrivate;
 
 /*!
- * \class Connection
+ * \class NetworkManager::Connection
  *
  * \inmodule NetworkManagerQt
  *

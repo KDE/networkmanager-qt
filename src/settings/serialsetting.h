@@ -17,7 +17,7 @@ namespace NetworkManager
 class SerialSettingPrivate;
 
 /*!
- * \class SerialSetting
+ * \class NetworkManager::SerialSetting
  *
  * \inmodule NetworkManagerQt
  *

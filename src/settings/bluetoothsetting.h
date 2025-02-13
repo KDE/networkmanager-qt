@@ -17,7 +17,7 @@ namespace NetworkManager
 class BluetoothSettingPrivate;
 
 /*!
- * \class BluetoothSetting
+ * \class NetworkManager::BluetoothSetting
  *
  * \inmodule NetworkManagerQt
  *

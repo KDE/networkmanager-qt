@@ -15,7 +15,7 @@ namespace NetworkManager
 class Security8021xSettingPrivate;
 
 /*!
- * \class Security8021xSetting
+ * \class NetworkManager::Security8021xSetting
  *
  * \inmodule NetworkManagerQt
  *

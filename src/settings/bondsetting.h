@@ -17,7 +17,7 @@ namespace NetworkManager
 class BondSettingPrivate;
 
 /*!
- * \class BondSetting
+ * \class NetworkManager::BondSetting
  *
  * \inmodule NetworkManagerQt
  *

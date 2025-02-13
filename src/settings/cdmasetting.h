@@ -17,7 +17,7 @@ namespace NetworkManager
 class CdmaSettingPrivate;
 
 /*!
- * \class CdmaSetting
+ * \class NetworkManager::CdmaSetting
  *
  * \inmodule NetworkManagerQt
  *

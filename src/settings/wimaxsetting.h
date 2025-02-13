@@ -18,7 +18,7 @@ namespace NetworkManager
 class WimaxSettingPrivate;
 
 /*!
- * \class WimaxSetting
+ * \class NetworkManager::WimaxSetting
  *
  * \inmodule NetworkManagerQt
  *

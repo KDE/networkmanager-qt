@@ -16,7 +16,7 @@ namespace NetworkManager
 class VethDevicePrivate;
 
 /*!
- * \class VethDevice
+ * \class NetworkManager::VethDevice
  *
  * \inmodule NetworkManagerQt
  *

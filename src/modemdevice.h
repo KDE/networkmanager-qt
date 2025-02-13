@@ -17,7 +17,7 @@ namespace NetworkManager
 class ModemDevicePrivate;
 
 /*!
- * \class ModemDevice
+ * \class NetworkManager::ModemDevice
  *
  * \inmodule NetworkManagerQt
  *

@@ -17,7 +17,7 @@ namespace NetworkManager
 class BridgePortSettingPrivate;
 
 /*!
- * \class BridgePortSetting
+ * \class NetworkManager::BridgePortSetting
  *
  * \inmodule NetworkManagerQt
  *

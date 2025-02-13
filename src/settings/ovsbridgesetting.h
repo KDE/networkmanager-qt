@@ -17,7 +17,7 @@ namespace NetworkManager
 class OvsBridgeSettingPrivate;
 
 /*!
- * \class OvsBridgeSetting
+ * \class NetworkManager::OvsBridgeSetting
  *
  * \inmodule NetworkManagerQt
  *

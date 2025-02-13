@@ -17,7 +17,7 @@ namespace NetworkManager
 class AdslSettingPrivate;
 
 /*!
- * \class AdslSetting
+ * \class NetworkManager::AdslSetting
  *
  * \inmodule NetworkManagerQt
  *

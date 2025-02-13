@@ -17,7 +17,7 @@ namespace NetworkManager
 class OvsInterfaceSettingPrivate;
 
 /*!
- * \class OvsInterfaceSetting
+ * \class NetworkManager::OvsInterfaceSetting
  *
  * \inmodule NetworkManagerQt
  *
