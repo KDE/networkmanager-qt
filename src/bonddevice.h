@@ -37,6 +37,8 @@ public:
      * \typedef NetworkManager::BondDevice::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     explicit BondDevice(const QString &path, QObject *parent = nullptr);
     ~BondDevice() override;
 

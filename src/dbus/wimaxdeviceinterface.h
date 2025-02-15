@@ -28,6 +28,8 @@ class OrgFreedesktopNetworkManagerDeviceWiMaxInterface : public QDBusAbstractInt
 {
     Q_OBJECT
 public:
+    /*!
+     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -40,59 +42,79 @@ public:
 #endif
 
 public:
+    /*!
+     */
     OrgFreedesktopNetworkManagerDeviceWiMaxInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceWiMaxInterface() override;
 
     Q_PROPERTY(QDBusObjectPath ActiveNsp READ activeNsp)
+    /*!
+     */
     inline QDBusObjectPath activeNsp() const
     {
         return qvariant_cast<QDBusObjectPath>(property("ActiveNsp"));
     }
 
     Q_PROPERTY(QString Bsid READ bsid)
+    /*!
+     */
     inline QString bsid() const
     {
         return qvariant_cast<QString>(property("Bsid"));
     }
 
     Q_PROPERTY(uint CenterFrequency READ centerFrequency)
+    /*!
+     */
     inline uint centerFrequency() const
     {
         return qvariant_cast<uint>(property("CenterFrequency"));
     }
 
     Q_PROPERTY(int Cinr READ cinr)
+    /*!
+     */
     inline int cinr() const
     {
         return qvariant_cast<int>(property("Cinr"));
     }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
+    /*!
+     */
     inline QString hwAddress() const
     {
         return qvariant_cast<QString>(property("HwAddress"));
     }
 
     Q_PROPERTY(QList<QDBusObjectPath> Nsps READ nsps)
+    /*!
+     */
     inline QList<QDBusObjectPath> nsps() const
     {
         return qvariant_cast<QList<QDBusObjectPath>>(property("Nsps"));
     }
 
     Q_PROPERTY(int Rssi READ rssi)
+    /*!
+     */
     inline int rssi() const
     {
         return qvariant_cast<int>(property("Rssi"));
     }
 
     Q_PROPERTY(int TxPower READ txPower)
+    /*!
+     */
     inline int txPower() const
     {
         return qvariant_cast<int>(property("TxPower"));
     }
 
 public Q_SLOTS: // METHODS
+    /*!
+     */
     inline QDBusPendingReply<QList<QDBusObjectPath>> GetNspList()
     {
         QList<QVariant> argumentList;
@@ -100,8 +122,14 @@ public Q_SLOTS: // METHODS
     }
 
 Q_SIGNALS: // SIGNALS
+    /*!
+     */
     void NspAdded(const QDBusObjectPath &nsp);
+    /*!
+     */
     void NspRemoved(const QDBusObjectPath &nsp);
+    /*!
+     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

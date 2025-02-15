@@ -18,6 +18,8 @@ class InfinibandDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
+    /*!
+     */
     InfinibandDevicePrivate(const QString &path, InfinibandDevice *q);
     ~InfinibandDevicePrivate() override;
 

@@ -20,9 +20,15 @@ class VpnConnectionPrivate : public ActiveConnectionPrivate
 {
     Q_OBJECT
 public:
+    /*!
+     */
     VpnConnectionPrivate(const QString &path, VpnConnection *q);
 
+    /*!
+     */
     static NetworkManager::VpnConnection::State convertVpnConnectionState(uint state);
+    /*!
+     */
     static NetworkManager::VpnConnection::StateChangeReason convertVpnConnectionStateReason(uint reason);
 
     QString banner;
@@ -40,7 +46,11 @@ protected:
     void propertyChanged(const QString &property, const QVariant &value) override;
 
 private Q_SLOTS:
+    /*!
+     */
     void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
+    /*!
+     */
     void vpnStateChanged(uint new_state, uint reason);
 };
 

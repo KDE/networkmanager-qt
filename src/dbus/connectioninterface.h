@@ -27,6 +27,8 @@ class OrgFreedesktopNetworkManagerSettingsConnectionInterface : public QDBusAbst
 {
     Q_OBJECT
 public:
+    /*!
+     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -39,6 +41,8 @@ public:
 #endif
 
 public:
+    /*!
+     */
     OrgFreedesktopNetworkManagerSettingsConnectionInterface(const QString &service,
                                                             const QString &path,
                                                             const QDBusConnection &connection,
@@ -47,24 +51,32 @@ public:
     ~OrgFreedesktopNetworkManagerSettingsConnectionInterface() override;
 
     Q_PROPERTY(bool Unsaved READ unsaved)
+    /*!
+     */
     inline bool unsaved() const
     {
         return qvariant_cast<bool>(property("Unsaved"));
     }
 
 public Q_SLOTS: // METHODS
+    /*!
+     */
     inline QDBusPendingReply<> ClearSecrets()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("ClearSecrets"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<> Delete()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("Delete"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<NMVariantMapMap> GetSecrets(const QString &setting_name)
     {
         QList<QVariant> argumentList;
@@ -72,18 +84,24 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("GetSecrets"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<NMVariantMapMap> GetSettings()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("GetSettings"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<> Save()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("Save"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<> Update(NMVariantMapMap properties)
     {
         QList<QVariant> argumentList;
@@ -91,6 +109,8 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("Update"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<> UpdateUnsaved(NMVariantMapMap properties)
     {
         QList<QVariant> argumentList;
@@ -99,8 +119,14 @@ public Q_SLOTS: // METHODS
     }
 
 Q_SIGNALS: // SIGNALS
+    /*!
+     */
     void PropertiesChanged(const QVariantMap &properties);
+    /*!
+     */
     void Removed();
+    /*!
+     */
     void Updated();
 };
 

@@ -17,6 +17,8 @@ class TunDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
+    /*!
+     */
     TunDevicePrivate(const QString &path, TunDevice *q);
     ~TunDevicePrivate() override;
 

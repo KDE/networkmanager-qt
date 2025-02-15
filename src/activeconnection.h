@@ -278,6 +278,8 @@ Q_SIGNALS:
     void devicesChanged();
 
 protected:
+    /*!
+     */
     NETWORKMANAGERQT_NO_EXPORT explicit ActiveConnection(ActiveConnectionPrivate &dd, QObject *parent = nullptr);
 
     ActiveConnectionPrivate *const d_ptr;

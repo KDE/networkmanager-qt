@@ -20,11 +20,21 @@ class ConnectionSettingsPrivate
 public:
     Q_DECLARE_PUBLIC(ConnectionSettings)
 
+    /*!
+     */
     explicit ConnectionSettingsPrivate(ConnectionSettings *q);
 
+    /*!
+     */
     void addSetting(const NetworkManager::Setting::Ptr &setting);
+    /*!
+     */
     void clearSettings();
+    /*!
+     */
     void initSettings(NMBluetoothCapabilities bt_cap);
+    /*!
+     */
     void initSettings(const NetworkManager::ConnectionSettings::Ptr &connectionSettings);
 
     QString name;

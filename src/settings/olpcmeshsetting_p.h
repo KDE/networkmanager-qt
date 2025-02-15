@@ -14,6 +14,8 @@ namespace NetworkManager
 class OlpcMeshSettingPrivate
 {
 public:
+    /*!
+     */
     OlpcMeshSettingPrivate();
 
     QString name;

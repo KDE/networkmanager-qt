@@ -55,54 +55,110 @@ public:
         Only4GLte,
     };
 
+    /*!
+     */
     GsmSetting();
+    /*!
+     */
     explicit GsmSetting(const Ptr &other);
     ~GsmSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setNumber(const QString &number);
+    /*!
+     */
     QString number() const;
 
+    /*!
+     */
     void setUsername(const QString &username);
+    /*!
+     */
     QString username() const;
 
+    /*!
+     */
     void setPassword(const QString &password);
+    /*!
+     */
     QString password() const;
 
+    /*!
+     */
     void setPasswordFlags(SecretFlags flags);
+    /*!
+     */
     SecretFlags passwordFlags() const;
 
+    /*!
+     */
     void setApn(const QString &apn);
+    /*!
+     */
     QString apn() const;
 
+    /*!
+     */
     void setNetworkId(const QString &id);
+    /*!
+     */
     QString networkId() const;
 
     /*! \deprecated NM 1.0.0 */
     void setNetworkType(NetworkType type);
+    /*!
+     */
     NetworkType networkType() const;
 
+    /*!
+     */
     void setPin(const QString &pin);
+    /*!
+     */
     QString pin() const;
 
+    /*!
+     */
     void setPinFlags(SecretFlags flags);
+    /*!
+     */
     SecretFlags pinFlags() const;
 
     /*! \deprecated NM 1.0.0 */
     void setAllowedBand(quint32 band);
+    /*!
+     */
     quint32 allowedBand() const;
 
+    /*!
+     */
     void setHomeOnly(bool homeOnly);
+    /*!
+     */
     bool homeOnly() const;
 
+    /*!
+     */
     void setDeviceId(const QString &id);
+    /*!
+     */
     QString deviceId() const;
 
+    /*!
+     */
     void setSimId(const QString &id);
+    /*!
+     */
     QString simId() const;
 
+    /*!
+     */
     void setSimOperatorId(const QString &id);
+    /*!
+     */
     QString simOperatorId() const;
 
     void secretsFromMap(const QVariantMap &secrets) override;

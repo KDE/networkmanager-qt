@@ -19,6 +19,8 @@ class WiredDevice : public Device
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Device.Wired")
 public:
+    /*!
+     */
     explicit WiredDevice(QObject *parent = nullptr);
     ~WiredDevice() override;
 
@@ -27,19 +29,37 @@ public:
     Q_PROPERTY(QString PermHwAddress READ permHwAddress)
     Q_PROPERTY(uint Speed READ speed)
 
+    /*!
+     */
     bool carrier() const;
+    /*!
+     */
     QString hwAddress() const;
+    /*!
+     */
     QString permHwAddress() const;
+    /*!
+     */
     uint speed() const;
 
     /* Not part of DBus interface */
+    /*!
+     */
     void setCarrier(bool carrier);
+    /*!
+     */
     void setHwAddress(const QString &hwAddress);
+    /*!
+     */
     void setPermanentHwAddress(const QString &permanentHwAddress);
+    /*!
+     */
     void setSpeed(uint speed);
     void setState(uint state) override;
 
 Q_SIGNALS:
+    /*!
+     */
     Q_SCRIPTABLE void PropertiesChanged(const QVariantMap &properties);
 
 private:

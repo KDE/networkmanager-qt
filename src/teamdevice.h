@@ -39,9 +39,13 @@ public:
      */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     explicit TeamDevice(const QString &path, QObject *parent = nullptr);
     ~TeamDevice() override;
 
+    /*!
+     */
     Type type() const override;
 
     /*!

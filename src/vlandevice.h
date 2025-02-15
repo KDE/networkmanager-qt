@@ -39,6 +39,8 @@ public:
      */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     explicit VlanDevice(const QString &path, QObject *parent = nullptr);
     ~VlanDevice() override;
 

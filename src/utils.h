@@ -74,7 +74,11 @@ NETWORKMANAGERQT_EXPORT QString macAddressAsString(const QByteArray &ba);
  */
 NETWORKMANAGERQT_EXPORT QByteArray macAddressFromString(const QString &s);
 
+/*!
+ */
 NETWORKMANAGERQT_EXPORT bool macAddressIsValid(const QString &macAddress);
+/*!
+ */
 NETWORKMANAGERQT_EXPORT bool macAddressIsValid(const QByteArray &macAddress);
 
 /*!
@@ -83,11 +87,17 @@ NETWORKMANAGERQT_EXPORT bool macAddressIsValid(const QByteArray &macAddress);
  */
 NETWORKMANAGERQT_EXPORT int findChannel(int freq);
 
+/*!
+ */
 NETWORKMANAGERQT_EXPORT NetworkManager::WirelessSetting::FrequencyBand findFrequencyBand(int freq);
 
+/*!
+ */
 NETWORKMANAGERQT_EXPORT bool
 deviceSupportsApCiphers(NetworkManager::WirelessDevice::Capabilities, NetworkManager::AccessPoint::WpaFlags ciphers, WirelessSecurityType type);
 
+/*!
+ */
 NETWORKMANAGERQT_EXPORT bool securityIsValid(WirelessSecurityType type,
                                              NetworkManager::WirelessDevice::Capabilities interfaceCaps,
                                              bool haveAp,
@@ -96,6 +106,8 @@ NETWORKMANAGERQT_EXPORT bool securityIsValid(WirelessSecurityType type,
                                              NetworkManager::AccessPoint::WpaFlags apWpa,
                                              NetworkManager::AccessPoint::WpaFlags apRsn);
 
+/*!
+ */
 NETWORKMANAGERQT_EXPORT WirelessSecurityType findBestWirelessSecurity(NetworkManager::WirelessDevice::Capabilities,
                                                                       bool haveAp,
                                                                       bool adHoc,
@@ -103,15 +115,27 @@ NETWORKMANAGERQT_EXPORT WirelessSecurityType findBestWirelessSecurity(NetworkMan
                                                                       NetworkManager::AccessPoint::WpaFlags apWpa,
                                                                       NetworkManager::AccessPoint::WpaFlags apRsn);
 
+/*!
+ */
 NETWORKMANAGERQT_EXPORT bool wepKeyIsValid(const QString &key, NetworkManager::WirelessSecuritySetting::WepKeyType type);
 
+/*!
+ */
 NETWORKMANAGERQT_EXPORT bool wpaPskIsValid(const QString &psk);
 
+/*!
+ */
 NETWORKMANAGERQT_EXPORT WirelessSecurityType securityTypeFromConnectionSetting(const NetworkManager::ConnectionSettings::Ptr &settings);
 
+/*!
+ */
 NETWORKMANAGERQT_EXPORT QList<QPair<int, int>> getBFreqs();
+/*!
+ */
 NETWORKMANAGERQT_EXPORT QList<QPair<int, int>> getAFreqs();
 
+/*!
+ */
 NETWORKMANAGERQT_EXPORT QDateTime clockBootTimeToDateTime(qlonglong clockBootime);
 }
 

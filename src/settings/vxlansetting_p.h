@@ -14,6 +14,8 @@ namespace NetworkManager
 class VxlanSettingPrivate
 {
 public:
+    /*!
+     */
     VxlanSettingPrivate();
 
     QString name;

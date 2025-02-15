@@ -18,6 +18,8 @@ class VethDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
+    /*!
+     */
     VethDevicePrivate(const QString &path, VethDevice *q);
     ~VethDevicePrivate() override;
 

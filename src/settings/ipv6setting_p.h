@@ -17,6 +17,8 @@ namespace NetworkManager
 class Ipv6SettingPrivate
 {
 public:
+    /*!
+     */
     Ipv6SettingPrivate();
 
     QString name;

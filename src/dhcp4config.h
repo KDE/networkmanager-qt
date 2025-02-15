@@ -38,16 +38,26 @@ public:
      */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     explicit Dhcp4Config(const QString &path, QObject *owner = nullptr);
     ~Dhcp4Config() override;
 
+    /*!
+     */
     QString path() const;
 
+    /*!
+     */
     QVariantMap options() const;
 
+    /*!
+     */
     QString optionValue(const QString &key) const;
 
 Q_SIGNALS:
+    /*!
+     */
     void optionsChanged(const QVariantMap &);
 
 private:

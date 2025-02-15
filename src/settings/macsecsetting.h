@@ -57,37 +57,77 @@ public:
         Strict,
     };
 
+    /*!
+     */
     MacsecSetting();
+    /*!
+     */
     explicit MacsecSetting(const Ptr &other);
     ~MacsecSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setEncrypt(bool encrypt);
+    /*!
+     */
     bool encrypt() const;
 
+    /*!
+     */
     void setMkaCak(const QString &mkaCak);
+    /*!
+     */
     QString mkaCak() const;
 
+    /*!
+     */
     void setMkaCkn(const QString &mkaCkn);
+    /*!
+     */
     QString mkaCkn() const;
 
+    /*!
+     */
     void setMode(Mode mode);
+    /*!
+     */
     Mode mode() const;
 
+    /*!
+     */
     void setParent(const QString &parent);
+    /*!
+     */
     QString parent() const;
 
+    /*!
+     */
     void setPort(qint32 port);
+    /*!
+     */
     qint32 port() const;
 
+    /*!
+     */
     void setSendSci(bool sendSci);
+    /*!
+     */
     bool sendSci() const;
 
+    /*!
+     */
     void setValidation(Validation validation);
+    /*!
+     */
     Validation validation() const;
 
+    /*!
+     */
     void setMkaCakFlags(Setting::SecretFlags flags);
+    /*!
+     */
     Setting::SecretFlags mkaCakFlags() const;
 
     QStringList needSecrets(bool requestNew = false) const override;

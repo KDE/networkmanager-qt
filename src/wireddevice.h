@@ -42,6 +42,8 @@ public:
      * \typedef NetworkManager::WiredDevice::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     explicit WiredDevice(const QString &path, QObject *parent = nullptr);
     ~WiredDevice() override;
     /*!

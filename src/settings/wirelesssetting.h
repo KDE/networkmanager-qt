@@ -77,66 +77,138 @@ public:
         PowerSaveEnable = 3,
     };
 
+    /*!
+     */
     WirelessSetting();
+    /*!
+     */
     explicit WirelessSetting(const Ptr &setting);
     ~WirelessSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setSsid(const QByteArray &ssid);
+    /*!
+     */
     QByteArray ssid() const;
 
+    /*!
+     */
     void setMode(NetworkMode mode);
+    /*!
+     */
     NetworkMode mode() const;
 
+    /*!
+     */
     void setBand(FrequencyBand band);
+    /*!
+     */
     FrequencyBand band() const;
 
+    /*!
+     */
     void setChannel(quint32 channel);
+    /*!
+     */
     quint32 channel() const;
 
+    /*!
+     */
     void setBssid(const QByteArray &bssid);
+    /*!
+     */
     QByteArray bssid() const;
 
+    /*!
+     */
     void setRate(quint32 rate);
+    /*!
+     */
     quint32 rate() const;
 
+    /*!
+     */
     void setTxPower(quint32 power);
+    /*!
+     */
     quint32 txPower() const;
 
+    /*!
+     */
     void setAssignedMacAddress(const QString &assignedMacAddress);
+    /*!
+     */
     QString assignedMacAddress() const;
 
+    /*!
+     */
     void setMacAddress(const QByteArray &address);
+    /*!
+     */
     QByteArray macAddress() const;
 
     /*! \deprecated [NM 1.4.0], will internally use assigned-mac-address property */
     void setClonedMacAddress(const QByteArray &address);
+    /*!
+     */
     QByteArray clonedMacAddress() const;
 
+    /*!
+     */
     void setGenerateMacAddressMask(const QString &macAddressMask);
+    /*!
+     */
     QString generateMacAddressMask() const;
 
+    /*!
+     */
     void setMacAddressBlacklist(const QStringList &list);
+    /*!
+     */
     QStringList macAddressBlacklist() const;
 
+    /*!
+     */
     void setMacAddressRandomization(MacAddressRandomization randomization);
+    /*!
+     */
     MacAddressRandomization macAddressRandomization() const;
 
+    /*!
+     */
     void setMtu(quint32 mtu);
+    /*!
+     */
     quint32 mtu() const;
 
+    /*!
+     */
     void setSeenBssids(const QStringList &list);
+    /*!
+     */
     QStringList seenBssids() const;
 
+    /*!
+     */
     void setPowerSave(PowerSave powersave);
+    /*!
+     */
     PowerSave powerSave() const;
 
     /*! \deprecated [NM 1.0.0] */
     void setSecurity(const QString &security);
+    /*!
+     */
     QString security() const;
 
+    /*!
+     */
     void setHidden(bool hidden);
+    /*!
+     */
     bool hidden() const;
 
     void fromMap(const QVariantMap &setting) override;

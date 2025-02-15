@@ -34,18 +34,32 @@ public:
      * \typedef NetworkManager::BondSetting::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     BondSetting();
+    /*!
+     */
     explicit BondSetting(const Ptr &other);
     ~BondSetting() override;
 
     QString name() const override;
 
     /*! \deprecated in favor of connection.interface-name in NM 1.0.0 */
+    /*!
+     */
     void setInterfaceName(const QString &name);
+    /*!
+     */
     QString interfaceName() const;
 
+    /*!
+     */
     void addOption(const QString &option, const QString &value);
+    /*!
+     */
     void setOptions(const NMStringMap &options);
+    /*!
+     */
     NMStringMap options() const;
 
     void fromMap(const QVariantMap &setting) override;

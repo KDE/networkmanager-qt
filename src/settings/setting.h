@@ -153,11 +153,21 @@ public:
         MacAddressRandomizationAlways,
     };
 
+    /*!
+     */
     static QString typeAsString(SettingType type);
+    /*!
+     */
     static SettingType typeFromString(const QString &type);
 
+    /*!
+     */
     explicit Setting(SettingType type);
+    /*!
+     */
     explicit Setting(const Ptr &setting);
+    /*!
+     */
     virtual ~Setting();
 
     /*!
@@ -170,6 +180,8 @@ public:
      */
     virtual QVariantMap toMap() const;
 
+    /*!
+     */
     virtual void secretsFromMap(const QVariantMap &map);
 
     /*!
@@ -179,6 +191,8 @@ public:
      */
     virtual void secretsFromStringMap(const NMStringMap &map);
 
+    /*!
+     */
     virtual QVariantMap secretsToMap() const;
 
     /*!
@@ -188,6 +202,8 @@ public:
      */
     virtual NMStringMap secretsToStringMap() const;
 
+    /*!
+     */
     virtual QStringList needSecrets(bool requestNew = false) const;
 
     /*!
@@ -195,11 +211,19 @@ public:
      */
     virtual QString name() const;
 
+    /*!
+     */
     void setInitialized(bool initialized);
 
+    /*!
+     */
     bool isNull() const;
 
+    /*!
+     */
     void setType(SettingType type);
+    /*!
+     */
     SettingType type() const;
 
 protected:

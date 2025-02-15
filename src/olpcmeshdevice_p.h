@@ -16,6 +16,8 @@ class OlpcMeshDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
+    /*!
+     */
     explicit OlpcMeshDevicePrivate(const QString &path, OlpcMeshDevice *q);
     OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface iface;
     uint activeChannel;

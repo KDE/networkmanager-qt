@@ -20,6 +20,8 @@ class TeamDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
+    /*!
+     */
     TeamDevicePrivate(const QString &path, TeamDevice *q);
     ~TeamDevicePrivate() override;
 

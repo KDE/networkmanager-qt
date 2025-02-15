@@ -14,6 +14,8 @@ namespace NetworkManager
 class InfinibandSettingPrivate
 {
 public:
+    /*!
+     */
     InfinibandSettingPrivate();
 
     QString name;

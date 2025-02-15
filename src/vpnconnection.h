@@ -155,6 +155,8 @@ Q_SIGNALS:
     void stateChanged(NetworkManager::VpnConnection::State state, NetworkManager::VpnConnection::StateChangeReason reason);
 
 private:
+    /*!
+     */
     Q_DECLARE_PRIVATE(VpnConnection)
 };
 

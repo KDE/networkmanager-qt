@@ -33,12 +33,18 @@ public:
      */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     MatchSetting();
+    /*!
+     */
     explicit MatchSetting(const Ptr &other);
     ~MatchSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setInterfaceName(const QStringList &name);
     QStringList interfaceName() const;
 

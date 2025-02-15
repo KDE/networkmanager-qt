@@ -16,6 +16,8 @@ class BluetoothDevicePrivate : public ModemDevicePrivate
 {
     Q_OBJECT
 public:
+    /*!
+     */
     explicit BluetoothDevicePrivate(const QString &path, BluetoothDevice *q);
     OrgFreedesktopNetworkManagerDeviceBluetoothInterface btIface;
     BluetoothDevice::Capabilities btCapabilities;

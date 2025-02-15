@@ -16,6 +16,8 @@ class WimaxNspPrivate : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     */
     WimaxNspPrivate(const QString &path, WimaxNsp *q);
 
     OrgFreedesktopNetworkManagerWiMaxNspInterface iface;
@@ -27,6 +29,8 @@ public:
     Q_DECLARE_PUBLIC(WimaxNsp)
     WimaxNsp *q_ptr;
 private Q_SLOTS:
+    /*!
+     */
     void propertiesChanged(const QVariantMap &properties);
 };
 }

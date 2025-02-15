@@ -18,6 +18,8 @@ class GenericDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
+    /*!
+     */
     GenericDevicePrivate(const QString &path, GenericDevice *q);
     ~GenericDevicePrivate() override;
 

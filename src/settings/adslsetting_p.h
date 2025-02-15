@@ -14,6 +14,8 @@ namespace NetworkManager
 class AdslSettingPrivate
 {
 public:
+    /*!
+     */
     AdslSettingPrivate();
 
     QString name;

@@ -107,55 +107,119 @@ public:
     Q_DECLARE_FLAGS(WakeOnLanFlags, WakeOnLanFlag)
     Q_FLAGS(WakeOnLanFlag)
 
+    /*!
+     */
     WiredSetting();
+    /*!
+     */
     explicit WiredSetting(const Ptr &other);
     ~WiredSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setPort(PortType port);
+    /*!
+     */
     PortType port() const;
 
+    /*!
+     */
     void setSpeed(quint32 speed);
+    /*!
+     */
     quint32 speed() const;
 
+    /*!
+     */
     void setDuplexType(DuplexType type);
+    /*!
+     */
     DuplexType duplexType() const;
 
+    /*!
+     */
     void setAutoNegotiate(bool autoNegotiate);
+    /*!
+     */
     bool autoNegotiate() const;
 
+    /*!
+     */
     QString generateMacAddressMask() const;
+    /*!
+     */
     void setGenerateMacAddressMask(const QString &mask);
 
+    /*!
+     */
     void setMacAddress(const QByteArray &address);
+    /*!
+     */
     QByteArray macAddress() const;
 
+    /*!
+     */
     void setClonedMacAddress(const QByteArray &address);
+    /*!
+     */
     QByteArray clonedMacAddress() const;
 
+    /*!
+     */
     void setMacAddressBlacklist(const QStringList &list);
+    /*!
+     */
     QStringList macAddressBlacklist() const;
 
+    /*!
+     */
     void setMtu(quint32 mtu);
+    /*!
+     */
     quint32 mtu() const;
 
+    /*!
+     */
     void setS390Subchannels(const QStringList &channels);
+    /*!
+     */
     QStringList s390Subchannels() const;
 
+    /*!
+     */
     void setS390NetType(S390Nettype type);
+    /*!
+     */
     S390Nettype s390NetType() const;
 
+    /*!
+     */
     void setS390Options(const QMap<QString, QString> &options);
+    /*!
+     */
     QMap<QString, QString> s390Options() const;
 
+    /*!
+     */
     WakeOnLanFlags wakeOnLan() const;
+    /*!
+     */
     void setWakeOnLan(WakeOnLanFlags wol);
 
+    /*!
+     */
     QString wakeOnLanPassword() const;
+    /*!
+     */
     void setWakeOnLanPassword(const QString &password);
 
+    /*!
+     */
     QString assignedMacAddress() const;
+    /*!
+     */
     void setAssignedMacAddress(const QString &assignedMacAddress);
 
     void fromMap(const QVariantMap &setting) override;

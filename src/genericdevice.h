@@ -37,6 +37,8 @@ public:
      * \typedef NetworkManager::GenericDevice::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     explicit GenericDevice(const QString &path, QObject *parent = nullptr);
     ~GenericDevice() override;
     /*!

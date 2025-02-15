@@ -16,9 +16,17 @@ class ManagerTest : public QObject
     Q_OBJECT
 
 private Q_SLOTS:
+    /*!
+     */
     void initTestCase();
+    /*!
+     */
     void testDevices();
+    /*!
+     */
     void testDeviceAdded(const QString &dev);
+    /*!
+     */
     void testManager();
 
 private:

@@ -34,25 +34,49 @@ public:
      * \typedef NetworkManager::PppoeSetting::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     PppoeSetting();
+    /*!
+     */
     explicit PppoeSetting(const Ptr &other);
     ~PppoeSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setService(const QString &service);
+    /*!
+     */
     QString service() const;
 
+    /*!
+     */
     void setParent(const QString &parent);
+    /*!
+     */
     QString parent() const;
 
+    /*!
+     */
     void setUsername(const QString &username);
+    /*!
+     */
     QString username() const;
 
+    /*!
+     */
     void setPassword(const QString &password);
+    /*!
+     */
     QString password() const;
 
+    /*!
+     */
     void setPasswordFlags(Setting::SecretFlags flags);
+    /*!
+     */
     Setting::SecretFlags passwordFlags() const;
 
     QStringList needSecrets(bool requestNew = false) const override;

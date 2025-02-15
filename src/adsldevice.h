@@ -34,6 +34,8 @@ public:
      * \typedef NetworkManager::AdslDevice::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     explicit AdslDevice(const QString &path, QObject *parent = nullptr);
     ~AdslDevice() override;
 

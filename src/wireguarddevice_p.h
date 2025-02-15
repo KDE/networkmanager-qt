@@ -18,6 +18,8 @@ namespace NetworkManager
 class WireGuardDevicePrivate : public DevicePrivate
 {
 public:
+    /*!
+     */
     WireGuardDevicePrivate(const QString &path, WireGuardDevice *q);
     ~WireGuardDevicePrivate() override;
 

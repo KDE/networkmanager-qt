@@ -605,18 +605,32 @@ NETWORKMANAGERQT_EXPORT ActiveConnection::Ptr findActiveConnection(const QString
  * Returns the interface types supported by the network manager
  */
 NETWORKMANAGERQT_EXPORT Device::Types supportedInterfaceTypes();
+/*!
+ */
 NETWORKMANAGERQT_EXPORT void setNetworkingEnabled(bool enabled);
 // implemented in Notifier
+/*!
+ */
 NETWORKMANAGERQT_EXPORT void setWirelessEnabled(bool enabled);
+/*!
+ */
 NETWORKMANAGERQT_EXPORT void setWwanEnabled(bool enabled);
 /*!
  * \deprecated Wimax support was removed from NetworkManager 1.2
  * (it is a noop in runtime NM >= 1.2.0).
  */
 NETWORKMANAGERQT_EXPORT void setWimaxEnabled(bool enabled);
+/*!
+ */
 NETWORKMANAGERQT_EXPORT void sleep(bool sleep);
+/*!
+ */
 NETWORKMANAGERQT_EXPORT void setLogging(LogLevel, LogDomains);
+/*!
+ */
 NETWORKMANAGERQT_EXPORT NMStringMap permissions();
+/*!
+ */
 NETWORKMANAGERQT_EXPORT Notifier *notifier();
 
 }

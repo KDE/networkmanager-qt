@@ -16,6 +16,8 @@ class DeviceStatisticsPrivate : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     */
     DeviceStatisticsPrivate(const QString &path, DeviceStatistics *q);
 
     OrgFreedesktopNetworkManagerDeviceStatisticsInterface iface;
@@ -27,7 +29,11 @@ public:
     Q_DECLARE_PUBLIC(DeviceStatistics)
     DeviceStatistics *q_ptr;
 private Q_SLOTS:
+    /*!
+     */
     void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
+    /*!
+     */
     void propertiesChanged(const QVariantMap &properties);
 };
 

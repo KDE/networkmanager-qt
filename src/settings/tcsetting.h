@@ -33,16 +33,28 @@ public:
      */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     TcSetting();
+    /*!
+     */
     explicit TcSetting(const Ptr &other);
     ~TcSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setQdiscs(const NMVariantMapList &qdiscs);
+    /*!
+     */
     NMVariantMapList qdiscs() const;
 
+    /*!
+     */
     void setTfilters(const NMVariantMapList &tfilters);
+    /*!
+     */
     NMVariantMapList tfilters() const;
 
     void fromMap(const QVariantMap &setting) override;

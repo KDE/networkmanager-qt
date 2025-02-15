@@ -35,22 +35,42 @@ public:
      */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     OvsBridgeSetting();
+    /*!
+     */
     explicit OvsBridgeSetting(const Ptr &other);
     ~OvsBridgeSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setMcastSnoopingEnable(bool mcastSnoopingEnable);
+    /*!
+     */
     bool mcastSnoopingEnable() const;
 
+    /*!
+     */
     void setRstpEnable(bool rstpEnable);
+    /*!
+     */
     bool rstpEnable() const;
 
+    /*!
+     */
     void setStpEnable(bool stpEnable);
+    /*!
+     */
     bool stpEnable() const;
 
+    /*!
+     */
     void setFailMode(const QString &mode);
+    /*!
+     */
     QString failMode() const;
 
     void fromMap(const QVariantMap &setting) override;

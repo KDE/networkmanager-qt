@@ -20,6 +20,8 @@ class IpTunnelDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
+    /*!
+     */
     IpTunnelDevicePrivate(const QString &path, IpTunnelDevice *q);
     ~IpTunnelDevicePrivate() override;
 

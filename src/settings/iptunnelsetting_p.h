@@ -14,6 +14,8 @@ namespace NetworkManager
 class IpTunnelSettingPrivate
 {
 public:
+    /*!
+     */
     IpTunnelSettingPrivate();
 
     QString name;

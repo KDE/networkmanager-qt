@@ -48,7 +48,11 @@ typedef QMap<QString, QString> NMStringMap;
 typedef QMapIterator<QString, QString> NMStringMapIterator;
 Q_DECLARE_METATYPE(NMStringMap)
 
+/*!
+ */
 NETWORKMANAGERQT_EXPORT QDBusArgument &operator<<(QDBusArgument &argument, const NMStringMap &mydict);
+/*!
+ */
 NETWORKMANAGERQT_EXPORT const QDBusArgument &operator>>(const QDBusArgument &argument, NMStringMap &mydict);
 
 /*!
@@ -67,7 +71,11 @@ Q_DECLARE_METATYPE(IpV6DBusAddress)
 typedef QList<IpV6DBusAddress> IpV6DBusAddressList;
 Q_DECLARE_METATYPE(IpV6DBusAddressList)
 
+/*!
+ */
 NETWORKMANAGERQT_EXPORT QDBusArgument &operator<<(QDBusArgument &argument, const IpV6DBusAddress &address);
+/*!
+ */
 NETWORKMANAGERQT_EXPORT const QDBusArgument &operator>>(const QDBusArgument &argument, IpV6DBusAddress &address);
 
 /*!
@@ -87,7 +95,11 @@ Q_DECLARE_METATYPE(IpV6DBusRoute)
 typedef QList<IpV6DBusRoute> IpV6DBusRouteList;
 Q_DECLARE_METATYPE(IpV6DBusRouteList)
 
+/*!
+ */
 NETWORKMANAGERQT_EXPORT QDBusArgument &operator<<(QDBusArgument &argument, const IpV6DBusRoute &route);
+/*!
+ */
 NETWORKMANAGERQT_EXPORT const QDBusArgument &operator>>(const QDBusArgument &argument, IpV6DBusRoute &route);
 
 // ipv6 nameservers
@@ -106,7 +118,11 @@ typedef struct {
 } DeviceDBusStateReason;
 Q_DECLARE_METATYPE(DeviceDBusStateReason)
 
+/*!
+ */
 NETWORKMANAGERQT_EXPORT QDBusArgument &operator<<(QDBusArgument &argument, const DeviceDBusStateReason &reason);
+/*!
+ */
 NETWORKMANAGERQT_EXPORT const QDBusArgument &operator>>(const QDBusArgument &argument, DeviceDBusStateReason &reason);
 
 #endif // GENERIC_TYPES_H

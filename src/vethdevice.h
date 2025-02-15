@@ -37,14 +37,20 @@ public:
      */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     explicit VethDevice(const QString &path, QObject *parent = nullptr);
     ~VethDevice() override;
 
     Type type() const override;
 
+    /*!
+     */
     QString peer() const;
 
 Q_SIGNALS:
+    /*!
+     */
     void peerChanged(const QString &peer);
 
 private:

@@ -14,6 +14,8 @@ namespace NetworkManager
 class BluetoothSettingPrivate
 {
 public:
+    /*!
+     */
     BluetoothSettingPrivate();
 
     QString name;

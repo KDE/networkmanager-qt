@@ -34,19 +34,35 @@ public:
      * \typedef NetworkManager::OlpcMeshSetting::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     OlpcMeshSetting();
+    /*!
+     */
     explicit OlpcMeshSetting(const Ptr &other);
     ~OlpcMeshSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setSsid(const QByteArray &ssid);
+    /*!
+     */
     QByteArray ssid() const;
 
+    /*!
+     */
     void setChannel(quint32 channel);
+    /*!
+     */
     quint32 channel() const;
 
+    /*!
+     */
     void setDhcpAnycastAddress(const QByteArray &address);
+    /*!
+     */
     QByteArray dhcpAnycastAddress() const;
 
     void fromMap(const QVariantMap &setting) override;

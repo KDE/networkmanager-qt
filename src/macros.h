@@ -17,6 +17,8 @@ class NmCleanUpGlobalStatic
 public:
     NmCleanUpFunction func;
 
+    /*!
+     */
     inline ~NmCleanUpGlobalStatic()
     {
         func();

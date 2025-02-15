@@ -23,6 +23,8 @@ class FakeNetwork : public QObject
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork")
 public:
+    /*!
+     */
     explicit FakeNetwork(QObject *parent = nullptr);
     ~FakeNetwork() override;
 
@@ -41,50 +43,124 @@ public:
     Q_PROPERTY(bool WwanEnabled READ wwanEnabled WRITE setWwanEnabled)
     Q_PROPERTY(bool WwanHardwareEnabled READ wwanHardwareEnabled)
 
+    /*!
+     */
     QDBusObjectPath activatingConnection() const;
+    /*!
+     */
     QList<QDBusObjectPath> activeConnections() const;
+    /*!
+     */
     uint connectivity() const;
+    /*!
+     */
     QList<QDBusObjectPath> devices() const;
+    /*!
+     */
     bool networkingEnabled() const;
+    /*!
+     */
     QDBusObjectPath primaryConnection() const;
+    /*!
+     */
     uint state() const;
+    /*!
+     */
     QString version() const;
+    /*!
+     */
     bool wimaxEnabled() const;
+    /*!
+     */
     void setWimaxEnabled(bool enabled);
+    /*!
+     */
     bool wimaxHardwareEnabled() const;
+    /*!
+     */
     void setWimaxHardwareEnabled(bool enabled);
+    /*!
+     */
     bool wirelessEnabled() const;
+    /*!
+     */
     void setWirelessEnabled(bool enabled);
+    /*!
+     */
     bool wirelessHardwareEnabled() const;
+    /*!
+     */
     void setWirelessHardwareEnabled(bool enabled);
+    /*!
+     */
     bool wwanEnabled() const;
+    /*!
+     */
     void setWwanEnabled(bool enabled);
+    /*!
+     */
     bool wwanHardwareEnabled() const;
 
     /* Not part of DBus interface */
+    /*!
+     */
     void addDevice(Device *device);
+    /*!
+     */
     void removeDevice(Device *device);
+    /*!
+     */
     void registerService();
+    /*!
+     */
     void unregisterService();
 
 private Q_SLOTS:
+    /*!
+     */
     void onConnectionAdded(const QDBusObjectPath &connection);
+    /*!
+     */
     void onConnectionRemoved(const QDBusObjectPath &connection);
+    /*!
+     */
     void removeActiveConnection(const QDBusObjectPath &activeConnection);
+    /*!
+     */
     void updateConnectingState();
+    /*!
+     */
     void updateDeactivatingState();
 
 public Q_SLOTS:
+    /*!
+     */
     Q_SCRIPTABLE QDBusObjectPath ActivateConnection(const QDBusObjectPath &connection, const QDBusObjectPath &device, const QDBusObjectPath &specific_object);
+    /*!
+     */
     Q_SCRIPTABLE uint CheckConnectivity() const;
+    /*!
+     */
     Q_SCRIPTABLE void DeactivateConnection(const QDBusObjectPath &active_connection);
+    /*!
+     */
     Q_SCRIPTABLE QDBusObjectPath GetDeviceByIpIface(const QString &iface);
+    /*!
+     */
     Q_SCRIPTABLE QList<QDBusObjectPath> GetDevices() const;
 
 Q_SIGNALS:
+    /*!
+     */
     Q_SCRIPTABLE void DeviceAdded(const QDBusObjectPath &device_path);
+    /*!
+     */
     Q_SCRIPTABLE void DeviceRemoved(const QDBusObjectPath &device_path);
+    /*!
+     */
     Q_SCRIPTABLE void PropertiesChanged(const QVariantMap &properties);
+    /*!
+     */
     Q_SCRIPTABLE void StateChanged(uint state);
 
 private:

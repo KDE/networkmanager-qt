@@ -14,6 +14,8 @@ namespace NetworkManager
 class OvsPatchSettingPrivate
 {
 public:
+    /*!
+     */
     OvsPatchSettingPrivate();
 
     QString name;

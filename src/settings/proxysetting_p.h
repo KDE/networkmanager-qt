@@ -14,6 +14,8 @@ namespace NetworkManager
 class ProxySettingPrivate
 {
 public:
+    /*!
+     */
     ProxySettingPrivate();
 
     QString name;

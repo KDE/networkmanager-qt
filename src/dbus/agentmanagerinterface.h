@@ -20,13 +20,15 @@
 #include <QString>
 #include <QVariant>
 
-/*
+/*!
  * Proxy class for interface org.freedesktop.NetworkManager.AgentManager
  */
 class OrgFreedesktopNetworkManagerAgentManagerInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
+    /*!
+     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -39,6 +41,8 @@ public:
 #endif
 
 public:
+    /*!
+     */
     OrgFreedesktopNetworkManagerAgentManagerInterface(const QString &service,
                                                       const QString &path,
                                                       const QDBusConnection &connection,
@@ -47,6 +51,8 @@ public:
     ~OrgFreedesktopNetworkManagerAgentManagerInterface() override;
 
 public Q_SLOTS: // METHODS
+    /*!
+     */
     inline QDBusPendingReply<> Register(const QString &identifier)
     {
         QList<QVariant> argumentList;
@@ -54,6 +60,8 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("Register"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<> RegisterWithCapabilities(const QString &identifier, uint capabilities)
     {
         QList<QVariant> argumentList;
@@ -61,6 +69,8 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("RegisterWithCapabilities"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<> Unregister()
     {
         QList<QVariant> argumentList;

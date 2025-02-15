@@ -35,13 +35,21 @@ public:
      */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     OvsPatchSetting();
+    /*!
+     */
     explicit OvsPatchSetting(const Ptr &other);
     ~OvsPatchSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setPeer(const QString &peer);
+    /*!
+     */
     QString peer() const;
 
     void fromMap(const QVariantMap &setting) override;

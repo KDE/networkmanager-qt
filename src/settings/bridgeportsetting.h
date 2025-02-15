@@ -34,19 +34,35 @@ public:
      * \typedef NetworkManager::BridgePortSetting::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     BridgePortSetting();
+    /*!
+     */
     explicit BridgePortSetting(const Ptr &other);
     ~BridgePortSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setPriority(quint32 priority);
+    /*!
+     */
     quint32 priority() const;
 
+    /*!
+     */
     void setPathCost(quint32 cost);
+    /*!
+     */
     quint32 pathCost() const;
 
+    /*!
+     */
     void setHairpinMode(bool enable);
+    /*!
+     */
     bool hairpinMode() const;
 
     void fromMap(const QVariantMap &setting) override;

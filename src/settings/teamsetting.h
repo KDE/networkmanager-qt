@@ -34,7 +34,11 @@ public:
      * \typedef NetworkManager::TeamSetting::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     TeamSetting();
+    /*!
+     */
     explicit TeamSetting(const Ptr &other);
     ~TeamSetting() override;
 
@@ -42,9 +46,15 @@ public:
 
     /*! \deprecated in favor of connection.interface-name in NM 1.0.0 */
     void setInterfaceName(const QString &name);
+    /*!
+     */
     QString interfaceName() const;
 
+    /*!
+     */
     QString config() const;
+    /*!
+     */
     void setConfig(const QString &config);
 
     void fromMap(const QVariantMap &setting) override;

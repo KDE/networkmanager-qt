@@ -35,14 +35,24 @@ public:
      */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     UserSetting();
+    /*!
+     */
     explicit UserSetting(const Ptr &other);
     ~UserSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void addData(const QString &data, const QString &value);
+    /*!
+     */
     void setData(const NMStringMap &data);
+    /*!
+     */
     NMStringMap data() const;
 
     void fromMap(const QVariantMap &setting) override;

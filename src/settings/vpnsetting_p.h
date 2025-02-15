@@ -16,6 +16,8 @@ namespace NetworkManager
 class VpnSettingPrivate
 {
 public:
+    /*!
+     */
     VpnSettingPrivate();
 
     QString name;

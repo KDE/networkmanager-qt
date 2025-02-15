@@ -37,6 +37,8 @@ public:
      * \typedef NetworkManager::BridgeDevice::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     explicit BridgeDevice(const QString &path, QObject *parent = nullptr);
     ~BridgeDevice() override;
 

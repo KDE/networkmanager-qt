@@ -25,6 +25,8 @@ class OrgFreedesktopNetworkManagerDHCP6ConfigInterface : public QDBusAbstractInt
 {
     Q_OBJECT
 public:
+    /*!
+     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -37,11 +39,15 @@ public:
 #endif
 
 public:
+    /*!
+     */
     OrgFreedesktopNetworkManagerDHCP6ConfigInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDHCP6ConfigInterface() override;
 
     Q_PROPERTY(QVariantMap Options READ options)
+    /*!
+     */
     inline QVariantMap options() const
     {
         return qvariant_cast<QVariantMap>(property("Options"));
@@ -49,6 +55,8 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
+    /*!
+     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

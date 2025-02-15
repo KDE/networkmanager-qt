@@ -34,7 +34,11 @@ public:
      * \typedef NetworkManager::TemplateSetting::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     TemplateSetting();
+    /*!
+     */
     explicit TemplateSetting(const Ptr &other);
     ~TemplateSetting() override;
 

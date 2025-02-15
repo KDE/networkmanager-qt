@@ -47,16 +47,28 @@ public:
         Panu,
     };
 
+    /*!
+     */
     BluetoothSetting();
+    /*!
+     */
     explicit BluetoothSetting(const Ptr &other);
     ~BluetoothSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setBluetoothAddress(const QByteArray &address);
+    /*!
+     */
     QByteArray bluetoothAddress() const;
 
+    /*!
+     */
     void setProfileType(ProfileType type);
+    /*!
+     */
     ProfileType profileType() const;
 
     void fromMap(const QVariantMap &setting) override;

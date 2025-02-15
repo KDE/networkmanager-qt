@@ -25,6 +25,8 @@ class OrgFreedesktopNetworkManagerDeviceStatisticsInterface : public QDBusAbstra
 {
     Q_OBJECT
 public:
+    /*!
+     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -37,6 +39,8 @@ public:
 #endif
 
 public:
+    /*!
+     */
     OrgFreedesktopNetworkManagerDeviceStatisticsInterface(const QString &service,
                                                           const QString &path,
                                                           const QDBusConnection &connection,
@@ -45,22 +49,30 @@ public:
     ~OrgFreedesktopNetworkManagerDeviceStatisticsInterface() override;
 
     Q_PROPERTY(uint RefreshRateMs READ refreshRateMs WRITE setRefreshRateMs)
+    /*!
+     */
     inline uint refreshRateMs() const
     {
         return qvariant_cast<uint>(property("RefreshRateMs"));
     }
+    /*!
+     */
     inline void setRefreshRateMs(uint value)
     {
         setProperty("RefreshRateMs", QVariant::fromValue(value));
     }
 
     Q_PROPERTY(qulonglong RxBytes READ rxBytes)
+    /*!
+     */
     inline qulonglong rxBytes() const
     {
         return qvariant_cast<qulonglong>(property("RxBytes"));
     }
 
     Q_PROPERTY(qulonglong TxBytes READ txBytes)
+    /*!
+     */
     inline qulonglong txBytes() const
     {
         return qvariant_cast<qulonglong>(property("TxBytes"));
@@ -68,6 +80,8 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
+    /*!
+     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

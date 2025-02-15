@@ -53,9 +53,13 @@ public:
         RoamingPartner = 0x4,
     };
 
+    /*!
+     */
     explicit WimaxNsp(const QString &path, QObject *parent = nullptr);
     ~WimaxNsp() override;
 
+    /*!
+     */
     QString uni() const;
     /*!
      * The network type of the NSP

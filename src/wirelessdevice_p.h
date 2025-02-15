@@ -17,6 +17,8 @@ class WirelessDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
+    /*!
+     */
     explicit WirelessDevicePrivate(const QString &path, WirelessDevice *q);
     OrgFreedesktopNetworkManagerDeviceWirelessInterface wirelessIface;
     QString permanentHardwareAddress;
@@ -40,8 +42,14 @@ protected:
     void propertyChanged(const QString &property, const QVariant &value) override;
 
 protected Q_SLOTS:
+    /*!
+     */
     void accessPointAdded(const QDBusObjectPath &);
+    /*!
+     */
     void accessPointRemoved(const QDBusObjectPath &);
+    /*!
+     */
     void removeNetwork(const QString &network);
 };
 

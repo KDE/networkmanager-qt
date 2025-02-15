@@ -25,6 +25,8 @@ class OrgFreedesktopNetworkManagerDeviceWireGuardInterface : public QDBusAbstrac
 {
     Q_OBJECT
 public:
+    /*!
+     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -37,6 +39,8 @@ public:
 #endif
 
 public:
+    /*!
+     */
     OrgFreedesktopNetworkManagerDeviceWireGuardInterface(const QString &service,
                                                          const QString &path,
                                                          const QDBusConnection &connection,
@@ -45,18 +49,24 @@ public:
     ~OrgFreedesktopNetworkManagerDeviceWireGuardInterface() override;
 
     Q_PROPERTY(QByteArray PublicKey READ publicKey)
+    /*!
+     */
     inline QByteArray publicKey() const
     {
         return qvariant_cast<QByteArray>(property("PublicKey"));
     }
 
     Q_PROPERTY(uint ListenPort READ listenPort)
+    /*!
+     */
     inline uint listenPort() const
     {
         return qvariant_cast<uint>(property("ListenPort"));
     }
 
     Q_PROPERTY(uint FwMark READ fwMark)
+    /*!
+     */
     inline uint fwMark() const
     {
         return qvariant_cast<uint>(property("FwMark"));

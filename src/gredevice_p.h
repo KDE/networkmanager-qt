@@ -20,6 +20,8 @@ class GreDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
+    /*!
+     */
     GreDevicePrivate(const QString &path, GreDevice *q);
     ~GreDevicePrivate() override;
 

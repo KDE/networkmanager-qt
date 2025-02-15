@@ -14,6 +14,8 @@ namespace NetworkManager
 class MatchSettingPrivate
 {
 public:
+    /*!
+     */
     MatchSettingPrivate();
 
     QString name;

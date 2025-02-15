@@ -54,6 +54,8 @@ public:
         Lte = 0x8,
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
+    /*!
+     */
     explicit ModemDevice(const QString &path, QObject *parent = nullptr);
     ~ModemDevice() override;
     /*!
@@ -79,6 +81,8 @@ Q_SIGNALS:
     void currentCapabilitiesChanged(Capabilities);
 
 protected:
+    /*!
+     */
     NETWORKMANAGERQT_NO_EXPORT explicit ModemDevice(ModemDevicePrivate &dd, QObject *parent = nullptr);
 
 private:

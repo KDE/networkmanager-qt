@@ -15,6 +15,8 @@ namespace NetworkManager
 class WiredSettingPrivate
 {
 public:
+    /*!
+     */
     WiredSettingPrivate();
 
     QString name;

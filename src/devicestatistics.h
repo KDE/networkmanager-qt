@@ -42,6 +42,8 @@ public:
      */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     explicit DeviceStatistics(const QString &path, QObject *parent = nullptr);
     ~DeviceStatistics() override;
 
@@ -51,6 +53,8 @@ public:
      * refresh rate of the properties.
      */
     uint refreshRateMs() const;
+    /*!
+     */
     void setRefreshRateMs(uint refreshRate);
     /*!
      * Number of received bytes

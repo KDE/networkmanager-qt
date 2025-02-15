@@ -14,6 +14,8 @@ namespace NetworkManager
 class UserSettingPrivate
 {
 public:
+    /*!
+     */
     UserSettingPrivate();
 
     QString name;

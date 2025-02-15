@@ -50,7 +50,11 @@ public:
     };
     Q_DECLARE_FLAGS(Flags, Flag)
 
+    /*!
+     */
     VlanSetting();
+    /*!
+     */
     explicit VlanSetting(const Ptr &other);
     ~VlanSetting() override;
 
@@ -58,21 +62,43 @@ public:
 
     /*! \deprecated in favor of connection.interface-name in NM 1.0.0 */
     void setInterfaceName(const QString &name);
+    /*!
+     */
     QString interfaceName() const;
 
+    /*!
+     */
     void setParent(const QString &parent);
+    /*!
+     */
     QString parent() const;
 
+    /*!
+     */
     void setId(quint32 id);
+    /*!
+     */
     quint32 id() const;
 
+    /*!
+     */
     void setFlags(Flags flags);
+    /*!
+     */
     Flags flags() const;
 
+    /*!
+     */
     void setIngressPriorityMap(const QStringList &map);
+    /*!
+     */
     QStringList ingressPriorityMap() const;
 
+    /*!
+     */
     void setEgressPriorityMap(const QStringList &map);
+    /*!
+     */
     QStringList egressPriorityMap() const;
 
     void fromMap(const QVariantMap &setting) override;

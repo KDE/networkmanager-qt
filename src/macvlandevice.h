@@ -37,18 +37,32 @@ public:
      * \typedef NetworkManager::MacVlanDevice::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     explicit MacVlanDevice(const QString &path, QObject *parent = nullptr);
     ~MacVlanDevice() override;
 
     Type type() const override;
 
+    /*!
+     */
     QString mode() const;
+    /*!
+     */
     bool noPromisc() const;
+    /*!
+     */
     QString parent() const;
 
 Q_SIGNALS:
+    /*!
+     */
     void modeChanged(const QString &mode);
+    /*!
+     */
     void noPromiscChanged(bool noPromisc);
+    /*!
+     */
     void parentChanged(const QString &parent);
 
 private:

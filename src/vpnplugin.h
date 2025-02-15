@@ -40,31 +40,63 @@ public:
         BadIpConfig,
     };
 
+    /*!
+     */
     explicit VpnPlugin(const QString &path, QObject *parent = nullptr);
     ~VpnPlugin() override;
 
 Q_SIGNALS:
+    /*!
+     */
     void configChanged(const QVariantMap &configuration);
+    /*!
+     */
     void failureChanged(uint reason);
+    /*!
+     */
     void ip4ConfigChanged(const QVariantMap &ip4config);
+    /*!
+     */
     void ip6ConfigChanged(const QVariantMap &ip6config);
+    /*!
+     */
     void loginBannerChanged(const QString &banner);
+    /*!
+     */
     void stateChanged(VpnConnection::State state);
 
 protected Q_SLOTS:
+    /*!
+     */
     void connect(const NMVariantMapMap &connection);
+    /*!
+     */
     void disconnect();
+    /*!
+     */
     QString needSecrets(const NMVariantMapMap &connection);
+    /*!
+     */
     void setConfig(const QVariantMap &config);
+    /*!
+     */
     void setFailure(const QString &reason);
+    /*!
+     */
     void setIp4Config(const QVariantMap &config);
+    /*!
+     */
     void setIp6Config(const QVariantMap &config);
+    /*!
+     */
     void onStateChanged(uint state);
 
 protected:
     VpnPluginPrivate *const d_ptr;
 
 private:
+    /*!
+     */
     Q_DECLARE_PRIVATE(VpnPlugin)
 };
 

@@ -14,6 +14,8 @@ namespace NetworkManager
 class PppoeSettingPrivate
 {
 public:
+    /*!
+     */
     PppoeSettingPrivate();
 
     QString name;

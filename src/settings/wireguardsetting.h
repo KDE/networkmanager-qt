@@ -37,31 +37,63 @@ public:
      * \typedef NetworkManager::WireGuardSetting::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     WireGuardSetting();
+    /*!
+     */
     explicit WireGuardSetting(const Ptr &other);
     ~WireGuardSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     quint32 fwmark() const;
+    /*!
+     */
     void setFwmark(quint32 fwmark);
 
+    /*!
+     */
     quint32 listenPort() const;
+    /*!
+     */
     void setListenPort(quint32 port);
 
+    /*!
+     */
     quint32 mtu() const;
+    /*!
+     */
     void setMtu(quint32 mtu);
 
+    /*!
+     */
     bool peerRoutes() const;
+    /*!
+     */
     void setPeerRoutes(bool peerRoutes);
 
+    /*!
+     */
     NMVariantMapList peers() const;
+    /*!
+     */
     void setPeers(const NMVariantMapList &peers);
 
+    /*!
+     */
     QString privateKey() const;
+    /*!
+     */
     void setPrivateKey(const QString &key);
 
+    /*!
+     */
     SecretFlags privateKeyFlags() const;
+    /*!
+     */
     void setPrivateKeyFlags(SecretFlags flags);
 
     void secretsFromMap(const QVariantMap &secrets) override;

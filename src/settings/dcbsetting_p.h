@@ -14,6 +14,8 @@ namespace NetworkManager
 class DcbSettingPrivate
 {
 public:
+    /*!
+     */
     DcbSettingPrivate();
 
     QString name;

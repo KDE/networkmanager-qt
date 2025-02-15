@@ -81,49 +81,105 @@ public:
     };
     Q_DECLARE_FLAGS(Flags, Flag)
 
+    /*!
+     */
     IpTunnelSetting();
+    /*!
+     */
     explicit IpTunnelSetting(const Ptr &other);
     ~IpTunnelSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setMode(Mode mode);
+    /*!
+     */
     Mode mode() const;
 
+    /*!
+     */
     void setPathMtuDiscovery(bool discovery);
+    /*!
+     */
     bool pathMtuDiscovery() const;
 
+    /*!
+     */
     void setEncapsulationLimit(quint32 limit);
+    /*!
+     */
     quint32 encapsulationLimit() const;
 
+    /*!
+     */
     void setFlags(Flags flags);
+    /*!
+     */
     Flags flags() const;
 
+    /*!
+     */
     void setFlowLabel(quint32 label);
+    /*!
+     */
     quint32 flowLabel() const;
 
+    /*!
+     */
     void setMtu(quint32 mtu);
+    /*!
+     */
     quint32 mtu() const;
 
+    /*!
+     */
     void setTos(quint32 tos);
+    /*!
+     */
     quint32 tos() const;
 
+    /*!
+     */
     void setTtl(quint32 ttl);
+    /*!
+     */
     quint32 ttl() const;
 
+    /*!
+     */
     void setInputKey(const QString &key);
+    /*!
+     */
     QString inputKey() const;
 
+    /*!
+     */
     void setLocal(const QString &local);
+    /*!
+     */
     QString local() const;
 
+    /*!
+     */
     void setParent(const QString &parent);
+    /*!
+     */
     QString parent() const;
 
+    /*!
+     */
     void setOutputKey(const QString &key);
+    /*!
+     */
     QString outputKey() const;
 
+    /*!
+     */
     void setRemote(const QString &remote);
+    /*!
+     */
     QString remote() const;
 
     void fromMap(const QVariantMap &setting) override;

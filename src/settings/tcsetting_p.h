@@ -21,6 +21,8 @@ namespace NetworkManager
 class TcSettingPrivate
 {
 public:
+    /*!
+     */
     TcSettingPrivate();
 
     QString name;

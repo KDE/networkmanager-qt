@@ -34,7 +34,11 @@ public:
      * \typedef NetworkManager::GenericSetting::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     GenericSetting();
+    /*!
+     */
     explicit GenericSetting(const Ptr &other);
     ~GenericSetting() override;
 

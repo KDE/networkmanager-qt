@@ -47,25 +47,49 @@ public:
         OddParity,
     };
 
+    /*!
+     */
     SerialSetting();
+    /*!
+     */
     explicit SerialSetting(const Ptr &other);
     ~SerialSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setBaud(quint32 speed);
+    /*!
+     */
     quint32 baud() const;
 
+    /*!
+     */
     void setBits(quint32 byteWidth);
+    /*!
+     */
     quint32 bits() const;
 
+    /*!
+     */
     void setParity(Parity paritysetting);
+    /*!
+     */
     Parity parity() const;
 
+    /*!
+     */
     void setStopbits(quint32 number);
+    /*!
+     */
     quint32 stopbits() const;
 
+    /*!
+     */
     void setSendDelay(quint64 delay);
+    /*!
+     */
     quint64 sendDelay() const;
 
     void fromMap(const QVariantMap &setting) override;

@@ -16,8 +16,12 @@ class ModemDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
+    /*!
+     */
     explicit ModemDevicePrivate(const QString &path, ModemDevice *q);
 
+    /*!
+     */
     void initModemProperties();
 
     OrgFreedesktopNetworkManagerDeviceModemInterface modemIface;

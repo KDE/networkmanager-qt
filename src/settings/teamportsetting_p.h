@@ -19,6 +19,8 @@ namespace NetworkManager
 class TeamPortSettingPrivate
 {
 public:
+    /*!
+     */
     TeamPortSettingPrivate();
 
     QString name;

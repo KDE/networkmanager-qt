@@ -45,22 +45,42 @@ public:
         Auto = 1,
     };
 
+    /*!
+     */
     ProxySetting();
+    /*!
+     */
     explicit ProxySetting(const Ptr &other);
     ~ProxySetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setBrowserOnly(bool browserOnly);
+    /*!
+     */
     bool browserOnly() const;
 
+    /*!
+     */
     void setMethod(Mode method);
+    /*!
+     */
     Mode method() const;
 
+    /*!
+     */
     void setPacScript(const QString &script);
+    /*!
+     */
     QString pacScript() const;
 
+    /*!
+     */
     void setPacUrl(const QString &url);
+    /*!
+     */
     QString pacUrl() const;
 
     void fromMap(const QVariantMap &setting) override;

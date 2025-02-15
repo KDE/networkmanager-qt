@@ -23,8 +23,12 @@ class ConnectionPrivate : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     */
     ConnectionPrivate(const QString &path, Connection *q);
 
+    /*!
+     */
     void updateSettings(const NMVariantMapMap &newSettings = NMVariantMapMap());
     bool unsaved;
     QString uuid;
@@ -37,9 +41,17 @@ public:
     Q_DECLARE_PUBLIC(Connection)
     Connection *q_ptr;
 private Q_SLOTS:
+    /*!
+     */
     void onConnectionUpdated();
+    /*!
+     */
     void onConnectionRemoved();
+    /*!
+     */
     void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
+    /*!
+     */
     void onPropertiesChanged(const QVariantMap &properties);
 };
 

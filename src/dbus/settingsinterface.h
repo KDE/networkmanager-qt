@@ -29,6 +29,8 @@ class OrgFreedesktopNetworkManagerSettingsInterface : public QDBusAbstractInterf
 {
     Q_OBJECT
 public:
+    /*!
+     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -41,29 +43,39 @@ public:
 #endif
 
 public:
+    /*!
+     */
     OrgFreedesktopNetworkManagerSettingsInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerSettingsInterface() override;
 
     Q_PROPERTY(bool CanModify READ canModify)
+    /*!
+     */
     inline bool canModify() const
     {
         return qvariant_cast<bool>(property("CanModify"));
     }
 
     Q_PROPERTY(QList<QDBusObjectPath> Connections READ connections)
+    /*!
+     */
     inline QList<QDBusObjectPath> connections() const
     {
         return qvariant_cast<QList<QDBusObjectPath>>(property("Connections"));
     }
 
     Q_PROPERTY(QString Hostname READ hostname)
+    /*!
+     */
     inline QString hostname() const
     {
         return qvariant_cast<QString>(property("Hostname"));
     }
 
 public Q_SLOTS: // METHODS
+    /*!
+     */
     inline QDBusPendingReply<QDBusObjectPath> AddConnection(NMVariantMapMap connection)
     {
         QList<QVariant> argumentList;
@@ -71,6 +83,8 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("AddConnection"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<QDBusObjectPath> AddConnectionUnsaved(NMVariantMapMap connection)
     {
         QList<QVariant> argumentList;
@@ -78,6 +92,8 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("AddConnectionUnsaved"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<QDBusObjectPath> GetConnectionByUuid(const QString &uuid)
     {
         QList<QVariant> argumentList;
@@ -85,12 +101,16 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("GetConnectionByUuid"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<QList<QDBusObjectPath>> ListConnections()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("ListConnections"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<bool, QStringList> LoadConnections(const QStringList &filenames)
     {
         QList<QVariant> argumentList;
@@ -98,12 +118,16 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("LoadConnections"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<bool> ReloadConnections()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("ReloadConnections"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<> SaveHostname(const QString &hostname)
     {
         QList<QVariant> argumentList;
@@ -112,8 +136,14 @@ public Q_SLOTS: // METHODS
     }
 
 Q_SIGNALS: // SIGNALS
+    /*!
+     */
     void ConnectionRemoved(const QDBusObjectPath &connection);
+    /*!
+     */
     void NewConnection(const QDBusObjectPath &connection);
+    /*!
+     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

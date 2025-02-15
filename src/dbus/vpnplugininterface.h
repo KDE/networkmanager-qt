@@ -28,6 +28,8 @@ class OrgFreedesktopNetworkManagerVPNPluginInterface : public QDBusAbstractInter
 {
     Q_OBJECT
 public:
+    /*!
+     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -40,17 +42,23 @@ public:
 #endif
 
 public:
+    /*!
+     */
     OrgFreedesktopNetworkManagerVPNPluginInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerVPNPluginInterface() override;
 
     Q_PROPERTY(uint State READ state)
+    /*!
+     */
     inline uint state() const
     {
         return qvariant_cast<uint>(property("State"));
     }
 
 public Q_SLOTS: // METHODS
+    /*!
+     */
     inline QDBusPendingReply<> Connect(NMVariantMapMap connection)
     {
         QList<QVariant> argumentList;
@@ -58,6 +66,8 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("Connect"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<> ConnectInteractive(NMVariantMapMap connection, QVariant details)
     {
         QList<QVariant> argumentList;
@@ -65,12 +75,16 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("ConnectInteractive"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<> Disconnect()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("Disconnect"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<QString> NeedSecrets(NMVariantMapMap settings)
     {
         QList<QVariant> argumentList;
@@ -78,6 +92,8 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("NeedSecrets"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<> NewSecrets(NMVariantMapMap connection)
     {
         QList<QVariant> argumentList;
@@ -85,6 +101,8 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("NewSecrets"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<> SetConfig(QVariant config)
     {
         QList<QVariant> argumentList;
@@ -92,6 +110,8 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("SetConfig"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<> SetFailure(const QString &reason)
     {
         QList<QVariant> argumentList;
@@ -99,6 +119,8 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("SetFailure"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<> SetIp4Config(QVariant config)
     {
         QList<QVariant> argumentList;
@@ -106,6 +128,8 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("SetIp4Config"), argumentList);
     }
 
+    /*!
+     */
     inline QDBusPendingReply<> SetIp6Config(QVariant config)
     {
         QList<QVariant> argumentList;
@@ -114,12 +138,26 @@ public Q_SLOTS: // METHODS
     }
 
 Q_SIGNALS: // SIGNALS
+    /*!
+     */
     void Config(QVariant config);
+    /*!
+     */
     void Failure(uint reason);
+    /*!
+     */
     void Ip4Config(QVariant ip4config);
+    /*!
+     */
     void Ip6Config(QVariant ip6config);
+    /*!
+     */
     void LoginBanner(const QString &banner);
+    /*!
+     */
     void SecretsRequired(const QString &message, const QStringList &secrets);
+    /*!
+     */
     void StateChanged(uint state);
 };
 

@@ -37,6 +37,8 @@ public:
      * \typedef NetworkManager::WireGuardDevice::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     explicit WireGuardDevice(const QString &path, QObject *parent = nullptr);
     ~WireGuardDevice() override;
 

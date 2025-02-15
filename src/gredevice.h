@@ -46,32 +46,76 @@ public:
      * \typedef NetworkManager::GreDevice::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     explicit GreDevice(const QString &path, QObject *parent = nullptr);
     ~GreDevice() override;
 
+    /*!
+     */
     Type type() const override;
 
+    /*!
+     */
     ushort inputFlags() const;
+    /*!
+     */
     ushort outputFlags() const;
+    /*!
+     */
     uint inputKey() const;
+    /*!
+     */
     uint outputKey() const;
+    /*!
+     */
     QString localEnd() const;
+    /*!
+     */
     QString remoteEnd() const;
+    /*!
+     */
     QString parent() const;
+    /*!
+     */
     bool pathMtuDiscovery() const;
+    /*!
+     */
     uchar tos() const;
+    /*!
+     */
     uchar ttl() const;
 
 Q_SIGNALS:
+    /*!
+     */
     void inputFlagsChanged(ushort inputflags);
+    /*!
+     */
     void outputFlagsChanged(ushort outputFlags);
+    /*!
+     */
     void inputKeyChanged(uint inputKey);
+    /*!
+     */
     void outputKeyChanged(uint outputKey);
+    /*!
+     */
     void localEndChanged(const QString &localEnd);
+    /*!
+     */
     void remoteEndChanged(const QString &remoteEnd);
+    /*!
+     */
     void parentChanged(const QString &parent);
+    /*!
+     */
     void pathMtuDiscoveryChanged(bool pathMtuDiscovery);
+    /*!
+     */
     void tosChanged(uchar tos);
+    /*!
+     */
     void ttlChanged(uchar ttl);
 
 private:

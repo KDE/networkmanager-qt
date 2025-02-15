@@ -849,11 +849,23 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Interfaceflags)
 class NETWORKMANAGERQT_EXPORT DeviceStateReason
 {
 public:
+    /*!
+     */
     DeviceStateReason(Device::State state, Device::StateChangeReason reason);
+    /*!
+     */
     DeviceStateReason(const DeviceStateReason &);
+    /*!
+     */
     ~DeviceStateReason();
+    /*!
+     */
     Device::State state() const;
+    /*!
+     */
     Device::StateChangeReason reason() const;
+    /*!
+     */
     DeviceStateReason &operator=(const DeviceStateReason &);
 
 private:

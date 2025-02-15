@@ -14,6 +14,8 @@ namespace NetworkManager
 class WimaxSettingPrivate
 {
 public:
+    /*!
+     */
     WimaxSettingPrivate();
 
     QString name;

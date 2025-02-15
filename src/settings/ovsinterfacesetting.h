@@ -35,13 +35,21 @@ public:
      */
     typedef QList<Ptr> List;
 
+    /*!
+     */
     OvsInterfaceSetting();
+    /*!
+     */
     explicit OvsInterfaceSetting(const Ptr &other);
     ~OvsInterfaceSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setInterfaceType(const QString &type);
+    /*!
+     */
     QString interfaceType() const;
 
     void fromMap(const QVariantMap &setting) override;

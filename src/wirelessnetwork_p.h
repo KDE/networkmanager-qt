@@ -17,12 +17,20 @@ namespace NetworkManager
 class WirelessNetworkPrivate
 {
 public:
+    /*!
+     */
     Q_DECLARE_PUBLIC(WirelessNetwork)
     WirelessNetwork *q_ptr;
 
+    /*!
+     */
     WirelessNetworkPrivate(WirelessNetwork *q, WirelessDevice *);
+    /*!
+     */
     ~WirelessNetworkPrivate();
 
+    /*!
+     */
     void addAccessPointInternal(const AccessPoint::Ptr &accessPoint);
 
     QString ssid;
@@ -32,8 +40,14 @@ public:
     AccessPoint::Ptr referenceAp;
 
 private Q_SLOTS:
+    /*!
+     */
     void accessPointAppeared(const QString &uni);
+    /*!
+     */
     void accessPointDisappeared(const QString &uni);
+    /*!
+     */
     void updateStrength();
 };
 

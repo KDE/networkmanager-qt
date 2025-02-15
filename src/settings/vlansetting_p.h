@@ -14,6 +14,8 @@ namespace NetworkManager
 class VlanSettingPrivate
 {
 public:
+    /*!
+     */
     VlanSettingPrivate();
 
     QString name;

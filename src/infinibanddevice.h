@@ -36,6 +36,8 @@ public:
      * \typedef NetworkManager::InfinibandDevice::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     explicit InfinibandDevice(const QString &path, QObject *parent = nullptr);
     ~InfinibandDevice() override;
 

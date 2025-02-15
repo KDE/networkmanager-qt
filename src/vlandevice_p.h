@@ -18,6 +18,8 @@ class VlanDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
+    /*!
+     */
     VlanDevicePrivate(const QString &path, VlanDevice *q);
     ~VlanDevicePrivate() override;
 

@@ -47,25 +47,49 @@ public:
         Connected,
     };
 
+    /*!
+     */
     InfinibandSetting();
+    /*!
+     */
     explicit InfinibandSetting(const Ptr &other);
     ~InfinibandSetting() override;
 
     QString name() const override;
 
+    /*!
+     */
     void setMacAddress(const QByteArray &address);
+    /*!
+     */
     QByteArray macAddress() const;
 
+    /*!
+     */
     void setMtu(quint32 mtu);
+    /*!
+     */
     quint32 mtu() const;
 
+    /*!
+     */
     void setTransportMode(TransportMode mode);
+    /*!
+     */
     TransportMode transportMode() const;
 
+    /*!
+     */
     void setPKey(qint32 key);
+    /*!
+     */
     qint32 pKey() const;
 
+    /*!
+     */
     void setParent(const QString &parent);
+    /*!
+     */
     QString parent() const;
 
     void fromMap(const QVariantMap &setting) override;

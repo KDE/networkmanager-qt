@@ -14,6 +14,8 @@ namespace NetworkManager
 class GsmSettingPrivate
 {
 public:
+    /*!
+     */
     GsmSettingPrivate();
 
     QString name;

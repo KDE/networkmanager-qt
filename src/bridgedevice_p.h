@@ -18,6 +18,8 @@ namespace NetworkManager
 class BridgeDevicePrivate : public DevicePrivate
 {
 public:
+    /*!
+     */
     BridgeDevicePrivate(const QString &path, BridgeDevice *q);
     ~BridgeDevicePrivate() override;
 

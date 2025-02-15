@@ -42,6 +42,8 @@ public:
      * \typedef NetworkManager::TunDevice::List
      */
     typedef QList<Ptr> List;
+    /*!
+     */
     explicit TunDevice(const QString &path, QObject *parent = nullptr);
     ~TunDevice() override;
 
