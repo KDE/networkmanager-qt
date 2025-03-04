@@ -34,6 +34,7 @@ public:
     int signalStrength;
 
     int lastSeen;
+    uint bandwidth;
 
     NetworkManager::AccessPoint::Capabilities convertCapabilities(int caps);
     NetworkManager::AccessPoint::WpaFlags convertWpaFlags(uint theirFlags);

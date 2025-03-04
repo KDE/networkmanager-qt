@@ -124,7 +124,11 @@ public:
      * @since 5.14.0
      */
     int lastSeen() const;
-
+    /**
+     * The bandwidth announced by the access point in MHz.
+     * @since 6.12.0.
+     */
+    uint bandwidth() const;
     /**
      * Helper method to convert wire representation of operation @p mode to enum
      */
@@ -188,6 +192,15 @@ Q_SIGNALS:
      * @see lastSeen
      */
     void lastSeenChanged(int lastSeen);
+
+    /**
+     * This signal is emitted when bandwidth announced by the access point changes.
+     *
+     * @param lastSeen the bandwidth announced by the access point in MHz.
+     * @since 6.12.0
+     * @see bandwidth
+     */
+    void bandwidthChanged(uint bandwidth);
 
 private:
     Q_DECLARE_PRIVATE(AccessPoint)

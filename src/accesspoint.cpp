@@ -26,6 +26,7 @@ NetworkManager::AccessPointPrivate::AccessPointPrivate(const QString &path, Acce
     , mode(AccessPoint::Unknown)
     , signalStrength(0)
     , lastSeen(-1)
+    , bandwidth(0)
     , q_ptr(q)
 {
     uni = path;
@@ -144,6 +145,12 @@ int NetworkManager::AccessPoint::lastSeen() const
     return d->lastSeen;
 }
 
+uint NetworkManager::AccessPoint::bandwidth() const
+{
+    Q_D(const AccessPoint);
+    return d->bandwidth;
+}
+
 NetworkManager::AccessPoint::OperationMode NetworkManager::AccessPoint::convertOperationMode(uint mode)
 {
     NetworkManager::AccessPoint::OperationMode ourMode = NetworkManager::AccessPoint::Unknown;
@@ -214,6 +221,9 @@ void NetworkManager::AccessPointPrivate::propertiesChanged(const QVariantMap &pr
         } else if (property == QLatin1String("LastSeen")) {
             lastSeen = it->toInt();
             Q_EMIT q->lastSeenChanged(lastSeen);
+        } else if (property == QLatin1String("Bandwidth")) {
+            bandwidth = it->toUInt();
+            Q_EMIT q->bandwidthChanged(bandwidth);
         } else {
             qCDebug(NMQT) << Q_FUNC_INFO << "Unhandled property" << property;
         }

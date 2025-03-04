@@ -101,6 +101,12 @@ public:
         return qvariant_cast<uint>(property("WpaFlags"));
     }
 
+    Q_PROPERTY(uint Bandwidth READ bandwidth)
+    inline uint bandwidth() const
+    {
+        return qvariant_cast<uint>(property("Bandwidth"));
+    }
+
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
     void PropertiesChanged(const QVariantMap &properties);
