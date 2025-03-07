@@ -27,6 +27,19 @@ class AccessPointPrivate;
 class NETWORKMANAGERQT_EXPORT AccessPoint : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString uni READ uni CONSTANT)
+    Q_PROPERTY(AccessPoint::Capabilities capabilities READ capabilities NOTIFY capabilitiesChanged)
+    Q_PROPERTY(AccessPoint::WpaFlags wpaFlags READ wpaFlags NOTIFY wpaFlagsChanged)
+    Q_PROPERTY(QString ssid READ ssid NOTIFY ssidChanged)
+    Q_PROPERTY(QByteArray rawSsid READ rawSsid NOTIFY ssidChanged)
+    Q_PROPERTY(uint frequency READ frequency NOTIFY frequencyChanged)
+    Q_PROPERTY(QString hardwareAddress READ hardwareAddress CONSTANT)
+    Q_PROPERTY(uint maxBitRate READ maxBitRate CONSTANT)
+    Q_PROPERTY(AccessPoint::OperationMode mode READ mode CONSTANT)
+    Q_PROPERTY(int signalStrength READ signalStrength NOTIFY signalStrengthChanged)
+    Q_PROPERTY(int lastSeen READ lastSeen NOTIFY signalStrengthChanged)
+    Q_PROPERTY(uint bandwidth READ bandwidth NOTIFY bandwidthChanged)
+
 public:
     typedef QSharedPointer<AccessPoint> Ptr;
     typedef QList<Ptr> List;
@@ -39,6 +52,7 @@ public:
         Infra, /**< a station in an infrastructure wireless network */
         ApMode, /**< access point in an infrastructure network */
     };
+    Q_ENUM(OperationMode);
     /**
      * General capabilities of an access point
      */
@@ -46,6 +60,7 @@ public:
         None = 0x0, /**< Null capability - says nothing about the access point */
         Privacy = 0x1, /**< Access point supports privacy measures */
     };
+    Q_ENUM(Capability);
     /**
      * Flags describing the access point's capabilities according to WPA (Wifi Protected Access)
      */
@@ -65,6 +80,7 @@ public:
         KeyMgmtOWETM = 0x1000,
         KeyMgmtEapSuiteB192 = 0x2000,
     };
+    Q_ENUM(WpaFlag);
     Q_DECLARE_FLAGS(Capabilities, Capability)
     Q_FLAG(Capabilities)
     Q_DECLARE_FLAGS(WpaFlags, WpaFlag)

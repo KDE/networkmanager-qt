@@ -27,6 +27,8 @@ class WirelessDevicePrivate;
 class NETWORKMANAGERQT_EXPORT WirelessDevice : public Device
 {
     Q_OBJECT
+    Q_PROPERTY(AccessPoint::Ptr activeAccessPoint READ activeAccessPoint NOTIFY activeAccessPointChanged)
+    Q_PROPERTY(QStringList accessPoints READ accessPoints NOTIFY accessPointsChanged)
 
 public:
     typedef QSharedPointer<WirelessDevice> Ptr;
@@ -216,6 +218,12 @@ Q_SIGNALS:
      * @see lastScanTime
      */
     void lastScanChanged(const QDateTime &dateTime);
+
+    /*
+     * A wireless access point appeared or disappeared.
+     * @since 6.13.0
+     */
+    void accessPointsChanged();
 
 private:
     Q_DECLARE_PRIVATE(WirelessDevice)

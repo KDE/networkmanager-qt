@@ -174,6 +174,7 @@ void NetworkManager::WirelessDevicePrivate::accessPointAdded(const QDBusObjectPa
         NetworkManager::AccessPoint::Ptr accessPointPtr(new NetworkManager::AccessPoint(accessPoint.path()), &QObject::deleteLater);
         apMap.insert(accessPoint.path(), accessPointPtr);
         Q_EMIT q->accessPointAppeared(accessPoint.path());
+        Q_EMIT q->accessPointsChanged();
 
         const QString ssid = accessPointPtr->ssid();
         if (!ssid.isEmpty() && !networks.contains(ssid)) {
@@ -193,6 +194,7 @@ void NetworkManager::WirelessDevicePrivate::accessPointRemoved(const QDBusObject
         qCDebug(NMQT) << "Access point list lookup failed for " << accessPoint.path();
     }
     Q_EMIT q->accessPointDisappeared(accessPoint.path());
+    Q_EMIT q->accessPointsChanged();
     apMap.remove(accessPoint.path());
 }
 
