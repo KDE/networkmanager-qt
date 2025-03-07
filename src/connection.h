@@ -27,6 +27,11 @@ class ConnectionPrivate;
 class NETWORKMANAGERQT_EXPORT Connection : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool isValid READ isValid CONSTANT)
+    Q_PROPERTY(QString uuid READ uuid NOTIFY updated)
+    Q_PROPERTY(QString path READ path CONSTANT)
+    Q_PROPERTY(QString name READ name NOTIFY updated)
+    Q_PROPERTY(bool isUnsaved READ isUnsaved NOTIFY unsavedChanged)
 public:
     typedef QSharedPointer<Connection> Ptr;
     typedef QList<Ptr> List;

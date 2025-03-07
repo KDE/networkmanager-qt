@@ -263,7 +263,7 @@ ecm_generate_headers(NetworkManagerQt_SETTINGS_CamelCase_HEADERS
 )
 
 ecm_add_qml_module(networkmanagerqtqml URI org.kde.networkmanager GENERATE_PLUGIN_SOURCE)
-target_sources(networkmanagerqtqml PRIVATE qmltypes.h)
+target_sources(networkmanagerqtqml PRIVATE qmltypes.h qmltypes.cpp)
 target_link_libraries(networkmanagerqtqml PRIVATE Qt6::Qml KF6NetworkManagerQt)
 ecm_finalize_qml_module(networkmanagerqtqml)
 
