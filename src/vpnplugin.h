@@ -19,7 +19,7 @@ class VpnPluginPrivate;
 
 /*!
  * \class NetworkManager::VpnPlugin
- *
+ * \inheaderfile NetworkManagerQt/VpnPlugin
  * \inmodule NetworkManagerQt
  */
 class NETWORKMANAGERQT_EXPORT VpnPlugin : public QObject
@@ -28,8 +28,6 @@ class NETWORKMANAGERQT_EXPORT VpnPlugin : public QObject
 
 public:
     /*!
-     * \enum FailureType
-     *
      * \value LoginFailed
      * \value ConnectFailed
      * \value BadIpConfig

@@ -8,9 +8,6 @@
 #define NETWORKMANAGERQT_MACROS_H
 
 #define NM_GLOBAL_STATIC_STRUCT_NAME(NAME)
-/*!
- * \typedef NmCleanUpFunction
- */
 typedef void (*NmCleanUpFunction)();
 class NmCleanUpGlobalStatic
 {

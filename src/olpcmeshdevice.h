@@ -18,7 +18,7 @@ class OlpcMeshDevicePrivate;
 
 /*!
  * \class NetworkManager::OlpcMeshDevice
- *
+ * \inheaderfile NetworkManagerQt/OlpcMeshDevice
  * \inmodule NetworkManagerQt
  *
  * \brief A OLPC mesh interface.

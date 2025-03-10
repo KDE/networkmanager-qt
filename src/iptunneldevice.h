@@ -16,7 +16,7 @@ class IpTunnelDevicePrivate;
 
 /*!
  * \class NetworkManager::IpTunnelDevice
- *
+ * \inheaderfile NetworkManagerQt/IpTunnelDevice
  * \inmodule NetworkManagerQt
  *
  * \brief A Ip Tunnel device interface.
@@ -24,16 +24,60 @@ class IpTunnelDevicePrivate;
 class NETWORKMANAGERQT_EXPORT IpTunnelDevice : public Device
 {
     Q_OBJECT
+
+    /*!
+     * \property NetworkManager::IpTunnelDevice::encapsulationLimit
+     */
     Q_PROPERTY(uchar encapsulationLimit READ encapsulationLimit NOTIFY encapsulationLimitChanged)
+
+    /*!
+     * \property NetworkManager::IpTunnelDevice::flowLabel
+     */
     Q_PROPERTY(uint flowLabel READ flowLabel NOTIFY flowLabelChanged)
+
+    /*!
+     * \property NetworkManager::IpTunnelDevice::inputKey
+     */
     Q_PROPERTY(QString inputKey READ inputKey NOTIFY inputKeyChanged)
+
+    /*!
+     * \property NetworkManager::IpTunnelDevice::local
+     */
     Q_PROPERTY(QString local READ local NOTIFY localChanged)
+
+    /*!
+     * \property NetworkManager::IpTunnelDevice::mode
+     */
     Q_PROPERTY(uint mode READ mode NOTIFY modeChanged)
+
+    /*!
+     * \property NetworkManager::IpTunnelDevice::outputKey
+     */
     Q_PROPERTY(QString outputKey READ outputKey NOTIFY outputKeyChanged)
+
+    /*!
+     * \property NetworkManager::IpTunnelDevice::parent
+     */
     Q_PROPERTY(NetworkManager::Device::Ptr parent READ parent NOTIFY parentChanged)
+
+    /*!
+     * \property NetworkManager::IpTunnelDevice::pathMtuDiscovery
+     */
     Q_PROPERTY(bool pathMtuDiscovery READ pathMtuDiscovery NOTIFY pathMtuDiscoveryChanged)
+
+    /*!
+     * \property NetworkManager::IpTunnelDevice::remote
+     */
     Q_PROPERTY(QString remote READ remote NOTIFY remoteChanged)
+
+    /*!
+     * \property NetworkManager::IpTunnelDevice::tos
+     */
     Q_PROPERTY(uchar tos READ tos NOTIFY tosChanged)
+
+    /*!
+     * \property NetworkManager::IpTunnelDevice::ttl
+     */
     Q_PROPERTY(uchar ttl READ ttl NOTIFY ttlChanged)
 
 public:

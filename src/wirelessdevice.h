@@ -23,7 +23,7 @@ class WirelessDevicePrivate;
 
 /*!
  * \class NetworkManager::WirelessDevice
- *
+ * \inheaderfile NetworkManagerQt/WirelessDevice
  * \inmodule NetworkManagerQt
  *
  * \brief A wireless network interface.
@@ -42,8 +42,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum OperationMode
-     *
      * The device's current operating mode
      *
      * \value Unknown
@@ -63,8 +61,6 @@ public:
     };
     Q_ENUM(OperationMode)
     /*!
-     * \enum Capability
-     *
      * Capabilities (currently all encryption/authentication related) of the device
      * \note FreqValid, Freq2Ghz, Freq5Ghz are available in runtime NM >= 1.0.2
      *
@@ -136,7 +132,9 @@ public:
     QStringList accessPoints() const;
     /*!
      * Asks the device for a new scan of available wireless networks
+     *
      * \a options Options of scan
+     *
      * No documentation for options yet, see
      * https://projects.gnome.org/NetworkManager/developers/api/09/spec.html#org.freedesktop.NetworkManager.Device.Wireless
      */

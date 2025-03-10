@@ -22,7 +22,7 @@ class WirelessNetworkPrivate;
 
 /*!
  * \class NetworkManager::WirelessNetwork
- *
+ * \inheaderfile NetworkManagerQt/WirelessNetwork
  * \inmodule NetworkManagerQt
  *
  * \brief This class represents a wireless network, which aggregates all
@@ -77,17 +77,20 @@ public:
 Q_SIGNALS:
     /*!
      * Indicate that the signal strength changed
+     *
      * \a strength strength as a percentage.
      */
     void signalStrengthChanged(int strength);
     /*!
      * Indicate that the reference access point changed
+     *
      * \a apUni new access point or empty string if none
      */
     void referenceAccessPointChanged(const QString &apUni);
     /*!
      * Indicate that this network has no more access points
      * (meaning the network has disappeared from view of the network interface)
+     *
      * \a ssid the SSID of this network
      */
     void disappeared(const QString &ssid);

@@ -16,7 +16,7 @@ class BondDevicePrivate;
 
 /*!
  * \class NetworkManager::BondDevice
- *
+ * \inheaderfile NetworkManagerQt/BondDevice
  * \inmodule NetworkManagerQt
  *
  * \brief A bond device interface.
@@ -24,8 +24,20 @@ class BondDevicePrivate;
 class NETWORKMANAGERQT_EXPORT BondDevice : public Device
 {
     Q_OBJECT
+
+    /*!
+     * \property NetworkManager::BondDevice::carrier
+     */
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
+
+    /*!
+     * \property NetworkManager::BondDevice::hwAddress
+     */
     Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
+
+    /*!
+     * \property NetworkManager::BondDevice::slaves
+     */
     Q_PROPERTY(QStringList slaves READ slaves NOTIFY slavesChanged)
 
 public:

@@ -23,7 +23,7 @@ class ConnectionPrivate;
 
 /*!
  * \class NetworkManager::Connection
- *
+ * \inheaderfile NetworkManagerQt/Connection
  * \inmodule NetworkManagerQt
  *
  * \brief This class represents a single network connection configuration.
@@ -140,6 +140,7 @@ Q_SIGNALS:
 
     /*!
      * Emitted when the connection was removed
+     *
      * \a path connections's path.
      */
     void removed(const QString &path);

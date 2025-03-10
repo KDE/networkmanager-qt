@@ -22,7 +22,7 @@ namespace NetworkManager
 {
 /*!
  * \class NetworkManager::SettingsNotifier
- *
+ * \inheaderfile NetworkManagerQt/Settings
  * \inmodule NetworkManagerQt
  *
  * \brief This class manages provides access to connections and notify about new ones.
@@ -33,11 +33,13 @@ class NETWORKMANAGERQT_EXPORT SettingsNotifier : public QObject
 Q_SIGNALS:
     /*!
      * Emitted when the settings are modifiable by user
-     * \a canModify \a true if the user can modify the settings
+     *
+     * \a canModify \c true if the user can modify the settings
      */
     void canModifyChanged(bool canModify);
     /*!
      * Emitted when the hostname has changed
+     *
      * \a hostname new hostname
      */
     void hostnameChanged(const QString &hostname);

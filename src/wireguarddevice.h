@@ -16,7 +16,7 @@ class WireGuardDevicePrivate;
 
 /*!
  * \class NetworkManager::WireGuardDevice
- *
+ * \inheaderfile NetworkManagerQt/WireGuardDevice
  * \inmodule NetworkManagerQt
  *
  * \brief A WireGuard device interface.
@@ -24,8 +24,20 @@ class WireGuardDevicePrivate;
 class NETWORKMANAGERQT_EXPORT WireGuardDevice : public Device
 {
     Q_OBJECT
+
+    /*!
+     * \property NetworkManager::WireGuardDevice::publicKey
+     */
     Q_PROPERTY(QByteArray publicKey READ publicKey NOTIFY publicKeyChanged)
+
+    /*!
+     * \property NetworkManager::WireGuardDevice::listenPort
+     */
     Q_PROPERTY(uint listenPort READ listenPort NOTIFY listenPortChanged)
+
+    /*!
+     * \property NetworkManager::WireGuardDevice::fwMarkChanged
+     */
     Q_PROPERTY(uint fwMark READ fwMark NOTIFY fwMarkChanged)
 
 public:

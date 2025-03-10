@@ -23,7 +23,7 @@ class AccessPointPrivate;
 
 /*!
  * \class NetworkManager::AccessPoint
- *
+ * \inheaderfile NetworkManagerQt/AccessPoint
  * \inmodule NetworkManagerQt
  *
  * \brief Represents an access point.
@@ -234,16 +234,14 @@ Q_SIGNALS:
      *
      * \a lastSeen the timestamp for the last time the access point was found in scan results.
      * \since 5.14.0
-     * \sa lastSeen
      */
     void lastSeenChanged(int lastSeen);
 
-    /**
+    /*!
      * This signal is emitted when bandwidth announced by the access point changes.
      *
-     * @param lastSeen the bandwidth announced by the access point in MHz.
-     * @since 6.12.0
-     * @see bandwidth
+     * \a lastSeen the bandwidth announced by the access point in MHz.
+     * \since 6.12.0
      */
     void bandwidthChanged(uint bandwidth);
 

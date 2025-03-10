@@ -17,7 +17,7 @@ class TunDevicePrivate;
 
 /*!
  * \class NetworkManager::TunDevice
- *
+ * \inheaderfile NetworkManagerQt/TunDevice
  * \inmodule NetworkManagerQt
  *
  * \brief A tun device interface.
@@ -25,12 +25,40 @@ class TunDevicePrivate;
 class NETWORKMANAGERQT_EXPORT TunDevice : public Device
 {
     Q_OBJECT
+
+    /*!
+     * \property NetworkManager::TunDevice::owner
+     */
     Q_PROPERTY(qlonglong owner READ owner NOTIFY ownerChanged)
+
+    /*!
+     * \property NetworkManager::TunDevice::group
+     */
     Q_PROPERTY(qlonglong group READ group NOTIFY groupChanged)
+
+    /*!
+     * \property NetworkManager::TunDevice::mode
+     */
     Q_PROPERTY(QString mode READ mode NOTIFY modeChanged)
+
+    /*!
+     * \property NetworkManager::TunDevice::multiQueue
+     */
     Q_PROPERTY(bool multiQueue READ multiQueue NOTIFY multiQueueChanged)
+
+    /*!
+     * \property NetworkManager::TunDevice::noPi
+     */
     Q_PROPERTY(bool noPi READ noPi NOTIFY noPiChanged)
+
+    /*!
+     * \property NetworkManager::TunDevice::vnetHdr
+     */
     Q_PROPERTY(bool vnetHdr READ vnetHdr NOTIFY vnetHdrChanged)
+
+    /*!
+     * \property NetworkManager::TunDevice::hwAddress
+     */
     Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
 
 public:

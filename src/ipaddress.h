@@ -16,7 +16,7 @@ namespace NetworkManager
 {
 /*!
  * \class NetworkManager::IpAddress
- *
+ * \inheaderfile NetworkManagerQt/IpAddress
  * \inmodule NetworkManagerQt
  *
  * \brief This class represents IP address.

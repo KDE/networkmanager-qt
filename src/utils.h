@@ -52,24 +52,28 @@ enum WirelessSecurityType {
 
 /*!
  * Returns QHostAddress representation of an ipv6 address
+ *
  * \a address byte array containing the binary representation of the address
  */
 NETWORKMANAGERQT_EXPORT QHostAddress ipv6AddressAsHostAddress(const QByteArray &address);
 
 /*!
  * Returns binary representation of an ipv6 address
+ *
  * \a address qhostaddress containing the address
  */
 NETWORKMANAGERQT_EXPORT QByteArray ipv6AddressFromHostAddress(const QHostAddress &address);
 
 /*!
  * Returns String representation of a mac address.
+ *
  * \a ba byte array containing the binary repesentation of the address
  */
 NETWORKMANAGERQT_EXPORT QString macAddressAsString(const QByteArray &ba);
 
 /*!
  * Returns binary repesentation of a mac address.
+ *
  * \a s string representation of the address
  */
 NETWORKMANAGERQT_EXPORT QByteArray macAddressFromString(const QString &s);
@@ -83,6 +87,7 @@ NETWORKMANAGERQT_EXPORT bool macAddressIsValid(const QByteArray &macAddress);
 
 /*!
  * \a freq frequency of a wireless network
+ *
  * Returns The frequency channel.
  */
 NETWORKMANAGERQT_EXPORT int findChannel(int freq);

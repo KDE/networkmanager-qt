@@ -29,7 +29,7 @@ class DeviceStateReasonPrivate;
 
 /*!
  * \class NetworkManager::Device
- *
+ * \inheaderfile NetworkManagerQt/Device
  * \inmodule NetworkManagerQt
  *
  * \brief This class represents a common device interface.
@@ -38,24 +38,99 @@ class NETWORKMANAGERQT_EXPORT Device : public QObject
 {
     Q_OBJECT
 
+    /*!
+     * \property NetworkManager::Device::
+     */
     Q_PROPERTY(QString uni READ uni)
+
+    /*!
+     * \property NetworkManager::Device::interfaceName
+     */
     Q_PROPERTY(QString interfaceName READ interfaceName)
+
+    /*!
+     * \property NetworkManager::Device::ipInterfaceName
+     */
     Q_PROPERTY(QString ipInterfaceName READ ipInterfaceName)
+
+    /*!
+     * \property NetworkManager::Device::driver
+     */
     Q_PROPERTY(QString driver READ driver)
+
+    /*!
+     * \property NetworkManager::Device::driverVersion
+     */
     Q_PROPERTY(QString driverVersion READ driverVersion)
+
+    /*!
+     * \property NetworkManager::Device::firmwareVersion
+     */
     Q_PROPERTY(QString firmwareVersion READ firmwareVersion)
+
+    /*!
+     * \property NetworkManager::Device::genericCapabilities
+     */
     Q_PROPERTY(QVariant genericCapabilities READ capabilitiesV)
+
+    /*!
+     * \property NetworkManager::Device::ipV4Address
+     */
     Q_PROPERTY(QHostAddress ipV4Address READ ipV4Address)
+
+    /*!
+     * \property NetworkManager::Device::managed
+     */
     Q_PROPERTY(bool managed READ managed)
+
+    /*!
+     * \property NetworkManager::Device::mtu
+     */
     Q_PROPERTY(uint mtu READ mtu)
+
+    /*!
+     * \property NetworkManager::Device::InterfaceFlags
+     */
     Q_PROPERTY(Interfaceflags InterfaceFlags READ interfaceFlags)
+
+    /*!
+     * \property NetworkManager::Device::nmPluginMissing
+     */
     Q_PROPERTY(bool nmPluginMissing READ nmPluginMissing)
+
+    /*!
+     * \property NetworkManager::Device::metered
+     */
     Q_PROPERTY(MeteredStatus metered READ metered)
+
+    /*!
+     * \property NetworkManager::Device::udi
+     */
     Q_PROPERTY(QString udi READ udi)
+
+    /*!
+     * \property NetworkManager::Device::firmwareMissing
+     */
     Q_PROPERTY(bool firmwareMissing READ firmwareMissing)
+
+    /*!
+     * \property NetworkManager::Device::autoconnect
+     */
     Q_PROPERTY(bool autoconnect READ autoconnect WRITE setAutoconnect)
+
+    /*!
+     * \property NetworkManager::Device::stateReason
+     */
     Q_PROPERTY(DeviceStateReason stateReason READ stateReason)
+
+    /*!
+     * \property NetworkManager::Device::state
+     */
     Q_PROPERTY(State state READ state)
+
+    /*!
+     * \property NetworkManager::Device::deviceStatistics
+     */
     Q_PROPERTY(NetworkManager::DeviceStatistics::Ptr deviceStatistics READ deviceStatistics)
 
 public:
@@ -582,6 +657,9 @@ public:
      * Returns the capabilities of the device
      */
     Capabilities capabilities() const;
+    /*!
+     *
+     */
     QVariant capabilitiesV() const;
     /*!
      * Is the device currently being managed by NetworkManager?
@@ -621,7 +699,6 @@ public:
     /*!
      * The device MTU (maximum transmission unit)
      * \since 0.9.9.0
-     *
      */
     uint mtu() const;
 
@@ -681,9 +758,12 @@ Q_SIGNALS:
      * This signal is emitted when the device's link status changed.
      *
      * \a newstate the new state of the connection
+     *
      * \a oldstate the previous state of the connection
+     *
      * \a reason the reason for the state change, if any.  ReasonNone where the backend
      * provides no reason.
+     *
      * \sa Device::State
      * \sa Device::StateChangeReason
      */
@@ -843,7 +923,7 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(Device::Interfaceflags)
 
 /*!
  * \class NetworkManager::DeviceStateReason
- *
+ * \inheaderfile NetworkManagerQt/Device
  * \inmodule NetworkManagerQt
  */
 class NETWORKMANAGERQT_EXPORT DeviceStateReason

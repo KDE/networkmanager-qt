@@ -16,7 +16,7 @@ class TeamDevicePrivate;
 
 /*!
  * \class NetworkManager::TeamDevice
- *
+ * \inheaderfile NetworkManagerQt/TeamDevice
  * \inmodule NetworkManagerQt
  *
  * \brief A team device interface.
@@ -24,9 +24,25 @@ class TeamDevicePrivate;
 class NETWORKMANAGERQT_EXPORT TeamDevice : public Device
 {
     Q_OBJECT
+
+    /*!
+     * \property NetworkManager::TeamDevice::carrier
+     */
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
+
+    /*!
+     * \property NetworkManager::TeamDevice::hwAddress
+     */
     Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
+
+    /*!
+     * \property NetworkManager::TeamDevice::slaves
+     */
     Q_PROPERTY(QStringList slaves READ slaves NOTIFY slavesChanged)
+
+    /*!
+     * \property NetworkManager::TeamDevice::config
+     */
     Q_PROPERTY(QString config READ config NOTIFY configChanged)
 
 public:

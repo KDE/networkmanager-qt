@@ -16,7 +16,7 @@ class AdslDevicePrivate;
 
 /*!
  * \class NetworkManager::AdslDevice
- *
+ * \inheaderfile NetworkManagerQt/AdslDevice
  * \inmodule NetworkManagerQt
  *
  * \brief An adsl device interface.
@@ -24,6 +24,9 @@ class AdslDevicePrivate;
 class NETWORKMANAGERQT_EXPORT AdslDevice : public Device
 {
     Q_OBJECT
+    /*!
+     * \property NetworkManager::AdslDevice::carrier
+     */
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
 public:
     /*!

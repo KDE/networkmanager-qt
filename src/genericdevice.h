@@ -17,7 +17,7 @@ class GenericDevicePrivate;
 
 /*!
  * \class NetworkManager::GenericDevice
- *
+ * \inheaderfile NetworkManagerQt/GenericDevice
  * \inmodule NetworkManagerQt
  *
  * \brief A generic device interface.
@@ -25,7 +25,15 @@ class GenericDevicePrivate;
 class NETWORKMANAGERQT_EXPORT GenericDevice : public Device
 {
     Q_OBJECT
+
+    /*!
+     * \property NetworkManager::GenericDevice::hardwareAddress
+     */
     Q_PROPERTY(QString hardwareAddress READ hardwareAddress)
+
+    /*!
+     * \property NetworkManager::GenericDevice::typeDescription
+     */
     Q_PROPERTY(QString typeDescription READ typeDescription)
 
 public:

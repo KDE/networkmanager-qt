@@ -17,7 +17,7 @@ class VethDevicePrivate;
 
 /*!
  * \class NetworkManager::VethDevice
- *
+ * \inheaderfile NetworkManagerQt/VethDevice
  * \inmodule NetworkManagerQt
  *
  * \brief A veth device interface.
@@ -25,6 +25,9 @@ class VethDevicePrivate;
 class NETWORKMANAGERQT_EXPORT VethDevice : public Device
 {
     Q_OBJECT
+    /*!
+     * \property NetworkManager::VethDevice::peer
+     */
     Q_PROPERTY(QString peer READ peer NOTIFY peerChanged)
 
 public:

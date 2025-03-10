@@ -16,7 +16,7 @@ class InfinibandDevicePrivate;
 
 /*!
  * \class NetworkManager::InfinibandDevice
- *
+ * \inheaderfile NetworkManagerQt/InfinibandDevice
  * \inmodule NetworkManagerQt
  *
  * \brief An infiniband device interface.
@@ -24,7 +24,15 @@ class InfinibandDevicePrivate;
 class NETWORKMANAGERQT_EXPORT InfinibandDevice : public Device
 {
     Q_OBJECT
+
+    /*!
+     * \property NetworkManager::InfinibandDevice::carrier
+     */
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
+
+    /*!
+     * \property NetworkManager::InfinibandDevice::hwAddress
+     */
     Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
 
 public:

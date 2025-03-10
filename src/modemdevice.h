@@ -18,7 +18,7 @@ class ModemDevicePrivate;
 
 /*!
  * \class NetworkManager::ModemDevice
- *
+ * \inheaderfile NetworkManagerQt/ModemDevice
  * \inmodule NetworkManagerQt
  *
  * \brief Represents a generic modem device, generally defined by the modemCapabilities() it exposes and at

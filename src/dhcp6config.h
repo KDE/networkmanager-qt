@@ -20,7 +20,7 @@ class Dhcp6ConfigPrivate;
 
 /*!
  * \class NetworkManager::Dhcp6Config
- *
+ * \inheaderfile NetworkManagerQt/Dhcp6Config
  * \inmodule NetworkManagerQt
  *
  * \brief This class represents dhcp4 configuration.

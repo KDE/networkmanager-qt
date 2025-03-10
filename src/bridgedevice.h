@@ -16,7 +16,7 @@ class BridgeDevicePrivate;
 
 /*!
  * \class NetworkManager::BridgeDevice
- *
+ * \inheaderfile NetworkManagerQt/BridgeDevice
  * \inmodule NetworkManagerQt
  *
  * \brief A bridge device interface.
@@ -24,8 +24,20 @@ class BridgeDevicePrivate;
 class NETWORKMANAGERQT_EXPORT BridgeDevice : public Device
 {
     Q_OBJECT
+
+    /*!
+     * \property NetworkManager::BridgeDevice::carrier
+     */
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
+
+    /*!
+     * \property NetworkManager::BridgeDevice::hwAddress
+     */
     Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
+
+    /*!
+     * \property NetworkManager::BridgeDevice::slaves
+     */
     Q_PROPERTY(QStringList slaves READ slaves NOTIFY slavesChanged)
 
 public:

@@ -23,7 +23,7 @@ namespace NetworkManager
 {
 /*!
  * \class NetworkManager::IpConfig
- *
+ * \inheaderfile NetworkManagerQt/IpConfig
  * \inmodule NetworkManagerQt
  *
  * \brief This class represents IP configuration.

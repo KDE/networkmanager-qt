@@ -20,7 +20,7 @@ class DeviceStatisticsPrivate;
 
 /*!
  * \class NetworkManager::DeviceStatistics
- *
+ * \inheaderfile NetworkManagerQt/DeviceStatistics
  * \inmodule NetworkManagerQt
  *
  * \brief Represents device statistics interface.
@@ -28,8 +28,20 @@ class DeviceStatisticsPrivate;
 class NETWORKMANAGERQT_EXPORT DeviceStatistics : public QObject
 {
     Q_OBJECT
+
+    /*!
+     * \property NetworkManager::DeviceStatistics::refreshRateMs
+     */
     Q_PROPERTY(uint refreshRateMs READ refreshRateMs WRITE setRefreshRateMs NOTIFY refreshRateMsChanged)
+
+    /*!
+     * \property NetworkManager::DeviceStatistics::txBytes
+     */
     Q_PROPERTY(qulonglong txBytes READ txBytes NOTIFY txBytesChanged)
+
+    /*!
+     * \property NetworkManager::DeviceStatistics::rxBytes
+     */
     Q_PROPERTY(qulonglong rxBytes READ rxBytes NOTIFY rxBytesChanged)
 
 public:

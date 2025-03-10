@@ -16,7 +16,7 @@ class VlanDevicePrivate;
 
 /*!
  * \class NetworkManager::VlanDevice
- *
+ * \inheaderfile NetworkManagerQt/VlanDevice
  * \inmodule NetworkManagerQt
  *
  * \brief A vlan device interface.
@@ -24,9 +24,25 @@ class VlanDevicePrivate;
 class NETWORKMANAGERQT_EXPORT VlanDevice : public Device
 {
     Q_OBJECT
+
+    /*!
+     * \property NetworkManager::VlanDevice::carrier
+     */
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
+
+    /*!
+     * \property NetworkManager::VlanDevice::hwAddress
+     */
     Q_PROPERTY(QString hwAddress READ hwAddress NOTIFY hwAddressChanged)
+
+    /*!
+     * \property NetworkManager::VlanDevice::vlanId
+     */
     Q_PROPERTY(uint vlanId READ vlanId NOTIFY vlanIdChanged)
+
+    /*!
+     * \property NetworkManager::VlanDevice::parent
+     */
     Q_PROPERTY(NetworkManager::Device::Ptr parent READ parent NOTIFY parentChanged)
 
 public:

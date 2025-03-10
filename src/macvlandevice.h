@@ -16,7 +16,7 @@ class MacVlanDevicePrivate;
 
 /*!
  * \class NetworkManager::MacVlanDevice
- *
+ * \inheaderfile NetworkManagerQt/MacVlanDevice
  * \inmodule NetworkManagerQt
  *
  * \brief A macvlan device interface.
@@ -24,8 +24,20 @@ class MacVlanDevicePrivate;
 class NETWORKMANAGERQT_EXPORT MacVlanDevice : public Device
 {
     Q_OBJECT
+
+    /*!
+     * \property NetworkManager::MacVlanDevice::mode
+     */
     Q_PROPERTY(QString mode READ mode NOTIFY modeChanged)
+
+    /*!
+     * \property NetworkManager::MacVlanDevice::noPromisc
+     */
     Q_PROPERTY(bool noPromisc READ noPromisc NOTIFY noPromiscChanged)
+
+    /*!
+     * \property NetworkManager::MacVlanDevice::parent
+     */
     Q_PROPERTY(QString parent READ parent NOTIFY parentChanged)
 
 public:

@@ -20,7 +20,7 @@ class WimaxDevicePrivate;
 
 /*!
  * \class NetworkManager::WimaxDevice
- *
+ * \inheaderfile NetworkManagerQt/WimaxDevice
  * \inmodule NetworkManagerQt
  *
  * \brief Wimax network interface.

@@ -19,7 +19,7 @@ class WiredDevicePrivate;
 
 /*!
  * \class NetworkManager::WiredDevice
- *
+ * \inheaderfile NetworkManagerQt/WiredDevice
  * \inmodule NetworkManagerQt
  *
  * \brief A wired device interface.
@@ -27,10 +27,30 @@ class WiredDevicePrivate;
 class NETWORKMANAGERQT_EXPORT WiredDevice : public Device
 {
     Q_OBJECT
+
+    /*!
+     * \property NetworkManager::WiredDevice::hardwareAddress
+     */
     Q_PROPERTY(QString hardwareAddress READ hardwareAddress)
+
+    /*!
+     * \property NetworkManager::WiredDevice::permanentHardwareAddress
+     */
     Q_PROPERTY(QString permanentHardwareAddress READ permanentHardwareAddress)
+
+    /*!
+     * \property NetworkManager::WiredDevice::carrier
+     */
     Q_PROPERTY(bool carrier READ carrier NOTIFY carrierChanged)
+
+    /*!
+     * \property NetworkManager::WiredDevice::bitRate
+     */
     Q_PROPERTY(int bitRate READ bitRate NOTIFY bitRateChanged)
+
+    /*!
+     * \property NetworkManager::WiredDevice::s390SubChannels
+     */
     Q_PROPERTY(QStringList s390SubChannels READ s390SubChannels NOTIFY s390SubChannelsChanged)
 
 public:

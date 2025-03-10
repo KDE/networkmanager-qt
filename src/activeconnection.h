@@ -24,7 +24,7 @@ class ActiveConnectionPrivate;
 
 /*!
  * \class NetworkManager::ActiveConnection
- *
+ * \inheaderfile NetworkManagerQt/ActiveConnection
  * \inmodule NetworkManagerQt
  *
  * \brief An active connection.

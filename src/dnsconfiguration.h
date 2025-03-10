@@ -22,7 +22,7 @@ namespace NetworkManager
 {
 /*!
  * \class NetworkManager::DnsConfiguration
- *
+ * \inheaderfile NetworkManagerQt/DnsConfiguration
  * \inmodule NetworkManagerQt
  *
  * \brief This class represents IP configuration.

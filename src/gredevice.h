@@ -17,7 +17,7 @@ class GreDevicePrivate;
 
 /*!
  * \class NetworkManager::GreDevice
- *
+ * \inheaderfile NetworkManagerQt/GreDevice
  * \inmodule NetworkManagerQt
  *
  * \brief A gre device interface.
@@ -26,15 +26,55 @@ class GreDevicePrivate;
 class NETWORKMANAGERQT_EXPORT GreDevice : public Device
 {
     Q_OBJECT
+
+    /*!
+     * \property NetworkManager::GreDevice::inputFlags
+     */
     Q_PROPERTY(ushort inputFlags READ inputFlags NOTIFY inputFlagsChanged)
+
+    /*!
+     * \property NetworkManager::GreDevice::outputFlags
+     */
     Q_PROPERTY(ushort outputFlags READ outputFlags NOTIFY outputFlagsChanged)
+
+    /*!
+     * \property NetworkManager::GreDevice::inputKey
+     */
     Q_PROPERTY(uint inputKey READ inputKey NOTIFY inputKeyChanged)
+
+    /*!
+     * \property NetworkManager::GreDevice::outputKey
+     */
     Q_PROPERTY(uint outputKey READ outputKey NOTIFY outputKeyChanged)
+
+    /*!
+     * \property NetworkManager::GreDevice::localEnd
+     */
     Q_PROPERTY(QString localEnd READ localEnd NOTIFY localEndChanged)
+
+    /*!
+     * \property NetworkManager::GreDevice::remoteEnd
+     */
     Q_PROPERTY(QString remoteEnd READ remoteEnd NOTIFY remoteEndChanged)
+
+    /*!
+     * \property NetworkManager::GreDevice::parent
+     */
     Q_PROPERTY(QString parent READ parent NOTIFY parentChanged)
+
+    /*!
+     * \property NetworkManager::GreDevice::pathMtuDiscovery
+     */
     Q_PROPERTY(bool pathMtuDiscovery READ pathMtuDiscovery NOTIFY pathMtuDiscoveryChanged)
+
+    /*!
+     * \property NetworkManager::GreDevice::tos
+     */
     Q_PROPERTY(uchar tos READ tos NOTIFY tosChanged)
+
+    /*!
+     * \property NetworkManager::GreDevice::ttl
+     */
     Q_PROPERTY(uchar ttl READ ttl NOTIFY ttlChanged)
 
 public:

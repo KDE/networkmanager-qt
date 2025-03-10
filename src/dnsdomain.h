@@ -23,7 +23,7 @@ namespace NetworkManager
 {
 /*!
  * \class NetworkManager::DnsDomain
- *
+ * \inheaderfile NetworkManagerQt/DnsDomain
  * \inmodule NetworkManagerQt
  *
  * \brief This class represents the configuration for a DNS domain.

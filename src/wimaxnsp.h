@@ -11,6 +11,7 @@
 
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
+#include <QObject>
 #include <QSharedPointer>
 
 namespace NetworkManager
@@ -19,7 +20,7 @@ class WimaxNspPrivate;
 
 /*!
  * \class NetworkManager::WimaxNsp
- *
+ * \inheaderfile NetworkManagerQt/WimaxNsp
  * \inmodule NetworkManagerQt
  *
  * \brief Wimax network service provider (access point).
@@ -37,8 +38,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum NetworkType
-     *
      * network types a NSP can have
      *
      * \value Unknown

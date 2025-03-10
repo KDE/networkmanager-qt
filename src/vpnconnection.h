@@ -22,7 +22,7 @@ class VpnConnectionPrivate;
 
 /*!
  * \class NetworkManager::VpnConnection
- *
+ * \inheaderfile NetworkManagerQt/VpnConnection
  * \inmodule NetworkManagerQt
  *
  * \brief An active VPN connection.
@@ -41,8 +41,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum State
-     *
      * Enum describing the possible VPN connection states
      *
      * \value Unknown

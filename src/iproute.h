@@ -17,7 +17,7 @@ namespace NetworkManager
 {
 /*!
  * \class NetworkManager::IpRoute
- *
+ * \inheaderfile NetworkManagerQt/IpRoute
  * \inmodule NetworkManagerQt
  *
  * \brief This class represents IP route.

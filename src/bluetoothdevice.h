@@ -19,7 +19,7 @@ class BluetoothDevicePrivate;
 
 /*!
  * \class NetworkManager::BluetoothDevice
- *
+ * \inheaderfile NetworkManagerQt/BluetoothDevice
  * \inmodule NetworkManagerQt
  *
  * \brief A bluetooth device interface.
@@ -28,8 +28,19 @@ class NETWORKMANAGERQT_EXPORT BluetoothDevice : public ModemDevice
 {
     Q_OBJECT
 
+    /*!
+     * \property NetworkManager::BluetoothDevice::bluetoothCapabilities
+     */
     Q_PROPERTY(uint bluetoothCapabilities READ bluetoothCapabilities)
+
+    /*!
+     * \property NetworkManager::BluetoothDevice::hardwareAddress
+     */
     Q_PROPERTY(QString hardwareAddress READ hardwareAddress)
+
+    /*!
+     * \property NetworkManager::BluetoothDevice::name
+     */
     Q_PROPERTY(QString name READ name)
 
 public:
@@ -72,7 +83,6 @@ public:
     /*!
      * Retrieves the capabilities supported by this device.
      *
-     * Returns the capabilities of the device
      * \sa NetworkManager::BluetoothDevice::Capability
      */
     Capabilities bluetoothCapabilities() const;
