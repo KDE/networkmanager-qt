@@ -18,7 +18,6 @@
 namespace NetworkManager
 {
 /*!
- * \enum WirelessSecurityType
  *
  * Capabilities to pass to secret agents
  *

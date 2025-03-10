@@ -35,7 +35,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum Mode
      *
      * \value None
      * \value Auto

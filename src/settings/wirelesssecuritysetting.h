@@ -35,7 +35,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum KeyMgmt
      *
      * \value Unknown
      * \value Wep
@@ -59,7 +58,6 @@ public:
         OWE,
     };
     /*!
-     * \enum AuthAlg
      *
      * \value None
      * \value Open
@@ -73,7 +71,6 @@ public:
         Leap,
     };
     /*!
-     * \enum WpaProtocolVersion
      *
      * \value Wpa
      * \value Rsn
@@ -83,7 +80,6 @@ public:
         Rsn,
     };
     /*!
-     * \enum WpaEncryptionCapabilities
      *
      * \value Wep40
      * \value Wep104
@@ -97,7 +93,6 @@ public:
         Ccmp,
     };
     /*!
-     * \enum WepKeyType
      *
      * \value NotSpecified
      * \value Hex
@@ -109,7 +104,6 @@ public:
         Passphrase,
     };
     /*!
-     * \enum Pmf
      *
      * \value DefaultPmf
      * \value DisablePmf

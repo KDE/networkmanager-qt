@@ -35,7 +35,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum NetworkType
      *
      * \value Any
      * \value Only3G

@@ -35,7 +35,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum ProfileType
      *
      * \value Unknown
      * \value Dun

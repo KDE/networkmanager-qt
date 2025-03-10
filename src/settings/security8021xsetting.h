@@ -33,7 +33,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum EapMethod
      *
      * \value EapMethodUnknown
      * \value EapMethodLeap
@@ -57,7 +56,6 @@ public:
         EapMethodPwd,
     };
     /*!
-     * \enum PeapVersion
      *
      * \value PeapVersionUnknown
      * \value PeapVersionZero
@@ -69,7 +67,6 @@ public:
         PeapVersionOne,
     };
     /*!
-     * \enum PeapLabel
      *
      * \value PeapLabelUnknown
      * \value PeapLabelForce
@@ -79,7 +76,6 @@ public:
         PeapLabelForce,
     };
     /*!
-     * \enum FastProvisioning
      *
      * \value FastProvisioningUnknown
      * \value FastProvisioningDisabled
@@ -95,7 +91,6 @@ public:
         FastProvisioningAllowBoth,
     };
     /*!
-     * \enum AuthMethod
      *
      * \value AuthMethodUnknown
      * \value AuthMethodPap
@@ -119,7 +114,6 @@ public:
         AuthMethodTls,
     };
     /*!
-     * \enum AuthEapMethod
      *
      * \value AuthEapMethodUnknown
      * \value AuthEapMethodMd5

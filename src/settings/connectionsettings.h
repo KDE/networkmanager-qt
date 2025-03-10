@@ -43,7 +43,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum ConnectionType
      *
      * \value Unknown
      * \value Adsl
@@ -92,7 +91,6 @@ public:
     };
 
     /*!
-     * \enum AutoconnectSlaves
      *
      * \value SlavesDefault
      * \value DoNotConnectSlaves
@@ -105,7 +103,6 @@ public:
     };
 
     /*!
-     * \enum Lldp
      *
      * \value LldpDefault
      * \value LldpDisable
@@ -118,7 +115,6 @@ public:
     };
 
     /*!
-     * \enum Metered
      *
      * FIXME same enum as in device.h, unfortunately it's not possible to use that one
      * maybe in future move all enums into one header so they can be used across all classes
@@ -138,7 +134,6 @@ public:
     };
 
     /*!
-     * \enum Mdns
      *
      * \value MdnsDefault
      * \value MdnsNo

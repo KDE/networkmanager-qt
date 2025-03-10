@@ -33,7 +33,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum Mode
      *
      * \value Unknown
      * \value Ipip
@@ -60,7 +59,6 @@ public:
     };
 
     /*!
-     * \enum Flag
      *
      * \value None
      * \value Ip6IgnEncapLimit

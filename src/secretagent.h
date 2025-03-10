@@ -35,7 +35,6 @@ class NETWORKMANAGERQT_EXPORT SecretAgent : public QObject, protected QDBusConte
     Q_OBJECT
 public:
     /*!
-     * \enum Error
      *
      * \value NotAuthorized
      * \value InvalidConnection
@@ -54,7 +53,6 @@ public:
     };
 
     /*!
-     * \enum GetSecretsFlag
      *
      * Flags modifying the behavior of GetSecrets request.
      *
@@ -78,7 +76,6 @@ public:
     Q_DECLARE_FLAGS(GetSecretsFlags, GetSecretsFlag)
 
     /*!
-     * \enum Capability
      *
      * Capabilities to pass to secret agents
      *

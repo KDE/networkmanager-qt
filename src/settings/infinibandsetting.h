@@ -35,7 +35,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum TransportMode
      *
      * \value Unknown
      * \value Datagram

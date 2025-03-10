@@ -44,7 +44,6 @@ public:
     typedef QList<Ptr> List;
 
     /*!
-     * \enum State
      *
      * Enum describing possible active connection states
      *
@@ -68,7 +67,6 @@ public:
     };
 
     /*!
-     * \enum Reason
      *
      * \value UknownReason
      *        The reason for the active connection state change is unknown

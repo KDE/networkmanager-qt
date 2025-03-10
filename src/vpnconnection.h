@@ -73,7 +73,6 @@ public:
     Q_ENUM(State)
 
     /*!
-     * \enum StateChangeReason
      *
      * \value UnknownReason
      *        The reason for the VPN connection state change is unknown.

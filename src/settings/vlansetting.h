@@ -35,7 +35,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum Flag
      *
      * \value None
      * \value ReorderHeaders

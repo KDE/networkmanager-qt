@@ -37,7 +37,6 @@ public:
     typedef QList<Ptr> List;
 
     /*!
-     * \enum NetworkMode
      *
      * \value Infrastructure
      * \value Adhoc
@@ -50,7 +49,6 @@ public:
     };
 
     /*!
-     * \enum FrequencyBand
      *
      * \value Automatic
      * \value A
@@ -63,7 +61,6 @@ public:
     };
 
     /*!
-     * \enum PowerSave
      *
      * \value PowerSaveDefault
      * \value PowerSaveIgnore

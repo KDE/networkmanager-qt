@@ -38,7 +38,6 @@ public:
     typedef QList<Ptr> List;
 
     /*!
-     * \enum Capability
      *
      * \value NoCapability
      * \value Pots

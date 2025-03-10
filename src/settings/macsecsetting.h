@@ -34,7 +34,6 @@ public:
     typedef QList<Ptr> List;
 
     /*!
-     * \enum Mode
      *
      * \value Psk
      * \value Eap
@@ -45,7 +44,6 @@ public:
     };
 
     /*!
-     * \enum Validation
      *
      * \value Disable
      * \value Check

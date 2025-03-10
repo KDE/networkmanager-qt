@@ -42,7 +42,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum SettingType
      *
      * \value Adsl
      * \value Cdma
@@ -125,7 +124,6 @@ public:
     };
 
     /*!
-     * \enum SecretFlagType
      *
      * \value None
      * \value AgentOwned
@@ -141,7 +139,6 @@ public:
     Q_DECLARE_FLAGS(SecretFlags, SecretFlagType)
 
     /*!
-     * \enum MacAddressRandomization
      *
      * \value MacAddressRandomizationDefault
      * \value MacAddressRandomizationNever

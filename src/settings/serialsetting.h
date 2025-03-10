@@ -35,7 +35,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum Parity
      *
      * \value NoParity
      * \value EvenParity

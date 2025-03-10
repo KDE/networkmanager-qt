@@ -35,7 +35,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum PortType
      *
      * \value UnknownPort
      * \value Tp
@@ -52,7 +51,6 @@ public:
     };
 
     /*!
-     * \enum DuplexType
      *
      * \value UnknownDuplexType
      * \value Half
@@ -65,7 +63,6 @@ public:
     };
 
     /*!
-     * \enum S390Nettype
      *
      * \value Undefined
      * \value Qeth
@@ -80,7 +77,6 @@ public:
     };
 
     /*!
-     * \enum WakeOnLanFlag
      *
      * \value WakeOnLanPhy
      * \value WakeOnLanUnicast

@@ -83,7 +83,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum ConfigMethod
      *
      * \value Automatic
      * \value Dhcp
@@ -102,7 +101,6 @@ public:
         ConfigDisabled
     };
     /*!
-     * \enum IPv6Privacy
      *
      * \value Unknown
      * \value Disabled
@@ -116,7 +114,6 @@ public:
         PreferTemporary,
     };
     /*!
-     * \enum IPv6AddressGenMode
      *
      * \value Eui64
      * \value StablePrivacy

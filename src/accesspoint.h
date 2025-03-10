@@ -41,7 +41,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum OperationMode
      *
      * The access point's current operating mode
      *
@@ -59,7 +58,6 @@ public:
         ApMode,
     };
     /*!
-     * \enum Capability
      *
      * General capabilities of an access point
      *
@@ -73,7 +71,6 @@ public:
         Privacy = 0x1,
     };
     /*!
-     * \enum Capability
      *
      * Flags describing the access point's capabilities according to WPA (Wifi Protected Access)
      *

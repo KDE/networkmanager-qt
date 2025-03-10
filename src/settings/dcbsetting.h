@@ -36,7 +36,6 @@ public:
     typedef QList<Ptr> List;
 
     /*!
-     * \enum DcbFlagType
      *
      * \value None
      * \value Enable

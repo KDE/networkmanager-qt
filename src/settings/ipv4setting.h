@@ -65,7 +65,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum ConfigMethod
      *
      * \value Automatic
      * \value LinkLocal

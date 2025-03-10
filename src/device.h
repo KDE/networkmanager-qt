@@ -143,7 +143,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum State
      *
      * Device connection states describe the possible states of a
      * network connection from the user's point of view.  For
@@ -195,7 +194,6 @@ public:
     Q_ENUM(State)
 
     /*!
-     * \enum StateChangeReason
      *
      * Enums describing the reason for a connection state change
      * \note StateChangeReasons NewActivation, ParentChanged, ParentManagedChanged are available in runtime NM >= 1.0.4
@@ -334,7 +332,6 @@ public:
     Q_ENUM(StateChangeReason)
 
     /*!
-     * \enum MeteredStatus
      *
      * \value UnknownStatus
      *        The device metered status is unknown.
@@ -357,7 +354,6 @@ public:
     Q_ENUM(MeteredStatus)
 
     /*!
-     * \enum Capability
      *
      * Possible device capabilities
      *
@@ -375,7 +371,6 @@ public:
     Q_FLAG(Capabilities)
 
     /*!
-     * \enum Interfaceflag
      *
      * Possible device interfaceflags
      *
@@ -399,7 +394,6 @@ public:
     Q_FLAG(Interfaceflags)
 
     /*!
-     * \enum Type
      *
      * Device type
      *

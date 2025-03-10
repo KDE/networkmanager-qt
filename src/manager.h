@@ -30,7 +30,6 @@ namespace NetworkManager
 Q_NAMESPACE_EXPORT(NETWORKMANAGERQT_EXPORT)
 
 /*!
- * \enum Status
  *
  * Possible device interfaceflags
  *
@@ -64,7 +63,6 @@ enum Status {
 Q_ENUM_NS(Status)
 
 /*!
- * \enum LogLevel
  *
  * \value Error
  * \value Warning
@@ -82,7 +80,6 @@ enum LogLevel {
 };
 
 /*!
- * \enum LogDomain
  *
  * \value NoChange
  * \value None
@@ -170,7 +167,6 @@ Q_DECLARE_FLAGS(LogDomains, LogDomain)
 Q_FLAGS(LogDomain)
 
 /*!
- * \enum Connectivity
  *
  * Describes the network connectivity state.
  *

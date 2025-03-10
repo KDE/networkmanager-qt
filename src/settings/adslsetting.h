@@ -35,7 +35,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum Protocol
      *
      * \value UnknownProtocol
      * \value Pppoa
@@ -49,7 +48,6 @@ public:
         Ipoatm,
     };
     /*!
-     * \enum Encapsulation
      *
      * \value UnknownEncapsulation
      * \value Vcmux

@@ -53,7 +53,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     * \enum Capability
      *
      * Capabilities of the Bluetooth device
      *
