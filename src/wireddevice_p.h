@@ -16,8 +16,6 @@ class WiredDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
-    /*!
-     */
     explicit WiredDevicePrivate(const QString &path, WiredDevice *q);
     ~WiredDevicePrivate() override;
     OrgFreedesktopNetworkManagerDeviceWiredInterface wiredIface;
@@ -29,7 +27,7 @@ public:
 
     Q_DECLARE_PUBLIC(WiredDevice)
 protected:
-    /*!
+    /**
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */

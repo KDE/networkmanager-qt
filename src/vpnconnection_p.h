@@ -20,15 +20,9 @@ class VpnConnectionPrivate : public ActiveConnectionPrivate
 {
     Q_OBJECT
 public:
-    /*!
-     */
     VpnConnectionPrivate(const QString &path, VpnConnection *q);
 
-    /*!
-     */
     static NetworkManager::VpnConnection::State convertVpnConnectionState(uint state);
-    /*!
-     */
     static NetworkManager::VpnConnection::StateChangeReason convertVpnConnectionStateReason(uint reason);
 
     QString banner;
@@ -39,18 +33,14 @@ public:
     VpnConnection *q_ptr;
 
 protected:
-    /*!
+    /**
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */
     void propertyChanged(const QString &property, const QVariant &value) override;
 
 private Q_SLOTS:
-    /*!
-     */
     void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
-    /*!
-     */
     void vpnStateChanged(uint new_state, uint reason);
 };
 

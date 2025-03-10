@@ -17,8 +17,6 @@ class Dhcp6ConfigPrivate : public QObject
 {
     Q_OBJECT
 public:
-    /*!
-     */
     Dhcp6ConfigPrivate(const QString &path, Dhcp6Config *q);
     ~Dhcp6ConfigPrivate() override;
     OrgFreedesktopNetworkManagerDHCP6ConfigInterface dhcp6Iface;
@@ -28,11 +26,7 @@ public:
     Q_DECLARE_PUBLIC(Dhcp6Config)
     Dhcp6Config *q_ptr;
 protected Q_SLOTS:
-    /*!
-     */
     void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
-    /*!
-     */
     void dhcp6PropertiesChanged(const QVariantMap &);
 };
 

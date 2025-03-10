@@ -16,8 +16,6 @@ class WimaxDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
-    /*!
-     */
     explicit WimaxDevicePrivate(const QString &path, WimaxDevice *q);
     OrgFreedesktopNetworkManagerDeviceWiMaxInterface wimaxIface;
     QString hardwareAddress;
@@ -31,15 +29,11 @@ public:
 
     Q_DECLARE_PUBLIC(WimaxDevice)
 protected Q_SLOTS:
-    /*!
-     */
     void nspAdded(const QDBusObjectPath &);
-    /*!
-     */
     void nspRemoved(const QDBusObjectPath &);
 
 protected:
-    /*!
+    /**
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */

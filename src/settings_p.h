@@ -23,38 +23,16 @@ class SettingsPrivate : public NetworkManager::SettingsNotifier
     friend class NetworkManagerPrivate;
 
 public:
-    /*!
-     */
     SettingsPrivate();
-    /*!
-     */
     Connection::List listConnections();
-    /*!
-     */
     NetworkManager::Connection::Ptr findConnectionByUuid(const QString &uuid);
-    /*!
-     */
     QString hostname() const;
-    /*!
-     */
     bool canModify() const;
-    /*!
-     */
     QDBusPendingReply<QDBusObjectPath> addConnection(const NMVariantMapMap &);
-    /*!
-     */
     QDBusPendingReply<QDBusObjectPath> addConnectionUnsaved(const NMVariantMapMap &);
-    /*!
-     */
     QDBusPendingReply<bool, QStringList> loadConnections(const QStringList &filenames);
-    /*!
-     */
     void saveHostname(const QString &);
-    /*!
-     */
     QDBusPendingReply<bool> reloadConnections();
-    /*!
-     */
     Connection::Ptr findRegisteredConnection(const QString &);
 
     OrgFreedesktopNetworkManagerSettingsInterface iface;
@@ -62,31 +40,15 @@ public:
     bool m_canModify;
     QString m_hostname;
 protected Q_SLOTS:
-    /*!
-     */
     void onConnectionAdded(const QDBusObjectPath &);
-    /*!
-     */
     void onConnectionRemoved(const QDBusObjectPath &);
-    /*!
-     */
     void onConnectionRemoved(const QString &);
-    /*!
-     */
     void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
-    /*!
-     */
     void propertiesChanged(const QVariantMap &properties);
-    /*!
-     */
     void initNotifier();
 
 protected:
-    /*!
-     */
     void daemonUnregistered();
-    /*!
-     */
     void init();
 };
 

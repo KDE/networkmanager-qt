@@ -18,8 +18,6 @@ class InfinibandDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
-    /*!
-     */
     InfinibandDevicePrivate(const QString &path, InfinibandDevice *q);
     ~InfinibandDevicePrivate() override;
 
@@ -29,7 +27,7 @@ public:
 
     Q_DECLARE_PUBLIC(InfinibandDevice)
 protected:
-    /*!
+    /**
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */

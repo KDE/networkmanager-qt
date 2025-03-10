@@ -18,8 +18,6 @@ namespace NetworkManager
 class WireGuardDevicePrivate : public DevicePrivate
 {
 public:
-    /*!
-     */
     WireGuardDevicePrivate(const QString &path, WireGuardDevice *q);
     ~WireGuardDevicePrivate() override;
 
@@ -30,7 +28,7 @@ public:
 
     Q_DECLARE_PUBLIC(WireGuardDevice)
 protected:
-    /*!
+    /**
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */

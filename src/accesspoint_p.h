@@ -18,8 +18,6 @@ class AccessPointPrivate : public QObject
 {
     Q_OBJECT
 public:
-    /*!
-     */
     AccessPointPrivate(const QString &path, AccessPoint *q);
 
     OrgFreedesktopNetworkManagerAccessPointInterface iface;
@@ -38,21 +36,13 @@ public:
     int lastSeen;
     uint bandwidth;
 
-    /*!
-     */
     NetworkManager::AccessPoint::Capabilities convertCapabilities(int caps);
-    /*!
-     */
     NetworkManager::AccessPoint::WpaFlags convertWpaFlags(uint theirFlags);
 
     Q_DECLARE_PUBLIC(AccessPoint)
     AccessPoint *q_ptr;
 private Q_SLOTS:
-    /*!
-     */
     void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
-    /*!
-     */
     void propertiesChanged(const QVariantMap &properties);
 };
 

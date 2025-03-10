@@ -17,8 +17,6 @@ class BondDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
-    /*!
-     */
     BondDevicePrivate(const QString &path, BondDevice *q);
     ~BondDevicePrivate() override;
 
@@ -29,7 +27,7 @@ public:
 
     Q_DECLARE_PUBLIC(BondDevice)
 protected:
-    /*!
+    /**
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */

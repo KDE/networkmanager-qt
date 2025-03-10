@@ -18,8 +18,6 @@ class VethDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
-    /*!
-     */
     VethDevicePrivate(const QString &path, VethDevice *q);
     ~VethDevicePrivate() override;
 
@@ -28,7 +26,7 @@ public:
 
     Q_DECLARE_PUBLIC(VethDevice)
 protected:
-    /*!
+    /**
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */

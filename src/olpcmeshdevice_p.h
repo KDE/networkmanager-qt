@@ -16,8 +16,6 @@ class OlpcMeshDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
-    /*!
-     */
     explicit OlpcMeshDevicePrivate(const QString &path, OlpcMeshDevice *q);
     OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface iface;
     uint activeChannel;
@@ -26,7 +24,7 @@ public:
 
     Q_DECLARE_PUBLIC(OlpcMeshDevice)
 protected:
-    /*!
+    /**
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */

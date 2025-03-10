@@ -36,8 +36,6 @@ public:
     // Functions useful also for other classes
     static QVariantMap retrieveInitialProperties(const QString &interfaceName, const QString &path);
 
-    /*!
-     */
     NetworkManagerPrivate();
     ~NetworkManagerPrivate() override;
     QDBusServiceWatcher watcher;
@@ -65,186 +63,76 @@ public:
     int m_x;
     int m_y;
     int m_z;
-    /*!
-     */
     void parseVersion(const QString &version);
-    /*!
-     */
     int compareVersion(const QString &version);
-    /*!
-     */
     int compareVersion(const int x, const int y, const int z) const;
-    /*!
-     */
     bool checkVersion(const int x, const int y, const int z) const;
     NetworkManager::Device::Types m_supportedInterfaceTypes;
-    /*!
-     */
     NetworkManager::Device::Types supportedInterfaceTypes() const;
 
     QMap<QString, ActiveConnection::Ptr> m_activeConnections;
-    /*!
-     */
     ActiveConnection::Ptr findRegisteredActiveConnection(const QString &);
     // manage device children
-    /*!
-     */
     Device::Ptr findRegisteredNetworkInterface(const QString &uni);
-    /*!
-     */
     Device::Ptr createNetworkInterface(const QString &uni);
     QMap<QString, Device::Ptr> networkInterfaceMap;
     // for frontend to call
-    /*!
-     */
     QString version() const;
-    /*!
-     */
     NetworkManager::Status status() const;
-    /*!
-     */
     Device::List networkInterfaces();
-    /*!
-     */
     Device::Ptr findNetworkInterface(const QString &uni);
-    /*!
-     */
     Device::Ptr findDeviceByIpIface(const QString &iface);
-    /*!
-     */
     bool isNetworkingEnabled() const;
-    /*!
-     */
     bool isWirelessEnabled() const;
-    /*!
-     */
     bool isWirelessHardwareEnabled() const;
-    /*!
-     */
     bool isWwanEnabled() const;
-    /*!
-     */
     bool isWwanHardwareEnabled() const;
-    /*!
-     */
     bool isWimaxEnabled() const;
     // TODO: mark it deprecated somehow?
-    /*!
-     */
     bool isWimaxHardwareEnabled() const;
-    /*!
-     */
     QDBusPendingReply<QDBusObjectPath> activateConnection(const QString &connectionUni, const QString &interfaceUni, const QString &connectionParameter);
-    /*!
-     */
     QDBusPendingReply<QDBusObjectPath, QDBusObjectPath>
     addAndActivateConnection(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter);
-    /*!
-     */
     QDBusPendingReply<QDBusObjectPath, QDBusObjectPath, QVariantMap>
     addAndActivateConnection2(const NMVariantMapMap &connection, const QString &interfaceUni, const QString &connectionParameter, const QVariantMap &options);
-    /*!
-     */
     QDBusPendingReply<> deactivateConnection(const QString &activeConnection);
-    /*!
-     */
     ActiveConnection::List activeConnections();
-    /*!
-     */
     QStringList activeConnectionsPaths() const;
-    /*!
-     */
     QDBusPendingReply<QString, QString> getLogging();
-    /*!
-     */
     void setNetworkingEnabled(bool enabled);
-    /*!
-     */
     void setWirelessEnabled(bool enabled);
-    /*!
-     */
     void setWwanEnabled(bool enabled);
     // TODO: mark it deprecated somehow?
-    /*!
-     */
     void setWimaxEnabled(bool enabled);
-    /*!
-     */
     void sleep(bool sleep);
-    /*!
-     */
     void setLogging(NetworkManager::LogLevel, NetworkManager::LogDomains);
-    /*!
-     */
     NMStringMap permissions();
-    /*!
-     */
     Connectivity connectivity() const;
-    /*!
-     */
     QDBusPendingReply<uint> checkConnectivity();
-    /*!
-     */
     ActiveConnection::Ptr primaryConnection();
-    /*!
-     */
     ActiveConnection::Ptr activatingConnection();
-    /*!
-     */
     NetworkManager::ConnectionSettings::ConnectionType primaryConnectionType();
-    /*!
-     */
     bool isStartingUp() const;
-    /*!
-     */
     NetworkManager::Device::MeteredStatus metered() const;
-    /*!
-     */
     NetworkManager::DnsConfiguration globalDnsConfiguration() const;
-    /*!
-     */
     void setGlobalDnsConfiguration(const NetworkManager::DnsConfiguration &configuration);
     bool isConnectivityCheckAvailable() const;
     bool isConnectivityCheckEnabled() const;
     QString connectivityCheckUri() const;
 protected Q_SLOTS:
-    /*!
-     */
     void init();
-    /*!
-     */
     void onDeviceAdded(const QDBusObjectPath &state);
-    /*!
-     */
     void onDeviceRemoved(const QDBusObjectPath &state);
-    /*!
-     */
     void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
-    /*!
-     */
     void propertiesChanged(const QVariantMap &changedProperties);
-    /*!
-     */
     void dbusInterfacesAdded(const QDBusObjectPath &path, const QVariantMap &addedInterfaces);
-    /*!
-     */
     void daemonRegistered();
-    /*!
-     */
     void daemonUnregistered();
 
 private:
-    /*!
-     */
     void connectivityChanged(uint connectivity);
-    /*!
-     */
     void stateChanged(uint state);
-    /*!
-     */
     static NetworkManager::Connectivity convertConnectivity(uint connectivity);
-    /*!
-     */
     static NetworkManager::Status convertNMState(uint state);
 };
 }

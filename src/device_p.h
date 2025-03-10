@@ -18,13 +18,9 @@ class DevicePrivate : public QObject
 {
     Q_OBJECT
 public:
-    /*!
-     */
     explicit DevicePrivate(const QString &path, Device *q);
     ~DevicePrivate() override;
 
-    /*!
-     */
     void init();
 
     OrgFreedesktopNetworkManagerDeviceInterface deviceIface;
@@ -61,44 +57,26 @@ public:
     Device::MeteredStatus metered;
     DeviceStatistics::Ptr deviceStatistics;
 
-    /*!
-     */
     static NetworkManager::Device::MeteredStatus convertMeteredStatus(uint);
-    /*!
-     */
     static NetworkManager::Device::Capabilities convertCapabilities(uint);
-    /*!
-     */
     static NetworkManager::Device::Interfaceflags convertInterfaceflags(uint);
-    /*!
-     */
     static NetworkManager::Device::State convertState(uint);
-    /*!
-     */
     static NetworkManager::Device::StateChangeReason convertReason(uint);
-    /*!
-     */
     static NetworkManager::Device::Type convertType(uint);
 
     Q_DECLARE_PUBLIC(Device)
     Device *q_ptr;
 
 public:
-    /*!
+    /**
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */
     virtual void propertyChanged(const QString &property, const QVariant &value);
 
 public Q_SLOTS:
-    /*!
-     */
     void deviceStateChanged(uint, uint, uint);
-    /*!
-     */
     void dbusPropertiesChanged(const QString &interfaceName, const QVariantMap &properties, const QStringList &invalidatedProperties);
-    /*!
-     */
     void propertiesChanged(const QVariantMap &properties);
 };
 

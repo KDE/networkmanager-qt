@@ -17,8 +17,6 @@ class WirelessDevicePrivate : public DevicePrivate
 {
     Q_OBJECT
 public:
-    /*!
-     */
     explicit WirelessDevicePrivate(const QString &path, WirelessDevice *q);
     OrgFreedesktopNetworkManagerDeviceWirelessInterface wirelessIface;
     QString permanentHardwareAddress;
@@ -35,21 +33,15 @@ public:
 
     Q_DECLARE_PUBLIC(WirelessDevice)
 protected:
-    /*!
+    /**
      * When subclassing make sure to call the parent class method
      * if the property was not useful to your new class
      */
     void propertyChanged(const QString &property, const QVariant &value) override;
 
 protected Q_SLOTS:
-    /*!
-     */
     void accessPointAdded(const QDBusObjectPath &);
-    /*!
-     */
     void accessPointRemoved(const QDBusObjectPath &);
-    /*!
-     */
     void removeNetwork(const QString &network);
 };
 
