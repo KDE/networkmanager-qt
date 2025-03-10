@@ -19,15 +19,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.IPTunnel
  */
 class OrgFreedesktopNetworkManagerDeviceIPTunnelInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -39,8 +37,6 @@ public:
     }
 #endif
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerDeviceIPTunnelInterface(const QString &service,
                                                         const QString &path,
                                                         const QDBusConnection &connection,
@@ -49,88 +45,66 @@ public:
     ~OrgFreedesktopNetworkManagerDeviceIPTunnelInterface() override;
 
     Q_PROPERTY(uchar EncapsulationLimit READ encapsulationLimit)
-    /*!
-     */
     inline uchar encapsulationLimit() const
     {
         return qvariant_cast<uchar>(property("EncapsulationLimit"));
     }
 
     Q_PROPERTY(uint FlowLabel READ flowLabel)
-    /*!
-     */
     inline uint flowLabel() const
     {
         return qvariant_cast<uint>(property("FlowLabel"));
     }
 
     Q_PROPERTY(QString InputKey READ inputKey)
-    /*!
-     */
     inline QString inputKey() const
     {
         return qvariant_cast<QString>(property("InputKey"));
     }
 
     Q_PROPERTY(QString Local READ local)
-    /*!
-     */
     inline QString local() const
     {
         return qvariant_cast<QString>(property("Local"));
     }
 
     Q_PROPERTY(uint Mode READ mode)
-    /*!
-     */
     inline uint mode() const
     {
         return qvariant_cast<uint>(property("Mode"));
     }
 
     Q_PROPERTY(QString OutputKey READ outputKey)
-    /*!
-     */
     inline QString outputKey() const
     {
         return qvariant_cast<QString>(property("OutputKey"));
     }
 
     Q_PROPERTY(QDBusObjectPath Parent READ parent)
-    /*!
-     */
     inline QDBusObjectPath parent() const
     {
         return qvariant_cast<QDBusObjectPath>(property("Parent"));
     }
 
     Q_PROPERTY(bool PathMtuDiscovery READ pathMtuDiscovery)
-    /*!
-     */
     inline bool pathMtuDiscovery() const
     {
         return qvariant_cast<bool>(property("PathMtuDiscovery"));
     }
 
     Q_PROPERTY(QString Remote READ remote)
-    /*!
-     */
     inline QString remote() const
     {
         return qvariant_cast<QString>(property("Remote"));
     }
 
     Q_PROPERTY(uchar Tos READ tos)
-    /*!
-     */
     inline uchar tos() const
     {
         return qvariant_cast<uchar>(property("Tos"));
     }
 
     Q_PROPERTY(uchar Ttl READ ttl)
-    /*!
-     */
     inline uchar ttl() const
     {
         return qvariant_cast<uchar>(property("Ttl"));
@@ -138,8 +112,6 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

@@ -14,8 +14,6 @@ namespace NetworkManager
 class MacsecSettingPrivate
 {
 public:
-    /*!
-     */
     MacsecSettingPrivate();
 
     QString name;

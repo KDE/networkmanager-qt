@@ -19,15 +19,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Veth
  */
 class OrgFreedesktopNetworkManagerDeviceVethInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -40,15 +38,11 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerDeviceVethInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceVethInterface() override;
 
     Q_PROPERTY(QDBusObjectPath Peer READ peer)
-    /*!
-     */
     inline QDBusObjectPath peer() const
     {
         return qvariant_cast<QDBusObjectPath>(property("Peer"));
@@ -56,8 +50,6 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

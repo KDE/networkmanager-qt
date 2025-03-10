@@ -19,15 +19,13 @@
 #include <QStringList>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Wired
  */
 class OrgFreedesktopNetworkManagerDeviceWiredInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -40,47 +38,35 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerDeviceWiredInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceWiredInterface() override;
 
     Q_PROPERTY(bool Carrier READ carrier)
-    /*!
-     */
     inline bool carrier() const
     {
         return qvariant_cast<bool>(property("Carrier"));
     }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
-    /*!
-     */
     inline QString hwAddress() const
     {
         return qvariant_cast<QString>(property("HwAddress"));
     }
 
     Q_PROPERTY(QString PermHwAddress READ permHwAddress)
-    /*!
-     */
     inline QString permHwAddress() const
     {
         return qvariant_cast<QString>(property("PermHwAddress"));
     }
 
     Q_PROPERTY(QStringList S390Subchannels READ s390Subchannels)
-    /*!
-     */
     inline QStringList s390Subchannels() const
     {
         return qvariant_cast<QStringList>(property("S390Subchannels"));
     }
 
     Q_PROPERTY(uint Speed READ speed)
-    /*!
-     */
     inline uint speed() const
     {
         return qvariant_cast<uint>(property("Speed"));
@@ -88,8 +74,6 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

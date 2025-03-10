@@ -17,15 +17,13 @@
 #include <QObject>
 #include <QString>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.DnsManager
  */
 class OrgFreedesktopNetworkManagerDnsManagerInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -38,31 +36,23 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerDnsManagerInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDnsManagerInterface() override;
 
     Q_PROPERTY(NMVariantMapList Configuration READ configuration)
-    /*!
-     */
     inline NMVariantMapList configuration() const
     {
         return qvariant_cast<NMVariantMapList>(property("Configuration"));
     }
 
     Q_PROPERTY(QString Mode READ mode)
-    /*!
-     */
     inline QString mode() const
     {
         return qvariant_cast<QString>(property("Mode"));
     }
 
     Q_PROPERTY(QString RcManager READ rcManager)
-    /*!
-     */
     inline QString rcManager() const
     {
         return qvariant_cast<QString>(property("RcManager"));

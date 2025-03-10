@@ -14,8 +14,6 @@ namespace NetworkManager
 class GenericSettingPrivate
 {
 public:
-    /*!
-     */
     GenericSettingPrivate();
 
     QString name;

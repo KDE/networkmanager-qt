@@ -16,14 +16,8 @@ class SettingsTest : public QObject
     Q_OBJECT
 
 private Q_SLOTS:
-    /*!
-     */
     void initTestCase();
-    /*!
-     */
     void testConnections();
-    /*!
-     */
     void testConnectionAdded(const QString &connection);
 
 private:

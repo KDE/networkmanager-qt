@@ -18,15 +18,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.DHCP4Config
  */
 class OrgFreedesktopNetworkManagerDHCP4ConfigInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -39,15 +37,11 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerDHCP4ConfigInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDHCP4ConfigInterface() override;
 
     Q_PROPERTY(QVariantMap Options READ options)
-    /*!
-     */
     inline QVariantMap options() const
     {
         return qvariant_cast<QVariantMap>(property("Options"));
@@ -55,8 +49,6 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

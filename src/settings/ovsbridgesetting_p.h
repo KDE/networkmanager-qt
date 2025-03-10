@@ -14,8 +14,6 @@ namespace NetworkManager
 class OvsBridgeSettingPrivate
 {
 public:
-    /*!
-     */
     OvsBridgeSettingPrivate();
 
     QString name;

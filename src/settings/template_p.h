@@ -14,8 +14,6 @@ namespace NetworkManager
 class TemplateSettingPrivate
 {
 public:
-    /*!
-     */
     TemplateSettingPrivate();
 
     QString name;

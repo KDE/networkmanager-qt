@@ -18,15 +18,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Adsl
  */
 class OrgFreedesktopNetworkManagerDeviceAdslInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -39,15 +37,11 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerDeviceAdslInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceAdslInterface() override;
 
     Q_PROPERTY(bool Carrier READ carrier)
-    /*!
-     */
     inline bool carrier() const
     {
         return qvariant_cast<bool>(property("Carrier"));
@@ -55,8 +49,6 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

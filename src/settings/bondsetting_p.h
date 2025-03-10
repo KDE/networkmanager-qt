@@ -14,8 +14,6 @@ namespace NetworkManager
 class BondSettingPrivate
 {
 public:
-    /*!
-     */
     BondSettingPrivate();
 
     QString name;

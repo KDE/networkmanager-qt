@@ -21,15 +21,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Wireless
  */
 class OrgFreedesktopNetworkManagerDeviceWirelessInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -42,8 +40,6 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerDeviceWirelessInterface(const QString &service,
                                                         const QString &path,
                                                         const QDBusConnection &connection,
@@ -52,80 +48,60 @@ public:
     ~OrgFreedesktopNetworkManagerDeviceWirelessInterface() override;
 
     Q_PROPERTY(QList<QDBusObjectPath> AccessPoints READ accessPoints)
-    /*!
-     */
     inline QList<QDBusObjectPath> accessPoints() const
     {
         return qvariant_cast<QList<QDBusObjectPath>>(property("AccessPoints"));
     }
 
     Q_PROPERTY(QDBusObjectPath ActiveAccessPoint READ activeAccessPoint)
-    /*!
-     */
     inline QDBusObjectPath activeAccessPoint() const
     {
         return qvariant_cast<QDBusObjectPath>(property("ActiveAccessPoint"));
     }
 
     Q_PROPERTY(uint Bitrate READ bitrate)
-    /*!
-     */
     inline uint bitrate() const
     {
         return qvariant_cast<uint>(property("Bitrate"));
     }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
-    /*!
-     */
     inline QString hwAddress() const
     {
         return qvariant_cast<QString>(property("HwAddress"));
     }
 
     Q_PROPERTY(uint Mode READ mode)
-    /*!
-     */
     inline uint mode() const
     {
         return qvariant_cast<uint>(property("Mode"));
     }
 
     Q_PROPERTY(QString PermHwAddress READ permHwAddress)
-    /*!
-     */
     inline QString permHwAddress() const
     {
         return qvariant_cast<QString>(property("PermHwAddress"));
     }
 
     Q_PROPERTY(uint WirelessCapabilities READ wirelessCapabilities)
-    /*!
-     */
     inline uint wirelessCapabilities() const
     {
         return qvariant_cast<uint>(property("WirelessCapabilities"));
     }
 
 public Q_SLOTS: // METHODS
-    /*!
-     */
     inline QDBusPendingReply<QList<QDBusObjectPath>> GetAccessPoints()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("GetAccessPoints"), argumentList);
     }
 
-    /*!
-     */
     inline QDBusPendingReply<QList<QDBusObjectPath>> GetAllAccessPoints()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("GetAllAccessPoints"), argumentList);
     }
 
-    /*!
-     */
     inline QDBusPendingReply<> RequestScan(const QVariantMap &options)
     {
         QList<QVariant> argumentList;
@@ -134,14 +110,8 @@ public Q_SLOTS: // METHODS
     }
 
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void AccessPointAdded(const QDBusObjectPath &access_point);
-    /*!
-     */
     void AccessPointRemoved(const QDBusObjectPath &access_point);
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

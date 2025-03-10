@@ -18,15 +18,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.WiMax.Nsp
  */
 class OrgFreedesktopNetworkManagerWiMaxNspInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -39,31 +37,23 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerWiMaxNspInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerWiMaxNspInterface() override;
 
     Q_PROPERTY(QString Name READ name)
-    /*!
-     */
     inline QString name() const
     {
         return qvariant_cast<QString>(property("Name"));
     }
 
     Q_PROPERTY(uint NetworkType READ networkType)
-    /*!
-     */
     inline uint networkType() const
     {
         return qvariant_cast<uint>(property("NetworkType"));
     }
 
     Q_PROPERTY(uint SignalQuality READ signalQuality)
-    /*!
-     */
     inline uint signalQuality() const
     {
         return qvariant_cast<uint>(property("SignalQuality"));
@@ -71,8 +61,6 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

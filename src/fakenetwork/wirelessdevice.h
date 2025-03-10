@@ -22,8 +22,6 @@ class WirelessDevice : public Device
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Device.Wireless")
 public:
-    /*!
-     */
     explicit WirelessDevice(QObject *parent = nullptr);
     ~WirelessDevice() override;
 
@@ -35,75 +33,33 @@ public:
     Q_PROPERTY(QString PermHwAddress READ permHwAddress)
     Q_PROPERTY(uint WirelessCapabilities READ wirelessCapabilities)
 
-    /*!
-     */
     QList<QDBusObjectPath> accessPoints() const;
-    /*!
-     */
     QDBusObjectPath activeAccessPoint() const;
-    /*!
-     */
     uint bitrate() const;
-    /*!
-     */
     QString hwAddress() const;
-    /*!
-     */
     uint mode() const;
-    /*!
-     */
     QString permHwAddress() const;
-    /*!
-     */
     uint wirelessCapabilities() const;
 
     /* Not part of DBus interface */
-    /*!
-     */
     void addAccessPoint(AccessPoint *accessPoint);
-    /*!
-     */
     void removeAccessPoint(AccessPoint *accessPoint);
-    /*!
-     */
     void setActiveAccessPoint(const QString &activeAccessPoint);
-    /*!
-     */
     void setBitrate(uint bitrate);
-    /*!
-     */
     void setHwAddress(const QString &hwAddress);
-    /*!
-     */
     void setMode(uint mode);
-    /*!
-     */
     void setPermHwAddress(const QString &permHwAddress);
     void setState(uint state) override;
-    /*!
-     */
     void setWirelessCapabilities(uint capabilities);
 
 public Q_SLOTS:
-    /*!
-     */
     Q_SCRIPTABLE QList<QDBusObjectPath> GetAccessPoints();
-    /*!
-     */
     Q_SCRIPTABLE QList<QDBusObjectPath> GetAllAccessPoints();
-    /*!
-     */
     Q_SCRIPTABLE void RequestScan(const QVariantMap &options);
 
 Q_SIGNALS:
-    /*!
-     */
     Q_SCRIPTABLE void AccessPointAdded(const QDBusObjectPath &access_point);
-    /*!
-     */
     Q_SCRIPTABLE void AccessPointRemoved(const QDBusObjectPath &access_point);
-    /*!
-     */
     Q_SCRIPTABLE void PropertiesChanged(const QVariantMap &properties);
 
 private:

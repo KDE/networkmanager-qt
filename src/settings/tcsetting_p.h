@@ -11,9 +11,6 @@
 
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
-/*!
- * \typedef NMVariantMapList
- */
 typedef QList<QVariantMap> NMVariantMapList;
 
 namespace NetworkManager
@@ -21,8 +18,6 @@ namespace NetworkManager
 class TcSettingPrivate
 {
 public:
-    /*!
-     */
     TcSettingPrivate();
 
     QString name;

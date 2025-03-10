@@ -14,8 +14,6 @@ namespace NetworkManager
 class TeamSettingPrivate
 {
 public:
-    /*!
-     */
     TeamSettingPrivate();
 
     QString name;

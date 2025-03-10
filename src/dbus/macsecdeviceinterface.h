@@ -19,15 +19,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Macsec
  */
 class OrgFreedesktopNetworkManagerDeviceMacsecInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -40,8 +38,6 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerDeviceMacsecInterface(const QString &service,
                                                       const QString &path,
                                                       const QDBusConnection &connection,
@@ -50,104 +46,78 @@ public:
     ~OrgFreedesktopNetworkManagerDeviceMacsecInterface() override;
 
     Q_PROPERTY(qulonglong CipherSuite READ cipherSuite)
-    /*!
-     */
     inline qulonglong cipherSuite() const
     {
         return qvariant_cast<qulonglong>(property("CipherSuite"));
     }
 
     Q_PROPERTY(uchar EncodingSa READ encodingSa)
-    /*!
-     */
     inline uchar encodingSa() const
     {
         return qvariant_cast<uchar>(property("EncodingSa"));
     }
 
     Q_PROPERTY(bool Encrypt READ encrypt)
-    /*!
-     */
     inline bool encrypt() const
     {
         return qvariant_cast<bool>(property("Encrypt"));
     }
 
     Q_PROPERTY(bool Es READ es)
-    /*!
-     */
     inline bool es() const
     {
         return qvariant_cast<bool>(property("Es"));
     }
 
     Q_PROPERTY(uchar IcvLength READ icvLength)
-    /*!
-     */
     inline uchar icvLength() const
     {
         return qvariant_cast<uchar>(property("IcvLength"));
     }
 
     Q_PROPERTY(bool IncludeSci READ includeSci)
-    /*!
-     */
     inline bool includeSci() const
     {
         return qvariant_cast<bool>(property("IncludeSci"));
     }
 
     Q_PROPERTY(QDBusObjectPath Parent READ parent)
-    /*!
-     */
     inline QDBusObjectPath parent() const
     {
         return qvariant_cast<QDBusObjectPath>(property("Parent"));
     }
 
     Q_PROPERTY(bool Protect READ protect)
-    /*!
-     */
     inline bool protect() const
     {
         return qvariant_cast<bool>(property("Protect"));
     }
 
     Q_PROPERTY(bool ReplayProtect READ replayProtect)
-    /*!
-     */
     inline bool replayProtect() const
     {
         return qvariant_cast<bool>(property("ReplayProtect"));
     }
 
     Q_PROPERTY(bool Scb READ scb)
-    /*!
-     */
     inline bool scb() const
     {
         return qvariant_cast<bool>(property("Scb"));
     }
 
     Q_PROPERTY(qulonglong Sci READ sci)
-    /*!
-     */
     inline qulonglong sci() const
     {
         return qvariant_cast<qulonglong>(property("Sci"));
     }
 
     Q_PROPERTY(QString Validation READ validation)
-    /*!
-     */
     inline QString validation() const
     {
         return qvariant_cast<QString>(property("Validation"));
     }
 
     Q_PROPERTY(uint Window READ window)
-    /*!
-     */
     inline uint window() const
     {
         return qvariant_cast<uint>(property("Window"));
@@ -155,8 +125,6 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

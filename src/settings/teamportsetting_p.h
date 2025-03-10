@@ -9,9 +9,6 @@
 
 #include <QString>
 
-/*!
- * \typedef NMVariantMapList
- */
 typedef QList<QVariantMap> NMVariantMapList;
 
 namespace NetworkManager
@@ -19,8 +16,6 @@ namespace NetworkManager
 class TeamPortSettingPrivate
 {
 public:
-    /*!
-     */
     TeamPortSettingPrivate();
 
     QString name;

@@ -14,8 +14,6 @@ namespace NetworkManager
 class WireGuardSettingPrivate
 {
 public:
-    /*!
-     */
     WireGuardSettingPrivate();
 
     QString name;

@@ -19,8 +19,6 @@ class Device : public QObject
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Device")
 public:
-    /*!
-     */
     explicit Device(QObject *parent = nullptr);
     ~Device() override;
 
@@ -47,164 +45,62 @@ public:
     Q_PROPERTY(DeviceDBusStateReason StateReason READ stateReason)
     Q_PROPERTY(QString Udi READ udi)
 
-    /*!
-     */
     QDBusObjectPath activeConnection() const;
-    /*!
-     */
     bool autoconnect() const;
-    /*!
-     */
     void setAutoconnect(bool autoconnect);
-    /*!
-     */
     QList<QDBusObjectPath> availableConnections() const;
-    /*!
-     */
     uint capabilities() const;
-    /*!
-     */
     uint deviceType() const;
-    /*!
-     */
     QDBusObjectPath dhcp4Config() const;
-    /*!
-     */
     QDBusObjectPath dhcp6Config() const;
-    /*!
-     */
     QString driver() const;
-    /*!
-     */
     QString driverVersion() const;
-    /*!
-     */
     bool firmwareMissing() const;
-    /*!
-     */
     QString firmwareVersion() const;
-    /*!
-     */
     QString interface() const;
-    /*!
-     */
     int ip4Address() const;
-    /*!
-     */
     QDBusObjectPath ip4Config() const;
-    /*!
-     */
     QDBusObjectPath ip6Config() const;
-    /*!
-     */
     QString ipInterface() const;
-    /*!
-     */
     uint interfaceFlags() const;
-    /*!
-     */
     bool managed() const;
-    /*!
-     */
     uint mtu() const;
-    /*!
-     */
     uint state() const;
-    /*!
-     */
     DeviceDBusStateReason stateReason() const;
-    /*!
-     */
     QString udi() const;
 
     /* Not part of DBus interface */
-    /*!
-     */
     void addAvailableConnection(const QDBusObjectPath &availableConnection);
-    /*!
-     */
     void removeAvailableConnection(const QDBusObjectPath &availableConnection);
-    /*!
-     */
     void setActiveConnection(const QString &activeConnection);
-    /*!
-     */
     void setCapabilities(uint capabilities);
-    /*!
-     */
     QString deviceInterface() const;
-    /*!
-     */
     QString devicePath() const;
-    /*!
-     */
     void setDevicePath(const QString &devicePath);
-    /*!
-     */
     void setDeviceType(uint deviceType);
-    /*!
-     */
     void setDhcp4Config(const QString &config);
-    /*!
-     */
     void setDhcp6Config(const QString &config);
-    /*!
-     */
     void setDriver(const QString &driver);
-    /*!
-     */
     void setDriverVersion(const QString &driverVersion);
-    /*!
-     */
     void setFirmwareMissing(bool firmwareMissing);
-    /*!
-     */
     void setFirmwareVersion(const QString &firmwareVersion);
-    /*!
-     */
     void setInterface(const QString &interface);
-    /*!
-     */
     void setInterfaceFlags(uint interfaceFlags);
-    /*!
-     */
     void setIpv4Address(int address);
-    /*!
-     */
     void setIp4Config(const QString &config);
-    /*!
-     */
     void setIp6Config(const QString &config);
-    /*!
-     */
     void setIpInterface(const QString &interface);
-    /*!
-     */
     void setManaged(bool managed);
-    /*!
-     */
     void setMtu(uint mtu);
-    /*!
-     */
     virtual void setState(uint state);
-    /*!
-     */
     void setStateReason(const DeviceDBusStateReason &reason);
-    /*!
-     */
     void setUdi(const QString &udi);
 
 public Q_SLOTS:
-    /*!
-     */
     Q_SCRIPTABLE void Disconnect();
 
 Q_SIGNALS:
-    /*!
-     */
     void activeConnectionRemoved(const QDBusObjectPath &activeConnection);
-    /*!
-     */
     Q_SCRIPTABLE void StateChanged(uint new_state, uint old_state, uint reason);
 
 private:

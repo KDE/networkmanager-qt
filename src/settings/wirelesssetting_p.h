@@ -14,8 +14,6 @@ namespace NetworkManager
 class WirelessSettingPrivate
 {
 public:
-    /*!
-     */
     WirelessSettingPrivate();
 
     QString name;

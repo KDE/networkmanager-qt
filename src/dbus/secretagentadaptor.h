@@ -29,7 +29,7 @@ class QString;
 class QVariant;
 QT_END_NAMESPACE
 
-/*!
+/*
  * Adaptor class for interface org.freedesktop.NetworkManager.SecretAgent
  */
 class SecretAgentAdaptor : public QDBusAbstractAdaptor
@@ -74,13 +74,9 @@ class SecretAgentAdaptor : public QDBusAbstractAdaptor
                 "  </interface>\n"
                 "")
 public:
-    /*!
-     */
     SecretAgentAdaptor(NetworkManager::SecretAgent *parent);
     ~SecretAgentAdaptor() override;
 
-    /*!
-     */
     inline NetworkManager::SecretAgent *parent() const
     {
         return static_cast<NetworkManager::SecretAgent *>(QObject::parent());
@@ -88,18 +84,10 @@ public:
 
 public: // PROPERTIES
 public Q_SLOTS: // METHODS
-    /*!
-     */
     void CancelGetSecrets(const QDBusObjectPath &connection_path, const QString &setting_name);
-    /*!
-     */
     void DeleteSecrets(NMVariantMapMap connection, const QDBusObjectPath &connection_path);
     NMVariantMapMap
-    /*!
-     */
     GetSecrets(NMVariantMapMap connection, const QDBusObjectPath &connection_path, const QString &setting_name, const QStringList &hints, uint flags);
-    /*!
-     */
     void SaveSecrets(NMVariantMapMap connection, const QDBusObjectPath &connection_path);
 Q_SIGNALS: // SIGNALS
 };

@@ -20,15 +20,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Bridge
  */
 class OrgFreedesktopNetworkManagerDeviceBridgeInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -41,8 +39,6 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerDeviceBridgeInterface(const QString &service,
                                                       const QString &path,
                                                       const QDBusConnection &connection,
@@ -51,24 +47,18 @@ public:
     ~OrgFreedesktopNetworkManagerDeviceBridgeInterface() override;
 
     Q_PROPERTY(bool Carrier READ carrier)
-    /*!
-     */
     inline bool carrier() const
     {
         return qvariant_cast<bool>(property("Carrier"));
     }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
-    /*!
-     */
     inline QString hwAddress() const
     {
         return qvariant_cast<QString>(property("HwAddress"));
     }
 
     Q_PROPERTY(QList<QDBusObjectPath> Slaves READ slaves)
-    /*!
-     */
     inline QList<QDBusObjectPath> slaves() const
     {
         return qvariant_cast<QList<QDBusObjectPath>>(property("Slaves"));
@@ -76,8 +66,6 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

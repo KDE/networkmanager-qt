@@ -14,8 +14,6 @@ namespace NetworkManager
 class CdmaSettingPrivate
 {
 public:
-    /*!
-     */
     CdmaSettingPrivate();
 
     QString name;

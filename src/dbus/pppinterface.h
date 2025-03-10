@@ -20,15 +20,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.PPP
  */
 class OrgFreedesktopNetworkManagerPPPInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -41,23 +39,17 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerPPPInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerPPPInterface() override;
 
 public Q_SLOTS: // METHODS
-    /*!
-     */
     inline QDBusPendingReply<QString, QString> NeedSecrets()
     {
         QList<QVariant> argumentList;
         return asyncCallWithArgumentList(QStringLiteral("NeedSecrets"), argumentList);
     }
 
-    /*!
-     */
     inline QDBusPendingReply<> SetIp4Config(const QVariantMap &config)
     {
         QList<QVariant> argumentList;
@@ -65,8 +57,6 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("SetIp4Config"), argumentList);
     }
 
-    /*!
-     */
     inline QDBusPendingReply<> SetIp6Config(const QVariantMap &config)
     {
         QList<QVariant> argumentList;
@@ -74,8 +64,6 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("SetIp6Config"), argumentList);
     }
 
-    /*!
-     */
     inline QDBusPendingReply<> SetState(uint state)
     {
         QList<QVariant> argumentList;

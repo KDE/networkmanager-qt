@@ -14,8 +14,6 @@ namespace NetworkManager
 class OvsInterfaceSettingPrivate
 {
 public:
-    /*!
-     */
     OvsInterfaceSettingPrivate();
 
     QString name;

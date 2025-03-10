@@ -14,11 +14,7 @@ class OvsPortSettingTest : public QObject
     Q_OBJECT
 
 private Q_SLOTS:
-    /*!
-     */
     void testSetting_data();
-    /*!
-     */
     void testSetting();
 };
 

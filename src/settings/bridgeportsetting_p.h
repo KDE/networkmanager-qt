@@ -14,8 +14,6 @@ namespace NetworkManager
 class BridgePortSettingPrivate
 {
 public:
-    /*!
-     */
     BridgePortSettingPrivate();
 
     QString name;

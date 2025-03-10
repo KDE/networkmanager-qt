@@ -18,15 +18,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Bluetooth
  */
 class OrgFreedesktopNetworkManagerDeviceBluetoothInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -39,8 +37,6 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerDeviceBluetoothInterface(const QString &service,
                                                          const QString &path,
                                                          const QDBusConnection &connection,
@@ -49,24 +45,18 @@ public:
     ~OrgFreedesktopNetworkManagerDeviceBluetoothInterface() override;
 
     Q_PROPERTY(uint BtCapabilities READ btCapabilities)
-    /*!
-     */
     inline uint btCapabilities() const
     {
         return qvariant_cast<uint>(property("BtCapabilities"));
     }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
-    /*!
-     */
     inline QString hwAddress() const
     {
         return qvariant_cast<QString>(property("HwAddress"));
     }
 
     Q_PROPERTY(QString Name READ name)
-    /*!
-     */
     inline QString name() const
     {
         return qvariant_cast<QString>(property("Name"));
@@ -74,8 +64,6 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

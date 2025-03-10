@@ -14,8 +14,6 @@ namespace NetworkManager
 class SerialSettingPrivate
 {
 public:
-    /*!
-     */
     SerialSettingPrivate();
 
     QString name;

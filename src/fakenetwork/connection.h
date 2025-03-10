@@ -18,57 +18,29 @@ class Connection : public QObject
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "org.kde.fakenetwork.Settings.Connection")
 public:
-    /*!
-     */
     explicit Connection(QObject *parent = nullptr, const NMVariantMapMap &settings = NMVariantMapMap());
     ~Connection() override;
 
     Q_PROPERTY(bool Unsaved READ unsaved)
 
-    /*!
-     */
     bool unsaved() const;
 
     /* Not part of DBus interface */
-    /*!
-     */
     QString connectionPath() const;
-    /*!
-     */
     void setConnectionPath(const QString &path);
 
 public Q_SLOTS: // METHODS
-    /*!
-     */
     Q_SCRIPTABLE void Delete();
-    /*!
-     */
     Q_SCRIPTABLE NMVariantMapMap GetSecrets(const QString &setting_name);
-    /*!
-     */
     Q_SCRIPTABLE NMVariantMapMap GetSettings();
-    /*!
-     */
     Q_SCRIPTABLE void Save();
-    /*!
-     */
     Q_SCRIPTABLE void Update(const NMVariantMapMap &properties);
-    /*!
-     */
     Q_SCRIPTABLE void UpdateUnsaved(const NMVariantMapMap &properties);
 
 Q_SIGNALS:
-    /*!
-     */
     void connectionRemoved(const QDBusObjectPath &path);
-    /*!
-     */
     Q_SCRIPTABLE void Removed();
-    /*!
-     */
     Q_SCRIPTABLE void Updated();
-    /*!
-     */
     Q_SCRIPTABLE void PropertiesChanged(const QVariantMap &properties);
 
 private:

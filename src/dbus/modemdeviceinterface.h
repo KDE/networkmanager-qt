@@ -18,15 +18,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Modem
  */
 class OrgFreedesktopNetworkManagerDeviceModemInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -39,23 +37,17 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerDeviceModemInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceModemInterface() override;
 
     Q_PROPERTY(uint CurrentCapabilities READ currentCapabilities)
-    /*!
-     */
     inline uint currentCapabilities() const
     {
         return qvariant_cast<uint>(property("CurrentCapabilities"));
     }
 
     Q_PROPERTY(uint ModemCapabilities READ modemCapabilities)
-    /*!
-     */
     inline uint modemCapabilities() const
     {
         return qvariant_cast<uint>(property("ModemCapabilities"));
@@ -63,8 +55,6 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

@@ -20,15 +20,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.Checkpoint
  */
 class OrgFreedesktopNetworkManagerCheckpointInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -41,31 +39,23 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerCheckpointInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerCheckpointInterface() override;
 
     Q_PROPERTY(qlonglong Created READ created)
-    /*!
-     */
     inline qlonglong created() const
     {
         return qvariant_cast<qlonglong>(property("Created"));
     }
 
     Q_PROPERTY(QList<QDBusObjectPath> Devices READ devices)
-    /*!
-     */
     inline QList<QDBusObjectPath> devices() const
     {
         return qvariant_cast<QList<QDBusObjectPath>>(property("Devices"));
     }
 
     Q_PROPERTY(uint RollbackTimeout READ rollbackTimeout)
-    /*!
-     */
     inline uint rollbackTimeout() const
     {
         return qvariant_cast<uint>(property("RollbackTimeout"));
@@ -73,8 +63,6 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

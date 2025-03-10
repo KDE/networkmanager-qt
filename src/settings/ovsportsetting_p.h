@@ -14,8 +14,6 @@ namespace NetworkManager
 class OvsPortSettingPrivate
 {
 public:
-    /*!
-     */
     OvsPortSettingPrivate();
 
     QString name;

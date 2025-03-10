@@ -14,8 +14,6 @@ namespace NetworkManager
 class TunSettingPrivate
 {
 public:
-    /*!
-     */
     TunSettingPrivate();
 
     QString name;

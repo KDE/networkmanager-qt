@@ -19,15 +19,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.OlpcMesh
  */
 class OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -40,8 +38,6 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface(const QString &service,
                                                         const QString &path,
                                                         const QDBusConnection &connection,
@@ -50,24 +46,18 @@ public:
     ~OrgFreedesktopNetworkManagerDeviceOlpcMeshInterface() override;
 
     Q_PROPERTY(uint ActiveChannel READ activeChannel)
-    /*!
-     */
     inline uint activeChannel() const
     {
         return qvariant_cast<uint>(property("ActiveChannel"));
     }
 
     Q_PROPERTY(QDBusObjectPath Companion READ companion)
-    /*!
-     */
     inline QDBusObjectPath companion() const
     {
         return qvariant_cast<QDBusObjectPath>(property("Companion"));
     }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
-    /*!
-     */
     inline QString hwAddress() const
     {
         return qvariant_cast<QString>(property("HwAddress"));
@@ -75,8 +65,6 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

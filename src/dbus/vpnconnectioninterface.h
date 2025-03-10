@@ -18,15 +18,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.VPN.Connection
  */
 class OrgFreedesktopNetworkManagerVPNConnectionInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -39,8 +37,6 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerVPNConnectionInterface(const QString &service,
                                                        const QString &path,
                                                        const QDBusConnection &connection,
@@ -49,16 +45,12 @@ public:
     ~OrgFreedesktopNetworkManagerVPNConnectionInterface() override;
 
     Q_PROPERTY(QString Banner READ banner)
-    /*!
-     */
     inline QString banner() const
     {
         return qvariant_cast<QString>(property("Banner"));
     }
 
     Q_PROPERTY(uint VpnState READ vpnState)
-    /*!
-     */
     inline uint vpnState() const
     {
         return qvariant_cast<uint>(property("VpnState"));
@@ -66,11 +58,7 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
-    /*!
-     */
     void VpnStateChanged(uint state, uint reason);
 };
 

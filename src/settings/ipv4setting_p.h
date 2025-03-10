@@ -18,8 +18,6 @@ namespace NetworkManager
 class Ipv4SettingPrivate
 {
 public:
-    /*!
-     */
     Ipv4SettingPrivate();
 
     QString name;

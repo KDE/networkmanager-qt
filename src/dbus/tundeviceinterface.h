@@ -18,15 +18,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Tun
  */
 class OrgFreedesktopNetworkManagerDeviceTunInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -39,63 +37,47 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerDeviceTunInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = nullptr);
 
     ~OrgFreedesktopNetworkManagerDeviceTunInterface() override;
 
     Q_PROPERTY(qlonglong Group READ group)
-    /*!
-     */
     inline qlonglong group() const
     {
         return qvariant_cast<qlonglong>(property("Group"));
     }
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
-    /*!
-     */
     inline QString hwAddress() const
     {
         return qvariant_cast<QString>(property("HwAddress"));
     }
 
     Q_PROPERTY(QString Mode READ mode)
-    /*!
-     */
     inline QString mode() const
     {
         return qvariant_cast<QString>(property("Mode"));
     }
 
     Q_PROPERTY(bool MultiQueue READ multiQueue)
-    /*!
-     */
     inline bool multiQueue() const
     {
         return qvariant_cast<bool>(property("MultiQueue"));
     }
 
     Q_PROPERTY(bool NoPi READ noPi)
-    /*!
-     */
     inline bool noPi() const
     {
         return qvariant_cast<bool>(property("NoPi"));
     }
 
     Q_PROPERTY(qlonglong Owner READ owner)
-    /*!
-     */
     inline qlonglong owner() const
     {
         return qvariant_cast<qlonglong>(property("Owner"));
     }
 
     Q_PROPERTY(bool VnetHdr READ vnetHdr)
-    /*!
-     */
     inline bool vnetHdr() const
     {
         return qvariant_cast<bool>(property("VnetHdr"));
@@ -103,8 +85,6 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

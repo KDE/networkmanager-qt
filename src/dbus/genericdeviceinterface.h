@@ -18,15 +18,13 @@
 #include <QString>
 #include <QVariant>
 
-/*!
+/*
  * Proxy class for interface org.freedesktop.NetworkManager.Device.Generic
  */
 class OrgFreedesktopNetworkManagerDeviceGenericInterface : public QDBusAbstractInterface
 {
     Q_OBJECT
 public:
-    /*!
-     */
     static inline const char *staticInterfaceName()
 #ifdef NMQT_STATIC
     {
@@ -39,8 +37,6 @@ public:
 #endif
 
 public:
-    /*!
-     */
     OrgFreedesktopNetworkManagerDeviceGenericInterface(const QString &service,
                                                        const QString &path,
                                                        const QDBusConnection &connection,
@@ -49,16 +45,12 @@ public:
     ~OrgFreedesktopNetworkManagerDeviceGenericInterface() override;
 
     Q_PROPERTY(QString HwAddress READ hwAddress)
-    /*!
-     */
     inline QString hwAddress() const
     {
         return qvariant_cast<QString>(property("HwAddress"));
     }
 
     Q_PROPERTY(QString TypeDescription READ typeDescription)
-    /*!
-     */
     inline QString typeDescription() const
     {
         return qvariant_cast<QString>(property("TypeDescription"));
@@ -66,8 +58,6 @@ public:
 
 public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
-    /*!
-     */
     void PropertiesChanged(const QVariantMap &properties);
 };
 

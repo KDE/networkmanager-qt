@@ -14,8 +14,6 @@ namespace NetworkManager
 class Security8021xSettingPrivate
 {
 public:
-    /*!
-     */
     Security8021xSettingPrivate();
 
     QString name;
