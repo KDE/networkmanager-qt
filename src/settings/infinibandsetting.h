@@ -18,7 +18,7 @@ class InfinibandSettingPrivate;
 
 /*!
  * \class NetworkManager::InfinibandSetting
- *
+ * \inheaderfile NetworkManagerQt/InfinibandSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents infiniband setting.

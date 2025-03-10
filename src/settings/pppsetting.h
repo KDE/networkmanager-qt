@@ -18,7 +18,7 @@ class PppSettingPrivate;
 
 /*!
  * \class NetworkManager::PppSetting
- *
+ * \inheaderfile NetworkManagerQt/PppSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents ppp setting.

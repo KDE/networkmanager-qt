@@ -18,7 +18,7 @@ class DcbSettingPrivate;
 
 /*!
  * \class NetworkManager::DcbSetting
- *
+ * \inheaderfile NetworkManagerQt/DcbSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents Dcb setting.

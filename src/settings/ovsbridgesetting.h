@@ -18,7 +18,7 @@ class OvsBridgeSettingPrivate;
 
 /*!
  * \class NetworkManager::OvsBridgeSetting
- *
+ * \inheaderfile NetworkManagerQt/OvsBridgeSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents ovs-bridge setting.

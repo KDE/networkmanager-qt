@@ -16,7 +16,7 @@ class TcSettingPrivate;
 
 /*!
  * \class NetworkManager::TcSetting
- *
+ * \inheaderfile NetworkManagerQt/TcSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents Tc setting.

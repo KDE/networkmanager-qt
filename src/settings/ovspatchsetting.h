@@ -18,7 +18,7 @@ class OvsPatchSettingPrivate;
 
 /*!
  * \class NetworkManager::OvsPatchSetting
- *
+ * \inheaderfile NetworkManagerQt/OvsPatchSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents OvsPatch setting.

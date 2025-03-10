@@ -18,7 +18,7 @@ class TeamPortSettingPrivate;
 
 /*!
  * \class NetworkManager::TeamPortSetting
- *
+ * \inheaderfile NetworkManagerQt/TeamPortSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents TeamPort setting.

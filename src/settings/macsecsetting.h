@@ -16,7 +16,7 @@ class MacsecSettingPrivate;
 
 /*!
  * \class NetworkManager::MacsecSetting
- *
+ * \inheaderfile NetworkManagerQt/MacsecSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents Macsec setting.

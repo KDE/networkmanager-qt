@@ -16,7 +16,7 @@ class IpTunnelSettingPrivate;
 
 /*!
  * \class NetworkManager::IpTunnelSetting
- *
+ * \inheaderfile NetworkManagerQt/IpTunnelSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents IpTunnel setting.

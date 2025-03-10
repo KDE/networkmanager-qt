@@ -18,7 +18,7 @@ class TunSettingPrivate;
 
 /*!
  * \class NetworkManager::TunSetting
- *
+ * \inheaderfile NetworkManagerQt/TunSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents generic setting.

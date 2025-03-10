@@ -18,7 +18,7 @@ class AdslSettingPrivate;
 
 /*!
  * \class NetworkManager::AdslSetting
- *
+ * \inheaderfile NetworkManagerQt/AdslSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents adsl setting.

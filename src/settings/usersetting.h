@@ -18,7 +18,7 @@ class UserSettingPrivate;
 
 /*!
  * \class NetworkManager::UserSetting
- *
+ * \inheaderfile NetworkManagerQt/UserSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents user setting.

@@ -25,7 +25,7 @@ class ConnectionSettingsPrivate;
 
 /*!
  * \class NetworkManager::ConnectionSettings
- *
+ * \inheaderfile NetworkManagerQt/ConnectionSettings
  * \inmodule NetworkManagerQt
  *
  * \brief Represents collection of all connection settings.

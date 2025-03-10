@@ -21,7 +21,7 @@ class WireGuardSettingPrivate;
  */
 /*!
  * \class NetworkManager::WireGuardSetting
- *
+ * \inheaderfile NetworkManagerQt/WireGuardSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents generic setting.

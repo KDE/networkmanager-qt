@@ -18,7 +18,7 @@ class OlpcMeshSettingPrivate;
 
 /*!
  * \class NetworkManager::OlpcMeshSetting
- *
+ * \inheaderfile NetworkManagerQt/OlpcMeshSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents olpc mesh setting.

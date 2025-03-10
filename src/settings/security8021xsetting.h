@@ -16,7 +16,7 @@ class Security8021xSettingPrivate;
 
 /*!
  * \class NetworkManager::Security8021xSetting
- *
+ * \inheaderfile NetworkManagerQt/Security8021xSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents 802.1x wireless security setting.

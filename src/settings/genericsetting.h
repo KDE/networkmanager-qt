@@ -18,7 +18,7 @@ class GenericSettingPrivate;
 
 /*!
  * \class NetworkManager::GenericSetting
- *
+ * \inheaderfile NetworkManagerQt/GenericSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents generic setting.

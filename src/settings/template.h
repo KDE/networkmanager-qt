@@ -18,7 +18,7 @@ class TemplateSettingPrivate;
 
 /*!
  * \class NetworkManager::TemplateSetting
- *
+ * \inheaderfile NetworkManagerQt/TemplateSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents generic setting.

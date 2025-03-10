@@ -18,7 +18,7 @@ class GsmSettingPrivate;
 
 /*!
  * \class NetworkManager::GsmSetting
- *
+ * \inheaderfile NetworkManagerQt/GsmSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents gsm setting.
@@ -35,7 +35,6 @@ public:
      */
     typedef QList<Ptr> List;
     /*!
-     *
      * \value Any
      * \value Only3G
      * \value GprsEdgeOnly

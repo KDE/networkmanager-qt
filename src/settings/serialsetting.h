@@ -18,7 +18,7 @@ class SerialSettingPrivate;
 
 /*!
  * \class NetworkManager::SerialSetting
- *
+ * \inheaderfile NetworkManagerQt/SerialSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents serial setting.

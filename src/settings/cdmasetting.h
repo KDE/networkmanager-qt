@@ -18,7 +18,7 @@ class CdmaSettingPrivate;
 
 /*!
  * \class NetworkManager::CdmaSetting
- *
+ * \inheaderfile NetworkManagerQt/CdmaSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents cdma setting.

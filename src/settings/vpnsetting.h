@@ -18,7 +18,7 @@ class VpnSettingPrivate;
 
 /*!
  * \class NetworkManager::VpnSetting
- *
+ * \inheaderfile NetworkManagerQt/VpnSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents vpn setting.

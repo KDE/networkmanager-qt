@@ -18,7 +18,7 @@ class OvsInterfaceSettingPrivate;
 
 /*!
  * \class NetworkManager::OvsInterfaceSetting
- *
+ * \inheaderfile NetworkManagerQt/OvsInterfaceSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents ovs-interface setting.

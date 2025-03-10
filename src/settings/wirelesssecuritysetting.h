@@ -18,7 +18,7 @@ class WirelessSecuritySettingPrivate;
 
 /*!
  * \class NetworkManager::WirelessSecuritySetting
- *
+ * \inheaderfile NetworkManagerQt/WirelessSecuritySetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents wireless security setting.

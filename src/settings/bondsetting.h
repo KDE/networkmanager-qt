@@ -18,7 +18,7 @@ class BondSettingPrivate;
 
 /*!
  * \class NetworkManager::BondSetting
- *
+ * \inheaderfile NetworkManagerQt/BondSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents bond setting.

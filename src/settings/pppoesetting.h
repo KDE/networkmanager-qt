@@ -18,7 +18,7 @@ class PppoeSettingPrivate;
 
 /*!
  * \class NetworkManager::PppoeSetting
- *
+ * \inheaderfile NetworkManagerQt/PppoeSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents pppoe setting.

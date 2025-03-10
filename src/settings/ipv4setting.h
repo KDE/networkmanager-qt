@@ -48,7 +48,7 @@ class Ipv4SettingPrivate;
 
 /*!
  * \class NetworkManager::Ipv4Setting
- *
+ * \inheaderfile NetworkManagerQt/Ipv4Setting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents ipv4 setting.

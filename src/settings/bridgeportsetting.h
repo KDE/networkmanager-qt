@@ -18,7 +18,7 @@ class BridgePortSettingPrivate;
 
 /*!
  * \class NetworkManager::BridgePortSetting
- *
+ * \inheaderfile NetworkManagerQt/BridgePortSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents bridge port setting.

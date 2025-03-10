@@ -16,7 +16,7 @@ class MatchSettingPrivate;
 
 /*!
  * \class NetworkManager::MatchSetting
- *
+ * \inheaderfile NetworkManagerQt/MatchSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents Match setting.

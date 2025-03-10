@@ -66,7 +66,7 @@ class Ipv6SettingPrivate;
 
 /*!
  * \class NetworkManager::Ipv6Setting
- *
+ * \inheaderfile NetworkManagerQt/Ipv6Setting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents ipv6 setting.

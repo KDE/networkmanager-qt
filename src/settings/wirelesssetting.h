@@ -19,7 +19,7 @@ class WirelessSettingPrivate;
 
 /*!
  * \class NetworkManager::WirelessSetting
- *
+ * \inheaderfile NetworkManagerQt/WirelessSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents wireless setting.

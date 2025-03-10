@@ -18,7 +18,7 @@ class TeamSettingPrivate;
 
 /*!
  * \class NetworkManager::TeamSetting
- *
+ * \inheaderfile NetworkManagerQt/TeamSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents team setting.

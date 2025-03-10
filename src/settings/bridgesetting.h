@@ -18,7 +18,7 @@ class BridgeSettingPrivate;
 
 /*!
  * \class NetworkManager::BridgeSetting
- *
+ * \inheaderfile NetworkManagerQt/BridgeSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents bridge setting.

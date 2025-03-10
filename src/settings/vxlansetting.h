@@ -18,7 +18,7 @@ class VxlanSettingPrivate;
 
 /*!
  * \class NetworkManager::VxlanSetting
- *
+ * \inheaderfile NetworkManagerQt/VxlanSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents vxlan setting.

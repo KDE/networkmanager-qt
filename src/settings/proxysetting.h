@@ -18,7 +18,7 @@ class ProxySettingPrivate;
 
 /*!
  * \class NetworkManager::ProxySetting
- *
+ * \inheaderfile NetworkManagerQt/ProxySetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents proxy setting.

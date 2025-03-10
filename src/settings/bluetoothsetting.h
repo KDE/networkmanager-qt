@@ -18,7 +18,7 @@ class BluetoothSettingPrivate;
 
 /*!
  * \class NetworkManager::BluetoothSetting
- *
+ * \inheaderfile NetworkManagerQt/BluetoothSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents bluetooth setting.

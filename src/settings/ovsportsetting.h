@@ -16,7 +16,7 @@ class OvsPortSettingPrivate;
 
 /*!
  * \class NetworkManager::OvsPortSetting
- *
+ * \inheaderfile NetworkManagerQt/OvsPortSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents o setting.

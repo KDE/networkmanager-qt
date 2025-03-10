@@ -25,7 +25,7 @@ class SettingPrivate;
 
 /*!
  * \class NetworkManager::Setting
- *
+ * \inheaderfile NetworkManagerQt/Setting
  * \inmodule NetworkManagerQt
  *
  * \brief Base class for all kinds of setting.

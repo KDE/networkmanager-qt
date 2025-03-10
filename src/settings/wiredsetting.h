@@ -18,7 +18,7 @@ class WiredSettingPrivate;
 
 /*!
  * \class NetworkManager::WiredSetting
- *
+ * \inheaderfile NetworkManagerQt/WiredSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents wired setting.

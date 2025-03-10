@@ -18,7 +18,7 @@ class VlanSettingPrivate;
 
 /*!
  * \class NetworkManager::VlanSetting
- *
+ * \inheaderfile NetworkManagerQt/VlanSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents vlan setting.

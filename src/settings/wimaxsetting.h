@@ -19,7 +19,7 @@ class WimaxSettingPrivate;
 
 /*!
  * \class NetworkManager::WimaxSetting
- *
+ * \inheaderfile NetworkManagerQt/WimaxSetting
  * \inmodule NetworkManagerQt
  *
  * \brief Represents wimax setting.
