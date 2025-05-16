@@ -12,6 +12,8 @@ excludedirs += fakenetwork dbus
 
 outputformats = HTML
 
+navigation.landingpage = "NetworkManagerQt"
+
 depends += kde qtcore qtnetwork qtdbus qtqml
 
 qhp.projects            = NetworkManagerQt
