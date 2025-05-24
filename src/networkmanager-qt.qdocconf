@@ -29,3 +29,5 @@ qhp.NetworkManagerQt.subprojects.classes.title = C++ Classes
 qhp.NetworkManagerQt.subprojects.classes.indexTitle = NetworkManagerQt C++ Classes
 qhp.NetworkManagerQt.subprojects.classes.selectors = class fake:headerfile
 qhp.NetworkManagerQt.subprojects.classes.sortPages = true
+
+tagfile = networkmanagerqt.tags
