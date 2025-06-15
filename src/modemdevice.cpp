@@ -43,13 +43,6 @@ NetworkManager::ModemDevice::ModemDevice(NetworkManager::ModemDevicePrivate &dd,
     : Device(dd, parent)
 {
     Q_D(ModemDevice);
-
-    QDBusConnection::systemBus().connect(NetworkManagerPrivate::DBUS_SERVICE,
-                                         d->uni,
-                                         NetworkManagerPrivate::FDO_DBUS_PROPERTIES,
-                                         QLatin1String("PropertiesChanged"),
-                                         d,
-                                         SLOT(dbusPropertiesChanged(QString, QVariantMap, QStringList)));
 }
 
 NetworkManager::ModemDevice::~ModemDevice()
