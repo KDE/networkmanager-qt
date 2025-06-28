@@ -35,6 +35,7 @@
 #include "vethdevice.h"
 #include "vlandevice.h"
 #include "vpnconnection.h"
+#include "wifip2pdevice.h"
 #include "wimaxdevice.h"
 #include "wireddevice.h"
 #include "wireguarddevice.h"
@@ -324,6 +325,8 @@ NetworkManager::Device::Ptr NetworkManager::NetworkManagerPrivate::createNetwork
         return Device::Ptr(new NetworkManager::WiredDevice(uni), &QObject::deleteLater);
     case Device::Wifi:
         return Device::Ptr(new NetworkManager::WirelessDevice(uni), &QObject::deleteLater);
+    case Device::WifiP2P:
+        return Device::Ptr(new NetworkManager::WifiP2PDevice(uni), &QObject::deleteLater);
     case Device::Modem:
         return Device::Ptr(new NetworkManager::ModemDevice(uni), &QObject::deleteLater);
     case Device::Bluetooth:

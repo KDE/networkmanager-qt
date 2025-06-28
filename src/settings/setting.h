@@ -97,6 +97,7 @@ public:
         Wired,
         Wireless,
         WirelessSecurity,
+        WifiP2P,
         Bluetooth,
         OlpcMesh,
         Vlan,

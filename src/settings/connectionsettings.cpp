@@ -28,6 +28,7 @@
 #include "tunsetting.h"
 #include "vlansetting.h"
 #include "vpnsetting.h"
+#include "wifip2psetting.h"
 #include "wimaxsetting.h"
 #include "wiredsetting.h"
 #include "wireguardsetting.h"
@@ -162,6 +163,11 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(NMBluetoothCapabili
         addSetting(Setting::Ptr(new Ipv6Setting()));
         addSetting(Setting::Ptr(new VpnSetting()));
         break;
+    case ConnectionSettings::WifiP2P:
+        addSetting(Setting::Ptr(new Ipv4Setting()));
+        addSetting(Setting::Ptr(new Ipv6Setting()));
+        addSetting(Setting::Ptr(new WifiP2PSetting()));
+        break;
     case ConnectionSettings::Wimax:
         addSetting(Setting::Ptr(new Ipv4Setting()));
         addSetting(Setting::Ptr(new Ipv6Setting()));
@@ -291,6 +297,11 @@ void NetworkManager::ConnectionSettingsPrivate::initSettings(const NetworkManage
         addSetting(connectionSettings->setting(Setting::Ipv6));
         addSetting(connectionSettings->setting(Setting::Vpn));
         break;
+    case ConnectionSettings::WifiP2P:
+        addSetting(connectionSettings->setting(Setting::Ipv4));
+        addSetting(connectionSettings->setting(Setting::Ipv6));
+        addSetting(connectionSettings->setting(Setting::WifiP2P));
+        break;
     case ConnectionSettings::Wimax:
         addSetting(connectionSettings->setting(Setting::Ipv4));
         addSetting(connectionSettings->setting(Setting::Ipv6));
@@ -370,6 +381,8 @@ NetworkManager::ConnectionSettings::ConnectionType NetworkManager::ConnectionSet
         type = Vlan;
     } else if (typeString == QLatin1String(NM_SETTING_VPN_SETTING_NAME)) {
         type = Vpn;
+    } else if (typeString == QLatin1String(NM_SETTING_WIFI_P2P_SETTING_NAME)) {
+        type = WifiP2P;
     } else if (typeString == QLatin1String(NM_SETTING_WIMAX_SETTING_NAME)) {
         type = Wimax;
     } else if (typeString == QLatin1String(NM_SETTING_WIRED_SETTING_NAME)) {
@@ -430,6 +443,9 @@ QString NetworkManager::ConnectionSettings::typeAsString(NetworkManager::Connect
         break;
     case Vpn:
         typeString = QLatin1String(NM_SETTING_VPN_SETTING_NAME);
+        break;
+    case WifiP2P:
+        typeString = QLatin1String(NM_SETTING_WIFI_P2P_SETTING_NAME);
         break;
     case Wimax:
         typeString = QLatin1String(NM_SETTING_WIMAX_SETTING_NAME);
@@ -1187,6 +1203,9 @@ QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::ConnectionSe
             break;
         case Setting::Vpn:
             dbg.nospace() << *(settingPtr.staticCast<NetworkManager::VpnSetting>().data());
+            break;
+        case Setting::WifiP2P:
+            dbg.nospace() << *(settingPtr.staticCast<NetworkManager::WifiP2PSetting>().data());
             break;
         case Setting::Wimax:
             dbg.nospace() << *(settingPtr.staticCast<NetworkManager::WimaxSetting>().data());

@@ -48,6 +48,8 @@ set(NetworkManagerQt_PART_SRCS
     wimaxdevice.cpp
     wimaxnsp.cpp
     wireguarddevice.cpp
+    wifip2pdevice.cpp
+    wifip2ppeer.cpp
 )
 
 set(NetworkManagerQt_SETTINGS_SRCS
@@ -92,6 +94,7 @@ set(NetworkManagerQt_SETTINGS_SRCS
     settings/usersetting.cpp
     settings/vxlansetting.cpp
     settings/wireguardsetting.cpp
+    settings/wifip2psetting.cpp
 )
 
 set(DBUS_INTERFACE_SRCS
@@ -130,6 +133,8 @@ set(DBUS_INTERFACE_SRCS
     dbus/vpnconnectioninterface.cpp
     dbus/vpnplugininterface.cpp
     dbus/vxlandeviceinterface.cpp
+    dbus/wifip2pdeviceinterface.cpp
+    dbus/wifip2ppeerinterface.cpp
     dbus/wimaxdeviceinterface.cpp
     dbus/wimaxnspinterface.cpp
     dbus/wireddeviceinterface.cpp
@@ -215,6 +220,8 @@ ecm_generate_headers(NetworkManagerQt_CamelCase_HEADERS
   VlanDevice
   VpnConnection
   VpnPlugin
+  WifiP2PDevice
+  WifiP2PPeer
   WimaxDevice
   WimaxNsp
   WiredDevice
@@ -251,6 +258,7 @@ ecm_generate_headers(NetworkManagerQt_SETTINGS_CamelCase_HEADERS
   TunSetting
   VlanSetting
   VpnSetting
+  WifiP2PSetting
   WimaxSetting
   WiredSetting
   WireguardSetting

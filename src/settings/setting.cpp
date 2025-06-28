@@ -99,6 +99,9 @@ QString NetworkManager::Setting::typeAsString(NetworkManager::Setting::SettingTy
     case Vpn:
         typeString = QLatin1String(NM_SETTING_VPN_SETTING_NAME);
         break;
+    case WifiP2P:
+        typeString = QLatin1String(NM_SETTING_WIFI_P2P_SETTING_NAME);
+        break;
     case Wired:
         typeString = QLatin1String(NM_SETTING_WIRED_SETTING_NAME);
         break;
@@ -202,6 +205,8 @@ NetworkManager::Setting::SettingType NetworkManager::Setting::typeFromString(con
         type = Security8021x;
     } else if (typeString == QLatin1String(NM_SETTING_VPN_SETTING_NAME)) {
         type = Vpn;
+    } else if (typeString == QLatin1String(NM_SETTING_WIFI_P2P_SETTING_NAME)) {
+        type = WifiP2P;
     } else if (typeString == QLatin1String(NM_SETTING_WIRED_SETTING_NAME)) {
         type = Wired;
     } else if (typeString == QLatin1String(NM_SETTING_WIRELESS_SETTING_NAME)) {

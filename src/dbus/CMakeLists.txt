@@ -36,6 +36,7 @@ set(INTERFACE_INTROSPECTION_XML_FILES
     introspection/org.freedesktop.NetworkManager.Device.Vlan.xml
     introspection/org.freedesktop.NetworkManager.Device.Vxlan.xml
     introspection/org.freedesktop.NetworkManager.Device.WiMax.xml
+    introspection/org.freedesktop.NetworkManager.Device.WifiP2P.xml
     introspection/org.freedesktop.NetworkManager.Device.Wired.xml
     introspection/org.freedesktop.NetworkManager.Device.Wireless.xml
     introspection/org.freedesktop.NetworkManager.Device.xml
@@ -51,6 +52,7 @@ set(INTERFACE_INTROSPECTION_XML_FILES
     introspection/org.freedesktop.NetworkManager.VPN.Connection.xml
     introspection/org.freedesktop.NetworkManager.VPN.Plugin.xml
     introspection/org.freedesktop.NetworkManager.WiMax.Nsp.xml
+    introspection/org.freedesktop.NetworkManager.WifiP2PPeer.xml
     introspection/org.freedesktop.NetworkManager.xml
    )
 

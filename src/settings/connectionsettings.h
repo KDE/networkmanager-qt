@@ -79,6 +79,7 @@ public:
         Pppoe,
         Vlan,
         Vpn,
+        WifiP2P,
         Wimax,
         Wired,
         Wireless,
