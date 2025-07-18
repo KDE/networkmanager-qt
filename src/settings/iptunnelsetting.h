@@ -55,7 +55,7 @@ public:
         Ip6ip6 = NM_IP_TUNNEL_MODE_IP6IP6,
         Ipip6 = NM_IP_TUNNEL_MODE_IPIP6,
         Ip6gre = NM_IP_TUNNEL_MODE_IP6GRE,
-        Vti6 = NM_IP_TUNNEL_MODE_VTI,
+        Vti6 = NM_IP_TUNNEL_MODE_VTI6,
     };
 
     /*!
