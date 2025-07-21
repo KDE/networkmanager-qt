@@ -39,7 +39,7 @@ ecm_setup_version(PROJECT VARIABLE_PREFIX NETWORKMANAGERQT
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF6NetworkManagerQtConfigVersion.cmake"
                         SOVERSION 6)
 ecm_set_disabled_deprecation_versions(
-    QT 6.9.0
+    QT 6.10.0
 )
 
 # Enable unit testing
