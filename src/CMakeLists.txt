@@ -163,7 +163,7 @@ ecm_generate_export_header(KF6NetworkManagerQt
 
 target_include_directories(KF6NetworkManagerQt INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/NetworkManagerQt>")
 # for examples to build
-target_include_directories(KF6NetworkManagerQt PUBLIC "$<BUILD_INTERFACE:${NetworkManagerQt_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}/settings;${CMAKE_CURRENT_BINARY_DIR}>")
+target_include_directories(KF6NetworkManagerQt PUBLIC "$<BUILD_INTERFACE:${NetworkManagerQt_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}/settings>")
 
 target_link_libraries(KF6NetworkManagerQt PUBLIC Qt6::Core Qt6::Network Qt6::DBus PkgConfig::NetworkManager PkgConfig::Gio)
 
