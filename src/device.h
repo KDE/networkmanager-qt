@@ -81,7 +81,7 @@ class NETWORKMANAGERQT_EXPORT Device : public QObject
     /*!
      * \property NetworkManager::Device::managed
      */
-    Q_PROPERTY(bool managed READ managed)
+    Q_PROPERTY(bool managed READ managed WRITE setManaged)
 
     /*!
      * \property NetworkManager::Device::mtu
@@ -659,6 +659,12 @@ public:
      * Is the device currently being managed by NetworkManager?
      */
     bool managed() const;
+    /*!
+     * Sets the managed flag for the device
+     *
+     * \since 6.18.0
+     */
+    void setManaged(bool managed);
     /*!
      * The up or down flag for the device
      */

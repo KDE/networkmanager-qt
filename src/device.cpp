@@ -540,6 +540,12 @@ bool NetworkManager::Device::managed() const
     return d->managed;
 }
 
+void NetworkManager::Device::setManaged(bool managed)
+{
+    Q_D(Device);
+    d->deviceIface.setManaged(managed);
+}
+
 NetworkManager::Device::Interfaceflags NetworkManager::Device::interfaceFlags() const
 {
     Q_D(const Device);
