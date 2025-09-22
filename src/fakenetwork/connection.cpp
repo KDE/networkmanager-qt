@@ -9,7 +9,6 @@
 #include <QDBusConnection>
 #include <QDBusMessage>
 #include <QDBusMetaType>
-#include <QDBusObjectPath>
 
 Connection::Connection(QObject *parent, const NMVariantMapMap &settings)
     : QObject(parent)
