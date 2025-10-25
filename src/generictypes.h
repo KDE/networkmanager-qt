@@ -27,7 +27,11 @@ typedef QList<QVariantMap> NMVariantMapList;
 Q_DECLARE_METATYPE(NMVariantMapList)
 
 typedef QMap<QString, QString> NMStringMap;
+#if NETWORKMANAGERQT_ENABLE_DEPRECATED_SINCE(6, 20)
+#if !defined(QT_NO_JAVA_STYLE_ITERATORS)
 typedef QMapIterator<QString, QString> NMStringMapIterator;
+#endif
+#endif
 Q_DECLARE_METATYPE(NMStringMap)
 
 NETWORKMANAGERQT_EXPORT QDBusArgument &operator<<(QDBusArgument &argument, const NMStringMap &mydict);

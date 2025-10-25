@@ -164,6 +164,7 @@ ecm_generate_export_header(KF6NetworkManagerQt
     VERSION ${KF_VERSION}
     USE_VERSION_HEADER
     DEPRECATED_BASE_VERSION 0
+    DEPRECATION_VERSIONS 6.20
 )
 
 target_include_directories(KF6NetworkManagerQt INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/NetworkManagerQt>")
