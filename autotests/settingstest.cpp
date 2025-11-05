@@ -16,6 +16,14 @@
 #include <QSignalSpy>
 #include <QTest>
 
+static_assert(NetworkManager::Device::Type::UnknownType == 0);
+static_assert(NetworkManager::Device::Type::Ethernet == 1);
+static_assert(NetworkManager::Device::Type::WifiP2P == 31);
+
+static_assert(NetworkManager::ConnectionSettings::ConnectionType::Unknown == 0);
+static_assert(NetworkManager::ConnectionSettings::ConnectionType::Adsl == 1);
+static_assert(NetworkManager::ConnectionSettings::ConnectionType::WifiP2P == 21);
+
 void SettingsTest::initTestCase()
 {
     fakeNetwork = new FakeNetwork();

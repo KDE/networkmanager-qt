@@ -79,7 +79,6 @@ public:
         Pppoe,
         Vlan,
         Vpn,
-        WifiP2P,
         Wimax,
         Wired,
         Wireless,
@@ -89,6 +88,7 @@ public:
         IpTunnel,
         WireGuard,
         Loopback,
+        WifiP2P,
     };
 
     /*!

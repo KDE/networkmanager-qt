@@ -97,7 +97,6 @@ public:
         Wired,
         Wireless,
         WirelessSecurity,
-        WifiP2P,
         Bluetooth,
         OlpcMesh,
         Vlan,
@@ -122,6 +121,7 @@ public:
         Macsec,
         Dcb,
         WireGuard,
+        WifiP2P,
     };
 
     /*!
