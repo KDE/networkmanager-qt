@@ -65,6 +65,7 @@ public:
      * \value IpTunnel
      * \value WireGuard
      * \value Loopback
+     * \value[since 6.20] WifiP2P
      */
     enum ConnectionType {
         Unknown = 0,

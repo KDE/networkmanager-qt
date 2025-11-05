@@ -81,6 +81,7 @@ public:
      * \value Macsec
      * \value Dcb
      * \value WireGuard
+     * \value[since 6.20] WifiP2P
      */
     enum SettingType {
         Adsl,

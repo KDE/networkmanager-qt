@@ -23,7 +23,7 @@ class WifiP2PSettingPrivate;
  * \inmodule NetworkManagerQt
  *
  * \brief Represents wifip2p setting.
- * \since 6.19
+ * \since 6.20
  */
 class NETWORKMANAGERQT_EXPORT WifiP2PSetting : public Setting
 {

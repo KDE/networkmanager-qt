@@ -26,7 +26,7 @@ class WifiP2PPeerPrivate;
  * \inmodule NetworkManagerQt
  *
  * \brief Represents a wifip2p peer.
- * \since 6.19
+ * \since 6.20
  */
 class NETWORKMANAGERQT_EXPORT WifiP2PPeer : public QObject
 {
