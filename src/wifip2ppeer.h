@@ -32,29 +32,65 @@ class NETWORKMANAGERQT_EXPORT WifiP2PPeer : public QObject
 {
     Q_OBJECT
 
+    /*!
+     * \property NetworkManager::WifiP2PPeer::flags
+     */
     Q_PROPERTY(uint flags READ flags NOTIFY flagsChanged)
 
+    /*!
+     * \property NetworkManager::WifiP2PPeer::hardwareAddress
+     */
     Q_PROPERTY(QString hardwareAddress READ hardwareAddress NOTIFY hardwareAddressChanged)
 
+    /*!
+     * \property NetworkManager::WifiP2PPeer::lastSeen
+     */
     Q_PROPERTY(int lastSeen READ lastSeen NOTIFY lastSeenChanged)
 
+    /*!
+     * \property NetworkManager::WifiP2PPeer::manufacturer
+     */
     Q_PROPERTY(QString manufacturer READ manufacturer NOTIFY manufacturerChanged)
 
+    /*!
+     * \property NetworkManager::WifiP2PPeer::model
+     */
     Q_PROPERTY(QString model READ model NOTIFY modelChanged)
 
+    /*!
+     * \property NetworkManager::WifiP2PPeer::modelNumber
+     */
     Q_PROPERTY(QString modelNumber READ modelNumber NOTIFY modelNumberChanged)
 
+    /*!
+     * \property NetworkManager::WifiP2PPeer::name
+     */
     Q_PROPERTY(QString name READ name NOTIFY nameChanged)
 
+    /*!
+     * \property NetworkManager::WifiP2PPeer::serial
+     */
     Q_PROPERTY(QString serial READ serial NOTIFY serialChanged)
 
+    /*!
+     * \property NetworkManager::WifiP2PPeer::strength
+     */
     Q_PROPERTY(uchar strength READ strength NOTIFY strengthChanged)
 
+    /*!
+     * \property NetworkManager::WifiP2PPeer::wfdIEs
+     */
     Q_PROPERTY(QByteArray wfdIEs READ wfdIEs NOTIFY wfdIEsChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::WifiP2PPeer::Ptr
+     */
     using Ptr = QSharedPointer<WifiP2PPeer>;
 
+    /*!
+     *
+     */
     explicit WifiP2PPeer(const QString &path, QObject *parent = nullptr);
     ~WifiP2PPeer() override;
 

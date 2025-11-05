@@ -18,36 +18,76 @@ namespace NetworkManager
 {
 class WifiP2PDevicePrivate;
 
+/*!
+ * \class NetworkManager::WifiP2PDevice
+ * \inheaderfile NetworkManagerQt/WifiP2PDevice
+ * \inmodule NetworkManagerQt
+ *
+ * \brief WiFi P2P device.
+ * \since 6.20
+ */
 class NETWORKMANAGERQT_EXPORT WifiP2PDevice : public Device
 {
     Q_OBJECT
 
+    /*!
+     * \property NetworkManager::WifiP2PDevice::hardwareAddress
+     */
     Q_PROPERTY(QString hardwareAddress READ hardwareAddress NOTIFY hardwareAddressChanged)
 
+    /*!
+     * \property NetworkManager::WifiP2PDevice::peers
+     */
     Q_PROPERTY(QStringList peers READ peers NOTIFY peersChanged)
 
 public:
+    /*!
+     * \typedef NetworkManager::WifiP2PDevice::Ptr
+     */
     using Ptr = QSharedPointer<WifiP2PDevice>;
 
+    /*!
+     *
+     */
     explicit WifiP2PDevice(const QString &path, QObject *parent = nullptr);
     ~WifiP2PDevice() override;
 
+    /*!
+     *
+     */
     Type type() const override;
 
     QString hardwareAddress() const;
     QStringList peers() const;
 
+    /*!
+     *
+     */
     Q_INVOKABLE WifiP2PPeer::Ptr findPeer(const QString &uni);
 
 public Q_SLOTS:
+    /*!
+     *
+     */
     QDBusPendingReply<> startFind(const QVariantMap &options = {});
 
+    /*!
+     *
+     */
     QDBusPendingReply<> stopFind();
 
 Q_SIGNALS:
     void hardwareAddressChanged(const QString &hardwareAddress);
     void peersChanged(const QStringList &peers);
+
+    /*!
+     *
+     */
     void peerAppeared(const QString &peer);
+
+    /*!
+     *
+     */
     void peerDisappeared(const QString &peer);
 
 private:
