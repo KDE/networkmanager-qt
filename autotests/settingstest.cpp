@@ -29,6 +29,11 @@ void SettingsTest::initTestCase()
     fakeNetwork = new FakeNetwork();
 }
 
+void SettingsTest::cleanupTestCase()
+{
+    delete fakeNetwork;
+}
+
 void SettingsTest::testConnections()
 {
     NetworkManager::ConnectionSettings::Ptr connectionSettings =
