@@ -12,6 +12,14 @@
 
 #include "nmdebug.h"
 
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#include <QTextCodec>
+#else
+#include <QStringDecoder>
+#endif
+
+
 NetworkManager::AccessPointPrivate::AccessPointPrivate(const QString &path, AccessPoint *q)
 #ifdef NMQT_STATIC
     : iface(NetworkManagerPrivate::DBUS_SERVICE, path, QDBusConnection::sessionBus())
@@ -46,6 +54,71 @@ NetworkManager::AccessPoint::WpaFlags NetworkManager::AccessPointPrivate::conver
 {
     return (AccessPoint::WpaFlags)theirFlags;
 }
+
+QString NetworkManager::AccessPointPrivate:: getSsidFromByteArray(QByteArray &ssidData)
+{
+    if (ssidData.isEmpty()) {
+        return QString();
+    }
+
+    QString result;
+
+    result = QString::fromUtf8(ssidData);
+    if (result.toUtf8() == ssidData) {
+        return result;
+    }
+
+    result = QString::fromLocal8Bit(ssidData);
+    if (result.toLocal8Bit() == ssidData) {
+	 qCDebug(NMQT)  <<"use local code"<<result;
+        return result;
+    }
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QTextCodec *codec = QTextCodec::codecForName("GBK");
+    if (codec) {
+        QTextCodec::ConverterState state;
+        result = codec->toUnicode(ssidData.constData(), ssidData.size(), &state);
+        if (state.invalidChars <= 0) {
+			 qCDebug(NMQT)  <<"use gbk code"<<result;
+            return result;
+        }
+    }
+#else
+    QStringDecoder decoder("GBK");
+    result = decoder.decode(ssidData);
+    if (!decoder.hasError()) {
+        return result;
+    }
+#endif
+
+    result = QString::fromLatin1(ssidData);
+    if (result.toLatin1() == ssidData) {
+		 qCDebug(NMQT)  <<"use latin code"<<result;
+        return result;
+    }
+
+    const char *validChars = " !\"#$%&'()*+,-./0123456789:;<=>?@"
+                             "ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`"
+                             "abcdefghijklmnopqrstuvwxyz{|}~";
+    const size_t validLen = strlen(validChars);
+
+    QString finalStr;
+    finalStr.reserve(ssidData.size());
+
+    for (const char ch : ssidData) {
+        if (memchr(validChars, ch, validLen) != nullptr) {
+            finalStr.append(ch);
+        } else {
+            finalStr.append(QLatin1Char('?'));
+        }
+    }
+
+	qCDebug(NMQT) <<"unkown code"<<finalStr;
+    return finalStr;
+
+}
+
 
 NetworkManager::AccessPoint::AccessPoint(const QString &path, QObject *parent)
     : QObject(parent)
@@ -203,7 +276,7 @@ void NetworkManager::AccessPointPrivate::propertiesChanged(const QVariantMap &pr
             Q_EMIT q->rsnFlagsChanged(rsnFlags);
         } else if (property == QLatin1String("Ssid")) {
             rawSsid = it->toByteArray();
-            ssid = QString::fromUtf8(rawSsid);
+            ssid =getSsidFromByteArray(rawSsid);
             Q_EMIT q->ssidChanged(ssid);
         } else if (property == QLatin1String("Frequency")) {
             frequency = it->toUInt();

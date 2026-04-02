@@ -38,6 +38,7 @@ public:
 
     NetworkManager::AccessPoint::Capabilities convertCapabilities(int caps);
     NetworkManager::AccessPoint::WpaFlags convertWpaFlags(uint theirFlags);
+    QString getSsidFromByteArray(QByteArray &ssidData);
 
     Q_DECLARE_PUBLIC(AccessPoint)
     AccessPoint *q_ptr;
