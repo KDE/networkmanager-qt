@@ -147,7 +147,6 @@ ecm_qt_declare_logging_category(KF6NetworkManagerQt
     IDENTIFIER NMQT
     CATEGORY_NAME kf.networkmanagerqt
     OLD_CATEGORY_NAMES networkmanager-qt
-    DEFAULT_SEVERITY Warning
     DESCRIPTION "NetworkManagerQt"
     EXPORT NETWORMANAGERQT
 )
