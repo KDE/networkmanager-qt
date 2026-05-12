@@ -114,7 +114,7 @@ QVariantMap NetworkManager::BridgePortSetting::toMap() const
     }
 
     if (hairpinMode()) {
-        setting.insert(QLatin1String(NM_SETTING_BRIDGE_PORT_PATH_COST), hairpinMode());
+        setting.insert(QLatin1String(NM_SETTING_BRIDGE_PORT_HAIRPIN_MODE), hairpinMode());
     }
 
     return setting;
@@ -127,7 +127,7 @@ QDebug NetworkManager::operator<<(QDebug dbg, const NetworkManager::BridgePortSe
 
     dbg.nospace() << NM_SETTING_BRIDGE_PORT_PRIORITY << ": " << setting.priority() << '\n';
     dbg.nospace() << NM_SETTING_BRIDGE_PORT_PATH_COST << ": " << setting.pathCost() << '\n';
-    dbg.nospace() << NM_SETTING_BRIDGE_PORT_PATH_COST << ": " << setting.hairpinMode() << '\n';
+    dbg.nospace() << NM_SETTING_BRIDGE_PORT_HAIRPIN_MODE << ": " << setting.hairpinMode() << '\n';
 
     return dbg.maybeSpace();
 }
