@@ -35,7 +35,7 @@ void BridgePortSettingTest::testSetting()
 
     map.insert(QLatin1String(NM_SETTING_BRIDGE_PORT_PRIORITY), priority);
     map.insert(QLatin1String(NM_SETTING_BRIDGE_PORT_PATH_COST), pathCost);
-    map.insert(QLatin1String(NM_SETTING_BRIDGE_PORT_PATH_COST), hairpinMode);
+    map.insert(QLatin1String(NM_SETTING_BRIDGE_PORT_HAIRPIN_MODE), hairpinMode);
 
     NetworkManager::BridgePortSetting setting;
     setting.fromMap(map);
