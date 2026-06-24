@@ -137,10 +137,13 @@ void NetworkManager::SecretAgent::sendError(NetworkManager::SecretAgent::Error e
     }
 
     QDBusMessage reply;
-    if (callMessage.type() == QDBusMessage::InvalidMessage) {
+    if (callMessage.type() != QDBusMessage::InvalidMessage) {
+        reply = callMessage.createErrorReply(errorString, explanation);
+    } else if (calledFromDBus()) {
         reply = message().createErrorReply(errorString, explanation);
     } else {
-        reply = callMessage.createErrorReply(errorString, explanation);
+        qCWarning(NMQT) << "SecretAgent::sendError called without valid message and while not handling a dbus call! No error will be sent";
+        return;
     }
 
     if (!d->agentManager.connection().send(reply)) {
