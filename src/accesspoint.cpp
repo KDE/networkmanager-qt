@@ -11,6 +11,7 @@
 #include "wirelessdevice.h"
 
 #include "nmdebug.h"
+#include <QStringConverter>
 
 NetworkManager::AccessPointPrivate::AccessPointPrivate(const QString &path, AccessPoint *q)
 #ifdef NMQT_STATIC
@@ -204,6 +205,12 @@ void NetworkManager::AccessPointPrivate::propertiesChanged(const QVariantMap &pr
         } else if (property == QLatin1String("Ssid")) {
             rawSsid = it->toByteArray();
             ssid = QString::fromUtf8(rawSsid);
+            if (ssid.contains(QChar::ReplacementCharacter)) {
+                auto result = QStringDecoder(QStringDecoder::Encoding::Gb18030)(rawSsid);
+                if (!result.hasError()) {
+                    ssid = result;
+                }
+            }
             Q_EMIT q->ssidChanged(ssid);
         } else if (property == QLatin1String("Frequency")) {
             frequency = it->toUInt();
