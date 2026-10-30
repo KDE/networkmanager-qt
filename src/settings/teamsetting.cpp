@@ -5,7 +5,6 @@
 */
 
 #include "teamsetting.h"
-#include "manager.h"
 #include "teamsetting_p.h"
 
 #define NM_SETTING_TEAM_INTERFACE_NAME "interface-name"

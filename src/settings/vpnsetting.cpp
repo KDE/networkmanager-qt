@@ -5,7 +5,6 @@
 */
 
 #include "vpnsetting.h"
-#include "nmdebug.h"
 #include "vpnsetting_p.h"
 
 NetworkManager::VpnSettingPrivate::VpnSettingPrivate()

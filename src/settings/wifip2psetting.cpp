@@ -6,8 +6,6 @@
 
 #include "wifip2psetting.h"
 
-#include "utils.h"
-
 #include <QDebug>
 
 namespace NetworkManager

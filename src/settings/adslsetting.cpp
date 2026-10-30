@@ -6,7 +6,6 @@
 
 #include "adslsetting.h"
 #include "adslsetting_p.h"
-#include <manager.h>
 
 #include <QDebug>
 
