@@ -80,7 +80,6 @@ public:
     QString version() const;
     NetworkManager::Status status() const;
     Device::List networkInterfaces();
-    Device::Ptr findNetworkInterface(const QString &uni);
     Device::Ptr findDeviceByIpIface(const QString &iface);
     bool isNetworkingEnabled() const;
     bool isWirelessEnabled() const;
