@@ -10,8 +10,6 @@
 
 #include "generictypes.h"
 
-#include <arpa/inet.h>
-
 #include <QDebug>
 
 NetworkManager::Ipv4SettingPrivate::Ipv4SettingPrivate()

@@ -7,8 +7,6 @@
 #include "genericsetting.h"
 #include "genericsetting_p.h"
 
-#include "nmdebug.h"
-
 NetworkManager::GenericSettingPrivate::GenericSettingPrivate()
     : name(NM_SETTING_GENERIC_SETTING_NAME)
 {

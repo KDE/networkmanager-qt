@@ -6,8 +6,6 @@
 
 #include "ipconfig.h"
 
-#include <arpa/inet.h>
-
 #include "dnsconfiguration.h"
 
 #include <QVariant>

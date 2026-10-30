@@ -12,8 +12,6 @@
 #include "generictypes.h"
 #include "utils.h"
 
-#include <arpa/inet.h>
-
 NetworkManager::Ipv6SettingPrivate::Ipv6SettingPrivate()
     : name(NMQT_SETTING_IP6_CONFIG_SETTING_NAME)
     , method(NetworkManager::Ipv6Setting::Automatic)
