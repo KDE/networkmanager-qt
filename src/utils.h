@@ -7,13 +7,18 @@
 #ifndef NETWORKMANAGERQT_UTILS_H
 #define NETWORKMANAGERQT_UTILS_H
 
+#include <networkmanagerqt/networkmanagerqt_export.h>
+
 #include <QHostAddress>
+#if NETWORKMANAGERQT_ENABLE_DEPRECATED_SINCE(6, 33)
 #include <QPair>
+#endif
 
 #include "wirelessdevice.h"
 #include "wirelesssecuritysetting.h"
 #include "wirelesssetting.h"
-#include <networkmanagerqt/networkmanagerqt_export.h>
+
+#include <utility>
 
 namespace NetworkManager
 {
@@ -133,10 +138,10 @@ NETWORKMANAGERQT_EXPORT WirelessSecurityType securityTypeFromConnectionSetting(c
 
 /*!
  */
-NETWORKMANAGERQT_EXPORT QList<QPair<int, int>> getBFreqs();
+NETWORKMANAGERQT_EXPORT QList<std::pair<int, int>> getBFreqs();
 /*!
  */
-NETWORKMANAGERQT_EXPORT QList<QPair<int, int>> getAFreqs();
+NETWORKMANAGERQT_EXPORT QList<std::pair<int, int>> getAFreqs();
 
 /*!
  */
