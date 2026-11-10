@@ -527,72 +527,76 @@ NetworkManager::WirelessSecurityType NetworkManager::securityTypeFromConnectionS
 
 QList<QPair<int, int>> NetworkManager::getBFreqs()
 {
-    QList<QPair<int, int>> freqs;
-
-    freqs.append(QPair<int, int>(1, 2412));
-    freqs.append(QPair<int, int>(2, 2417));
-    freqs.append(QPair<int, int>(3, 2422));
-    freqs.append(QPair<int, int>(4, 2427));
-    freqs.append(QPair<int, int>(5, 2432));
-    freqs.append(QPair<int, int>(6, 2437));
-    freqs.append(QPair<int, int>(7, 2442));
-    freqs.append(QPair<int, int>(8, 2447));
-    freqs.append(QPair<int, int>(9, 2452));
-    freqs.append(QPair<int, int>(10, 2457));
-    freqs.append(QPair<int, int>(11, 2462));
-    freqs.append(QPair<int, int>(12, 2467));
-    freqs.append(QPair<int, int>(13, 2472));
-    freqs.append(QPair<int, int>(14, 2484));
+    QList<QPair<int, int>> freqs = {
+        /* clang-format off */
+        QPair<int, int>(1, 2412),
+        QPair<int, int>(2, 2417),
+        QPair<int, int>(3, 2422),
+        QPair<int, int>(4, 2427),
+        QPair<int, int>(5, 2432),
+        QPair<int, int>(6, 2437),
+        QPair<int, int>(7, 2442),
+        QPair<int, int>(8, 2447),
+        QPair<int, int>(9, 2452),
+        QPair<int, int>(10, 2457),
+        QPair<int, int>(11, 2462),
+        QPair<int, int>(12, 2467),
+        QPair<int, int>(13, 2472),
+        QPair<int, int>(14, 2484),
+        /* clang-format on */
+    };
 
     return freqs;
 }
 
 QList<QPair<int, int>> NetworkManager::getAFreqs()
 {
-    QList<QPair<int, int>> freqs;
-
-    freqs.append(QPair<int, int>(7, 5035));
-    freqs.append(QPair<int, int>(8, 5040));
-    freqs.append(QPair<int, int>(9, 5045));
-    freqs.append(QPair<int, int>(11, 5055));
-    freqs.append(QPair<int, int>(12, 5060));
-    freqs.append(QPair<int, int>(16, 5080));
-    freqs.append(QPair<int, int>(34, 5170));
-    freqs.append(QPair<int, int>(36, 5180));
-    freqs.append(QPair<int, int>(38, 5190));
-    freqs.append(QPair<int, int>(40, 5200));
-    freqs.append(QPair<int, int>(42, 5210));
-    freqs.append(QPair<int, int>(44, 5220));
-    freqs.append(QPair<int, int>(46, 5230));
-    freqs.append(QPair<int, int>(48, 5240));
-    freqs.append(QPair<int, int>(52, 5260));
-    freqs.append(QPair<int, int>(56, 5280));
-    freqs.append(QPair<int, int>(60, 5300));
-    freqs.append(QPair<int, int>(64, 5320));
-    freqs.append(QPair<int, int>(100, 5500));
-    freqs.append(QPair<int, int>(104, 5520));
-    freqs.append(QPair<int, int>(108, 5540));
-    freqs.append(QPair<int, int>(112, 5560));
-    freqs.append(QPair<int, int>(116, 5580));
-    freqs.append(QPair<int, int>(120, 5600));
-    freqs.append(QPair<int, int>(124, 5620));
-    freqs.append(QPair<int, int>(128, 5640));
-    freqs.append(QPair<int, int>(132, 5660));
-    freqs.append(QPair<int, int>(136, 5680));
-    freqs.append(QPair<int, int>(140, 5700));
-    freqs.append(QPair<int, int>(149, 5745));
-    freqs.append(QPair<int, int>(153, 5765));
-    freqs.append(QPair<int, int>(157, 5785));
-    freqs.append(QPair<int, int>(161, 5805));
-    freqs.append(QPair<int, int>(165, 5825));
-    freqs.append(QPair<int, int>(183, 4915));
-    freqs.append(QPair<int, int>(184, 4920));
-    freqs.append(QPair<int, int>(185, 4925));
-    freqs.append(QPair<int, int>(187, 4935));
-    freqs.append(QPair<int, int>(188, 4940));
-    freqs.append(QPair<int, int>(189, 4945));
-    freqs.append(QPair<int, int>(192, 4960));
-    freqs.append(QPair<int, int>(196, 4980));
+    QList<QPair<int, int>> freqs = {
+        /* clang-format off */
+        QPair<int, int>(7, 5035),
+        QPair<int, int>(8, 5040),
+        QPair<int, int>(9, 5045),
+        QPair<int, int>(11, 5055),
+        QPair<int, int>(12, 5060),
+        QPair<int, int>(16, 5080),
+        QPair<int, int>(34, 5170),
+        QPair<int, int>(36, 5180),
+        QPair<int, int>(38, 5190),
+        QPair<int, int>(40, 5200),
+        QPair<int, int>(42, 5210),
+        QPair<int, int>(44, 5220),
+        QPair<int, int>(46, 5230),
+        QPair<int, int>(48, 5240),
+        QPair<int, int>(52, 5260),
+        QPair<int, int>(56, 5280),
+        QPair<int, int>(60, 5300),
+        QPair<int, int>(64, 5320),
+        QPair<int, int>(100, 5500),
+        QPair<int, int>(104, 5520),
+        QPair<int, int>(108, 5540),
+        QPair<int, int>(112, 5560),
+        QPair<int, int>(116, 5580),
+        QPair<int, int>(120, 5600),
+        QPair<int, int>(124, 5620),
+        QPair<int, int>(128, 5640),
+        QPair<int, int>(132, 5660),
+        QPair<int, int>(136, 5680),
+        QPair<int, int>(140, 5700),
+        QPair<int, int>(149, 5745),
+        QPair<int, int>(153, 5765),
+        QPair<int, int>(157, 5785),
+        QPair<int, int>(161, 5805),
+        QPair<int, int>(165, 5825),
+        QPair<int, int>(183, 4915),
+        QPair<int, int>(184, 4920),
+        QPair<int, int>(185, 4925),
+        QPair<int, int>(187, 4935),
+        QPair<int, int>(188, 4940),
+        QPair<int, int>(189, 4945),
+        QPair<int, int>(192, 4960),
+        QPair<int, int>(196, 4980),
+        /* clang-format on */
+    };
 
     return freqs;
 }
