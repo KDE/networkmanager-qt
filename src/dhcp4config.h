@@ -12,6 +12,7 @@
 
 #include <networkmanagerqt/networkmanagerqt_export.h>
 
+#include <QObject>
 #include <QSharedPointer>
 
 namespace NetworkManager
